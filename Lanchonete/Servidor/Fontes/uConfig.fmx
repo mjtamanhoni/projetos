@@ -1,0 +1,1068 @@
+object frmConfiguracoes: TfrmConfiguracoes
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  Caption = 'Configura'#231#245'es'
+  ClientHeight = 586
+  ClientWidth = 847
+  Fill.Color = xFFE8E7DF
+  Fill.Kind = Solid
+  Position = ScreenCenter
+  StyleBook = frmPrincipal.StyleBook_Principal
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object lytPrincipal: TLayout
+    Align = Client
+    Size.Width = 847.000000000000000000
+    Size.Height = 586.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object lytHeader: TLayout
+      Align = Top
+      Margins.Bottom = 5.000000000000000000
+      Size.Width = 847.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object rctHeader: TRectangle
+        Align = Client
+        Fill.Color = xFF363428
+        Size.Width = 847.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object lbTitulo: TLabel
+          Align = Contents
+          StyledSettings = []
+          Size.Width = 847.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = 'Monotype Corsiva'
+          TextSettings.Font.Size = 45.000000000000000000
+          TextSettings.Font.StyleExt = {00040000000100000004000000}
+          TextSettings.FontColor = xFFA1B24E
+          TextSettings.HorzAlign = Center
+          Text = 'Configura'#231#245'es'
+          TabOrder = 1
+        end
+        object lytVoltar: TLayout
+          Align = Left
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          Visible = False
+          TabOrder = 0
+          object rctVoltar: TRectangle
+            Align = Client
+            Fill.Kind = None
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object imgVoltar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 50
+                  Height = 50
+                  PNG = {
+                    89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                    B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    01CF494441546843EDD8314BC34018C6F1BB506B8B282874153F87E05010DAA5
+                    A293932DA8533F8FE022420737416997BAD8C12F22CEA2A083A5959C79D26409
+                    2998E67DDFBB68FF10729740E147D2909C5AB62CBDD1A853C1164D33A7A3BDD5
+                    0078F97CBF33C6AC556BAB8DE3DDDBAFE8D4AFF3A2BDB58078FE78BB0F864DAD
+                    F5DEF875F2383B932DAB90F84A785A37C203E6DBD75A5D84E38C59BBB5624430
+                    6C860780F04AED76AB7F13CE336605428D40E2100E0412857021901884138144
+                    9E5A49C474AA0C2502B143D2102B65754E8940ACB7D63C44A7D5BFC69C323688
+                    2402B140A411881C6203814821B610880C9244846975268140248FDF3484D6A6
+                    2B8540B9AFC83C44BB35B88CA622E582B882400B435C42A08520AE215066888B
+                    08647DF181AAFF7B6BC5FD893F7B9C4B985C10E40A263704B9802181A0344CF0
+                    EBC57A6944F57A6FBCBDBE79140C87B323C16BFC445DF50607A7D19435B22B12
+                    97BC3285FCB08AB381618120690C1B0449625821480AC30E41699872599D50AE
+                    368A40501243BD882D06419C185108E2C288431007C60A045163AC411025C6EA
+                    377BFCA2E91BF3101ED025CFF7FD6E38CE98F5C507607636B60E83E1D018F354
+                    AD55F667670A1A6E336CD17459C153EA07620FB9D79C1BA2B20000000049454E
+                    44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 10.000000000000000000
+              Margins.Right = 10.000000000000000000
+              Size.Width = 30.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+      end
+    end
+    object lytFooter: TLayout
+      Align = Bottom
+      Margins.Top = 5.000000000000000000
+      Position.Y = 536.000000000000000000
+      Size.Width = 847.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      object rctFooter: TRectangle
+        Align = Client
+        Fill.Color = xFF363428
+        Size.Width = 847.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object lytCancelar: TLayout
+          Align = Right
+          Position.X = 797.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          object rctCancelar: TRectangle
+            Align = Client
+            Fill.Kind = None
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            OnClick = rctCancelarClick
+            object imgCancelar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 50
+                  Height = 50
+                  PNG = {
+                    89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                    B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    051F494441546843ED9A4B5ADB4810C7BB5AB01B3037083718E60431FB803DFB
+                    99B13941E004E10698136027B31F6CB2C739C13037706EC0635613A49EFA97BA
+                    155996ACD683C722BFEF4B2497405D7F5777553F503F786590BD36E6AFEBDECE
+                    FD3DBD3514ED91315D45D1AE5201FF4B132E94D10B433427A36FB6B7CD975FF7
+                    A7B7F661231A0B995C1D0C4C487DD2AA6F4D953091BAA4C05C0E0EAE26D6548B
+                    DA42C6B3C30FA4C261FA5B8F22F54593996BADE744EAF6B777D31BFB48F8F373
+                    6FCF18B51345513732D4D55ABDB58F989023158C8607B3736BA84465219FAE7A
+                    ECC4E3851300E703A2F1D6B6BAACDA4DD01D1FEE553F32E69823FA736C0D179A
+                    368E7E3F98CEE3CF7E5412C25138E35F38C63D77897F82808EAB365804BEA030
+                    342327C828351A1ECE4EE4A1075E42E2811C5D2B22EE1AD11DA9E074D09B8EEC
+                    E356994C7BC74685A744BAA38CE184A0F77D225D2A04FD3A0CA30B11C151D8D8
+                    A061B6EFB70DDA7C7C3463890E8B09027D54D6E65A214B9160119D0E75DB4A97
+                    65A0EDBB3B337762CA22A3ED3597971201D016DA44DBF0417C5943A190C9ECDD
+                    E8A54438B262C4A70272BB569C62CD3506F64610749F7A4C942163260CB936E9
+                    8E26DACFCB94B91189EB045406A72F2D02C007F8827BE75B96152193E901FF42
+                    B08B703E558AAD037C912EC6BE21455B73C26A44281AE08262279F5F11894FF4
+                    F85EAE2996C6C8C7696F68C85C60DA71D49F75AD792D1CC1BF71F52D5C6992F4
+                    CE0C7A57BF88B184F1E5E10D5232193AFAA3371D5BF3724442323283C5DC490C
+                    1E189E93BBF408C7ACB994E5D902BFC3131EECD2DD9DAF8E44085ECC1F7AB8C7
+                    04508C1E6473BD8F98251136BDDB47A538DFE06BBAAD44C8C3839297A15B55E9
+                    2279856B9D983C1155DB838FB8773E834408D78C3D5CB19E1043057CC53415E1
+                    703E3A9F4122040B1D5CB128124345CAC4B42502706194DAE67C068910ADC337
+                    B8626527861A1489695304E095E542AE643A626012212834F8BF6925CF13D3A6
+                    0890F8C8EF942B9312D21E59316D8A28E2498438880CAF5863D2F74FC19308C9
+                    8E8974374B278036498470635F71C594590C35C91BD8D931D3548CF351DE69F9
+                    2E44C59900FB4E62A8415176CA4B004DC4381FD9E764BC25425C91C1E699182A
+                    5224C23EF62E9A3E381FD3C53B119257647C2913E1684B8CF3D1F90C12215B5B
+                    4AD4611BB3CACB7D45389A8AC1CFBAAD56E7334884A08148A929EEB18D29460F
+                    AA8870E489B18F4A71BEC1D7745B891010189229B251D1CA0AAC08AC25AA8870
+                    A4C554598F38DF9CAF8E9517F00A6CC12BB03745BB152F49B2BBC3A562D89F2D
+                    9DBD2C4504905D8171663813C32BC2F9C45FB2ECA8A4C90DA98B8A3274F25A76
+                    5264E784CC595E34C04A444010D0506EE8BF0F4D2B7D1B880FEC0BEE13DF32E4
+                    0A89C74674AED4E60E76E2EBE4FAB640DB721AC0BEC0A7A271BB365BB8AD174E
+                    4DDEE7146D92AD51DCA50A7B476E441C4D0A5753B222E08B7D94CB5A2188000E
+                    76D2629E63CCA08DB408F850D61BBC0A11BE9D3B77E8A2BEDD1ADA3CAD7BFA5A
+                    C6F8EAF03D996F9C5E37775C247CBAB4774505F1F9848EAB3E8F1BADF5499B87
+                    A15227380AB1253A1F1C7EF6DE7FAE2404D8D3579CEFC9AE0B0471071D6DFFA4
+                    97E63E3EC838F837EAF1C4896B442C80A3F01529B6EA17545988434E5FE3F3F1
+                    581030662E7F9EA1F43CD0E62EBB2383BE1F46D4E1F95237FE338FEF03180230
+                    ABA85B806B0B7160071F1BCA9C3564DFB82A98C5620298DE59AF4363210E7413
+                    ECC5621B130B1F7EF1EE52B4180C5E2C4FB1B2C3A208EB89E7AE4D3F781E94FA
+                    1F01E6AB433E64F32A0000000049454E44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 40.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+        object lytConfirmar: TLayout
+          Align = Right
+          Position.X = 747.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          object rctConfirmar: TRectangle
+            Align = Client
+            Fill.Kind = None
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            OnClick = rctConfirmarClick
+            object imgConfirmar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 50
+                  Height = 50
+                  PNG = {
+                    89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                    B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    0587494441546843ED9A5F521B4710C6A767A19C8780B881B941B881C563AA8C
+                    243FA62A31F2090C27303901E204164EDECD0ABF239F20E406F806FCC993CD6E
+                    A7BFDE9D61252DD28EB4127EF0AF0A569A9598FEA67B7A7A66313FF8CEA0FCBA
+                    301F2FDA5BB7B7F48229DD21E6A6A174DB98487E8A245786ED15130D89EDE5E6
+                    267F7EB51B5FE73717626121A7E77BFB9C5087ACE9E44D41706ACE28E2B3FDBD
+                    F3D3BC692EE616D21FB4DE9149BAC5514F53F3D9120FADB5432273FDFBCBF832
+                    BFA5FCFDA9BDC36CB6D2346DA64C4D6BCD8BFC969088A7A25E776F7092370411
+                    2CE4AFF3B61871FFDE0980F111517F63D39C858609C2F1EED67452E603F1E82F
+                    596B726569EDCD1F7BF1307B5F8D2021E28563F9C2015E4B48FC1B457410DAE1
+                    63608092847B4E101BD3EBB606877AB3029584641339BD3044121AE90D99E868
+                    BF1DF7F2DBB5721AB70FD8244744B661982521D8DD2A9E9E2904719D24E97B15
+                    215E585BA3EE78ECD70DFABCBFE7BE7A47C444917D33ABCFA942463C21221A0D
+                    6AD6952E6781BE6F6E78E8C4CCF28CCDAFA53C950880BED027FA860D6ACB141E
+                    15723A78D97B2A118E71316AD3239486569662F902137B2D8A9ACB9E13B3D039
+                    9324B236D98625DA2DCB94A51EC9D609A88C8E9E5A04800DB005AF9D6DE34C08
+                    398DF7E40BD136DCB9AC143B0FB045434C6C438ACE9B3D931EA1741F172C76FA
+                    7E052043C900FE839FBCA9146F13DDBFD56B8111211FE2B6D64E283BEA5AB1AB
+                    707B971C696291B2386F2A053639AF64B63E30222421D60A16B59336AC002416
+                    314347188BAD364E4126BB86BBB3D5E185C0BDF2A68DD72800B571C9A04F3F79
+                    99FFAC92589C6DB015DFD746C10BB9BB3332325935BBAA354343CA279673CD4A
+                    B3806DB011AF9DCDC00B9135630757EC27B461C98486541167A3B3197821D8E8
+                    E08A4D91362C917942AA882C8CFA796733F042AC4D9EE38A9D9D362C919B3B3E
+                    0E0DA922B2B3BCD22B71431B042F047F18BF4346E7C3A0DDC14FFEB612F8BCE4
+                    D82ECA9F67CF68AE7DBEB75152B65E85829070524EFA6CF823768E79D3541052
+                    6CBEFAF2E7B75F631DD93A5848883591AEB432C20722A6B4062A22FB0BF9CCFA
+                    16B24EDDE5CF42425EB7E33E197A956D7F4D779A180D296B3AF8EC4FCFC2B254
+                    15BC1099785F7045C9AC0D1579DD8ACF50EA3B31522F5D14172A507748391BB3
+                    7225E34188C93201CE9DB421004C3E2746266013BBB9A298BA43CAD92836FB0C
+                    EB85B845068767DA10881703CFE65B5388594648391B8B8BB71752B6C8840231
+                    B235D5EDB113E342CA52D4AD2B4B391B9DCDC00BD9D830AA0EC798E3311EC2F8
+                    3E5B43CA98187329FFC842C03677D4EA6C065E881663D2215EE318531BE7A428
+                    0621B5B5515F9672B6C1D66271EB85808849478D4D3AB1030B059D743B831DCC
+                    9B62878BE26C73B63A267664FDB3D6954CCEE78F9D563C25FE7447128A0CD2C8
+                    B397118F00CA776092192A951DABC4D924833C51684E780438AF18A6C3EFE524
+                    454F4E888FCBBC01263C02A2289F9CF4F55DE84ABF0CD406B105AFBD6D63940A
+                    C9E6467A82D48993F845D2F1A2A06F7D1A20B6C0A6C7E66D69683924C42EAB9E
+                    862F0388281EA4230BE6B72628F588A3B8B08DD74FCB665C046CC96F95325508
+                    3C808381A29855CC19F45114011B6645C3D4D0726074A482CD1EBA986FD74CEB
+                    47F33E7D9D45FFBCF596F89BA4D7F52DE7892A215D4988237B3E911DE160DE58
+                    6B0FEB5A3475B1C33A215EC85AD293FDD6A7CAE7CF4142003A4C127DBEA7A72E
+                    102401DADBFCD98ED43E55D079F05FDA96C249D6884C8078E10B526CE800050B
+                    71E8D3D7ECF9782608300FF5DF338C1D46966FC64F6410FB494A0DA9979AD9BF
+                    793C4C6008405531EF023CB710074EC571A02C5943CF8D4341158B0210FBFFBC
+                    692E1616E24098E02C56CAF61D6C7CE40F6F8F784BC0E4C5F6143B3B6C8AB09F
+                    58F5DAF483D560CCFF6D2D332631FF74990000000049454E44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 40.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+        object lytGuia_Servidor: TLayout
+          Align = Left
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          object rctGuia_Servidor: TRectangle
+            Align = Client
+            Fill.Kind = None
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            OnClick = rctGuia_DataBaseClick
+            object imgGuia_Servidor: TImage
+              MultiResBitmap = <
+                item
+                  Width = 50
+                  Height = 50
+                  PNG = {
+                    89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                    B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    02A1494441546843ED985B52DB301486A598F7B004BA837607E5B9C582059438
+                    3BA02B811D90D0BE531BFA4C77005D017407F43D58D55124A3C8175D6CCB1D46
+                    DF4C26922229FEF5EBE862148944229129C0E2BB6255A4E7ACF04C64BDA0085D
+                    6469F155649D58E747F708E3F722DB0DA50F0B72F30192335E20B8CA49D65704
+                    007D405F22EB86AD0840A9BBE3C8BAF8F488507280295E9E927C258A9D000114
+                    D34B845E9E16E9CF77A2D89A75913243115AA4456DB6A8E8F52A47B623981CD0
+                    12FDF11501405BE803FAB275E5FA8EEC8BA437956AE986C80E849D2B101772AE
+                    F77664781180B94FB6B85C3AC5450B8A237623618B4D7F2082FD98515AFECDC8
+                    2D9F5E0338121655C45E927C14C5DE54AA75854EEBB94459D7BB46769D933384
+                    E939A467181F7E39CA7FF11F18B29D2D66477CE6AD451BBE920911B0CCAB2200
+                    B6E2FD1649236ADD3DF1DD8A69AE4A6C46F2758FD98A685AE6B3E3A236185DEE
+                    4A82C5C855418E4D227440803A407A5E2598108A365C44C99EA7CF86DB466595
+                    6E5F9B72137A7B350F229669E177063310CC913145EC0023A6BAA0E74DF46DDF
+                    97C936C4A179334282053B1C49D8AD7109E9316875C465879574B5616A327ED2
+                    1D895647FA527324FFFC8CF16CCE0A576338132C466638E14B2F38637B737421
+                    9890D334FF01471348C351656831C1A696C474701CE475900DF047FCCF3CE10F
+                    4E317FE70582BEDD90DD4B95CBF541A9EB2C84528CE123B25E2C487E01471648
+                    977473FDFD96D41E1E9CECFA886A15CE42E0BED074677005CE5D5B31C9FE4BB9
+                    B913C5DE040BF6265431A2C89BE031A203627C365F9D496244673EC7BDDFA24C
+                    16232A2787F9B3487A538D6CA87DC4846C678BEC7FD2606FC2255E1AEBC248B8
+                    8E461743F667D3576D6A0D4D9FA9DAF64C9D1BE2104BA0CE187D46229148E43F
+                    02A17FBFEDA3C605DBA7260000000049454E44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 40.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+        object lytGuia_DataBase: TLayout
+          Align = Left
+          Position.X = 50.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object rctGuia_DataBase: TRectangle
+            Tag = 1
+            Align = Client
+            Fill.Kind = None
+            Opacity = 0.500000000000000000
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            OnClick = rctGuia_DataBaseClick
+            object imgGuia_DataBase: TImage
+              Tag = 1
+              MultiResBitmap = <
+                item
+                  Width = 50
+                  Height = 50
+                  PNG = {
+                    89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                    B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    03CF494441546843ED995D72DA3010C777E5405FF2C111E809921B843C76A6C5
+                    E4B133ED404E107A02C8094A4E10683BD3C780DB993EC639419313244720242F
+                    4DB0B6BBC26682B1F90890B853FF5E2CC91EB47FADA4BF34202CC8F75F76FEFE
+                    1EB709F50E57F34894372F4CDDCA99F210AF0BA42EA44488D7FCB846AE67B374
+                    F9FE4D47EA4F666E21A76776EEE68ECAE041019557180FF6A9785DD2960B16B8
+                    5BEBD8DADFEB74FD173331B390AF3FEC82E7D1212A28F94D06227D433CAA0AC9
+                    05505DA5C08CF8FA3A5C84839141B8BB03C91C682D4F9DD38405E4EC21AA2DF3
+                    910F69685B161E7F7CD7E1DF9DCE542122406B5D03441EFD011CC4B942E48EC0
+                    FDF0B663025F946F3FED1D8FB3AC894A3C18BB7EB38C94AB943A9A2668A290A6
+                    533CE10F2A52969147C04636AB9A8BCEE7690CD69DAE105035C814713895A273
+                    603E882052884C815E4F9F0EB34074B4B9A91AF3CEDB45F1E3A8721C35D3C0D9
+                    E138F6A3E28814D26C174F652D4816D62CABB0ACE9F35464DAF53DCF95ECC8DA
+                    A9949C7DFFD510E53F877CE9D895248910240689C54C6F8E4D62F45F0D191342
+                    A00FE58960D593202240629198A4EC218DEC9CC298109E8F667BCC66A16DEA09
+                    22888983B64DC323C685FCA3C40AB9BF1F35BE243029A6F88C60BF26BB855F7B
+                    714C2C1C935F1D63C2D4B2729EEE9F25418C717D8E65D2B92E56881C430662E8
+                    373B7C4DCCC97FF56C489FD2B7C420B10C628A2656C841C96157D7C75266D7AC
+                    F76EFB57F2A3727C301FAC10E943FA923EA5EF41AB3E1EC414CD98B3B79C221F
+                    6B00CA45C7BC934363DFA37AF820470ADB6B88E7CBF21AE3DE44BBA8D9234207
+                    D4350BEBC1A1311C5FC0542101461051955318DAC33D7359E28B92CBBFD6958B
+                    92B46E6ED065D431BE778BDB52361731821C5FC40A5197300DD0E1816A844FBD
+                    0B0B0990606E7B50127745D27C9718BD473C1573AF41E55A84ED8D4D68C71D50
+                    9726248CCCE78707D8E1407634629E87D2ACA1C8CB9204EB678C57E7B522BAE6
+                    6F2E3219B898F56A30B7906C065FAFFADE312FE69EF24057520E0B89DDB55267
+                    5F11A9B3A7CEBE0452677F4CDC87A9B3CF48EAEC3EB14252675F21A9B3A7CEBE
+                    24526717C2DB5BEAECA9B32FD9D96735C4E774F649863826E4A45D74CD7A20FC
+                    54B63B0DBF3911B43A7615903ECBB43B283A23E638B66B59884D5348B021CAF4
+                    338D8F885C07274EB13D58D45ED7526B7B2FFDCFD563438CCA8610E923B90DAC
+                    24D5102536FFF508911909E0CC3459697950F3BA0456E355065BAB3E15CBA2FE
+                    F3406504AF2A02A48D33D1E24C448A10260A11926688714C15129014438C6366
+                    21012F6D8871CC2D24CC731AE27F00C05FE610EB92144DE4640000000049454E
+                    44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 40.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+      end
+    end
+    object lytDetail: TLayout
+      Align = Client
+      Size.Width = 847.000000000000000000
+      Size.Height = 476.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object tcPrincipal: TTabControl
+        Align = Client
+        Size.Width = 847.000000000000000000
+        Size.Height = 476.000000000000000000
+        Size.PlatformDefault = False
+        TabIndex = 1
+        TabOrder = 0
+        TabPosition = None
+        Sizes = (
+          847s
+          476s
+          847s
+          476s)
+        object tiServidor: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 8.000000000000000000
+          Size.Height = 8.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Servidor'
+          ExplicitSize.cx = 8.000000000000000000
+          ExplicitSize.cy = 8.000000000000000000
+          object rctServidor: TRectangle
+            Align = Client
+            Fill.Color = xFFE8E7DF
+            Size.Width = 847.000000000000000000
+            Size.Height = 476.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object lytServidor_Header: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 847.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              object rctServidor_Header: TRectangle
+                Align = Client
+                Fill.Kind = None
+                Sides = [Bottom]
+                Size.Width = 847.000000000000000000
+                Size.Height = 35.000000000000000000
+                Size.PlatformDefault = False
+                Stroke.Color = xFF363428
+              end
+              object lbServidor_Title: TLabel
+                Align = Client
+                StyledSettings = [Family]
+                Margins.Left = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Size.Width = 837.000000000000000000
+                Size.Height = 35.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 18.000000000000000000
+                TextSettings.Font.StyleExt = {00060000000100000004000000}
+                TextSettings.FontColor = xFF363428
+                Text = 'Servidor'
+                TabOrder = 1
+              end
+            end
+            object lytRow_01: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Position.Y = 40.000000000000000000
+              Size.Width = 847.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              object lytPort: TLayout
+                Align = Left
+                Margins.Left = 5.000000000000000000
+                Position.X = 5.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object lbPort: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style, FontColor]
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  Text = 'Porta'
+                  TabOrder = 0
+                end
+                object edPorta: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  FilterChar = '0123456789'
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                end
+              end
+            end
+          end
+        end
+        object tiFirebird: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 8.000000000000000000
+          Size.Height = 8.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Bando de Dados Firebird'
+          ExplicitSize.cx = 8.000000000000000000
+          ExplicitSize.cy = 8.000000000000000000
+          object rctFirebird: TRectangle
+            Align = Client
+            Fill.Color = xFFE8E7DF
+            Size.Width = 847.000000000000000000
+            Size.Height = 476.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object lytFirebird_Header: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 847.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              object rctFirebird_Tit: TRectangle
+                Align = Client
+                Fill.Kind = None
+                Sides = [Bottom]
+                Size.Width = 847.000000000000000000
+                Size.Height = 35.000000000000000000
+                Size.PlatformDefault = False
+                Stroke.Color = xFF363428
+                object lbFirebird_Tit: TLabel
+                  Align = Client
+                  StyledSettings = [Family]
+                  Margins.Left = 5.000000000000000000
+                  Margins.Right = 5.000000000000000000
+                  Size.Width = 837.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 18.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000100000004000000}
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Banco de Dados Firebird'
+                  TabOrder = 1
+                end
+              end
+            end
+            object lytBD_Row_001: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Position.Y = 40.000000000000000000
+              Size.Width = 847.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 4
+              object lytFirebird_Versao: TLayout
+                Align = Left
+                Margins.Left = 5.000000000000000000
+                Position.X = 5.000000000000000000
+                Size.Width = 150.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+                object lbFirebird_Versao: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style]
+                  Size.Width = 150.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Vers'#227'o'
+                  TabOrder = 0
+                end
+                object cbFirebird_Versao: TComboBox
+                  Align = Client
+                  Items.Strings = (
+                    'VERS'#195'O 2.1'
+                    'VERS'#195'O 3.0')
+                  Size.Width = 150.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'ComboBoxStyle_Adapta_Cl'
+                  TabOrder = 1
+                  OnKeyDown = cbFirebird_VersaoKeyDown
+                end
+              end
+              object lytFirebird_Servidor: TLayout
+                Align = Center
+                Margins.Left = 5.000000000000000000
+                Size.Width = 200.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                object lbFirebird_Servidor: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style]
+                  Size.Width = 200.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Servidor'
+                  TabOrder = 0
+                end
+                object edFirebird_Servidor: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  Size.Width = 200.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  OnKeyDown = edFirebird_ServidorKeyDown
+                end
+              end
+              object lytFirebird_Porta: TLayout
+                Align = Right
+                Margins.Right = 5.000000000000000000
+                Position.X = 742.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object lbFirebird_Porta: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style]
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Porta'
+                  TabOrder = 0
+                end
+                object edFirebird_Porta: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  FilterChar = '0123456789'
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  OnKeyDown = edFirebird_PortaKeyDown
+                end
+              end
+            end
+            object lytBD_Row_002: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Position.Y = 95.000000000000000000
+              Size.Width = 847.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 3
+              object lytFirebird_Banco: TLayout
+                Align = Client
+                Margins.Left = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Size.Width = 837.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object lbFirebird_Banco: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style]
+                  Size.Width = 837.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Banco de Dados'
+                  TabOrder = 0
+                end
+                object edFirebird_Banco: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  Size.Width = 837.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  OnKeyDown = edFirebird_BancoKeyDown
+                  object imgBanco_Pesq: TImage
+                    MultiResBitmap = <
+                      item
+                        Width = 50
+                        Height = 50
+                        PNG = {
+                          89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                          B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                          019B494441546843ED97D151C2401086778FE131412B900EA403A100451A50AC
+                          403A910E441B10B400B003EC402B50C2239AF5FE337118269971CC32F0B0DF4C
+                          662F7BF7903F777B773F19C676E02CAA733FE9F685D26B626E8584C89C1C0D2F
+                          4F9FEEC2BB32EA421EA6DD832449A7BF0236F182E2D8757A9DC9479651C16551
+                          8DC54266102129BD31712F8EF8100FDAC8A12F0855467546C27262B9C507371A
+                          DCDAFCEB982D2F74CE8E8E58F8EAA23B19655D95519D91546480E81C0F8A960E
+                          72E8433BD48F22AA42FC9F3E468C229A854401F53ACD43A3AC86FE897A8DEC0A
+                          5521BE365E10974B6A874401AB158599C8C76AA12AC4310F11853E6F50D821B9
+                          0672E8433B1FAB85FA39321A9F6157F2B5F2F54A521FC4B13C239F247C42BCF2
+                          1F5F6B6236FAE78FFB5D237EDB6DFF2C9B5A93381D274B79C783762E0263B2E1
+                          6A6CF58A82ED38DFC92000CB49F3EC300CE3EF981F29C3FC4845CC8F14617E44
+                          01F51AD915AA42709F42343F5201F32365981F310C63AB981F29C3FC4845CC8F
+                          14617E4401F51AD915AA42709F42343F5201F32365981F318C7D84E81BBEC28C
+                          55018850560000000049454E44AE426082}
+                      end>
+                    Align = Right
+                    Margins.Top = 2.000000000000000000
+                    Margins.Bottom = 2.000000000000000000
+                    Position.X = 807.000000000000000000
+                    Position.Y = 2.000000000000000000
+                    Size.Width = 30.000000000000000000
+                    Size.Height = 26.000000000000000000
+                    Size.PlatformDefault = False
+                    OnClick = imgBanco_PesqClick
+                  end
+                end
+              end
+            end
+            object lytBD_Row_003: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Position.Y = 150.000000000000000000
+              Size.Width = 847.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              object lytFirebird_User: TLayout
+                Align = Left
+                Margins.Left = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Position.X = 5.000000000000000000
+                Size.Width = 200.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                object lbFirebird_User: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style]
+                  Size.Width = 200.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Usu'#225'rio'
+                  TabOrder = 0
+                end
+                object edFirebird_User: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  Size.Width = 200.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  OnKeyDown = edFirebird_UserKeyDown
+                end
+              end
+              object lytFirebird_Senha: TLayout
+                Align = Right
+                Margins.Left = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Position.X = 642.000000000000000000
+                Size.Width = 200.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object lbFirebird_Senha: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style]
+                  Size.Width = 200.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Senha'
+                  TabOrder = 0
+                end
+                object edFirebird_Senha: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  Password = True
+                  Size.Width = 200.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  OnKeyDown = edFirebird_SenhaKeyDown
+                  object imgFirebird_Senha_View: TImage
+                    MultiResBitmap = <
+                      item
+                        Width = 50
+                        Height = 50
+                        PNG = {
+                          89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                          B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                          053C494441546843ED984D52E34614C7FBB5C0CC22D83E023901E40430CB5405
+                          CB2C539519CC0980130C7302CC0930935465896D529525E604C39C203982812C
+                          028CFAE5FD9FD44296251B4325D9E8B700B9D56ABDD7EFB3652A2A2A2A2A2A2A
+                          2A2AFE3528F9FF6ACE2FC3E6ED2D6D32B90D62DE92A1A621DA88EF26305FCBDF
+                          31138D88ED75BDCE573B6F07E3F8E6EB7895222AFC5F2EE488DA644D3B195E08
+                          76A64F01F7EBDFD8C16B947A9122BFFE1EAEDD3FF23E19D731C6369361E39CB9
+                          B2C4236BED88C88C7FFA61000BA4FCF25BB82173D698DD8663DAB2D66C26B704
+                          3766637B2BCB74F2E3F7833F93C167B39022B0C0CD1D7F90870E92A118E68FF5
+                          BAED2EBAA3B13BBA0371C10FC990C2C6741BABF47191F59EAD48EFA2B54FEC8E
+                          B21600CE98C15E6BF822B7F29C0E5B7D6B4CC8CC3744D48847C542648F3ADBC3
+                          93F8F76CE62A02377A7870A7B26B0860759FC052970D9FE3776D99BE2D72854F
+                          C3B02D2EB4EF9F13AB89BBD993F7AD415F7F67D0773CF21FB826433B91E383D4
+                          EDE4B95ACDEECD7337D988723E0DC2CEC363F419C2E86E31EDEDB5875B627BB5
+                          8A58E3ACE805BD61EB5415F54A00AC216367836DB1EA2458036BE90F591BEF80
+                          4278279E830C9045EF9750AA880A437C0A5782FB34EA76ED7D38E8E15E44ACAE
+                          14308DF03F0B2C21662E7FA9C4C3CF17E19382097EAD88599F85E5F04EBC1B32
+                          4016C8847B454C298200945DBB4C85613A440C4C049E8B2DB25C33538AC02D92
+                          CB52BE463C65151B98890C07F04E8D3F9101BF211364838C3A21C384224916B9
+                          F4AE6489DEEE86836E723BC5FB6F915B4DA6D4628AE6F8545D740F32485C7EE7
+                          5D0D32E69549155125EE341E36A4487D590AECD6BBEDC1D48EFF5F4051C804D9
+                          20635E195524B584B16B98D868D056BE9865D1C50414381DC880AC965C965234
+                          C7AFE5D72E023241B622655411194086514B60E2BC42C4D6A84BB9C84C2982D4
+                          9C5C96B214D0548CF8B5FCDA6540B69C325A0654116917B49E90747BF83F0FEB
+                          330C69733801B24D9A4A8B902EA0C8657D26F46BCFC3CBEA6557459A0D6A1799
+                          AB8C5ACD685193877751CC743083649A0E1245D685701D278F8B296B600D592B
+                          C4B55FBB8C340C120F82EC18576D0026DCDC48F5B5661DEDB654D39D59D554DA
+                          8A1E1491C5FA9DF67027197E11BD7EEB1CDD332C894D4886A7401C4591761953
+                          61A0160179DF43352D0A66CF9B653AD26A2F029C0DC2B9B5A30C3C8B35B05673
+                          954AD751255C945A221FCBA922C02B13BB846D4A71FB8C6631B93D01AC65C9C6
+                          BB477C5C366F16FA8C3C8B6BAC95152C0BE64116C804D9F24A80D4B5F278D7C1
+                          35DC471EDE2B7A117AA0B89589E7ADACD0E12C97047A9EB9E7637F18430FE7DB
+                          9F2C89BB9FFA79B35CAF541100219D71DDB8B5766331EBC1EEF6C55446427FE5
+                          D8F57C0B2EE944AE791490FDE2EB91BA06BB75960395BC548589BB07DB29EA88
+                          CF2EB6776582A472E9B330CFD88322653D331501D8BDBFEFB9976DAB83C01EE6
+                          0BA6CE7BE4236FC57960771113792B27017D2C9B961E1BDEAC50679E95E72AE2
+                          4150B27147E9AE8B1B05019DE46B02147A78900C243586E4582B6EB18E710428
+                          8A1DEA04526C5E3074C45124C7E7C48D3491187B54D4EB15F16C4580E6F0BB08
+                          A7C4A7C0C697116BBAB5257B356FD7F2A8D25FDDA69807C7DDA70CF982A3F342
+                          8A785480C7E840FCBDF374341544A9E453CF48561E07966F2662C4C95C393831
+                          B92DFD6494115E2D40DCAB2D07DD453704BC48110F2C74776BDA682F2436B432
+                          2F0A0E4E72A8EAAFD64D7F110BE47995225954A93B23E798F8538F2CDCF4F1E1
+                          D13831668C4F46727EBF5E5D35A3D7085F5151515151515151F15F60CC3F1E75
+                          0A7164C57EC30000000049454E44AE426082}
+                      end>
+                    Align = Right
+                    Margins.Top = 2.000000000000000000
+                    Margins.Bottom = 2.000000000000000000
+                    Position.X = 170.000000000000000000
+                    Position.Y = 2.000000000000000000
+                    Size.Width = 30.000000000000000000
+                    Size.Height = 26.000000000000000000
+                    Size.PlatformDefault = False
+                    OnClick = imgFirebird_Senha_ViewClick
+                  end
+                end
+              end
+            end
+            object lytBD_Row_004: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Position.Y = 205.000000000000000000
+              Size.Width = 847.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              object lytFirebird_Biblioteca: TLayout
+                Align = Client
+                Margins.Left = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Size.Width = 837.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object lbFirebird_Biblioteca: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style]
+                  Size.Width = 837.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.FontColor = xFF363428
+                  Text = 'Biblioteca'
+                  TabOrder = 0
+                end
+                object edFirebird_Biblioteca: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  Size.Width = 837.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  object imgFirebird_Biblioteca: TImage
+                    MultiResBitmap = <
+                      item
+                        Width = 50
+                        Height = 50
+                        PNG = {
+                          89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                          B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                          019B494441546843ED97D151C2401086778FE131412B900EA403A100451A50AC
+                          403A910E441B10B400B003EC402B50C2239AF5FE337118269971CC32F0B0DF4C
+                          662F7BF7903F777B773F19C676E02CAA733FE9F685D26B626E8584C89C1C0D2F
+                          4F9FEEC2BB32EA421EA6DD832449A7BF0236F182E2D8757A9DC9479651C16551
+                          8DC54266102129BD31712F8EF8100FDAC8A12F0855467546C27262B9C507371A
+                          DCDAFCEB982D2F74CE8E8E58F8EAA23B19655D95519D91546480E81C0F8A960E
+                          72E8433BD48F22AA42FC9F3E468C229A854401F53ACD43A3AC86FE897A8DEC0A
+                          5521BE365E10974B6A874401AB158599C8C76AA12AC4310F11853E6F50D821B9
+                          0672E8433B1FAB85FA39321A9F6157F2B5F2F54A521FC4B13C239F247C42BCF2
+                          1F5F6B6236FAE78FFB5D237EDB6DFF2C9B5A93381D274B79C783762E0263B2E1
+                          6A6CF58A82ED38DFC92000CB49F3EC300CE3EF981F29C3FC4845CC8F14617E44
+                          01F51AD915AA42709F42343F5201F32365981F310C63AB981F29C3FC4845CC8F
+                          14617E4401F51AD915AA42709F42343F5201F32365981F318C7D84E81BBEC28C
+                          55018850560000000049454E44AE426082}
+                      end>
+                    Align = Right
+                    Margins.Top = 2.000000000000000000
+                    Margins.Bottom = 2.000000000000000000
+                    Position.X = 807.000000000000000000
+                    Position.Y = 2.000000000000000000
+                    Size.Width = 30.000000000000000000
+                    Size.Height = 26.000000000000000000
+                    Size.PlatformDefault = False
+                    OnClick = imgFirebird_BibliotecaClick
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  object imgExibir: TImage
+    MultiResBitmap = <
+      item
+        Width = 50
+        Height = 50
+        PNG = {
+          89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+          B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+          053C494441546843ED984D52E34614C7FBB5C0CC22D83E023901E40430CB5405
+          CB2C539519CC0980130C7302CC0930935465896D529525E604C39C203982812C
+          028CFAE5FD9FD44296251B4325D9E8B700B9D56ABDD7EFB3652A2A2A2A2A2A2A
+          2A2AFE3528F9FF6ACE2FC3E6ED2D6D32B90D62DE92A1A621DA88EF26305FCBDF
+          31138D88ED75BDCE573B6F07E3F8E6EB7895222AFC5F2EE488DA644D3B195E08
+          76A64F01F7EBDFD8C16B947A9122BFFE1EAEDD3FF23E19D731C6369361E39CB9
+          B2C4236BED88C88C7FFA61000BA4FCF25BB82173D698DD8663DAB2D66C26B704
+          3766637B2BCB74F2E3F7833F93C167B39022B0C0CD1D7F90870E92A118E68FF5
+          BAED2EBAA3B13BBA0371C10FC990C2C6741BABF47191F59EAD48EFA2B54FEC8E
+          B21600CE98C15E6BF822B7F29C0E5B7D6B4CC8CC3744D48847C542648F3ADBC3
+          93F8F76CE62A02377A7870A7B26B0860759FC052970D9FE3776D99BE2D72854F
+          C3B02D2EB4EF9F13AB89BBD993F7AD415F7F67D0773CF21FB826433B91E383D4
+          EDE4B95ACDEECD7337D988723E0DC2CEC363F419C2E86E31EDEDB5875B627BB5
+          8A58E3ACE805BD61EB5415F54A00AC216367836DB1EA2458036BE90F591BEF80
+          4278279E830C9045EF9750AA880A437C0A5782FB34EA76ED7D38E8E15E44ACAE
+          14308DF03F0B2C21662E7FA9C4C3CF17E19382097EAD88599F85E5F04EBC1B32
+          4016C8847B454C298200945DBB4C85613A440C4C049E8B2DB25C33538AC02D92
+          CB52BE463C65151B98890C07F04E8D3F9101BF211364838C3A21C384224916B9
+          F4AE6489DEEE86836E723BC5FB6F915B4DA6D4628AE6F8545D740F32485C7EE7
+          5D0D32E69549155125EE341E36A4487D590AECD6BBEDC1D48EFF5F4051C804D9
+          20635E195524B584B16B98D868D056BE9865D1C50414381DC880AC965C965234
+          C7AFE5D72E023241B622655411194086514B60E2BC42C4D6A84BB9C84C2982D4
+          9C5C96B214D0548CF8B5FCDA6540B69C325A0654116917B49E90747BF83F0FEB
+          330C69733801B24D9A4A8B902EA0C8657D26F46BCFC3CBEA6557459A0D6A1799
+          AB8C5ACD685193877751CC743083649A0E1245D685701D278F8B296B600D592B
+          C4B55FBB8C340C120F82EC18576D0026DCDC48F5B5661DEDB654D39D59D554DA
+          8A1E1491C5FA9DF67027197E11BD7EEB1CDD332C894D4886A7401C4591761953
+          61A0160179DF43352D0A66CF9B653AD26A2F029C0DC2B9B5A30C3C8B35B05673
+          954AD751255C945A221FCBA922C02B13BB846D4A71FB8C6631B93D01AC65C9C6
+          BB477C5C366F16FA8C3C8B6BAC95152C0BE64116C804D9F24A80D4B5F278D7C1
+          35DC471EDE2B7A117AA0B89589E7ADACD0E12C97047A9EB9E7637F18430FE7DB
+          9F2C89BB9FFA79B35CAF541100219D71DDB8B5766331EBC1EEF6C55446427FE5
+          D8F57C0B2EE944AE791490FDE2EB91BA06BB75960395BC548589BB07DB29EA88
+          CF2EB6776582A472E9B330CFD88322653D331501D8BDBFEFB9976DAB83C01EE6
+          0BA6CE7BE4236FC57960771113792B27017D2C9B961E1BDEAC50679E95E72AE2
+          4150B27147E9AE8B1B05019DE46B02147A78900C243586E4582B6EB18E710428
+          8A1DEA04526C5E3074C45124C7E7C48D3491187B54D4EB15F16C4580E6F0BB08
+          A7C4A7C0C697116BBAB5257B356FD7F2A8D25FDDA69807C7DDA70CF982A3F342
+          8A785480C7E840FCBDF374341544A9E453CF48561E07966F2662C4C95C393831
+          B92DFD6494115E2D40DCAB2D07DD453704BC48110F2C74776BDA682F2436B432
+          2F0A0E4E72A8EAAFD64D7F110BE47995225954A93B23E798F8538F2CDCF4F1E1
+          D13831668C4F46727EBF5E5D35A3D7085F5151515151515151F15F60CC3F1E75
+          0A7164C57EC30000000049454E44AE426082}
+      end>
+    Position.X = 220.000000000000000000
+    Position.Y = 352.000000000000000000
+    Visible = False
+  end
+  object imgEsconder: TImage
+    MultiResBitmap = <
+      item
+        Width = 50
+        Height = 50
+        PNG = {
+          89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+          B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+          0546494441546843ED585F52224718EFEE01CC8BC29E20EC093427083EA66A05
+          F298AA4D564EB07802F506EE09C024557914345579D43D817A02F106E8EE8301
+          A7BF7CBFA61B7B860167C054612DBF2A6BC69E99AFBFDFF7BF112BACB0C2B701
+          69AF111C77772E71DDD850DB3F6F77FB6671C9A1EC3502222985945BF7F7FAFC
+          E4BC56B2CB4B8D4422C5A2AC9016D7AF894C62680150FEEE8E2EA4129BECA2AB
+          650FB3A94480D744662611E0B590799608F01AC8A42202A421F3E7DFB5AD47A2
+          1F05892D4954E66251B18F4620BAE08AD81781B8C849F9F9FDBBEE957DB23052
+          130192C83C3C88D2BF43FA2885AE73112CDB575342F748A8CE5A5E7EFAE5A76E
+          CF2ECE854C448008195624AE3C11DD711BEAB0C5DBB99CE83905E12DAD453914
+          54676FD5A59445F381037B4B2975F8EB4EF7C2AE6442662240948C07A243F6D2
+          D173F983EFB93F3549886612A1424135B27A281391F669755F91BCFDADD66DC7
+          C92829B7B35AD3E454A82F26C83098E441715D7E4A5B545211C18661A85BE8F4
+          F83F50F207246A52CE64AD6646C6BDEE818C16A2CB4B7D1E373E98872C330854
+          234D51481C517CB4CFAA1F434D9720C163CB2D2C4F244ABF776BBB507AD17106
+          327281AA20B758991A72CBECC17B4126F6860EF6F5A9984A040A7128B5248923
+          FCCFD63A66A5B7103E5AEB7D92D4FAE3AC56790932B03887C6681F968D3DB017
+          F6C41A74802EB89F86C4D0822250C8859224D9405EE0FEAF7F6AE5C1906E60C1
+          E2862ABB503221B2409899EF6D88B9D0C53A3CAF853E32793443EE84477C1250
+          16421D096030D0BBB8A2C4FA02933C032B1E9F56E9F8F4DD4DBB533D8111ECEB
+          13C0F79089FB3014E3468ABD5DE8CDF278840892FAFE4BE8F2E11A168F279AA6
+          51B70EC468531F7132EC6E439AB729B3A7EA836178398B8C93A9B9CF98050BE8
+          005DC646621DA1AB7D6C30260296A10E4FB0A921C10A25BA5069536EF3799158
+          49226426A04A0F4332B99004A584E91DBCC7F766C14354AE2AA38AFA9E191361
+          973D4B6204653E9ED5B0669151626488243C793F79D489C81D8519EB3CC29808
+          878C497CC9F38359580013D5CC030F8D6FECEDDC703A3A9D8131915251D63DA6
+          534B28BF738B6B3C467DF004BC3BD1672C5C4227C1E58FDB238E48216299D0D9
+          3E7A22824DD7D60C19D388A69161539890C200681612505A974D94CC24328A68
+          739A918643618CE3F6F001923E09C8846CFBF8890880B8E717CC8B86CC97F066
+          A23A4832F314A658B39000A33C579950523D4BD37432B9B347BC061D50F1A691
+          00A636C4A78150F725057BAE9740A81959787D633D781B17380B11B9B1E68667
+          301CD32815F2F2AD2B26F02AA608DC73147C463825ED9948C4A1755A6DB3CBCC
+          00C7EE6EF334BA0721AD4E95CF0E824F8274F8A17676605E4E8969648EBB3B07
+          6CF17D0C8E8DEA69DDBED742FFC177185778DDF6A549CC2402F81661713D2583
+          86B9233AC7D51F27D2224E860F547BBE3C0CA59A42DE93DB81192655D39F2E92
+          F02C1100E1F4F848ED51A88DBCC37F6FD85B35902BE483EDAC07A108190B585D
+          6A51745E403EE47272378DA152117170EEB7FF7AD0FD4005DB0B79C603BCC08A
+          1D6509DB4C440094418C19236F44C15E4A75AA0381AF5F853912C4C92047BECB
+          CBE6FF7AD4F581B2CA8DAF394948F7F1CB8824D52914E8DA2904030C067293A4
+          AEDB5F5C4AEE7810CF99794E9A731371300A0EC326695567452686BD59E01CB8
+          E5265C01D945C92C4CC487E9317C96D0922A1C23259E89B6DC0F0B887B9EB3AE
+          B805F7145F0B05D18987CF22645E94C84B605E324B47049887CC521201B29259
+          5A224016324B4D04484B2632C62F23A074EC08303EDEFA587A22804FC63FDEAE
+          B0C20ADF1C84F80F384F0CC82CE53E750000000049454E44AE426082}
+      end>
+    Position.X = 278.000000000000000000
+    Position.Y = 352.000000000000000000
+    Visible = False
+  end
+  object OpenDialog: TOpenDialog
+    Left = 408
+    Top = 280
+  end
+end

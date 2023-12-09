@@ -1,0 +1,21 @@
+Classes/99 Coders/
+Classes/Horse/
+Global/__history/
+*.FDB
+*.sql
+Lanchonete/DeskTop/Fonte/__history/
+Lanchonete/DeskTop/Fonte/Android/Debug/
+*.png
+*.ico
+Lanchonete/DeskTop/Fonte/Win64/Debug/
+Lanchonete/DeskTop/Fonte/Win64/Release/
+*.jpeg
+*.Json
+Lanchonete/Servidor/Fontes/__history/
+Lanchonete/Servidor/Fontes/Modelo de Dados/__history/
+Lanchonete/Servidor/Fontes/Rotas/__history/
+Lanchonete/Servidor/Fontes/Units/__history/
+Lanchonete/Servidor/Fontes/Win64/Debug/
+Lanchonete/Servidor/Fontes/Win64/Release/
+Teste/__history/
+Teste/Android64/Debug/
