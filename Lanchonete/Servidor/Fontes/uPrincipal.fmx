@@ -48,7 +48,7 @@ object frmPrincipal: TfrmPrincipal
           TextSettings.FontColor = xFFA1B24E
           TextSettings.HorzAlign = Center
           TextSettings.Trimming = None
-          Text = 'Servidor MJT'
+          Text = 'Servidor'
           TabOrder = 2
         end
         object lytMenu: TLayout
