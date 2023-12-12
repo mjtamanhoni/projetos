@@ -13,6 +13,7 @@ object frmCliente: TfrmCliente
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   OnClose = FormClose
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object imgCancel: TImage
     MultiResBitmap = <
@@ -257,7 +258,7 @@ object frmCliente: TfrmCliente
     Size.Width = 960.000000000000000000
     Size.Height = 525.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 2
+    TabOrder = 4
     object tcPrincipal: TTabControl
       Align = Client
       Size.Width = 960.000000000000000000
@@ -449,6 +450,7 @@ object frmCliente: TfrmCliente
                     AppearanceObjectName = 'Text1'
                     AppearanceClassName = 'TTextObjectAppearance'
                   end>
+                CanSwipeDelete = False
                 OnItemClick = lvListaItemClick
               end
             end
@@ -1052,7 +1054,7 @@ object frmCliente: TfrmCliente
     Size.Width = 960.000000000000000000
     Size.Height = 50.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 3
+    TabOrder = 5
     object rctFooter: TRectangle
       Align = Client
       Fill.Color = xFF363428

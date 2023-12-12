@@ -178,6 +178,7 @@ type
     procedure rctStatus_InativoClick(Sender: TObject);
     procedure rctTipo_FisicoClick(Sender: TObject);
     procedure rctTipo_JuridicoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FProcessando: String;
 
@@ -244,11 +245,14 @@ begin
 end;
 
 procedure TfrmCliente.AddItens_LV(const ACodigo: Integer; const ANome: String);
+var
+  lItem :TListItemText;
 begin
   with lvLista.Items.Add do
   begin
     Tag := ACodigo;
     TagString := ANome;
+
     TListItemText(Objects.FindDrawable('edNome')).TagString := ACodigo.ToString;
     TListItemText(Objects.FindDrawable('edNome')).Text := ANome;
   end;
@@ -582,6 +586,13 @@ begin
   FNome_Selecionado := '';
 
   tcPrincipal.ActiveTab := tiFiltro;
+
+end;
+
+procedure TfrmCliente.FormShow(Sender: TObject);
+begin
+  FProcessando := '';
+  Listar_Dados(0,edPesquisar.Text,True);
 end;
 
 procedure TfrmCliente.Incia_Campos;

@@ -145,6 +145,14 @@ type
     lytEndereco: TLayout;
     lytEmail: TLayout;
     lytTelefone: TLayout;
+    rctEndereco: TRectangle;
+    rctEmail: TRectangle;
+    rctTelefone: TRectangle;
+    lytNavegarPages: TLayout;
+    lytNavegarPages_Buttons: TLayout;
+    imgEndereco: TImage;
+    imgTelefone: TImage;
+    imgEmail: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -185,6 +193,7 @@ type
     procedure edDocumentoTyping(Sender: TObject);
     procedure edInscEstadualTyping(Sender: TObject);
     procedure edInsMunicipalTyping(Sender: TObject);
+    procedure imgEnderecoClick(Sender: TObject);
   private
     FProcessando: String;
 
@@ -566,6 +575,9 @@ begin
   frmEmpresa := Nil;
   FId_Selecionado := 0;
   FNome_Selecionado := '';
+
+  tcPrincipal.ActiveTab := tiFiltro;
+
 end;
 
 procedure TfrmEmpresa.FormCreate(Sender: TObject);
@@ -588,6 +600,29 @@ begin
   FId_Selecionado := 0;
   FNome_Selecionado := '';
 
+end;
+
+procedure TfrmEmpresa.imgEnderecoClick(Sender: TObject);
+begin
+  imgEndereco.Opacity := 0.5;
+  imgTelefone.Opacity := 0.5;
+  imgEmail.Opacity := 0.5;
+  case TImage(Sender).Tag of
+    0:begin
+      //Endereço...
+      TImage(Sender).Opacity := 1;
+    end;
+    1:begin
+      //Telefone
+      TImage(Sender).Opacity := 1;
+    end;
+    2:begin
+      //Email...
+      TImage(Sender).Opacity := 1;
+    end;
+  end;
+
+  tcAdicionais.GotoVisibleTab(TImage(Sender).Tag);
 end;
 
 procedure TfrmEmpresa.Incia_Campos;
@@ -616,15 +651,18 @@ var
   lCodigo :Integer;
 
 begin
+
+  //TLoading.Show(frmEmpresa,'Listando dados');
+
   if FProcessando = 'processando' then
       exit;
   FProcessando := 'processando';
 
   if AInd_Clear then
   begin
-      lvLista.ScrollTo(0);
-      lvLista.Tag := 0;
-      lvLista.Items.Clear;
+    lvLista.ScrollTo(0);
+    lvLista.Tag := 0;
+    lvLista.Items.Clear;
   end;
 
   lNome := '';
@@ -637,8 +675,6 @@ begin
       lCodigo := StrToIntDef(ABusca,0);
   end;
 
-  lvLista.BeginUpdate;
-
   t := TThread.CreateAnonymousThread(
   procedure
   var
@@ -646,6 +682,9 @@ begin
     x : integer;
     jsonArray: TJSONArray;
   begin
+
+    lvLista.BeginUpdate;
+
     if lvLista.Tag >= 0 then
       lvLista.Tag := (lvLista.Tag + 1);
 
@@ -676,11 +715,12 @@ begin
         jsonArray.DisposeOf;
       {$ENDIF}
 
-
-      TThread.Synchronize(nil, procedure
+      TThread.Synchronize(nil,
+      procedure
       begin
-          lvLista.EndUpdate;
+        lvLista.EndUpdate;
       end);
+
       //lvLista.TagString := '';
       FProcessando := '';
 
@@ -692,6 +732,17 @@ begin
 
   t.OnTerminate := ThreadEnd_Lista;
   t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_Lista(Sender: TOBject);
+begin
+  //TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
+      FMensagem.Show(TIconDialog.Error,'','Erro na carga das Empresas: ' + Exception(TThread(Sender).FatalException).Message);
+  end;
 end;
 
 procedure TfrmEmpresa.lvListaItemClick(const Sender: TObject;
@@ -937,15 +988,6 @@ begin
   begin
     Configura_Botoes(4);
     Exibe_Labels;
-  end;
-end;
-
-procedure TfrmEmpresa.ThreadEnd_Lista(Sender: TOBject);
-begin
-  if Assigned(TThread(Sender).FatalException) then
-  begin
-    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
-      FMensagem.Show(TIconDialog.Error,'','Erro na carga das Empresas: ' + Exception(TThread(Sender).FatalException).Message);
   end;
 end;
 
