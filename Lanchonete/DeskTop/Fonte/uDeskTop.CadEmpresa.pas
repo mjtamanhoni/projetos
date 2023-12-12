@@ -145,14 +145,21 @@ type
     lytEndereco: TLayout;
     lytEmail: TLayout;
     lytTelefone: TLayout;
-    rctEndereco: TRectangle;
-    rctEmail: TRectangle;
-    rctTelefone: TRectangle;
+    rctAdicionais: TRectangle;
     lytNavegarPages: TLayout;
     lytNavegarPages_Buttons: TLayout;
     imgEndereco: TImage;
     imgTelefone: TImage;
     imgEmail: TImage;
+    rctEndereco: TRectangle;
+    rctEmail: TRectangle;
+    rctTelefone: TRectangle;
+    lvEnderecos: TListView;
+    lvTelefone: TListView;
+    lvEmail: TListView;
+    rctAdd_Adicional: TRectangle;
+    Circle_Add_Adicional: TCircle;
+    imgAdd_Adicional: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -194,6 +201,7 @@ type
     procedure edInscEstadualTyping(Sender: TObject);
     procedure edInsMunicipalTyping(Sender: TObject);
     procedure imgEnderecoClick(Sender: TObject);
+    procedure rctAdd_AdicionalClick(Sender: TObject);
   private
     FProcessando: String;
 
@@ -239,6 +247,9 @@ type
     procedure Exibe_Labels;
     procedure ThreadEnd_SalvarRegistro(Sender: TOBject);
     procedure ThreadEnd_DeletarRegistro(Sender: TOBject);
+    procedure NovoEmail(Sender: TOBject);
+    procedure NovoEndereco(Sender: TOBject);
+    procedure NovoTelefone(Sender: TOBject);
 
   public
     ExecuteOnClose :TExecuteOnClose;
@@ -765,6 +776,30 @@ end;
 procedure TfrmEmpresa.Novo_Registro(Sender: TOBject);
 begin
   Configura_Botoes(0);
+end;
+
+procedure TfrmEmpresa.rctAdd_AdicionalClick(Sender: TObject);
+begin
+  case tcAdicionais.TabIndex of
+    0:FMensagem.Show(TIconDialog.Question,'Endereço','Deseja incluir um novo Endereço?','SIM',NovoEndereco,'NÃO');
+    1:FMensagem.Show(TIconDialog.Question,'Telefone','Deseja incluir um novo Telefone?','SIM',NovoTelefone,'NÃO');
+    2:FMensagem.Show(TIconDialog.Question,'E-mail','Deseja incluir um novo E-mail?','SIM',NovoEmail,'NÃO');
+  end;
+end;
+
+procedure TfrmEmpresa.NovoEndereco(Sender: TOBject);
+begin
+  //
+end;
+
+procedure TfrmEmpresa.NovoTelefone(Sender: TOBject);
+begin
+  //
+end;
+
+procedure TfrmEmpresa.NovoEmail(Sender: TOBject);
+begin
+  //
 end;
 
 procedure TfrmEmpresa.rctCancelarClick(Sender: TObject);
