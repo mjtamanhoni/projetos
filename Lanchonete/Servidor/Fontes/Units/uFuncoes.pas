@@ -41,6 +41,7 @@ Uses
 const
   C_NUMEROS = '0123456789';
   C_LETRAS='ABCDEFGHIJKLMNOPQRSTUVWXYZÇ';
+  C_VIA_CEP='http://viacep.com.br/ws/';
 
   {$Region 'Push Notification'}
     C_URL_GOOGLE = 'https://fcm.googleapis.com/fcm/send';
@@ -49,11 +50,21 @@ const
 
 type
   TTipoRetorno  = (trSim,trNao,trConfirmar,trCancelar);
-
-type
   TTecladoVirtual = (tvMostrar,tvOcultar);
 
-type
+  TCep = Record
+    Cep :String;
+    Logradouro :String;
+    Complemento :String;
+    Bairro :String;
+    Municipio :String;
+    Uf :String;
+    Ibge :String;
+    Gia :String;
+    Ddd :String;
+    Siafi :String;
+  end;
+
   TFuncoes = class(TObject)
   private
   public
@@ -97,6 +108,8 @@ type
       AStopValue:Integer=-25);
 
     class procedure PularCampo(AEdit_Destino: TObject);
+
+    class function BuscaCep(const ACep:String):TCep;
 
 
   end;
@@ -156,6 +169,33 @@ begin
     end;
   finally
     Input.Free;
+  end;
+end;
+
+class function TFuncoes.BuscaCep(const ACep: String): TCep;
+var
+  lUrl :String;
+begin
+  try
+    try
+      Result.Cep := '';
+      Result.Logradouro := '';
+      Result.Complemento := '';
+      Result.Bairro := '';
+      Result.Municipio := '';
+      Result.Uf := '';
+      Result.Ibge := '';
+      Result.Gia := '';
+      Result.Ddd := '';
+      Result.Siafi := '';
+
+      lUrl := '';
+      lUrl := C_VIA_CEP + ACep + '/json';
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
   end;
 end;
 

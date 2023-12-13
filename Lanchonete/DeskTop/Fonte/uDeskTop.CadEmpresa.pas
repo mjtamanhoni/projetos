@@ -35,7 +35,7 @@ uses
   FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
   FMX.Objects, FMX.ListView, FMX.Ani, FMX.StdCtrls, FMX.Controls.Presentation,
   FMX.Edit, FMX.TabControl, FMX.Layouts, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, FMX.Effects;
 
 type
   TStatusTable = (stList,stInsert,stUpdate,stDelete);
@@ -160,6 +160,53 @@ type
     rctAdd_Adicional: TRectangle;
     Circle_Add_Adicional: TCircle;
     imgAdd_Adicional: TImage;
+    rctTampa_Endereco: TRectangle;
+    lytCadEndereco: TLayout;
+    rctCadEndereco: TRectangle;
+    ShadowEffect1: TShadowEffect;
+    lytCadEndereco_Footer: TLayout;
+    lytCadEndereco_Detail: TLayout;
+    lytCadEndereco_Buttons: TLayout;
+    rctCadEndereco_Confirmar: TRectangle;
+    lbCadEndereco_Confirmar: TLabel;
+    rctCadEndereco_Cancelar: TRectangle;
+    lbCadEndereco_Cancelar: TLabel;
+    lytCadEnd_Row001: TLayout;
+    edCadEnd_Cep: TEdit;
+    lbCadEnd_Cep: TLabel;
+    faCadEnd_Cep: TFloatAnimation;
+    edCadEnd_Logradouro: TEdit;
+    lbCadEnd_Logradouro: TLabel;
+    faCadEnd_Logradouro: TFloatAnimation;
+    edCadEnd_Nr: TEdit;
+    lbCadEdn_Nr: TLabel;
+    faCadEnd_Nr: TFloatAnimation;
+    lytCadEnd_Row002: TLayout;
+    edCadEnd_Complemento: TEdit;
+    lbCadEnd_Complemento: TLabel;
+    faCadEnd_Complemento: TFloatAnimation;
+    lytCadEnd_Row003: TLayout;
+    edCadEnd_Bairro: TEdit;
+    lbCadEnd_Bairro: TLabel;
+    faCadEnd_Bairro: TFloatAnimation;
+    edCadEnd_Municipio: TEdit;
+    lbCadEnd_Municipio: TLabel;
+    faCadEnd_Municipio: TFloatAnimation;
+    edCadEnd_UF: TEdit;
+    lbCadEnd_UF: TLabel;
+    faCadEnd_UF: TFloatAnimation;
+    lytCadEnd_Row004: TLayout;
+    edCadEnd_Regiao: TEdit;
+    lbCadEnd_Regiao: TLabel;
+    faCadEnd_Regiao: TFloatAnimation;
+    edCadEnd_Pais: TEdit;
+    lbCadEnd_Pais: TLabel;
+    faCadEnd_Pais: TFloatAnimation;
+    imgCadEnd_Cep: TImage;
+    imgCadEnd_Municipio: TImage;
+    imgCadEnd_UF: TImage;
+    imgCadEnd_Regiao: TImage;
+    imgCadEnd_Pais: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -202,6 +249,38 @@ type
     procedure edInsMunicipalTyping(Sender: TObject);
     procedure imgEnderecoClick(Sender: TObject);
     procedure rctAdd_AdicionalClick(Sender: TObject);
+    procedure rctCadEndereco_ConfirmarClick(Sender: TObject);
+    procedure rctCadEndereco_CancelarClick(Sender: TObject);
+    procedure edCadEnd_CepKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_LogradouroKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_NrKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_ComplementoKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_BairroKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_MunicipioKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_UFKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_RegiaoKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_CepTyping(Sender: TObject);
+    procedure edCadEnd_LogradouroTyping(Sender: TObject);
+    procedure edCadEnd_NrTyping(Sender: TObject);
+    procedure edCadEnd_ComplementoTyping(Sender: TObject);
+    procedure edCadEnd_BairroTyping(Sender: TObject);
+    procedure edCadEnd_MunicipioTyping(Sender: TObject);
+    procedure edCadEnd_UFTyping(Sender: TObject);
+    procedure edCadEnd_RegiaoTyping(Sender: TObject);
+    procedure edCadEnd_PaisTyping(Sender: TObject);
+    procedure edCadEnd_MunicipioClick(Sender: TObject);
+    procedure edCadEnd_UFClick(Sender: TObject);
+    procedure edCadEnd_RegiaoClick(Sender: TObject);
+    procedure edCadEnd_PaisClick(Sender: TObject);
+    procedure imgCadEnd_CepClick(Sender: TObject);
   private
     FProcessando: String;
 
@@ -250,6 +329,12 @@ type
     procedure NovoEmail(Sender: TOBject);
     procedure NovoEndereco(Sender: TOBject);
     procedure NovoTelefone(Sender: TOBject);
+    procedure SalvarEndereco(Sender: TObject);
+    procedure CancelaEndereco(Sender: TObject);
+    procedure Seleciona_Municipio(Aid: Integer; ANome: String; AIbge:String);
+    procedure Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
+    procedure Seleciona_Regiao(Aid: Integer; ANome: String);
+    procedure Seleciona_Pais(Aid: Integer; ANome: String);
 
   public
     ExecuteOnClose :TExecuteOnClose;
@@ -262,6 +347,9 @@ var
 implementation
 
 {$R *.fmx}
+
+uses uDeskTop.CadMunicipios, uDeskTop.CadPaises, uDeskTop.CadRegioes,
+  uDeskTop.CadUF;
 
 procedure TfrmEmpresa.Abortar_Fechamento(Sender: TOBject);
 begin
@@ -372,6 +460,169 @@ begin
 
   t.OnTerminate := ThreadEnd_DeletarRegistro;
   t.Start;
+end;
+
+procedure TfrmEmpresa.edCadEnd_BairroKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Municipio);
+end;
+
+procedure TfrmEmpresa.edCadEnd_BairroTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Bairro,lbCadEnd_Bairro,faCadEnd_Bairro,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_CepKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Logradouro);
+end;
+
+procedure TfrmEmpresa.edCadEnd_CepTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Cep,lbCadEnd_Cep,faCadEnd_Cep,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_ComplementoKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Bairro);
+end;
+
+procedure TfrmEmpresa.edCadEnd_ComplementoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Complemento,lbCadEnd_Complemento,faCadEnd_Complemento,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_LogradouroKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Nr);
+end;
+
+procedure TfrmEmpresa.edCadEnd_LogradouroTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Logradouro,lbCadEnd_Logradouro,faCadEnd_Logradouro,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_MunicipioClick(Sender: TObject);
+begin
+  if not Assigned(frmMunicipios) then
+    Application.CreateForm(TfrmMunicipios,frmMunicipios);
+  frmMunicipios.RetornaRegistro := True;
+  frmMunicipios.ExecuteOnClose := Seleciona_Municipio;
+  frmMunicipios.Show;
+end;
+
+procedure TfrmEmpresa.Seleciona_Municipio(Aid:Integer; ANome:String; AIbge:String);
+begin
+  edCadEnd_Municipio.TagString := AIbge;
+  edCadEnd_Municipio.Tag := Aid;
+  edCadEnd_Municipio.Text := ANome;
+end;
+
+procedure TfrmEmpresa.edCadEnd_MunicipioKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_UF);
+end;
+
+procedure TfrmEmpresa.edCadEnd_MunicipioTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_NrKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Complemento);
+end;
+
+procedure TfrmEmpresa.edCadEnd_NrTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Nr,lbCadEdn_Nr,faCadEnd_Nr,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_PaisClick(Sender: TObject);
+begin
+  if not Assigned(frmCadPaises) then
+    Application.CreateForm(TfrmCadPaises,frmCadPaises);
+  frmCadPaises.RetornaRegistro := True;
+  frmCadPaises.ExecuteOnClose := Seleciona_Pais;
+  frmCadPaises.Show;
+end;
+
+procedure TfrmEmpresa.Seleciona_Pais(Aid:Integer; ANome:String);
+begin
+  edCadEnd_Pais.Tag := Aid;
+  edCadEnd_Pais.Text := ANome;
+end;
+
+procedure TfrmEmpresa.edCadEnd_PaisTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Pais,lbCadEnd_Pais,faCadEnd_Pais,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_RegiaoClick(Sender: TObject);
+begin
+  if not Assigned(frmCad_Regioes) then
+    Application.CreateForm(TfrmCad_Regioes,frmCad_Regioes);
+  frmCad_Regioes.RetornaRegistro := True;
+  frmCad_Regioes.ExecuteOnClose := Seleciona_Regiao;
+  frmCad_Regioes.Show;
+end;
+
+procedure TfrmEmpresa.Seleciona_Regiao(Aid:Integer; ANome:String);
+begin
+  edCadEnd_Regiao.Tag := Aid;
+  edCadEnd_Regiao.Text := ANome;
+end;
+
+procedure TfrmEmpresa.edCadEnd_RegiaoKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Pais);
+end;
+
+procedure TfrmEmpresa.edCadEnd_RegiaoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Regiao,lbCadEnd_Regiao,faCadEnd_Regiao,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadEnd_UFClick(Sender: TObject);
+begin
+  if not Assigned(frmUnidadeFederativa) then
+    Application.CreateForm(TfrmUnidadeFederativa,frmUnidadeFederativa);
+  frmUnidadeFederativa.RetornaRegistro := True;
+  frmUnidadeFederativa.ExecuteOnClose := Seleciona_UF;
+  frmUnidadeFederativa.Show;
+end;
+
+procedure TfrmEmpresa.Seleciona_UF(AId:Integer; ASiglaUF:String; ANome:String);
+begin
+  edCadEnd_UF.Tag := AId;
+  edCadEnd_UF.TagString := ASiglaUF;
+  edCadEnd_UF.Text := ANome;
+end;
+
+procedure TfrmEmpresa.edCadEnd_UFKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Regiao);
+end;
+
+procedure TfrmEmpresa.edCadEnd_UFTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
 end;
 
 procedure TfrmEmpresa.edDocumentoKeyDown(Sender: TObject; var Key: Word;
@@ -610,7 +861,13 @@ begin
 
   FId_Selecionado := 0;
   FNome_Selecionado := '';
+  tcPrincipal.ActiveTab := tiFiltro;
 
+end;
+
+procedure TfrmEmpresa.imgCadEnd_CepClick(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmEmpresa.imgEnderecoClick(Sender: TObject);
@@ -789,7 +1046,10 @@ end;
 
 procedure TfrmEmpresa.NovoEndereco(Sender: TOBject);
 begin
-  //
+  lytCadEndereco.Width := (rctTampa_Endereco.Width - 100);
+  lytCadEndereco.Height := (rctTampa_Endereco.Height - 100);
+  rctTampa_Endereco.Align := TAlignLayout.Contents;
+  rctTampa_Endereco.Visible := True;
 end;
 
 procedure TfrmEmpresa.NovoTelefone(Sender: TOBject);
@@ -800,6 +1060,26 @@ end;
 procedure TfrmEmpresa.NovoEmail(Sender: TOBject);
 begin
   //
+end;
+
+procedure TfrmEmpresa.rctCadEndereco_CancelarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Endereço','Cancela alterações','SIM',CancelaEndereco,'NÂO');
+end;
+
+procedure TfrmEmpresa.CancelaEndereco(Sender: TObject);
+begin
+  rctTampa_Endereco.Visible := False;
+end;
+
+procedure TfrmEmpresa.rctCadEndereco_ConfirmarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Endereço','Salva alterações','SIM',SalvarEndereco,'NÃO');
+end;
+
+procedure TfrmEmpresa.SalvarEndereco(Sender: TObject);
+begin
+  rctTampa_Endereco.Visible := False;
 end;
 
 procedure TfrmEmpresa.rctCancelarClick(Sender: TObject);

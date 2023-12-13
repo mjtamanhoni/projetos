@@ -39,7 +39,7 @@ uses
 
 type
   TStatusTable = (stList,stInsert,stUpdate,stDelete);
-  TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
+  TExecuteOnClose = procedure(Aid:Integer; ANome:String; AIbge:String) of Object;
 
   TfrmMunicipios = class(TForm)
     FDMem_Registros: TFDMemTable;
