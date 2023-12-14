@@ -118,9 +118,6 @@ Coordinates=10,616,65,36
 [lbDocumento]
 Coordinates=10,456,90,58
 
-[Circle_Add_Adicional]
-Coordinates=1178,570,137,36
-
 [Circle_Cancelar]
 Coordinates=1062,570,106,36
 
@@ -354,5 +351,5 @@ Coordinates=800,456,80,36
 Coordinates=707,456,83,36
 
 []
-Coordinates=168,883,91,36
+Coordinates=1178,570,137,36
 

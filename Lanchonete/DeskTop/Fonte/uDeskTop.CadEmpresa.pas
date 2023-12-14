@@ -158,7 +158,6 @@ type
     lvTelefone: TListView;
     lvEmail: TListView;
     rctAdd_Adicional: TRectangle;
-    Circle_Add_Adicional: TCircle;
     imgAdd_Adicional: TImage;
     rctTampa_Endereco: TRectangle;
     lytCadEndereco: TLayout;
@@ -227,8 +226,9 @@ type
     FDMem_EnderecoHR_CADASTRO: TTimeField;
     imgEdit_Lista: TImage;
     imgDelete_Lista: TImage;
-    ShadowEffect2: TShadowEffect;
     ShadowEffect3: TShadowEffect;
+    lytAdicionais: TLayout;
+    lytAdicionais_Nav: TLayout;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -303,6 +303,8 @@ type
     procedure edCadEnd_RegiaoClick(Sender: TObject);
     procedure edCadEnd_PaisClick(Sender: TObject);
     procedure imgCadEnd_CepClick(Sender: TObject);
+    procedure lvEnderecosItemClickEx(const Sender: TObject; ItemIndex: Integer;
+      const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
   private
     FProcessando: String;
     FProcessandoEnd: String;
@@ -314,6 +316,10 @@ type
     FFechar_Sistema :Boolean;
     FId_Selecionado :Integer;
     FNome_Selecionado :String;
+
+    {$Region 'Endereço'}
+      FEndereco_Id :Integer;
+    {$EndRegion 'Endereço'}
 
     FStatusTable: TStatusTable;
     FStatusTable_End: TStatusTable;
@@ -390,6 +396,8 @@ type
     procedure Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
     procedure Seleciona_Regiao(Aid: Integer; ANome: String);
     procedure Seleciona_Pais(Aid: Integer; ANome: String);
+    procedure Excluir_Endereco(Sender: TObject);
+    procedure Editar_Endereco(Sender: TObject);
 
   public
     ExecuteOnClose :TExecuteOnClose;
@@ -1283,6 +1291,38 @@ begin
   end;
 end;
 
+procedure TfrmEmpresa.lvEnderecosItemClickEx(const Sender: TObject;
+  ItemIndex: Integer; const LocalClickPos: TPointF;
+  const ItemObject: TListItemDrawable);
+begin
+  if TListView(Sender).Selected <> Nil then
+  begin
+    if ItemObject is TListItemImage then
+    begin
+      if TListItemImage(ItemObject).Name = 'imgDelete' then
+      begin
+        FEndereco_Id := TListView(Sender).Selected.Tag;
+        FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Endereco,'NÃO');
+      end
+      else if TListItemImage(ItemObject).Name = 'imgEdit' then
+      begin
+        FEndereco_Id := TListView(Sender).Selected.Tag;
+        FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Endereco,'NÃO');
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmEmpresa.Excluir_Endereco(Sender :TObject);
+begin
+  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
+end;
+
+procedure TfrmEmpresa.Editar_Endereco(Sender :TObject);
+begin
+  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
+end;
+
 procedure TfrmEmpresa.lvListaItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin
@@ -1302,6 +1342,9 @@ end;
 
 procedure TfrmEmpresa.Novo_Registro(Sender: TOBject);
 begin
+  lvEnderecos.ScrollTo(0);
+  lvEnderecos.Tag := 0;
+  lvEnderecos.Items.Clear;
   Configura_Botoes(0);
 end;
 
