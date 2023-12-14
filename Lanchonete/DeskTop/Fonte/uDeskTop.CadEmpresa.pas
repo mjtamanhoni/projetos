@@ -207,6 +207,28 @@ type
     imgCadEnd_UF: TImage;
     imgCadEnd_Regiao: TImage;
     imgCadEnd_Pais: TImage;
+    FDMem_Endereco: TFDMemTable;
+    FDMem_EnderecoID_EMPRESA: TIntegerField;
+    FDMem_EnderecoID: TIntegerField;
+    FDMem_EnderecoCEP: TStringField;
+    FDMem_EnderecoLOGRADOURO: TStringField;
+    FDMem_EnderecoNUMERO: TStringField;
+    FDMem_EnderecoCOMPLEMENTO: TStringField;
+    FDMem_EnderecoBAIRRO: TStringField;
+    FDMem_EnderecoIBGE: TIntegerField;
+    FDMem_EnderecoMUNICIPIO: TStringField;
+    FDMem_EnderecoSIGLA_UF: TStringField;
+    FDMem_EnderecoUF: TStringField;
+    FDMem_EnderecoREGIAO: TStringField;
+    FDMem_EnderecoCODIGO_PAIS: TIntegerField;
+    FDMem_EnderecoPAIS: TStringField;
+    FDMem_EnderecoID_USUARIO: TIntegerField;
+    FDMem_EnderecoDT_CADASTRO: TDateField;
+    FDMem_EnderecoHR_CADASTRO: TTimeField;
+    imgEdit_Lista: TImage;
+    imgDelete_Lista: TImage;
+    ShadowEffect2: TShadowEffect;
+    ShadowEffect3: TShadowEffect;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -283,6 +305,7 @@ type
     procedure imgCadEnd_CepClick(Sender: TObject);
   private
     FProcessando: String;
+    FProcessandoEnd: String;
 
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
@@ -291,7 +314,9 @@ type
     FFechar_Sistema :Boolean;
     FId_Selecionado :Integer;
     FNome_Selecionado :String;
+
     FStatusTable: TStatusTable;
+    FStatusTable_End: TStatusTable;
 
     procedure Abortar_Fechamento(Sender: TOBject);
     procedure Confirmar_Fechamento(Sender :TObject);
@@ -303,7 +328,7 @@ type
     procedure ThreadEnd_Tipo(Sender: TOBject);
     procedure SelecionaTipo(Sender:TObject; AEdit:TEdit;ALabel:TLabel);
 
-    {$Region 'Listar dados'}
+    {$Region 'Empresa'}
       procedure Listar_Dados(
         const APagina: Integer;
         const ABusca: String;
@@ -312,25 +337,55 @@ type
         const ACodigo:Integer;
         const ANome:String);
       procedure ThreadEnd_Lista(Sender: TOBject);
-    {$EndRegion 'Listar dados'}
+      procedure Salvar_Alteracoes(Sender :TOBject);
+      procedure Cancelar_Alteracoes(Sender :TOBject);
+      procedure Novo_Registro(Sender: TOBject);
+      procedure Deletar_Registro(Sender: TOBject);
+      procedure EditarRegistro(Sender: TOBject);
+      procedure EditandoRegistro(const AId: Integer);
+      procedure ThreadEnd_Edit(Sender: TOBject);
+      procedure ThreadEnd_SalvarRegistro(Sender: TOBject);
+      procedure ThreadEnd_DeletarRegistro(Sender: TOBject);
+    {$EndRegion 'Empresa'}
 
-    procedure Salvar_Alteracoes(Sender :TOBject);
-    procedure Cancelar_Alteracoes(Sender :TOBject);
-    procedure Novo_Registro(Sender: TOBject);
-    procedure Deletar_Registro(Sender: TOBject);
-    procedure EditandoRegistro(const AId: Integer);
-    procedure ThreadEnd_Edit(Sender: TOBject);
     procedure Configura_Botoes(ABotao: Integer);
-    procedure EditarRegistro(Sender: TOBject);
     procedure Incia_Campos;
     procedure Exibe_Labels;
-    procedure ThreadEnd_SalvarRegistro(Sender: TOBject);
-    procedure ThreadEnd_DeletarRegistro(Sender: TOBject);
-    procedure NovoEmail(Sender: TOBject);
-    procedure NovoEndereco(Sender: TOBject);
-    procedure NovoTelefone(Sender: TOBject);
-    procedure SalvarEndereco(Sender: TObject);
-    procedure CancelaEndereco(Sender: TObject);
+
+    {$Region 'Endereço'}
+      procedure NovoEndereco(Sender: TOBject);
+      procedure CancelaEndereco(Sender: TObject);
+      procedure SalvarEndereco(Sender: TObject);
+      procedure Listar_Endereco(
+        const APagina:Integer;
+        const AEmpresa:Integer;
+        const AInd_Clear:Boolean);
+      procedure ThreadEnd_BuscaCep(Sender: TObject);
+      procedure ThreadEnd_SalvarEndereco(Sender: TObject);
+      procedure AddEndItens_LV(
+        const AIdEmpresa :Integer;
+        const AId :Integer;
+        const APais_Nome: String;
+        const ARegiao_Nome :String;
+        const AIbge :String;
+        const AMunicipio :String;
+        const ANr :String;
+        const AUf_Sigla :String;
+        const ABairro :String;
+        const ACep :String;
+        const ALogradouro :String;
+        const AComplemento: String);
+      procedure ThreadEnd_ListaEnd(Sender: TObject);
+    {$EndRegion 'Endereço'}
+
+    {$Region 'Email'}
+      procedure NovoEmail(Sender: TOBject);
+    {$EndRegion 'Email'}
+
+    {$Region 'Telefone'}
+      procedure NovoTelefone(Sender: TOBject);
+    {$EndRegion 'Telefone'}
+
     procedure Seleciona_Municipio(Aid: Integer; ANome: String; AIbge:String);
     procedure Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
     procedure Seleciona_Regiao(Aid: Integer; ANome: String);
@@ -484,6 +539,7 @@ end;
 procedure TfrmEmpresa.edCadEnd_CepTyping(Sender: TObject);
 begin
   TFuncoes.ExibeLabel(edCadEnd_Cep,lbCadEnd_Cep,faCadEnd_Cep,10,-20);
+  Formatar(edCadEnd_Cep,TFormato.CEP);
 end;
 
 procedure TfrmEmpresa.edCadEnd_ComplementoKeyDown(Sender: TObject;
@@ -524,6 +580,9 @@ begin
   edCadEnd_Municipio.TagString := AIbge;
   edCadEnd_Municipio.Tag := Aid;
   edCadEnd_Municipio.Text := ANome;
+
+  if Trim(edCadEnd_Municipio.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
 end;
 
 procedure TfrmEmpresa.edCadEnd_MunicipioKeyDown(Sender: TObject; var Key: Word;
@@ -563,6 +622,9 @@ procedure TfrmEmpresa.Seleciona_Pais(Aid:Integer; ANome:String);
 begin
   edCadEnd_Pais.Tag := Aid;
   edCadEnd_Pais.Text := ANome;
+
+  if Trim(edCadEnd_Pais.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Pais,lbCadEnd_Pais,faCadEnd_Pais,10,-20);
 end;
 
 procedure TfrmEmpresa.edCadEnd_PaisTyping(Sender: TObject);
@@ -583,6 +645,9 @@ procedure TfrmEmpresa.Seleciona_Regiao(Aid:Integer; ANome:String);
 begin
   edCadEnd_Regiao.Tag := Aid;
   edCadEnd_Regiao.Text := ANome;
+
+  if Trim(edCadEnd_Regiao.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Regiao,lbCadEnd_Regiao,faCadEnd_Regiao,10,-20);
 end;
 
 procedure TfrmEmpresa.edCadEnd_RegiaoKeyDown(Sender: TObject; var Key: Word;
@@ -611,6 +676,9 @@ begin
   edCadEnd_UF.Tag := AId;
   edCadEnd_UF.TagString := ASiglaUF;
   edCadEnd_UF.Text := ANome;
+
+  if Trim(edCadEnd_UF.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
 end;
 
 procedure TfrmEmpresa.edCadEnd_UFKeyDown(Sender: TObject; var Key: Word;
@@ -685,6 +753,7 @@ begin
         edRazaoSocial.Tag := jsonArray.Get(x).GetValue<Integer>('id',0);
         edRazaoSocial.Text := jsonArray.Get(x).GetValue<String>('razaoSocial','');
         lbId.Text := FormatFloat('#,##0',edRazaoSocial.Tag);
+        lbId.Tag := edRazaoSocial.Tag;
         edNomeFantasia.Text := jsonArray.Get(x).GetValue<String>('nomeFantasia','');
         edStatus.Tag := jsonArray.Get(x).GetValue<Integer>('status',0);
         case edStatus.Tag of
@@ -719,6 +788,19 @@ begin
 
   t.OnTerminate := ThreadEnd_Edit;
   t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_Edit(Sender: TOBject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'','Erro editar um registro: ' + Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    Configura_Botoes(4);
+    Listar_Endereco(0,lbId.Tag,True);
+    Exibe_Labels;
+    FProcessandoEnd := '';
+  end;
 end;
 
 procedure TfrmEmpresa.EditarRegistro(Sender: TOBject);
@@ -866,8 +948,70 @@ begin
 end;
 
 procedure TfrmEmpresa.imgCadEnd_CepClick(Sender: TObject);
+var
+  t :TThread;
+  lCep :String;
+
 begin
-  //
+
+  if Trim(edCadEnd_Cep.Text) = '' then
+    raise Exception.Create('Obrigatório informar o CEP');
+
+  TLoading.Show(frmEmpresa,'Buscanco Cep');
+
+  lCep := TFuncoes.SomenteNumero(edCadEnd_Cep.Text);
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    jsonObject: TJSONObject;
+  begin
+      jsonObject := Dm_DeskTop.BuscaCep_Cep(lCep);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        edCadEnd_Logradouro.Text := jsonObject.GetValue<String>('logradouro');
+        edCadEnd_Complemento.Text := jsonObject.GetValue<String>('complemento');
+        edCadEnd_Bairro.Text := jsonObject.GetValue<String>('bairro');
+        edCadEnd_Municipio.Text := jsonObject.GetValue<String>('localidade');
+        edCadEnd_Municipio.TagString := jsonObject.GetValue<String>('ibge');
+        edCadEnd_UF.TagString := jsonObject.GetValue<String>('uf');
+        edCadEnd_UF.Text := TFuncoes.Unidade_Federativa(edCadEnd_UF.TagString);
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        if Trim(edCadEnd_Logradouro.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Logradouro,lbCadEnd_Logradouro,faCadEnd_Logradouro,10,-20);
+        if Trim(edCadEnd_Complemento.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Complemento,lbCadEnd_Complemento,faCadEnd_Complemento,10,-20);
+        if Trim(edCadEnd_Bairro.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Bairro,lbCadEnd_Bairro,faCadEnd_Bairro,10,-20);
+        if Trim(edCadEnd_Municipio.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
+        if Trim(edCadEnd_UF.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
+      end);
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonObject);
+      {$ELSE}
+        jsonObject.DisposeOf;
+      {$ENDIF}
+  end);
+
+  t.OnTerminate := ThreadEnd_BuscaCep;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_BuscaCep(Sender :TObject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'','Erro ao buscar o Cep: ' + Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmEmpresa.imgEnderecoClick(Sender: TObject);
@@ -1002,6 +1146,132 @@ begin
   t.Start;
 end;
 
+procedure TfrmEmpresa.Listar_Endereco(
+  const APagina:Integer;
+  const AEmpresa: Integer;
+  const AInd_Clear: Boolean);
+var
+  t :TThread;
+begin
+  if FProcessandoEnd = 'processando' then
+      exit;
+  FProcessandoEnd := 'processando';
+
+  if AInd_Clear then
+  begin
+    lvEnderecos.ScrollTo(0);
+    lvEnderecos.Tag := 0;
+    lvEnderecos.Items.Clear;
+  end;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lErro :String;
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+
+    lvEnderecos.BeginUpdate;
+
+    if lvEnderecos.Tag >= 0 then
+      lvEnderecos.Tag := (lvEnderecos.Tag + 1);
+
+      jsonArray := Dm_DeskTop.EmpresaEnd_Lista(
+        lvEnderecos.Tag
+        ,AEmpresa);
+
+      for x := 0 to jsonArray.Size -1 do
+      begin
+        TThread.Synchronize(nil,
+        procedure
+        begin
+            AddEndItens_LV(
+              jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+              ,jsonArray.Get(x).GetValue<Integer>('id')
+              ,jsonArray.Get(x).GetValue<String>('pais')
+              ,jsonArray.Get(x).GetValue<String>('regiao')
+              ,jsonArray.Get(x).GetValue<String>('ibge')
+              ,jsonArray.Get(x).GetValue<String>('municipio')
+              ,jsonArray.Get(x).GetValue<String>('numero')
+              ,jsonArray.Get(x).GetValue<String>('siglaUf')
+              ,jsonArray.Get(x).GetValue<String>('bairro')
+              ,jsonArray.Get(x).GetValue<String>('cep')
+              ,jsonArray.Get(x).GetValue<String>('logradouro')
+              ,jsonArray.Get(x).GetValue<String>('complemento')
+            );
+        end);
+      end;
+
+      if jsonArray.Size = 0 then
+        lvEnderecos.Tag := -1;
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonArray);
+      {$ELSE}
+        jsonArray.DisposeOf;
+      {$ENDIF}
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        lvEnderecos.EndUpdate;
+      end);
+
+      //lvEnderecos.TagString := '';
+      FProcessando := '';
+
+      //Força a chamada do evento onUpdateObjects da listview...
+      lvEnderecos.Margins.Bottom := 6;
+      lvEnderecos.Margins.Bottom := 5;
+      //---------------------------------------------
+  end);
+
+  t.OnTerminate := ThreadEnd_ListaEnd;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.AddEndItens_LV(
+  const AIdEmpresa :Integer;
+  const AId :Integer;
+  const APais_Nome :String;
+  const ARegiao_Nome :String;
+  const AIbge :String;
+  const AMunicipio :String;
+  const ANr :String;
+  const AUf_Sigla :String;
+  const ABairro :String;
+  const ACep :String;
+  const ALogradouro :String;
+  const AComplemento :String);
+begin
+  with lvEnderecos.Items.Add do
+  begin
+    Tag := AId;
+    TListItemText(Objects.FindDrawable('edPais')).Text := APais_Nome;
+    TListItemText(Objects.FindDrawable('edRegiao')).Text := ARegiao_Nome;
+    TListItemText(Objects.FindDrawable('edIbge')).Text := AIbge;
+    TListItemText(Objects.FindDrawable('edMunicipio')).Text := AMunicipio;
+    TListItemText(Objects.FindDrawable('edNr')).Text := ANr;
+    TListItemText(Objects.FindDrawable('edUf')).Text := AUf_Sigla;
+    TListItemText(Objects.FindDrawable('edBairro')).Text := ABairro;
+    TListItemText(Objects.FindDrawable('edCep')).Text := ACep;
+    TListItemText(Objects.FindDrawable('edLogradouro')).Text := ALogradouro;
+    TListItemText(Objects.FindDrawable('edComplemento')).Text := AComplemento;
+    TListItemImage(Objects.FindDrawable('imgDelete')).Bitmap := imgDelete_Lista.Bitmap;
+    TListItemImage(Objects.FindDrawable('imgEdit')).Bitmap := imgEdit_Lista.Bitmap;
+  end;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_ListaEnd(Sender :TObject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
+      FMensagem.Show(TIconDialog.Error,'','Erro na carga dos Endereços: ' + Exception(TThread(Sender).FatalException).Message);
+  end;
+end;
+
 procedure TfrmEmpresa.ThreadEnd_Lista(Sender: TOBject);
 begin
   //TLoading.Hide;
@@ -1046,10 +1316,10 @@ end;
 
 procedure TfrmEmpresa.NovoEndereco(Sender: TOBject);
 begin
-  lytCadEndereco.Width := (rctTampa_Endereco.Width - 100);
-  lytCadEndereco.Height := (rctTampa_Endereco.Height - 100);
+  FStatusTable_End := TStatusTable.stInsert;
   rctTampa_Endereco.Align := TAlignLayout.Contents;
   rctTampa_Endereco.Visible := True;
+  edCadEnd_Logradouro.Tag := 0;
 end;
 
 procedure TfrmEmpresa.NovoTelefone(Sender: TOBject);
@@ -1078,8 +1348,68 @@ begin
 end;
 
 procedure TfrmEmpresa.SalvarEndereco(Sender: TObject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmEmpresa,'Salvando endereço');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    FDMem_Endereco.Active := False;
+    FDMem_Endereco.Active := True;
+    FDMem_Endereco.Insert;
+    FDMem_EnderecoID_EMPRESA.AsInteger := lbId.Tag;
+    FDMem_EnderecoID.AsInteger := edCadEnd_Logradouro.Tag;
+    FDMem_EnderecoCEP.AsString := edCadEnd_Cep.Text;
+    FDMem_EnderecoLOGRADOURO.AsString := edCadEnd_Logradouro.Text;
+    FDMem_EnderecoNUMERO.AsString := edCadEnd_Nr.Text;
+    FDMem_EnderecoCOMPLEMENTO.AsString := edCadEnd_Complemento.Text;
+    FDMem_EnderecoBAIRRO.AsString := edCadEnd_Bairro.Text;
+    FDMem_EnderecoIBGE.AsInteger := edCadEnd_Municipio.TagString.ToInteger;
+    FDMem_EnderecoMUNICIPIO.AsString := edCadEnd_Municipio.Text;
+    FDMem_EnderecoSIGLA_UF.AsString := edCadEnd_UF.TagString;
+    FDMem_EnderecoUF.AsString := edCadEnd_UF.Text;
+    FDMem_EnderecoREGIAO.AsString := edCadEnd_Regiao.Text;
+    FDMem_EnderecoCODIGO_PAIS.AsInteger := edCadEnd_Pais.Tag;
+    FDMem_EnderecoPAIS.AsString := edCadEnd_Pais.Text;
+    FDMem_EnderecoID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+    FDMem_EnderecoDT_CADASTRO.AsDateTime := Date;
+    FDMem_EnderecoHR_CADASTRO.AsDateTime := Time;
+    FDMem_Endereco.Post;
+
+    if FStatusTable_End = stInsert then
+    begin
+      if not Dm_DeskTop.EmpresaEnd_Cadastro(FDMem_Endereco.ToJSONArray,0) then
+        raise Exception.Create('Erro ao salvar as alterações');
+    end
+    else if FStatusTable_End = stUpdate then
+    begin
+      if not Dm_DeskTop.EmpresaEnd_Cadastro(FDMem_Endereco.ToJSONArray,1) then
+        raise Exception.Create('Erro ao salvar as alterações');
+    end;
+
+    FStatusTable := TStatusTable.stList;
+
+  end);
+
+  t.OnTerminate := ThreadEnd_SalvarEndereco;
+  t.Start;
+
+end;
+
+procedure TfrmEmpresa.ThreadEnd_SalvarEndereco(Sender: TObject);
+begin
+  TLoading.Hide;
   rctTampa_Endereco.Visible := False;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'','Erro ao buscar o Cep: ' + Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoEnd := '';
+    Listar_Endereco(0,lbId.Tag,True);
+  end;
 end;
 
 procedure TfrmEmpresa.rctCancelarClick(Sender: TObject);
@@ -1292,17 +1622,6 @@ begin
   begin
     FProcessando := '';
     Listar_Dados(0,edPesquisar.Text,True);
-  end;
-end;
-
-procedure TfrmEmpresa.ThreadEnd_Edit(Sender: TOBject);
-begin
-  if Assigned(TThread(Sender).FatalException) then
-    FMensagem.Show(TIconDialog.Error,'','Erro editar um registro: ' + Exception(TThread(Sender).FatalException).Message)
-  else
-  begin
-    Configura_Botoes(4);
-    Exibe_Labels;
   end;
 end;
 

@@ -139,6 +139,7 @@ type
     FFechar_Sistema :Boolean;
     FId_Selecionado :Integer;
     FNome_Selecionado :String;
+    FIbge_Selecionado :String;
     FStatusTable: TStatusTable;
 
     lUF_Ant :String;
@@ -229,7 +230,7 @@ begin
   with lvLista.Items.Add do
   begin
     Tag := ACodigo;
-    TagString := ANome;
+    TagString := AIBGE + ANome;
     TListItemText(Objects.FindDrawable('edNome')).TagString := ACodigo.ToString;
     TListItemText(Objects.FindDrawable('edNome')).Text := ANome;
     TListItemText(Objects.FindDrawable('edIBGE')).Text := AIBGE;
@@ -307,7 +308,7 @@ end;
 procedure TfrmMunicipios.Confirmar_Fechamento(Sender: TObject);
 begin
   if RetornaRegistro then
-    ExecuteOnClose(FId_Selecionado,FNome_Selecionado);
+    ExecuteOnClose(FId_Selecionado,FNome_Selecionado,FIbge_Selecionado);
 
   FFechar_Sistema := True;
   Close;
@@ -467,6 +468,7 @@ begin
   frmMunicipios := Nil;
   FId_Selecionado := 0;
   FNome_Selecionado := '';
+  FIbge_Selecionado := '';
 end;
 
 procedure TfrmMunicipios.FormCreate(Sender: TObject);
@@ -487,6 +489,8 @@ begin
   FStatusTable := TStatusTable.stList;
 
   FIdUF := 0;
+
+  tcPrincipal.ActiveTab := tiFiltro;
 end;
 
 procedure TfrmMunicipios.Incia_Campos;
@@ -633,7 +637,8 @@ procedure TfrmMunicipios.lvListaItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin
   FId_Selecionado := Aitem.Tag;
-  FNome_Selecionado := AItem.TagString;
+  FIbge_Selecionado := Copy(AItem.TagString,1,7);
+  FNome_Selecionado := StringReplace(AItem.TagString,FIbge_Selecionado,'',[rfReplaceAll]);
 end;
 
 procedure TfrmMunicipios.lvListaPaint(Sender: TObject; Canvas: TCanvas;

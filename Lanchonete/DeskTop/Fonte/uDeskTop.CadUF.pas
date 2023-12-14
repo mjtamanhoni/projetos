@@ -455,6 +455,7 @@ begin
   FStatusTable := TStatusTable.stList;
 
   FIdRegiao := 0;
+  tcPrincipal.ActiveTab := tiFiltro;
 
 end;
 

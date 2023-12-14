@@ -84,19 +84,19 @@ begin
 
       if lJson_Ret.Size = 0  then
       begin
-        Res.Send('EMPRESA_ENDERECO não localizados').Status(401);
-        TFuncoes.Gravar_Hitorico(lQuery,'EMPRESA_ENDERECO não localizado');
+        Res.Send('401 - Endereço da Empresa não localizados').Status(401);
+        TFuncoes.Gravar_Hitorico(lQuery,'Endereço da empresa não localizado');
       end
       else
       begin
         Res.Send(lJson_Ret).Status(200);
-        TFuncoes.Gravar_Hitorico(lQuery,'Listagem de EMPRESA_ENDERECO');
+        TFuncoes.Gravar_Hitorico(lQuery,'Listagem de Endereços da Empresa');
       end;
     except on E: Exception do
       begin
         Res.Send(E.Message).Status(500);
-        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Listar EMPRESA_ENDERECO: ' + E.Message);
-      end; 
+        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Listar Endereços da Empresa: ' + E.Message);
+      end;
     end; 
   finally 
     {$IFDEF MSWINDOWS} 

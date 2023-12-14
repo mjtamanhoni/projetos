@@ -422,6 +422,7 @@ begin
   Guia_Inicial := 0;
 
   FStatusTable := TStatusTable.stList;
+  tcPrincipal.ActiveTab := tiFiltro;
 end;
 
 procedure TfrmCadPaises.FormShow(Sender: TObject);

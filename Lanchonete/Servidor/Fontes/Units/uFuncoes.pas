@@ -108,6 +108,8 @@ type
       AStopValue:Integer=-25);
 
     class procedure PularCampo(AEdit_Destino: TObject);
+    class function SomenteNumero(ATexto:String):String;
+    class function Unidade_Federativa(const ASigla:String):String;
 
     class function BuscaCep(const ACep:String):TCep;
 
@@ -633,6 +635,16 @@ begin
   end;
 end;
 
+class function TFuncoes.SomenteNumero(ATexto: String): String;
+var
+    x : integer;
+begin
+    Result := '';
+    for x := 0 to Length(ATexto) - 1 do
+        if (ATexto.Chars[x] In ['0'..'9']) then
+            Result := Result + ATexto.Chars[x];
+end;
+
 class function TFuncoes.TestaConexao(out Conexao: String): Boolean;
 var
   {$IFDEF MSWINDOWS}
@@ -682,6 +694,69 @@ begin
     {$ELSE}
       NS.DisposeOf;
     {$ENDIF}
+  end;
+end;
+
+class function TFuncoes.Unidade_Federativa(const ASigla: String): String;
+begin
+  try
+    Result := '';
+    if ASigla = 'AC' then
+      Result := 'ACRE'
+    else if ASigla = 'AL' then
+      Result := 'ALAGOAS'
+    else if ASigla = 'AP' then
+      Result := 'AMAPÁ'
+    else if ASigla = 'AM' then
+      Result := 'AMAZONAS'
+    else if ASigla = 'BA' then
+      Result := 'BAHIA'
+    else if ASigla = 'CE' then
+      Result := 'CEARÁ'
+    else if ASigla = 'DF' then
+      Result := 'DISTRITO FEDERAL'
+    else if ASigla = 'ES' then
+      Result := 'ESPÍRITO SANTO'
+    else if ASigla = 'GO' then
+      Result := 'GOIÁS'
+    else if ASigla = 'MA' then
+      Result := 'MARANHÃO'
+    else if ASigla = 'MT' then
+      Result := 'MATO GROSSO'
+    else if ASigla = 'MS' then
+      Result := 'MATO GROSSO DO SUL'
+    else if ASigla = 'MG' then
+      Result := 'MINAS GERAIS'
+    else if ASigla = 'PA' then
+      Result := 'PARÁ'
+    else if ASigla = 'PB' then
+      Result := 'PARAÍBA'
+    else if ASigla = 'PR' then
+      Result := 'PARANÁ'
+    else if ASigla = 'PE' then
+      Result := 'PERNAMBUCO'
+    else if ASigla = 'PI' then
+      Result := 'PIAUÍ'
+    else if ASigla = 'RJ' then
+      Result := 'RIO DE JANEIRO'
+    else if ASigla = 'RN' then
+      Result := 'RIO GRANDE DO NORTE'
+    else if ASigla = 'RS' then
+      Result := 'RIO GRANDE DO SUL'
+    else if ASigla = 'RO' then
+      Result := 'RONDÔNIA'
+    else if ASigla = 'RR' then
+      Result := 'RORAIMA'
+    else if ASigla = 'SC' then
+      Result := 'SANTA CATARINA'
+    else if ASigla = 'SP' then
+      Result := 'SÃO PAULO'
+    else if ASigla = 'SE' then
+      Result := 'SERGIPE'
+    else if ASigla = 'TO' then
+      Result := 'TOCANTINS';
+  except on E: Exception do
+    raise Exception.Create(E.Message);
   end;
 end;
 

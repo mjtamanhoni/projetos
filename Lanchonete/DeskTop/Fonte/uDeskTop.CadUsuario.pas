@@ -736,6 +736,8 @@ begin
   Guia_Inicial := 0;
 
   FStatusTable := TStatusTable.stList;
+
+  tcPrincipal.ActiveTab := tiFiltro;
 end;
 
 procedure TfrmCadUsuario.FormShow(Sender: TObject);

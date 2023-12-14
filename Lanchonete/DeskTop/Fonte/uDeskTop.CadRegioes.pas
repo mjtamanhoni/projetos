@@ -417,6 +417,7 @@ begin
   FMensagem := TFancyDialog.Create(frmCad_Regioes);
 
   FStatusTable := TStatusTable.stList;
+  tcPrincipal.ActiveTab := tiFiltro;
 end;
 
 procedure TfrmCad_Regioes.FormShow(Sender: TObject);
