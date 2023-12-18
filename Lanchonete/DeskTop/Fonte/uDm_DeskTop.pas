@@ -127,7 +127,6 @@ type
           const ACodigo:Integer=0;
           const ADocumento:String='';
           const ANome:String=''): TJSONArray;
-
         function Empresa_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
         function Empresa_Excluir(const ACodigo:Integer=0):Boolean;
 
@@ -135,9 +134,10 @@ type
         function EmpresaEnd_Lista(
           const APagina:Integer=0;
           const ACodEmpresa:Integer=0): TJSONArray;
-
         function EmpresaEnd_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
-        function EmpresaEnd_Excluir(const ACodigo:Integer=0):Boolean;
+        function EmpresaEnd_Excluir(
+          const ACodEmpresa :Integer=0;
+          const ACodigo :Integer=0):Boolean;
 
         //Telefone...
 
@@ -463,9 +463,49 @@ begin
   end;
 end;
 
-function TDm_DeskTop.EmpresaEnd_Excluir(const ACodigo:Integer=0): Boolean;
+function TDm_DeskTop.EmpresaEnd_Excluir(
+          const ACodEmpresa :Integer=0;
+          const ACodigo :Integer=0): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
 begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
 
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('empresa/endereco')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('empresaId',ACodEmpresa.ToString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('Endereço da Empresa não excluído');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
 end;
 
 function TDm_DeskTop.EmpresaEnd_Lista(

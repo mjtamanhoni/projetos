@@ -157,8 +157,6 @@ type
     lvEnderecos: TListView;
     lvTelefone: TListView;
     lvEmail: TListView;
-    rctAdd_Adicional: TRectangle;
-    imgAdd_Adicional: TImage;
     rctTampa_Endereco: TRectangle;
     lytCadEndereco: TLayout;
     rctCadEndereco: TRectangle;
@@ -229,6 +227,18 @@ type
     ShadowEffect3: TShadowEffect;
     lytAdicionais: TLayout;
     lytAdicionais_Nav: TLayout;
+    lytExclui_Adicionais: TLayout;
+    lytEdita_Adicionais: TLayout;
+    lytNovo_Adicionais: TLayout;
+    rctNovo_Adicionais: TRectangle;
+    rctExclui_Adicionais: TRectangle;
+    rctEdita_Adicionais: TRectangle;
+    Circle_Edita_Adicionais: TCircle;
+    CircleExclui_Adicionais: TCircle;
+    CircleNovo_Adicionais: TCircle;
+    imgNovo_Adicionais: TImage;
+    imgExclui_Adicionais: TImage;
+    imgEdita_Adicionais: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -270,7 +280,6 @@ type
     procedure edInscEstadualTyping(Sender: TObject);
     procedure edInsMunicipalTyping(Sender: TObject);
     procedure imgEnderecoClick(Sender: TObject);
-    procedure rctAdd_AdicionalClick(Sender: TObject);
     procedure rctCadEndereco_ConfirmarClick(Sender: TObject);
     procedure rctCadEndereco_CancelarClick(Sender: TObject);
     procedure edCadEnd_CepKeyDown(Sender: TObject; var Key: Word;
@@ -303,8 +312,11 @@ type
     procedure edCadEnd_RegiaoClick(Sender: TObject);
     procedure edCadEnd_PaisClick(Sender: TObject);
     procedure imgCadEnd_CepClick(Sender: TObject);
-    procedure lvEnderecosItemClickEx(const Sender: TObject; ItemIndex: Integer;
-      const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
+    procedure lvEnderecosItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure rctNovo_AdicionaisClick(Sender: TObject);
+    procedure rctExclui_AdicionaisClick(Sender: TObject);
+    procedure rctEdita_AdicionaisClick(Sender: TObject);
   private
     FProcessando: String;
     FProcessandoEnd: String;
@@ -365,7 +377,8 @@ type
       procedure Listar_Endereco(
         const APagina:Integer;
         const AEmpresa:Integer;
-        const AInd_Clear:Boolean);
+        const AInd_Clear:Boolean;
+        const AId_Endereco:Integer=0);
       procedure ThreadEnd_BuscaCep(Sender: TObject);
       procedure ThreadEnd_SalvarEndereco(Sender: TObject);
       procedure AddEndItens_LV(
@@ -382,6 +395,12 @@ type
         const ALogradouro :String;
         const AComplemento: String);
       procedure ThreadEnd_ListaEnd(Sender: TObject);
+      procedure Seleciona_Municipio(Aid: Integer; ANome: String; AIbge:String);
+      procedure Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
+      procedure Seleciona_Regiao(Aid: Integer; ANome: String);
+      procedure Seleciona_Pais(Aid: Integer; ANome: String);
+      procedure Excluir_Endereco(Sender: TObject);
+      procedure Editar_Endereco(Sender: TObject);
     {$EndRegion 'Endereço'}
 
     {$Region 'Email'}
@@ -390,14 +409,14 @@ type
 
     {$Region 'Telefone'}
       procedure NovoTelefone(Sender: TOBject);
+    procedure ThreadEnd_DeletarEndereco(Sender: TOBject);
+    procedure Excluir_Telefone(Sender: TOBject);
+    procedure Excluir_Email(Sender: TObject);
+    procedure Editar_Telefone(Sender: TObject);
+    procedure Editar_Email(Sender: TObject);
+    procedure Limpar_Endereco;
     {$EndRegion 'Telefone'}
 
-    procedure Seleciona_Municipio(Aid: Integer; ANome: String; AIbge:String);
-    procedure Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
-    procedure Seleciona_Regiao(Aid: Integer; ANome: String);
-    procedure Seleciona_Pais(Aid: Integer; ANome: String);
-    procedure Excluir_Endereco(Sender: TObject);
-    procedure Editar_Endereco(Sender: TObject);
 
   public
     ExecuteOnClose :TExecuteOnClose;
@@ -1157,7 +1176,8 @@ end;
 procedure TfrmEmpresa.Listar_Endereco(
   const APagina:Integer;
   const AEmpresa: Integer;
-  const AInd_Clear: Boolean);
+  const AInd_Clear: Boolean;
+  const AId_Endereco:Integer=0);
 var
   t :TThread;
 begin
@@ -1194,6 +1214,8 @@ begin
         TThread.Synchronize(nil,
         procedure
         begin
+          //if AId_Endereco > 0 then
+          //begin
             AddEndItens_LV(
               jsonArray.Get(x).GetValue<Integer>('idEmpresa')
               ,jsonArray.Get(x).GetValue<Integer>('id')
@@ -1208,6 +1230,32 @@ begin
               ,jsonArray.Get(x).GetValue<String>('logradouro')
               ,jsonArray.Get(x).GetValue<String>('complemento')
             );
+          {
+          end
+          else
+          begin
+            if AId_Endereco = jsonArray.Get(x).GetValue<Integer>('id') then
+            begin
+              //Abrindo formulário de cadastro/edição de endereço...
+              rctCadEndereco.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+              edCadEnd_Cep.Text := jsonArray.Get(x).GetValue<String>('cep');
+              edCadEnd_Logradouro.Text := jsonArray.Get(x).GetValue<String>('logradouro');
+              edCadEnd_Complemento.Text := jsonArray.Get(x).GetValue<String>('complemento');
+              edCadEnd_Bairro.Text := jsonArray.Get(x).GetValue<String>('bairro');
+              edCadEnd_Municipio.Text := jsonArray.Get(x).GetValue<String>('municipio');
+              edCadEnd_Municipio.TagString := jsonArray.Get(x).GetValue<String>('ibge');
+              edCadEnd_Municipio.Tag := jsonArray.Get(x).GetValue<Integer>('idMunicipio');  //Verificar se existe na lista
+              edCadEnd_UF.TagString := jsonArray.Get(x).GetValue<String>('siglaUf');
+              edCadEnd_UF.Text := jsonArray.Get(x).GetValue<String>('Uf');  //Verificar se existe na lista
+              edCadEnd_UF.Tag := jsonArray.Get(x).GetValue<Integer>('idUf');  //Verificar se existe na lista
+              edCadEnd_Nr.Text := jsonArray.Get(x).GetValue<String>('numero');
+              edCadEnd_Regiao.Tag := jsonArray.Get(x).GetValue<Integer>('idRegiao');  //Verificar se existe na lista
+              edCadEnd_Regiao.Text := jsonArray.Get(x).GetValue<String>('regiao');
+              edCadEnd_Pais.Tag := jsonArray.Get(x).GetValue<Integer>('idPais');
+              edCadEnd_Pais.Text := jsonArray.Get(x).GetValue<String>('pais');
+            end;
+          end;
+          }
         end);
       end;
 
@@ -1266,8 +1314,8 @@ begin
     TListItemText(Objects.FindDrawable('edCep')).Text := ACep;
     TListItemText(Objects.FindDrawable('edLogradouro')).Text := ALogradouro;
     TListItemText(Objects.FindDrawable('edComplemento')).Text := AComplemento;
-    TListItemImage(Objects.FindDrawable('imgDelete')).Bitmap := imgDelete_Lista.Bitmap;
-    TListItemImage(Objects.FindDrawable('imgEdit')).Bitmap := imgEdit_Lista.Bitmap;
+    //TListItemImage(Objects.FindDrawable('imgDelete')).Bitmap := imgDelete_Lista.Bitmap;
+    //TListItemImage(Objects.FindDrawable('imgEdit')).Bitmap := imgEdit_Lista.Bitmap;
   end;
 end;
 
@@ -1291,36 +1339,10 @@ begin
   end;
 end;
 
-procedure TfrmEmpresa.lvEnderecosItemClickEx(const Sender: TObject;
-  ItemIndex: Integer; const LocalClickPos: TPointF;
-  const ItemObject: TListItemDrawable);
+procedure TfrmEmpresa.lvEnderecosItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
 begin
-  if TListView(Sender).Selected <> Nil then
-  begin
-    if ItemObject is TListItemImage then
-    begin
-      if TListItemImage(ItemObject).Name = 'imgDelete' then
-      begin
-        FEndereco_Id := TListView(Sender).Selected.Tag;
-        FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Endereco,'NÃO');
-      end
-      else if TListItemImage(ItemObject).Name = 'imgEdit' then
-      begin
-        FEndereco_Id := TListView(Sender).Selected.Tag;
-        FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Endereco,'NÃO');
-      end;
-    end;
-  end;
-end;
-
-procedure TfrmEmpresa.Excluir_Endereco(Sender :TObject);
-begin
-  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
-end;
-
-procedure TfrmEmpresa.Editar_Endereco(Sender :TObject);
-begin
-  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
+  FEndereco_Id := AItem.Tag;
 end;
 
 procedure TfrmEmpresa.lvListaItemClick(const Sender: TObject;
@@ -1348,21 +1370,33 @@ begin
   Configura_Botoes(0);
 end;
 
-procedure TfrmEmpresa.rctAdd_AdicionalClick(Sender: TObject);
-begin
-  case tcAdicionais.TabIndex of
-    0:FMensagem.Show(TIconDialog.Question,'Endereço','Deseja incluir um novo Endereço?','SIM',NovoEndereco,'NÃO');
-    1:FMensagem.Show(TIconDialog.Question,'Telefone','Deseja incluir um novo Telefone?','SIM',NovoTelefone,'NÃO');
-    2:FMensagem.Show(TIconDialog.Question,'E-mail','Deseja incluir um novo E-mail?','SIM',NovoEmail,'NÃO');
-  end;
-end;
-
 procedure TfrmEmpresa.NovoEndereco(Sender: TOBject);
 begin
+  Limpar_Endereco;
+
   FStatusTable_End := TStatusTable.stInsert;
   rctTampa_Endereco.Align := TAlignLayout.Contents;
   rctTampa_Endereco.Visible := True;
   edCadEnd_Logradouro.Tag := 0;
+end;
+
+procedure TfrmEmpresa.Limpar_Endereco;
+begin
+  edCadEnd_Cep.Text := '';
+  edCadEnd_Logradouro.Text := '';
+  edCadEnd_Complemento.Text := '';
+  edCadEnd_Bairro.Text := '';
+  edCadEnd_Municipio.Text := '';
+  edCadEnd_Municipio.TagString := '';
+  edCadEnd_Municipio.Tag := 0;
+  edCadEnd_UF.TagString := '';
+  edCadEnd_UF.Text := '';
+  edCadEnd_UF.Tag := 0;
+  edCadEnd_Nr.Text := '';
+  edCadEnd_Regiao.Tag := 0;
+  edCadEnd_Regiao.Text := '';
+  edCadEnd_Pais.Tag := 0;
+  edCadEnd_Pais.Text := '';
 end;
 
 procedure TfrmEmpresa.NovoTelefone(Sender: TOBject);
@@ -1476,9 +1510,95 @@ begin
   FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o registro selecionado?','SIM',EditarRegistro,'NÃO');
 end;
 
+procedure TfrmEmpresa.rctEdita_AdicionaisClick(Sender: TObject);
+begin
+  case tcAdicionais.TabIndex of
+    0:FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Endereco,'NÃO');
+    1:FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Telefone,'NÃO');
+    2:FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Email,'NÃO');
+  end;
+end;
+
+procedure TfrmEmpresa.Editar_Endereco(Sender :TObject);
+var
+  t :TThread;
+
+begin
+  Limpar_Endereco;
+  Listar_Endereco(0,FId_Selecionado,True,FEndereco_Id);
+end;
+
+procedure TfrmEmpresa.Editar_Telefone(Sender :TObject);
+begin
+  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
+end;
+
+procedure TfrmEmpresa.Editar_Email(Sender :TObject);
+begin
+  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
+end;
+
+procedure TfrmEmpresa.rctExclui_AdicionaisClick(Sender: TObject);
+begin
+  case tcAdicionais.TabIndex of
+    0:FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Endereco,'NÃO');
+    1:FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Telefone,'NÃO');
+    2:FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Email,'NÃO');
+  end;
+end;
+
+procedure TfrmEmpresa.Excluir_Endereco(Sender :TObject);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmEmpresa,'Excluindo endereço');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    Dm_DeskTop.EmpresaEnd_Excluir(lbId.Tag,FEndereco_Id);
+  end);
+
+  t.OnTerminate := ThreadEnd_DeletarEndereco;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_DeletarEndereco(Sender :TOBject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    //lvEnderecos.Tag := 0;
+    FProcessandoEnd := '';
+    Listar_Endereco(0,lbId.Tag,True);
+  end;
+end;
+
+procedure TfrmEmpresa.Excluir_Telefone(Sender :TOBject);
+begin
+
+end;
+
+procedure TfrmEmpresa.Excluir_Email(Sender :TObject);
+begin
+
+end;
+
 procedure TfrmEmpresa.rctFecharClick(Sender: TObject);
 begin
   FMensagem.Show(TIconDialog.Question,'Atenção','Deseja fechar as Configurações?','SIM',Confirmar_Fechamento,'NÃO',Abortar_Fechamento);
+end;
+
+procedure TfrmEmpresa.rctNovo_AdicionaisClick(Sender: TObject);
+begin
+  case tcAdicionais.TabIndex of
+    0:FMensagem.Show(TIconDialog.Question,'Endereço','Deseja incluir um novo Endereço?','SIM',NovoEndereco,'NÃO');
+    1:FMensagem.Show(TIconDialog.Question,'Telefone','Deseja incluir um novo Telefone?','SIM',NovoTelefone,'NÃO');
+    2:FMensagem.Show(TIconDialog.Question,'E-mail','Deseja incluir um novo E-mail?','SIM',NovoEmail,'NÃO');
+  end;
 end;
 
 procedure TfrmEmpresa.rctStatus_AtivoClick(Sender: TObject);

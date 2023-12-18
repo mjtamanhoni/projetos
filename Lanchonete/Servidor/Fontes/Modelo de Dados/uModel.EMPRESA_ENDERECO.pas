@@ -595,14 +595,14 @@ begin
   try 
     try 
       AFDQ_Query.Connection := FConexao; 
-      AFDQ_Query.Active := False; 
-      AFDQ_Query.Sql.Clear; 
-      AFDQ_Query.Sql.Add('DELETE FROM EMPRESA_ENDERECO '); 
-      AFDQ_Query.Sql.Add('WHERE NOT ID IS NULL '); 
-      AFDQ_Query.Sql.Add('  AND ID_EMPRESA = :ID_EMPRESA');
-      AFDQ_Query.Sql.Add('  AND ID = :ID');
-      AFDQ_Query.ParamByName('ID_EMPRESA').AsInteger := AID_EMPRESA;
-      AFDQ_Query.ParamByName('ID').AsInteger := AID;
+      AFDQ_Query.Active := False;
+      AFDQ_Query.Sql.Clear;
+      AFDQ_Query.Sql.Add('DELETE FROM EMPRESA_ENDERECO ');
+      AFDQ_Query.Sql.Add('WHERE NOT ID IS NULL ');
+      if AID_EMPRESA > 0 then
+        AFDQ_Query.Sql.Add('  AND ID_EMPRESA = ' + AID_EMPRESA.ToString);
+      if AID > 0 then
+        AFDQ_Query.Sql.Add('  AND ID = ' + AID.ToString);
       AFDQ_Query.ExecSQL;
     except 
       On Ex:Exception do 

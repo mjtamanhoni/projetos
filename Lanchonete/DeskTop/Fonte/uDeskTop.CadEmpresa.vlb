@@ -76,9 +76,6 @@ Coordinates=637,10,97,58
 [tiTelefone]
 Coordinates=579,616,71,36
 
-[imgAdd_Adicional]
-Coordinates=10,388,118,58
-
 [imgCancelar]
 Coordinates=988,388,87,58
 
@@ -129,9 +126,6 @@ Coordinates=1028,276,210,36
 
 [imgExpandir]
 Coordinates=1042,320,86,58
-
-[rctAdd_Adicional]
-Coordinates=813,570,111,36
 
 [imgConfirmar]
 Coordinates=277,320,92,58
@@ -351,5 +345,5 @@ Coordinates=800,456,80,36
 Coordinates=707,456,83,36
 
 []
-Coordinates=1178,570,137,36
+Coordinates=813,570,111,36
 

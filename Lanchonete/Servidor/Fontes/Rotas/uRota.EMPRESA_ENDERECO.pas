@@ -276,17 +276,17 @@ begin
       lQuery := TFDQuery.Create(Nil); 
       lQuery.Connection := DM_Lanchonete.FDC_Lanchonete; 
  
-      lID_EMPRESA := StrToIntDef(Req.Query['idEmpresa'],0); 
+      lID_EMPRESA := StrToIntDef(Req.Query['empresaId'],0);
       lID := StrToIntDef(Req.Query['id'],0); 
  
       lTEMPRESA_ENDERECO.Excluir(lQuery,lID_EMPRESA,lId);
 
-      Res.Send('EMPRESA_ENDERECO excluído').Status(200);
-      TFuncoes.Gravar_Hitorico(lQuery,'EMPRESA_ENDERECO excluído');
+      Res.Send('Endereço da Empresa excluído').Status(200);
+      TFuncoes.Gravar_Hitorico(lQuery,'Endereço da Empresa excluído');
     except on E: Exception do
       begin
         Res.Send(E.Message).Status(500);
-        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao excluir o EMPRESA_ENDERECO: ' + E.Message);
+        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao excluir o endereço da Empresa: ' + E.Message);
       end; 
     end; 
   finally 
