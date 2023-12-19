@@ -133,7 +133,8 @@ type
         //Endereço...
         function EmpresaEnd_Lista(
           const APagina:Integer=0;
-          const ACodEmpresa:Integer=0): TJSONArray;
+          const ACodEmpresa:Integer=0;
+          const AEndereco:Integer=0): TJSONArray;
         function EmpresaEnd_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
         function EmpresaEnd_Excluir(
           const ACodEmpresa :Integer=0;
@@ -510,7 +511,8 @@ end;
 
 function TDm_DeskTop.EmpresaEnd_Lista(
           const APagina:Integer=0;
-          const ACodEmpresa:Integer=0): TJSONArray;
+          const ACodEmpresa:Integer=0;
+          const AEndereco:Integer=0): TJSONArray;
 var
   lHost :String;
   lResp :IResponse;
@@ -530,6 +532,7 @@ begin
              .Resource('empresa/endereco')
              .TokenBearer(FDMem_UsuariosTOKEN.AsString)
              .AddParam('idEmpresa',ACodEmpresa.ToString)
+             .AddParam('id',AEndereco.ToString)
              .AddParam('pagina',APagina.ToString)
              .Accept('application/json')
              .Get;

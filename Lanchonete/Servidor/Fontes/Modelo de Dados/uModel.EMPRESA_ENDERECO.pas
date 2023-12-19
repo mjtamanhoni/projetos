@@ -396,6 +396,8 @@ begin
       AFDQ_Query.Sql.Add('WHERE NOT ID_EMPRESA IS NULL');
       if AID_EMPRESA > 0 then
         AFDQ_Query.Sql.Add('  AND ID_EMPRESA = ' + AID_EMPRESA.ToString);
+      if AID > 0 then
+        AFDQ_Query.Sql.Add('  AND ID = ' + AID.ToString);
 
       AFDQ_Query.Active := True;
       Result := AFDQ_Query.ToJSONArray;

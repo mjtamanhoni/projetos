@@ -328,6 +328,7 @@ type
     FFechar_Sistema :Boolean;
     FId_Selecionado :Integer;
     FNome_Selecionado :String;
+    FCod_Empresa :Integer;
 
     {$Region 'Endereço'}
       FEndereco_Id :Integer;
@@ -415,6 +416,8 @@ type
     procedure Editar_Telefone(Sender: TObject);
     procedure Editar_Email(Sender: TObject);
     procedure Limpar_Endereco;
+    procedure ThreadEnd_EditaEndereco(Sender: TOBject);
+    procedure Exibir_Labels_Endereco;
     {$EndRegion 'Telefone'}
 
 
@@ -963,6 +966,8 @@ begin
     lEnder_Ini := TPath.Combine(FEnder,'CONFIG_DESKTOP.ini');
   {$ENDIF}
   FIniFile := TIniFile.Create(lEnder_Ini);
+  //FCod_Empresa := 0;
+  //FCod_Empresa := FIniFile.ReadInteger('','',0);
 
   FMensagem := TFancyDialog.Create(frmEmpresa);
 
@@ -1214,48 +1219,20 @@ begin
         TThread.Synchronize(nil,
         procedure
         begin
-          //if AId_Endereco > 0 then
-          //begin
-            AddEndItens_LV(
-              jsonArray.Get(x).GetValue<Integer>('idEmpresa')
-              ,jsonArray.Get(x).GetValue<Integer>('id')
-              ,jsonArray.Get(x).GetValue<String>('pais')
-              ,jsonArray.Get(x).GetValue<String>('regiao')
-              ,jsonArray.Get(x).GetValue<String>('ibge')
-              ,jsonArray.Get(x).GetValue<String>('municipio')
-              ,jsonArray.Get(x).GetValue<String>('numero')
-              ,jsonArray.Get(x).GetValue<String>('siglaUf')
-              ,jsonArray.Get(x).GetValue<String>('bairro')
-              ,jsonArray.Get(x).GetValue<String>('cep')
-              ,jsonArray.Get(x).GetValue<String>('logradouro')
-              ,jsonArray.Get(x).GetValue<String>('complemento')
-            );
-          {
-          end
-          else
-          begin
-            if AId_Endereco = jsonArray.Get(x).GetValue<Integer>('id') then
-            begin
-              //Abrindo formulário de cadastro/edição de endereço...
-              rctCadEndereco.Tag := jsonArray.Get(x).GetValue<Integer>('id');
-              edCadEnd_Cep.Text := jsonArray.Get(x).GetValue<String>('cep');
-              edCadEnd_Logradouro.Text := jsonArray.Get(x).GetValue<String>('logradouro');
-              edCadEnd_Complemento.Text := jsonArray.Get(x).GetValue<String>('complemento');
-              edCadEnd_Bairro.Text := jsonArray.Get(x).GetValue<String>('bairro');
-              edCadEnd_Municipio.Text := jsonArray.Get(x).GetValue<String>('municipio');
-              edCadEnd_Municipio.TagString := jsonArray.Get(x).GetValue<String>('ibge');
-              edCadEnd_Municipio.Tag := jsonArray.Get(x).GetValue<Integer>('idMunicipio');  //Verificar se existe na lista
-              edCadEnd_UF.TagString := jsonArray.Get(x).GetValue<String>('siglaUf');
-              edCadEnd_UF.Text := jsonArray.Get(x).GetValue<String>('Uf');  //Verificar se existe na lista
-              edCadEnd_UF.Tag := jsonArray.Get(x).GetValue<Integer>('idUf');  //Verificar se existe na lista
-              edCadEnd_Nr.Text := jsonArray.Get(x).GetValue<String>('numero');
-              edCadEnd_Regiao.Tag := jsonArray.Get(x).GetValue<Integer>('idRegiao');  //Verificar se existe na lista
-              edCadEnd_Regiao.Text := jsonArray.Get(x).GetValue<String>('regiao');
-              edCadEnd_Pais.Tag := jsonArray.Get(x).GetValue<Integer>('idPais');
-              edCadEnd_Pais.Text := jsonArray.Get(x).GetValue<String>('pais');
-            end;
-          end;
-          }
+          AddEndItens_LV(
+            jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+            ,jsonArray.Get(x).GetValue<Integer>('id')
+            ,jsonArray.Get(x).GetValue<String>('pais')
+            ,jsonArray.Get(x).GetValue<String>('regiao')
+            ,jsonArray.Get(x).GetValue<String>('ibge')
+            ,jsonArray.Get(x).GetValue<String>('municipio')
+            ,jsonArray.Get(x).GetValue<String>('numero')
+            ,jsonArray.Get(x).GetValue<String>('siglaUf')
+            ,jsonArray.Get(x).GetValue<String>('bairro')
+            ,jsonArray.Get(x).GetValue<String>('cep')
+            ,jsonArray.Get(x).GetValue<String>('logradouro')
+            ,jsonArray.Get(x).GetValue<String>('complemento')
+          );
         end);
       end;
 
@@ -1437,7 +1414,7 @@ begin
     FDMem_Endereco.Active := True;
     FDMem_Endereco.Insert;
     FDMem_EnderecoID_EMPRESA.AsInteger := lbId.Tag;
-    FDMem_EnderecoID.AsInteger := edCadEnd_Logradouro.Tag;
+    FDMem_EnderecoID.AsInteger := rctCadEndereco.Tag;// edCadEnd_Logradouro.Tag;
     FDMem_EnderecoCEP.AsString := edCadEnd_Cep.Text;
     FDMem_EnderecoLOGRADOURO.AsString := edCadEnd_Logradouro.Text;
     FDMem_EnderecoNUMERO.AsString := edCadEnd_Nr.Text;
@@ -1522,10 +1499,88 @@ end;
 procedure TfrmEmpresa.Editar_Endereco(Sender :TObject);
 var
   t :TThread;
-
 begin
   Limpar_Endereco;
-  Listar_Endereco(0,FId_Selecionado,True,FEndereco_Id);
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+    jsonArray := Dm_DeskTop.EmpresaEnd_Lista(
+      0
+      ,FId_Selecionado
+      ,FEndereco_Id);
+
+    for x := 0 to jsonArray.Size -1 do
+    begin
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        FStatusTable_End := TStatusTable.stUpdate;
+        rctTampa_Endereco.Align := TAlignLayout.Contents;
+        rctTampa_Endereco.Visible := True;
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        rctCadEndereco.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edCadEnd_Cep.Text := jsonArray.Get(x).GetValue<String>('cep');
+        edCadEnd_Logradouro.Text := jsonArray.Get(x).GetValue<String>('logradouro');
+        edCadEnd_Complemento.Text := jsonArray.Get(x).GetValue<String>('complemento');
+        edCadEnd_Bairro.Text := jsonArray.Get(x).GetValue<String>('bairro');
+        edCadEnd_Municipio.Text := jsonArray.Get(x).GetValue<String>('municipio');
+        edCadEnd_Municipio.TagString := jsonArray.Get(x).GetValue<String>('ibge');
+        edCadEnd_UF.TagString := jsonArray.Get(x).GetValue<String>('siglaUf');
+        edCadEnd_UF.Text := jsonArray.Get(x).GetValue<String>('uf');
+        edCadEnd_Nr.Text := jsonArray.Get(x).GetValue<String>('numero');
+        edCadEnd_Regiao.Text := jsonArray.Get(x).GetValue<String>('regiao');
+        edCadEnd_Pais.Tag := jsonArray.Get(x).GetValue<Integer>('codigoPais');
+        edCadEnd_Pais.Text := jsonArray.Get(x).GetValue<String>('pais');
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        Exibir_Labels_Endereco;
+      end);
+
+    end;
+  end);
+
+  t.OnTerminate := ThreadEnd_EditaEndereco;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_EditaEndereco(Sender :TOBject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Editar Endereço',Exception(TThread(Sender).FatalException).Message);
+end;
+
+procedure TfrmEmpresa.Exibir_Labels_Endereco;
+begin
+  if Trim(edCadEnd_Cep.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Cep,lbCadEnd_Cep,faCadEnd_Cep,10,-20);
+  if Trim(edCadEnd_Logradouro.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Logradouro,lbCadEnd_Logradouro,faCadEnd_Logradouro,10,-20);
+  if Trim(edCadEnd_Nr.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Nr,lbCadEdn_Nr,faCadEnd_Nr,10,-20);
+  if Trim(edCadEnd_Complemento.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Complemento,lbCadEnd_Complemento,faCadEnd_Complemento,10,-20);
+  if Trim(edCadEnd_Bairro.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Bairro,lbCadEnd_Bairro,faCadEnd_Bairro,10,-20);
+  if Trim(edCadEnd_Municipio.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
+  if Trim(edCadEnd_UF.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
+  if Trim(edCadEnd_Regiao.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Regiao,lbCadEnd_Regiao,faCadEnd_Regiao,10,-20);
+  if Trim(edCadEnd_Pais.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Pais,lbCadEnd_Pais,faCadEnd_Pais,10,-20);
 end;
 
 procedure TfrmEmpresa.Editar_Telefone(Sender :TObject);
