@@ -84,20 +84,20 @@ begin
  
       if lJson_Ret.Size = 0  then 
       begin 
-        Res.Send('EMPRESA_TELEFONES não localizados').Status(401); 
-        TFuncoes.Gravar_Hitorico(lQuery,'EMPRESA_TELEFONES não localizado');
+        Res.Send('Telefones não localizados').Status(401);
+        TFuncoes.Gravar_Hitorico(lQuery,'Telefones da Empressa não localizado');
       end
       else
       begin
         Res.Send(lJson_Ret).Status(200);
-        TFuncoes.Gravar_Hitorico(lQuery,'Listagem de EMPRESA_TELEFONES');
+        TFuncoes.Gravar_Hitorico(lQuery,'Listagem de Telefones da Empresa');
       end;
     except on E: Exception do
       begin
         Res.Send(E.Message).Status(500);
-        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Listar EMPRESA_TELEFONES: ' + E.Message);
-      end; 
-    end; 
+        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao listar Telefones da Empresa: ' + E.Message);
+      end;
+    end;
   finally 
     {$IFDEF MSWINDOWS} 
       FreeAndNil(lQuery); 

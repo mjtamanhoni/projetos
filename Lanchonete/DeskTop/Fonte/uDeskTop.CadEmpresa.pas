@@ -239,6 +239,41 @@ type
     imgNovo_Adicionais: TImage;
     imgExclui_Adicionais: TImage;
     imgEdita_Adicionais: TImage;
+    rctTampa_Telefone: TRectangle;
+    lytCad_Telefone: TLayout;
+    rctCad_Telefone: TRectangle;
+    ShadowEffect2: TShadowEffect;
+    lytCadTelefone_Footer: TLayout;
+    lytCadTel_Buttons: TLayout;
+    rctCadTel_Confirmar: TRectangle;
+    lbCadTel_Cnacelar: TLabel;
+    rctCadTel_Cancelar: TRectangle;
+    lbCadTel_Confirmar: TLabel;
+    lytCadTelefone_Detail: TLayout;
+    lytCadTelefone_Row001: TLayout;
+    edCadTel_Tipo: TEdit;
+    lbCadTel_Tipo: TLabel;
+    faCadTel_Tipo: TFloatAnimation;
+    edCadTel_Numero: TEdit;
+    lbCadTel_Numero: TLabel;
+    faCadTel_Numero: TFloatAnimation;
+    imgCadTel_Tipo: TImage;
+    rctCadTel_ListaTipo: TRectangle;
+    rctCadTel_Tipo_Comercial: TRectangle;
+    lbCadTel_Tipo_Comercial: TLabel;
+    rctCadTel_Tipo_Celular: TRectangle;
+    lbCadTel_Tipo_Celular: TLabel;
+    faCadTel_ListaTipo: TFloatAnimation;
+    rctCadTel_Tipo_Residencial: TRectangle;
+    lbCadTel_Tipo_Residencial: TLabel;
+    FDMem_Telefone: TFDMemTable;
+    FDMem_TelefoneID_EMPRESA: TIntegerField;
+    FDMem_TelefoneID: TIntegerField;
+    FDMem_TelefoneTIPO: TIntegerField;
+    FDMem_TelefoneNUMERO: TStringField;
+    FDMem_TelefoneID_USUARIO: TIntegerField;
+    FDMem_TelefoneDT_CADASTRO: TDateField;
+    FDMem_TelefoneHR_CADASTRO: TTimeField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -317,9 +352,21 @@ type
     procedure rctNovo_AdicionaisClick(Sender: TObject);
     procedure rctExclui_AdicionaisClick(Sender: TObject);
     procedure rctEdita_AdicionaisClick(Sender: TObject);
+    procedure edCadTel_NumeroTyping(Sender: TObject);
+    procedure edCadTel_TipoChange(Sender: TObject);
+    procedure edCadTel_TipoClick(Sender: TObject);
+    procedure edCadTel_TipoKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadTel_TipoTyping(Sender: TObject);
+    procedure rctCadTel_Tipo_CelularClick(Sender: TObject);
+    procedure rctCadTel_CancelarClick(Sender: TObject);
+    procedure rctCadTel_ConfirmarClick(Sender: TObject);
+    procedure lvTelefoneItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
   private
     FProcessando: String;
     FProcessandoEnd: String;
+    FProcessandoTel: String;
 
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
@@ -330,12 +377,14 @@ type
     FNome_Selecionado :String;
     FCod_Empresa :Integer;
 
-    {$Region 'Endereço'}
+    {$Region 'Complementos'}
       FEndereco_Id :Integer;
-    {$EndRegion 'Endereço'}
+      FTelefone_ID :Integer;
+      FStatusTable: TStatusTable;
+      FStatusTable_End: TStatusTable;
+      FStatusTable_Tel: TStatusTable;
+    {$EndRegion 'Complementos'}
 
-    FStatusTable: TStatusTable;
-    FStatusTable_End: TStatusTable;
 
     procedure Abortar_Fechamento(Sender: TOBject);
     procedure Confirmar_Fechamento(Sender :TObject);
@@ -375,13 +424,13 @@ type
       procedure NovoEndereco(Sender: TOBject);
       procedure CancelaEndereco(Sender: TObject);
       procedure SalvarEndereco(Sender: TObject);
+      procedure ThreadEnd_SalvarEndereco(Sender: TObject);
+      procedure ThreadEnd_BuscaCep(Sender: TObject);
       procedure Listar_Endereco(
         const APagina:Integer;
         const AEmpresa:Integer;
         const AInd_Clear:Boolean;
         const AId_Endereco:Integer=0);
-      procedure ThreadEnd_BuscaCep(Sender: TObject);
-      procedure ThreadEnd_SalvarEndereco(Sender: TObject);
       procedure AddEndItens_LV(
         const AIdEmpresa :Integer;
         const AId :Integer;
@@ -402,22 +451,42 @@ type
       procedure Seleciona_Pais(Aid: Integer; ANome: String);
       procedure Excluir_Endereco(Sender: TObject);
       procedure Editar_Endereco(Sender: TObject);
+      procedure Limpar_Endereco;
+      procedure ThreadEnd_DeletarEndereco(Sender: TOBject);
+      procedure ThreadEnd_EditaEndereco(Sender: TOBject);
+      procedure Exibir_Labels_Endereco;
     {$EndRegion 'Endereço'}
 
     {$Region 'Email'}
       procedure NovoEmail(Sender: TOBject);
+      procedure Excluir_Email(Sender: TObject);
+      procedure Editar_Email(Sender: TObject);
     {$EndRegion 'Email'}
 
     {$Region 'Telefone'}
       procedure NovoTelefone(Sender: TOBject);
-    procedure ThreadEnd_DeletarEndereco(Sender: TOBject);
-    procedure Excluir_Telefone(Sender: TOBject);
-    procedure Excluir_Email(Sender: TObject);
-    procedure Editar_Telefone(Sender: TObject);
-    procedure Editar_Email(Sender: TObject);
-    procedure Limpar_Endereco;
-    procedure ThreadEnd_EditaEndereco(Sender: TOBject);
-    procedure Exibir_Labels_Endereco;
+      procedure SalvarTelefone(Sender: TOBject);
+      procedure ThreadEnd_SalvarTelefone(Sender: TOBject);
+      procedure CancelaTelefone(Sender: TOBject);
+      procedure Excluir_Telefone(Sender: TOBject);
+      procedure ThreadEnd_DeletarTelefone(Sender: TObject);
+      procedure Editar_Telefone(Sender: TObject);
+      procedure ThreadEnd_EditaTelefone(Sender: TObject);
+      procedure Limpar_Telefone;
+      procedure ListarTelefone(
+        const APagina:Integer;
+        const AEmpresa:Integer;
+        const AInd_Clear:Boolean;
+        const AId_Telefone:Integer=0);
+      procedure AddTelItens_LV(
+        const AIdEmpresa :Integer;
+        const AId :Integer;
+        const ATipo: Integer;
+        const ATipoDesc: String;
+        const ATelefone :String);
+      procedure ThreadEnd_ListaTel(Sender: TObject);
+
+
     {$EndRegion 'Telefone'}
 
 
@@ -723,6 +792,45 @@ begin
   TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
 end;
 
+procedure TfrmEmpresa.edCadTel_NumeroTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadTel_Numero,lbCadTel_Numero,faCadTel_Numero,10,-20);
+  case edCadTel_Tipo.Tag of
+    0:Formatar(edCadTel_Numero,TFormato.TelefoneFixo);
+    1:Formatar(edCadTel_Numero,TFormato.Celular);
+    2:Formatar(edCadTel_Numero,TFormato.TelefoneFixo);
+  end;
+end;
+
+procedure TfrmEmpresa.edCadTel_TipoChange(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadTel_Tipo,lbCadTel_Tipo,faCadTel_Tipo,10,-20);
+end;
+
+procedure TfrmEmpresa.edCadTel_TipoClick(Sender: TObject);
+begin
+  TFuncoes.Seliciona_Combo_Desktop(
+    rctCadTel_ListaTipo
+    ,faCadTel_ListaTipo
+    ,imgCadTel_Tipo
+    ,imgRetrair
+    ,imgExpandir
+    ,edCadTel_Tipo
+    ,lytCadTelefone_Row001);
+end;
+
+procedure TfrmEmpresa.edCadTel_TipoKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadTel_Numero);
+end;
+
+procedure TfrmEmpresa.edCadTel_TipoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadTel_Tipo,lbCadTel_Tipo,faCadTel_Tipo,10,-20);
+end;
+
 procedure TfrmEmpresa.edDocumentoKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
@@ -828,6 +936,7 @@ begin
   begin
     Configura_Botoes(4);
     Listar_Endereco(0,lbId.Tag,True);
+    ListarTelefone(0,lbId.Tag,True);
     Exibe_Labels;
     FProcessandoEnd := '';
   end;
@@ -1087,6 +1196,110 @@ begin
   Exibe_Labels;
 end;
 
+procedure TfrmEmpresa.ListarTelefone(
+  const APagina:Integer;
+  const AEmpresa:Integer;
+  const AInd_Clear:Boolean;
+  const AId_Telefone:Integer=0);
+var
+  t :TThread;
+begin
+  if FProcessandoTel = 'processando' then
+      exit;
+  FProcessandoTel := 'processando';
+
+  if AInd_Clear then
+  begin
+    lvTelefone.ScrollTo(0);
+    lvTelefone.Tag := 0;
+    lvTelefone.Items.Clear;
+  end;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lErro :String;
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+
+    lvTelefone.BeginUpdate;
+
+    if lvTelefone.Tag >= 0 then
+      lvTelefone.Tag := (lvTelefone.Tag + 1);
+
+      jsonArray := Dm_DeskTop.EmpresaTel_Lista(
+        lvTelefone.Tag
+        ,AEmpresa);
+
+      for x := 0 to jsonArray.Size -1 do
+      begin
+        TThread.Synchronize(nil,
+        procedure
+        begin
+          AddTelItens_LV(
+            jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+            ,jsonArray.Get(x).GetValue<Integer>('id')
+            ,jsonArray.Get(x).GetValue<Integer>('tipo')
+            ,jsonArray.Get(x).GetValue<String>('tipoDesc')
+            ,jsonArray.Get(x).GetValue<String>('numero')
+          );
+        end);
+      end;
+
+      if jsonArray.Size = 0 then
+        lvTelefone.Tag := -1;
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonArray);
+      {$ELSE}
+        jsonArray.DisposeOf;
+      {$ENDIF}
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        lvTelefone.EndUpdate;
+      end);
+
+      //lvTelefone.TagString := '';
+      FProcessando := '';
+
+      //Força a chamada do evento onUpdateObjects da listview...
+      lvTelefone.Margins.Bottom := 6;
+      lvTelefone.Margins.Bottom := 5;
+      //---------------------------------------------
+  end);
+
+  t.OnTerminate := ThreadEnd_ListaEnd;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.AddTelItens_LV(
+        const AIdEmpresa :Integer;
+        const AId :Integer;
+        const ATipo: Integer;
+        const ATipoDesc: String;
+        const ATelefone :String);
+begin
+  with lvTelefone.Items.Add do
+  begin
+    Tag := AId;
+    TListItemText(Objects.FindDrawable('edTipo')).Text := ATipoDesc;
+    TListItemText(Objects.FindDrawable('edTipo')).TagString := ATipo.ToString;
+    TListItemText(Objects.FindDrawable('edTelefone')).Text := ATelefone;
+  end;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_ListaTel(Sender: TObject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
+      FMensagem.Show(TIconDialog.Error,'','Erro na carga dos Telefones: ' + Exception(TThread(Sender).FatalException).Message);
+  end;
+end;
+
 procedure TfrmEmpresa.Listar_Dados(const APagina: Integer; const ABusca: String;
   const AInd_Clear: Boolean);
 var
@@ -1339,6 +1552,12 @@ begin
   end;
 end;
 
+procedure TfrmEmpresa.lvTelefoneItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+  FTelefone_ID := AItem.Tag;
+end;
+
 procedure TfrmEmpresa.Novo_Registro(Sender: TOBject);
 begin
   lvEnderecos.ScrollTo(0);
@@ -1378,7 +1597,17 @@ end;
 
 procedure TfrmEmpresa.NovoTelefone(Sender: TOBject);
 begin
-  //
+  Limpar_Telefone;
+  FStatusTable_Tel := TStatusTable.stInsert;
+  rctTampa_Telefone.Align := TAlignLayout.Contents;
+  rctTampa_Telefone.Visible := True;
+end;
+
+procedure TfrmEmpresa.Limpar_Telefone;
+begin
+  edCadTel_Tipo.Tag := -1;
+  edCadTel_Tipo.Text := '';
+  edCadTel_Numero.Text := '';
 end;
 
 procedure TfrmEmpresa.NovoEmail(Sender: TOBject);
@@ -1399,6 +1628,86 @@ end;
 procedure TfrmEmpresa.rctCadEndereco_ConfirmarClick(Sender: TObject);
 begin
   FMensagem.Show(TIconDialog.Question,'Endereço','Salva alterações','SIM',SalvarEndereco,'NÃO');
+end;
+
+procedure TfrmEmpresa.rctCadTel_CancelarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Telefone','Cancela alterações','SIM',CancelaTelefone,'NÂO');
+end;
+
+procedure TfrmEmpresa.rctCadTel_ConfirmarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Telefone','Salva alterações','SIM',SalvarTelefone,'NÃO');
+end;
+
+procedure TfrmEmpresa.SalvarTelefone(Sender :TOBject);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmEmpresa,'Salvando telefone');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    FDMem_Telefone.Active := False;
+    FDMem_Telefone.Active := True;
+    FDMem_Telefone.Insert;
+    FDMem_TelefoneID_EMPRESA.AsInteger := lbId.Tag;
+    FDMem_TelefoneID.AsInteger := rctCad_Telefone.Tag;
+    FDMem_TelefoneTIPO.AsInteger := edCadTel_Tipo.Tag;
+    FDMem_TelefoneNUMERO.AsString := edCadTel_Numero.Text;
+    FDMem_TelefoneID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+    FDMem_TelefoneDT_CADASTRO.AsDateTime := Date;
+    FDMem_TelefoneHR_CADASTRO.AsDateTime := Time;
+    FDMem_Telefone.Post;
+
+    if FStatusTable_Tel = stInsert then
+    begin
+      if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,0) then
+        raise Exception.Create('Erro ao salvar as alterações');
+    end
+    else if FStatusTable_Tel = stUpdate then
+    begin
+      if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Endereco.ToJSONArray,1) then
+        raise Exception.Create('Erro ao salvar as alterações');
+    end;
+
+    FStatusTable := TStatusTable.stList;
+
+  end);
+
+  t.OnTerminate := ThreadEnd_SalvarTelefone;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_SalvarTelefone(Sender :TOBject);
+begin
+  TLoading.Hide;
+  rctTampa_Telefone.Visible := False;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoTel := '';
+    ListarTelefone(0,lbId.Tag,True,0);
+  end;
+end;
+
+procedure TfrmEmpresa.CancelaTelefone(Sender :TOBject);
+begin
+  rctTampa_Telefone.Visible := False;
+end;
+
+procedure TfrmEmpresa.rctCadTel_Tipo_CelularClick(Sender: TObject);
+begin
+  edCadTel_Tipo.Tag := TRectangle(Sender).Tag;
+  case TRectangle(Sender).Tag of
+    0:edCadTel_Tipo.Text := lbCadTel_Tipo_Comercial.Text;
+    1:edCadTel_Tipo.Text := lbCadTel_Tipo_Celular.Text;
+    2:edCadTel_Tipo.Text := lbCadTel_Tipo_Residencial.Text;
+  end;
+  TFuncoes.Seliciona_Combo_Desktop(rctCadTel_ListaTipo,faCadTel_ListaTipo,imgCadTel_Tipo,imgRetrair,imgExpandir,edCadTel_Tipo,lytCadTelefone_Row001);
 end;
 
 procedure TfrmEmpresa.SalvarEndereco(Sender: TObject);
@@ -1458,11 +1767,12 @@ begin
   rctTampa_Endereco.Visible := False;
 
   if Assigned(TThread(Sender).FatalException) then
-    FMensagem.Show(TIconDialog.Error,'','Erro ao buscar o Cep: ' + Exception(TThread(Sender).FatalException).Message)
+    FMensagem.Show(TIconDialog.Error,'',Exception(TThread(Sender).FatalException).Message)
   else
   begin
     FProcessandoEnd := '';
     Listar_Endereco(0,lbId.Tag,True);
+    ListarTelefone(0,lbId.Tag,True);
   end;
 end;
 
@@ -1584,8 +1894,59 @@ begin
 end;
 
 procedure TfrmEmpresa.Editar_Telefone(Sender :TObject);
+var
+  t :TThread;
 begin
-  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
+  Limpar_Telefone;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+    jsonArray := Dm_DeskTop.EmpresaTel_Lista(
+      0
+      ,FId_Selecionado
+      ,FTelefone_ID);
+
+    for x := 0 to jsonArray.Size -1 do
+    begin
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        FStatusTable_Tel := TStatusTable.stUpdate;
+        rctTampa_Telefone.Align := TAlignLayout.Contents;
+        rctTampa_Telefone.Visible := True;
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        rctCad_Telefone.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edCadTel_Tipo.Tag := jsonArray.Get(x).GetValue<Integer>('tipo');
+        edCadTel_Tipo.Text := jsonArray.Get(x).GetValue<String>('tipoDesc');
+        edCadTel_Numero.Text := jsonArray.Get(x).GetValue<String>('numero');
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        Exibir_Labels_Endereco;
+      end);
+
+    end;
+  end);
+
+  t.OnTerminate := ThreadEnd_EditaTelefone;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_EditaTelefone(Sender :TObject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Editar Telefone',Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmEmpresa.Editar_Email(Sender :TObject);
@@ -1629,12 +1990,37 @@ begin
     //lvEnderecos.Tag := 0;
     FProcessandoEnd := '';
     Listar_Endereco(0,lbId.Tag,True);
+    ListarTelefone(0,lbId.Tag,True);
   end;
 end;
 
 procedure TfrmEmpresa.Excluir_Telefone(Sender :TOBject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmEmpresa,'Excluindo telefone');
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    Dm_DeskTop.EmpresaTEl_Excluir(lbId.Tag,FTelefone_ID);
+  end);
+
+  t.OnTerminate := ThreadEnd_DeletarTelefone;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_DeletarTelefone(Sender :TObject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoTel := '';
+    ListarTelefone(0,lbId.Tag,True,0);
+  end;
 end;
 
 procedure TfrmEmpresa.Excluir_Email(Sender :TObject);

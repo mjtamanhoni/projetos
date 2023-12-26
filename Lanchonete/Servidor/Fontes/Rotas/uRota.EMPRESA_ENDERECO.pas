@@ -163,13 +163,13 @@ begin
  
       DM_Lanchonete.FDC_Lanchonete.Commit; 
  
-      Res.Send('EMPRESA_ENDERECO cadastrados com sucesso').Status(200); 
-      TFuncoes.Gravar_Hitorico(lQuery,'EMPRESA_ENDERECO cadastrados com sucesso');
+      Res.Send('Endereço da Empresa cadastrado com sucesso').Status(200);
+      TFuncoes.Gravar_Hitorico(lQuery,'Endereço da Empresa cadastrado com sucesso');
     except on E: Exception do
       begin
         DM_Lanchonete.FDC_Lanchonete.Rollback;
         Res.Send(E.Message).Status(500);
-        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Cadastrar EMPRESA_ENDERECO: ' + E.Message);
+        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Cadastrar o endereço da Empresa: ' + E.Message);
       end; 
     end; 
   finally 
@@ -235,13 +235,13 @@ begin
  
       DM_Lanchonete.FDC_Lanchonete.Commit; 
  
-      Res.Send('EMPRESA_ENDERECO alterado com sucesso').Status(200); 
-      TFuncoes.Gravar_Hitorico(lQuery,'EMPRESA_ENDERECO alterado com sucesso');
+      Res.Send('Endereço da Empresa alterado com sucesso').Status(200);
+      TFuncoes.Gravar_Hitorico(lQuery,'Endereço da Empresa alterado com sucesso');
     except on E: Exception do
       begin
         DM_Lanchonete.FDC_Lanchonete.Rollback;
         Res.Send(E.Message).Status(500);
-        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Alterar EMPRESA_ENDERECO: ' + E.Message);
+        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao alterar o Endereço da Empresa: ' + E.Message);
       end;
     end; 
   finally 

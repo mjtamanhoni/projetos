@@ -23,6 +23,7 @@ Uses
   FMX.Edit,
   FMX.StdCtrls,
   FMX.Ani,
+  FMX.Layouts,
 
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
@@ -67,6 +68,8 @@ type
 
   TFuncoes = class(TObject)
   private
+    class procedure ThreadEnd_Sel_Combo_Desktop(Sender :TOBject);
+
   public
     class function BitmapFromBase64(const base64: string): TBitmap;
     class function Base64FromBitmap(Bitmap: TBitmap): string;
@@ -107,11 +110,19 @@ type
       AStartValue:Integer=10;
       AStopValue:Integer=-25);
 
+    class procedure Seliciona_Combo_Desktop(
+      Rectangle :TRectangle;
+      Animation :TFloatAnimation;
+      Image, ImageRetrair, ImageExpandir :TImage;
+      Edit :TEdit;
+      Layout :TLayout);
+
     class procedure PularCampo(AEdit_Destino: TObject);
     class function SomenteNumero(ATexto:String):String;
     class function Unidade_Federativa(const ASigla:String):String;
 
     class function BuscaCep(const ACep:String):TCep;
+
 
 
   end;
@@ -633,6 +644,58 @@ begin
       lTexto.DisposeOf;
     {$ENDIF}
   end;
+end;
+
+class procedure TFuncoes.Seliciona_Combo_Desktop(
+      Rectangle :TRectangle;
+      Animation :TFloatAnimation;
+      Image, ImageRetrair, ImageExpandir :TImage;
+      Edit :TEdit;
+      Layout :TLayout);
+var
+  t :TThread;
+begin
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    Rectangle.Position.X := Edit.Position.X;
+    Rectangle.Position.Y := (Layout.Position.Y + Layout.Height);
+    Rectangle.Width := Edit.Width;
+    if not Rectangle.Visible then
+    begin
+      Animation.StartValue := 0;
+      Animation.StopValue := Rectangle.Height;
+      Image.Bitmap := ImageRetrair.Bitmap;
+    end
+    else
+    begin
+      Animation.StartValue := Rectangle.Height;
+      Animation.StopValue := 0;
+      Image.Bitmap := ImageExpandir.Bitmap;
+    end;
+    TThread.Synchronize(nil, procedure
+    begin
+      if not Rectangle.Visible then
+      begin
+        Rectangle.Visible := (not Rectangle.Visible);
+        Animation.Start;
+      end
+      else
+      begin
+        Animation.Start;
+        Rectangle.Visible := (not Rectangle.Visible);
+      end;
+    end);
+  end);
+
+  t.OnTerminate := ThreadEnd_Sel_Combo_Desktop;
+  t.Start;
+end;
+
+class procedure TFuncoes.ThreadEnd_Sel_Combo_Desktop(Sender: TOBject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    raise Exception.Create(Exception(TThread(Sender).FatalException).Message);
 end;
 
 class function TFuncoes.SomenteNumero(ATexto: String): String;

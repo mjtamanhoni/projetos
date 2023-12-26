@@ -332,11 +332,18 @@ begin
  
       AFDQ_Query.Active := False; 
       AFDQ_Query.Sql.Clear; 
-      AFDQ_Query.Sql.Add('SELECT * FROM EMPRESA_TELEFONES');
+      AFDQ_Query.Sql.Add('SELECT ');
+      AFDQ_Query.Sql.Add('  ET.* ');
+      AFDQ_Query.Sql.Add('  ,CASE ET.TIPO ');
+      AFDQ_Query.Sql.Add('    WHEN 0 THEN ''COMERCIAL'' ');
+      AFDQ_Query.Sql.Add('    WHEN 1 THEN ''CELULAR'' ');
+      AFDQ_Query.Sql.Add('    WHEN 2 THEN ''RESIDENCIAL'' ');
+      AFDQ_Query.Sql.Add('  END TIPO_DESC ');
+      AFDQ_Query.Sql.Add('FROM EMPRESA_TELEFONES ET ');
       AFDQ_Query.Sql.Add('WHERE NOT ID IS NULL');
       if AID_EMPRESA> 0 then
         AFDQ_Query.Sql.Add('  AND ID_EMPRESA = ' + AID_EMPRESA.ToString);
-      AFDQ_Query.Active := True; 
+      AFDQ_Query.Active := True;
       Result := AFDQ_Query.ToJSONArray; 
  
       if not AFDQ_Query.IsEmpty then 
