@@ -31,8 +31,8 @@ uses
   procedure RegistrarRotas; 
  
   procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
-  procedure Cadastro(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
-  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
+  procedure Cadastro(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
  
 implementation 
@@ -111,7 +111,7 @@ begin
   end; 
 end; 
  
-procedure Cadastro(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
+procedure Cadastro(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var 
   lBody :TJSONArray; 
   DM_Lanchonete :TDM_Lanchonete; 
@@ -141,11 +141,11 @@ begin
       begin 
         lTEMPRESA_TELEFONES.Inicia_Propriedades; 
  
-        lTEMPRESA_TELEFONES.ID_EMPRESA := lBody[I].GetValue<Integer>('idEmpresa',0); 
-        lTEMPRESA_TELEFONES.ID := lBody[I].GetValue<Integer>('id',0); 
-        lTEMPRESA_TELEFONES.TIPO := lBody[I].GetValue<Integer>('tipo',0); 
+        lTEMPRESA_TELEFONES.ID_EMPRESA := lBody[I].GetValue<Integer>('idEmpresa',0);
+        lTEMPRESA_TELEFONES.ID := lBody[I].GetValue<Integer>('id',0);
+        lTEMPRESA_TELEFONES.TIPO := lBody[I].GetValue<Integer>('tipo',0);
         lTEMPRESA_TELEFONES.NUMERO := lBody[I].GetValue<String>('numero',''); 
-        lTEMPRESA_TELEFONES.ID_USUARIO := lBody[I].GetValue<Integer>('idUsuario',0); 
+        lTEMPRESA_TELEFONES.ID_USUARIO := lBody[I].GetValue<Integer>('idUsuario',0);
         lTEMPRESA_TELEFONES.DT_CADASTRO := TFuncoes.Retorna_Data_Json(lBody[I].GetValue<String>('dtCadastro',DateToStr(Date)),lErro); 
         lTEMPRESA_TELEFONES.HR_CADASTRO := TFuncoes.Retorna_Hora_Json(lBody[I].GetValue<String>('hrCadastro',DateToStr(Date)),lErro); 
         lTEMPRESA_TELEFONES.Inserir(lQuery); 
@@ -173,7 +173,7 @@ begin
   end; 
 end; 
  
-procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
+procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var 
   lBody :TJSONArray; 
   DM_Lanchonete :TDM_Lanchonete; 
@@ -183,8 +183,7 @@ var
   lQuery :TFDQuery; 
  
   I:Integer; 
-begin 
- 
+begin
   try 
     try 
       DM_Lanchonete := TDM_Lanchonete.Create(Nil); 
@@ -203,19 +202,19 @@ begin
       begin 
         lTEMPRESA_TELEFONES.Inicia_Propriedades; 
  
-        lTEMPRESA_TELEFONES.ID_EMPRESA := lBody[I].GetValue<Integer>('idEmpresa',0); 
-        lTEMPRESA_TELEFONES.ID := lBody[I].GetValue<Integer>('id',0); 
-        lTEMPRESA_TELEFONES.TIPO := lBody[I].GetValue<Integer>('tipo',0); 
-        lTEMPRESA_TELEFONES.NUMERO := lBody[I].GetValue<String>('numero',''); 
+        lTEMPRESA_TELEFONES.ID_EMPRESA := lBody[I].GetValue<Integer>('idEmpresa',0);
+        lTEMPRESA_TELEFONES.ID := lBody[I].GetValue<Integer>('id',0);
+        lTEMPRESA_TELEFONES.TIPO := lBody[I].GetValue<Integer>('tipo',0);
+        lTEMPRESA_TELEFONES.NUMERO := lBody[I].GetValue<String>('numero','');
         lTEMPRESA_TELEFONES.ID_USUARIO := lBody[I].GetValue<Integer>('idUsuario',0); 
         lTEMPRESA_TELEFONES.DT_CADASTRO := TFuncoes.Retorna_Data_Json(lBody[I].GetValue<String>('dtCadastro',DateToStr(Date)),lErro); 
         lTEMPRESA_TELEFONES.HR_CADASTRO := TFuncoes.Retorna_Hora_Json(lBody[I].GetValue<String>('hrCadastro',DateToStr(Date)),lErro); 
-        lTEMPRESA_TELEFONES.Atualizar(lQuery); 
+        lTEMPRESA_TELEFONES.Atualizar(lQuery);
       end; 
  
       DM_Lanchonete.FDC_Lanchonete.Commit; 
  
-      Res.Send('EMPRESA_TELEFONES alterado com sucesso').Status(200); 
+      Res.Send('EMPRESA_TELEFONES alterado com sucesso').Status(200);
       TFuncoes.Gravar_Hitorico(lQuery,'EMPRESA_TELEFONES alterado com sucesso');
     except on E: Exception do
       begin

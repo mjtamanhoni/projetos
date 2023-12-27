@@ -563,7 +563,8 @@ begin
   end;
 end;
 
-function TDm_DeskTop.EmpresaTel_Cadastro(const AJson: TJSONArray;
+function TDm_DeskTop.EmpresaTel_Cadastro(
+  const AJson: TJSONArray;
   StatusTable: Integer): Boolean;
 var
   lHost :String;
@@ -575,7 +576,12 @@ begin
         raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
 
       if AJson.Size = 0 then
-        raise Exception.Create('Não há dados para ser cadastrados');
+      begin
+        case StatusTable of
+          0 :raise Exception.Create('Não há dados para ser cadastrados');
+          1 :raise Exception.Create('Não há dados para ser alterado');
+        end;
+      end;
 
       lHost := FIniFile.ReadString('SERVER','HOST','');
       if lHost = '' then

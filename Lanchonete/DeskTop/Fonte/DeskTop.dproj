@@ -330,6 +330,10 @@
             <Form>frmCliente</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uDeskTop.CadSetor.pas">
+            <Form>frmCadSetor</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

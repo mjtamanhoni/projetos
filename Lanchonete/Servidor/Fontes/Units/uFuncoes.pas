@@ -115,7 +115,8 @@ type
       Animation :TFloatAnimation;
       Image, ImageRetrair, ImageExpandir :TImage;
       Edit :TEdit;
-      Layout :TLayout);
+      Layout :TLayout;
+      ATamanho :Double);
 
     class procedure PularCampo(AEdit_Destino: TObject);
     class function SomenteNumero(ATexto:String):String;
@@ -651,29 +652,34 @@ class procedure TFuncoes.Seliciona_Combo_Desktop(
       Animation :TFloatAnimation;
       Image, ImageRetrair, ImageExpandir :TImage;
       Edit :TEdit;
-      Layout :TLayout);
+      Layout :TLayout;
+      ATamanho :Double);
 var
   t :TThread;
 begin
+
   t := TThread.CreateAnonymousThread(
   procedure
   begin
     Rectangle.Position.X := Edit.Position.X;
     Rectangle.Position.Y := (Layout.Position.Y + Layout.Height);
     Rectangle.Width := Edit.Width;
+    Rectangle.Height := ATamanho;
+
     if not Rectangle.Visible then
     begin
       Animation.StartValue := 0;
-      Animation.StopValue := Rectangle.Height;
+      Animation.StopValue := ATamanho;
       Image.Bitmap := ImageRetrair.Bitmap;
     end
     else
     begin
-      Animation.StartValue := Rectangle.Height;
+      Animation.StartValue := ATamanho;
       Animation.StopValue := 0;
       Image.Bitmap := ImageExpandir.Bitmap;
     end;
-    TThread.Synchronize(nil, procedure
+    TThread.Synchronize(nil,
+    procedure
     begin
       if not Rectangle.Visible then
       begin

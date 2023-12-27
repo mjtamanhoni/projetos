@@ -18,7 +18,8 @@ uses
   uDeskTop.CadMunicipios in 'uDeskTop.CadMunicipios.pas' {frmMunicipios},
   uDeskTop.CadEmpresa in 'uDeskTop.CadEmpresa.pas' {frmEmpresa},
   uDeskTop.CadFornecedor in 'uDeskTop.CadFornecedor.pas' {frmFornecedor},
-  uDeskTop.CadCliente in 'uDeskTop.CadCliente.pas' {frmCliente};
+  uDeskTop.CadCliente in 'uDeskTop.CadCliente.pas' {frmCliente},
+  uDeskTop.CadSetor in 'uDeskTop.CadSetor.pas' {frmCadSetor};
 
 {$R *.res}
 

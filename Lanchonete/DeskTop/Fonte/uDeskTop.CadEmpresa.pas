@@ -485,7 +485,8 @@ type
         const ATipoDesc: String;
         const ATelefone :String);
       procedure ThreadEnd_ListaTel(Sender: TObject);
-
+      procedure Exibir_Labels_Telefone;
+      procedure SalvarAlteracao_Telefone;
 
     {$EndRegion 'Telefone'}
 
@@ -816,7 +817,8 @@ begin
     ,imgRetrair
     ,imgExpandir
     ,edCadTel_Tipo
-    ,lytCadTelefone_Row001);
+    ,lytCadTelefone_Row001
+    ,90);
 end;
 
 procedure TfrmEmpresa.edCadTel_TipoKeyDown(Sender: TObject; var Key: Word;
@@ -1649,35 +1651,40 @@ begin
   t := TThread.CreateAnonymousThread(
   procedure
   begin
-    FDMem_Telefone.Active := False;
-    FDMem_Telefone.Active := True;
-    FDMem_Telefone.Insert;
-    FDMem_TelefoneID_EMPRESA.AsInteger := lbId.Tag;
-    FDMem_TelefoneID.AsInteger := rctCad_Telefone.Tag;
-    FDMem_TelefoneTIPO.AsInteger := edCadTel_Tipo.Tag;
-    FDMem_TelefoneNUMERO.AsString := edCadTel_Numero.Text;
-    FDMem_TelefoneID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
-    FDMem_TelefoneDT_CADASTRO.AsDateTime := Date;
-    FDMem_TelefoneHR_CADASTRO.AsDateTime := Time;
-    FDMem_Telefone.Post;
-
-    if FStatusTable_Tel = stInsert then
-    begin
-      if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,0) then
-        raise Exception.Create('Erro ao salvar as alterações');
-    end
-    else if FStatusTable_Tel = stUpdate then
-    begin
-      if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Endereco.ToJSONArray,1) then
-        raise Exception.Create('Erro ao salvar as alterações');
-    end;
-
-    FStatusTable := TStatusTable.stList;
-
+    SalvarAlteracao_Telefone;
   end);
 
   t.OnTerminate := ThreadEnd_SalvarTelefone;
   t.Start;
+end;
+
+procedure TfrmEmpresa.SalvarAlteracao_Telefone;
+begin
+  FDMem_Telefone.Active := False;
+  FDMem_Telefone.Active := True;
+  FDMem_Telefone.Insert;
+  FDMem_TelefoneID_EMPRESA.AsInteger := lbId.Tag;
+  FDMem_TelefoneID.AsInteger := rctCad_Telefone.Tag;
+  FDMem_TelefoneTIPO.AsInteger := edCadTel_Tipo.Tag;
+  FDMem_TelefoneNUMERO.AsString := edCadTel_Numero.Text;
+  FDMem_TelefoneID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+  FDMem_TelefoneDT_CADASTRO.AsDateTime := Date;
+  FDMem_TelefoneHR_CADASTRO.AsDateTime := Time;
+  FDMem_Telefone.Post;
+
+  if FStatusTable_Tel = stInsert then
+  begin
+    if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,0) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end
+  else if FStatusTable_Tel = stUpdate then
+  begin
+    if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,1) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end;
+
+  FStatusTable := TStatusTable.stList;
+
 end;
 
 procedure TfrmEmpresa.ThreadEnd_SalvarTelefone(Sender :TOBject);
@@ -1707,7 +1714,15 @@ begin
     1:edCadTel_Tipo.Text := lbCadTel_Tipo_Celular.Text;
     2:edCadTel_Tipo.Text := lbCadTel_Tipo_Residencial.Text;
   end;
-  TFuncoes.Seliciona_Combo_Desktop(rctCadTel_ListaTipo,faCadTel_ListaTipo,imgCadTel_Tipo,imgRetrair,imgExpandir,edCadTel_Tipo,lytCadTelefone_Row001);
+  TFuncoes.Seliciona_Combo_Desktop(
+    rctCadTel_ListaTipo
+    ,faCadTel_ListaTipo
+    ,imgCadTel_Tipo
+    ,imgRetrair
+    ,imgExpandir
+    ,edCadTel_Tipo
+    ,lytCadTelefone_Row001
+    ,90);
 end;
 
 procedure TfrmEmpresa.SalvarEndereco(Sender: TObject);
@@ -1893,6 +1908,14 @@ begin
     TFuncoes.ExibeLabel(edCadEnd_Pais,lbCadEnd_Pais,faCadEnd_Pais,10,-20);
 end;
 
+procedure TfrmEmpresa.Exibir_Labels_Telefone;
+begin
+  if Trim(edCadTel_Tipo.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadTel_Tipo,lbCadTel_Tipo,faCadTel_Tipo,10,-20);
+  if Trim(edCadTel_Numero.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadTel_Numero,lbCadTel_Numero,faCadTel_Numero,10,-20);
+end;
+
 procedure TfrmEmpresa.Editar_Telefone(Sender :TObject);
 var
   t :TThread;
@@ -1933,7 +1956,7 @@ begin
       TThread.Synchronize(nil,
       procedure
       begin
-        Exibir_Labels_Endereco;
+        Exibir_Labels_Telefone;
       end);
 
     end;
