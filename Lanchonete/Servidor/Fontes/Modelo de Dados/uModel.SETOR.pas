@@ -1,4 +1,4 @@
-unit uModel.SETOR; 
+unit uModel.SETOR;
  
 interface 
  
@@ -20,12 +20,17 @@ uses
   function Trigger_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const ATrigger: String): Boolean; 
   function Generator_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AGenerator: String): Boolean; 
   function Indice_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AIndice: String): Boolean; 
- 
+
+const
+  C_Paginas = 30;
+
 type 
   TSETOR = class 
   private 
     FConexao: TFDConnection; 
-    
+    FPagina :Integer;
+    FPaginas :Integer;
+
     FID :Integer;
     FNOME :String;
     FID_USUARIO :Integer;
@@ -39,14 +44,18 @@ type
     procedure SetHR_CADASTRO( const Value:TTime);
  
   public 
-    constructor Create(AConnexao: TFDConnection); 
-    destructor Destroy; override; 
+    constructor Create(AConnexao: TFDConnection);
+    destructor Destroy; override;
  
     procedure Criar_Estrutura(const AFDScript:TFDScript;AFDQuery:TFDQuery); 
     procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery); 
     procedure Inicia_Propriedades; 
     procedure Inserir(const AFDQ_Query:TFDQuery); 
-    function Listar(const AFDQ_Query:TFDQuery; AID:Integer = 0): TJSONArray; 
+    function Listar(
+      const AFDQ_Query:TFDQuery;
+      const AID:Integer = 0;
+      const ANOME:String='';
+      const APagina:Integer=0): TJSONArray;
     procedure Atualizar(const AFDQ_Query:TFDQuery; AID:Integer = 0); 
     procedure Excluir(const AFDQ_Query:TFDQuery; AID:Integer = 0); 
  
@@ -191,9 +200,10 @@ end;
  
 { TSETOR }
  
-constructor TSETOR.Create(AConnexao: TFDConnection); 
-begin 
-  FConexao := AConnexao; 
+constructor TSETOR.Create(AConnexao: TFDConnection);
+begin
+  FConexao := AConnexao;
+  FPaginas := C_Paginas;
 end; 
  
 destructor TSETOR.Destroy; 
@@ -309,20 +319,37 @@ begin
   HR_CADASTRO := Time; 
 end; 
  
-function  TSETOR.Listar(const AFDQ_Query:TFDQuery; AID:Integer = 0): TJSONArray; 
+function  TSETOR.Listar(
+  const AFDQ_Query:TFDQuery;
+  const AID:Integer = 0;
+  const ANOME:String='';
+  const APagina:Integer=0): TJSONArray;
 begin 
-  try 
+  try
     try 
-      AFDQ_Query.Connection := FConexao; 
+      AFDQ_Query.Connection := FConexao;
  
       Inicia_Propriedades; 
  
       AFDQ_Query.Active := False; 
-      AFDQ_Query.Sql.Clear; 
-      AFDQ_Query.Sql.Add('SELECT * FROM SETOR;'); 
-      AFDQ_Query.Active := True; 
-      Result := AFDQ_Query.ToJSONArray; 
- 
+      AFDQ_Query.Sql.Clear;
+      AFDQ_Query.Sql.Add('SELECT * FROM SETOR');
+      AFDQ_Query.Sql.Add('WHERE 1=1 ');
+      if AID > 0 then
+        AFDQ_Query.Sql.Add('  AND ID = ' + AID.ToString);
+      if ANOME <> '' then
+        AFDQ_Query.Sql.Add('  AND NOME = ' + ANOME);
+      AFDQ_Query.Sql.Add('ORDER BY ID ');
+      if ((APagina > 0) and (FPaginas > 0))  then
+      begin
+        FPagina := (((APagina - 1) * FPaginas) + 1);
+        FPaginas := (APagina * FPaginas);
+        AFDQ_Query.Sql.Add('ROWS ' + FPagina.ToString + ' TO ' + FPaginas.ToString);
+      end;
+
+      AFDQ_Query.Active := True;
+      Result := AFDQ_Query.ToJSONArray;
+
       if not AFDQ_Query.IsEmpty then 
       begin 
         ID := AFDQ_Query.FieldByName('ID').AsInteger;

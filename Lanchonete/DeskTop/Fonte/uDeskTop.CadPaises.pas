@@ -367,7 +367,6 @@ procedure TfrmCadPaises.edPesquisarKeyDown(Sender: TObject; var Key: Word;
 begin
   if Key = vkReturn then
   begin
-    //lvLista.TagString := '';
     FProcessando := '';
     Listar_Dados(0,edPesquisar.Text,True);
   end;
@@ -586,7 +585,7 @@ end;
 
 procedure TfrmCadPaises.rctFecharClick(Sender: TObject);
 begin
-  FMensagem.Show(TIconDialog.Question,'Atenção','Deseja fechar as Configurações?','SIM',Confirmar_Fechamento,'NÃO',Abortar_Fechamento);
+  FMensagem.Show(TIconDialog.Question,'Atenção','Fechar formulário?','SIM',Confirmar_Fechamento,'NÃO',Abortar_Fechamento);
 end;
 
 procedure TfrmCadPaises.Salvar_Alteracoes(Sender: TOBject);

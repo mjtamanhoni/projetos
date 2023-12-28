@@ -59,9 +59,11 @@ var
  
   I :Integer; 
  
-  lId :Integer; 
- 
-begin 
+  lId :Integer;
+  lNome :String;
+  lPagina :Integer;
+
+begin
   try 
     try 
       DM_Lanchonete := TDM_Lanchonete.Create(Nil); 
@@ -70,27 +72,30 @@ begin
       lQuery := TFDQuery.Create(Nil); 
       lQuery.Connection := DM_Lanchonete.FDC_Lanchonete; 
  
-      lId := 0; 
- 
-      lId := StrToIntDef(Req.Query['id'],0); 
- 
-      lJson_Ret := lTSETOR.Listar( 
-        lQuery); 
- 
+      lId := 0;
+      lNome := '';
+      lPagina := 0;
+
+      lId := StrToIntDef(Req.Query['id'],0);
+      lNome := Req.Query['nome'];
+      lPagina := StrToIntDef(Req.Query['pagina'],0);
+
+      lJson_Ret := lTSETOR.Listar(lQuery,lId,lNome,lPagina);
+
       if lJson_Ret.Size = 0  then 
       begin 
-        Res.Send('SETOR não localizados').Status(401); 
-        TFuncoes.Gravar_Hitorico(lQuery,'SETOR não localizado');
+        Res.Send('Setor não localizados').Status(401);
+        TFuncoes.Gravar_Hitorico(lQuery,'Setor não localizado');
       end
       else
       begin
         Res.Send(lJson_Ret).Status(200);
-        TFuncoes.Gravar_Hitorico(lQuery,'Listagem de SETOR');
+        TFuncoes.Gravar_Hitorico(lQuery,'Listagem de Setor');
       end;
     except on E: Exception do
       begin
         Res.Send(E.Message).Status(500);
-        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Listar SETOR: ' + E.Message);
+        TFuncoes.Gravar_Hitorico(lQuery,'Erro ao Listar Setor: ' + E.Message);
       end; 
     end; 
   finally 

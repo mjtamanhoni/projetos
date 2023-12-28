@@ -302,7 +302,8 @@ uses
   uDeskTop.CadMunicipios,
   uDeskTop.CadEmpresa,
   uDeskTop.CadFornecedor,
-  uDeskTop.CadCliente;
+  uDeskTop.CadCliente,
+  uDeskTop.CadSetor;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -738,7 +739,9 @@ end;
 
 procedure TfrmPrincipal.rctMenuCad_SetorClick(Sender: TObject);
 begin
-  FMensagem.Show(TIconDialog.Info,'Cadastro de Setores','Abre formulário do cadastro dos setores','OK');
+  if not Assigned(frmCadSetor) then
+    Application.CreateForm(TfrmCadSetor, frmCadSetor);
+  frmCadSetor.Show;
   rctMenuCadastro.Visible := False;
 end;
 

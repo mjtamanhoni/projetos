@@ -176,6 +176,17 @@ type
         function Cliente_Excluir(const ACodigo:Integer=0):Boolean;
       {$EndRegion 'Cliente'}
 
+      {$Region 'Setor'}
+        function Setor_Lista(
+          const APagina:Integer=0;
+          const ACodigo:Integer=0;
+          const ANome:String=''): TJSONArray;
+
+        function Setor_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
+        function Setor_Excluir(const ACodigo:Integer=0):Boolean;
+      {$EndRegion 'Setor'}
+
+
     {$EndRegion}
 
     {$Region 'Busca Cep'}
@@ -1571,6 +1582,156 @@ begin
     begin
       if lResp.Content = '' then
         raise Exception.Create('Não foram localizados os paises...');
+
+      Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.Setor_Cadastro(const AJson: TJSONArray;
+  StatusTable: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    try
+      if not TFuncoes.TestaConexao(FConexao) then
+        raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+      if AJson.Size = 0 then
+        raise Exception.Create('Não há dados para ser cadastrados');
+
+      lHost := FIniFile.ReadString('SERVER','HOST','');
+      if lHost = '' then
+        lHost := 'http://localhost:3000';
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      case StatusTable of
+        0:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('setor')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Post;
+        end;
+        1:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('setor')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Put;
+        end;
+      end;
+
+      if lResp.StatusCode = 200 then
+      begin
+        if lResp.Content = '' then
+          raise Exception.Create('Não foi possível cadastrar o setor...');
+        Result := True;
+      end
+      else
+      begin
+        raise Exception.Create(lResp.Content);
+      end;
+    except
+      On Ex:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao cadastrar um Setor. (' + Ex.Message + ')');
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.Setor_Excluir(const ACodigo: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('setor')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('Não foi possível excluir o setor');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.Setor_Lista(const APagina, ACodigo: Integer;
+  const ANome: String): TJSONArray;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('setor')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('id',ACodigo.ToString)
+             .AddParam('nome',ANome)
+             .AddParam('pagina',APagina.ToString)
+             .Accept('application/json')
+             .Get;
+
+    if lResp.StatusCode = 200 then
+    begin
+      if lResp.Content = '' then
+        raise Exception.Create('Não foram localizados os setores...');
 
       Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
     end

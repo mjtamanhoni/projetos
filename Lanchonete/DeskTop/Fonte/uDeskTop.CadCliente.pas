@@ -744,7 +744,7 @@ end;
 
 procedure TfrmCliente.rctFecharClick(Sender: TObject);
 begin
-  FMensagem.Show(TIconDialog.Question,'Atenção','Deseja fechar as Configurações?','SIM',Confirmar_Fechamento,'NÃO',Abortar_Fechamento);
+  FMensagem.Show(TIconDialog.Question,'Atenção','Fechar formulário?','SIM',Confirmar_Fechamento,'NÃO',Abortar_Fechamento);
 end;
 
 procedure TfrmCliente.rctStatus_AtivoClick(Sender: TObject);
