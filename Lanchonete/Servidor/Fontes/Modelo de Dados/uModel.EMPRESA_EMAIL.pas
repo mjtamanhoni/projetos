@@ -1,4 +1,4 @@
-unit uModel.EMPRESA_EMAIL; 
+unit uModel.EMPRESA_EMAIL;
  
 interface 
  
@@ -57,7 +57,14 @@ type
     procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery); 
     procedure Inicia_Propriedades; 
     procedure Inserir(const AFDQ_Query:TFDQuery); 
-    function Listar(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0; APagina:Integer=0): TJSONArray; 
+    function Listar(
+      const AFDQ_Query:TFDQuery;
+      const AID_EMPRESA:Integer = 0;
+      const AID:Integer = 0;
+      const AID_SETOR:Integer = 0;
+      const ARESPONSAVEL:String = '';
+      const AEMAIL:String = '';
+      const APagina:Integer=0): TJSONArray;
     procedure Atualizar(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0);
     procedure Excluir(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0);
  
@@ -338,33 +345,52 @@ begin
   HF_CADASTRO := Time; 
 end; 
  
-function  TEMPRESA_EMAIL.Listar(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0; APagina:Integer=0): TJSONArray; 
-begin 
+function  TEMPRESA_EMAIL.Listar(
+    const AFDQ_Query:TFDQuery;
+    const AID_EMPRESA:Integer = 0;
+    const AID:Integer = 0;
+    const AID_SETOR:Integer = 0;
+    const ARESPONSAVEL:String = '';
+    const AEMAIL:String = '';
+    const APagina:Integer=0): TJSONArray;
+begin
   try 
     try 
-      AFDQ_Query.Connection := FConexao; 
- 
-      Inicia_Propriedades; 
- 
-      AFDQ_Query.Active := False; 
-      AFDQ_Query.Sql.Clear; 
-      AFDQ_Query.Sql.Add('SELECT * FROM EMPRESA_EMAIL') ;
+      AFDQ_Query.Connection := FConexao;
+
+      Inicia_Propriedades;
+
+      AFDQ_Query.Active := False;
+      AFDQ_Query.Sql.Clear;
+      AFDQ_Query.Sql.Add('SELECT EE.* ');
+      AFDQ_Query.Sql.Add('  ,S.NOME AS SETOR ');
+      AFDQ_Query.Sql.Add('FROM EMPRESA_EMAIL EE ');
+      AFDQ_Query.Sql.Add('  JOIN SETOR S ON S.ID = EE.ID_SETOR ');
       AFDQ_Query.Sql.Add('WHERE 1=1');
-      AFDQ_Query.Sql.Add('  AND ID_EMPRESA = :ID_EMPRESA');
-      AFDQ_Query.ParamByName('ID_EMPRESA').AsInteger := AID_EMPRESA;
-      AFDQ_Query.Sql.Add('  AND ID = :ID');
-      AFDQ_Query.ParamByName('ID').AsInteger := AID;
-      if ((APagina > 0) and (FPaginas > 0))  then 
-      begin 
-        FPagina := (((APagina - 1) * FPaginas) + 1); 
-        FPaginas := (APagina * FPaginas); 
-        AFDQ_Query.Sql.Add('ROWS ' + FPagina.ToString + ' TO ' + FPaginas.ToString); 
-      end; 
-      AFDQ_Query.Active := True; 
-      Result := AFDQ_Query.ToJSONArray; 
- 
-      if not AFDQ_Query.IsEmpty then 
-      begin 
+      if AID_EMPRESA > 0 then
+        AFDQ_Query.Sql.Add('  AND EE.ID_EMPRESA = ' + AID_EMPRESA.ToString);
+      if AID > 0 then
+        AFDQ_Query.Sql.Add('  AND EE.ID = ' + AID.ToString);
+      if AID_SETOR > 0 then
+        AFDQ_Query.Sql.Add('  AND EE.ID_SETOR = ' + AID_SETOR.ToString);
+      if ARESPONSAVEL <> '' then
+        AFDQ_Query.Sql.Add('  AND EE.RESPONSAVEL = ' + QuotedStr(ARESPONSAVEL));
+      if AEMAIL <> '' then
+        AFDQ_Query.Sql.Add('  AND EE.EMAIL = ' + QuotedStr(AEMAIL));
+      AFDQ_Query.Sql.Add('ORDER BY ');
+      AFDQ_Query.Sql.Add('  EE.ID_EMPRESA ');
+      AFDQ_Query.Sql.Add('  ,EE.ID ');
+      if ((APagina > 0) and (FPaginas > 0))  then
+      begin
+        FPagina := (((APagina - 1) * FPaginas) + 1);
+        FPaginas := (APagina * FPaginas);
+        AFDQ_Query.Sql.Add('ROWS ' + FPagina.ToString + ' TO ' + FPaginas.ToString);
+      end;
+      AFDQ_Query.Active := True;
+      Result := AFDQ_Query.ToJSONArray;
+
+      if not AFDQ_Query.IsEmpty then
+      begin
         ID_EMPRESA := AFDQ_Query.FieldByName('ID_EMPRESA').AsInteger;
         ID := AFDQ_Query.FieldByName('ID').AsInteger;
         RESPONSAVEL := AFDQ_Query.FieldByName('RESPONSAVEL').AsString;

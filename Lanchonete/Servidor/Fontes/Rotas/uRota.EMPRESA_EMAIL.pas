@@ -40,10 +40,10 @@ implementation
 procedure RegistrarRotas; 
 begin 
   {$Region 'EMPRESA_EMAIL'} 
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/empresaEmail',Listar);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/empresaEmail',Cadastro);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/empresaEmail',Alterar);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/empresaEmail',Delete);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/empresa/email',Listar);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/empresa/email',Cadastro);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/empresa/email',Alterar);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/empresa/email',Delete);
   {$EndRegion 'EMPRESA_EMAIL'} 
 end; 
  
@@ -61,26 +61,45 @@ var
  
   lID_EMPRESA :Integer;
   lID :Integer;
-  lPagina :Integer; 
- 
-begin 
-  try 
-    try 
-      DM_Lanchonete := TDM_Lanchonete.Create(Nil); 
- 
-      lTEMPRESA_EMAIL := TEMPRESA_EMAIL.Create(DM_Lanchonete.FDC_Lanchonete); 
-      lQuery := TFDQuery.Create(Nil); 
-      lQuery.Connection := DM_Lanchonete.FDC_Lanchonete; 
- 
-      lID_EMPRESA := 0; 
-      lID_EMPRESA := StrToIntDef(Req.Query['idEmpresa'],0); 
-      lID := 0; 
-      lID := StrToIntDef(Req.Query['id'],0); 
+  lID_SETOR :Integer;
+  lRESPONSAVEL :String;
+  lEMAIL :String;
+
+  lPagina :Integer;
+
+begin
+  try
+    try
+      DM_Lanchonete := TDM_Lanchonete.Create(Nil);
+
+      lTEMPRESA_EMAIL := TEMPRESA_EMAIL.Create(DM_Lanchonete.FDC_Lanchonete);
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := DM_Lanchonete.FDC_Lanchonete;
+
+      lID_EMPRESA := 0;
+      lID_EMPRESA := StrToIntDef(Req.Query['idEmpresa'],0);
+      lID := 0;
+      lID := StrToIntDef(Req.Query['id'],0);
+      lID_SETOR := 0;
+      lID_SETOR := StrToIntDef(Req.Query['idSetor'],0);
+      lRESPONSAVEL := '';
+      lRESPONSAVEL := Req.Query['responsavel'];
+      lEMAIL := '';
+      lEMAIL := Req.Query['email'];
+
+      lPagina := 0;
       lPagina := StrToIntDef(Req.Query['pagina'],0); 
  
-      lJson_Ret := lTEMPRESA_EMAIL.Listar(lQuery,lID_EMPRESA,lID,lPagina); 
- 
-      if lJson_Ret.Size = 0  then 
+      lJson_Ret := lTEMPRESA_EMAIL.Listar(
+        lQuery
+        ,lID_EMPRESA
+        ,lID
+        ,lID_SETOR
+        ,lRESPONSAVEL
+        ,lEMAIL
+        ,lPagina);
+
+      if lJson_Ret.Size = 0  then
       begin 
         Res.Send('EMPRESA_EMAIL não localizados').Status(401); 
         TFuncoes.Gravar_Hitorico(lQuery,' - EMPRESA_EMAIL não localizado'); 
@@ -151,15 +170,15 @@ begin
       end; 
  
       DM_Lanchonete.FDC_Lanchonete.Commit; 
- 
-      Res.Send('EMPRESA_EMAIL cadastrados com sucesso').Status(200); 
-      TFuncoes.Gravar_Hitorico(lQuery,' - EMPRESA_EMAIL cadastrados com sucesso'); 
- 
-    except on E: Exception do 
-      begin 
-        DM_Lanchonete.FDC_Lanchonete.Rollback; 
-        Res.Send(E.Message).Status(500); 
-        TFuncoes.Gravar_Hitorico(lQuery,' - Erro ao Cadastrar EMPRESA_EMAIL: ' + E.Message); 
+
+      Res.Send('Email da Empresa cadastrado com sucesso').Status(200);
+      TFuncoes.Gravar_Hitorico(lQuery,' - Email da Empresa cadastrados com sucesso');
+
+    except on E: Exception do
+      begin
+        DM_Lanchonete.FDC_Lanchonete.Rollback;
+        Res.Send(E.Message).Status(500);
+        TFuncoes.Gravar_Hitorico(lQuery,' - Erro ao Cadastrar Email da Empresa: ' + E.Message);
       end; 
     end; 
   finally 
@@ -263,12 +282,12 @@ begin
  
       lTEMPRESA_EMAIL.Excluir(lQuery,lID_EMPRESA,lID); 
  
-      Res.Send('EMPRESA_EMAIL excluído').Status(200); 
-      TFuncoes.Gravar_Hitorico(lQuery,' - EMPRESA_EMAIL excluído'); 
+      Res.Send('E-mail da Empresa excluído').Status(200);
+      TFuncoes.Gravar_Hitorico(lQuery,' - E-mail da empresa excluído');
     except on E: Exception do 
       begin 
         Res.Send(E.Message).Status(500); 
-      TFuncoes.Gravar_Hitorico(lQuery,' - Erro ao excluir o EMPRESA_EMAIL: ' + E.Message); 
+      TFuncoes.Gravar_Hitorico(lQuery,' - Erro ao excluir o E-mail da Empresa: ' + E.Message);
       end; 
     end; 
   finally 

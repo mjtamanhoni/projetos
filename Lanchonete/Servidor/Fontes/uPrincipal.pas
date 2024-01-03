@@ -1,5 +1,8 @@
 unit uPrincipal;
 
+{Senha do App para envio de email atraves de um app
+ivng xyrx fwmp igix
+}
 interface
 
 uses

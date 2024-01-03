@@ -24,3 +24,6 @@ Lanchonete/DeskTop/Fonte/Win32/Debug/uFancyDialog.dcu
 Lanchonete/DeskTop/Fonte/Win32/Debug/
 Teste/
 Lanchonete/DeskTop/Fonte/__recovery/
+*.dll
+*.txt
+*.zip

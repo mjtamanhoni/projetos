@@ -274,6 +274,40 @@ type
     FDMem_TelefoneID_USUARIO: TIntegerField;
     FDMem_TelefoneDT_CADASTRO: TDateField;
     FDMem_TelefoneHR_CADASTRO: TTimeField;
+    rctTampa_Email: TRectangle;
+    lytCadEmail: TLayout;
+    rctCadEmail: TRectangle;
+    ShadowEffect4: TShadowEffect;
+    lytCadEmail_Footer: TLayout;
+    lytCadEmail_Buttons: TLayout;
+    rctCadEmail_Confirmar: TRectangle;
+    lbCadEmail_Confirmar: TLabel;
+    rctCadEmail_Cancelar: TRectangle;
+    lbCadEmail_Cancelar: TLabel;
+    lytCadEmail_Detail: TLayout;
+    lytCadEmail_Row001: TLayout;
+    edEmail: TEdit;
+    lbEmail: TLabel;
+    faEmail: TFloatAnimation;
+    lytCadEmail_Row002: TLayout;
+    edEmail_Responsavel: TEdit;
+    lbEmail_Responsavel: TLabel;
+    faEmail_Responsavel: TFloatAnimation;
+    lytEmail_Setor: TLayout;
+    edEmail_Setor: TEdit;
+    lbEmail_Setor: TLabel;
+    faEmail_Setor: TFloatAnimation;
+    imgEmail_Setor: TImage;
+    FDMem_Email: TFDMemTable;
+    FDMem_EmailID_EMPRESA: TIntegerField;
+    FDMem_EmailID: TIntegerField;
+    FDMem_EmailRESPONSAVEL: TStringField;
+    FDMem_EmailID_SETOR: TIntegerField;
+    FDMem_EmailDESC_SETOR: TStringField;
+    FDMem_EmailEMAIL: TStringField;
+    FDMem_EmailID_USUARIO: TIntegerField;
+    FDMem_EmailDT_CADASTRO: TDateField;
+    FDMem_EmailHF_CADASTRO: TTimeField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edPesquisarKeyDown(Sender: TObject; var Key: Word;
@@ -363,10 +397,21 @@ type
     procedure rctCadTel_ConfirmarClick(Sender: TObject);
     procedure lvTelefoneItemClick(const Sender: TObject;
       const AItem: TListViewItem);
+    procedure edEmailKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edEmail_ResponsavelKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edEmailTyping(Sender: TObject);
+    procedure edEmail_ResponsavelTyping(Sender: TObject);
+    procedure edEmail_SetorTyping(Sender: TObject);
+    procedure edEmail_SetorClick(Sender: TObject);
+    procedure rctCadEmail_ConfirmarClick(Sender: TObject);
+    procedure rctCadEmail_CancelarClick(Sender: TObject);
   private
     FProcessando: String;
     FProcessandoEnd: String;
     FProcessandoTel: String;
+    FProcessandoEmail: String;
 
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
@@ -380,9 +425,11 @@ type
     {$Region 'Complementos'}
       FEndereco_Id :Integer;
       FTelefone_ID :Integer;
+      FEmail_ID :Integer;
       FStatusTable: TStatusTable;
       FStatusTable_End: TStatusTable;
       FStatusTable_Tel: TStatusTable;
+      FStatusTable_Email: TStatusTable;
     {$EndRegion 'Complementos'}
 
 
@@ -459,8 +506,29 @@ type
 
     {$Region 'Email'}
       procedure NovoEmail(Sender: TOBject);
+      procedure Limpar_Email;
+      procedure SalvarEmail(Sender: TObject);
+      procedure SalvarAlteracao_Email;
+      procedure ThreadEnd_SalvarEmail(Sender: TOBject);
+      procedure CancelaEmail(Sender: TOBject);
       procedure Excluir_Email(Sender: TObject);
+      procedure ThreadEnd_ExcluirEmail(Sender: TOBject);
       procedure Editar_Email(Sender: TObject);
+      procedure ThreadEnd_EditaEmail(Sender: TOBject);
+      procedure ListarEmail(
+        const APagina:Integer;
+        const AEmpresa:Integer;
+        const AInd_Clear:Boolean;
+        const AId_Telefone:Integer=0);
+      procedure AddEmailItens_LV(
+        const AIdEmpresa :Integer;
+        const AId :Integer;
+        const AEmail: String;
+        const AResponsavel: String;
+        const ASetorID :Integer;
+        const ASetor :String);
+      procedure ThreadEnd_ListaEmail(Sender: TObject);
+      procedure Exibir_Labels_Email;
     {$EndRegion 'Email'}
 
     {$Region 'Telefone'}
@@ -487,8 +555,9 @@ type
       procedure ThreadEnd_ListaTel(Sender: TObject);
       procedure Exibir_Labels_Telefone;
       procedure SalvarAlteracao_Telefone;
-
     {$EndRegion 'Telefone'}
+
+    procedure Seleciona_Setor(AId: Integer; ANome: String);
 
 
   public
@@ -503,8 +572,12 @@ implementation
 
 {$R *.fmx}
 
-uses uDeskTop.CadMunicipios, uDeskTop.CadPaises, uDeskTop.CadRegioes,
-  uDeskTop.CadUF;
+uses
+  uDeskTop.CadMunicipios,
+  uDeskTop.CadPaises,
+  uDeskTop.CadRegioes,
+  uDeskTop.CadUF,
+  uDeskTop.CadSetor;
 
 procedure TfrmEmpresa.Abortar_Fechamento(Sender: TOBject);
 begin
@@ -849,6 +922,50 @@ begin
     Formatar(edDocumento, TFormato.CNPJ);
 end;
 
+procedure TfrmEmpresa.edEmailKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edEmail_Responsavel);
+end;
+
+procedure TfrmEmpresa.edEmailTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edEmail,lbEmail,faEmail,10,-20);
+end;
+
+procedure TfrmEmpresa.edEmail_ResponsavelKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edEmail_Setor);
+end;
+
+procedure TfrmEmpresa.edEmail_ResponsavelTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edEmail_Responsavel,lbEmail_Responsavel,faEmail_Responsavel,10,-20);
+end;
+
+procedure TfrmEmpresa.edEmail_SetorClick(Sender: TObject);
+begin
+  if not Assigned(frmCadSetor) then
+    Application.CreateForm(TfrmCadSetor,frmCadSetor);
+  frmCadSetor.RetornaRegistro := True;
+  frmCadSetor.ExecuteOnClose := Seleciona_Setor;
+  frmCadSetor.Show;
+end;
+
+procedure TfrmEmpresa.Seleciona_Setor(AId:Integer; ANome:String);
+begin
+  edEmail_Setor.Tag := AId;
+  edEmail_Setor.Text := ANome;
+end;
+
+procedure TfrmEmpresa.edEmail_SetorTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edEmail_Setor,lbEmail_Setor,faEmail_Setor,10,-20);
+end;
+
 procedure TfrmEmpresa.edInscEstadualKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
@@ -1087,6 +1204,7 @@ begin
   FId_Selecionado := 0;
   FNome_Selecionado := '';
   tcPrincipal.ActiveTab := tiFiltro;
+  tcAdicionais.ActiveTab := tiEndereco;
 
 end;
 
@@ -1196,6 +1314,92 @@ begin
   lbId.Text := '0';
 
   Exibe_Labels;
+end;
+
+procedure TfrmEmpresa.ListarEmail(const APagina, AEmpresa: Integer;
+  const AInd_Clear: Boolean; const AId_Telefone: Integer);
+var
+  t :TThread;
+begin
+  if FProcessandoEmail = 'processando' then
+      exit;
+  FProcessandoEmail := 'processando';
+
+  if AInd_Clear then
+  begin
+    lvEmail.ScrollTo(0);
+    lvEmail.Tag := 0;
+    lvEmail.Items.Clear;
+  end;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lErro :String;
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+
+    lvEmail.BeginUpdate;
+
+    if lvEmail.Tag >= 0 then
+      lvEmail.Tag := (lvEmail.Tag + 1);
+
+      jsonArray := Dm_DeskTop.EmpresaEmail_Lista(
+        lvEmail.Tag
+        ,AEmpresa);
+
+      for x := 0 to jsonArray.Size -1 do
+      begin
+        TThread.Synchronize(nil,
+        procedure
+        begin
+          AddEmailItens_LV(
+            jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+            ,jsonArray.Get(x).GetValue<Integer>('id')
+            ,jsonArray.Get(x).GetValue<String>('email')
+            ,jsonArray.Get(x).GetValue<String>('responsavel')
+            ,jsonArray.Get(x).GetValue<Integer>('idSetor')
+            ,jsonArray.Get(x).GetValue<String>('setor')
+          );
+        end);
+      end;
+
+      if jsonArray.Size = 0 then
+        lvEmail.Tag := -1;
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonArray);
+      {$ELSE}
+        jsonArray.DisposeOf;
+      {$ENDIF}
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        lvEmail.EndUpdate;
+      end);
+
+      //lvEmail.TagString := '';
+      FProcessando := '';
+
+      //Força a chamada do evento onUpdateObjects da listview...
+      lvEmail.Margins.Bottom := 6;
+      lvEmail.Margins.Bottom := 5;
+      //---------------------------------------------
+  end);
+
+  t.OnTerminate := ThreadEnd_ListaEmail;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_ListaEmail(Sender: TObject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
+      FMensagem.Show(TIconDialog.Error,'','Erro na carga dos E-mails: ' + Exception(TThread(Sender).FatalException).Message);
+  end;
 end;
 
 procedure TfrmEmpresa.ListarTelefone(
@@ -1479,6 +1683,24 @@ begin
   t.Start;
 end;
 
+procedure TfrmEmpresa.AddEmailItens_LV(
+  const AIdEmpresa :Integer;
+  const AId :Integer;
+  const AEmail: String;
+  const AResponsavel: String;
+  const ASetorID :Integer;
+  const ASetor :String);
+begin
+  with lvEmail.Items.Add do
+  begin
+    Tag := AId;
+    TListItemText(Objects.FindDrawable('edEmail')).Text := AEmail;
+    TListItemText(Objects.FindDrawable('edResponsavel')).TagString := AResponsavel;
+    TListItemText(Objects.FindDrawable('edSetor')).Text := ASetor;
+    TListItemText(Objects.FindDrawable('edSetor')).TagString := ASetorID.ToString;
+  end;
+end;
+
 procedure TfrmEmpresa.AddEndItens_LV(
   const AIdEmpresa :Integer;
   const AId :Integer;
@@ -1568,16 +1790,6 @@ begin
   Configura_Botoes(0);
 end;
 
-procedure TfrmEmpresa.NovoEndereco(Sender: TOBject);
-begin
-  Limpar_Endereco;
-
-  FStatusTable_End := TStatusTable.stInsert;
-  rctTampa_Endereco.Align := TAlignLayout.Contents;
-  rctTampa_Endereco.Visible := True;
-  edCadEnd_Logradouro.Tag := 0;
-end;
-
 procedure TfrmEmpresa.Limpar_Endereco;
 begin
   edCadEnd_Cep.Text := '';
@@ -1597,14 +1809,6 @@ begin
   edCadEnd_Pais.Text := '';
 end;
 
-procedure TfrmEmpresa.NovoTelefone(Sender: TOBject);
-begin
-  Limpar_Telefone;
-  FStatusTable_Tel := TStatusTable.stInsert;
-  rctTampa_Telefone.Align := TAlignLayout.Contents;
-  rctTampa_Telefone.Visible := True;
-end;
-
 procedure TfrmEmpresa.Limpar_Telefone;
 begin
   edCadTel_Tipo.Tag := -1;
@@ -1612,9 +1816,79 @@ begin
   edCadTel_Numero.Text := '';
 end;
 
-procedure TfrmEmpresa.NovoEmail(Sender: TOBject);
+procedure TfrmEmpresa.rctCadEmail_CancelarClick(Sender: TObject);
 begin
-  //
+  FMensagem.Show(TIconDialog.Question,'E-mail','Cancela alterações','SIM',CancelaEmail,'NÂO');
+end;
+
+procedure TfrmEmpresa.CancelaEmail(Sender :TOBject);
+begin
+  rctTampa_Email.Visible := False;
+end;
+
+procedure TfrmEmpresa.rctCadEmail_ConfirmarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'E-mail','Salva alterações','SIM',SalvarEmail,'NÃO');
+end;
+
+procedure TfrmEmpresa.SalvarEmail(Sender :TObject);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmEmpresa,'Salvando E-mail');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    SalvarAlteracao_Email;
+  end);
+
+  t.OnTerminate := ThreadEnd_SalvarEmail;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.SalvarAlteracao_Email;
+begin
+  FDMem_Email.Active := False;
+  FDMem_Email.Active := True;
+  FDMem_Email.Insert;
+  FDMem_EmailID_EMPRESA.AsInteger := lbId.Tag;
+  FDMem_EmailID.AsInteger := rctCad_Telefone.Tag;
+  FDMem_EmailRESPONSAVEL.AsString := edEmail_Responsavel.Text;
+  FDMem_EmailID_SETOR.AsInteger := edEmail_Setor.Tag;
+  FDMem_EmailDESC_SETOR.AsString := edEmail_Setor.Text;
+  FDMem_EmailEMAIL.Text := edEmail.Text;
+  FDMem_TelefoneID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+  FDMem_TelefoneDT_CADASTRO.AsDateTime := Date;
+  FDMem_TelefoneHR_CADASTRO.AsDateTime := Time;
+  FDMem_Telefone.Post;
+
+  if FStatusTable_Email = stInsert then
+  begin
+    if not Dm_DeskTop.EmpresaEmail_Cadastro(FDMem_Email.ToJSONArray,0) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end
+  else if FStatusTable_Email = stUpdate then
+  begin
+    if not Dm_DeskTop.EmpresaEmail_Cadastro(FDMem_Email.ToJSONArray,1) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end;
+
+  FStatusTable_Email := TStatusTable.stList;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_SalvarEmail(Sender :TOBject);
+begin
+  TLoading.Hide;
+  rctTampa_Email.Visible := False;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoEmail := '';
+    ListarEmail(0,lbId.Tag,True,0);
+  end;
 end;
 
 procedure TfrmEmpresa.rctCadEndereco_CancelarClick(Sender: TObject);
@@ -1683,7 +1957,7 @@ begin
       raise Exception.Create('Erro ao salvar as alterações');
   end;
 
-  FStatusTable := TStatusTable.stList;
+  FStatusTable_Tel := TStatusTable.stList;
 
 end;
 
@@ -1767,7 +2041,7 @@ begin
         raise Exception.Create('Erro ao salvar as alterações');
     end;
 
-    FStatusTable := TStatusTable.stList;
+    FStatusTable_End := TStatusTable.stList;
 
   end);
 
@@ -1973,8 +2247,71 @@ begin
 end;
 
 procedure TfrmEmpresa.Editar_Email(Sender :TObject);
+var
+  t :TThread;
 begin
-  FMensagem.Show(TIconDialog.Info,'','Endereço selecionado ' + FEndereco_Id.ToString,'OK');
+  Limpar_Email;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+    jsonArray := Dm_DeskTop.EmpresaEmail_Lista(
+      0
+      ,FId_Selecionado
+      ,FEmail_ID);
+
+    for x := 0 to jsonArray.Size -1 do
+    begin
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        FStatusTable_Email := TStatusTable.stUpdate;
+        rctTampa_Email.Align := TAlignLayout.Contents;
+        rctTampa_Email.Visible := True;
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        rctCadEmail.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edEmail.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edEmail.Text := jsonArray.Get(x).GetValue<String>('email');
+        edEmail_Responsavel.Text := jsonArray.Get(x).GetValue<String>('responsavel');
+        edEmail_Setor.Tag := jsonArray.Get(x).GetValue<Integer>('idSetor');
+        edEmail_Setor.Text := jsonArray.Get(x).GetValue<String>('setor');
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        Exibir_Labels_Telefone;
+      end);
+
+    end;
+  end);
+
+  t.OnTerminate := ThreadEnd_EditaEmail;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.Exibir_Labels_Email;
+begin
+  if Trim(edEmail.Text) <> '' then
+    TFuncoes.ExibeLabel(edEmail,lbEmail,faEmail,10,-20);
+  if Trim(edEmail_Responsavel.Text) <> '' then
+    TFuncoes.ExibeLabel(edEmail_Responsavel,lbEmail_Responsavel,faEmail_Responsavel,10,-20);
+  if Trim(edEmail_Setor.Text) <> '' then
+    TFuncoes.ExibeLabel(edEmail_Setor,lbEmail_Setor,faEmail_Setor,10,-20);
+end;
+
+procedure TfrmEmpresa.ThreadEnd_EditaEmail(Sender :TOBject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Editar E-mail',Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmEmpresa.rctExclui_AdicionaisClick(Sender: TObject);
@@ -2047,8 +2384,32 @@ begin
 end;
 
 procedure TfrmEmpresa.Excluir_Email(Sender :TObject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmEmpresa,'Excluindo E-mail');
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    Dm_DeskTop.EmpresaEmail_Excluir(lbId.Tag,FEmail_ID);
+  end);
+
+  t.OnTerminate := ThreadEnd_ExcluirEmail;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.ThreadEnd_ExcluirEmail(Sender :TOBject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoEmail := '';
+    ListarEmail(0,lbId.Tag,True,0);
+  end;
 end;
 
 procedure TfrmEmpresa.rctFecharClick(Sender: TObject);
@@ -2063,6 +2424,42 @@ begin
     1:FMensagem.Show(TIconDialog.Question,'Telefone','Deseja incluir um novo Telefone?','SIM',NovoTelefone,'NÃO');
     2:FMensagem.Show(TIconDialog.Question,'E-mail','Deseja incluir um novo E-mail?','SIM',NovoEmail,'NÃO');
   end;
+end;
+
+procedure TfrmEmpresa.NovoEndereco(Sender: TOBject);
+begin
+  Limpar_Endereco;
+
+  FStatusTable_End := TStatusTable.stInsert;
+  rctTampa_Endereco.Align := TAlignLayout.Contents;
+  rctTampa_Endereco.Visible := True;
+  edCadEnd_Logradouro.Tag := 0;
+end;
+
+procedure TfrmEmpresa.NovoTelefone(Sender: TOBject);
+begin
+  Limpar_Telefone;
+
+  FStatusTable_Tel := TStatusTable.stInsert;
+  rctTampa_Telefone.Align := TAlignLayout.Contents;
+  rctTampa_Telefone.Visible := True;
+end;
+
+procedure TfrmEmpresa.NovoEmail(Sender: TOBject);
+begin
+  Limpar_Email;
+
+  FStatusTable_Email := TStatusTable.stInsert;
+  rctTampa_Email.Align := TAlignLayout.Contents;
+  rctTampa_Email.Visible := True;
+end;
+
+procedure TfrmEmpresa.Limpar_Email;
+begin
+  edEmail.Text := '';
+  edEmail_Responsavel.Text := '';
+  edEmail_Setor.Tag := -1;
+  edEmail_Setor.Text := '';
 end;
 
 procedure TfrmEmpresa.rctStatus_AtivoClick(Sender: TObject);
