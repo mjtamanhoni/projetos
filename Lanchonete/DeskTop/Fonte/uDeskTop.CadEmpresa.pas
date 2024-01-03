@@ -1203,6 +1203,7 @@ begin
 
   FId_Selecionado := 0;
   FNome_Selecionado := '';
+
   tcPrincipal.ActiveTab := tiFiltro;
   tcAdicionais.ActiveTab := tiEndereco;
 
