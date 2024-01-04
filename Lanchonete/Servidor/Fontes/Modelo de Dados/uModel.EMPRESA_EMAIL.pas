@@ -56,7 +56,7 @@ type
     procedure Criar_Estrutura(const AFDScript:TFDScript;AFDQuery:TFDQuery); 
     procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery); 
     procedure Inicia_Propriedades; 
-    procedure Inserir(const AFDQ_Query:TFDQuery); 
+    procedure Inserir(const AFDQ_Query:TFDQuery);
     function Listar(
       const AFDQ_Query:TFDQuery;
       const AID_EMPRESA:Integer = 0;
@@ -335,13 +335,13 @@ end;
  
 procedure TEMPRESA_EMAIL.Inicia_Propriedades; 
 begin 
-  ID_EMPRESA := -1; 
-  ID := -1; 
-  RESPONSAVEL := ''; 
-  ID_SETOR := -1; 
-  EMAIL := ''; 
-  ID_USUARIO := -1; 
-  DT_CADASTRO := Date; 
+  ID_EMPRESA := 0;
+  ID := 0;
+  RESPONSAVEL := '';
+  ID_SETOR := 0;
+  EMAIL := '';
+  ID_USUARIO := 0;
+  DT_CADASTRO := Date;
   HF_CADASTRO := Time; 
 end; 
  
@@ -408,7 +408,7 @@ begin
   end; 
 end; 
  
-procedure TEMPRESA_EMAIL.Inserir(const AFDQ_Query: TFDQuery); 
+procedure TEMPRESA_EMAIL.Inserir(const AFDQ_Query: TFDQuery);
 begin 
   try 
     try 
@@ -422,9 +422,11 @@ begin
         raise Exception.Create('DT_CADASTRO: DATA DO CADASTRO não informado'); 
       if FHF_CADASTRO = 0 then 
         raise Exception.Create('HF_CADASTRO: HORA DO CADASTRO não informado'); 
- 
-      AFDQ_Query.Active := False; 
-      AFDQ_Query.Sql.Clear; 
+
+      ID := 0;
+
+      AFDQ_Query.Active := False;
+      AFDQ_Query.Sql.Clear;
       AFDQ_Query.Sql.Add('INSERT INTO EMPRESA_EMAIL( ');
       AFDQ_Query.Sql.Add('  ID_EMPRESA');
       AFDQ_Query.Sql.Add('  ,ID');

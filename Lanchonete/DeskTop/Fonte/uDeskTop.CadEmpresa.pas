@@ -407,6 +407,12 @@ type
     procedure edEmail_SetorClick(Sender: TObject);
     procedure rctCadEmail_ConfirmarClick(Sender: TObject);
     procedure rctCadEmail_CancelarClick(Sender: TObject);
+    procedure lvEnderecosPaint(Sender: TObject; Canvas: TCanvas;
+      const ARect: TRectF);
+    procedure lvTelefonePaint(Sender: TObject; Canvas: TCanvas;
+      const ARect: TRectF);
+    procedure lvEmailPaint(Sender: TObject; Canvas: TCanvas;
+      const ARect: TRectF);
   private
     FProcessando: String;
     FProcessandoEnd: String;
@@ -1056,6 +1062,7 @@ begin
     Configura_Botoes(4);
     Listar_Endereco(0,lbId.Tag,True);
     ListarTelefone(0,lbId.Tag,True);
+    ListarEmail(0,lbId.Tag,True);
     Exibe_Labels;
     FProcessandoEnd := '';
   end;
@@ -1382,7 +1389,7 @@ begin
       end);
 
       //lvEmail.TagString := '';
-      FProcessando := '';
+      FProcessandoEmail := '';
 
       //Força a chamada do evento onUpdateObjects da listview...
       lvEmail.Margins.Bottom := 6;
@@ -1470,7 +1477,7 @@ begin
       end);
 
       //lvTelefone.TagString := '';
-      FProcessando := '';
+      FProcessandoTel := '';
 
       //Força a chamada do evento onUpdateObjects da listview...
       lvTelefone.Margins.Bottom := 6;
@@ -1672,7 +1679,7 @@ begin
       end);
 
       //lvEnderecos.TagString := '';
-      FProcessando := '';
+      FProcessandoEnd := '';
 
       //Força a chamada do evento onUpdateObjects da listview...
       lvEnderecos.Margins.Bottom := 6;
@@ -1696,7 +1703,7 @@ begin
   begin
     Tag := AId;
     TListItemText(Objects.FindDrawable('edEmail')).Text := AEmail;
-    TListItemText(Objects.FindDrawable('edResponsavel')).TagString := AResponsavel;
+    TListItemText(Objects.FindDrawable('edResponsavel')).Text := AResponsavel;
     TListItemText(Objects.FindDrawable('edSetor')).Text := ASetor;
     TListItemText(Objects.FindDrawable('edSetor')).TagString := ASetorID.ToString;
   end;
@@ -1754,10 +1761,30 @@ begin
   end;
 end;
 
+procedure TfrmEmpresa.lvEmailPaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+  if (lvEmail.Items.Count >= 0) and (lvEmail.Tag >= 0) then
+  begin
+    if lvEmail.GetItemRect(lvEmail.Items.Count - 3).Bottom <= lvEmail.Height then
+      ListarEmail(lvEmail.Tag,lbId.Tag,False)
+  end;
+end;
+
 procedure TfrmEmpresa.lvEnderecosItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin
   FEndereco_Id := AItem.Tag;
+end;
+
+procedure TfrmEmpresa.lvEnderecosPaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+  if (lvEnderecos.Items.Count >= 0) and (lvEnderecos.Tag >= 0) then
+  begin
+    if lvEnderecos.GetItemRect(lvEnderecos.Items.Count - 3).Bottom <= lvEnderecos.Height then
+      Listar_Endereco(lvEnderecos.Tag,lbId.Tag,False)
+  end;
 end;
 
 procedure TfrmEmpresa.lvListaItemClick(const Sender: TObject;
@@ -1781,6 +1808,16 @@ procedure TfrmEmpresa.lvTelefoneItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin
   FTelefone_ID := AItem.Tag;
+end;
+
+procedure TfrmEmpresa.lvTelefonePaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+  if (lvTelefone.Items.Count >= 0) and (lvTelefone.Tag >= 0) then
+  begin
+    if lvTelefone.GetItemRect(lvTelefone.Items.Count - 3).Bottom <= lvTelefone.Height then
+      ListarTelefone(lvTelefone.Tag,lbId.Tag,False)
+  end;
 end;
 
 procedure TfrmEmpresa.Novo_Registro(Sender: TOBject);
@@ -1859,10 +1896,10 @@ begin
   FDMem_EmailID_SETOR.AsInteger := edEmail_Setor.Tag;
   FDMem_EmailDESC_SETOR.AsString := edEmail_Setor.Text;
   FDMem_EmailEMAIL.Text := edEmail.Text;
-  FDMem_TelefoneID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
-  FDMem_TelefoneDT_CADASTRO.AsDateTime := Date;
-  FDMem_TelefoneHR_CADASTRO.AsDateTime := Time;
-  FDMem_Telefone.Post;
+  FDMem_EmailID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+  FDMem_EmailDT_CADASTRO.AsDateTime := Date;
+  FDMem_EmailHF_CADASTRO.AsDateTime := Time;
+  FDMem_Email.Post;
 
   if FStatusTable_Email = stInsert then
   begin

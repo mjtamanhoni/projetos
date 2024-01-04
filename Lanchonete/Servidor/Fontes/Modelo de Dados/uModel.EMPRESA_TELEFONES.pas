@@ -20,12 +20,17 @@ uses
   function Trigger_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const ATrigger: String): Boolean; 
   function Generator_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AGenerator: String): Boolean; 
   function Indice_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AIndice: String): Boolean; 
- 
+
+const
+  C_Paginas = 30;
+
 type 
   TEMPRESA_TELEFONES = class 
   private 
     FConexao: TFDConnection; 
-    
+    FPagina :Integer;
+    FPaginas :Integer;
+
     FID_EMPRESA :Integer;
     FID :Integer;
     FTIPO :Integer;
@@ -49,9 +54,13 @@ type
     procedure Criar_Estrutura(const AFDScript:TFDScript;AFDQuery:TFDQuery); 
     procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery); 
     procedure Inicia_Propriedades; 
-    procedure Inserir(const AFDQ_Query:TFDQuery); 
-    function Listar(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0): TJSONArray; 
-    procedure Atualizar(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0); 
+    procedure Inserir(const AFDQ_Query:TFDQuery);
+    function Listar(
+      const AFDQ_Query:TFDQuery;
+      const AID_EMPRESA:Integer = 0;
+      const AID:Integer = 0;
+      const APagina:Integer=0): TJSONArray;
+    procedure Atualizar(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0);
     procedure Excluir(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0); 
  
     property ID_EMPRESA:Integer read FID_EMPRESA write SetID_EMPRESA;
@@ -199,7 +208,8 @@ end;
  
 constructor TEMPRESA_TELEFONES.Create(AConnexao: TFDConnection); 
 begin 
-  FConexao := AConnexao; 
+  FPaginas := C_Paginas;
+  FConexao := AConnexao;
 end; 
  
 destructor TEMPRESA_TELEFONES.Destroy; 
@@ -321,8 +331,12 @@ begin
   DT_CADASTRO := Date; 
   HR_CADASTRO := Time; 
 end; 
- 
-function  TEMPRESA_TELEFONES.Listar(const AFDQ_Query:TFDQuery; AID_EMPRESA:Integer = 0; AID:Integer = 0): TJSONArray; 
+
+function  TEMPRESA_TELEFONES.Listar(
+  const AFDQ_Query:TFDQuery;
+  const AID_EMPRESA:Integer = 0;
+  const AID:Integer = 0;
+  const APagina:Integer=0): TJSONArray;
 begin 
   try 
     try 
@@ -343,6 +357,17 @@ begin
       AFDQ_Query.Sql.Add('WHERE NOT ID IS NULL');
       if AID_EMPRESA> 0 then
         AFDQ_Query.Sql.Add('  AND ID_EMPRESA = ' + AID_EMPRESA.ToString);
+      AFDQ_Query.Sql.Add('ORDER BY ');
+      AFDQ_Query.Sql.Add('  ET.ID_EMPRESA ');
+      AFDQ_Query.Sql.Add('  ,ET.ID ');
+
+      if ((APagina > 0) and (FPaginas > 0))  then
+      begin
+        FPagina := (((APagina - 1) * FPaginas) + 1);
+        FPaginas := (APagina * FPaginas);
+        AFDQ_Query.Sql.Add('ROWS ' + FPagina.ToString + ' TO ' + FPaginas.ToString);
+      end;
+
       AFDQ_Query.Active := True;
       Result := AFDQ_Query.ToJSONArray; 
  

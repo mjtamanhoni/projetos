@@ -1,43 +1,43 @@
 unit uRota.EMPRESA_ENDERECO;
- 
-interface 
- 
-uses 
-  System.SysUtils, 
-  System.JSON, 
-  System.Net.HttpClient, 
-  System.Classes, 
- 
-  FMX.Dialogs, 
- 
-  Horse, 
-  Horse.Jhonson, 
-  Horse.CORS, 
-  Horse.JWT, 
- 
-  uRota.Auth, 
- 
-  uModel.EMPRESA_ENDERECO, 
-  uFuncoes, 
-  uDm_Lanchonete, 
- 
-  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, 
-  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB, 
-  FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS, 
-  FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, 
-  FireDAC.Comp.Client, FireDAC.Comp.UI, FireDAC.Phys.IBBase, 
-  FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util, FireDAC.Comp.Script; 
- 
-  procedure RegistrarRotas; 
- 
-  procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
-  procedure Cadastro(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
-  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
-  procedure Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc); 
- 
-implementation 
- 
-procedure RegistrarRotas; 
+
+interface
+
+uses
+  System.SysUtils,
+  System.JSON,
+  System.Net.HttpClient,
+  System.Classes,
+
+  FMX.Dialogs,
+
+  Horse,
+  Horse.Jhonson,
+  Horse.CORS,
+  Horse.JWT,
+
+  uRota.Auth,
+
+  uModel.EMPRESA_ENDERECO,
+  uFuncoes,
+  uDm_Lanchonete,
+
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB,
+  FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, FireDAC.Comp.UI, FireDAC.Phys.IBBase,
+  FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util, FireDAC.Comp.Script;
+
+  procedure RegistrarRotas;
+
+  procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Cadastro(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+
+implementation
+
+procedure RegistrarRotas;
 begin
   {$Region 'EMPRESA_ENDERECO'}
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/empresa/endereco',Listar);
@@ -61,6 +61,7 @@ var
  
   lId :Integer;
   lIdEmpresa :Integer;
+  lPagina :Integer;
 
 begin
   try
@@ -73,14 +74,17 @@ begin
 
       lId := 0;
       lIdEmpresa := 0;
+      lPagina := 0;
 
       lId := StrToIntDef(Req.Query['id'],0);
       lIdEmpresa := StrToIntDef(Req.Query['idEmpresa'],0);
+      lPagina := StrToIntDef(Req.Query['pagina'],0);
 
       lJson_Ret := lTEMPRESA_ENDERECO.Listar(
         lQuery
         ,lIdEmpresa
-        ,lId);
+        ,lId
+        ,lPagina);
 
       if lJson_Ret.Size = 0  then
       begin

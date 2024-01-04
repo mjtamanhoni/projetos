@@ -32,6 +32,7 @@ uses
     uRota.EMPRESA,
     uRota.EMPRESA_ENDERECO,
     uRota.EMPRESA_TELEFONES,
+    uRota.EMPRESA_EMAIL,
     uRota.IMPRESSORA_SETOR,
     uRota.GRUPO,
     uRota.SUB_GRUPO,
@@ -202,6 +203,7 @@ begin
       uRota.EMPRESA.RegistrarRotas;
       uRota.EMPRESA_ENDERECO.RegistrarRotas;
       uRota.EMPRESA_TELEFONES.RegistrarRotas;
+      uRota.EMPRESA_EMAIL.RegistrarRotas;
       uRota.IMPRESSORA_SETOR.RegistrarRotas;
       uRota.GRUPO.RegistrarRotas;
       uRota.SUB_GRUPO.RegistrarRotas;

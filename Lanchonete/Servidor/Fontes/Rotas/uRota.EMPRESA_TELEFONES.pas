@@ -61,6 +61,7 @@ var
  
   lId :Integer;
   lIdEmpresa :Integer;
+  lPagina :Integer;
 
 begin
   try
@@ -73,14 +74,17 @@ begin
 
       lId := 0;
       lIdEmpresa := 0;
+      lPagina := 0;
 
       lId := StrToIntDef(Req.Query['id'],0);
       lIdEmpresa := StrToIntDef(Req.Query['idEmpresa'],0);
+      lPagina := StrToIntDef(Req.Query['pagina'],0);
 
       lJson_Ret := lTEMPRESA_TELEFONES.Listar(
         lQuery
         ,lIdEmpresa
-        ,lId);
+        ,lId
+        ,lPagina);
  
       if lJson_Ret.Size = 0  then 
       begin 
