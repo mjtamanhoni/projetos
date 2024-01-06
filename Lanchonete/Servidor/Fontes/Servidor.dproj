@@ -363,6 +363,14 @@
         <DCCReference Include="Rotas\uRota.FORNECEDOR_EMAIL.pas"/>
         <DCCReference Include="Rotas\uRota.EMPRESA_EMAIL.pas"/>
         <DCCReference Include="Rotas\uRota.CLIENTE_EMAIL.pas"/>
+        <DCCReference Include="Rotas\uRota.FORNECEDOR.ENDERECO.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.FORNECEDOR.ENDERECO.pas"/>
+        <DCCReference Include="Rotas\uRota.CLIENTE.ENDERECO.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.CLIENTE.ENDERECO.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.FORNECEDOR.TELEFONES.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.CLIENTE.TELEFONES.pas"/>
+        <DCCReference Include="Rotas\uRota.FORNECEDOR.TELEFONES.pas"/>
+        <DCCReference Include="Rotas\uRota.CLIENTE.TELEFONES.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -413,12 +421,6 @@
                 <DeployFile LocalName="Win64\Debug\Servidor.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win64">
                         <RemoteName>Servidor.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Win64\Debug\Servidor.rsm" Configuration="Debug" Class="DebugSymbols">
-                    <Platform Name="Win64">
-                        <RemoteName>Servidor.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

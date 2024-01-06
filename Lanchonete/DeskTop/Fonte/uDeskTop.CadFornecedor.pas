@@ -35,7 +35,7 @@ uses
   FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
   FMX.Objects, FMX.ListView, FMX.Ani, FMX.StdCtrls, FMX.Controls.Presentation,
   FMX.Edit, FMX.TabControl, FMX.Layouts, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, FMX.Effects;
 
 type
   TStatusTable = (stList,stInsert,stUpdate,stDelete);
@@ -138,6 +138,173 @@ type
     lytFechar: TLayout;
     rctFechar: TRectangle;
     imgFechar: TImage;
+    lytNavegarPages: TLayout;
+    lytExclui_Adicionais: TLayout;
+    rctExclui_Adicionais: TRectangle;
+    CircleExclui_Adicionais: TCircle;
+    imgExclui_Adicionais: TImage;
+    lytEdita_Adicionais: TLayout;
+    rctEdita_Adicionais: TRectangle;
+    Circle_Edita_Adicionais: TCircle;
+    imgEdita_Adicionais: TImage;
+    lytNovo_Adicionais: TLayout;
+    rctNovo_Adicionais: TRectangle;
+    CircleNovo_Adicionais: TCircle;
+    imgNovo_Adicionais: TImage;
+    lytAdicionais: TLayout;
+    rctAdicionais: TRectangle;
+    tcAdicionais: TTabControl;
+    tiEndereco: TTabItem;
+    lytEndereco: TLayout;
+    rctEndereco: TRectangle;
+    lvEnderecos: TListView;
+    tiTelefone: TTabItem;
+    lytTelefone: TLayout;
+    rctTelefone: TRectangle;
+    lvTelefone: TListView;
+    tiEmail: TTabItem;
+    lytEmail: TLayout;
+    rctEmail: TRectangle;
+    lvEmail: TListView;
+    lytAdicionais_Nav: TLayout;
+    lytNavegarPages_Buttons: TLayout;
+    imgEndereco: TImage;
+    imgTelefone: TImage;
+    imgEmail: TImage;
+    rctTampa_Email: TRectangle;
+    lytCadEmail: TLayout;
+    rctCadEmail: TRectangle;
+    ShadowEffect4: TShadowEffect;
+    lytCadEmail_Footer: TLayout;
+    lytCadEmail_Buttons: TLayout;
+    rctCadEmail_Confirmar: TRectangle;
+    lbCadEmail_Confirmar: TLabel;
+    rctCadEmail_Cancelar: TRectangle;
+    lbCadEmail_Cancelar: TLabel;
+    lytCadEmail_Detail: TLayout;
+    lytCadEmail_Row001: TLayout;
+    edEmail: TEdit;
+    lbEmail: TLabel;
+    faEmail: TFloatAnimation;
+    lytCadEmail_Row002: TLayout;
+    edEmail_Responsavel: TEdit;
+    lbEmail_Responsavel: TLabel;
+    faEmail_Responsavel: TFloatAnimation;
+    lytEmail_Setor: TLayout;
+    edEmail_Setor: TEdit;
+    lbEmail_Setor: TLabel;
+    faEmail_Setor: TFloatAnimation;
+    imgEmail_Setor: TImage;
+    rctTampa_Endereco: TRectangle;
+    lytCadEndereco: TLayout;
+    rctCadEndereco: TRectangle;
+    ShadowEffect1: TShadowEffect;
+    lytCadEndereco_Footer: TLayout;
+    lytCadEndereco_Buttons: TLayout;
+    rctCadEndereco_Confirmar: TRectangle;
+    lbCadEndereco_Confirmar: TLabel;
+    rctCadEndereco_Cancelar: TRectangle;
+    lbCadEndereco_Cancelar: TLabel;
+    lytCadEndereco_Detail: TLayout;
+    lytCadEnd_Row001: TLayout;
+    edCadEnd_Cep: TEdit;
+    lbCadEnd_Cep: TLabel;
+    faCadEnd_Cep: TFloatAnimation;
+    imgCadEnd_Cep: TImage;
+    edCadEnd_Logradouro: TEdit;
+    lbCadEnd_Logradouro: TLabel;
+    faCadEnd_Logradouro: TFloatAnimation;
+    edCadEnd_Nr: TEdit;
+    lbCadEdn_Nr: TLabel;
+    faCadEnd_Nr: TFloatAnimation;
+    lytCadEnd_Row002: TLayout;
+    edCadEnd_Complemento: TEdit;
+    lbCadEnd_Complemento: TLabel;
+    faCadEnd_Complemento: TFloatAnimation;
+    lytCadEnd_Row003: TLayout;
+    edCadEnd_Bairro: TEdit;
+    lbCadEnd_Bairro: TLabel;
+    faCadEnd_Bairro: TFloatAnimation;
+    edCadEnd_Municipio: TEdit;
+    lbCadEnd_Municipio: TLabel;
+    faCadEnd_Municipio: TFloatAnimation;
+    imgCadEnd_Municipio: TImage;
+    edCadEnd_UF: TEdit;
+    lbCadEnd_UF: TLabel;
+    faCadEnd_UF: TFloatAnimation;
+    imgCadEnd_UF: TImage;
+    lytCadEnd_Row004: TLayout;
+    edCadEnd_Regiao: TEdit;
+    lbCadEnd_Regiao: TLabel;
+    faCadEnd_Regiao: TFloatAnimation;
+    imgCadEnd_Regiao: TImage;
+    edCadEnd_Pais: TEdit;
+    lbCadEnd_Pais: TLabel;
+    faCadEnd_Pais: TFloatAnimation;
+    imgCadEnd_Pais: TImage;
+    rctTampa_Telefone: TRectangle;
+    lytCad_Telefone: TLayout;
+    rctCad_Telefone: TRectangle;
+    ShadowEffect2: TShadowEffect;
+    lytCadTelefone_Footer: TLayout;
+    lytCadTel_Buttons: TLayout;
+    rctCadTel_Confirmar: TRectangle;
+    lbCadTel_Cnacelar: TLabel;
+    rctCadTel_Cancelar: TRectangle;
+    lbCadTel_Confirmar: TLabel;
+    lytCadTelefone_Detail: TLayout;
+    lytCadTelefone_Row001: TLayout;
+    edCadTel_Tipo: TEdit;
+    lbCadTel_Tipo: TLabel;
+    faCadTel_Tipo: TFloatAnimation;
+    imgCadTel_Tipo: TImage;
+    edCadTel_Numero: TEdit;
+    lbCadTel_Numero: TLabel;
+    faCadTel_Numero: TFloatAnimation;
+    rctCadTel_ListaTipo: TRectangle;
+    rctCadTel_Tipo_Comercial: TRectangle;
+    lbCadTel_Tipo_Comercial: TLabel;
+    rctCadTel_Tipo_Celular: TRectangle;
+    lbCadTel_Tipo_Celular: TLabel;
+    faCadTel_ListaTipo: TFloatAnimation;
+    rctCadTel_Tipo_Residencial: TRectangle;
+    lbCadTel_Tipo_Residencial: TLabel;
+    FDMem_Endereco: TFDMemTable;
+    FDMem_EnderecoID_EMPRESA: TIntegerField;
+    FDMem_EnderecoID: TIntegerField;
+    FDMem_EnderecoCEP: TStringField;
+    FDMem_EnderecoLOGRADOURO: TStringField;
+    FDMem_EnderecoNUMERO: TStringField;
+    FDMem_EnderecoCOMPLEMENTO: TStringField;
+    FDMem_EnderecoBAIRRO: TStringField;
+    FDMem_EnderecoIBGE: TIntegerField;
+    FDMem_EnderecoMUNICIPIO: TStringField;
+    FDMem_EnderecoSIGLA_UF: TStringField;
+    FDMem_EnderecoUF: TStringField;
+    FDMem_EnderecoREGIAO: TStringField;
+    FDMem_EnderecoCODIGO_PAIS: TIntegerField;
+    FDMem_EnderecoPAIS: TStringField;
+    FDMem_EnderecoID_USUARIO: TIntegerField;
+    FDMem_EnderecoDT_CADASTRO: TDateField;
+    FDMem_EnderecoHR_CADASTRO: TTimeField;
+    FDMem_Email: TFDMemTable;
+    FDMem_EmailID_EMPRESA: TIntegerField;
+    FDMem_EmailID: TIntegerField;
+    FDMem_EmailRESPONSAVEL: TStringField;
+    FDMem_EmailID_SETOR: TIntegerField;
+    FDMem_EmailDESC_SETOR: TStringField;
+    FDMem_EmailEMAIL: TStringField;
+    FDMem_EmailID_USUARIO: TIntegerField;
+    FDMem_EmailDT_CADASTRO: TDateField;
+    FDMem_EmailHF_CADASTRO: TTimeField;
+    FDMem_Telefone: TFDMemTable;
+    FDMem_TelefoneID_EMPRESA: TIntegerField;
+    FDMem_TelefoneID: TIntegerField;
+    FDMem_TelefoneTIPO: TIntegerField;
+    FDMem_TelefoneNUMERO: TStringField;
+    FDMem_TelefoneID_USUARIO: TIntegerField;
+    FDMem_TelefoneDT_CADASTRO: TDateField;
+    FDMem_TelefoneHR_CADASTRO: TTimeField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure rctFecharClick(Sender: TObject);
@@ -178,8 +345,12 @@ type
     procedure rctStatus_InativoClick(Sender: TObject);
     procedure rctTipo_FisicoClick(Sender: TObject);
     procedure rctTipo_JuridicoClick(Sender: TObject);
+    procedure imgEnderecoClick(Sender: TObject);
   private
     FProcessando: String;
+    FProcessandoEnd: String;
+    FProcessandoTel: String;
+    FProcessandoEmail: String;
 
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
@@ -189,6 +360,15 @@ type
     FId_Selecionado :Integer;
     FNome_Selecionado :String;
     FStatusTable: TStatusTable;
+
+    {$Region 'Complementos'}
+      FEndereco_Id :Integer;
+      FTelefone_ID :Integer;
+      FEmail_ID :Integer;
+      FStatusTable_End: TStatusTable;
+      FStatusTable_Tel: TStatusTable;
+      FStatusTable_Email: TStatusTable;
+    {$EndRegion 'Complementos'}
 
     procedure Abortar_Fechamento(Sender: TOBject);
     procedure Confirmar_Fechamento(Sender :TObject);
@@ -200,7 +380,7 @@ type
     procedure ThreadEnd_Tipo(Sender: TOBject);
     procedure SelecionaTipo(Sender:TObject; AEdit:TEdit;ALabel:TLabel);
 
-    {$Region 'Listar dados'}
+    {$Region 'Empresa'}
       procedure Listar_Dados(
         const APagina: Integer;
         const ABusca: String;
@@ -209,20 +389,110 @@ type
         const ACodigo:Integer;
         const ANome:String);
       procedure ThreadEnd_Lista(Sender: TOBject);
-    {$EndRegion 'Listar dados'}
+      procedure Salvar_Alteracoes(Sender :TOBject);
+      procedure ThreadEnd_SalvarRegistro(Sender: TOBject);
+      procedure Cancelar_Alteracoes(Sender :TOBject);
+      procedure Novo_Registro(Sender: TOBject);
+      procedure Deletar_Registro(Sender: TOBject);
+      procedure ThreadEnd_DeletarRegistro(Sender: TOBject);
+      procedure EditarRegistro(Sender: TOBject);
+      procedure EditandoRegistro(const AId: Integer);
+      procedure ThreadEnd_Edit(Sender: TOBject);
+    {$EndRegion 'Empresa'}
 
-    procedure Salvar_Alteracoes(Sender :TOBject);
-    procedure Cancelar_Alteracoes(Sender :TOBject);
-    procedure Novo_Registro(Sender: TOBject);
-    procedure Deletar_Registro(Sender: TOBject);
-    procedure EditandoRegistro(const AId: Integer);
-    procedure ThreadEnd_Edit(Sender: TOBject);
     procedure Configura_Botoes(ABotao: Integer);
-    procedure EditarRegistro(Sender: TOBject);
     procedure Incia_Campos;
     procedure Exibe_Labels;
-    procedure ThreadEnd_SalvarRegistro(Sender: TOBject);
-    procedure ThreadEnd_DeletarRegistro(Sender: TOBject);
+
+    {$Region 'Endereço'}
+      procedure NovoEndereco(Sender: TOBject);
+      procedure CancelaEndereco(Sender: TObject);
+      procedure SalvarEndereco(Sender: TObject);
+      procedure ThreadEnd_SalvarEndereco(Sender: TObject);
+      procedure ThreadEnd_BuscaCep(Sender: TObject);
+      procedure Listar_Endereco(
+        const APagina:Integer;
+        const AEmpresa:Integer;
+        const AInd_Clear:Boolean;
+        const AId_Endereco:Integer=0);
+      procedure AddEndItens_LV(
+        const AIdEmpresa :Integer;
+        const AId :Integer;
+        const APais_Nome: String;
+        const ARegiao_Nome :String;
+        const AIbge :String;
+        const AMunicipio :String;
+        const ANr :String;
+        const AUf_Sigla :String;
+        const ABairro :String;
+        const ACep :String;
+        const ALogradouro :String;
+        const AComplemento: String);
+      procedure ThreadEnd_ListaEnd(Sender: TObject);
+      procedure Seleciona_Municipio(Aid: Integer; ANome: String; AIbge:String);
+      procedure Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
+      procedure Seleciona_Regiao(Aid: Integer; ANome: String);
+      procedure Seleciona_Pais(Aid: Integer; ANome: String);
+      procedure Excluir_Endereco(Sender: TObject);
+      procedure Editar_Endereco(Sender: TObject);
+      procedure Limpar_Endereco;
+      procedure ThreadEnd_DeletarEndereco(Sender: TOBject);
+      procedure ThreadEnd_EditaEndereco(Sender: TOBject);
+      procedure Exibir_Labels_Endereco;
+    {$EndRegion 'Endereço'}
+
+    {$Region 'Email'}
+      procedure NovoEmail(Sender: TOBject);
+      procedure Limpar_Email;
+      procedure SalvarEmail(Sender: TObject);
+      procedure SalvarAlteracao_Email;
+      procedure ThreadEnd_SalvarEmail(Sender: TOBject);
+      procedure CancelaEmail(Sender: TOBject);
+      procedure Excluir_Email(Sender: TObject);
+      procedure ThreadEnd_ExcluirEmail(Sender: TOBject);
+      procedure Editar_Email(Sender: TObject);
+      procedure ThreadEnd_EditaEmail(Sender: TOBject);
+      procedure ListarEmail(
+        const APagina:Integer;
+        const AEmpresa:Integer;
+        const AInd_Clear:Boolean;
+        const AId_Telefone:Integer=0);
+      procedure AddEmailItens_LV(
+        const AIdEmpresa :Integer;
+        const AId :Integer;
+        const AEmail: String;
+        const AResponsavel: String;
+        const ASetorID :Integer;
+        const ASetor :String);
+      procedure ThreadEnd_ListaEmail(Sender: TObject);
+      procedure Exibir_Labels_Email;
+    {$EndRegion 'Email'}
+
+    {$Region 'Telefone'}
+      procedure NovoTelefone(Sender: TOBject);
+      procedure SalvarTelefone(Sender: TOBject);
+      procedure ThreadEnd_SalvarTelefone(Sender: TOBject);
+      procedure CancelaTelefone(Sender: TOBject);
+      procedure Excluir_Telefone(Sender: TOBject);
+      procedure ThreadEnd_DeletarTelefone(Sender: TObject);
+      procedure Editar_Telefone(Sender: TObject);
+      procedure ThreadEnd_EditaTelefone(Sender: TObject);
+      procedure Limpar_Telefone;
+      procedure ListarTelefone(
+        const APagina:Integer;
+        const AEmpresa:Integer;
+        const AInd_Clear:Boolean;
+        const AId_Telefone:Integer=0);
+      procedure AddTelItens_LV(
+        const AIdEmpresa :Integer;
+        const AId :Integer;
+        const ATipo: Integer;
+        const ATipoDesc: String;
+        const ATelefone :String);
+      procedure ThreadEnd_ListaTel(Sender: TObject);
+      procedure Exibir_Labels_Telefone;
+      procedure SalvarAlteracao_Telefone;
+    {$EndRegion 'Telefone'}
 
   public
     ExecuteOnClose :TExecuteOnClose;
@@ -241,6 +511,20 @@ begin
   Abort;
 end;
 
+procedure TfrmFornecedor.AddEmailItens_LV(const AIdEmpresa, AId: Integer;
+  const AEmail, AResponsavel: String; const ASetorID: Integer;
+  const ASetor: String);
+begin
+
+end;
+
+procedure TfrmFornecedor.AddEndItens_LV(const AIdEmpresa, AId: Integer;
+  const APais_Nome, ARegiao_Nome, AIbge, AMunicipio, ANr, AUf_Sigla, ABairro,
+  ACep, ALogradouro, AComplemento: String);
+begin
+
+end;
+
 procedure TfrmFornecedor.AddItens_LV(const ACodigo: Integer;
   const ANome: String);
 begin
@@ -253,9 +537,30 @@ begin
   end;
 end;
 
+procedure TfrmFornecedor.AddTelItens_LV(const AIdEmpresa, AId, ATipo: Integer;
+  const ATipoDesc, ATelefone: String);
+begin
+
+end;
+
+procedure TfrmFornecedor.CancelaEmail(Sender: TOBject);
+begin
+
+end;
+
+procedure TfrmFornecedor.CancelaEndereco(Sender: TObject);
+begin
+  rctTampa_Endereco.Visible := False;
+end;
+
 procedure TfrmFornecedor.Cancelar_Alteracoes(Sender: TOBject);
 begin
   Configura_Botoes(2);
+end;
+
+procedure TfrmFornecedor.CancelaTelefone(Sender: TOBject);
+begin
+
 end;
 
 procedure TfrmFornecedor.Configura_Botoes(ABotao: Integer);
@@ -447,6 +752,21 @@ begin
   EditandoRegistro(FId_Selecionado);
 end;
 
+procedure TfrmFornecedor.Editar_Email(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.Editar_Endereco(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.Editar_Telefone(Sender: TObject);
+begin
+
+end;
+
 procedure TfrmFornecedor.edNomeFantasiaKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
@@ -530,6 +850,21 @@ begin
   TFuncoes.ExibeLabel(edTipo,lbTipo,FloatAnimation_Tipo,10,-20);
 end;
 
+procedure TfrmFornecedor.Excluir_Email(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.Excluir_Endereco(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.Excluir_Telefone(Sender: TOBject);
+begin
+
+end;
+
 procedure TfrmFornecedor.Exibe_Labels;
 begin
   TFuncoes.ExibeLabel(edRazaoSocial,lbRazaoSocial,FloatAnimation_RazaoSocial,10,-20);
@@ -539,6 +874,21 @@ begin
   TFuncoes.ExibeLabel(edDocumento,lbDocumento,FloatAnimation_Documento,10,-20);
   TFuncoes.ExibeLabel(edInscEstadual,lbInscEstadual,FloatAnimation_InscEstadual,10,-20);
   TFuncoes.ExibeLabel(edInsMunicipal,lbInscMunicipal,FloatAnimation_InscMunicipal,10,-20);
+end;
+
+procedure TfrmFornecedor.Exibir_Labels_Email;
+begin
+
+end;
+
+procedure TfrmFornecedor.Exibir_Labels_Endereco;
+begin
+
+end;
+
+procedure TfrmFornecedor.Exibir_Labels_Telefone;
+begin
+
 end;
 
 procedure TfrmFornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -580,6 +930,31 @@ begin
   FId_Selecionado := 0;
   FNome_Selecionado := '';
   tcPrincipal.ActiveTab := tiFiltro;
+  tcAdicionais.ActiveTab := tiEndereco;
+
+end;
+
+procedure TfrmFornecedor.imgEnderecoClick(Sender: TObject);
+begin
+  imgEndereco.Opacity := 0.5;
+  imgTelefone.Opacity := 0.5;
+  imgEmail.Opacity := 0.5;
+  case TImage(Sender).Tag of
+    0:begin
+      //Endereço...
+      TImage(Sender).Opacity := 1;
+    end;
+    1:begin
+      //Telefone
+      TImage(Sender).Opacity := 1;
+    end;
+    2:begin
+      //Email...
+      TImage(Sender).Opacity := 1;
+    end;
+  end;
+
+  tcAdicionais.GotoVisibleTab(TImage(Sender).Tag);
 end;
 
 procedure TfrmFornecedor.Incia_Campos;
@@ -598,6 +973,33 @@ begin
   lbId.Text := '0';
 
   Exibe_Labels;
+end;
+
+procedure TfrmFornecedor.Limpar_Email;
+begin
+
+end;
+
+procedure TfrmFornecedor.Limpar_Endereco;
+begin
+
+end;
+
+procedure TfrmFornecedor.Limpar_Telefone;
+begin
+
+end;
+
+procedure TfrmFornecedor.ListarEmail(const APagina, AEmpresa: Integer;
+  const AInd_Clear: Boolean; const AId_Telefone: Integer);
+begin
+
+end;
+
+procedure TfrmFornecedor.ListarTelefone(const APagina, AEmpresa: Integer;
+  const AInd_Clear: Boolean; const AId_Telefone: Integer);
+begin
+
 end;
 
 procedure TfrmFornecedor.Listar_Dados(const APagina: Integer;
@@ -686,6 +1088,12 @@ begin
   t.Start;
 end;
 
+procedure TfrmFornecedor.Listar_Endereco(const APagina, AEmpresa: Integer;
+  const AInd_Clear: Boolean; const AId_Endereco: Integer);
+begin
+
+end;
+
 procedure TfrmFornecedor.lvListaItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin
@@ -701,6 +1109,26 @@ begin
     if lvLista.GetItemRect(lvLista.Items.Count - 3).Bottom <= lvLista.Height then
       Listar_Dados(lvLista.Tag,edPesquisar.Text,False)
   end;
+end;
+
+procedure TfrmFornecedor.NovoEmail(Sender: TOBject);
+begin
+
+end;
+
+procedure TfrmFornecedor.NovoEndereco(Sender: TOBject);
+begin
+  Limpar_Endereco;
+
+  FStatusTable_End := TStatusTable.stInsert;
+  rctTampa_Endereco.Align := TAlignLayout.Contents;
+  rctTampa_Endereco.Visible := True;
+  edCadEnd_Logradouro.Tag := 0;
+end;
+
+procedure TfrmFornecedor.NovoTelefone(Sender: TOBject);
+begin
+
 end;
 
 procedure TfrmFornecedor.Novo_Registro(Sender: TOBject);
@@ -756,6 +1184,76 @@ end;
 procedure TfrmFornecedor.rctTipo_JuridicoClick(Sender: TObject);
 begin
   SelecionaTipo(Sender,edTipo,lbTipo_Juridico);
+end;
+
+procedure TfrmFornecedor.SalvarAlteracao_Email;
+begin
+
+end;
+
+procedure TfrmFornecedor.SalvarAlteracao_Telefone;
+begin
+
+end;
+
+procedure TfrmFornecedor.SalvarEmail(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.SalvarEndereco(Sender: TObject);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmFornecedor,'Salvando endereço');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    FDMem_Endereco.Active := False;
+    FDMem_Endereco.Active := True;
+    FDMem_Endereco.Insert;
+    FDMem_EnderecoID_EMPRESA.AsInteger := lbId.Tag;
+    FDMem_EnderecoID.AsInteger := rctCadEndereco.Tag;// edCadEnd_Logradouro.Tag;
+    FDMem_EnderecoCEP.AsString := edCadEnd_Cep.Text;
+    FDMem_EnderecoLOGRADOURO.AsString := edCadEnd_Logradouro.Text;
+    FDMem_EnderecoNUMERO.AsString := edCadEnd_Nr.Text;
+    FDMem_EnderecoCOMPLEMENTO.AsString := edCadEnd_Complemento.Text;
+    FDMem_EnderecoBAIRRO.AsString := edCadEnd_Bairro.Text;
+    FDMem_EnderecoIBGE.AsInteger := edCadEnd_Municipio.TagString.ToInteger;
+    FDMem_EnderecoMUNICIPIO.AsString := edCadEnd_Municipio.Text;
+    FDMem_EnderecoSIGLA_UF.AsString := edCadEnd_UF.TagString;
+    FDMem_EnderecoUF.AsString := edCadEnd_UF.Text;
+    FDMem_EnderecoREGIAO.AsString := edCadEnd_Regiao.Text;
+    FDMem_EnderecoCODIGO_PAIS.AsInteger := edCadEnd_Pais.Tag;
+    FDMem_EnderecoPAIS.AsString := edCadEnd_Pais.Text;
+    FDMem_EnderecoID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+    FDMem_EnderecoDT_CADASTRO.AsDateTime := Date;
+    FDMem_EnderecoHR_CADASTRO.AsDateTime := Time;
+    FDMem_Endereco.Post;
+
+    if FStatusTable_End = stInsert then
+    begin
+      if not Dm_DeskTop.EmpresaEnd_Cadastro(FDMem_Endereco.ToJSONArray,0) then
+        raise Exception.Create('Erro ao salvar as alterações');
+    end
+    else if FStatusTable_End = stUpdate then
+    begin
+      if not Dm_DeskTop.EmpresaEnd_Cadastro(FDMem_Endereco.ToJSONArray,1) then
+        raise Exception.Create('Erro ao salvar as alterações');
+    end;
+
+    FStatusTable_End := TStatusTable.stList;
+
+  end);
+
+  t.OnTerminate := ThreadEnd_SalvarEndereco;
+  t.Start;
+end;
+
+procedure TfrmFornecedor.SalvarTelefone(Sender: TOBject);
+begin
+
 end;
 
 procedure TfrmFornecedor.Salvar_Alteracoes(Sender: TOBject);
@@ -824,6 +1322,27 @@ begin
   end;
   AEdit.Text := ALabel.Text;
   SelTipo;
+end;
+
+procedure TfrmFornecedor.Seleciona_Municipio(Aid: Integer; ANome,
+  AIbge: String);
+begin
+
+end;
+
+procedure TfrmFornecedor.Seleciona_Pais(Aid: Integer; ANome: String);
+begin
+
+end;
+
+procedure TfrmFornecedor.Seleciona_Regiao(Aid: Integer; ANome: String);
+begin
+
+end;
+
+procedure TfrmFornecedor.Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
+begin
+
 end;
 
 procedure TfrmFornecedor.SelStatus;
@@ -910,6 +1429,16 @@ begin
   t.Start;
 end;
 
+procedure TfrmFornecedor.ThreadEnd_BuscaCep(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_DeletarEndereco(Sender: TOBject);
+begin
+
+end;
+
 procedure TfrmFornecedor.ThreadEnd_DeletarRegistro(Sender: TOBject);
 begin
   if Assigned(TThread(Sender).FatalException) then
@@ -919,6 +1448,11 @@ begin
     FProcessando := '';
     Listar_Dados(0,edPesquisar.Text,True);
   end;
+end;
+
+procedure TfrmFornecedor.ThreadEnd_DeletarTelefone(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmFornecedor.ThreadEnd_Edit(Sender: TOBject);
@@ -932,6 +1466,26 @@ begin
   end;
 end;
 
+procedure TfrmFornecedor.ThreadEnd_EditaEmail(Sender: TOBject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_EditaEndereco(Sender: TOBject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_EditaTelefone(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_ExcluirEmail(Sender: TOBject);
+begin
+
+end;
+
 procedure TfrmFornecedor.ThreadEnd_Lista(Sender: TOBject);
 begin
   if Assigned(TThread(Sender).FatalException) then
@@ -939,6 +1493,31 @@ begin
     if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
       FMensagem.Show(TIconDialog.Error,'','Erro na carga dos Fornecedores: ' + Exception(TThread(Sender).FatalException).Message);
   end;
+end;
+
+procedure TfrmFornecedor.ThreadEnd_ListaEmail(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_ListaEnd(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_ListaTel(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_SalvarEmail(Sender: TOBject);
+begin
+
+end;
+
+procedure TfrmFornecedor.ThreadEnd_SalvarEndereco(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmFornecedor.ThreadEnd_SalvarRegistro(Sender: TOBject);
@@ -950,6 +1529,11 @@ begin
     FProcessando := '';
     Listar_Dados(0,edPesquisar.Text,True);
   end;
+end;
+
+procedure TfrmFornecedor.ThreadEnd_SalvarTelefone(Sender: TOBject);
+begin
+
 end;
 
 procedure TfrmFornecedor.ThreadEnd_Status(Sender: TOBject);

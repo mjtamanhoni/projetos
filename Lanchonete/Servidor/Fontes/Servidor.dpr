@@ -75,7 +75,15 @@ uses
   uModel.CLIENTE_EMAIL in 'Modelo de Dados\uModel.CLIENTE_EMAIL.pas',
   uRota.FORNECEDOR_EMAIL in 'Rotas\uRota.FORNECEDOR_EMAIL.pas',
   uRota.EMPRESA_EMAIL in 'Rotas\uRota.EMPRESA_EMAIL.pas',
-  uRota.CLIENTE_EMAIL in 'Rotas\uRota.CLIENTE_EMAIL.pas';
+  uRota.CLIENTE_EMAIL in 'Rotas\uRota.CLIENTE_EMAIL.pas',
+  uRota.FORNECEDOR.ENDERECO in 'Rotas\uRota.FORNECEDOR.ENDERECO.pas',
+  uModel.FORNECEDOR.ENDERECO in 'Modelo de Dados\uModel.FORNECEDOR.ENDERECO.pas',
+  uRota.CLIENTE.ENDERECO in 'Rotas\uRota.CLIENTE.ENDERECO.pas',
+  uModel.CLIENTE.ENDERECO in 'Modelo de Dados\uModel.CLIENTE.ENDERECO.pas',
+  uModel.FORNECEDOR.TELEFONES in 'Modelo de Dados\uModel.FORNECEDOR.TELEFONES.pas',
+  uModel.CLIENTE.TELEFONES in 'Modelo de Dados\uModel.CLIENTE.TELEFONES.pas',
+  uRota.FORNECEDOR.TELEFONES in 'Rotas\uRota.FORNECEDOR.TELEFONES.pas',
+  uRota.CLIENTE.TELEFONES in 'Rotas\uRota.CLIENTE.TELEFONES.pas';
 
 {$R *.res}
 

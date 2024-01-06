@@ -166,25 +166,92 @@ type
       {$EndRegion 'Empresa'}
 
       {$Region 'Fornecedor'}
+        //Fornecedor...
         function Fornecedor_Lista(
           const APagina:Integer=0;
           const ACodigo:Integer=0;
           const ADocumento:String='';
           const ANome:String=''): TJSONArray;
-
         function Fornecedor_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
         function Fornecedor_Excluir(const ACodigo:Integer=0):Boolean;
+
+        //Endereço...
+        function FornecedorEnd_Lista(
+          const APagina:Integer=0;
+          const ACodFornecedor:Integer=0;
+          const AEndereco:Integer=0): TJSONArray;
+        function FornecedorEnd_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
+        function FornecedorEnd_Excluir(
+          const ACodFornecedor :Integer=0;
+          const ACodigo :Integer=0):Boolean;
+
+        //Telefone...
+        function FornecedorTel_Lista(
+          const APagina:Integer=0;
+          const ACodFornecedor:Integer=0;
+          const ATelefone:Integer=0): TJSONArray;
+        function FornecedorTel_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
+        function FornecedorTEl_Excluir(
+          const ACodFornecedor :Integer=0;
+          const ACodigo :Integer=0):Boolean;
+
+        //Email...
+        function FornecedorEmail_Lista(
+          const APagina:Integer=0;
+          const ACodFornecedor:Integer=0;
+          const AId:Integer=0;
+          const ACodSetor:Integer=0;
+          const ACodResponsavel:String='';
+          const AEmail:String=''): TJSONArray;
+        function FornecedorEmail_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
+        function FornecedorEmail_Excluir(
+          const ACodFornecedor :Integer=0;
+          const ACodigo :Integer=0):Boolean;
+
       {$EndRegion 'Fornecedor'}
 
       {$Region 'Cliente'}
+        //Cliente...
         function Cliente_Lista(
           const APagina:Integer=0;
           const ACodigo:Integer=0;
           const ADocumento:String='';
           const ANome:String=''): TJSONArray;
-
         function Cliente_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
         function Cliente_Excluir(const ACodigo:Integer=0):Boolean;
+
+        //Endereço...
+        function ClienteEnd_Lista(
+          const APagina:Integer=0;
+          const ACodCliente:Integer=0;
+          const AEndereco:Integer=0): TJSONArray;
+        function ClienteEnd_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
+        function ClienteEnd_Excluir(
+          const ACodCliente :Integer=0;
+          const ACodigo :Integer=0):Boolean;
+
+        //Telefone...
+        function ClienteTel_Lista(
+          const APagina:Integer=0;
+          const ACodCliente:Integer=0;
+          const ATelefone:Integer=0): TJSONArray;
+        function ClienteTel_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
+        function ClienteTEl_Excluir(
+          const ACodCliente :Integer=0;
+          const ACodigo :Integer=0):Boolean;
+
+        //Email...
+        function ClienteEmail_Lista(
+          const APagina:Integer=0;
+          const ACodCliente:Integer=0;
+          const AId:Integer=0;
+          const ACodSetor:Integer=0;
+          const ACodResponsavel:String='';
+          const AEmail:String=''): TJSONArray;
+        function ClienteEmail_Cadastro(const AJson :TJSONArray;StatusTable:Integer):Boolean;
+        function ClienteEmail_Excluir(
+          const ACodCliente :Integer=0;
+          const ACodigo :Integer=0):Boolean;
       {$EndRegion 'Cliente'}
 
       {$Region 'Setor'}
@@ -264,6 +331,475 @@ function TDm_DeskTop.BuscaCep_Logradouro(
         const ALogradouro :String): TJSONArray;
 begin
 
+end;
+
+function TDm_DeskTop.ClienteEmail_Cadastro(const AJson: TJSONArray;
+  StatusTable: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    try
+      if not TFuncoes.TestaConexao(FConexao) then
+        raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+      if AJson.Size = 0 then
+      begin
+        case StatusTable of
+          0 :raise Exception.Create('Não há dados para ser cadastrado');
+          1 :raise Exception.Create('Não há dados para ser alterado');
+        end;
+      end;
+
+      lHost := FIniFile.ReadString('SERVER','HOST','');
+      if lHost = '' then
+        lHost := 'http://localhost:3000';
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      case StatusTable of
+        0:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('cliente/email')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Post;
+        end;
+        1:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('cliente/email')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Put;
+        end;
+      end;
+
+      if lResp.StatusCode = 200 then
+      begin
+        if lResp.Content = '' then
+          raise Exception.Create('Não foi possível cadastrar o E-mail do Cliente...');
+        Result := True;
+      end
+      else
+      begin
+        raise Exception.Create(lResp.Content);
+      end;
+    except
+      On Ex:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao inserir um E-mail para o Cliente. (' + Ex.Message + ')');
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteEmail_Excluir(const ACodCliente,
+  ACodigo: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('cliente/email')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('clienteId',ACodCliente.ToString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('E-mail do Cliente não excluído');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteEmail_Lista(const APagina, ACodCliente, AId,
+  ACodSetor: Integer; const ACodResponsavel, AEmail: String): TJSONArray;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('cliente/email')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('idCliente',ACodCliente.ToString)
+             .AddParam('id',AId.ToString)
+             .AddParam('idSetor',ACodSetor.ToString)
+             .AddParam('responsavel',ACodResponsavel)
+             .AddParam('email',AEmail)
+             .AddParam('pagina',APagina.ToString)
+             .Accept('application/json')
+             .Get;
+
+    if lResp.StatusCode = 200 then
+    begin
+      if lResp.Content = '' then
+        raise Exception.Create('Não foram localizado os E-mail do Cliente...');
+
+      Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteEnd_Cadastro(const AJson: TJSONArray;
+  StatusTable: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    try
+      if not TFuncoes.TestaConexao(FConexao) then
+        raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+      if AJson.Size = 0 then
+        raise Exception.Create('Não há dados para ser cadastrados');
+
+      lHost := FIniFile.ReadString('SERVER','HOST','');
+      if lHost = '' then
+        lHost := 'http://localhost:3000';
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      case StatusTable of
+        0:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('cliente/endereco')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Post;
+        end;
+        1:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('cliente/endereco')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Put;
+        end;
+      end;
+
+      if lResp.StatusCode = 200 then
+      begin
+        if lResp.Content = '' then
+          raise Exception.Create('Não foi possível cadastrar o endereço do Cliente...');
+        Result := True;
+      end
+      else
+      begin
+        raise Exception.Create(lResp.Content);
+      end;
+    except
+      On Ex:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao inserir um endereço do Cliente. (' + Ex.Message + ')');
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteEnd_Excluir(const ACodCliente,
+  ACodigo: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('cliente/endereco')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('clienteId',ACodCliente.ToString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('Endereço do Cliente não excluído');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteEnd_Lista(const APagina, ACodCliente,
+  AEndereco: Integer): TJSONArray;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('cliente/endereco')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('idCliente',ACodCliente.ToString)
+             .AddParam('id',AEndereco.ToString)
+             .AddParam('pagina',APagina.ToString)
+             .Accept('application/json')
+             .Get;
+
+    if lResp.StatusCode = 200 then
+    begin
+      if lResp.Content = '' then
+        raise Exception.Create('Não foram localizado os endereços dos clientes...');
+
+      Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteTel_Cadastro(const AJson: TJSONArray;
+  StatusTable: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    try
+      if not TFuncoes.TestaConexao(FConexao) then
+        raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+      if AJson.Size = 0 then
+      begin
+        case StatusTable of
+          0 :raise Exception.Create('Não há dados para ser cadastrados');
+          1 :raise Exception.Create('Não há dados para ser alterado');
+        end;
+      end;
+
+      lHost := FIniFile.ReadString('SERVER','HOST','');
+      if lHost = '' then
+        lHost := 'http://localhost:3000';
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      case StatusTable of
+        0:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('cliente/telefones')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Post;
+        end;
+        1:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('cliente/telefones')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Put;
+        end;
+      end;
+
+      if lResp.StatusCode = 200 then
+      begin
+        if lResp.Content = '' then
+          raise Exception.Create('Não foi possível cadastrar o telefone/celular do Cliente...');
+        Result := True;
+      end
+      else
+      begin
+        raise Exception.Create(lResp.Content);
+      end;
+    except
+      On Ex:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao inserir um telefone/celular do Cliente. (' + Ex.Message + ')');
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteTEl_Excluir(const ACodCliente,
+  ACodigo: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('cliente/telefones')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('clienteId',ACodCliente.ToString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('Telefone/Celular do Cliente não excluído');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.ClienteTel_Lista(const APagina, ACodCliente,
+  ATelefone: Integer): TJSONArray;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('cliente/telefones')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('idCliente',ACodCliente.ToString)
+             .AddParam('id',ATelefone.ToString)
+             .AddParam('pagina',APagina.ToString)
+             .Accept('application/json')
+             .Get;
+
+    if lResp.StatusCode = 200 then
+    begin
+      if lResp.Content = '' then
+        raise Exception.Create('Não foram localizado os telefones do Cliente...');
+
+      Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
 end;
 
 function TDm_DeskTop.Cliente_Cadastro(const AJson: TJSONArray;
@@ -1047,6 +1583,475 @@ begin
     begin
       if lResp.Content = '' then
         raise Exception.Create('Não foram localizadas as Empresas...');
+
+      Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorEmail_Cadastro(const AJson: TJSONArray;
+  StatusTable: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    try
+      if not TFuncoes.TestaConexao(FConexao) then
+        raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+      if AJson.Size = 0 then
+      begin
+        case StatusTable of
+          0 :raise Exception.Create('Não há dados para ser cadastrado');
+          1 :raise Exception.Create('Não há dados para ser alterado');
+        end;
+      end;
+
+      lHost := FIniFile.ReadString('SERVER','HOST','');
+      if lHost = '' then
+        lHost := 'http://localhost:3000';
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      case StatusTable of
+        0:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('fornecedor/email')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Post;
+        end;
+        1:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('fornecedor/email')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Put;
+        end;
+      end;
+
+      if lResp.StatusCode = 200 then
+      begin
+        if lResp.Content = '' then
+          raise Exception.Create('Não foi possível cadastrar o E-mail do Fornecedor...');
+        Result := True;
+      end
+      else
+      begin
+        raise Exception.Create(lResp.Content);
+      end;
+    except
+      On Ex:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao inserir um E-mail para o Fornecedor. (' + Ex.Message + ')');
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorEmail_Excluir(const ACodFornecedor,
+  ACodigo: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('fornecedor/email')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('fornecedorId',ACodFornecedor.ToString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('E-mail do Fornecedor não excluído');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorEmail_Lista(const APagina, ACodFornecedor, AId,
+  ACodSetor: Integer; const ACodResponsavel, AEmail: String): TJSONArray;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('fornecedor/email')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('idFornecedor',ACodFornecedor.ToString)
+             .AddParam('id',AId.ToString)
+             .AddParam('idSetor',ACodSetor.ToString)
+             .AddParam('responsavel',ACodResponsavel)
+             .AddParam('email',AEmail)
+             .AddParam('pagina',APagina.ToString)
+             .Accept('application/json')
+             .Get;
+
+    if lResp.StatusCode = 200 then
+    begin
+      if lResp.Content = '' then
+        raise Exception.Create('Não foram localizado os E-mail do Fornecedor...');
+
+      Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorEnd_Cadastro(const AJson: TJSONArray;
+  StatusTable: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    try
+      if not TFuncoes.TestaConexao(FConexao) then
+        raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+      if AJson.Size = 0 then
+        raise Exception.Create('Não há dados para ser cadastrados');
+
+      lHost := FIniFile.ReadString('SERVER','HOST','');
+      if lHost = '' then
+        lHost := 'http://localhost:3000';
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      case StatusTable of
+        0:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('fornecedor/endereco')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Post;
+        end;
+        1:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('fornecedor/endereco')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Put;
+        end;
+      end;
+
+      if lResp.StatusCode = 200 then
+      begin
+        if lResp.Content = '' then
+          raise Exception.Create('Não foi possível cadastrar o endereço do Fornecedor...');
+        Result := True;
+      end
+      else
+      begin
+        raise Exception.Create(lResp.Content);
+      end;
+    except
+      On Ex:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao inserir um endereço do Fornecedor. (' + Ex.Message + ')');
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorEnd_Excluir(const ACodFornecedor,
+  ACodigo: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('fornecedor/endereco')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('fornecedorId',ACodFornecedor.ToString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('Endereço do Fornecedor não excluído');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorEnd_Lista(const APagina, ACodFornecedor,
+  AEndereco: Integer): TJSONArray;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('fornecedor/endereco')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('idFornecedor',ACodFornecedor.ToString)
+             .AddParam('id',AEndereco.ToString)
+             .AddParam('pagina',APagina.ToString)
+             .Accept('application/json')
+             .Get;
+
+    if lResp.StatusCode = 200 then
+    begin
+      if lResp.Content = '' then
+        raise Exception.Create('Não foram localizado os endereços dos fornecedores...');
+
+      Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorTel_Cadastro(const AJson: TJSONArray;
+  StatusTable: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    try
+      if not TFuncoes.TestaConexao(FConexao) then
+        raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+      if AJson.Size = 0 then
+      begin
+        case StatusTable of
+          0 :raise Exception.Create('Não há dados para ser cadastrados');
+          1 :raise Exception.Create('Não há dados para ser alterado');
+        end;
+      end;
+
+      lHost := FIniFile.ReadString('SERVER','HOST','');
+      if lHost = '' then
+        lHost := 'http://localhost:3000';
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      case StatusTable of
+        0:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('fornecedor/telefones')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Post;
+        end;
+        1:begin
+          lResp := TRequest.New.BaseURL(lHost)
+                   .Resource('fornecedor/telefones')
+                   .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+                   .AddBody(AJson)
+                   .Accept('application/json')
+                   .Put;
+        end;
+      end;
+
+      if lResp.StatusCode = 200 then
+      begin
+        if lResp.Content = '' then
+          raise Exception.Create('Não foi possível cadastrar o telefone/celular do Fornecedor...');
+        Result := True;
+      end
+      else
+      begin
+        raise Exception.Create(lResp.Content);
+      end;
+    except
+      On Ex:Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao inserir um telefone/celular do Fornecedor. (' + Ex.Message + ')');
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorTEl_Excluir(const ACodFornecedor,
+  ACodigo: Integer): Boolean;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('fornecedor/telefones')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('fornecedorId',ACodFornecedor.ToString)
+             .AddParam('id',ACodigo.ToString)
+             .Accept('application/json')
+             .Delete;
+
+    if lResp.StatusCode = 200 then
+    begin
+      Result := False;
+      if lResp.Content = '' then
+        raise Exception.Create('Telefone/Celular do Fornecedor não excluído');
+
+      Result := True;
+    end
+    else
+    begin
+      raise Exception.Create(lResp.StatusCode.ToString + ' - ' +  lResp.Content);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    {$ELSE}
+    {$ENDIF}
+  end;
+end;
+
+function TDm_DeskTop.FornecedorTel_Lista(const APagina, ACodFornecedor,
+  ATelefone: Integer): TJSONArray;
+var
+  lHost :String;
+  lResp :IResponse;
+begin
+  try
+    if not TFuncoes.TestaConexao(FConexao) then
+      raise Exception.Create('Sem conexão com a Internet. Tente mais tarde');
+
+    lHost := FIniFile.ReadString('SERVER','HOST','');
+    if lHost = '' then
+      lHost := 'http://localhost:3000';
+
+    if lHost = '' then
+      raise Exception.Create('Necessário informar o Host...');
+
+    lResp := TRequest.New.BaseURL(lHost)
+             .Resource('fornecedor/telefones')
+             .TokenBearer(FDMem_UsuariosTOKEN.AsString)
+             .AddParam('idFornecedor',ACodFornecedor.ToString)
+             .AddParam('id',ATelefone.ToString)
+             .AddParam('pagina',APagina.ToString)
+             .Accept('application/json')
+             .Get;
+
+    if lResp.StatusCode = 200 then
+    begin
+      if lResp.Content = '' then
+        raise Exception.Create('Não foram localizado os telefones do Fornecedor...');
 
       Result := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONArray;
     end

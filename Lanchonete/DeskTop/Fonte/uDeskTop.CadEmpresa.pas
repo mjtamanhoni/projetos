@@ -438,7 +438,6 @@ type
       FStatusTable_Email: TStatusTable;
     {$EndRegion 'Complementos'}
 
-
     procedure Abortar_Fechamento(Sender: TOBject);
     procedure Confirmar_Fechamento(Sender :TObject);
 
