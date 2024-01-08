@@ -539,6 +539,7 @@ type
     {$Region 'Telefone'}
       procedure NovoTelefone(Sender: TOBject);
       procedure SalvarTelefone(Sender: TOBject);
+      procedure SalvarAlteracao_Telefone;
       procedure ThreadEnd_SalvarTelefone(Sender: TOBject);
       procedure CancelaTelefone(Sender: TOBject);
       procedure Excluir_Telefone(Sender: TOBject);
@@ -559,7 +560,6 @@ type
         const ATelefone :String);
       procedure ThreadEnd_ListaTel(Sender: TObject);
       procedure Exibir_Labels_Telefone;
-      procedure SalvarAlteracao_Telefone;
     {$EndRegion 'Telefone'}
 
     procedure Seleciona_Setor(AId: Integer; ANome: String);
@@ -2098,7 +2098,6 @@ begin
   begin
     FProcessandoEnd := '';
     Listar_Endereco(0,lbId.Tag,True);
-    ListarTelefone(0,lbId.Tag,True);
   end;
 end;
 
@@ -2387,7 +2386,7 @@ begin
     //lvEnderecos.Tag := 0;
     FProcessandoEnd := '';
     Listar_Endereco(0,lbId.Tag,True);
-    ListarTelefone(0,lbId.Tag,True);
+    //ListarTelefone(0,lbId.Tag,True);
   end;
 end;
 

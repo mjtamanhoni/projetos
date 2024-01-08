@@ -270,7 +270,7 @@ type
     rctCadTel_Tipo_Residencial: TRectangle;
     lbCadTel_Tipo_Residencial: TLabel;
     FDMem_Endereco: TFDMemTable;
-    FDMem_EnderecoID_EMPRESA: TIntegerField;
+    FDMem_EnderecoID_FORNECEDOR: TIntegerField;
     FDMem_EnderecoID: TIntegerField;
     FDMem_EnderecoCEP: TStringField;
     FDMem_EnderecoLOGRADOURO: TStringField;
@@ -346,6 +346,19 @@ type
     procedure rctTipo_FisicoClick(Sender: TObject);
     procedure rctTipo_JuridicoClick(Sender: TObject);
     procedure imgEnderecoClick(Sender: TObject);
+    procedure rctNovo_AdicionaisClick(Sender: TObject);
+    procedure rctEdita_AdicionaisClick(Sender: TObject);
+    procedure rctExclui_AdicionaisClick(Sender: TObject);
+    procedure lvEnderecosItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure lvEnderecosPaint(Sender: TObject; Canvas: TCanvas;
+      const ARect: TRectF);
+    procedure lvTelefoneItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure lvTelefonePaint(Sender: TObject; Canvas: TCanvas;
+      const ARect: TRectF);
+    procedure lvEmailPaint(Sender: TObject; Canvas: TCanvas;
+      const ARect: TRectF);
   private
     FProcessando: String;
     FProcessandoEnd: String;
@@ -471,6 +484,7 @@ type
     {$Region 'Telefone'}
       procedure NovoTelefone(Sender: TOBject);
       procedure SalvarTelefone(Sender: TOBject);
+      procedure SalvarAlteracao_Telefone;
       procedure ThreadEnd_SalvarTelefone(Sender: TOBject);
       procedure CancelaTelefone(Sender: TOBject);
       procedure Excluir_Telefone(Sender: TOBject);
@@ -491,8 +505,9 @@ type
         const ATelefone :String);
       procedure ThreadEnd_ListaTel(Sender: TObject);
       procedure Exibir_Labels_Telefone;
-      procedure SalvarAlteracao_Telefone;
     {$EndRegion 'Telefone'}
+
+    procedure Seleciona_Setor(AId: Integer; ANome: String);
 
   public
     ExecuteOnClose :TExecuteOnClose;
@@ -506,6 +521,13 @@ implementation
 
 {$R *.fmx}
 
+uses
+  uDeskTop.CadMunicipios,
+  uDeskTop.CadPaises,
+  uDeskTop.CadRegioes,
+  uDeskTop.CadUF,
+  uDeskTop.CadSetor;
+
 procedure TfrmFornecedor.Abortar_Fechamento(Sender: TOBject);
 begin
   Abort;
@@ -515,14 +537,36 @@ procedure TfrmFornecedor.AddEmailItens_LV(const AIdEmpresa, AId: Integer;
   const AEmail, AResponsavel: String; const ASetorID: Integer;
   const ASetor: String);
 begin
-
+  with lvEmail.Items.Add do
+  begin
+    Tag := AId;
+    TListItemText(Objects.FindDrawable('edEmail')).Text := AEmail;
+    TListItemText(Objects.FindDrawable('edResponsavel')).Text := AResponsavel;
+    TListItemText(Objects.FindDrawable('edSetor')).Text := ASetor;
+    TListItemText(Objects.FindDrawable('edSetor')).TagString := ASetorID.ToString;
+  end;
 end;
 
 procedure TfrmFornecedor.AddEndItens_LV(const AIdEmpresa, AId: Integer;
   const APais_Nome, ARegiao_Nome, AIbge, AMunicipio, ANr, AUf_Sigla, ABairro,
   ACep, ALogradouro, AComplemento: String);
 begin
-
+  with lvEnderecos.Items.Add do
+  begin
+    Tag := AId;
+    TListItemText(Objects.FindDrawable('edPais')).Text := APais_Nome;
+    TListItemText(Objects.FindDrawable('edRegiao')).Text := ARegiao_Nome;
+    TListItemText(Objects.FindDrawable('edIbge')).Text := AIbge;
+    TListItemText(Objects.FindDrawable('edMunicipio')).Text := AMunicipio;
+    TListItemText(Objects.FindDrawable('edNr')).Text := ANr;
+    TListItemText(Objects.FindDrawable('edUf')).Text := AUf_Sigla;
+    TListItemText(Objects.FindDrawable('edBairro')).Text := ABairro;
+    TListItemText(Objects.FindDrawable('edCep')).Text := ACep;
+    TListItemText(Objects.FindDrawable('edLogradouro')).Text := ALogradouro;
+    TListItemText(Objects.FindDrawable('edComplemento')).Text := AComplemento;
+    //TListItemImage(Objects.FindDrawable('imgDelete')).Bitmap := imgDelete_Lista.Bitmap;
+    //TListItemImage(Objects.FindDrawable('imgEdit')).Bitmap := imgEdit_Lista.Bitmap;
+  end;
 end;
 
 procedure TfrmFornecedor.AddItens_LV(const ACodigo: Integer;
@@ -540,12 +584,18 @@ end;
 procedure TfrmFornecedor.AddTelItens_LV(const AIdEmpresa, AId, ATipo: Integer;
   const ATipoDesc, ATelefone: String);
 begin
-
+  with lvTelefone.Items.Add do
+  begin
+    Tag := AId;
+    TListItemText(Objects.FindDrawable('edTipo')).Text := ATipoDesc;
+    TListItemText(Objects.FindDrawable('edTipo')).TagString := ATipo.ToString;
+    TListItemText(Objects.FindDrawable('edTelefone')).Text := ATelefone;
+  end;
 end;
 
 procedure TfrmFornecedor.CancelaEmail(Sender: TOBject);
 begin
-
+  rctTampa_Email.Visible := False;
 end;
 
 procedure TfrmFornecedor.CancelaEndereco(Sender: TObject);
@@ -560,7 +610,7 @@ end;
 
 procedure TfrmFornecedor.CancelaTelefone(Sender: TOBject);
 begin
-
+  rctTampa_Telefone.Visible := False;
 end;
 
 procedure TfrmFornecedor.Configura_Botoes(ABotao: Integer);
@@ -753,18 +803,164 @@ begin
 end;
 
 procedure TfrmFornecedor.Editar_Email(Sender: TObject);
+var
+  t :TThread;
 begin
+  Limpar_Email;
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+    jsonArray := Dm_DeskTop.FornecedorEmail_Lista(
+      0
+      ,FId_Selecionado
+      ,FEmail_ID);
+
+    for x := 0 to jsonArray.Size -1 do
+    begin
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        FStatusTable_Email := TStatusTable.stUpdate;
+        rctTampa_Email.Align := TAlignLayout.Contents;
+        rctTampa_Email.Visible := True;
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        rctCadEmail.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edEmail.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edEmail.Text := jsonArray.Get(x).GetValue<String>('email');
+        edEmail_Responsavel.Text := jsonArray.Get(x).GetValue<String>('responsavel');
+        edEmail_Setor.Tag := jsonArray.Get(x).GetValue<Integer>('idSetor');
+        edEmail_Setor.Text := jsonArray.Get(x).GetValue<String>('setor');
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        Exibir_Labels_Telefone;
+      end);
+
+    end;
+  end);
+
+  t.OnTerminate := ThreadEnd_EditaEmail;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.Editar_Endereco(Sender: TObject);
+var
+  t :TThread;
 begin
+  Limpar_Endereco;
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+    jsonArray := Dm_DeskTop.FornecedorEnd_Lista(
+      0
+      ,FId_Selecionado
+      ,FEndereco_Id);
+
+    for x := 0 to jsonArray.Size -1 do
+    begin
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        FStatusTable_End := TStatusTable.stUpdate;
+        rctTampa_Endereco.Align := TAlignLayout.Contents;
+        rctTampa_Endereco.Visible := True;
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        rctCadEndereco.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edCadEnd_Cep.Text := jsonArray.Get(x).GetValue<String>('cep');
+        edCadEnd_Logradouro.Text := jsonArray.Get(x).GetValue<String>('logradouro');
+        edCadEnd_Complemento.Text := jsonArray.Get(x).GetValue<String>('complemento');
+        edCadEnd_Bairro.Text := jsonArray.Get(x).GetValue<String>('bairro');
+        edCadEnd_Municipio.Text := jsonArray.Get(x).GetValue<String>('municipio');
+        edCadEnd_Municipio.TagString := jsonArray.Get(x).GetValue<String>('ibge');
+        edCadEnd_UF.TagString := jsonArray.Get(x).GetValue<String>('siglaUf');
+        edCadEnd_UF.Text := jsonArray.Get(x).GetValue<String>('uf');
+        edCadEnd_Nr.Text := jsonArray.Get(x).GetValue<String>('numero');
+        edCadEnd_Regiao.Text := jsonArray.Get(x).GetValue<String>('regiao');
+        edCadEnd_Pais.Tag := jsonArray.Get(x).GetValue<Integer>('codigoPais');
+        edCadEnd_Pais.Text := jsonArray.Get(x).GetValue<String>('pais');
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        Exibir_Labels_Endereco;
+      end);
+
+    end;
+  end);
+
+  t.OnTerminate := ThreadEnd_EditaEndereco;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.Editar_Telefone(Sender: TObject);
+var
+  t :TThread;
 begin
+  Limpar_Telefone;
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+    jsonArray := Dm_DeskTop.FornecedorTel_Lista(
+      0
+      ,FId_Selecionado
+      ,FTelefone_ID);
+
+    for x := 0 to jsonArray.Size -1 do
+    begin
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        FStatusTable_Tel := TStatusTable.stUpdate;
+        rctTampa_Telefone.Align := TAlignLayout.Contents;
+        rctTampa_Telefone.Visible := True;
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        rctCad_Telefone.Tag := jsonArray.Get(x).GetValue<Integer>('id');
+        edCadTel_Tipo.Tag := jsonArray.Get(x).GetValue<Integer>('tipo');
+        edCadTel_Tipo.Text := jsonArray.Get(x).GetValue<String>('tipoDesc');
+        edCadTel_Numero.Text := jsonArray.Get(x).GetValue<String>('numero');
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        Exibir_Labels_Telefone;
+      end);
+
+    end;
+  end);
+
+  t.OnTerminate := ThreadEnd_EditaTelefone;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.edNomeFantasiaKeyDown(Sender: TObject; var Key: Word;
@@ -851,18 +1047,51 @@ begin
 end;
 
 procedure TfrmFornecedor.Excluir_Email(Sender: TObject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmFornecedor,'Excluindo E-mail');
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    Dm_DeskTop.FornecedorTEl_Excluir(lbId.Tag,FEmail_ID);
+  end);
+
+  t.OnTerminate := ThreadEnd_ExcluirEmail;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.Excluir_Endereco(Sender: TObject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmFornecedor,'Excluindo endereço');
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    Dm_DeskTop.FornecedorEnd_Excluir(lbId.Tag,FEndereco_Id);
+  end);
+
+  t.OnTerminate := ThreadEnd_DeletarEndereco;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.Excluir_Telefone(Sender: TOBject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmFornecedor,'Excluindo telefone');
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    Dm_DeskTop.FornecedorTEl_Excluir(lbId.Tag,FTelefone_ID);
+  end);
+
+  t.OnTerminate := ThreadEnd_DeletarTelefone;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.Exibe_Labels;
@@ -878,17 +1107,42 @@ end;
 
 procedure TfrmFornecedor.Exibir_Labels_Email;
 begin
-
+  if Trim(edEmail.Text) <> '' then
+    TFuncoes.ExibeLabel(edEmail,lbEmail,faEmail,10,-20);
+  if Trim(edEmail_Responsavel.Text) <> '' then
+    TFuncoes.ExibeLabel(edEmail_Responsavel,lbEmail_Responsavel,faEmail_Responsavel,10,-20);
+  if Trim(edEmail_Setor.Text) <> '' then
+    TFuncoes.ExibeLabel(edEmail_Setor,lbEmail_Setor,faEmail_Setor,10,-20);
 end;
 
 procedure TfrmFornecedor.Exibir_Labels_Endereco;
 begin
-
+  if Trim(edCadEnd_Cep.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Cep,lbCadEnd_Cep,faCadEnd_Cep,10,-20);
+  if Trim(edCadEnd_Logradouro.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Logradouro,lbCadEnd_Logradouro,faCadEnd_Logradouro,10,-20);
+  if Trim(edCadEnd_Nr.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Nr,lbCadEdn_Nr,faCadEnd_Nr,10,-20);
+  if Trim(edCadEnd_Complemento.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Complemento,lbCadEnd_Complemento,faCadEnd_Complemento,10,-20);
+  if Trim(edCadEnd_Bairro.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Bairro,lbCadEnd_Bairro,faCadEnd_Bairro,10,-20);
+  if Trim(edCadEnd_Municipio.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
+  if Trim(edCadEnd_UF.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
+  if Trim(edCadEnd_Regiao.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Regiao,lbCadEnd_Regiao,faCadEnd_Regiao,10,-20);
+  if Trim(edCadEnd_Pais.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Pais,lbCadEnd_Pais,faCadEnd_Pais,10,-20);
 end;
 
 procedure TfrmFornecedor.Exibir_Labels_Telefone;
 begin
-
+  if Trim(edCadTel_Tipo.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadTel_Tipo,lbCadTel_Tipo,faCadTel_Tipo,10,-20);
+  if Trim(edCadTel_Numero.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadTel_Numero,lbCadTel_Numero,faCadTel_Numero,10,-20);
 end;
 
 procedure TfrmFornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -977,29 +1231,189 @@ end;
 
 procedure TfrmFornecedor.Limpar_Email;
 begin
-
+  edEmail.Text := '';
+  edEmail_Responsavel.Text := '';
+  edEmail_Setor.Tag := -1;
+  edEmail_Setor.Text := '';
 end;
 
 procedure TfrmFornecedor.Limpar_Endereco;
 begin
-
+  edCadEnd_Cep.Text := '';
+  edCadEnd_Logradouro.Text := '';
+  edCadEnd_Complemento.Text := '';
+  edCadEnd_Bairro.Text := '';
+  edCadEnd_Municipio.Text := '';
+  edCadEnd_Municipio.TagString := '';
+  edCadEnd_Municipio.Tag := 0;
+  edCadEnd_UF.TagString := '';
+  edCadEnd_UF.Text := '';
+  edCadEnd_UF.Tag := 0;
+  edCadEnd_Nr.Text := '';
+  edCadEnd_Regiao.Tag := 0;
+  edCadEnd_Regiao.Text := '';
+  edCadEnd_Pais.Tag := 0;
+  edCadEnd_Pais.Text := '';
 end;
 
 procedure TfrmFornecedor.Limpar_Telefone;
 begin
-
+  edCadTel_Tipo.Tag := -1;
+  edCadTel_Tipo.Text := '';
+  edCadTel_Numero.Text := '';
 end;
 
 procedure TfrmFornecedor.ListarEmail(const APagina, AEmpresa: Integer;
   const AInd_Clear: Boolean; const AId_Telefone: Integer);
+var
+  t :TThread;
 begin
+  if FProcessandoEmail = 'processando' then
+      exit;
+  FProcessandoEmail := 'processando';
 
+  if AInd_Clear then
+  begin
+    lvEmail.ScrollTo(0);
+    lvEmail.Tag := 0;
+    lvEmail.Items.Clear;
+  end;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lErro :String;
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+
+    lvEmail.BeginUpdate;
+
+    if lvEmail.Tag >= 0 then
+      lvEmail.Tag := (lvEmail.Tag + 1);
+
+      jsonArray := Dm_DeskTop.FornecedorEmail_Lista(
+        lvEmail.Tag
+        ,AEmpresa);
+
+      for x := 0 to jsonArray.Size -1 do
+      begin
+        TThread.Synchronize(nil,
+        procedure
+        begin
+          AddEmailItens_LV(
+            jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+            ,jsonArray.Get(x).GetValue<Integer>('id')
+            ,jsonArray.Get(x).GetValue<String>('email')
+            ,jsonArray.Get(x).GetValue<String>('responsavel')
+            ,jsonArray.Get(x).GetValue<Integer>('idSetor')
+            ,jsonArray.Get(x).GetValue<String>('setor')
+          );
+        end);
+      end;
+
+      if jsonArray.Size = 0 then
+        lvEmail.Tag := -1;
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonArray);
+      {$ELSE}
+        jsonArray.DisposeOf;
+      {$ENDIF}
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        lvEmail.EndUpdate;
+      end);
+
+      //lvEmail.TagString := '';
+      FProcessandoEmail := '';
+
+      //Força a chamada do evento onUpdateObjects da listview...
+      lvEmail.Margins.Bottom := 6;
+      lvEmail.Margins.Bottom := 5;
+      //---------------------------------------------
+  end);
+
+  t.OnTerminate := ThreadEnd_ListaEmail;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.ListarTelefone(const APagina, AEmpresa: Integer;
   const AInd_Clear: Boolean; const AId_Telefone: Integer);
+var
+  t :TThread;
 begin
+  if FProcessandoTel = 'processando' then
+      exit;
+  FProcessandoTel := 'processando';
 
+  if AInd_Clear then
+  begin
+    lvTelefone.ScrollTo(0);
+    lvTelefone.Tag := 0;
+    lvTelefone.Items.Clear;
+  end;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lErro :String;
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+
+    lvTelefone.BeginUpdate;
+
+    if lvTelefone.Tag >= 0 then
+      lvTelefone.Tag := (lvTelefone.Tag + 1);
+
+      jsonArray := Dm_DeskTop.FornecedorTel_Lista(
+        lvTelefone.Tag
+        ,AEmpresa);
+
+      for x := 0 to jsonArray.Size -1 do
+      begin
+        TThread.Synchronize(nil,
+        procedure
+        begin
+          AddTelItens_LV(
+            jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+            ,jsonArray.Get(x).GetValue<Integer>('id')
+            ,jsonArray.Get(x).GetValue<Integer>('tipo')
+            ,jsonArray.Get(x).GetValue<String>('tipoDesc')
+            ,jsonArray.Get(x).GetValue<String>('numero')
+          );
+        end);
+      end;
+
+      if jsonArray.Size = 0 then
+        lvTelefone.Tag := -1;
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonArray);
+      {$ELSE}
+        jsonArray.DisposeOf;
+      {$ENDIF}
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        lvTelefone.EndUpdate;
+      end);
+
+      //lvTelefone.TagString := '';
+      FProcessandoTel := '';
+
+      //Força a chamada do evento onUpdateObjects da listview...
+      lvTelefone.Margins.Bottom := 6;
+      lvTelefone.Margins.Bottom := 5;
+      //---------------------------------------------
+  end);
+
+  t.OnTerminate := ThreadEnd_ListaEnd;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.Listar_Dados(const APagina: Integer;
@@ -1090,8 +1504,111 @@ end;
 
 procedure TfrmFornecedor.Listar_Endereco(const APagina, AEmpresa: Integer;
   const AInd_Clear: Boolean; const AId_Endereco: Integer);
+var
+  t :TThread;
 begin
+  if FProcessandoEnd = 'processando' then
+      exit;
+  FProcessandoEnd := 'processando';
 
+  if AInd_Clear then
+  begin
+    lvEnderecos.ScrollTo(0);
+    lvEnderecos.Tag := 0;
+    lvEnderecos.Items.Clear;
+  end;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lErro :String;
+    x : integer;
+    jsonArray: TJSONArray;
+  begin
+
+    lvEnderecos.BeginUpdate;
+
+    if lvEnderecos.Tag >= 0 then
+      lvEnderecos.Tag := (lvEnderecos.Tag + 1);
+
+      jsonArray := Dm_DeskTop.FornecedorEnd_Lista(
+        lvEnderecos.Tag
+        ,AEmpresa);
+
+      for x := 0 to jsonArray.Size -1 do
+      begin
+        TThread.Synchronize(nil,
+        procedure
+        begin
+          AddEndItens_LV(
+            jsonArray.Get(x).GetValue<Integer>('idFornecedor')
+            ,jsonArray.Get(x).GetValue<Integer>('id')
+            ,jsonArray.Get(x).GetValue<String>('pais')
+            ,jsonArray.Get(x).GetValue<String>('regiao')
+            ,jsonArray.Get(x).GetValue<String>('ibge')
+            ,jsonArray.Get(x).GetValue<String>('municipio')
+            ,jsonArray.Get(x).GetValue<String>('numero')
+            ,jsonArray.Get(x).GetValue<String>('siglaUf')
+            ,jsonArray.Get(x).GetValue<String>('bairro')
+            ,jsonArray.Get(x).GetValue<String>('cep')
+            ,jsonArray.Get(x).GetValue<String>('logradouro')
+            ,jsonArray.Get(x).GetValue<String>('complemento')
+          );
+        end);
+      end;
+
+      if jsonArray.Size = 0 then
+        lvEnderecos.Tag := -1;
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonArray);
+      {$ELSE}
+        jsonArray.DisposeOf;
+      {$ENDIF}
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        lvEnderecos.EndUpdate;
+      end);
+
+      //lvEnderecos.TagString := '';
+      FProcessandoEnd := '';
+
+      //Força a chamada do evento onUpdateObjects da listview...
+      lvEnderecos.Margins.Bottom := 6;
+      lvEnderecos.Margins.Bottom := 5;
+      //---------------------------------------------
+  end);
+
+  t.OnTerminate := ThreadEnd_ListaEnd;
+  t.Start;
+end;
+
+procedure TfrmFornecedor.lvEmailPaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+  if (lvEmail.Items.Count >= 0) and (lvEmail.Tag >= 0) then
+  begin
+    if lvEmail.GetItemRect(lvEmail.Items.Count - 3).Bottom <= lvEmail.Height then
+      ListarEmail(lvEmail.Tag,lbId.Tag,False)
+  end;
+end;
+
+procedure TfrmFornecedor.lvEnderecosItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+  FEndereco_Id := AItem.Tag;
+end;
+
+procedure TfrmFornecedor.lvEnderecosPaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+  if (lvEnderecos.Items.Count >= 0) and (lvEnderecos.Tag >= 0) then
+  begin
+    if lvEnderecos.GetItemRect(lvEnderecos.Items.Count - 3).Bottom <= lvEnderecos.Height then
+      Listar_Endereco(lvEnderecos.Tag,lbId.Tag,False)
+  end;
 end;
 
 procedure TfrmFornecedor.lvListaItemClick(const Sender: TObject;
@@ -1111,9 +1628,29 @@ begin
   end;
 end;
 
+procedure TfrmFornecedor.lvTelefoneItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+  FTelefone_ID := AItem.Tag;
+end;
+
+procedure TfrmFornecedor.lvTelefonePaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+  if (lvTelefone.Items.Count >= 0) and (lvTelefone.Tag >= 0) then
+  begin
+    if lvTelefone.GetItemRect(lvTelefone.Items.Count - 3).Bottom <= lvTelefone.Height then
+      ListarTelefone(lvTelefone.Tag,lbId.Tag,False)
+  end;
+end;
+
 procedure TfrmFornecedor.NovoEmail(Sender: TOBject);
 begin
+  Limpar_Email;
 
+  FStatusTable_Email := TStatusTable.stInsert;
+  rctTampa_Email.Align := TAlignLayout.Contents;
+  rctTampa_Email.Visible := True;
 end;
 
 procedure TfrmFornecedor.NovoEndereco(Sender: TOBject);
@@ -1128,7 +1665,11 @@ end;
 
 procedure TfrmFornecedor.NovoTelefone(Sender: TOBject);
 begin
+  Limpar_Telefone;
 
+  FStatusTable_Tel := TStatusTable.stInsert;
+  rctTampa_Telefone.Align := TAlignLayout.Contents;
+  rctTampa_Telefone.Visible := True;
 end;
 
 procedure TfrmFornecedor.Novo_Registro(Sender: TOBject);
@@ -1157,9 +1698,36 @@ begin
   FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o registro selecionado?','SIM',EditarRegistro,'NÃO');
 end;
 
+procedure TfrmFornecedor.rctEdita_AdicionaisClick(Sender: TObject);
+begin
+  case tcAdicionais.TabIndex of
+    0:FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Endereco,'NÃO');
+    1:FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Telefone,'NÃO');
+    2:FMensagem.Show(TIconDialog.Question,'Editar','Deseja editar o endereço selecionado?','SIM',Editar_Email,'NÃO');
+  end;
+end;
+
+procedure TfrmFornecedor.rctExclui_AdicionaisClick(Sender: TObject);
+begin
+  case tcAdicionais.TabIndex of
+    0:FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Endereco,'NÃO');
+    1:FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Telefone,'NÃO');
+    2:FMensagem.Show(TIconDialog.Question,'Delete','Deseja excluir o endereço selecionado?','SIM',Excluir_Email,'NÃO');
+  end;
+end;
+
 procedure TfrmFornecedor.rctFecharClick(Sender: TObject);
 begin
   FMensagem.Show(TIconDialog.Question,'Atenção','Fechar formulário?','SIM',Confirmar_Fechamento,'NÃO',Abortar_Fechamento);
+end;
+
+procedure TfrmFornecedor.rctNovo_AdicionaisClick(Sender: TObject);
+begin
+  case tcAdicionais.TabIndex of
+    0:FMensagem.Show(TIconDialog.Question,'Endereço','Deseja incluir um novo Endereço?','SIM',NovoEndereco,'NÃO');
+    1:FMensagem.Show(TIconDialog.Question,'Telefone','Deseja incluir um novo Telefone?','SIM',NovoTelefone,'NÃO');
+    2:FMensagem.Show(TIconDialog.Question,'E-mail','Deseja incluir um novo E-mail?','SIM',NovoEmail,'NÃO');
+  end;
 end;
 
 procedure TfrmFornecedor.rctStatus_AtivoClick(Sender: TObject);
@@ -1188,17 +1756,76 @@ end;
 
 procedure TfrmFornecedor.SalvarAlteracao_Email;
 begin
+  FDMem_Email.Active := False;
+  FDMem_Email.Active := True;
+  FDMem_Email.Insert;
+  FDMem_EmailID_EMPRESA.AsInteger := lbId.Tag;
+  FDMem_EmailID.AsInteger := rctCad_Telefone.Tag;
+  FDMem_EmailRESPONSAVEL.AsString := edEmail_Responsavel.Text;
+  FDMem_EmailID_SETOR.AsInteger := edEmail_Setor.Tag;
+  FDMem_EmailDESC_SETOR.AsString := edEmail_Setor.Text;
+  FDMem_EmailEMAIL.Text := edEmail.Text;
+  FDMem_EmailID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+  FDMem_EmailDT_CADASTRO.AsDateTime := Date;
+  FDMem_EmailHF_CADASTRO.AsDateTime := Time;
+  FDMem_Email.Post;
 
+  if FStatusTable_Email = stInsert then
+  begin
+    if not Dm_DeskTop.FornecedorEmail_Cadastro(FDMem_Email.ToJSONArray,0) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end
+  else if FStatusTable_Email = stUpdate then
+  begin
+    if not Dm_DeskTop.FornecedorEmail_Cadastro(FDMem_Email.ToJSONArray,1) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end;
+
+  FStatusTable_Email := TStatusTable.stList;
 end;
 
 procedure TfrmFornecedor.SalvarAlteracao_Telefone;
 begin
+  FDMem_Telefone.Active := False;
+  FDMem_Telefone.Active := True;
+  FDMem_Telefone.Insert;
+  FDMem_TelefoneID_EMPRESA.AsInteger := lbId.Tag;
+  FDMem_TelefoneID.AsInteger := rctCad_Telefone.Tag;
+  FDMem_TelefoneTIPO.AsInteger := edCadTel_Tipo.Tag;
+  FDMem_TelefoneNUMERO.AsString := edCadTel_Numero.Text;
+  FDMem_TelefoneID_USUARIO.AsInteger := Dm_DeskTop.FDMem_UsuariosID.AsInteger;
+  FDMem_TelefoneDT_CADASTRO.AsDateTime := Date;
+  FDMem_TelefoneHR_CADASTRO.AsDateTime := Time;
+  FDMem_Telefone.Post;
 
+  if FStatusTable_Tel = stInsert then
+  begin
+    if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,0) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end
+  else if FStatusTable_Tel = stUpdate then
+  begin
+    if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,1) then
+      raise Exception.Create('Erro ao salvar as alterações');
+  end;
+
+  FStatusTable_Tel := TStatusTable.stList;
 end;
 
 procedure TfrmFornecedor.SalvarEmail(Sender: TObject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmFornecedor,'Salvando E-mail');
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    SalvarAlteracao_Email;
+  end);
+
+  t.OnTerminate := ThreadEnd_SalvarEmail;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.SalvarEndereco(Sender: TObject);
@@ -1213,7 +1840,7 @@ begin
     FDMem_Endereco.Active := False;
     FDMem_Endereco.Active := True;
     FDMem_Endereco.Insert;
-    FDMem_EnderecoID_EMPRESA.AsInteger := lbId.Tag;
+    FDMem_EnderecoID_FORNECEDOR.AsInteger := lbId.Tag;
     FDMem_EnderecoID.AsInteger := rctCadEndereco.Tag;// edCadEnd_Logradouro.Tag;
     FDMem_EnderecoCEP.AsString := edCadEnd_Cep.Text;
     FDMem_EnderecoLOGRADOURO.AsString := edCadEnd_Logradouro.Text;
@@ -1234,12 +1861,12 @@ begin
 
     if FStatusTable_End = stInsert then
     begin
-      if not Dm_DeskTop.EmpresaEnd_Cadastro(FDMem_Endereco.ToJSONArray,0) then
+      if not Dm_DeskTop.FornecedorEnd_Cadastro(FDMem_Endereco.ToJSONArray,0) then
         raise Exception.Create('Erro ao salvar as alterações');
     end
     else if FStatusTable_End = stUpdate then
     begin
-      if not Dm_DeskTop.EmpresaEnd_Cadastro(FDMem_Endereco.ToJSONArray,1) then
+      if not Dm_DeskTop.FornecedorEnd_Cadastro(FDMem_Endereco.ToJSONArray,1) then
         raise Exception.Create('Erro ao salvar as alterações');
     end;
 
@@ -1252,8 +1879,19 @@ begin
 end;
 
 procedure TfrmFornecedor.SalvarTelefone(Sender: TOBject);
+var
+  t :TThread;
 begin
+  TLoading.Show(frmFornecedor,'Salvando telefone');
 
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    SalvarAlteracao_Telefone;
+  end);
+
+  t.OnTerminate := ThreadEnd_SalvarTelefone;
+  t.Start;
 end;
 
 procedure TfrmFornecedor.Salvar_Alteracoes(Sender: TOBject);
@@ -1327,22 +1965,46 @@ end;
 procedure TfrmFornecedor.Seleciona_Municipio(Aid: Integer; ANome,
   AIbge: String);
 begin
+  edCadEnd_Municipio.TagString := AIbge;
+  edCadEnd_Municipio.Tag := Aid;
+  edCadEnd_Municipio.Text := ANome;
 
+  if Trim(edCadEnd_Municipio.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
 end;
 
 procedure TfrmFornecedor.Seleciona_Pais(Aid: Integer; ANome: String);
 begin
+  edCadEnd_Pais.Tag := Aid;
+  edCadEnd_Pais.Text := ANome;
 
+  if Trim(edCadEnd_Pais.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Pais,lbCadEnd_Pais,faCadEnd_Pais,10,-20);
 end;
 
 procedure TfrmFornecedor.Seleciona_Regiao(Aid: Integer; ANome: String);
 begin
+  edCadEnd_Regiao.Tag := Aid;
+  edCadEnd_Regiao.Text := ANome;
 
+  if Trim(edCadEnd_Regiao.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_Regiao,lbCadEnd_Regiao,faCadEnd_Regiao,10,-20);
+end;
+
+procedure TfrmFornecedor.Seleciona_Setor(AId: Integer; ANome: String);
+begin
+  edEmail_Setor.Tag := AId;
+  edEmail_Setor.Text := ANome;
 end;
 
 procedure TfrmFornecedor.Seleciona_UF(AId: Integer; ASiglaUF, ANome: String);
 begin
+  edCadEnd_UF.Tag := AId;
+  edCadEnd_UF.TagString := ASiglaUF;
+  edCadEnd_UF.Text := ANome;
 
+  if Trim(edCadEnd_UF.Text) <> '' then
+    TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
 end;
 
 procedure TfrmFornecedor.SelStatus;
@@ -1431,12 +2093,24 @@ end;
 
 procedure TfrmFornecedor.ThreadEnd_BuscaCep(Sender: TObject);
 begin
+  TLoading.Hide;
 
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'','Erro ao buscar o Cep: ' + Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmFornecedor.ThreadEnd_DeletarEndereco(Sender: TOBject);
 begin
+  TLoading.Hide;
 
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    //lvEnderecos.Tag := 0;
+    FProcessandoEnd := '';
+    Listar_Endereco(0,lbId.Tag,True);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_DeletarRegistro(Sender: TOBject);
@@ -1452,7 +2126,15 @@ end;
 
 procedure TfrmFornecedor.ThreadEnd_DeletarTelefone(Sender: TObject);
 begin
+  TLoading.Hide;
 
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoTel := '';
+    ListarTelefone(0,lbId.Tag,True,0);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_Edit(Sender: TOBject);
@@ -1468,22 +2150,33 @@ end;
 
 procedure TfrmFornecedor.ThreadEnd_EditaEmail(Sender: TOBject);
 begin
-
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Editar E-mail',Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmFornecedor.ThreadEnd_EditaEndereco(Sender: TOBject);
 begin
-
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Editar Endereço',Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmFornecedor.ThreadEnd_EditaTelefone(Sender: TObject);
 begin
-
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Editar Telefone',Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmFornecedor.ThreadEnd_ExcluirEmail(Sender: TOBject);
 begin
+  TLoading.Hide;
 
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoEmail := '';
+    ListarEmail(0,lbId.Tag,True,0);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_Lista(Sender: TOBject);
@@ -1497,27 +2190,57 @@ end;
 
 procedure TfrmFornecedor.ThreadEnd_ListaEmail(Sender: TObject);
 begin
-
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
+      FMensagem.Show(TIconDialog.Error,'','Erro na carga dos E-mails: ' + Exception(TThread(Sender).FatalException).Message);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_ListaEnd(Sender: TObject);
 begin
-
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
+      FMensagem.Show(TIconDialog.Error,'','Erro na carga dos Endereços: ' + Exception(TThread(Sender).FatalException).Message);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_ListaTel(Sender: TObject);
 begin
-
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    if Pos('401',Exception(TThread(Sender).FatalException).Message) = 0 then
+      FMensagem.Show(TIconDialog.Error,'','Erro na carga dos Telefones: ' + Exception(TThread(Sender).FatalException).Message);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_SalvarEmail(Sender: TOBject);
 begin
+  TLoading.Hide;
+  rctTampa_Email.Visible := False;
 
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoEmail := '';
+    ListarEmail(0,lbId.Tag,True,0);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_SalvarEndereco(Sender: TObject);
 begin
+  TLoading.Hide;
+  rctTampa_Endereco.Visible := False;
 
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoEnd := '';
+    Listar_Endereco(0,lbId.Tag,True);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_SalvarRegistro(Sender: TOBject);
@@ -1533,7 +2256,16 @@ end;
 
 procedure TfrmFornecedor.ThreadEnd_SalvarTelefone(Sender: TOBject);
 begin
+  TLoading.Hide;
+  rctTampa_Telefone.Visible := False;
 
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FProcessandoTel := '';
+    ListarTelefone(0,lbId.Tag,True,0);
+  end;
 end;
 
 procedure TfrmFornecedor.ThreadEnd_Status(Sender: TOBject);
