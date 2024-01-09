@@ -81,7 +81,10 @@ type
       const AID:Integer = 0;
       const APagina:Integer=0): TJSONArray;
     procedure Atualizar(const AFDQ_Query:TFDQuery; AID_FORNECEDOR:Integer = 0; AID:Integer = 0);
-    procedure Excluir(const AFDQ_Query:TFDQuery; AID_FORNECEDOR:Integer = 0; AID:Integer = 0);
+    procedure Excluir(
+      const AFDQ_Query:TFDQuery;
+      const AID_FORNECEDOR:Integer = 0;
+      const AID:Integer = 0);
 
     property ID_FORNECEDOR:Integer read FID_FORNECEDOR write SetID_FORNECEDOR;
     property ID:Integer read FID write SetID;
@@ -373,21 +376,21 @@ end;
 
 procedure TFORNECEDOR_ENDERECO.Inicia_Propriedades;
 begin
-  ID_FORNECEDOR := -1;
-  ID := -1;
+  ID_FORNECEDOR := 0;
+  ID := 0;
   CEP := '';
   LOGRADOURO := '';
   NUMERO := '';
   COMPLEMENTO := '';
   BAIRRO := '';
-  IBGE := -1;
+  IBGE := 0;
   MUNICIPIO := '';
   SIGLA_UF := '';
   UF := '';
   REGIAO := '';
-  CODIGO_PAIS := -1;
+  CODIGO_PAIS := 0;
   PAIS := '';
-  ID_USUARIO := -1;
+  ID_USUARIO := 0;
   DT_CADASTRO := Date;
   HR_CADASTRO := Time;
 end;
@@ -461,7 +464,7 @@ begin
     try
       AFDQ_Query.Connection := FConexao;
 
-      if FID_USUARIO = -1 then
+      if FID_USUARIO = 0 then
         raise Exception.Create('ID_USUARIO: CODIGO DO USUARIO não informado');
       if FDT_CADASTRO = 0 then
         raise Exception.Create('DT_CADASTRO: DATA DO CADASTRO não informado');
@@ -474,7 +477,6 @@ begin
       AFDQ_Query.Sql.Clear;
       AFDQ_Query.Sql.Add('INSERT INTO FORNECEDOR_ENDERECO( ');
       AFDQ_Query.Sql.Add('  ID_FORNECEDOR');
-      //AFDQ_Query.Sql.Add('  ,ID');
       AFDQ_Query.Sql.Add('  ,CEP');
       AFDQ_Query.Sql.Add('  ,LOGRADOURO');
       AFDQ_Query.Sql.Add('  ,NUMERO');
@@ -492,7 +494,6 @@ begin
       AFDQ_Query.Sql.Add('  ,HR_CADASTRO');
       AFDQ_Query.Sql.Add(') VALUES(');
       AFDQ_Query.Sql.Add('  :ID_FORNECEDOR');
-      //AFDQ_Query.Sql.Add('  ,:ID');
       AFDQ_Query.Sql.Add('  ,:CEP');
       AFDQ_Query.Sql.Add('  ,:LOGRADOURO');
       AFDQ_Query.Sql.Add('  ,:NUMERO');
@@ -510,7 +511,6 @@ begin
       AFDQ_Query.Sql.Add('  ,:HR_CADASTRO');
       AFDQ_Query.Sql.Add(');');
       AFDQ_Query.ParamByName('ID_FORNECEDOR').AsInteger := FID_FORNECEDOR;
-      //AFDQ_Query.ParamByName('ID').AsInteger := FID;
       AFDQ_Query.ParamByName('CEP').AsString := FCEP;
       AFDQ_Query.ParamByName('LOGRADOURO').AsString := FLOGRADOURO;
       AFDQ_Query.ParamByName('NUMERO').AsString := FNUMERO;
@@ -553,7 +553,7 @@ begin
         AFDQ_Query.Sql.Add('  ,COMPLEMENTO = :COMPLEMENTO ');
       if FBAIRRO <> '' then
         AFDQ_Query.Sql.Add('  ,BAIRRO = :BAIRRO ');
-      if FIBGE > -1 then
+      if FIBGE > 0 then
         AFDQ_Query.Sql.Add('  ,IBGE = :IBGE ');
       if FMUNICIPIO <> '' then
         AFDQ_Query.Sql.Add('  ,MUNICIPIO = :MUNICIPIO ');
@@ -563,11 +563,11 @@ begin
         AFDQ_Query.Sql.Add('  ,UF = :UF ');
       if FREGIAO <> '' then
         AFDQ_Query.Sql.Add('  ,REGIAO = :REGIAO ');
-      if FCODIGO_PAIS > -1 then
+      if FCODIGO_PAIS > 0 then
         AFDQ_Query.Sql.Add('  ,CODIGO_PAIS = :CODIGO_PAIS ');
       if FPAIS <> '' then
         AFDQ_Query.Sql.Add('  ,PAIS = :PAIS ');
-      if FID_USUARIO > -1 then
+      if FID_USUARIO > 0 then
         AFDQ_Query.Sql.Add('  ,ID_USUARIO = :ID_USUARIO ');
       if FDT_CADASTRO > 0 then
         AFDQ_Query.Sql.Add('  ,DT_CADASTRO = :DT_CADASTRO ');
@@ -588,7 +588,7 @@ begin
         AFDQ_Query.ParamByName('COMPLEMENTO').AsString := FCOMPLEMENTO;
       if FBAIRRO <> '' then
         AFDQ_Query.ParamByName('BAIRRO').AsString := FBAIRRO;
-      if FIBGE > -1 then
+      if FIBGE > 0 then
         AFDQ_Query.ParamByName('IBGE').AsInteger := FIBGE;
       if FMUNICIPIO <> '' then
         AFDQ_Query.ParamByName('MUNICIPIO').AsString := FMUNICIPIO;
@@ -598,11 +598,11 @@ begin
         AFDQ_Query.ParamByName('UF').AsString := FUF;
       if FREGIAO <> '' then
         AFDQ_Query.ParamByName('REGIAO').AsString := FREGIAO;
-      if FCODIGO_PAIS > -1 then
+      if FCODIGO_PAIS > 0 then
         AFDQ_Query.ParamByName('CODIGO_PAIS').AsInteger := FCODIGO_PAIS;
       if FPAIS <> '' then
         AFDQ_Query.ParamByName('PAIS').AsString := FPAIS;
-      if FID_USUARIO > -1 then
+      if FID_USUARIO > 0 then
         AFDQ_Query.ParamByName('ID_USUARIO').AsInteger := FID_USUARIO;
       if FDT_CADASTRO > 0 then
         AFDQ_Query.ParamByName('DT_CADASTRO').AsDateTime := FDT_CADASTRO;
@@ -617,19 +617,23 @@ begin
   end;
 end;
 
-procedure TFORNECEDOR_ENDERECO.Excluir(const AFDQ_Query:TFDQuery; AID_FORNECEDOR:Integer = 0; AID:Integer = 0);
+procedure TFORNECEDOR_ENDERECO.Excluir(
+  const AFDQ_Query:TFDQuery;
+  const AID_FORNECEDOR:Integer = 0;
+  const AID:Integer = 0);
 begin
   try
     try
       AFDQ_Query.Connection := FConexao;
       AFDQ_Query.Active := False;
       AFDQ_Query.Sql.Clear;
-      AFDQ_Query.Sql.Add('DELETE FROM FORNECEDOR_ENDERECO ');
-      AFDQ_Query.Sql.Add('WHERE NOT ID IS NULL ');
+      AFDQ_Query.Sql.Add('DELETE FROM FORNECEDOR_ENDERECO FE');
+      AFDQ_Query.Sql.Add('WHERE NOT FE.ID IS NULL ');
       if AID_FORNECEDOR > 0 then
-        AFDQ_Query.Sql.Add('  AND ID_FORNECEDOR = ' + AID_FORNECEDOR.ToString);
+        AFDQ_Query.Sql.Add('  AND FE.ID_FORNECEDOR = ' + AID_FORNECEDOR.ToString);
       if AID > 0 then
-        AFDQ_Query.Sql.Add('  AND ID = ' + AID.ToString);
+        AFDQ_Query.Sql.Add('  AND FE.ID = ' + AID.ToString);
+
       AFDQ_Query.ExecSQL;
     except
       On Ex:Exception do

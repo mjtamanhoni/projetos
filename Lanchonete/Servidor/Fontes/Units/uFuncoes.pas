@@ -566,9 +566,19 @@ begin
   try
     AErro := '';
     //09/08/2022
-    lDia := StrToInt(Copy(AData,1,2));
-    lMes := StrToInt(Copy(AData,4,2));
-    lAno := StrToInt(Copy(AData,7,4));
+    //2024-01-09
+    if Pos('/',AData) > 0 then
+    begin
+      lDia := StrToInt(Copy(AData,1,2));
+      lMes := StrToInt(Copy(AData,4,2));
+      lAno := StrToInt(Copy(AData,7,4));
+    end
+    else if Pos('-',AData) > 0 then
+    begin
+      lDia := StrToInt(Copy(AData,9,2));
+      lMes := StrToInt(Copy(AData,6,2));
+      lAno := StrToInt(Copy(AData,1,4));
+    end;
     Result := EncodeDate(lAno,lMes,lDia);
   except
     On Ex:Exception do

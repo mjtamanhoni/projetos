@@ -321,8 +321,6 @@ type
     procedure rctConfirmarClick(Sender: TObject);
     procedure rctEditarClick(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
-    procedure edRazaoSocialKeyDown(Sender: TObject; var Key: Word;
-      var KeyChar: Char; Shift: TShiftState);
     procedure edStatusKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
     procedure edTipoKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -1097,13 +1095,6 @@ end;
 procedure TfrmEmpresa.edPesquisarTyping(Sender: TObject);
 begin
   TFuncoes.ExibeLabel(edPesquisar,lbPesquisar,FloatAnimation_Pesq,10,-20);
-end;
-
-procedure TfrmEmpresa.edRazaoSocialKeyDown(Sender: TObject; var Key: Word;
-  var KeyChar: Char; Shift: TShiftState);
-begin
-  if Key = vkReturn then
-    TFuncoes.PularCampo(edStatus);
 end;
 
 procedure TfrmEmpresa.edRazaoSocialTyping(Sender: TObject);

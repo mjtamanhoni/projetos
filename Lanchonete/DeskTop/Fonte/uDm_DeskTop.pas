@@ -1883,7 +1883,7 @@ begin
       raise Exception.Create('Necessário informar o Host...');
 
     lResp := TRequest.New.BaseURL(lHost)
-             .Resource('fornecedor/endereco')
+             .Resource('/fornecedor/endereco')
              .TokenBearer(FDMem_UsuariosTOKEN.AsString)
              .AddParam('idFornecedor',ACodFornecedor.ToString)
              .AddParam('id',AEndereco.ToString)

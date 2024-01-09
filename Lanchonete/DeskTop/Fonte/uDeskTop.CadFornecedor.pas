@@ -318,8 +318,6 @@ type
     procedure rctConfirmarClick(Sender: TObject);
     procedure rctEditarClick(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
-    procedure edRazaoSocialKeyDown(Sender: TObject; var Key: Word;
-      var KeyChar: Char; Shift: TShiftState);
     procedure edRazaoSocialTyping(Sender: TObject);
     procedure edStatusKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
@@ -359,6 +357,38 @@ type
       const ARect: TRectF);
     procedure lvEmailPaint(Sender: TObject; Canvas: TCanvas;
       const ARect: TRectF);
+    procedure edCadEnd_CepKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_CepTyping(Sender: TObject);
+    procedure imgCadEnd_CepClick(Sender: TObject);
+    procedure edCadEnd_LogradouroKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_LogradouroTyping(Sender: TObject);
+    procedure edCadEnd_NrKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_NrTyping(Sender: TObject);
+    procedure edCadEnd_ComplementoKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_ComplementoTyping(Sender: TObject);
+    procedure edCadEnd_BairroKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_BairroTyping(Sender: TObject);
+    procedure edCadEnd_MunicipioKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_MunicipioTyping(Sender: TObject);
+    procedure edCadEnd_MunicipioClick(Sender: TObject);
+    procedure edCadEnd_UFClick(Sender: TObject);
+    procedure edCadEnd_UFKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_UFTyping(Sender: TObject);
+    procedure edCadEnd_RegiaoClick(Sender: TObject);
+    procedure edCadEnd_RegiaoKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadEnd_RegiaoTyping(Sender: TObject);
+    procedure edCadEnd_PaisClick(Sender: TObject);
+    procedure edCadEnd_PaisTyping(Sender: TObject);
+    procedure rctCadEndereco_CancelarClick(Sender: TObject);
+    procedure rctCadEndereco_ConfirmarClick(Sender: TObject);
   private
     FProcessando: String;
     FProcessandoEnd: String;
@@ -425,7 +455,7 @@ type
       procedure ThreadEnd_BuscaCep(Sender: TObject);
       procedure Listar_Endereco(
         const APagina:Integer;
-        const AEmpresa:Integer;
+        const AFornecedor:Integer;
         const AInd_Clear:Boolean;
         const AId_Endereco:Integer=0);
       procedure AddEndItens_LV(
@@ -699,6 +729,144 @@ begin
 
   t.OnTerminate := ThreadEnd_DeletarRegistro;
   t.Start;
+end;
+
+procedure TfrmFornecedor.edCadEnd_BairroKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Municipio);
+end;
+
+procedure TfrmFornecedor.edCadEnd_BairroTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Bairro,lbCadEnd_Bairro,faCadEnd_Bairro,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadEnd_CepKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Logradouro);
+end;
+
+procedure TfrmFornecedor.edCadEnd_CepTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Cep,lbCadEnd_Cep,faCadEnd_Cep,10,-20);
+  Formatar(edCadEnd_Cep,TFormato.CEP);
+end;
+
+procedure TfrmFornecedor.edCadEnd_ComplementoKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Bairro);
+end;
+
+procedure TfrmFornecedor.edCadEnd_ComplementoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Complemento,lbCadEnd_Complemento,faCadEnd_Complemento,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadEnd_LogradouroKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Nr);
+end;
+
+procedure TfrmFornecedor.edCadEnd_LogradouroTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Logradouro,lbCadEnd_Logradouro,faCadEnd_Logradouro,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadEnd_MunicipioClick(Sender: TObject);
+begin
+  if not Assigned(frmMunicipios) then
+    Application.CreateForm(TfrmMunicipios,frmMunicipios);
+  frmMunicipios.RetornaRegistro := True;
+  frmMunicipios.ExecuteOnClose := Seleciona_Municipio;
+  frmMunicipios.Show;
+end;
+
+procedure TfrmFornecedor.edCadEnd_MunicipioKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_UF);
+end;
+
+procedure TfrmFornecedor.edCadEnd_MunicipioTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadEnd_NrKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Complemento);
+end;
+
+procedure TfrmFornecedor.edCadEnd_NrTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Nr,lbCadEdn_Nr,faCadEnd_Nr,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadEnd_PaisClick(Sender: TObject);
+begin
+  if not Assigned(frmCadPaises) then
+    Application.CreateForm(TfrmCadPaises,frmCadPaises);
+  frmCadPaises.RetornaRegistro := True;
+  frmCadPaises.ExecuteOnClose := Seleciona_Pais;
+  frmCadPaises.Show;
+end;
+
+procedure TfrmFornecedor.edCadEnd_PaisTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Pais,lbCadEnd_Pais,faCadEnd_Pais,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadEnd_RegiaoClick(Sender: TObject);
+begin
+  if not Assigned(frmCad_Regioes) then
+    Application.CreateForm(TfrmCad_Regioes,frmCad_Regioes);
+  frmCad_Regioes.RetornaRegistro := True;
+  frmCad_Regioes.ExecuteOnClose := Seleciona_Regiao;
+  frmCad_Regioes.Show;
+end;
+
+procedure TfrmFornecedor.edCadEnd_RegiaoKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Pais);
+end;
+
+procedure TfrmFornecedor.edCadEnd_RegiaoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_Regiao,lbCadEnd_Regiao,faCadEnd_Regiao,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadEnd_UFClick(Sender: TObject);
+begin
+  if not Assigned(frmUnidadeFederativa) then
+    Application.CreateForm(TfrmUnidadeFederativa,frmUnidadeFederativa);
+  frmUnidadeFederativa.RetornaRegistro := True;
+  frmUnidadeFederativa.ExecuteOnClose := Seleciona_UF;
+  frmUnidadeFederativa.Show;
+end;
+
+procedure TfrmFornecedor.edCadEnd_UFKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadEnd_Regiao);
+end;
+
+procedure TfrmFornecedor.edCadEnd_UFTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
 end;
 
 procedure TfrmFornecedor.edDocumentoKeyDown(Sender: TObject; var Key: Word;
@@ -990,13 +1158,6 @@ begin
   TFuncoes.ExibeLabel(edPesquisar,lbPesquisar,FloatAnimation_Pesq,10,-20);
 end;
 
-procedure TfrmFornecedor.edRazaoSocialKeyDown(Sender: TObject; var Key: Word;
-  var KeyChar: Char; Shift: TShiftState);
-begin
-  if Key = vkReturn then
-    TFuncoes.PularCampo(edStatus);
-end;
-
 procedure TfrmFornecedor.edRazaoSocialTyping(Sender: TObject);
 begin
   TFuncoes.ExibeLabel(edRazaoSocial,lbRazaoSocial,FloatAnimation_RazaoSocial,10,-20);
@@ -1186,6 +1347,73 @@ begin
   tcPrincipal.ActiveTab := tiFiltro;
   tcAdicionais.ActiveTab := tiEndereco;
 
+end;
+
+procedure TfrmFornecedor.imgCadEnd_CepClick(Sender: TObject);
+var
+  t :TThread;
+  lCep :String;
+
+begin
+
+  if Trim(edCadEnd_Cep.Text) = '' then
+    raise Exception.Create('Obrigatório informar o CEP');
+
+  TLoading.Show(frmFornecedor,'Buscanco Cep');
+
+  lCep := TFuncoes.SomenteNumero(edCadEnd_Cep.Text);
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    jsonObject: TJSONObject;
+  begin
+      jsonObject := Dm_DeskTop.BuscaCep_Cep(lCep);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        edCadEnd_Logradouro.Text := jsonObject.GetValue<String>('logradouro');
+        edCadEnd_Complemento.Text := jsonObject.GetValue<String>('complemento');
+        edCadEnd_Bairro.Text := jsonObject.GetValue<String>('bairro');
+        edCadEnd_Municipio.Text := jsonObject.GetValue<String>('localidade');
+        edCadEnd_Municipio.TagString := jsonObject.GetValue<String>('ibge');
+        edCadEnd_UF.TagString := jsonObject.GetValue<String>('uf');
+        edCadEnd_UF.Text := TFuncoes.Unidade_Federativa(edCadEnd_UF.TagString);
+      end);
+
+      TThread.Synchronize(nil,
+      procedure
+      begin
+        if Trim(edCadEnd_Logradouro.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Logradouro,lbCadEnd_Logradouro,faCadEnd_Logradouro,10,-20);
+        if Trim(edCadEnd_Complemento.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Complemento,lbCadEnd_Complemento,faCadEnd_Complemento,10,-20);
+        if Trim(edCadEnd_Bairro.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Bairro,lbCadEnd_Bairro,faCadEnd_Bairro,10,-20);
+        if Trim(edCadEnd_Municipio.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_Municipio,lbCadEnd_Municipio,faCadEnd_Municipio,10,-20);
+        if Trim(edCadEnd_UF.Text) <> '' then
+          TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
+      end);
+
+      {$IFDEF MSWINDOWS}
+        FreeAndNil(jsonObject);
+      {$ELSE}
+        jsonObject.DisposeOf;
+      {$ENDIF}
+  end);
+
+  t.OnTerminate := ThreadEnd_BuscaCep;
+  t.Start;
+end;
+
+procedure TfrmFornecedor.ThreadEnd_BuscaCep(Sender :TOBject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'','Erro ao buscar o Cep: ' + Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmFornecedor.imgEnderecoClick(Sender: TObject);
@@ -1502,8 +1730,11 @@ begin
   t.Start;
 end;
 
-procedure TfrmFornecedor.Listar_Endereco(const APagina, AEmpresa: Integer;
-  const AInd_Clear: Boolean; const AId_Endereco: Integer);
+procedure TfrmFornecedor.Listar_Endereco(
+  const APagina:Integer;
+  const AFornecedor: Integer;
+  const AInd_Clear: Boolean;
+  const AId_Endereco: Integer);
 var
   t :TThread;
 begin
@@ -1533,7 +1764,7 @@ begin
 
       jsonArray := Dm_DeskTop.FornecedorEnd_Lista(
         lvEnderecos.Tag
-        ,AEmpresa);
+        ,AFornecedor);
 
       for x := 0 to jsonArray.Size -1 do
       begin
@@ -1616,6 +1847,7 @@ procedure TfrmFornecedor.lvListaItemClick(const Sender: TObject;
 begin
   FId_Selecionado := Aitem.Tag;
   FNome_Selecionado := AItem.TagString;
+  lbId.Tag := AItem.Tag;
 end;
 
 procedure TfrmFornecedor.lvListaPaint(Sender: TObject; Canvas: TCanvas;
@@ -1675,6 +1907,16 @@ end;
 procedure TfrmFornecedor.Novo_Registro(Sender: TOBject);
 begin
   Configura_Botoes(0);
+end;
+
+procedure TfrmFornecedor.rctCadEndereco_CancelarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Endereço','Cancela alterações','SIM',CancelaEndereco,'NÂO');
+end;
+
+procedure TfrmFornecedor.rctCadEndereco_ConfirmarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Endereço','Salva alterações','SIM',SalvarEndereco,'NÃO');
 end;
 
 procedure TfrmFornecedor.rctCancelarClick(Sender: TObject);
@@ -2089,14 +2331,6 @@ begin
 
   t.OnTerminate := ThreadEnd_Tipo;
   t.Start;
-end;
-
-procedure TfrmFornecedor.ThreadEnd_BuscaCep(Sender: TObject);
-begin
-  TLoading.Hide;
-
-  if Assigned(TThread(Sender).FatalException) then
-    FMensagem.Show(TIconDialog.Error,'','Erro ao buscar o Cep: ' + Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmFornecedor.ThreadEnd_DeletarEndereco(Sender: TOBject);

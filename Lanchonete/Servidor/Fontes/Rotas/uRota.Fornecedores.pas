@@ -62,12 +62,14 @@ begin
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/fornecedor',Fornecedor_Delete);
   {$EndRegion 'Fornecedor'}
 
+  (*
   {$Region 'Fornecedor Endereço'}
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/fornecedor/endereco',FornecedorE_Listar);
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/fornecedor/endereco',FornecedorE_Cadastro);
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/fornecedor/endereco',FornecedorE_Alterar);
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/fornecedor/endereco',FornecedorE_Delete);
   {$EndRegion 'Fornecedor Endereço'}
+  *)
 
   {$Region 'Fornecedor Telefone'}
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/fornecedor/telefone',FornecedorT_Listar);

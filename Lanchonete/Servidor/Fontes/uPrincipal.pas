@@ -26,6 +26,7 @@ uses
   {$Region 'Rotas'}
     uRota.Usuario,
     uRota.Fornecedores,
+    uRota.FORNECEDOR.ENDERECO,
     uRota.Clientes,
     uRota.IMPRESSORAS,
     uRota.SETOR,
@@ -197,6 +198,7 @@ begin
     {$Region 'Registrando rotas'}
       uRota.Usuario.RegistrarRotas;
       uRota.Fornecedores.RegistrarRotas;
+      uRota.FORNECEDOR.ENDERECO.RegistrarRotas;
       uRota.Clientes.RegistrarRotas;
       uRota.IMPRESSORAS.RegistrarRotas;
       uRota.SETOR.RegistrarRotas;

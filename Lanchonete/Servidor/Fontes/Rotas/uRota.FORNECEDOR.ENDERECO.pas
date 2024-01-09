@@ -282,7 +282,6 @@ begin
 
       lID_FORNECEDOR := StrToIntDef(Req.Query['fornecedorId'],0);
       lID := StrToIntDef(Req.Query['id'],0);
-
       lTFORNECEDOR_ENDERECO.Excluir(lQuery,lID_FORNECEDOR,lId);
 
       Res.Send('Endereço do Fornecedor excluído').Status(200);
