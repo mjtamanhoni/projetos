@@ -27,3 +27,6 @@ Lanchonete/DeskTop/Fonte/__recovery/
 *.dll
 *.txt
 *.zip
+Controle de Horas/Servidor/Fontes/__history/
+Lanchonete/Servidor/Fontes/__recovery/
+*.exe

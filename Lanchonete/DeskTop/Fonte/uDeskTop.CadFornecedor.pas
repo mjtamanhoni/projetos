@@ -288,7 +288,7 @@ type
     FDMem_EnderecoDT_CADASTRO: TDateField;
     FDMem_EnderecoHR_CADASTRO: TTimeField;
     FDMem_Email: TFDMemTable;
-    FDMem_EmailID_EMPRESA: TIntegerField;
+    FDMem_EmailID_FORNECEDOR: TIntegerField;
     FDMem_EmailID: TIntegerField;
     FDMem_EmailRESPONSAVEL: TStringField;
     FDMem_EmailID_SETOR: TIntegerField;
@@ -298,7 +298,7 @@ type
     FDMem_EmailDT_CADASTRO: TDateField;
     FDMem_EmailHF_CADASTRO: TTimeField;
     FDMem_Telefone: TFDMemTable;
-    FDMem_TelefoneID_EMPRESA: TIntegerField;
+    FDMem_TelefoneID_FORNECEDOR: TIntegerField;
     FDMem_TelefoneID: TIntegerField;
     FDMem_TelefoneTIPO: TIntegerField;
     FDMem_TelefoneNUMERO: TStringField;
@@ -389,6 +389,25 @@ type
     procedure edCadEnd_PaisTyping(Sender: TObject);
     procedure rctCadEndereco_CancelarClick(Sender: TObject);
     procedure rctCadEndereco_ConfirmarClick(Sender: TObject);
+    procedure edCadTel_TipoChange(Sender: TObject);
+    procedure edCadTel_TipoClick(Sender: TObject);
+    procedure edCadTel_TipoKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edCadTel_TipoTyping(Sender: TObject);
+    procedure edCadTel_NumeroTyping(Sender: TObject);
+    procedure rctCadTel_CancelarClick(Sender: TObject);
+    procedure rctCadTel_ConfirmarClick(Sender: TObject);
+    procedure rctCadTel_Tipo_CelularClick(Sender: TObject);
+    procedure edEmailKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edEmailTyping(Sender: TObject);
+    procedure edEmail_ResponsavelKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edEmail_ResponsavelTyping(Sender: TObject);
+    procedure edEmail_SetorClick(Sender: TObject);
+    procedure edEmail_SetorTyping(Sender: TObject);
+    procedure rctCadEmail_ConfirmarClick(Sender: TObject);
+    procedure rctCadEmail_CancelarClick(Sender: TObject);
   private
     FProcessando: String;
     FProcessandoEnd: String;
@@ -459,7 +478,7 @@ type
         const AInd_Clear:Boolean;
         const AId_Endereco:Integer=0);
       procedure AddEndItens_LV(
-        const AIdEmpresa :Integer;
+        const AIdFornecedor :Integer;
         const AId :Integer;
         const APais_Nome: String;
         const ARegiao_Nome :String;
@@ -497,11 +516,11 @@ type
       procedure ThreadEnd_EditaEmail(Sender: TOBject);
       procedure ListarEmail(
         const APagina:Integer;
-        const AEmpresa:Integer;
+        const AFornecedor:Integer;
         const AInd_Clear:Boolean;
         const AId_Telefone:Integer=0);
       procedure AddEmailItens_LV(
-        const AIdEmpresa :Integer;
+        const AIdFornecedor :Integer;
         const AId :Integer;
         const AEmail: String;
         const AResponsavel: String;
@@ -528,7 +547,7 @@ type
         const AInd_Clear:Boolean;
         const AId_Telefone:Integer=0);
       procedure AddTelItens_LV(
-        const AIdEmpresa :Integer;
+        const AIdFornecedor :Integer;
         const AId :Integer;
         const ATipo: Integer;
         const ATipoDesc: String;
@@ -563,7 +582,7 @@ begin
   Abort;
 end;
 
-procedure TfrmFornecedor.AddEmailItens_LV(const AIdEmpresa, AId: Integer;
+procedure TfrmFornecedor.AddEmailItens_LV(const AIdFornecedor, AId: Integer;
   const AEmail, AResponsavel: String; const ASetorID: Integer;
   const ASetor: String);
 begin
@@ -577,7 +596,7 @@ begin
   end;
 end;
 
-procedure TfrmFornecedor.AddEndItens_LV(const AIdEmpresa, AId: Integer;
+procedure TfrmFornecedor.AddEndItens_LV(const AIdFornecedor, AId: Integer;
   const APais_Nome, ARegiao_Nome, AIbge, AMunicipio, ANr, AUf_Sigla, ABairro,
   ACep, ALogradouro, AComplemento: String);
 begin
@@ -611,7 +630,7 @@ begin
   end;
 end;
 
-procedure TfrmFornecedor.AddTelItens_LV(const AIdEmpresa, AId, ATipo: Integer;
+procedure TfrmFornecedor.AddTelItens_LV(const AIdFornecedor, AId, ATipo: Integer;
   const ATipoDesc, ATelefone: String);
 begin
   with lvTelefone.Items.Add do
@@ -869,6 +888,46 @@ begin
   TFuncoes.ExibeLabel(edCadEnd_UF,lbCadEnd_UF,faCadEnd_UF,10,-20);
 end;
 
+procedure TfrmFornecedor.edCadTel_NumeroTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadTel_Numero,lbCadTel_Numero,faCadTel_Numero,10,-20);
+  case edCadTel_Tipo.Tag of
+    0:Formatar(edCadTel_Numero,TFormato.TelefoneFixo);
+    1:Formatar(edCadTel_Numero,TFormato.Celular);
+    2:Formatar(edCadTel_Numero,TFormato.TelefoneFixo);
+  end;
+end;
+
+procedure TfrmFornecedor.edCadTel_TipoChange(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadTel_Tipo,lbCadTel_Tipo,faCadTel_Tipo,10,-20);
+end;
+
+procedure TfrmFornecedor.edCadTel_TipoClick(Sender: TObject);
+begin
+  TFuncoes.Seliciona_Combo_Desktop(
+    rctCadTel_ListaTipo
+    ,faCadTel_ListaTipo
+    ,imgCadTel_Tipo
+    ,imgRetrair
+    ,imgExpandir
+    ,edCadTel_Tipo
+    ,lytCadTelefone_Row001
+    ,90);
+end;
+
+procedure TfrmFornecedor.edCadTel_TipoKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edCadTel_Numero);
+end;
+
+procedure TfrmFornecedor.edCadTel_TipoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edCadTel_Tipo,lbCadTel_Tipo,faCadTel_Tipo,10,-20);
+end;
+
 procedure TfrmFornecedor.edDocumentoKeyDown(Sender: TObject; var Key: Word;
   var KeyChar: Char; Shift: TShiftState);
 begin
@@ -883,6 +942,44 @@ begin
     Formatar(edDocumento, TFormato.CPF)
   else
     Formatar(edDocumento, TFormato.CNPJ);
+end;
+
+procedure TfrmFornecedor.edEmailKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edEmail_Responsavel);
+end;
+
+procedure TfrmFornecedor.edEmailTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edEmail,lbEmail,faEmail,10,-20);
+end;
+
+procedure TfrmFornecedor.edEmail_ResponsavelKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edEmail_Setor);
+end;
+
+procedure TfrmFornecedor.edEmail_ResponsavelTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edEmail_Responsavel,lbEmail_Responsavel,faEmail_Responsavel,10,-20);
+end;
+
+procedure TfrmFornecedor.edEmail_SetorClick(Sender: TObject);
+begin
+  if not Assigned(frmCadSetor) then
+    Application.CreateForm(TfrmCadSetor,frmCadSetor);
+  frmCadSetor.RetornaRegistro := True;
+  frmCadSetor.ExecuteOnClose := Seleciona_Setor;
+  frmCadSetor.Show;
+end;
+
+procedure TfrmFornecedor.edEmail_SetorTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edEmail_Setor,lbEmail_Setor,faEmail_Setor,10,-20);
 end;
 
 procedure TfrmFornecedor.edInscEstadualKeyDown(Sender: TObject; var Key: Word;
@@ -1491,7 +1588,7 @@ begin
   edCadTel_Numero.Text := '';
 end;
 
-procedure TfrmFornecedor.ListarEmail(const APagina, AEmpresa: Integer;
+procedure TfrmFornecedor.ListarEmail(const APagina, AFornecedor: Integer;
   const AInd_Clear: Boolean; const AId_Telefone: Integer);
 var
   t :TThread;
@@ -1522,7 +1619,7 @@ begin
 
       jsonArray := Dm_DeskTop.FornecedorEmail_Lista(
         lvEmail.Tag
-        ,AEmpresa);
+        ,AFornecedor);
 
       for x := 0 to jsonArray.Size -1 do
       begin
@@ -1530,7 +1627,7 @@ begin
         procedure
         begin
           AddEmailItens_LV(
-            jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+            jsonArray.Get(x).GetValue<Integer>('idFornecedor')
             ,jsonArray.Get(x).GetValue<Integer>('id')
             ,jsonArray.Get(x).GetValue<String>('email')
             ,jsonArray.Get(x).GetValue<String>('responsavel')
@@ -1607,7 +1704,7 @@ begin
         procedure
         begin
           AddTelItens_LV(
-            jsonArray.Get(x).GetValue<Integer>('idEmpresa')
+            jsonArray.Get(x).GetValue<Integer>('idFornecedor')
             ,jsonArray.Get(x).GetValue<Integer>('id')
             ,jsonArray.Get(x).GetValue<Integer>('tipo')
             ,jsonArray.Get(x).GetValue<String>('tipoDesc')
@@ -1909,6 +2006,16 @@ begin
   Configura_Botoes(0);
 end;
 
+procedure TfrmFornecedor.rctCadEmail_CancelarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'E-mail','Cancela alterações','SIM',CancelaEmail,'NÂO');
+end;
+
+procedure TfrmFornecedor.rctCadEmail_ConfirmarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'E-mail','Salva alterações','SIM',SalvarEmail,'NÃO');
+end;
+
 procedure TfrmFornecedor.rctCadEndereco_CancelarClick(Sender: TObject);
 begin
   FMensagem.Show(TIconDialog.Question,'Endereço','Cancela alterações','SIM',CancelaEndereco,'NÂO');
@@ -1917,6 +2024,35 @@ end;
 procedure TfrmFornecedor.rctCadEndereco_ConfirmarClick(Sender: TObject);
 begin
   FMensagem.Show(TIconDialog.Question,'Endereço','Salva alterações','SIM',SalvarEndereco,'NÃO');
+end;
+
+procedure TfrmFornecedor.rctCadTel_CancelarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Telefone','Cancela alterações','SIM',CancelaTelefone,'NÂO');
+end;
+
+procedure TfrmFornecedor.rctCadTel_ConfirmarClick(Sender: TObject);
+begin
+  FMensagem.Show(TIconDialog.Question,'Telefone','Salva alterações','SIM',SalvarTelefone,'NÃO');
+end;
+
+procedure TfrmFornecedor.rctCadTel_Tipo_CelularClick(Sender: TObject);
+begin
+  edCadTel_Tipo.Tag := TRectangle(Sender).Tag;
+  case TRectangle(Sender).Tag of
+    0:edCadTel_Tipo.Text := lbCadTel_Tipo_Comercial.Text;
+    1:edCadTel_Tipo.Text := lbCadTel_Tipo_Celular.Text;
+    2:edCadTel_Tipo.Text := lbCadTel_Tipo_Residencial.Text;
+  end;
+  TFuncoes.Seliciona_Combo_Desktop(
+    rctCadTel_ListaTipo
+    ,faCadTel_ListaTipo
+    ,imgCadTel_Tipo
+    ,imgRetrair
+    ,imgExpandir
+    ,edCadTel_Tipo
+    ,lytCadTelefone_Row001
+    ,90);
 end;
 
 procedure TfrmFornecedor.rctCancelarClick(Sender: TObject);
@@ -2001,7 +2137,7 @@ begin
   FDMem_Email.Active := False;
   FDMem_Email.Active := True;
   FDMem_Email.Insert;
-  FDMem_EmailID_EMPRESA.AsInteger := lbId.Tag;
+  FDMem_EmailID_FORNECEDOR.AsInteger := lbId.Tag;
   FDMem_EmailID.AsInteger := rctCad_Telefone.Tag;
   FDMem_EmailRESPONSAVEL.AsString := edEmail_Responsavel.Text;
   FDMem_EmailID_SETOR.AsInteger := edEmail_Setor.Tag;
@@ -2031,7 +2167,7 @@ begin
   FDMem_Telefone.Active := False;
   FDMem_Telefone.Active := True;
   FDMem_Telefone.Insert;
-  FDMem_TelefoneID_EMPRESA.AsInteger := lbId.Tag;
+  FDMem_TelefoneID_FORNECEDOR.AsInteger := lbId.Tag;
   FDMem_TelefoneID.AsInteger := rctCad_Telefone.Tag;
   FDMem_TelefoneTIPO.AsInteger := edCadTel_Tipo.Tag;
   FDMem_TelefoneNUMERO.AsString := edCadTel_Numero.Text;
@@ -2042,12 +2178,12 @@ begin
 
   if FStatusTable_Tel = stInsert then
   begin
-    if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,0) then
+    if not Dm_DeskTop.FornecedorTel_Cadastro(FDMem_Telefone.ToJSONArray,0) then
       raise Exception.Create('Erro ao salvar as alterações');
   end
   else if FStatusTable_Tel = stUpdate then
   begin
-    if not Dm_DeskTop.EmpresaTel_Cadastro(FDMem_Telefone.ToJSONArray,1) then
+    if not Dm_DeskTop.FornecedorTel_Cadastro(FDMem_Telefone.ToJSONArray,1) then
       raise Exception.Create('Erro ao salvar as alterações');
   end;
 

@@ -27,6 +27,7 @@ uses
     uRota.Usuario,
     uRota.Fornecedores,
     uRota.FORNECEDOR.ENDERECO,
+    uRota.FORNECEDOR.TELEFONES,
     uRota.Clientes,
     uRota.IMPRESSORAS,
     uRota.SETOR,
@@ -43,6 +44,7 @@ uses
     uRota.MUNICIPIOS,
     uRota.UNIDADE,
     uRota.PRODUTO,
+    uRota.FORNECEDOR_EMAIL,
   {$EndRegion 'Rotas'}
 
   {$Region 'Modelos'}
@@ -199,6 +201,8 @@ begin
       uRota.Usuario.RegistrarRotas;
       uRota.Fornecedores.RegistrarRotas;
       uRota.FORNECEDOR.ENDERECO.RegistrarRotas;
+      uRota.FORNECEDOR.TELEFONES.RegistrarRotas;
+      uRota.FORNECEDOR_EMAIL.RegistrarRotas;
       uRota.Clientes.RegistrarRotas;
       uRota.IMPRESSORAS.RegistrarRotas;
       uRota.SETOR.RegistrarRotas;

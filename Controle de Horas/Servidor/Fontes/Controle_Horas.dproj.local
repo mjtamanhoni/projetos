@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2024/01/31 11:34:14.031,=C:\Developer\Unit1.pas</Transaction>
+    <Transaction>2024/01/31 11:35:04.989,C:\Developer\Controle de Horas\Servidor\Fontes\unPrincipal.pas=C:\Developer\Unit1.pas</Transaction>
+    <Transaction>2024/01/31 11:35:04.989,C:\Developer\Controle de Horas\Servidor\Fontes\unPrincipal.fmx=C:\Developer\Unit1.fmx</Transaction>
+    <Transaction>2024/01/31 11:35:15.134,C:\Developer\Controle de Horas\Servidor\Fontes\Controle_Horas.dproj=C:\Developer\Project1.dproj</Transaction>
+    <Transaction>2024/01/31 15:07:45.267,=C:\Developer\Global\Rotas\uRota.Auth.pas</Transaction>
+  </Transactions>
+</BorlandProject>

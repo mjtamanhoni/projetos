@@ -1,4 +1,4 @@
-unit uModel.FORNECEDOR_EMAIL; 
+unit uModel.FORNECEDOR_EMAIL;
  
 interface 
  
@@ -345,19 +345,23 @@ begin
       AFDQ_Query.Connection := FConexao; 
  
       Inicia_Propriedades; 
- 
-      AFDQ_Query.Active := False; 
-      AFDQ_Query.Sql.Clear; 
-      AFDQ_Query.Sql.Add('SELECT * FROM FORNECEDOR_EMAIL') ;
+
+      AFDQ_Query.Active := False;
+      AFDQ_Query.Sql.Clear;
+      AFDQ_Query.Sql.Add('SELECT ') ;
+      AFDQ_Query.Sql.Add('  FE.* ') ;
+      AFDQ_Query.Sql.Add('  ,S.NOME AS SETOR ') ;
+      AFDQ_Query.Sql.Add('FROM FORNECEDOR_EMAIL FE ') ;
+      AFDQ_Query.Sql.Add('  JOIN SETOR S ON S.ID = FE.ID_SETOR') ;
       AFDQ_Query.Sql.Add('WHERE 1=1');
-      AFDQ_Query.Sql.Add('  AND ID_FORNECEDOR = :ID_FORNECEDOR');
-      AFDQ_Query.ParamByName('ID_FORNECEDOR').AsInteger := AID_FORNECEDOR;
-      AFDQ_Query.Sql.Add('  AND ID = :ID');
-      AFDQ_Query.ParamByName('ID').AsInteger := AID;
-      if ((APagina > 0) and (FPaginas > 0))  then 
-      begin 
-        FPagina := (((APagina - 1) * FPaginas) + 1); 
-        FPaginas := (APagina * FPaginas); 
+      if AID_FORNECEDOR > 0 then
+        AFDQ_Query.Sql.Add('  AND FE.ID_FORNECEDOR = ' + AID_FORNECEDOR.ToString);
+      if AID > 0 then
+        AFDQ_Query.Sql.Add('  AND FE.ID = ' + AID.ToString);
+      if ((APagina > 0) and (FPaginas > 0))  then
+      begin
+        FPagina := (((APagina - 1) * FPaginas) + 1);
+        FPaginas := (APagina * FPaginas);
         AFDQ_Query.Sql.Add('ROWS ' + FPagina.ToString + ' TO ' + FPaginas.ToString); 
       end; 
       AFDQ_Query.Active := True; 

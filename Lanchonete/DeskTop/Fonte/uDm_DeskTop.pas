@@ -1998,7 +1998,7 @@ begin
     lResp := TRequest.New.BaseURL(lHost)
              .Resource('fornecedor/telefones')
              .TokenBearer(FDMem_UsuariosTOKEN.AsString)
-             .AddParam('fornecedorId',ACodFornecedor.ToString)
+             .AddParam('idFornecedor',ACodFornecedor.ToString)
              .AddParam('id',ACodigo.ToString)
              .Accept('application/json')
              .Delete;

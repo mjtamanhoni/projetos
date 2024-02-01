@@ -355,8 +355,10 @@ begin
       AFDQ_Query.Sql.Add('  END TIPO_DESC ');
       AFDQ_Query.Sql.Add('FROM FORNECEDOR_TELEFONES FT ');
       AFDQ_Query.Sql.Add('WHERE NOT ID IS NULL');
-      if AID_FORNECEDOR> 0 then
+      if AID_FORNECEDOR > 0 then
         AFDQ_Query.Sql.Add('  AND ID_FORNECEDOR = ' + AID_FORNECEDOR.ToString);
+      if AID > 0 then
+        AFDQ_Query.Sql.Add('  AND ID = ' + AID.ToString);
       AFDQ_Query.Sql.Add('ORDER BY ');
       AFDQ_Query.Sql.Add('  FT.ID_FORNECEDOR ');
       AFDQ_Query.Sql.Add('  ,FT.ID ');
@@ -495,8 +497,8 @@ begin
       AFDQ_Query.Sql.Add('DELETE FROM FORNECEDOR_TELEFONES ');
       AFDQ_Query.Sql.Add('WHERE NOT ID IS NULL ');
       AFDQ_Query.Sql.Add('  AND ID_FORNECEDOR = :ID_FORNECEDOR');
-      AFDQ_Query.ParamByName('ID_FORNECEDOR').AsInteger := AID_FORNECEDOR;
       AFDQ_Query.Sql.Add('  AND ID = :ID');
+      AFDQ_Query.ParamByName('ID_FORNECEDOR').AsInteger := AID_FORNECEDOR;
       AFDQ_Query.ParamByName('ID').AsInteger := AID;
       AFDQ_Query.ExecSQL;
     except

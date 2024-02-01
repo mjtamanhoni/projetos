@@ -40,10 +40,10 @@ implementation
 procedure RegistrarRotas; 
 begin 
   {$Region 'FORNECEDOR_EMAIL'} 
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/fornecedorEmail',Listar);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/fornecedorEmail',Cadastro);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/fornecedorEmail',Alterar);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/fornecedorEmail',Delete);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/fornecedor/email',Listar);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/fornecedor/email',Cadastro);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/fornecedor/email',Alterar);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/fornecedor/email',Delete);
   {$EndRegion 'FORNECEDOR_EMAIL'} 
 end; 
  
@@ -138,11 +138,11 @@ begin
       for I := 0 to (lBody.Size - 1) do 
       begin 
         lTFORNECEDOR_EMAIL.Inicia_Propriedades; 
- 
-        lTFORNECEDOR_EMAIL.ID_FORNECEDOR := lBody[I].GetValue<Integer>('idFornecedor',0); 
+
+        lTFORNECEDOR_EMAIL.ID_FORNECEDOR := lBody[I].GetValue<Integer>('idFornecedor',0);
         lTFORNECEDOR_EMAIL.ID := lBody[I].GetValue<Integer>('id',0); 
         lTFORNECEDOR_EMAIL.RESPONSAVEL := lBody[I].GetValue<String>('responsavel',''); 
-        lTFORNECEDOR_EMAIL.ID_SETOR := lBody[I].GetValue<Integer>('idSetor',0); 
+        lTFORNECEDOR_EMAIL.ID_SETOR := lBody[I].GetValue<Integer>('idSetor',0);
         lTFORNECEDOR_EMAIL.EMAIL := lBody[I].GetValue<String>('email',''); 
         lTFORNECEDOR_EMAIL.ID_USUARIO := lBody[I].GetValue<Integer>('idUsuario',0); 
         lTFORNECEDOR_EMAIL.DT_CADASTRO := TFuncoes.Retorna_Data_Json(lBody[I].GetValue<String>('dtCadastro',DateToStr(Date)),lErro); 
