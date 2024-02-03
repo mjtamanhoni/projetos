@@ -4,7 +4,7 @@
         <ProjectVersion>20.1</ProjectVersion>
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>693267</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -309,6 +309,31 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="uConfig.pas">
+            <Form>frmConfiguracoes</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="..\..\..\Classes\99 Coders\Versao 11\uFancyDialog.pas"/>
+        <DCCReference Include="..\..\..\Classes\99 Coders\Versao 11\uLoading.pas"/>
+        <DCCReference Include="..\..\..\Global\uEstrutura.Gerar.pas">
+            <Form>frmCriarEstrutura</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Modelo de Dados\uModel.CLIENTE.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.CLIENTE_TABELA.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.HISTORICO.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.PRESTADOR_SERVICO.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.SERVICOS_PRESTADOS.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.TABELA_PRECO.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.USUARIO.pas"/>
+        <DCCReference Include="Rotas\uRota.CLIENTE.pas"/>
+        <DCCReference Include="Rotas\uRota.CLIENTE_TABELA.pas"/>
+        <DCCReference Include="Rotas\uRota.HISTORICO.pas"/>
+        <DCCReference Include="Rotas\uRota.PRESTADOR_SERVICO.pas"/>
+        <DCCReference Include="Rotas\uRota.SERVICOS_PRESTADOS.pas"/>
+        <DCCReference Include="Rotas\uRota.TABELA_PRECO.pas"/>
+        <DCCReference Include="Rotas\uRota.USUARIO.pas"/>
+        <DCCReference Include="..\..\..\Global\uFuncoes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -353,6 +378,18 @@
                 <DeployFile LocalName="Win32\Debug\Controle_Horas_Servidor.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Controle_Horas_Servidor.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Debug\Controle_Horas.Servidor.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>Controle_Horas_Servidor.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win64\Debug\Controle_Horas.Servidor.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win64">
+                        <RemoteName>Controle_Horas_Servidor.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

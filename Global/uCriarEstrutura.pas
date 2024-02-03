@@ -112,7 +112,7 @@ begin
 
       lQuery := TFDQuery.Create(Nil);
       if not DM_Lanchonete.FDC_Lanchonete.InTransaction then
-      lQuery.Connection := DM_Lanchonete.FDC_Lanchonete;
+        lQuery.Connection := DM_Lanchonete.FDC_Lanchonete;
 
       DM_Lanchonete.Listar_Tabelas(lQuery,'');
 

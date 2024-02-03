@@ -1,0 +1,400 @@
+object frmCriarEstrutura: TfrmCriarEstrutura
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  Caption = 'Criar Estrutura'
+  ClientHeight = 708
+  ClientWidth = 1020
+  Position = ScreenCenter
+  StyleBook = frmPrincipal.StyleBook_Principal
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object lytPrincipal: TLayout
+    Align = Client
+    Size.Width = 1020.000000000000000000
+    Size.Height = 708.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object lytHeader: TLayout
+      Align = Top
+      Margins.Bottom = 5.000000000000000000
+      Size.Width = 1020.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object rctHeader: TRectangle
+        Align = Client
+        Fill.Color = xFF363428
+        Size.Width = 1020.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object lbTitulo: TLabel
+          Align = Contents
+          StyledSettings = []
+          Size.Width = 1020.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = 'Monotype Corsiva'
+          TextSettings.Font.Size = 45.000000000000000000
+          TextSettings.Font.StyleExt = {00040000000100000004000000}
+          TextSettings.FontColor = xFFA1B24E
+          TextSettings.HorzAlign = Center
+          TextSettings.Trimming = None
+          Text = 'Criar Estrutura'
+          TabOrder = 1
+        end
+        object lytVoltar: TLayout
+          Align = Left
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          Visible = False
+          TabOrder = 0
+          object rctVoltar: TRectangle
+            Align = Client
+            Fill.Kind = None
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object imgVoltar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 50
+                  Height = 50
+                  PNG = {
+                    89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                    B10000000473424954080808087C086488000001BB494441546881EDDA3F4BC3
+                    4018C7F1EF1D8255D1624B47C1B7A15B40A843155DDCA2419DFA7A0417913A38
+                    3928C5A12E66F08D08AEDAA20EAD4BE220B7682C26B93F21E63716FAE43EE4B8
+                    E49E0B54A99298300C6A6118D4B2FE5FE81C4CD68461507B7A1F5E47310BF3AD
+                    D9F6DEFAD5386D8D1913034B93300C6A8F6FC31B29680B01E3E78F7B602D6D1D
+                    69606C7F8EBA1352D006207E8DA4E0244B2D67534B2162D804BE10B2BEEF6FF5
+                    2FB3D47302D18D0007101308B00C3185008B109308B0B46A7D478C46C43A1160
+                    E1399284586E72EC77F421C0F0D4FA0D71D0E99FEBBE9631884D041882D84680
+                    01880B046886B8428046C88FE70480E4C80602342DBF490829E9FA9610A0E18E
+                    4C419CE6AD9D26B9204541400E489110901152340464801411018EF7EC3AF37F
+                    A7964AD130D5F2AB52148C9677AD22604AF3D2A86DF9F5BCDE6465B1B12B60A0
+                    7E1BBD707671BB7DA8EB1AD3526DACA6A5145B5D9552341F544AD10E52B185B1
+                    D2FB4DC2341BF83A5BA6A5696257C70A59538A831E95521CBDA994E230544527
+                    C6E99E5DBD684631770088BA8CA2A89BA596F3E683E7F526AB4B8D1D018338E6
+                    61AE35B7E17A4CB992F7A39A2A45CB275951D0BAAC402DF80000000049454E44
+                    AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 10.000000000000000000
+              Margins.Right = 10.000000000000000000
+              Size.Width = 30.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+      end
+    end
+    object lytFooter: TLayout
+      Align = Bottom
+      Margins.Top = 5.000000000000000000
+      Position.Y = 658.000000000000000000
+      Size.Width = 1020.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      object rctFooter: TRectangle
+        Align = Client
+        Fill.Color = xFF363428
+        Size.Width = 1020.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object lytCancelar: TLayout
+          Align = Right
+          Position.X = 970.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          object rctCancelar: TRectangle
+            Align = Client
+            Cursor = crHandPoint
+            Fill.Kind = None
+            Hint = 'Fecha o formul'#225'rio'
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = rctCancelarClick
+            object imgCancelar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 30
+                  Height = 30
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000001E0000001E08060000003B30AE
+                    A20000000473424954080808087C08648800000222494441544889ED96C172DA
+                    301086FF5D6C732C6F50F7094ADF801C331952F598C9D09827297D92403B198E
+                    5193C9708437287982F208702C36DA1E4A525BB665D16472CA7FB3A4DD4FEB5D
+                    490BBCEA8544BE0BA733156F33F391847A228841D20500082D89B012924514F0
+                    8FB363BD7A16F074A6E2DFA97C2148E2E35040E376485F9B36E0047FBF55CA88
+                    B904D0F181E6B466E2E1A0AFF5C1E06F372A1198CB038196731E7E3ED5636FF0
+                    3ED2EBA7401FC4C49FAA222F81A733156F53F31387FFDE3AADA3903FD839677B
+                    D53633A36784024067EFB3A042C4FB687F555933F11133D669260B2279939F13
+                    A14D1850CF18748C9879957D14F2BB7CD48588D314CAB5F5F313BD0C03EA89D0
+                    C6869E9FE8A5CBD6F65D000B4CAFCED088B9BEBA53DD3C3C0FBDBA535D5741DA
+                    BEED1CC78E4D77B29D99E7E17968B63373B86A43E86DFE33B0A6DF3BC079F8D1
+                    C3AFF5820278BC62F72A55759344A87404ABC69A6483EF1BA0859CDA396F6015
+                    7CDBE0952F34DB99B99DF30678C177014CE0459D558B49551452A1E05A4CB5C7
+                    D1F65D0087216A5F13A0B6901EE12E5BDB77A92826B7A763082E5C4E0E166172
+                    D1BF49F243A5AA8E021E79148AB7446813053CB2C74BE0B363BD6A3125F6F8FF
+                    AAC59454752395E778D0D79AC0C3A74209F55D4863EBB33332B65FA32689D0A6
+                    C594B85A1FE7CD35E86BDD8EA80BC2C49B4A98B423EABAA07F97796A3A53719A
+                    42ED5F9918FFEEF57B002B022FC210DAB7BD7DD58BE90F61382503ECC28DD800
+                    00000049454E44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 40.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+        object lytConfirmar: TLayout
+          Align = Right
+          Position.X = 920.000000000000000000
+          Size.Width = 50.000000000000000000
+          Size.Height = 50.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          object rctConfirmar: TRectangle
+            Align = Client
+            Cursor = crHandPoint
+            Fill.Kind = None
+            Hint = 'Cria a estrutura de Units'
+            Size.Width = 50.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = rctConfirmarClick
+            object imgConfirmar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 30
+                  Height = 30
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000001E0000001E08060000003B30AE
+                    A20000000473424954080808087C0864880000021D494441544889ED964172DA
+                    301486FFF7B0CCB2DCA0EE094A6E00CB4C864459663234E606BD41E94902ED74
+                    58A226D361696E507282BA3708D91513BF2E022D16C2B1319355FE9DA4A7FFF3
+                    9364E901AF7A2151D1C0D144078B657A46422D110420690200846644888564EA
+                    7BFCFDE2D8C407018F263AF893C8278284450C0534A82BFAFCDC07E482BFDE6A
+                    9D4A7A0DA05104BAA17B26EE753BC694067FB9D1A120BD2E09B4CCB9F7E1D40C
+                    0A8357998EAB40D762E27357E65BE0D144078B24FD89F2CBBB4BF7BEE2237BCF
+                    D98E5A2CD3FE01A100D058796694C97895EDAF0342FFC957FC6E33EB4CC64902
+                    5DC55C84E65E8D8F98B86D8FD9DE19B0206D55812A8F5A972766E61CB7BCED3D
+                    0EAA42BFFDD04DE71F21F4360FFCBE2A74F99846701DCEF515BB03EC14817B4C
+                    7C2E42F3BDA00ED9E03B57905298763BC6288F5A6BF81ED08CB70D8E5D33160B
+                    198F23DDB83C3133E5510BA0DF7B649AF1F6361B049E0AD2B3AD2924CD870744
+                    E348B7CFDB6686D5212CB3BC049E6EB633192B859DAFC9135CA271A41B65A12E
+                    EFADBB7A787B3A80E02AC723066100C1C7A2501086579D9B70B36BEB54FB1EF7
+                    EDD36B2980A05F142A4273DFE3BEDDBF05BE3836718D29B4FBF7558D29745523
+                    CEFFB8DB3186C0BDAA50C2EE2AE4D9D2E731950191BC290314A1798D29CC2B7D
+                    726FAE6EC798BA4F4D108685A98461DDA7661EF429ACA046131D2409F4EA9509
+                    F0FF5EBF03101378AA144CD1F2F6552FA6BF8E73043560668662000000004945
+                    4E44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 40.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+      end
+    end
+    object lytDetail: TLayout
+      Align = Client
+      Size.Width = 1020.000000000000000000
+      Size.Height = 598.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object tcPrincipal: TTabControl
+        Align = Client
+        Size.Width = 1020.000000000000000000
+        Size.Height = 598.000000000000000000
+        Size.PlatformDefault = False
+        TabIndex = 0
+        TabOrder = 0
+        TabPosition = None
+        Sizes = (
+          1020s
+          598s)
+        object tiEstrutura: TTabItem
+          CustomIcon = <
+            item
+            end>
+          TextSettings.Trimming = None
+          IsSelected = True
+          Size.Width = 8.000000000000000000
+          Size.Height = 8.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Bando de Dados Firebird'
+          ExplicitSize.cx = 8.000000000000000000
+          ExplicitSize.cy = 8.000000000000000000
+          object rctEstrutura: TRectangle
+            Align = Client
+            Fill.Color = xFFE8E7DF
+            Size.Width = 1020.000000000000000000
+            Size.Height = 598.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            object lytBD_Row_001: TLayout
+              Align = Top
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 1020.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              object lytNomeEstrutura: TLayout
+                Align = Client
+                Margins.Left = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Size.Width = 713.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object lbPastaSalvar: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style, FontColor]
+                  Size.Width = 713.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'EditstyleLabelStyle_Adapta'
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.Trimming = None
+                  Text = 'Pasta Salvar'
+                  TabOrder = 0
+                end
+                object edNomeEstrutura: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta_Claro'
+                  TabOrder = 1
+                  Size.Width = 713.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  object imgBanco_Pesq: TImage
+                    MultiResBitmap = <
+                      item
+                        Width = 50
+                        Height = 50
+                        PNG = {
+                          89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                          B10000000473424954080808087C0864880000019D494441546881ED97C94D03
+                          4110455FF5589C706322800C7006D87704E30458226032C119B02460E3040632
+                          98C90067000D27966E0E2C42D618215C1607EA5DBB545F3DBDCD03C3580AB2AC
+                          C61793FC30A5788CD005205191313CD8999C2F234F7D22A332EF8410CBCF09CC
+                          92A8BC77FD417F7CAB99EB349B018410AF10BA44993A7103DF76EBBEEDD69DB8
+                          0151A608DD1062A99DABBA221793FC30114F8932F56BD29DFDEAA332EF84BB54
+                          E1D286E08EF677C7675AD9AA2B92522C005C2645D3D619F4C7B72E93E2BDF658
+                          335B776B095B00ABAB5CCD2B69B5A8DE6B9BCFD02F513F237F85EE441235C0C3
+                          03BD7925CFCF9FD771AD19AD3A1111370488E9E96454E69DD9F1519977627A3A
+                          F95AAB96ADD90CE0FC72B77A3B2B2F37B052F876BA0608F7B20D8F43C83649D4
+                          077B13D533D2D26C06E0BDEBBDBD25D916BC8CC3FDD7D10C12B5F7AEA79DBBEC
+                          5F94E2E32623518BB8A1E6DB6118C6CF311F9987F9C882988F34613EA280F948
+                          23E6230AD99ACDC07C6461CC470CE39F603E320FF39105311F69C27C4401F391
+                          46CC4714B2359B81F9C8C2988F18C6F7BC028C5563667D441CBB000000004945
+                          4E44AE426082}
+                      end>
+                    Align = Right
+                    Margins.Top = 2.000000000000000000
+                    Margins.Bottom = 2.000000000000000000
+                    Position.X = 683.000000000000000000
+                    Position.Y = 2.000000000000000000
+                    Size.Width = 30.000000000000000000
+                    Size.Height = 26.000000000000000000
+                    Size.PlatformDefault = False
+                  end
+                end
+              end
+              object lytTabela: TLayout
+                Align = Right
+                Margins.Right = 5.000000000000000000
+                Position.X = 723.000000000000000000
+                Size.Width = 292.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                object lbTabela: TLabel
+                  Align = Top
+                  StyledSettings = [Family, Style, FontColor]
+                  Size.Width = 292.000000000000000000
+                  Size.Height = 20.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'EditstyleLabelStyle_Adapta'
+                  TextSettings.Font.Size = 13.000000000000000000
+                  TextSettings.Trimming = None
+                  Text = 'Seleciona a tabela'
+                  TabOrder = 0
+                end
+                object cbTabela: TComboBox
+                  Align = Client
+                  Size.Width = 292.000000000000000000
+                  Size.Height = 30.000000000000000000
+                  Size.PlatformDefault = False
+                  StyleLookup = 'ComboBoxStyle_Adapta_Cl'
+                  TabOrder = 1
+                end
+              end
+            end
+            object lytUnit: TLayout
+              Align = Client
+              Size.Width = 1020.000000000000000000
+              Size.Height = 543.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              object Memo: TMemo
+                Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+                DataDetectorTypes = []
+                Align = Client
+                Margins.Left = 5.000000000000000000
+                Margins.Top = 5.000000000000000000
+                Margins.Right = 5.000000000000000000
+                Margins.Bottom = 5.000000000000000000
+                Size.Width = 1010.000000000000000000
+                Size.Height = 533.000000000000000000
+                Size.PlatformDefault = False
+                StyleLookup = 'Memostyle_Adapta'
+                TabOrder = 0
+                Viewport.Width = 1006.000000000000000000
+                Viewport.Height = 529.000000000000000000
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
