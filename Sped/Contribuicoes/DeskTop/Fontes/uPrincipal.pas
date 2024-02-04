@@ -43,10 +43,14 @@ type
     lytPreparar: TLayout;
     rctPreparar: TRectangle;
     lbPreparar: TLabel;
+    lytAbatePisCofins: TLayout;
+    rctAbatePisCofins: TRectangle;
+    lbAbatePisCofins: TLabel;
     procedure rctSelecionarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure rctPrepararClick(Sender: TObject);
+    procedure rctAbatePisCofinsClick(Sender: TObject);
   private
     FMensagem :TFancyDialog;
     lDm :TdmSpedContribuicoes;
@@ -55,6 +59,9 @@ type
     procedure PrepararArquivo;
     procedure ThreadEnd_Prepara(Sender: TObject);
     procedure Insere_Registro(const ALine,ARegistro: String; const AId: Integer; AId_Pai: Integer=0);
+    procedure Abate_ICMS_Base_PIS_COFINS;
+    procedure ThreadEnd_AbatePisCofins(Sender: TOBject);
+    function AlterarRegistro(const ARegistro:String):Boolean;
   public
     { Public declarations }
   end;
@@ -65,6 +72,281 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TfrmPrincipal.Abate_ICMS_Base_PIS_COFINS;
+var
+  t :TThread;
+begin
+  TLoading.Show(frmPrincipal, 'Abante ICMS PIS e COFINS');
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lQuery_100 :TFDQuery;
+    lQuery_170 :TFDQuery;
+    lQuery_175 :TFDQuery;
+    lUpdate :TFDQuery;
+    lPis :Double;
+    lCofins :Double;
+    lIcms :Double;
+    lBase :Double;
+    lValor :Double;
+    lAliq :Double;
+
+  begin
+    lQuery_100 := TFDQuery.Create(Nil);
+    lQuery_100.Connection := lDm.FDC_Sped;
+
+    lQuery_170 := TFDQuery.Create(Nil);
+    lQuery_170.Connection := lDm.FDC_Sped;
+
+    lQuery_175 := TFDQuery.Create(Nil);
+    lQuery_175.Connection := lDm.FDC_Sped;
+
+    lUpdate := TFDQuery.Create(Nil);
+    lUpdate.Connection := lDm.FDC_Sped;
+
+    lQuery_100.Active := False;
+    lQuery_100.Sql.Clear;
+    lQuery_100.Sql.Add('SELECT * FROM REGISTRO_C100 ORDER BY ID');
+    lQuery_100.Active := True;
+    if not lQuery_100.ISEmpty then
+    begin
+      lQuery_100.First;
+      while not lQuery_100.Eof do
+      begin
+        if lQuery_100.FieldByName('IND_EMIT').AsString <> '1' then
+        begin
+          lQuery_170.Active := False;
+          lQuery_170.SQL.Clear;
+          lQuery_170.SQL.Add('SELECT * FROM REGISTRO_C170 WHERE ID_C100 = ' + IntToStr(lQuery_100.FieldByName('ID').AsInteger));
+          lQuery_170.Active := True;
+          if not lQuery_170.IsEmpty then
+          begin
+            lQuery_170.First;
+            while not lQuery_170.Eof do
+            begin
+              TThread.Synchronize(nil, procedure
+              begin
+                TLoading.ChangeText('C100 ' + lQuery_100.FieldByName('ID').AsString + ', C170 ' + lQuery_170.FieldByName('ID').AsString );
+              end);
+              if ((lQuery_170.FieldByName('CFOP').AsString <> '5202') and (lQuery_170.FieldByName('CFOP').AsString <> '6202')) then
+              begin
+                lICMS  := 0;
+                lBase  := 0;
+                lValor := 0;
+                lAliq  := 0;
+
+                {PIS}
+                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
+                lBase  := StrToFloatDef(lQuery_170.FieldByName('VL_BC_PIS').AsString,0);
+                if lBase > 0 then
+                begin
+                  if lBase > lICMS then
+                  begin
+                    lBase  := (lBase - lICMS);
+                    lAliq  := StrToFloatDef(lQuery_170.FieldByName('ALIQ_PIS').AsString,0);
+                    lValor := ((lBase * lAliq) / 100);
+                    lUpdate.Active := False;
+                    lUpdate.SQL.Clear;
+                    lUpdate.SQL.Add('UPDATE REGISTRO_C170 SET');
+                    lUpdate.SQL.Add('  VL_BC_PIS = :VL_BC_PIS');
+                    lUpdate.SQL.Add('  ,VL_PIS = :VL_PIS');
+                    lUpdate.SQL.Add('WHERE ID = :ID');
+                    lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+                    lUpdate.ParamByName('ID').AsInteger := lQuery_170.FieldByName('ID').AsInteger;
+                    lUpdate.ParamByName('ID_C100').AsInteger := lQuery_170.FieldByName('ID_C100').AsInteger;
+                    lUpdate.ParamByName('VL_BC_PIS').AsString := FloatToStr(lBase);
+                    lUpdate.ParamByName('VL_PIS').AsString := FloatToStr(lValor);
+                    lUpdate.ExecSQL;
+                    lPis := (lPis + lValor);
+                  end;
+                end;
+
+                {COFINS}
+                lICMS  := 0;
+                lBase  := 0;
+                lValor := 0;
+                lAliq  := 0;
+
+                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
+                lBase  := StrToFloatDef(lQuery_170.FieldByName('VL_BC_COFINS').AsString,0);
+                if lBase > 0 then
+                begin
+                  if lBase > lICMS then
+                  begin
+                    lBase  := (lBase - lICMS);
+                    lAliq  := StrToFloatDef(lQuery_170.FieldByName('ALIQ_COFINS').AsString,0);
+                    lValor := ((lBase * lAliq) / 100);
+
+                    lUpdate.Active := False;
+                    lUpdate.SQL.Clear;
+                    lUpdate.SQL.Add('UPDATE REGISTRO_C170 SET');
+                    lUpdate.SQL.Add('  VL_BC_COFINS = :VL_BC_COFINS');
+                    lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
+                    lUpdate.SQL.Add('WHERE ID = :ID');
+                    lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+                    lUpdate.ParamByName('ID').AsInteger := lQuery_170.FieldByName('ID').AsInteger;
+                    lUpdate.ParamByName('ID_C100').AsInteger := lQuery_170.FieldByName('ID_C100').AsInteger;
+                    lUpdate.ParamByName('VL_BC_COFINS').AsString := FloatToStr(lBase);
+                    lUpdate.ParamByName('VL_COFINS').AsString := FloatToStr(lValor);
+                    lUpdate.ExecSQL;
+                    lCofins := (lCofins + lValor);
+                  end;
+                end;
+              end;
+              lQuery_170.Next;
+            end;
+          end;
+
+          lQuery_175.Active := False;
+          lQuery_175.SQL.Clear;
+          lQuery_175.SQL.Add('SELECT * FROM REGISTRO_C175 WHERE ID_C100 = ' + IntToStr(lQuery_100.FieldByName('ID').AsInteger));
+          lQuery_175.Active := True;
+          if not lQuery_175.IsEmpty then
+          begin
+            lQuery_175.First;
+            while not lQuery_175.Eof do
+            begin
+              TThread.Synchronize(nil, procedure
+              begin
+                TLoading.ChangeText('C100 ' + lQuery_100.FieldByName('ID').AsString + ', C175 ' + lQuery_175.FieldByName('ID').AsString );
+              end);
+              if ((lQuery_175.FieldByName('CFOP').AsString <> '5202') and (lQuery_175.FieldByName('CFOP').AsString <> '6202')) then
+              begin
+                lICMS     := 0;
+                lBase     := 0;
+                lValor    := 0;
+                lAliq     := 0;
+                {PIS}
+                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
+                lBase  := StrToFloatDef(lQuery_175.FieldByName('VL_BC_PIS').AsString,0);
+                if lBase > 0 then
+                begin
+                  if lBase > lICMS then
+                  begin
+                    lBase  := (lBase - lICMS);
+                    lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_PIS').AsString,0);
+                    lValor := ((lBase * lAliq) / 100);
+
+                    lUpdate.Active := False;
+                    lUpdate.SQL.Clear;
+                    lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
+                    lUpdate.SQL.Add('  VL_BC_PIS = :VL_BC_PIS');
+                    lUpdate.SQL.Add('  ,VL_PIS = :VL_PIS');
+                    lUpdate.SQL.Add('WHERE ID = :ID');
+                    lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+                    lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
+                    lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
+                    lUpdate.ParamByName('VL_BC_PIS').AsString := FloatToStr(lBase);
+                    lUpdate.ParamByName('VL_PIS').AsString := FloatToStr(lValor);
+                    lUpdate.ExecSQL;
+
+                    lPis := (lPis + lValor);
+                  end;
+                end;
+
+                {COFINS}
+                lICMS  := 0;
+                lBase  := 0;
+                lValor := 0;
+                lAliq  := 0;
+
+                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
+                lBase  := StrToFloatDef(lQuery_175.FieldByName('VL_BC_COFINS').AsString,0);
+                if lBase > 0 then
+                begin
+                  if lBase > lICMS then
+                  begin
+                    lBase  := (lBase - lICMS);
+                    lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_COFINS').AsString,0);
+                    lValor := ((lBase * lAliq) / 100);
+
+                    lUpdate.Active := False;
+                    lUpdate.SQL.Clear;
+                    lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
+                    lUpdate.SQL.Add('  VL_BC_COFINS = :VL_BC_COFINS');
+                    lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
+                    lUpdate.SQL.Add('WHERE ID = :ID');
+                    lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+                    lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
+                    lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
+                    lUpdate.ParamByName('VL_BC_COFINS').AsString := FloatToStr(lBase);
+                    lUpdate.ParamByName('VL_COFINS').AsString := FloatToStr(lValor);
+                    lUpdate.ExecSQL;
+
+                    lCofins := (lCofins + lValor);
+                  end;
+                end;
+              end;
+              lQuery_175.Next;
+            end;
+          end;
+
+          if ((lQuery_100.FieldByName('COD_SIT').AsString = '02') or (lQuery_100.FieldByName('COD_SIT').AsString = '05')) then
+          begin
+            lUpdate.Active := False;
+            lUpdate.SQL.Clear;
+            lUpdate.SQL.Add('UPDATE REGISTRO_C170 SET');
+            lUpdate.SQL.Add('  VL_PIS = :VL_PIS');
+            lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
+            lUpdate.SQL.Add('WHERE ID = :ID');
+            lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+            lUpdate.ParamByName('ID').AsInteger := lQuery_170.FieldByName('ID').AsInteger;
+            lUpdate.ParamByName('ID_C100').AsInteger := lQuery_170.FieldByName('ID_C100').AsInteger;
+            lUpdate.ParamByName('VL_PIS').AsString := '';
+            lUpdate.ParamByName('VL_COFINS').AsString := '';
+            lUpdate.ExecSQL;
+          end
+          else
+          begin
+            lUpdate.Active := False;
+            lUpdate.SQL.Clear;
+            lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
+            lUpdate.SQL.Add('  VL_PIS = :VL_PIS');
+            lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
+            lUpdate.SQL.Add('WHERE ID = :ID');
+            lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+            lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
+            lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
+            lUpdate.ParamByName('VL_PIS').AsString := FloatToStr(lPis);
+            lUpdate.ParamByName('VL_COFINS').AsString := FloatToStr(lCofins);
+            lUpdate.ExecSQL;
+          end;
+        end;
+        lQuery_100.Next;
+      end;
+    end;
+
+    {$IFDEF MSWINDOWS}
+      FreeAndNil(lQuery_100);
+      FreeAndNil(lQuery_170);
+      FreeAndNil(lQuery_175);
+      FreeAndNil(lUpdate);
+    {$ELSE}
+      lQuery_100.DisposeOf;
+      lQuery_170.DisposeOf;
+      lQuery_175.DisposeOf;
+      lUpdate.DisposeOf;
+    {$ENDIF}
+
+  end);
+
+  t.OnTerminate := ThreadEnd_AbatePisCofins;
+  t.Start;
+
+end;
+
+procedure TfrmPrincipal.ThreadEnd_AbatePisCofins(Sender :TOBject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+end;
+
+function TfrmPrincipal.AlterarRegistro(const ARegistro: String): Boolean;
+begin
+end;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -86,6 +368,11 @@ begin
   FMensagem := TFancyDialog.Create(frmPrincipal);
 end;
 
+procedure TfrmPrincipal.rctAbatePisCofinsClick(Sender: TObject);
+begin
+  Abate_ICMS_Base_PIS_COFINS;
+end;
+
 procedure TfrmPrincipal.rctPrepararClick(Sender: TObject);
 begin
   PrepararArquivo;
@@ -103,6 +390,7 @@ begin
     lCount :Integer;
     lId_C100 :Integer;
     lId_M400 :Integer;
+    lId_M800 :Integer;
   begin
     TThread.Synchronize(nil, procedure
     begin
@@ -153,11 +441,27 @@ begin
     TRegistro_Geral.Excluir_RegM505(lDm);
     TRegistro_Geral.Excluir_RegM510(lDm);
     TRegistro_Geral.Excluir_RegM600(lDm);
+    TRegistro_Geral.Excluir_RegM605(lDm);
+    TRegistro_Geral.Excluir_RegM610(lDm);
+    TRegistro_Geral.Excluir_RegM800(lDm);
+    TRegistro_Geral.Excluir_RegM810(lDm);
+    TRegistro_Geral.Excluir_RegM990(lDm);
+    TRegistro_Geral.Excluir_RegP001(lDm);
+    TRegistro_Geral.Excluir_RegP990(lDm);
+    TRegistro_Geral.Excluir_Reg1001(lDm);
+    TRegistro_Geral.Excluir_Reg1100(lDm);
+    TRegistro_Geral.Excluir_Reg1500(lDm);
+    TRegistro_Geral.Excluir_Reg1990(lDm);
+    TRegistro_Geral.Excluir_Reg9001(lDm);
+    TRegistro_Geral.Excluir_Reg9900(lDm);
+    TRegistro_Geral.Excluir_Reg9990(lDm);
+    TRegistro_Geral.Excluir_Reg9999(lDm);
 
     lCount := 0;
     lCount := (memoRegistros.Lines.Count - 1);
     lId_C100 := 0;
     lId_M400 := 0;
+    lId_M800 := 0;
     for I := 0 to (memoRegistros.Lines.Count - 1) do
     begin
       if Copy(memoRegistros.Lines.Strings[I],1,6) = '|0000|' then
@@ -488,7 +792,7 @@ begin
         begin
           TLoading.ChangeText('Registro [M410] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
-        TRegistro_M410.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+        TRegistro_M410.Insert(lDm,memoRegistros.Lines.Strings[I],I,lId_M400);
       end;
       if Copy(memoRegistros.Lines.Strings[I],1,6) = '|M500|' then
       begin
@@ -521,6 +825,127 @@ begin
           TLoading.ChangeText('Registro [M600] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M600.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|M605|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [M605] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_M605.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|M610|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [M610] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_M610.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|M800|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [M800] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_M800.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+        lId_M800 := I;
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|M810|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [M810] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_M810.Insert(lDm,memoRegistros.Lines.Strings[I],I,lId_M800);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|M990|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [M990] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_M990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|P001|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [P001] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_P001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|P990|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [P990] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_P990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|1001|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [1001] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_1001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|1100|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [1100] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_1100.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|1500|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [1500] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_1500.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|1990|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [1990] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_1990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|9001|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [9001] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_9001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|9900|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [9900] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_9900.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|9990|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [9990] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_9990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
+      end;
+      if Copy(memoRegistros.Lines.Strings[I],1,6) = '|9999|' then
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Registro [9999] + ' + I.ToString + ' de ' + lCount.ToString);
+        end);
+        TRegistro_9999.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
     end;
   end);

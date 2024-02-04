@@ -60,6 +60,20 @@ type
     class procedure Excluir_RegM510(ADm: TdmSpedContribuicoes);
     class procedure Excluir_RegM600(ADm: TdmSpedContribuicoes);
     class procedure Excluir_RegM605(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_RegM610(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_RegM800(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_RegM810(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_RegM990(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_RegP001(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_RegP990(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg1001(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg1100(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg1500(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg1990(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg9001(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg9900(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg9990(ADm: TdmSpedContribuicoes);
+    class procedure Excluir_Reg9999(ADm: TdmSpedContribuicoes);
   end;
 
   TRegistro_0000 = class
@@ -333,6 +347,90 @@ type
   end;
 
   TRegistro_M605 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_M610 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_M800 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_M810 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_M990 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_P001 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_P990 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_1001 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_1100 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_1500 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_1990 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_9001 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_9900 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_9990 = class
+  private
+  public
+    class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
+  end;
+
+  TRegistro_9999 = class
   private
   public
     class procedure Insert(ADm :TdmSpedContribuicoes; const ALine: String; const AId: Integer; AId_Pai: Integer=0);
@@ -765,6 +863,214 @@ begin
 
     except on E: Exception do
       raise Exception.Create('Excluindo Registro 0990 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg1001(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_1001');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 1001 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg1100(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_1100');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 1100 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg1500(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_1500');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 1500 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg1990(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_1990');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 1990 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg9001(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_9001');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 9001 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg9900(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_9900');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 9900 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg9990(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_9990');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 9990 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_Reg9999(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_9999');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro 9999 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -1675,6 +1981,162 @@ begin
 
     except on E: Exception do
       raise Exception.Create('Excluindo Registro M605 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_RegM610(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_M610');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro M610 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_RegM800(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_M800');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro M800 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_RegM810(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_M810');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro M810 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_RegM990(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_M990');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro M990 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_RegP001(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_P001');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro P001 ' + E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+class procedure TRegistro_Geral.Excluir_RegP990(ADm: TdmSpedContribuicoes);
+var
+  lQuery :TFDQuery;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('DELETE FROM REGISTRO_P990');
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluindo Registro P990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4029,18 +4491,18 @@ begin
            1:lQuery.ParamByName('COD_CRED').AsString := lConteudo;
            2:lQuery.ParamByName('IND_CRED_ORI').AsString := lConteudo;
            3:lQuery.ParamByName('VL_BC_COFINS').AsString := lConteudo;
-           5:lQuery.ParamByName('ALIQ_COFINS').AsString := lConteudo;
-           6:lQuery.ParamByName('QUANT_BC_COFINS').AsString := lConteudo;
-           7:lQuery.ParamByName('ALIQ_COFINS_QUANT').AsString := lConteudo;
-           8:lQuery.ParamByName('VL_CRED').AsString := lConteudo;
-           9:lQuery.ParamByName('VL_AJUS_ACRES').AsString := lConteudo;
-          10:lQuery.ParamByName('VL_AJUS_REDUC').AsString := lConteudo;
-          11:lQuery.ParamByName('VL_CRED_DIFER').AsString := lConteudo;
-          12:lQuery.ParamByName('VL_CRED_DISP').AsString := lConteudo;
-          13:lQuery.ParamByName('IND_DESC_CRED').AsString := lConteudo;
-          14:lQuery.ParamByName('VL_CRED_DESC').AsString := lConteudo;
-          15:lQuery.ParamByName('SLD_CRED').AsString := lConteudo;
-          16:lQuery.ParamByName('ALIQ_COFINS').AsString := lConteudo;
+           4:lQuery.ParamByName('ALIQ_COFINS').AsString := lConteudo;
+           5:lQuery.ParamByName('QUANT_BC_COFINS').AsString := lConteudo;
+           6:lQuery.ParamByName('ALIQ_COFINS_QUANT').AsString := lConteudo;
+           7:lQuery.ParamByName('VL_CRED').AsString := lConteudo;
+           8:lQuery.ParamByName('VL_AJUS_ACRES').AsString := lConteudo;
+           9:lQuery.ParamByName('VL_AJUS_REDUC').AsString := lConteudo;
+          10:lQuery.ParamByName('VL_CRED_DIFER').AsString := lConteudo;
+          11:lQuery.ParamByName('VL_CRED_DISP').AsString := lConteudo;
+          12:lQuery.ParamByName('IND_DESC_CRED').AsString := lConteudo;
+          13:lQuery.ParamByName('VL_CRED_DESC').AsString := lConteudo;
+          14:lQuery.ParamByName('SLD_CRED').AsString := lConteudo;
+          15:lQuery.ParamByName('ALIQ_COFINS').AsString := lConteudo;
         end;
         lPos := (lPos + 1);
         lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
@@ -4094,12 +4556,12 @@ begin
            1:lQuery.ParamByName('NAT_BC_CRED').AsString := lConteudo;
            2:lQuery.ParamByName('CST_COFINS').AsString := lConteudo;
            3:lQuery.ParamByName('VL_BC_COFINS_TOT').AsString := lConteudo;
-           5:lQuery.ParamByName('VL_BC_COFINS_CUM').AsString := lConteudo;
-           6:lQuery.ParamByName('VL_BC_COFINS_NC').AsString := lConteudo;
-           7:lQuery.ParamByName('VL_BC_COFINS').AsString := lConteudo;
-           8:lQuery.ParamByName('QUANT_BC_COFINS_TOT').AsString := lConteudo;
-           9:lQuery.ParamByName('QUANT_BC_COFINS').AsString := lConteudo;
-          10:lQuery.ParamByName('DESC_CRED').AsString := lConteudo;
+           4:lQuery.ParamByName('VL_BC_COFINS_CUM').AsString := lConteudo;
+           5:lQuery.ParamByName('VL_BC_COFINS_NC').AsString := lConteudo;
+           6:lQuery.ParamByName('VL_BC_COFINS').AsString := lConteudo;
+           7:lQuery.ParamByName('QUANT_BC_COFINS_TOT').AsString := lConteudo;
+           8:lQuery.ParamByName('QUANT_BC_COFINS').AsString := lConteudo;
+           9:lQuery.ParamByName('DESC_CRED').AsString := lConteudo;
         end;
         lPos := (lPos + 1);
         lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
@@ -4139,7 +4601,7 @@ begin
       lQuery.Active := False;
       lQuery.SQL.Clear;
       lQuery.SQL.Add('INSERT INTO REGISTRO_M510(ID, REG, IND_AJ, VL_AJ, COD_AJ, NUM_DOC, DESCR_AJ, DT_REF) ');
-      lQuery.SQL.Add('VALUES(ID, REG, IND_AJ, VL_AJ, COD_AJ, NUM_DOC, DESCR_AJ, DT_REF) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :IND_AJ, :VL_AJ, :COD_AJ, :NUM_DOC, :DESCR_AJ, :DT_REF) ');
       lQuery.ParamByName('ID').AsInteger := AId;
 
       while Length(lLine) > 0 do
@@ -4151,9 +4613,9 @@ begin
            1:lQuery.ParamByName('IND_AJ').AsString := lConteudo;
            2:lQuery.ParamByName('VL_AJ').AsString := lConteudo;
            3:lQuery.ParamByName('COD_AJ').AsString := lConteudo;
-           5:lQuery.ParamByName('NUM_DOC').AsString := lConteudo;
-           6:lQuery.ParamByName('DESCR_AJ').AsString := lConteudo;
-           7:lQuery.ParamByName('DT_REF').AsString := lConteudo;
+           4:lQuery.ParamByName('NUM_DOC').AsString := lConteudo;
+           5:lQuery.ParamByName('DESCR_AJ').AsString := lConteudo;
+           6:lQuery.ParamByName('DT_REF').AsString := lConteudo;
         end;
         lPos := (lPos + 1);
         lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
@@ -4207,15 +4669,15 @@ begin
            1:lQuery.ParamByName('VL_TOT_CONT_NC_PER').AsString := lConteudo;
            2:lQuery.ParamByName('VL_TOT_CRED_DESC').AsString := lConteudo;
            3:lQuery.ParamByName('VL_TOT_CRED_DESC_ANT').AsString := lConteudo;
-           5:lQuery.ParamByName('VL_TOT_CONT_NC_DEV').AsString := lConteudo;
-           6:lQuery.ParamByName('VL_RET_NC').AsString := lConteudo;
-           7:lQuery.ParamByName('VL_OUT_DED_NC').AsString := lConteudo;
-           8:lQuery.ParamByName('VL_CONT_NC_REC').AsString := lConteudo;
-           9:lQuery.ParamByName('VL_TOT_CONT_CUM_PER').AsString := lConteudo;
-          10:lQuery.ParamByName('VL_RET_CUM').AsString := lConteudo;
-          11:lQuery.ParamByName('VL_OUT_DED_CUM').AsString := lConteudo;
-          12:lQuery.ParamByName('VL_CONT_CUM_REC').AsString := lConteudo;
-          13:lQuery.ParamByName('VL_TOT_CONT_REC').AsString := lConteudo;
+           4:lQuery.ParamByName('VL_TOT_CONT_NC_DEV').AsString := lConteudo;
+           5:lQuery.ParamByName('VL_RET_NC').AsString := lConteudo;
+           6:lQuery.ParamByName('VL_OUT_DED_NC').AsString := lConteudo;
+           7:lQuery.ParamByName('VL_CONT_NC_REC').AsString := lConteudo;
+           8:lQuery.ParamByName('VL_TOT_CONT_CUM_PER').AsString := lConteudo;
+           9:lQuery.ParamByName('VL_RET_CUM').AsString := lConteudo;
+          10:lQuery.ParamByName('VL_OUT_DED_CUM').AsString := lConteudo;
+          11:lQuery.ParamByName('VL_CONT_CUM_REC').AsString := lConteudo;
+          12:lQuery.ParamByName('VL_TOT_CONT_REC').AsString := lConteudo;
         end;
         lPos := (lPos + 1);
         lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
@@ -4254,10 +4716,8 @@ begin
       lPos := 0;
       lQuery.Active := False;
       lQuery.SQL.Clear;
-      lQuery.SQL.Add('INSERT INTO REGISTRO_M600(ID, REG, VL_TOT_CONT_NC_PER, VL_TOT_CRED_DESC, VL_TOT_CRED_DESC_ANT, VL_TOT_CONT_NC_DEV, VL_RET_NC, ');
-      lQuery.SQL.Add('  VL_OUT_DED_NC, VL_CONT_NC_REC, VL_TOT_CONT_CUM_PER, VL_RET_CUM, VL_OUT_DED_CUM, VL_CONT_CUM_REC, VL_TOT_CONT_REC) ');
-      lQuery.SQL.Add('VALUES(:ID, :REG, :VL_TOT_CONT_NC_PER, :VL_TOT_CRED_DESC, :VL_TOT_CRED_DESC_ANT, :VL_TOT_CONT_NC_DEV, :VL_RET_NC, ');
-      lQuery.SQL.Add('  :VL_OUT_DED_NC, :VL_CONT_NC_REC, :VL_TOT_CONT_CUM_PER, :VL_RET_CUM, :VL_OUT_DED_CUM, :VL_CONT_CUM_REC, :VL_TOT_CONT_REC) ');
+      lQuery.SQL.Add('INSERT INTO REGISTRO_M605(ID, REG, NUM_CAMPO, COD_REC, VL_DEBITO) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :NUM_CAMPO, :COD_REC, :VL_DEBITO) ');
       lQuery.ParamByName('ID').AsInteger := AId;
 
       while Length(lLine) > 0 do
@@ -4266,18 +4726,759 @@ begin
         lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
         case lPos of
            0:lQuery.ParamByName('REG').AsString := lConteudo;
-           1:lQuery.ParamByName('VL_TOT_CONT_NC_PER').AsString := lConteudo;
-           2:lQuery.ParamByName('VL_TOT_CRED_DESC').AsString := lConteudo;
-           3:lQuery.ParamByName('VL_TOT_CRED_DESC_ANT').AsString := lConteudo;
-           5:lQuery.ParamByName('VL_TOT_CONT_NC_DEV').AsString := lConteudo;
-           6:lQuery.ParamByName('VL_RET_NC').AsString := lConteudo;
-           7:lQuery.ParamByName('VL_OUT_DED_NC').AsString := lConteudo;
-           8:lQuery.ParamByName('VL_CONT_NC_REC').AsString := lConteudo;
-           9:lQuery.ParamByName('VL_TOT_CONT_CUM_PER').AsString := lConteudo;
-          10:lQuery.ParamByName('VL_RET_CUM').AsString := lConteudo;
-          11:lQuery.ParamByName('VL_OUT_DED_CUM').AsString := lConteudo;
-          12:lQuery.ParamByName('VL_CONT_CUM_REC').AsString := lConteudo;
-          13:lQuery.ParamByName('VL_TOT_CONT_REC').AsString := lConteudo;
+           1:lQuery.ParamByName('NUM_CAMPO').AsString := lConteudo;
+           2:lQuery.ParamByName('COD_REC').AsString := lConteudo;
+           3:lQuery.ParamByName('VL_DEBITO').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_M610 }
+
+class procedure TRegistro_M610.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_M610(ID, REG, COD_CONT, VL_REC_BRT, VL_BC_CONT, VL_AJUS_ACRES_BC_COFINS, VL_AJUS_REDUC_BC_COFINS, VL_BC_CONT_AJUS, ');
+      lQuery.SQL.Add('  ALIQ_COFINS, QUANT_BC_COFINS, ALIQ_COFINS_QUANT, VL_CONT_APUR, VL_AJUS_ACRES, VL_AJUS_REDUC, VL_CONT_DIFER, VL_CONT_DIFER_ANT, VL_CONT_PER) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :COD_CONT, :VL_REC_BRT, :VL_BC_CONT, :VL_AJUS_ACRES_BC_COFINS, :VL_AJUS_REDUC_BC_COFINS, :VL_BC_CONT_AJUS, ');
+      lQuery.SQL.Add('  :ALIQ_COFINS, :QUANT_BC_COFINS, :ALIQ_COFINS_QUANT, :VL_CONT_APUR, :VL_AJUS_ACRES, :VL_AJUS_REDUC, :VL_CONT_DIFER, :VL_CONT_DIFER_ANT, :VL_CONT_PER) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('COD_CONT').AsString := lConteudo;
+           2:lQuery.ParamByName('VL_REC_BRT').AsString := lConteudo;
+           3:lQuery.ParamByName('VL_BC_CONT').AsString := lConteudo;
+           4:lQuery.ParamByName('VL_AJUS_ACRES_BC_COFINS').AsString := lConteudo;
+           5:lQuery.ParamByName('VL_AJUS_REDUC_BC_COFINS').AsString := lConteudo;
+           6:lQuery.ParamByName('VL_BC_CONT_AJUS').AsString := lConteudo;
+           7:lQuery.ParamByName('ALIQ_COFINS').AsString := lConteudo;
+           8:lQuery.ParamByName('QUANT_BC_COFINS').AsString := lConteudo;
+           9:lQuery.ParamByName('ALIQ_COFINS_QUANT').AsString := lConteudo;
+          10:lQuery.ParamByName('VL_CONT_APUR').AsString := lConteudo;
+          11:lQuery.ParamByName('VL_AJUS_ACRES').AsString := lConteudo;
+          12:lQuery.ParamByName('VL_AJUS_REDUC').AsString := lConteudo;
+          13:lQuery.ParamByName('VL_CONT_DIFER').AsString := lConteudo;
+          14:lQuery.ParamByName('VL_CONT_DIFER_ANT').AsString := lConteudo;
+          15:lQuery.ParamByName('VL_CONT_PER').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_M800 }
+
+class procedure TRegistro_M800.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_M800(ID, REG, CST_COFINS, VL_TOT_REC, COD_CTA, DESC_COMPL) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :CST_COFINS, :VL_TOT_REC, :COD_CTA, :DESC_COMPL) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('CST_COFINS').AsString := lConteudo;
+           2:lQuery.ParamByName('VL_TOT_REC').AsString := lConteudo;
+           3:lQuery.ParamByName('COD_CTA').AsString := lConteudo;
+           4:lQuery.ParamByName('DESC_COMPL').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_M810 }
+
+class procedure TRegistro_M810.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_M810(ID, ID_M800, REG, NAT_REC, VL_REC, COD_CTA, DESC_COMPL) ');
+      lQuery.SQL.Add('VALUES(:ID, :ID_M800, :REG, :NAT_REC, :VL_REC, :COD_CTA, :DESC_COMPL) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+      lQuery.ParamByName('ID_M800').AsInteger := AId_Pai;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('NAT_REC').AsString := lConteudo;
+           2:lQuery.ParamByName('VL_REC').AsString := lConteudo;
+           3:lQuery.ParamByName('COD_CTA').AsString := lConteudo;
+           4:lQuery.ParamByName('DESC_COMPL').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_M990 }
+
+class procedure TRegistro_M990.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_M990(ID, REG, QTD_LIN_M) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :QTD_LIN_M) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('QTD_LIN_M').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_P001 }
+
+class procedure TRegistro_P001.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_P001(ID, REG, IND_MOV) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :IND_MOV) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('IND_MOV').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_P990 }
+
+class procedure TRegistro_P990.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_P990(ID, REG, QTD_LIN_P) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :QTD_LIN_P) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('QTD_LIN_P').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_1001 }
+
+class procedure TRegistro_1001.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_1001(ID, REG, IND_MOV) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :IND_MOV) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('IND_MOV').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_1100 }
+
+class procedure TRegistro_1100.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_1100(ID, REG, PER_APU_CRED, ORIG_CRED, CNPJ_SUC, COD_CRED, VL_CRED_APU, VL_CRED_EXT_APU, VL_TOT_CRED_APU, ');
+      lQuery.SQL.Add('  VL_CRED_DESC_PA_ANT, VL_CRED_PER_PA_ANT, VL_CRED_DCOMP_PA_ANT, SD_CRED_DISP_EFD, VL_CRED_DESC_EFD, VL_CRED_PER_EFD, ');
+      lQuery.SQL.Add('  VL_CRED_DCOMP_EFD, VL_CRED_TRANS, VL_CRED_OUT, SLD_CRED_FIM) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :PER_APU_CRED, :ORIG_CRED, :CNPJ_SUC, :COD_CRED, :VL_CRED_APU, :VL_CRED_EXT_APU, :VL_TOT_CRED_APU, ');
+      lQuery.SQL.Add('  :VL_CRED_DESC_PA_ANT, :VL_CRED_PER_PA_ANT, :VL_CRED_DCOMP_PA_ANT, :SD_CRED_DISP_EFD, :VL_CRED_DESC_EFD, :VL_CRED_PER_EFD, ');
+      lQuery.SQL.Add('  :VL_CRED_DCOMP_EFD, :VL_CRED_TRANS, :VL_CRED_OUT, :SLD_CRED_FIM) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('PER_APU_CRED').AsString := lConteudo;
+           2:lQuery.ParamByName('ORIG_CRED').AsString := lConteudo;
+           3:lQuery.ParamByName('CNPJ_SUC').AsString := lConteudo;
+           4:lQuery.ParamByName('COD_CRED').AsString := lConteudo;
+           5:lQuery.ParamByName('VL_CRED_APU').AsString := lConteudo;
+           6:lQuery.ParamByName('VL_CRED_EXT_APU').AsString := lConteudo;
+           7:lQuery.ParamByName('VL_TOT_CRED_APU').AsString := lConteudo;
+           8:lQuery.ParamByName('VL_CRED_DESC_PA_ANT').AsString := lConteudo;
+           9:lQuery.ParamByName('VL_CRED_PER_PA_ANT').AsString := lConteudo;
+          10:lQuery.ParamByName('VL_CRED_DCOMP_PA_ANT').AsString := lConteudo;
+          11:lQuery.ParamByName('SD_CRED_DISP_EFD').AsString := lConteudo;
+          12:lQuery.ParamByName('VL_CRED_DESC_EFD').AsString := lConteudo;
+          13:lQuery.ParamByName('VL_CRED_PER_EFD').AsString := lConteudo;
+          14:lQuery.ParamByName('VL_CRED_DCOMP_EFD').AsString := lConteudo;
+          15:lQuery.ParamByName('VL_CRED_TRANS').AsString := lConteudo;
+          16:lQuery.ParamByName('VL_CRED_OUT').AsString := lConteudo;
+          17:lQuery.ParamByName('SLD_CRED_FIM').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_1500 }
+
+class procedure TRegistro_1500.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_1500(ID, REG, PER_APU_CRED, ORIG_CRED, CNPJ_SUC, COD_CRED, VL_CRED_APU, VL_CRED_EXT_APU, VL_TOT_CRED_APU, ');
+      lQuery.SQL.Add('  VL_CRED_DESC_PA_ANT, VL_CRED_PER_PA_ANT, VL_CRED_DCOMP_PA_ANT, SD_CRED_DISP_EFD, VL_CRED_DESC_EFD, VL_CRED_PER_EFD, VL_CRED_DCOMP_EFD, ');
+      lQuery.SQL.Add('  VL_CRED_TRANS, VL_CRED_OUT, SLD_CRED_FIM) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :PER_APU_CRED, :ORIG_CRED, :CNPJ_SUC, :COD_CRED, :VL_CRED_APU, :VL_CRED_EXT_APU, :VL_TOT_CRED_APU, ');
+      lQuery.SQL.Add('  :VL_CRED_DESC_PA_ANT, :VL_CRED_PER_PA_ANT, :VL_CRED_DCOMP_PA_ANT, :SD_CRED_DISP_EFD, :VL_CRED_DESC_EFD, :VL_CRED_PER_EFD, :VL_CRED_DCOMP_EFD, ');
+      lQuery.SQL.Add('  :VL_CRED_TRANS, :VL_CRED_OUT, :SLD_CRED_FIM) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('PER_APU_CRED').AsString := lConteudo;
+           2:lQuery.ParamByName('ORIG_CRED').AsString := lConteudo;
+           3:lQuery.ParamByName('CNPJ_SUC').AsString := lConteudo;
+           4:lQuery.ParamByName('COD_CRED').AsString := lConteudo;
+           5:lQuery.ParamByName('VL_CRED_APU').AsString := lConteudo;
+           6:lQuery.ParamByName('VL_CRED_EXT_APU').AsString := lConteudo;
+           7:lQuery.ParamByName('VL_TOT_CRED_APU').AsString := lConteudo;
+           8:lQuery.ParamByName('VL_CRED_DESC_PA_ANT').AsString := lConteudo;
+           9:lQuery.ParamByName('VL_CRED_PER_PA_ANT').AsString := lConteudo;
+          10:lQuery.ParamByName('VL_CRED_DCOMP_PA_ANT').AsString := lConteudo;
+          11:lQuery.ParamByName('SD_CRED_DISP_EFD').AsString := lConteudo;
+          12:lQuery.ParamByName('VL_CRED_DESC_EFD').AsString := lConteudo;
+          13:lQuery.ParamByName('VL_CRED_PER_EFD').AsString := lConteudo;
+          14:lQuery.ParamByName('VL_CRED_DCOMP_EFD').AsString := lConteudo;
+          15:lQuery.ParamByName('VL_CRED_TRANS').AsString := lConteudo;
+          16:lQuery.ParamByName('VL_CRED_OUT').AsString := lConteudo;
+          17:lQuery.ParamByName('SLD_CRED_FIM').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_1990 }
+
+class procedure TRegistro_1990.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_1990(ID, REG, QTD_LIN_1) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :QTD_LIN_1) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('QTD_LIN_1').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_9001 }
+
+class procedure TRegistro_9001.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_9001(ID, REG, IND_MOV) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :IND_MOV) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('IND_MOV').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_9900 }
+
+class procedure TRegistro_9900.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_9900(ID, REG, REG_BLC, QTD_REG_BLC) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :REG_BLC, :QTD_REG_BLC) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('REG_BLC').AsString := lConteudo;
+           2:lQuery.ParamByName('QTD_REG_BLC').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_9990 }
+
+class procedure TRegistro_9990.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_9990(ID, REG, QTD_LIN_9) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :QTD_LIN_9) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('QTD_LIN_9').AsString := lConteudo;
+        end;
+        lPos := (lPos + 1);
+        lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));
+      end;
+      lQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNIl(lQuery);
+    {$ELSE}
+      lQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TRegistro_9999 }
+
+class procedure TRegistro_9999.Insert(ADm: TdmSpedContribuicoes; const ALine: String; const AId: Integer;
+  AId_Pai: Integer);
+var
+  lQuery :TFDQuery;
+  lConteudo :String;
+  lLine :String;
+  lPos :Integer;
+begin
+  try
+    try
+      lQuery := TFDQuery.Create(Nil);
+      lQuery.Connection := ADm.FDC_Sped;
+
+      lLine := '';
+      lLine := Copy(ALine,2,Length(ALine));
+      lPos := 0;
+      lQuery.Active := False;
+      lQuery.SQL.Clear;
+      lQuery.SQL.Add('INSERT INTO REGISTRO_9999(ID, REG, QTD_LIN) ');
+      lQuery.SQL.Add('VALUES(:ID, :REG, :QTD_LIN) ');
+      lQuery.ParamByName('ID').AsInteger := AId;
+
+      while Length(lLine) > 0 do
+      begin
+        lConteudo := '';
+        lConteudo := Copy(lLine,1,(Pos('|',lLine)-1));
+        case lPos of
+           0:lQuery.ParamByName('REG').AsString := lConteudo;
+           1:lQuery.ParamByName('QTD_LIN').AsString := lConteudo;
         end;
         lPos := (lPos + 1);
         lLine := Copy(lLine,(Pos('|',lLine)+1),Length(lLine));

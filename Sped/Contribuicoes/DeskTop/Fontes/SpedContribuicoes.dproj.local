@@ -2,18 +2,18 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2024/02/03 16:01:15.000.979,=C:\Developer\Unit1.pas</Transaction>
-    <Transaction>2024/02/03 16:02:02.000.459,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\uPrincipal.fmx=C:\Developer\Unit1.fmx</Transaction>
     <Transaction>2024/02/03 16:02:02.000.459,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\uPrincipal.pas=C:\Developer\Unit1.pas</Transaction>
+    <Transaction>2024/02/03 16:02:02.000.459,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\uPrincipal.fmx=C:\Developer\Unit1.fmx</Transaction>
     <Transaction>2024/02/03 16:02:32.000.791,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\SpedContribuicoes.dproj=C:\Developer\Project1.dproj</Transaction>
     <Transaction>2024/02/03 16:04:07.000.525,=C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\Unit1.pas</Transaction>
     <Transaction>2024/02/03 16:08:30.000.066,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\uDm.dfm=C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\Unit1.dfm</Transaction>
     <Transaction>2024/02/03 16:08:30.000.066,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\uDm.pas=C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\Unit1.pas</Transaction>
-    <Transaction>2024/02/04 06:57:20.898,=C:\Developer\Classes\99 Coders\Versao 11\uActionSheet.pas</Transaction>
-    <Transaction>2024/02/04 06:57:21.074,=C:\Developer\Classes\99 Coders\Versao 11\uCombobox.pas</Transaction>
-    <Transaction>2024/02/04 06:57:21.239,=C:\Developer\Classes\99 Coders\Versao 11\uFancyDialog.pas</Transaction>
-    <Transaction>2024/02/04 06:57:21.339,=C:\Developer\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
-    <Transaction>2024/02/04 06:57:21.500,=C:\Developer\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
-    <Transaction>2024/02/04 07:50:04.656,=C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\Unit1.pas</Transaction>
-    <Transaction>2024/02/04 07:50:23.075,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\uRegistros.pas=C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/02/04 06:57:20.000.898,=C:\Developer\Classes\99 Coders\Versao 11\uActionSheet.pas</Transaction>
+    <Transaction>2024/02/04 06:57:21.000.239,=C:\Developer\Classes\99 Coders\Versao 11\uFancyDialog.pas</Transaction>
+    <Transaction>2024/02/04 06:57:21.000.074,=C:\Developer\Classes\99 Coders\Versao 11\uCombobox.pas</Transaction>
+    <Transaction>2024/02/04 06:57:21.000.500,=C:\Developer\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
+    <Transaction>2024/02/04 06:57:21.000.339,=C:\Developer\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
+    <Transaction>2024/02/04 07:50:04.000.656,=C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/02/04 07:50:23.000.075,C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\uRegistros.pas=C:\Developer\Sped\Contribuicoes\DeskTop\Fontes\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
