@@ -48,3 +48,11 @@ Controle de Horas/Servidor/Fontes/Win64/Debug/Controle_Horas.Servidor.rsm
 Controle de Horas/Servidor/Fontes/Win64/Debug/DataSet.Serialize.Config.dcu
 Controle de Horas/Servidor/Fontes/Win64/Debug/
 Controle de Horas/Servidor/Fontes/Win64/Release/
+*.docx
+*.pdf
+Sped/Contribuicoes/DeskTop/Fontes/__history/
+Sped/Contribuicoes/DeskTop/Fontes/Win32/Release/
+Sped/Contribuicoes/DeskTop/Fontes/Win64/Debug/CONFIG_SCONT.ini
+Sped/Contribuicoes/DeskTop/Fontes/Win64/Debug/
+*.ini
+*.dcu
