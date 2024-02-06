@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.IOUtils, System.Math,
 
   {$Region '99 Coders'}
     uLoading,
@@ -12,6 +13,7 @@ uses
 
   uDm,
   uRegistros,
+  uFuncoes,
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts, FMX.Objects, FMX.Memo.Types, FMX.Ani,
   FMX.StdCtrls, FMX.Edit, FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FireDAC.Stan.Intf, FireDAC.Stan.Option,
@@ -46,11 +48,31 @@ type
     lytAbatePisCofins: TLayout;
     rctAbatePisCofins: TRectangle;
     lbAbatePisCofins: TLabel;
+    lytGerar: TLayout;
+    rctGerar: TRectangle;
+    lbGerar: TLabel;
+    memoNovo: TMemo;
+    lbTitulo: TLabel;
+    lytFechar: TLayout;
+    imgFechar: TImage;
+    lytMenu: TLayout;
+    imgMenu: TImage;
+    lytVersao: TLayout;
+    rctVersao: TRectangle;
+    lbVersao: TLabel;
+    imgSelArquivo: TImage;
+    OpenDialog: TOpenDialog;
     procedure rctSelecionarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure rctPrepararClick(Sender: TObject);
     procedure rctAbatePisCofinsClick(Sender: TObject);
+    procedure rctGerarClick(Sender: TObject);
+    procedure imgFecharClick(Sender: TObject);
+    procedure imgSelArquivoClick(Sender: TObject);
+    procedure edArquivoKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
+    procedure edArquivoTyping(Sender: TObject);
+    procedure edNovoArquivoTyping(Sender: TObject);
   private
     FMensagem :TFancyDialog;
     lDm :TdmSpedContribuicoes;
@@ -62,6 +84,9 @@ type
     procedure Abate_ICMS_Base_PIS_COFINS;
     procedure ThreadEnd_AbatePisCofins(Sender: TOBject);
     function AlterarRegistro(const ARegistro:String):Boolean;
+    procedure ThreadEnd_Gerar(Sender: TObject);
+    procedure Montar_Linha(AQuery: TFDQuery);
+    procedure Montar_Linha_1(AQuery: TFDQuery);
   public
     { Public declarations }
   end;
@@ -91,6 +116,7 @@ begin
     lBase :Double;
     lValor :Double;
     lAliq :Double;
+    lId100 :Integer;
 
   begin
     lQuery_100 := TFDQuery.Create(Nil);
@@ -112,8 +138,14 @@ begin
     if not lQuery_100.ISEmpty then
     begin
       lQuery_100.First;
+
       while not lQuery_100.Eof do
       begin
+        lPis := 0;
+        lCofins := 0;
+        lId100 := 0;
+        lId100 := lQuery_100.FieldByName('ID').AsInteger;
+
         if lQuery_100.FieldByName('IND_EMIT').AsString <> '1' then
         begin
           lQuery_170.Active := False;
@@ -143,9 +175,9 @@ begin
                 begin
                   if lBase > lICMS then
                   begin
-                    lBase  := (lBase - lICMS);
+                    lBase  := RoundTo((lBase - lICMS),-2);
                     lAliq  := StrToFloatDef(lQuery_170.FieldByName('ALIQ_PIS').AsString,0);
-                    lValor := ((lBase * lAliq) / 100);
+                    lValor := RoundTo(((lBase * lAliq) / 100),-2);
                     lUpdate.Active := False;
                     lUpdate.SQL.Clear;
                     lUpdate.SQL.Add('UPDATE REGISTRO_C170 SET');
@@ -174,9 +206,9 @@ begin
                 begin
                   if lBase > lICMS then
                   begin
-                    lBase  := (lBase - lICMS);
+                    lBase  := RoundTo((lBase - lICMS),-2);
                     lAliq  := StrToFloatDef(lQuery_170.FieldByName('ALIQ_COFINS').AsString,0);
-                    lValor := ((lBase * lAliq) / 100);
+                    lValor := RoundTo(((lBase * lAliq) / 100),-2);
 
                     lUpdate.Active := False;
                     lUpdate.SQL.Clear;
@@ -224,9 +256,9 @@ begin
                 begin
                   if lBase > lICMS then
                   begin
-                    lBase  := (lBase - lICMS);
+                    lBase  := RoundTo((lBase - lICMS),-2);
                     lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_PIS').AsString,0);
-                    lValor := ((lBase * lAliq) / 100);
+                    lValor := RoundTo(((lBase * lAliq) / 100),-2);
 
                     lUpdate.Active := False;
                     lUpdate.SQL.Clear;
@@ -257,9 +289,9 @@ begin
                 begin
                   if lBase > lICMS then
                   begin
-                    lBase  := (lBase - lICMS);
+                    lBase  := RoundTo((lBase - lICMS),-2);
                     lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_COFINS').AsString,0);
-                    lValor := ((lBase * lAliq) / 100);
+                    lValor := RoundTo(((lBase * lAliq) / 100),-2);
 
                     lUpdate.Active := False;
                     lUpdate.SQL.Clear;
@@ -286,33 +318,32 @@ begin
           begin
             lUpdate.Active := False;
             lUpdate.SQL.Clear;
-            lUpdate.SQL.Add('UPDATE REGISTRO_C170 SET');
+            lUpdate.SQL.Add('UPDATE REGISTRO_C100 SET');
             lUpdate.SQL.Add('  VL_PIS = :VL_PIS');
             lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
             lUpdate.SQL.Add('WHERE ID = :ID');
-            lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
-            lUpdate.ParamByName('ID').AsInteger := lQuery_170.FieldByName('ID').AsInteger;
-            lUpdate.ParamByName('ID_C100').AsInteger := lQuery_170.FieldByName('ID_C100').AsInteger;
+            lUpdate.ParamByName('ID').AsInteger := lQuery_100.FieldByName('ID').AsInteger;
             lUpdate.ParamByName('VL_PIS').AsString := '';
             lUpdate.ParamByName('VL_COFINS').AsString := '';
             lUpdate.ExecSQL;
           end
           else
           begin
+            lPis := RoundTo(lPis,-2);
+            lCofins := RoundTo(lCofins,-2);
             lUpdate.Active := False;
             lUpdate.SQL.Clear;
-            lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
+            lUpdate.SQL.Add('UPDATE REGISTRO_C100 SET');
             lUpdate.SQL.Add('  VL_PIS = :VL_PIS');
             lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
             lUpdate.SQL.Add('WHERE ID = :ID');
-            lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
-            lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
-            lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
+            lUpdate.ParamByName('ID').AsInteger := lQuery_100.FieldByName('ID').AsInteger;
             lUpdate.ParamByName('VL_PIS').AsString := FloatToStr(lPis);
             lUpdate.ParamByName('VL_COFINS').AsString := FloatToStr(lCofins);
             lUpdate.ExecSQL;
           end;
         end;
+
         lQuery_100.Next;
       end;
     end;
@@ -342,10 +373,28 @@ begin
 
   if Assigned(TThread(Sender).FatalException) then
     FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+    FMensagem.Show(TIconDialog.Success,'Atenção','Valores abatidos','Ok');
 end;
 
 function TfrmPrincipal.AlterarRegistro(const ARegistro: String): Boolean;
 begin
+end;
+
+procedure TfrmPrincipal.edArquivoKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    TFuncoes.PularCampo(edNovoArquivo);
+end;
+
+procedure TfrmPrincipal.edArquivoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edArquivo,lbArquivo,faArquivo,10,-20);
+end;
+
+procedure TfrmPrincipal.edNovoArquivoTyping(Sender: TObject);
+begin
+  TFuncoes.ExibeLabel(edNovoArquivo,lbNovoArquivo,faNovoArquivo,10,-20);
 end;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -368,9 +417,1171 @@ begin
   FMensagem := TFancyDialog.Create(frmPrincipal);
 end;
 
+procedure TfrmPrincipal.imgFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmPrincipal.imgSelArquivoClick(Sender: TObject);
+begin
+  {$IFDEF MSWINDOWS}
+    OpenDialog.InitialDir := System.SysUtils.GetCurrentDir;
+  {$ELSE}
+    OpenDialog.InitialDir := TPath.GetDocumentsPath;
+  {$ENDIF}
+
+  OpenDialog.Filter := 'Arquivos do Sped|*.txt';
+  if OpenDialog.Execute then
+  begin
+    if FileExists(OpenDialog.FileName) then
+    begin
+      edArquivo.Text := OpenDialog.FileName;
+      TFuncoes.ExibeLabel(edArquivo,lbArquivo,faArquivo,10,-20);
+    end
+    else
+      TFuncoes.ExibeLabel(edArquivo,lbArquivo,faArquivo,10,-20);
+  end;    
+end;
+
 procedure TfrmPrincipal.rctAbatePisCofinsClick(Sender: TObject);
 begin
   Abate_ICMS_Base_PIS_COFINS;
+end;
+
+procedure TfrmPrincipal.rctGerarClick(Sender: TObject);
+var
+  t :TThread;
+begin
+  memoNovo.Lines.Clear;
+  TLoading.Show(frmPrincipal, 'Gerando novo arquivo texto');
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    I :Integer;
+    lId_C100 :Integer;
+    lId_M400 :Integer;
+    lId_M800 :Integer;
+    lQuery_01 :TFDQuery;
+    lQuery_02 :TFDQuery;
+    lLinha :String;
+  begin
+    lQuery_01 := TFDQuery.Create(Nil);
+    lQuery_01.Connection := lDm.FDC_Sped;
+    lQuery_02 := TFDQuery.Create(Nil);
+    lQuery_02.Connection := lDm.FDC_Sped;
+
+    lLinha := '';
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0000 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin      
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0000] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0100 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0100] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0110 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0110] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0140 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0140] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0150 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0150] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0190 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0190] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0200 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0200] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0400 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0400] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0500 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0500] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [0990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_A001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [A001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_A010 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [A010] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_A990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [A990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_C001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [C001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_C010 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [C010] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_C100 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [C100] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        
+        //listando C170
+        lQuery_02.Active := False;
+        lQuery_02.Sql.Clear;
+        lQuery_02.Sql.Add('SELECT * FROM REGISTRO_C170 WHERE ID_C100 = '+lQuery_01.FieldByName('ID').AsString+' ORDER BY ID');
+        lQuery_02.Active := True;
+        if not lQuery_02.IsEmpty then
+        begin
+          lQuery_02.First;
+          while not lQuery_02.Eof do
+          begin
+            TThread.Synchronize(nil, procedure
+            begin
+              TLoading.ChangeText('Gerando Registro [C170] - ' + lQuery_01.RecNo.ToString);
+            end);
+            Montar_Linha_1(lQuery_02);
+            lQuery_02.Next;
+          end;
+        end;
+        
+        //listando C175
+        lQuery_02.Active := False;
+        lQuery_02.Sql.Clear;
+        lQuery_02.Sql.Add('SELECT * FROM REGISTRO_C175 WHERE ID_C100 = '+lQuery_01.FieldByName('ID').AsString+' ORDER BY ID');
+        lQuery_02.Active := True;
+        if not lQuery_02.IsEmpty then
+        begin
+          lQuery_02.First;
+          while not lQuery_02.Eof do
+          begin
+            TThread.Synchronize(nil, procedure
+            begin
+              TLoading.ChangeText('Gerando Registro [C175] - ' + lQuery_01.RecNo.ToString);
+            end);
+            Montar_Linha_1(lQuery_02);
+            lQuery_02.Next;
+          end;
+        end;        
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_C500 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [C500] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_C501 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [C501] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_C505 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [C505] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_C990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [C990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_D001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [D001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_D010 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [D010] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_D990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [D990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_F001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [F001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_F010 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [F010] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_F100 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [F100] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_F990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [F990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_I001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [I001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_I990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [I990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M100 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M100] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M105 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M105] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M110 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M110] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M200 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M200] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M205 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M205] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M210 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M210] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M400 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        
+        //listando M410
+        lQuery_02.Active := False;
+        lQuery_02.Sql.Clear;
+        lQuery_02.Sql.Add('SELECT * FROM REGISTRO_M410 WHERE ID_M400 = '+lQuery_01.FieldByName('ID').AsString+' ORDER BY ID');
+        lQuery_02.Active := True;
+        if not lQuery_02.IsEmpty then
+        begin
+          lQuery_02.First;
+          while not lQuery_02.Eof do
+          begin
+            TThread.Synchronize(nil, procedure
+            begin
+              TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.RecNo.ToString);
+            end);
+            Montar_Linha_1(lQuery_02);
+            lQuery_02.Next;
+          end;
+        end;
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M500 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M500] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M505 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M505] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M510 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M510] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M600 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M600] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M605 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M605] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M610 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M610] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M800 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M800] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        
+        //listando M410
+        lQuery_02.Active := False;
+        lQuery_02.Sql.Clear;
+        lQuery_02.Sql.Add('SELECT * FROM REGISTRO_M810 WHERE ID_M800 = '+lQuery_01.FieldByName('ID').AsString+' ORDER BY ID');
+        lQuery_02.Active := True;
+        if not lQuery_02.IsEmpty then
+        begin
+          lQuery_02.First;
+          while not lQuery_02.Eof do
+          begin
+            TThread.Synchronize(nil, procedure
+            begin
+              TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.RecNo.ToString);
+            end);
+            Montar_Linha_1(lQuery_02);
+            lQuery_02.Next;
+          end;
+        end;
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_M990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [M990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_P001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [P001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_P990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [P990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_1001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [1001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_1100 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [1100] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_1500 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [1500] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_1990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [1990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_9001 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [9001] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_9900 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [9900] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_9990 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [9990] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    lQuery_01.Active := False;
+    lQuery_01.Sql.Clear;
+    lQuery_01.Sql.Add('SELECT * FROM REGISTRO_9999 ORDER BY ID');
+    lQuery_01.Active := True;
+    if not lQuery_01.IsEmpty then
+    begin
+      lQuery_01.First;
+      while not lQuery_01.Eof do
+      begin
+        TThread.Synchronize(nil, procedure
+        begin
+          TLoading.ChangeText('Gerando Registro [9999] - ' + lQuery_01.RecNo.ToString);
+        end);
+        Montar_Linha(lQuery_01);
+        lQuery_01.Next;
+      end;
+    end;
+    
+
+    {$IFDEF MSWINDOWS}
+      FreeAndNil(lQuery_01);
+      FreeAndNil(lQuery_02);
+    {$ELSE}
+      lQuery_01.DisposeOf;
+      lQuery_02.DisposeOf;
+    {$ENDIF}
+
+  end);
+
+  t.OnTerminate := ThreadEnd_Gerar;
+  t.Start;
+
+end;
+
+procedure TfrmPrincipal.ThreadEnd_Gerar(Sender :TObject);
+var
+  FEnder :String;
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FEnder  := '';
+    {$IFDEF MSWINDOWS}
+      FEnder := System.SysUtils.GetCurrentDir + '\Arquivo\' + edNovoArquivo.Text;
+    {$ELSE}
+      FEnder := TPath.GetDocumentsPath;
+    {$ENDIF}
+    memoNovo.Lines.Add('');
+    memoNovo.Lines.SaveToFile(FEnder);
+    FMensagem.Show(TIconDialog.Success,'Atenção','Arquivo gerado','Ok');    
+  end;
+end;
+
+procedure TfrmPrincipal.Montar_Linha(AQuery :TFDQuery);
+var
+  lLinha :String;
+  I :Integer;
+begin
+  try
+    try
+      for I := 1 to (AQuery.Fields.Count-1) do
+      begin
+        if ((AQuery.Fields[I].IsNull) or (Trim(AQuery.Fields[I].AsString) = '')) then
+          lLinha := lLinha + '|' + ''
+        else
+          lLinha := lLinha + '|' + Trim(AQuery.Fields[I].AsString);
+      end;
+      lLinha := lLinha + '|';
+      memoNovo.Lines.Add(lLinha);
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TfrmPrincipal.Montar_Linha_1(AQuery :TFDQuery);
+var
+  lLinha :String;
+  I :Integer;
+begin
+  try
+    try
+      for I := 2 to (AQuery.Fields.Count-1) do
+      begin
+        if ((AQuery.Fields[I].IsNull) or (Trim(AQuery.Fields[I].AsString) = '')) then
+          lLinha := lLinha + '|' + ''
+        else
+          lLinha := lLinha + '|' + Trim(AQuery.Fields[I].AsString);
+      end;
+      lLinha := lLinha + '|';
+      memoNovo.Lines.Add(lLinha);
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmPrincipal.rctPrepararClick(Sender: TObject);
@@ -479,7 +1690,7 @@ begin
           TLoading.ChangeText('Registro [0001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
-      end;
+      end;                                                                       
       if Copy(memoRegistros.Lines.Strings[I],1,6) = '|0100|' then
       begin
         TThread.Synchronize(nil, procedure
@@ -1007,6 +2218,8 @@ begin
 
   if Assigned(TThread(Sender).FatalException) then
     FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+    FMensagem.Show(TIconDialog.Success,'Atenção','Arquivo preparado','Ok');
 
 end;
 

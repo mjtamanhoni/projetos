@@ -314,6 +314,7 @@
         <DCCReference Include="..\..\..\..\Classes\99 Coders\Versao 11\uFormat.pas"/>
         <DCCReference Include="..\..\..\..\Classes\99 Coders\Versao 11\uLoading.pas"/>
         <DCCReference Include="uRegistros.pas"/>
+        <DCCReference Include="..\..\..\..\Lanchonete\Servidor\Fontes\Units\uFuncoes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

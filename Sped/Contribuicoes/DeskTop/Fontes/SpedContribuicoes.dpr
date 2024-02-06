@@ -10,7 +10,8 @@ uses
   uFancyDialog in '..\..\..\..\Classes\99 Coders\Versao 11\uFancyDialog.pas',
   uFormat in '..\..\..\..\Classes\99 Coders\Versao 11\uFormat.pas',
   uLoading in '..\..\..\..\Classes\99 Coders\Versao 11\uLoading.pas',
-  uRegistros in 'uRegistros.pas';
+  uRegistros in 'uRegistros.pas',
+  uFuncoes in '..\..\..\..\Lanchonete\Servidor\Fontes\Units\uFuncoes.pas';
 
 {$R *.res}
 
