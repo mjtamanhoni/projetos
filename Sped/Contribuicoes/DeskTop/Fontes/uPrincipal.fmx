@@ -1732,7 +1732,7 @@ object frmPrincipal: TfrmPrincipal
             TextSettings.Font.Size = 18.000000000000000000
             TextSettings.FontColor = xFFA1B24E
             TextSettings.Trimming = None
-            Text = 'Vers'#227'o: 1.01.002'
+            Text = 'Vers'#227'o: 1.01.003'
             TabOrder = 0
           end
         end

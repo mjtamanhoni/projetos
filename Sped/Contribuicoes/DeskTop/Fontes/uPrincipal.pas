@@ -121,6 +121,7 @@ begin
     lUpdate :TFDQuery;
     lPis :Double;
     lCofins :Double;
+    lBaseIcms :Double;
     lIcms :Double;
     lBase :Double;
     lValor :Double;
@@ -260,6 +261,7 @@ begin
               end);
               if ((lQuery_175.FieldByName('CFOP').AsString <> '5202') and (lQuery_175.FieldByName('CFOP').AsString <> '6202')) then
               begin
+                lBaseIcms := 0;
                 lICMS     := 0;
                 lBase     := 0;
                 lValor    := 0;
@@ -272,36 +274,36 @@ begin
                   lPerc := 0;
                   lVlr_Oper := StrToFloatDef(lQuery_175.FieldByName('VL_OPR').AsString,0);
                   lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
-                  lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-1);
-                  lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
+                  lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-2);
+                  lBaseIcms := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
+                  lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0) * lPerc) / 100),-2);
                 end;
                 lBase  := StrToFloatDef(lQuery_175.FieldByName('VL_BC_PIS').AsString,0);
                 if lBase > 0 then
                 begin
-                  if lBase > lICMS then
-                  begin
+                  if lBase >= lBaseIcms then
                     lBase  := RoundTo((lBase - lICMS),-2);
-                    lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_PIS').AsString,0);
-                    lValor := RoundTo(((lBase * lAliq) / 100),-2);
+                  lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_PIS').AsString,0);
+                  lValor := RoundTo(((lBase * lAliq) / 100),-2);
 
-                    lUpdate.Active := False;
-                    lUpdate.SQL.Clear;
-                    lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
-                    lUpdate.SQL.Add('  VL_BC_PIS = :VL_BC_PIS');
-                    lUpdate.SQL.Add('  ,VL_PIS = :VL_PIS');
-                    lUpdate.SQL.Add('WHERE ID = :ID');
-                    lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
-                    lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
-                    lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
-                    lUpdate.ParamByName('VL_BC_PIS').AsString := FloatToStr(lBase);
-                    lUpdate.ParamByName('VL_PIS').AsString := FloatToStr(lValor);
-                    lUpdate.ExecSQL;
+                  lUpdate.Active := False;
+                  lUpdate.SQL.Clear;
+                  lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
+                  lUpdate.SQL.Add('  VL_BC_PIS = :VL_BC_PIS');
+                  lUpdate.SQL.Add('  ,VL_PIS = :VL_PIS');
+                  lUpdate.SQL.Add('WHERE ID = :ID');
+                  lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+                  lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
+                  lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
+                  lUpdate.ParamByName('VL_BC_PIS').AsString := FloatToStr(lBase);
+                  lUpdate.ParamByName('VL_PIS').AsString := FloatToStr(lValor);
+                  lUpdate.ExecSQL;
 
-                    lPis := (lPis + lValor);
-                  end;
+                  lPis := (lPis + lValor);
                 end;
 
                 {COFINS}
+                lBaseIcms := 0;
                 lICMS  := 0;
                 lBase  := 0;
                 lValor := 0;
@@ -313,33 +315,32 @@ begin
                   lPerc := 0;
                   lVlr_Oper := StrToFloatDef(lQuery_175.FieldByName('VL_OPR').AsString,0);
                   lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
-                  lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-1);
-                  lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
+                  lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-2);
+                  lBaseIcms := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
+                  lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0) * lPerc) / 100),-2);
                 end;
                 lBase  := StrToFloatDef(lQuery_175.FieldByName('VL_BC_COFINS').AsString,0);
                 if lBase > 0 then
                 begin
-                  if lBase > lICMS then
-                  begin
+                  if lBase >= lBaseIcms then
                     lBase  := RoundTo((lBase - lICMS),-2);
-                    lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_COFINS').AsString,0);
-                    lValor := RoundTo(((lBase * lAliq) / 100),-2);
+                  lAliq  := StrToFloatDef(lQuery_175.FieldByName('ALIQ_COFINS').AsString,0);
+                  lValor := RoundTo(((lBase * lAliq) / 100),-2);
 
-                    lUpdate.Active := False;
-                    lUpdate.SQL.Clear;
-                    lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
-                    lUpdate.SQL.Add('  VL_BC_COFINS = :VL_BC_COFINS');
-                    lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
-                    lUpdate.SQL.Add('WHERE ID = :ID');
-                    lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
-                    lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
-                    lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
-                    lUpdate.ParamByName('VL_BC_COFINS').AsString := FloatToStr(lBase);
-                    lUpdate.ParamByName('VL_COFINS').AsString := FloatToStr(lValor);
-                    lUpdate.ExecSQL;
+                  lUpdate.Active := False;
+                  lUpdate.SQL.Clear;
+                  lUpdate.SQL.Add('UPDATE REGISTRO_C175 SET');
+                  lUpdate.SQL.Add('  VL_BC_COFINS = :VL_BC_COFINS');
+                  lUpdate.SQL.Add('  ,VL_COFINS = :VL_COFINS');
+                  lUpdate.SQL.Add('WHERE ID = :ID');
+                  lUpdate.SQL.Add('  AND ID_C100 = :ID_C100');
+                  lUpdate.ParamByName('ID').AsInteger := lQuery_175.FieldByName('ID').AsInteger;
+                  lUpdate.ParamByName('ID_C100').AsInteger := lQuery_175.FieldByName('ID_C100').AsInteger;
+                  lUpdate.ParamByName('VL_BC_COFINS').AsString := FloatToStr(lBase);
+                  lUpdate.ParamByName('VL_COFINS').AsString := FloatToStr(lValor);
+                  lUpdate.ExecSQL;
 
-                    lCofins := (lCofins + lValor);
-                  end;
+                  lCofins := (lCofins + lValor);
                 end;
               end;
               lQuery_175.Next;
@@ -2279,7 +2280,7 @@ begin
     if imgAutomatico.Tag = 0 then
       FMensagem.Show(TIconDialog.Success,'Atenção','Arquivo preparado','Ok')
     else
-      FMensagem.Show(TIconDialog.Question,'Atenção','Abater valorer?','SIM',Abate_ICMS_Base_PIS_COFINS,'NÃO');
+      FMensagem.Show(TIconDialog.Question,'Atenção','Abater valores?','SIM',Abate_ICMS_Base_PIS_COFINS,'NÃO');
   end;
 
 end;
