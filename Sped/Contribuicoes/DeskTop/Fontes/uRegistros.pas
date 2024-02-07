@@ -519,7 +519,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0000 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -574,7 +574,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2228,7 +2228,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0100 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2293,7 +2293,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0110 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2370,7 +2370,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0140 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2459,7 +2459,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0150 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2519,7 +2519,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0190 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2606,7 +2606,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0200 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2665,7 +2665,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0400 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2721,7 +2721,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0500 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2770,7 +2770,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('0990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2819,7 +2819,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('A001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2868,7 +2868,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('A010 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2917,7 +2917,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('A990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -2966,7 +2966,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3016,7 +3016,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C010 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3096,7 +3096,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C100 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3187,7 +3187,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C170 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3255,7 +3255,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C175 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3317,7 +3317,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C500 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3372,7 +3372,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C501 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3427,7 +3427,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C505 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3476,7 +3476,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('C990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3525,7 +3525,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('D001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3574,7 +3574,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('D010 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3623,7 +3623,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('D990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3672,7 +3672,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('F001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3721,7 +3721,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('F010 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3789,7 +3789,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('F100 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3838,7 +3838,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('F900 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3887,7 +3887,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('I001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3936,7 +3936,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('I990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -3985,7 +3985,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4049,7 +4049,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M100 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4106,7 +4106,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M105 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4160,7 +4160,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M110 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4222,7 +4222,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M200 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4273,7 +4273,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M205 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4340,7 +4340,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M210 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4392,7 +4392,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M400 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4445,7 +4445,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M410 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4510,7 +4510,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M500 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4569,7 +4569,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M505 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4623,7 +4623,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M510 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4685,7 +4685,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M600 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4736,7 +4736,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M605 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4801,7 +4801,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M610 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4853,7 +4853,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M800 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4906,7 +4906,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M810 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -4955,7 +4955,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('M990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -5004,7 +5004,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('P001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -5053,7 +5053,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('P990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -5102,7 +5102,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('1001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -5171,7 +5171,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('1100 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -5240,7 +5240,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('1500 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -5289,7 +5289,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('1990 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}
@@ -5338,7 +5338,7 @@ begin
       lQuery.ExecSQL;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      raise Exception.Create('9001 ' + E.Message);
     end;
   finally
     {$IFDEF MSWINDOWS}

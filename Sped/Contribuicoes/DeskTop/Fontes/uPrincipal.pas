@@ -62,6 +62,13 @@ type
     lbVersao: TLabel;
     imgSelArquivo: TImage;
     OpenDialog: TOpenDialog;
+    lytAutomatico: TLayout;
+    lytAuto_Icone: TLayout;
+    lytAuto_Descricao: TLayout;
+    imgAutomatico: TImage;
+    lbAutomatico: TLabel;
+    imgAuto_Checked: TImage;
+    imgAuto_UnChecked: TImage;
     procedure rctSelecionarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -73,6 +80,7 @@ type
     procedure edArquivoKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
     procedure edArquivoTyping(Sender: TObject);
     procedure edNovoArquivoTyping(Sender: TObject);
+    procedure imgAutomaticoClick(Sender: TObject);
   private
     FMensagem :TFancyDialog;
     lDm :TdmSpedContribuicoes;
@@ -81,12 +89,13 @@ type
     procedure PrepararArquivo;
     procedure ThreadEnd_Prepara(Sender: TObject);
     procedure Insere_Registro(const ALine,ARegistro: String; const AId: Integer; AId_Pai: Integer=0);
-    procedure Abate_ICMS_Base_PIS_COFINS;
+    procedure Abate_ICMS_Base_PIS_COFINS(Sender:TOBject);
     procedure ThreadEnd_AbatePisCofins(Sender: TOBject);
     function AlterarRegistro(const ARegistro:String):Boolean;
     procedure ThreadEnd_Gerar(Sender: TObject);
     procedure Montar_Linha(AQuery: TFDQuery);
     procedure Montar_Linha_1(AQuery: TFDQuery);
+    procedure Gerar_Arquivo(Sender :TOBject);
   public
     { Public declarations }
   end;
@@ -98,7 +107,7 @@ implementation
 
 {$R *.fmx}
 
-procedure TfrmPrincipal.Abate_ICMS_Base_PIS_COFINS;
+procedure TfrmPrincipal.Abate_ICMS_Base_PIS_COFINS(Sender:TOBject);
 var
   t :TThread;
 begin
@@ -117,7 +126,10 @@ begin
     lValor :Double;
     lAliq :Double;
     lId100 :Integer;
-
+    lNDoc :String;
+    lVlr_Oper :Double;
+    lVlr_Merc :Double;
+    lPerc :Double;
   begin
     lQuery_100 := TFDQuery.Create(Nil);
     lQuery_100.Connection := lDm.FDC_Sped;
@@ -146,6 +158,9 @@ begin
         lId100 := 0;
         lId100 := lQuery_100.FieldByName('ID').AsInteger;
 
+        lNDoc := '';
+        lNDoc := lQuery_100.FieldByName('NUM_DOC').AsString;
+
         if lQuery_100.FieldByName('IND_EMIT').AsString <> '1' then
         begin
           lQuery_170.Active := False;
@@ -159,7 +174,7 @@ begin
             begin
               TThread.Synchronize(nil, procedure
               begin
-                TLoading.ChangeText('C100 ' + lQuery_100.FieldByName('ID').AsString + ', C170 ' + lQuery_170.FieldByName('ID').AsString );
+                TLoading.ChangeText('Abatendo C100 ' + lQuery_100.FieldByName('ID').AsString + ', C170 ' + lQuery_170.FieldByName('ID').AsString );
               end);
               if ((lQuery_170.FieldByName('CFOP').AsString <> '5202') and (lQuery_170.FieldByName('CFOP').AsString <> '6202')) then
               begin
@@ -169,8 +184,8 @@ begin
                 lAliq  := 0;
 
                 {PIS}
-                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
-                lBase  := StrToFloatDef(lQuery_170.FieldByName('VL_BC_PIS').AsString,0);
+                lICMS := StrToFloatDef(lQuery_170.FieldByName('VL_ICMS').AsString,0);
+                lBase := StrToFloatDef(lQuery_170.FieldByName('VL_BC_PIS').AsString,0);
                 if lBase > 0 then
                 begin
                   if lBase > lICMS then
@@ -200,8 +215,8 @@ begin
                 lValor := 0;
                 lAliq  := 0;
 
-                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
-                lBase  := StrToFloatDef(lQuery_170.FieldByName('VL_BC_COFINS').AsString,0);
+                lICMS := StrToFloatDef(lQuery_170.FieldByName('VL_ICMS').AsString,0);
+                lBase := StrToFloatDef(lQuery_170.FieldByName('VL_BC_COFINS').AsString,0);
                 if lBase > 0 then
                 begin
                   if lBase > lICMS then
@@ -241,7 +256,7 @@ begin
             begin
               TThread.Synchronize(nil, procedure
               begin
-                TLoading.ChangeText('C100 ' + lQuery_100.FieldByName('ID').AsString + ', C175 ' + lQuery_175.FieldByName('ID').AsString );
+                TLoading.ChangeText('Abatendo C100 ' + lQuery_100.FieldByName('ID').AsString + ', C175 ' + lQuery_175.FieldByName('ID').AsString );
               end);
               if ((lQuery_175.FieldByName('CFOP').AsString <> '5202') and (lQuery_175.FieldByName('CFOP').AsString <> '6202')) then
               begin
@@ -250,7 +265,16 @@ begin
                 lValor    := 0;
                 lAliq     := 0;
                 {PIS}
-                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
+                if (lQuery_175.FieldByName('CFOP').AsString <> '5405') then
+                begin
+                  lVlr_Oper := 0;
+                  lVlr_Merc := 0;
+                  lPerc := 0;
+                  lVlr_Oper := StrToFloatDef(lQuery_175.FieldByName('VL_OPR').AsString,0);
+                  lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
+                  lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-1);
+                  lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
+                end;
                 lBase  := StrToFloatDef(lQuery_175.FieldByName('VL_BC_PIS').AsString,0);
                 if lBase > 0 then
                 begin
@@ -282,8 +306,16 @@ begin
                 lBase  := 0;
                 lValor := 0;
                 lAliq  := 0;
-
-                lICMS  := StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0);
+                if (lQuery_175.FieldByName('CFOP').AsString <> '5405') then
+                begin
+                  lVlr_Oper := 0;
+                  lVlr_Merc := 0;
+                  lPerc := 0;
+                  lVlr_Oper := StrToFloatDef(lQuery_175.FieldByName('VL_OPR').AsString,0);
+                  lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
+                  lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-1);
+                  lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
+                end;
                 lBase  := StrToFloatDef(lQuery_175.FieldByName('VL_BC_COFINS').AsString,0);
                 if lBase > 0 then
                 begin
@@ -374,7 +406,12 @@ begin
   if Assigned(TThread(Sender).FatalException) then
     FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
   else
-    FMensagem.Show(TIconDialog.Success,'Atenção','Valores abatidos','Ok');
+  begin
+    if imgAutomatico.Tag = 0 then
+      FMensagem.Show(TIconDialog.Success,'Atenção','Valores abatidos','Ok')
+    else
+      FMensagem.Show(TIconDialog.Question,'Atenção','Gerar Arquivo?','SIM',Gerar_Arquivo,'NÃO');
+  end;
 end;
 
 function TfrmPrincipal.AlterarRegistro(const ARegistro: String): Boolean;
@@ -417,6 +454,20 @@ begin
   FMensagem := TFancyDialog.Create(frmPrincipal);
 end;
 
+procedure TfrmPrincipal.imgAutomaticoClick(Sender: TObject);
+begin
+  case imgAutomatico.Tag of
+    0:begin
+      imgAutomatico.Bitmap := imgAuto_Checked.Bitmap;
+      imgAutomatico.Tag := 1;
+    end;
+    1:begin
+      imgAutomatico.Bitmap := imgAuto_UnChecked.Bitmap;
+      imgAutomatico.Tag := 0;
+    end;
+  end;
+end;
+
 procedure TfrmPrincipal.imgFecharClick(Sender: TObject);
 begin
   Close;
@@ -445,13 +496,14 @@ end;
 
 procedure TfrmPrincipal.rctAbatePisCofinsClick(Sender: TObject);
 begin
-  Abate_ICMS_Base_PIS_COFINS;
+  Abate_ICMS_Base_PIS_COFINS(Sender);
 end;
 
-procedure TfrmPrincipal.rctGerarClick(Sender: TObject);
+procedure TfrmPrincipal.Gerar_Arquivo(Sender :TOBject);
 var
   t :TThread;
 begin
+
   memoNovo.Lines.Clear;
   TLoading.Show(frmPrincipal, 'Gerando novo arquivo texto');
   t := TThread.CreateAnonymousThread(
@@ -476,13 +528,13 @@ begin
     lQuery_01.Sql.Add('SELECT * FROM REGISTRO_0000 ORDER BY ID');
     lQuery_01.Active := True;
     if not lQuery_01.IsEmpty then
-    begin      
+    begin
       lQuery_01.First;
       while not lQuery_01.Eof do
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0000] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0000] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -499,7 +551,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -516,7 +568,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0100] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0100] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -533,7 +585,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0110] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0110] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -550,7 +602,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0140] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0140] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -567,7 +619,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0150] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0150] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -584,7 +636,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0190] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0190] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -601,7 +653,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0200] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0200] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -618,7 +670,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0400] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0400] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -635,7 +687,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0500] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0500] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -652,7 +704,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [0990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [0990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -669,7 +721,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [A001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [A001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -686,7 +738,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [A010] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [A010] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -703,7 +755,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [A990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [A990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -720,7 +772,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [C001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [C001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -737,7 +789,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [C010] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [C010] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -754,10 +806,10 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [C100] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [C100] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
-        
+
         //listando C170
         lQuery_02.Active := False;
         lQuery_02.Sql.Clear;
@@ -770,13 +822,13 @@ begin
           begin
             TThread.Synchronize(nil, procedure
             begin
-              TLoading.ChangeText('Gerando Registro [C170] - ' + lQuery_01.RecNo.ToString);
+              TLoading.ChangeText('Gerando Registro [C170] - ' + lQuery_01.FieldByName('ID').AsString);
             end);
             Montar_Linha_1(lQuery_02);
             lQuery_02.Next;
           end;
         end;
-        
+
         //listando C175
         lQuery_02.Active := False;
         lQuery_02.Sql.Clear;
@@ -789,12 +841,12 @@ begin
           begin
             TThread.Synchronize(nil, procedure
             begin
-              TLoading.ChangeText('Gerando Registro [C175] - ' + lQuery_01.RecNo.ToString);
+              TLoading.ChangeText('Gerando Registro [C175] - ' + lQuery_01.FieldByName('ID').AsString);
             end);
             Montar_Linha_1(lQuery_02);
             lQuery_02.Next;
           end;
-        end;        
+        end;
         lQuery_01.Next;
       end;
     end;
@@ -809,7 +861,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [C500] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [C500] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -826,7 +878,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [C501] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [C501] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -843,7 +895,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [C505] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [C505] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -860,7 +912,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [C990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [C990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -877,7 +929,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [D001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [D001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -894,7 +946,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [D010] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [D010] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -911,7 +963,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [D990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [D990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -928,7 +980,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [F001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [F001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -945,7 +997,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [F010] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [F010] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -962,7 +1014,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [F100] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [F100] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -979,7 +1031,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [F990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [F990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -996,7 +1048,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [I001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [I001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1013,7 +1065,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [I990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [I990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1030,7 +1082,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1047,7 +1099,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M100] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M100] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1064,7 +1116,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M105] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M105] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1081,7 +1133,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M110] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M110] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1098,7 +1150,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M200] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M200] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1115,7 +1167,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M205] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M205] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1132,7 +1184,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M210] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M210] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1149,10 +1201,10 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
-        
+
         //listando M410
         lQuery_02.Active := False;
         lQuery_02.Sql.Clear;
@@ -1165,7 +1217,7 @@ begin
           begin
             TThread.Synchronize(nil, procedure
             begin
-              TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.RecNo.ToString);
+              TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.FieldByName('ID').AsString);
             end);
             Montar_Linha_1(lQuery_02);
             lQuery_02.Next;
@@ -1185,7 +1237,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M500] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M500] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1202,7 +1254,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M505] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M505] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1219,7 +1271,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M510] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M510] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1236,7 +1288,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M600] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M600] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1253,7 +1305,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M605] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M605] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1270,7 +1322,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M610] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M610] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1287,10 +1339,10 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M800] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M800] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
-        
+
         //listando M410
         lQuery_02.Active := False;
         lQuery_02.Sql.Clear;
@@ -1303,7 +1355,7 @@ begin
           begin
             TThread.Synchronize(nil, procedure
             begin
-              TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.RecNo.ToString);
+              TLoading.ChangeText('Gerando Registro [M400] - ' + lQuery_01.FieldByName('ID').AsString);
             end);
             Montar_Linha_1(lQuery_02);
             lQuery_02.Next;
@@ -1323,7 +1375,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [M990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [M990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1340,7 +1392,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [P001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [P001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1357,7 +1409,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [P990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [P990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1374,7 +1426,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [1001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [1001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1391,7 +1443,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [1100] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [1100] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1408,7 +1460,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [1500] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [1500] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1425,7 +1477,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [1990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [1990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1442,7 +1494,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [9001] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [9001] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1459,7 +1511,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [9900] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [9900] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1476,7 +1528,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [9990] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [9990] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
@@ -1493,13 +1545,13 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Gerando Registro [9999] - ' + lQuery_01.RecNo.ToString);
+          TLoading.ChangeText('Gerando Registro [9999] - ' + lQuery_01.FieldByName('ID').AsString);
         end);
         Montar_Linha(lQuery_01);
         lQuery_01.Next;
       end;
     end;
-    
+
 
     {$IFDEF MSWINDOWS}
       FreeAndNil(lQuery_01);
@@ -1513,7 +1565,11 @@ begin
 
   t.OnTerminate := ThreadEnd_Gerar;
   t.Start;
+end;
 
+procedure TfrmPrincipal.rctGerarClick(Sender: TObject);
+begin
+  Gerar_Arquivo(Sender);
 end;
 
 procedure TfrmPrincipal.ThreadEnd_Gerar(Sender :TObject);
@@ -1605,7 +1661,7 @@ begin
   begin
     TThread.Synchronize(nil, procedure
     begin
-      TLoading.ChangeText('Preparando Tabelas');
+      TLoading.ChangeText('Preparando Tabelas - Excluindo Registros');
     end);
     TRegistro_Geral.Excluir_Reg0000(lDm);
     TRegistro_Geral.Excluir_Reg0001(lDm);
@@ -1679,7 +1735,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0000] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0000] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0000.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1687,7 +1743,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;                                                                       
@@ -1695,7 +1751,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0100] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0100] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0100.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1703,7 +1759,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0110] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0110] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0110.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1711,7 +1767,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0140] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0140] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0140.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1719,7 +1775,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0150] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0150] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0150.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1727,7 +1783,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0190] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0190] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0190.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1735,7 +1791,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0200] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0200] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0200.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1743,7 +1799,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0400] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0400] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0400.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1751,7 +1807,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0500] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0500] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0500.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1759,7 +1815,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [0990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [0990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_0990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1767,7 +1823,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [A001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [A001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_A001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1775,7 +1831,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [A010] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [A010] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_A010.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1783,7 +1839,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [A990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [A990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_A990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1791,7 +1847,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1799,7 +1855,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C010] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C010] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C010.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1807,7 +1863,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C100] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C100] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C100.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
         lId_C100 := I;
@@ -1816,7 +1872,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C170] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C170] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C170.Insert(lDm,memoRegistros.Lines.Strings[I],I,lId_C100);
       end;
@@ -1824,7 +1880,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C175] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C175] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C175.Insert(lDm,memoRegistros.Lines.Strings[I],I,lId_C100);
       end;
@@ -1832,7 +1888,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C500] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C500] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C500.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1840,7 +1896,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C501] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C501] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C501.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1848,7 +1904,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C505] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C505] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C505.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1856,7 +1912,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [C990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [C990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_C990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1864,7 +1920,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [D001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [D001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_D001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1872,7 +1928,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [D010] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [D010] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_D010.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1880,7 +1936,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [D990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [D990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_D990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1888,7 +1944,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [F001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [F001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_F001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1896,7 +1952,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [F010] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [F010] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_F010.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1904,7 +1960,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [F100] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [F100] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_F100.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1912,7 +1968,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [F990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [F990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_F990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1920,7 +1976,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [I001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [I001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_I001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1928,7 +1984,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [I990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [I990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_I990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1936,7 +1992,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1944,7 +2000,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M100] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M100] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M100.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1952,7 +2008,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M105] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M105] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M105.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1960,7 +2016,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M110] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M110] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M110.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1968,7 +2024,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M200] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M200] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M200.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1976,7 +2032,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M205] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M205] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M205.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1984,7 +2040,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M210] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M210] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M210.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -1992,7 +2048,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M400] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M400] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M400.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
         lId_M400 := I;
@@ -2001,7 +2057,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M410] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M410] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M410.Insert(lDm,memoRegistros.Lines.Strings[I],I,lId_M400);
       end;
@@ -2009,7 +2065,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M500] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M500] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M500.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2017,7 +2073,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M505] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M505] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M505.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2025,7 +2081,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M510] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M510] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M510.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2033,7 +2089,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M600] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M600] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M600.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2041,7 +2097,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M605] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M605] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M605.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2049,7 +2105,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M610] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M610] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M610.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2057,7 +2113,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M800] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M800] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M800.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
         lId_M800 := I;
@@ -2066,7 +2122,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M810] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M810] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M810.Insert(lDm,memoRegistros.Lines.Strings[I],I,lId_M800);
       end;
@@ -2074,7 +2130,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [M990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [M990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_M990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2082,7 +2138,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [P001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [P001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_P001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2090,7 +2146,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [P990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [P990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_P990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2098,7 +2154,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [1001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [1001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_1001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2106,7 +2162,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [1100] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [1100] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_1100.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2114,7 +2170,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [1500] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [1500] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_1500.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2122,7 +2178,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [1990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [1990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_1990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2130,7 +2186,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [9001] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [9001] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_9001.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2138,7 +2194,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [9900] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [9900] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_9900.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2146,7 +2202,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [9990] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [9990] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_9990.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2154,7 +2210,7 @@ begin
       begin
         TThread.Synchronize(nil, procedure
         begin
-          TLoading.ChangeText('Registro [9999] + ' + I.ToString + ' de ' + lCount.ToString);
+          TLoading.ChangeText('Preparar Registro [9999] + ' + I.ToString + ' de ' + lCount.ToString);
         end);
         TRegistro_9999.Insert(lDm,memoRegistros.Lines.Strings[I],I,0);
       end;
@@ -2219,7 +2275,12 @@ begin
   if Assigned(TThread(Sender).FatalException) then
     FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
   else
-    FMensagem.Show(TIconDialog.Success,'Atenção','Arquivo preparado','Ok');
+  begin
+    if imgAutomatico.Tag = 0 then
+      FMensagem.Show(TIconDialog.Success,'Atenção','Arquivo preparado','Ok')
+    else
+      FMensagem.Show(TIconDialog.Question,'Atenção','Abater valorer?','SIM',Abate_ICMS_Base_PIS_COFINS,'NÃO');
+  end;
 
 end;
 
