@@ -18,7 +18,7 @@ type
     tiPIN: TTabItem;
     tiBio: TTabItem;
     lytLog: TLayout;
-    Layout2: TLayout;
+    lytFooter: TLayout;
     lytLogin: TLayout;
     rctLog: TRectangle;
     ShadowEffect1: TShadowEffect;

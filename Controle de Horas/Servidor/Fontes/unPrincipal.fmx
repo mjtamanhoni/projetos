@@ -30,80 +30,13 @@ object frmPrincipal: TfrmPrincipal
       object Memo_Historico: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         DataDetectorTypes = []
-        Lines.Strings = (
-          ''
-          ''
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          'MARCOS JOS'#201' TAMANHONI'
-          ''
-          '')
         Align = Client
         Size.Width = 912.000000000000000000
         Size.Height = 555.000000000000000000
         Size.PlatformDefault = False
         StyleLookup = 'Memostyle_Adapta'
         TabOrder = 0
-        Viewport.Width = 892.000000000000000000
+        Viewport.Width = 908.000000000000000000
         Viewport.Height = 551.000000000000000000
       end
     end

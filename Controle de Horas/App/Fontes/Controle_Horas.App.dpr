@@ -16,7 +16,9 @@ uses
   uLoading in '..\..\..\Classes\99 Coders\Versao 11\uLoading.pas',
   uOpenViewUrl in '..\..\..\Classes\99 Coders\Versao 11\uOpenViewUrl.pas',
   uSuperChart in '..\..\..\Classes\99 Coders\Versao 11\uSuperChart.pas',
-  uFuncoes in '..\..\..\Global\uFuncoes.pas';
+  uFuncoes in '..\..\..\Global\uFuncoes.pas',
+  uUsuario in 'uUsuario.pas' {frmUsuario},
+  DM.ContHoras in 'DM.ContHoras.pas' {DM_ConrHoras: TDataModule};
 
 {$R *.res}
 

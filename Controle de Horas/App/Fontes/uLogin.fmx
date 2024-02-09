@@ -1254,7 +1254,7 @@ object frmLogin: TfrmLogin
             end
           end
         end
-        object Layout2: TLayout
+        object lytFooter: TLayout
           Align = Top
           Position.Y = 447.000000000000000000
           Size.Width = 380.000000000000000000

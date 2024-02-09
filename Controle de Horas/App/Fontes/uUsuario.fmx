@@ -1,0 +1,53 @@
+object frmUsuario: TfrmUsuario
+  Left = 0
+  Top = 0
+  Caption = 'Cadastro de Usuario'
+  ClientHeight = 680
+  ClientWidth = 380
+  Fill.Color = xFFF1F0ED
+  Fill.Kind = Solid
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object lytHeader: TLayout
+    Align = Top
+    Size.Width = 380.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Rectangle1: TRectangle
+      Align = Client
+      Fill.Color = xFF363428
+      Size.Width = 380.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object lytFechar: TLayout
+        Align = Left
+        TabOrder = 0
+        object imgFechar: TImage
+          MultiResBitmap = <
+            item
+            end>
+          Align = Client
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+        end
+      end
+    end
+  end
+  object lytDetail: TLayout
+    Align = Client
+    Size.Width = 380.000000000000000000
+    Size.Height = 630.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+  end
+end
