@@ -7,6 +7,11 @@ uses
 
   uFuncoes,
 
+  {$Region '99 Coders'}
+    uFancyDialog,
+    uLoading,
+  {$EndRegion '99 Coders'}
+
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl, FMX.Layouts, FMX.Objects, FMX.Effects,
   FMX.Controls.Presentation, FMX.Edit, FMX.Ani, FMX.StdCtrls;
 
@@ -45,8 +50,11 @@ type
     procedure edEmail_UserTyping(Sender: TObject);
     procedure edSenhaTyping(Sender: TObject);
     procedure imgVerSenhaClick(Sender: TObject);
+    procedure lbCadastrarClick(Sender: TObject);
+    procedure rctCancelarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    { Private declarations }
+    FMensagem :TFancyDialog;
   public
     { Public declarations }
   end;
@@ -57,6 +65,8 @@ var
 implementation
 
 {$R *.fmx}
+
+uses uUsuario;
 
 procedure TfrmLogin.edEmail_UserKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
 begin
@@ -74,6 +84,12 @@ begin
   TFuncoes.ExibeLabel(edSenha,lbSenha,faSenha,10,-20);
 end;
 
+procedure TfrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+  frmLogin := Nil;
+end;
+
 procedure TfrmLogin.imgVerSenhaClick(Sender: TObject);
 begin
   case imgVerSenha.Tag of
@@ -88,6 +104,18 @@ begin
       imgVerSenha.Tag := 0;
     end;
   end;
+end;
+
+procedure TfrmLogin.lbCadastrarClick(Sender: TObject);
+begin
+  if not Assigned(frmUsuario) then
+    Application.CreateForm(TfrmUsuario,frmUsuario);
+  frmUsuario.Show;
+end;
+
+procedure TfrmLogin.rctCancelarClick(Sender: TObject);
+begin
+  Close;
 end;
 
 end.

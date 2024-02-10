@@ -18,12 +18,14 @@ uses
   uSuperChart in '..\..\..\Classes\99 Coders\Versao 11\uSuperChart.pas',
   uFuncoes in '..\..\..\Global\uFuncoes.pas',
   uUsuario in 'uUsuario.pas' {frmUsuario},
-  DM.ContHoras in 'DM.ContHoras.pas' {DM_ConrHoras: TDataModule};
+  DM.ContHoras in 'DM.ContHoras.pas' {DM_ConrHoras: TDataModule},
+  uModel.Usuario in 'Modelo de Dados\uModel.Usuario.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
+  Application.FormFactor.Orientations := [TFormOrientation.Portrait];
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.Run;
 end.
