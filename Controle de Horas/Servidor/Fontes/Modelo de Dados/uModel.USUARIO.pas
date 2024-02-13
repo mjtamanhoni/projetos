@@ -40,6 +40,7 @@ type
     FEMAIL :String;
     FDT_CADASTRO :TDate;
     FHR_CADASTRO :TTime;
+    FSINCRONIZADO: Integer;
  
     procedure SetID( const Value:Integer);
     procedure SetNOME( const Value:String);
@@ -50,14 +51,15 @@ type
     procedure SetEMAIL( const Value:String);
     procedure SetDT_CADASTRO( const Value:TDate);
     procedure SetHR_CADASTRO( const Value:TTime);
- 
-  public 
-    constructor Create(AConnexao: TFDConnection); 
-    destructor Destroy; override; 
- 
-    procedure Criar_Estrutura(const AFDScript:TFDScript;AFDQuery:TFDQuery); 
-    procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery); 
-    procedure Inicia_Propriedades; 
+    procedure SetSINCRONIZADO(const Value: Integer);
+
+  public
+    constructor Create(AConnexao: TFDConnection);
+    destructor Destroy; override;
+
+    procedure Criar_Estrutura(const AFDScript:TFDScript;AFDQuery:TFDQuery);
+    procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery);
+    procedure Inicia_Propriedades;
     procedure Inserir(const AFDQ_Query:TFDQuery); 
     function Listar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0): TJSONArray; 
     procedure Atualizar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0);
@@ -77,6 +79,7 @@ type
     property PIN:String read FPIN write SetPIN;
     property CELULAR:String read FCELULAR write SetCELULAR;
     property EMAIL:String read FEMAIL write SetEMAIL;
+    property SINCRONIZADO :Integer read FSINCRONIZADO write SetSINCRONIZADO;
     property DT_CADASTRO:TDate read FDT_CADASTRO write SetDT_CADASTRO;
     property HR_CADASTRO:TTime read FHR_CADASTRO write SetHR_CADASTRO;
  
@@ -227,7 +230,7 @@ begin
   inherited; 
 end; 
  
-procedure TUSUARIO.Criar_Estrutura(const AFDScript: TFDScript; AFDQuery: TFDQuery); 
+procedure TUSUARIO.Criar_Estrutura(const AFDScript: TFDScript; AFDQuery: TFDQuery);
 var 
   lScript: TStringList; 
 begin 
@@ -333,7 +336,7 @@ begin
  
 end; 
  
-procedure TUSUARIO.Inicia_Propriedades; 
+procedure TUSUARIO.Inicia_Propriedades;
 begin 
   ID := -1; 
   NOME := ''; 
@@ -341,8 +344,9 @@ begin
   SENHA := ''; 
   PIN := ''; 
   CELULAR := ''; 
-  EMAIL := ''; 
-  DT_CADASTRO := Date; 
+  EMAIL := '';
+  SINCRONIZADO := 0;
+  DT_CADASTRO := Date;
   HR_CADASTRO := Time; 
 end; 
  
@@ -379,6 +383,7 @@ begin
         PIN := AFDQ_Query.FieldByName('PIN').AsString;
         CELULAR := AFDQ_Query.FieldByName('CELULAR').AsString;
         EMAIL := AFDQ_Query.FieldByName('EMAIL').AsString;
+        SINCRONIZADO := AFDQ_Query.FieldByName('SINCRONIZADO').AsInteger;
         DT_CADASTRO := AFDQ_Query.FieldByName('DT_CADASTRO').AsDateTime;
         HR_CADASTRO := AFDQ_Query.FieldByName('HR_CADASTRO').AsDateTime;
       end; 
@@ -413,6 +418,7 @@ begin
       AFDQ_Query.Sql.Add('  ,PIN');
       AFDQ_Query.Sql.Add('  ,CELULAR');
       AFDQ_Query.Sql.Add('  ,EMAIL');
+      AFDQ_Query.Sql.Add('  ,SINCRONIZADO');
       AFDQ_Query.Sql.Add('  ,DT_CADASTRO');
       AFDQ_Query.Sql.Add('  ,HR_CADASTRO');
       AFDQ_Query.Sql.Add(') VALUES(');
@@ -423,6 +429,7 @@ begin
       AFDQ_Query.Sql.Add('  ,:PIN');
       AFDQ_Query.Sql.Add('  ,:CELULAR');
       AFDQ_Query.Sql.Add('  ,:EMAIL');
+      AFDQ_Query.Sql.Add('  ,:SINCRONIZADO');
       AFDQ_Query.Sql.Add('  ,:DT_CADASTRO');
       AFDQ_Query.Sql.Add('  ,:HR_CADASTRO');
       AFDQ_Query.Sql.Add(');');
@@ -433,6 +440,7 @@ begin
       AFDQ_Query.ParamByName('PIN').AsString := FPIN;
       AFDQ_Query.ParamByName('CELULAR').AsString := FCELULAR;
       AFDQ_Query.ParamByName('EMAIL').AsString := FEMAIL;
+      AFDQ_Query.ParamByName('SINCRONIZADO').AsInteger := FSINCRONIZADO;
       AFDQ_Query.ParamByName('DT_CADASTRO').AsDateTime := FDT_CADASTRO;
       AFDQ_Query.ParamByName('HR_CADASTRO').AsDateTime := FHR_CADASTRO;
       AFDQ_Query.ExecSQL; 
@@ -440,59 +448,63 @@ begin
       On Ex:Exception do 
         raise Exception.Create(Ex.Message); 
     end; 
-  finally 
-  end; 
-end; 
- 
+  finally
+  end;
+end;
+
 procedure TUSUARIO.Atualizar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0);
-begin 
-   try 
-     try 
-       AFDQ_Query.Connection := FConexao; 
- 
- 
+begin
+   try
+     try
+       AFDQ_Query.Connection := FConexao;
+
+
       AFDQ_Query.Sql.Add('UPDATE USUARIO SET ');
-      if FNOME <> '' then 
+      if FNOME <> '' then
         AFDQ_Query.Sql.Add('  NOME = :NOME ');
-      if FLOGIN <> '' then 
+      if FLOGIN <> '' then
         AFDQ_Query.Sql.Add('  ,LOGIN = :LOGIN ');
-      if FSENHA <> '' then 
+      if FSENHA <> '' then
         AFDQ_Query.Sql.Add('  ,SENHA = :SENHA ');
-      if FPIN <> '' then 
+      if FPIN <> '' then
         AFDQ_Query.Sql.Add('  ,PIN = :PIN ');
-      if FCELULAR <> '' then 
+      if FCELULAR <> '' then
         AFDQ_Query.Sql.Add('  ,CELULAR = :CELULAR ');
-      if FEMAIL <> '' then 
+      if FEMAIL <> '' then
         AFDQ_Query.Sql.Add('  ,EMAIL = :EMAIL ');
-      if FDT_CADASTRO > 0 then 
+      if FSINCRONIZADO >= 0 then
+        AFDQ_Query.Sql.Add('  ,SINCRONIZADO = :SINCRONIZADO ');
+      if FDT_CADASTRO > 0 then
         AFDQ_Query.Sql.Add('  ,DT_CADASTRO = :DT_CADASTRO ');
-      if FHR_CADASTRO > 0 then 
+      if FHR_CADASTRO > 0 then
         AFDQ_Query.Sql.Add('  ,HR_CADASTRO = :HR_CADASTRO ');
       AFDQ_Query.Sql.Add('WHERE 1=1');
       AFDQ_Query.Sql.Add('  AND ID = :ID');
       AFDQ_Query.ParamByName('ID').AsInteger := FID;
-      if FNOME <> '' then 
+      if FNOME <> '' then
         AFDQ_Query.ParamByName('NOME').AsString := FNOME;
-      if FLOGIN <> '' then 
+      if FLOGIN <> '' then
         AFDQ_Query.ParamByName('LOGIN').AsString := FLOGIN;
-      if FSENHA <> '' then 
+      if FSENHA <> '' then
         AFDQ_Query.ParamByName('SENHA').AsString := FSENHA;
-      if FPIN <> '' then 
+      if FPIN <> '' then
         AFDQ_Query.ParamByName('PIN').AsString := FPIN;
-      if FCELULAR <> '' then 
+      if FCELULAR <> '' then
         AFDQ_Query.ParamByName('CELULAR').AsString := FCELULAR;
-      if FEMAIL <> '' then 
+      if FEMAIL <> '' then
         AFDQ_Query.ParamByName('EMAIL').AsString := FEMAIL;
-      if FDT_CADASTRO > 0 then 
+      if FSINCRONIZADO >= 0 then
+        AFDQ_Query.ParamByName('SINCRONIZADO').AsInteger := FSINCRONIZADO;
+      if FDT_CADASTRO > 0 then
         AFDQ_Query.ParamByName('DT_CADASTRO').AsDateTime := FDT_CADASTRO;
-      if FHR_CADASTRO > 0 then 
+      if FHR_CADASTRO > 0 then
         AFDQ_Query.ParamByName('HR_CADASTRO').AsDateTime := FHR_CADASTRO;
-      AFDQ_Query.ExecSQL; 
-    except 
-      On Ex:Exception do 
-        raise Exception.Create(Ex.Message); 
-    end; 
-  finally 
+      AFDQ_Query.ExecSQL;
+    except
+      On Ex:Exception do
+        raise Exception.Create(Ex.Message);
+    end;
+  finally
   end; 
 end; 
  
@@ -536,6 +548,11 @@ begin
   FSENHA := Value; 
 end;
  
+procedure TUSUARIO.SetSINCRONIZADO(const Value: Integer);
+begin
+  FSINCRONIZADO := Value;
+end;
+
 function TUSUARIO.ValidaLogin(const AFDQ_Query: TFDQuery; const AUsuario, ASenha, APin: String): TJsonObject;
 begin
   try

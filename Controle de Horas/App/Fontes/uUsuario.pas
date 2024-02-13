@@ -13,10 +13,17 @@ uses
   {$EndRegion '99 Coders'}
 
   uFuncoes,
+  DM.ContHoras,
+
+  {$Region 'Modelo de dados'}
+    uModel.Usuario,
+  {$EndRegion 'Modelo de dados'}
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation,
   FMX.StdCtrls, FMX.TabControl, FMX.Ani, FMX.Edit, FMX.MediaLibrary, FMX.MediaLibrary.Actions, System.Actions,
-  FMX.ActnList, FMX.StdActns;
+  FMX.ActnList, FMX.StdActns, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
 
 type
   TfrmUsuario = class(TForm)
@@ -51,19 +58,6 @@ type
     lytEtapa1_Acoes: TLayout;
     lytAnterior: TLayout;
     lytProximo: TLayout;
-    lytEtapa2: TLayout;
-    lytPin: TLayout;
-    edPin: TEdit;
-    lbPin: TLabel;
-    faPin: TFloatAnimation;
-    lytCelular: TLayout;
-    edCelular: TEdit;
-    lbCelular: TLabel;
-    faCelular: TFloatAnimation;
-    lytEmail: TLayout;
-    edEmail: TEdit;
-    lbEmail: TLabel;
-    faEmail: TFloatAnimation;
     imgProximo: TImage;
     imgAnterior: TImage;
     tiEtapa3: TTabItem;
@@ -84,6 +78,19 @@ type
     imgVer: TImage;
     lytConfirmar: TLayout;
     imgConfirmar: TImage;
+    lytEtapa2: TLayout;
+    lytPin: TLayout;
+    edPin: TEdit;
+    lbPin: TLabel;
+    faPin: TFloatAnimation;
+    lytCelular: TLayout;
+    edCelular: TEdit;
+    lbCelular: TLabel;
+    faCelular: TFloatAnimation;
+    lytEmail: TLayout;
+    edEmail: TEdit;
+    lbEmail: TLabel;
+    faEmail: TFloatAnimation;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -105,17 +112,25 @@ type
     procedure edCelularTyping(Sender: TObject);
     procedure edEmailTyping(Sender: TObject);
     procedure imgConfirmarClick(Sender: TObject);
+    procedure edSenhaKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
   private
     FMensagem :TFancyDialog;
     FPermissao: T99Permissions;
+    lDM :TDM_ConrHoras;
+    lTUSUARIO :TUSUARIO;
+    FID: Integer;
+    lFDC_Insert :TFDQuery;
 
     procedure MudarTab(ATab: Integer);
     procedure TrataErroPermissao(Sender: TObject);
     procedure SalvarAlteracoes(Sender: TOBject);
     procedure CancelarAlteracoes(Sender: TOBject);
     procedure ThreadEnd_SalvarAlteracoes(Sender: TOBject);
+    procedure SetID(const Value: Integer);
+    procedure Sincronizar(Sender: TOBject);
+    procedure ThreadEnd_Sincronizar(Sender: TOBject);
   public
-    { Public declarations }
+    property ID :Integer read FID write SetID;
   end;
 
 var
@@ -187,6 +202,15 @@ begin
   TFuncoes.ExibeLabel(edPin,lbPin,faPin,10,-20);
 end;
 
+procedure TfrmUsuario.edSenhaKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+  begin
+    tcCadastro.GotoVisibleTab(tcCadastro.TabIndex+1);
+    TFuncoes.PularCampo(edPin);
+  end;
+end;
+
 procedure TfrmUsuario.edSenhaTyping(Sender: TObject);
 begin
   TFuncoes.ExibeLabel(edSenha,lbSenha,faSenha,10,-20);
@@ -197,9 +221,15 @@ begin
   {$IFDEF MSWINDOWS}
     FreeAndNil(FMensagem);
     FreeAndNil(FPermissao);
+    FreeAndNil(lDM);
+    FreeAndNil(lTUSUARIO);
+    FreeAndNil(lFDC_Insert);
   {$ELSE}
     FMensagem.DisposeOf;
     FPermissao.DisposeOf;
+    lDM.DisposeOf;
+    lTUSUARIO.DisposeOf;
+    lFDC_Insert.DisposeOf;
   {$ENDIF}
 
   Action := TCloseAction.caFree;
@@ -213,6 +243,13 @@ begin
 
   tcCadastro.ActiveTab := tiEtapa1;
   lytAnterior.Visible := False;
+
+  ID := 0;
+  lDM := TDM_ConrHoras.Create(Nil);
+  lTUSUARIO := TUSUARIO.Create(lDM.FDC_Conexao);
+  lFDC_Insert := TFDQuery.Create(Nil);
+  lFDC_Insert.Connection := lDM.FDC_Conexao;
+
 end;
 
 procedure TfrmUsuario.imgAnteriorClick(Sender: TObject);
@@ -234,12 +271,30 @@ begin
   t := TThread.CreateAnonymousThread(
   procedure
   begin
-
+    lTUSUARIO.ID := FID;
+    lTUSUARIO.NOME := edNome.Text;
+    lTUSUARIO.LOGIN := edLogin.Text;
+    lTUSUARIO.SENHA := edSenha.Text;
+    lTUSUARIO.PIN := edPin.Text;
+    lTUSUARIO.EMAIL := edEmail.Text;
+    lTUSUARIO.CELULAR := edCelular.Text;
+    lTUSUARIO.SINCRONIZADO := 0;
+    lTUSUARIO.DT_CADASTRO := Date;
+    lTUSUARIO.HR_CADASTRO := Time;
+    if FID = 0 then
+      FID := lTUSUARIO.Inserir(lFDC_Insert)
+    else
+      //Atualizando um usuário já cadastrado...
   end);
 
   t.OnTerminate := ThreadEnd_SalvarAlteracoes;
   t.Start;
 
+end;
+
+procedure TfrmUsuario.SetID(const Value: Integer);
+begin
+  FID := Value;
 end;
 
 procedure TfrmUsuario.ThreadEnd_SalvarAlteracoes(Sender :TOBject);
@@ -248,7 +303,40 @@ begin
   if Assigned(TThread(Sender).FatalException) then
     FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
   else
+  begin
+    FMensagem.Show(TIconDialog.Question,'Atenção','Deseja sincronizar o Usuário?','SIM',Sincronizar,'NÃO');
     MudarTab(0);
+  end;
+end;
+
+procedure TfrmUsuario.Sincronizar(Sender :TOBject);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmUsuario,'Sincronizando usuário');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lFDC_Query :TFDQuery;
+  begin
+    lDM.Sinc_Usuario;
+  end);
+
+  t.OnTerminate := ThreadEnd_Sincronizar;
+  t.Start;
+
+end;
+
+procedure TfrmUsuario.ThreadEnd_Sincronizar(Sender :TOBject);
+var
+  lFDC_Query :TFDQuery;
+begin
+  TLoading.Hide;
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+    Close;
 end;
 
 procedure TfrmUsuario.imgFecharClick(Sender: TObject);

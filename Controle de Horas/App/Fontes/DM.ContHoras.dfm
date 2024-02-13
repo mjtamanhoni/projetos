@@ -1,4 +1,5 @@
 object DM_ConrHoras: TDM_ConrHoras
+  OnCreate = DataModuleCreate
   Height = 422
   Width = 294
   object FDC_Conexao: TFDConnection

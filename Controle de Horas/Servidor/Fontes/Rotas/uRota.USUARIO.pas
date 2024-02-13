@@ -143,16 +143,17 @@ begin
  
       for I := 0 to (lBody.Size - 1) do 
       begin 
-        lTUSUARIO.Inicia_Propriedades; 
- 
-        lTUSUARIO.ID := lBody[I].GetValue<Integer>('id',0); 
-        lTUSUARIO.NOME := lBody[I].GetValue<String>('nome',''); 
-        lTUSUARIO.LOGIN := lBody[I].GetValue<String>('login',''); 
-        lTUSUARIO.SENHA := lBody[I].GetValue<String>('senha',''); 
-        lTUSUARIO.PIN := lBody[I].GetValue<String>('pin',''); 
-        lTUSUARIO.CELULAR := lBody[I].GetValue<String>('celular',''); 
-        lTUSUARIO.EMAIL := lBody[I].GetValue<String>('email',''); 
-        lTUSUARIO.DT_CADASTRO := TFuncoes.Retorna_Data_Json(lBody[I].GetValue<String>('dtCadastro',DateToStr(Date)),lErro); 
+        lTUSUARIO.Inicia_Propriedades;
+
+        lTUSUARIO.ID := lBody[I].GetValue<Integer>('id',0);
+        lTUSUARIO.NOME := lBody[I].GetValue<String>('nome','');
+        lTUSUARIO.LOGIN := lBody[I].GetValue<String>('login','');
+        lTUSUARIO.SENHA := lBody[I].GetValue<String>('senha','');
+        lTUSUARIO.PIN := lBody[I].GetValue<String>('pin','');
+        lTUSUARIO.CELULAR := lBody[I].GetValue<String>('celular','');
+        lTUSUARIO.EMAIL := lBody[I].GetValue<String>('email','');
+        lTUSUARIO.SINCRONIZADO := 1;//lBody[I].GetValue<Integer>('sincronizado',0);
+        lTUSUARIO.DT_CADASTRO := TFuncoes.Retorna_Data_Json(lBody[I].GetValue<String>('dtCadastro',DateToStr(Date)),lErro);
         lTUSUARIO.HR_CADASTRO := TFuncoes.Retorna_Hora_Json(lBody[I].GetValue<String>('hrCadastro',DateToStr(Date)),lErro); 
         lTUSUARIO.Inserir(lQuery); 
       end; 
