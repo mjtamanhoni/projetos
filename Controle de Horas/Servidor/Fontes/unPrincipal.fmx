@@ -54,8 +54,6 @@ object frmPrincipal: TfrmPrincipal
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
-        XRadius = 25.000000000000000000
-        YRadius = 25.000000000000000000
         object lbTitulo: TLabel
           Align = Contents
           StyledSettings = []
@@ -1338,8 +1336,6 @@ object frmPrincipal: TfrmPrincipal
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
-        XRadius = 25.000000000000000000
-        YRadius = 25.000000000000000000
         object ShadowEffect2: TShadowEffect
           Distance = 3.000000000000000000
           Direction = -45.000000000000000000

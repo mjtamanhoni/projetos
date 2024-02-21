@@ -118,6 +118,7 @@ begin
     lQuery_100 :TFDQuery;
     lQuery_170 :TFDQuery;
     lQuery_175 :TFDQuery;
+    lQuery :TFDQuery;
     lUpdate :TFDQuery;
     lPis :Double;
     lCofins :Double;
@@ -140,6 +141,9 @@ begin
 
     lQuery_175 := TFDQuery.Create(Nil);
     lQuery_175.Connection := lDm.FDC_Sped;
+
+    lQuery := TFDQuery.Create(Nil);
+    lQuery.Connection := lDm.FDC_Sped;
 
     lUpdate := TFDQuery.Create(Nil);
     lUpdate.Connection := lDm.FDC_Sped;
@@ -246,6 +250,26 @@ begin
             end;
           end;
 
+          {$Region 'Pegando o valor total das mercadorias ignorando CFOP 5405'}
+            lVlr_Merc := 0;
+            lQuery.Active := False;
+            lQuery.SQL.Clear;
+            lQuery.SQL.Add('SELECT VL_OPR ');
+            lQuery.SQL.Add('FROM REGISTRO_C175 ');
+            lQuery.SQL.Add('WHERE CFOP <> ''5405'' ');
+            lQuery.SQL.Add('  AND ID_C100 = ' + IntToStr(lQuery_100.FieldByName('ID').AsInteger));
+            lQuery.Active := True;
+            if not lQuery.IsEmpty then
+            begin
+              lQuery.First;
+              while not lQuery.Eof do
+              begin
+                lVlr_Merc := lVlr_Merc + StrToFloatDef(lQuery.FieldByName('VL_OPR').AsString,0);
+                lQuery.Next;
+              end;
+            end;
+          {$EndRegion 'Pegando o valor total das mercadorias ignorando CFOP 5405'}
+
           lQuery_175.Active := False;
           lQuery_175.SQL.Clear;
           lQuery_175.SQL.Add('SELECT * FROM REGISTRO_C175 WHERE ID_C100 = ' + IntToStr(lQuery_100.FieldByName('ID').AsInteger));
@@ -270,10 +294,10 @@ begin
                 if (lQuery_175.FieldByName('CFOP').AsString <> '5405') then
                 begin
                   lVlr_Oper := 0;
-                  lVlr_Merc := 0;
+                  //lVlr_Merc := 0;
                   lPerc := 0;
                   lVlr_Oper := StrToFloatDef(lQuery_175.FieldByName('VL_OPR').AsString,0);
-                  lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
+                  //lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
                   lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-2);
                   lBaseIcms := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
                   lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0) * lPerc) / 100),-2);
@@ -311,10 +335,10 @@ begin
                 if (lQuery_175.FieldByName('CFOP').AsString <> '5405') then
                 begin
                   lVlr_Oper := 0;
-                  lVlr_Merc := 0;
+                  //lVlr_Merc := 0;
                   lPerc := 0;
                   lVlr_Oper := StrToFloatDef(lQuery_175.FieldByName('VL_OPR').AsString,0);
-                  lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
+                  //lVlr_Merc := StrToFloatDef(lQuery_100.FieldByName('VL_MERC').AsString,0);
                   lPerc := RoundTo(((lVlr_Oper * 100) / lVlr_Merc),-2);
                   lBaseIcms := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_BC_ICMS').AsString,0) * lPerc) / 100),-2);
                   lICMS := RoundTo(((StrToFloatDef(lQuery_100.FieldByName('VL_ICMS').AsString,0) * lPerc) / 100),-2);
@@ -385,11 +409,13 @@ begin
       FreeAndNil(lQuery_100);
       FreeAndNil(lQuery_170);
       FreeAndNil(lQuery_175);
+      FreeAndNIl(lQuery);
       FreeAndNil(lUpdate);
     {$ELSE}
       lQuery_100.DisposeOf;
       lQuery_170.DisposeOf;
       lQuery_175.DisposeOf;
+      lQuery.DisposeOf;
       lUpdate.DisposeOf;
     {$ENDIF}
 

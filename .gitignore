@@ -58,3 +58,16 @@ Sped/Contribuicoes/DeskTop/Fontes/Win64/Debug/
 *.dcu
 *.S3DB
 Controle de Horas/App/Fontes/Modelo de Dados/__history/
+Android64/Release/
+Android/Release/
+Controle de Horas/App/Fontes/Android/Debug/
+Controle de Horas/App/Fontes/Android/Release/
+Controle de Horas/App/Fontes/Android64/Debug/
+Controle de Horas/App/Fontes_/__history/
+Controle de Horas/App/Fontes_/Android/Release/
+Controle de Horas/App/Fontes_/Android64/Debug/
+Controle de Horas/App/Fontes_/Android64/Release/
+Controle de Horas/App/Fontes_/Modelo de Dados/__history/
+Global/Versao 12/__history/
+*.rar
+Controle de Horas/App/Fontes_/

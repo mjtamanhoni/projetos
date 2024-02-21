@@ -12,49 +12,50 @@ uses
     uLoading,
   {$EndRegion '99 Coders'}
 
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl, FMX.Layouts, FMX.Objects, FMX.Effects,
-  FMX.Controls.Presentation, FMX.Edit, FMX.Ani, FMX.StdCtrls;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Ani, FMX.Edit, FMX.Controls.Presentation,
+  FMX.StdCtrls, FMX.Effects, FMX.Objects, FMX.TabControl, FMX.Layouts;
 
 type
   TfrmLogin = class(TForm)
+    StyleBook_Principal: TStyleBook;
+    imgNVer: TImage;
+    imgVer: TImage;
     lytPrincipal: TLayout;
     tcLogin: TTabControl;
     tiUserSenha: TTabItem;
-    tiPIN: TTabItem;
-    tiBio: TTabItem;
     lytLog: TLayout;
-    lytFooter: TLayout;
-    lytLogin: TLayout;
     rctLog: TRectangle;
     ShadowEffect1: TShadowEffect;
     imgLog: TImage;
+    lytFooter: TLayout;
+    lbCadastrar: TLabel;
+    lytLogin: TLayout;
     lytUser: TLayout;
-    lytSenha: TLayout;
-    lytUserSenha_Confir: TLayout;
-    StyleBook_Principal: TStyleBook;
     edEmail_User: TEdit;
     lbEmail_User: TLabel;
     faEmail: TFloatAnimation;
+    lytSenha: TLayout;
     edSenha: TEdit;
     lbSenha: TLabel;
     faSenha: TFloatAnimation;
+    imgVerSenha: TImage;
+    lytUserSenha_Confir: TLayout;
     rctConfirmar: TRectangle;
+    lbConfirmar: TLabel;
     rctCancelar: TRectangle;
     lbCancelar: TLabel;
-    lbConfirmar: TLabel;
-    lbCadastrar: TLabel;
-    imgVerSenha: TImage;
-    imgVer: TImage;
-    imgNVer: TImage;
+    tiPIN: TTabItem;
+    tiBio: TTabItem;
     procedure edEmail_UserKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
     procedure edEmail_UserTyping(Sender: TObject);
     procedure edSenhaTyping(Sender: TObject);
-    procedure imgVerSenhaClick(Sender: TObject);
-    procedure lbCadastrarClick(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure imgVerSenhaClick(Sender: TObject);
+    procedure lbCadastrarClick(Sender: TObject);
   private
-    FMensagem :TFancyDialog;
+    { Private declarations }
   public
     { Public declarations }
   end;
@@ -66,7 +67,8 @@ implementation
 
 {$R *.fmx}
 
-uses uUsuario;
+uses
+  uUsuario;
 
 procedure TfrmLogin.edEmail_UserKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
 begin
@@ -88,6 +90,12 @@ procedure TfrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := TCloseAction.caFree;
   frmLogin := Nil;
+end;
+
+procedure TfrmLogin.FormShow(Sender: TObject);
+begin
+  if edEmail_User.CanFocus then
+    edEmail_User.SetFocus;
 end;
 
 procedure TfrmLogin.imgVerSenhaClick(Sender: TObject);
@@ -119,13 +127,3 @@ begin
 end;
 
 end.
-
-
-
-
-{
-CORES DO APP
-  Verde Escuro: #FF363428
-  Verde Claro: #FFA1B24E
-  Componentes: #FFD9D7CA
-}

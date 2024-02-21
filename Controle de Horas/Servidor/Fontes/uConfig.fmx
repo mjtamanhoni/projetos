@@ -37,8 +37,6 @@ object frmConfiguracoes: TfrmConfiguracoes
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
-        XRadius = 25.000000000000000000
-        YRadius = 25.000000000000000000
         object lbTitulo: TLabel
           Align = Contents
           StyledSettings = []
@@ -127,8 +125,6 @@ object frmConfiguracoes: TfrmConfiguracoes
         Size.Height = 50.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
-        XRadius = 25.000000000000000000
-        YRadius = 25.000000000000000000
         object lytCancelar: TLayout
           Align = Right
           Position.X = 797.000000000000000000
