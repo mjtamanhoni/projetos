@@ -217,7 +217,6 @@ begin
       imgFirebird_Senha_View.Tag := 0;
     end;
   end;
-
 end;
 
 procedure TfrmConfiguracoes.rctCancelarClick(Sender: TObject);
