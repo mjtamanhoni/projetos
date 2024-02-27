@@ -23,7 +23,8 @@ uses
   uRota.TABELA_PRECO in 'Rotas\uRota.TABELA_PRECO.pas',
   uRota.USUARIO in 'Rotas\uRota.USUARIO.pas',
   uConfig in 'uConfig.pas' {frmConfig},
-  uDM_Global in 'uDM_Global.pas' {DM: TDataModule};
+  uDM_Global in 'uDM_Global.pas' {DM: TDataModule},
+  uEstrutura.Gerar in '..\..\..\Global\uEstrutura.Gerar.pas' {frmCriarEstrutura};
 
 {$R *.res}
 

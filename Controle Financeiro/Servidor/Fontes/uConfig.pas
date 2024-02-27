@@ -107,6 +107,7 @@ type
       var KeyChar: Char; Shift: TShiftState);
     procedure imgFirebird_Senha_ViewClick(Sender: TObject);
     procedure imgFirebird_BibliotecaClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
@@ -158,6 +159,12 @@ begin
 
   FMensagem := TFancyDialog.Create(frmConfig);
   tcPrincipal.ActiveTab := tiServidor;
+end;
+
+procedure TfrmConfig.FormShow(Sender: TObject);
+begin
+  Ler_Dados_Banco;
+  Ler_Dados_Servidor;
 end;
 
 procedure TfrmConfig.rctCancelarClick(Sender: TObject);

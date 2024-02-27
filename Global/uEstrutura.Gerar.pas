@@ -17,7 +17,7 @@ uses
   FireDAC.Comp.Client,
 
   uFuncoes,
-  uDm.Servidor;
+  uDm_Global;
 
 type
   TfrmCriarEstrutura = class(TForm)
@@ -58,7 +58,7 @@ type
   private
     FEnder :String;
     FMensagem :TFancyDialog;
-    FDm :TDM_Servidor;
+    FDm :TDM;
 
     procedure Cria_ModeloDados(const ANomeEstrutura, Tabela: String);
     procedure Cria_Rotas(const ANomeEstrutura, ATabela: String);
@@ -93,7 +93,7 @@ end;
 
 procedure TfrmCriarEstrutura.FormCreate(Sender: TObject);
 begin
-  FDm := TDM_Servidor.Create(Nil);
+  FDm := TDM.Create(Nil);
 
   FMensagem := TFancyDialog.Create(frmCriarEstrutura);
   FEnder  := '';

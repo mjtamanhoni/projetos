@@ -1,4 +1,5 @@
 object DM: TDM
+  OnCreate = DataModuleCreate
   Height = 369
   Width = 269
   object FDC_Servidor: TFDConnection
@@ -11,6 +12,7 @@ object DM: TDM
     TxOptions.Isolation = xiReadCommitted
     TxOptions.DisconnectAction = xdRollback
     LoginPrompt = False
+    BeforeConnect = FDC_ServidorBeforeConnect
     Left = 64
     Top = 16
   end
