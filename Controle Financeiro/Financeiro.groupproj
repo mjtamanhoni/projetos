@@ -6,6 +6,9 @@
         <Projects Include="Servidor\Fontes\Servidor.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="App\Fontes\Financeiro.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -23,14 +26,23 @@
     <Target Name="Servidor:Make">
         <MSBuild Projects="Servidor\Fontes\Servidor.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Financeiro">
+        <MSBuild Projects="App\Fontes\Financeiro.dproj"/>
+    </Target>
+    <Target Name="Financeiro:Clean">
+        <MSBuild Projects="App\Fontes\Financeiro.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Financeiro:Make">
+        <MSBuild Projects="App\Fontes\Financeiro.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Servidor"/>
+        <CallTarget Targets="Servidor;Financeiro"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Servidor:Clean"/>
+        <CallTarget Targets="Servidor:Clean;Financeiro:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Servidor:Make"/>
+        <CallTarget Targets="Servidor:Make;Financeiro:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
