@@ -3,9 +3,10 @@ unit uLogin;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, System.IOUtils,
 
   uFuncoes,
+  IniFiles,
 
   {$Region '99 Coders'}
     uFancyDialog,
@@ -38,8 +39,12 @@ type
     lbCadastrar: TLabel;
     imgNVer: TImage;
     imgVer: TImage;
-    GlowEffect1: TGlowEffect;
-    GlowEffect2: TGlowEffect;
+    rctInformacoes: TRectangle;
+    lytEmail: TLayout;
+    lytSenha: TLayout;
+    lytAcessarSist: TLayout;
+    lytCadastrar: TLayout;
+    imgConfig: TImage;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure edEmail_UserKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -47,8 +52,14 @@ type
     procedure edSenhaTyping(Sender: TObject);
     procedure imgVerSenhaClick(Sender: TObject);
     procedure lbCadastrarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure imgConfigClick(Sender: TObject);
   private
     FMensagem :TFancyDialog;
+    FIniFile :TIniFile;
+    FEnder :String;
+    procedure Config_URL(Sender: TOBject);
   public
     { Public declarations }
   end;
@@ -57,11 +68,11 @@ var
   frmLogin: TfrmLogin;
 
 implementation
-
 {$R *.fmx}
 
 uses
-  uPerfil_Usuario;
+  uPerfil_Usuario,
+  uConfig;
 
 procedure TfrmLogin.edEmail_UserKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
@@ -81,8 +92,52 @@ end;
 
 procedure TfrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  {$IFDEF MSWINDOWS}
+    FreeAndNil(FIniFile);
+    FreeAndNil(FMensagem);
+  {$ELSE}
+    FIniFile.DisposeOf;
+    FMensagem.DisposeOf;
+  {$ENDIF}
+
   Action := TCloseAction.caFree;
   frmLogin := Nil;
+end;
+
+procedure TfrmLogin.FormCreate(Sender: TObject);
+begin
+  FMensagem := TFancyDialog.Create(frmLogin);
+  FEnder  := '';
+  {$IFDEF MSWINDOWS}
+    FEnder := System.SysUtils.GetCurrentDir + '\FINANCEIRO.ini';
+  {$ELSE}
+    FEnder := System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath,'FINANCEIRO.ini');
+  {$ENDIF}
+  FIniFile := TIniFile.Create(FEnder);
+end;
+
+procedure TfrmLogin.FormShow(Sender: TObject);
+var
+  lHost :String;
+begin
+  lHost := '';
+  lHost := FIniFile.ReadString('SERVER','BASE_URL','');
+  if lHost = '' then
+    FMensagem.Show(TIconDialog.Question,'Atenção','Não há URL de conexão com o Servidor configurada. Deseja configurar agora?','Sim',Config_URL,'Não');
+end;
+
+procedure TfrmLogin.Config_URL(Sender :TOBject);
+begin
+  if not Assigned(frmConfig) then
+    Application.CreateForm(TfrmConfig,frmConfig);
+  frmConfig.Show;
+end;
+
+procedure TfrmLogin.imgConfigClick(Sender: TObject);
+begin
+  if not Assigned(frmConfig) then
+    Application.CreateForm(TfrmConfig,frmConfig);
+  frmConfig.Show;
 end;
 
 procedure TfrmLogin.imgFecharClick(Sender: TObject);

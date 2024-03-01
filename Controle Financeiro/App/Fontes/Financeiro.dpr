@@ -16,12 +16,16 @@ uses
   uLoading in '..\..\..\Classes\99 Coders\Versao 11\uLoading.pas',
   uOpenViewUrl in '..\..\..\Classes\99 Coders\Versao 11\uOpenViewUrl.pas',
   uSuperChart in '..\..\..\Classes\99 Coders\Versao 11\uSuperChart.pas',
-  uPerfil_Usuario in 'uPerfil_Usuario.pas' {frmPerfilUsuario};
+  uPerfil_Usuario in 'uPerfil_Usuario.pas' {frmPerfilUsuario},
+  uModel.Usuario in 'Modelo de Dados\uModel.Usuario.pas',
+  uDM_Global in 'uDM_Global.pas' {DM: TDataModule},
+  uConfig in 'uConfig.pas' {frmConfig};
 
 {$R *.res}
 
 begin
   Application.Initialize;
+  Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.Run;
 end.

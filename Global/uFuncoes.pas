@@ -604,7 +604,10 @@ begin
     lHor := StrToInt(Copy(AHora,1,2));
     lMin := StrToInt(Copy(AHora,4,2));
     lSec := StrToInt(Copy(AHora,7,2));
-    lMil := StrToInt(Copy(AHora,10,4));
+    if Length(AHora) > 8 then
+      lMil := StrToInt(Copy(AHora,10,4))
+    else
+      lMil := 0;
 
     Result := EncodeTime(lHor,lMin,lSec,lMil);
   except

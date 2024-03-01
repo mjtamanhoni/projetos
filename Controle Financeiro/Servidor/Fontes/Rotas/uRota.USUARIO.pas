@@ -154,7 +154,7 @@ begin
         lTUSUARIO.EMAIL := lBody[I].GetValue<String>('email','');
         lTUSUARIO.SINCRONIZADO := 1;//lBody[I].GetValue<Integer>('sincronizado',0);
         lTUSUARIO.DT_CADASTRO := TFuncoes.Retorna_Data_Json(lBody[I].GetValue<String>('dtCadastro',DateToStr(Date)),lErro);
-        lTUSUARIO.HR_CADASTRO := TFuncoes.Retorna_Hora_Json(lBody[I].GetValue<String>('hrCadastro',DateToStr(Date)),lErro); 
+        lTUSUARIO.HR_CADASTRO := TFuncoes.Retorna_Hora_Json(lBody[I].GetValue<String>('hrCadastro',TimeToStr(Time)),lErro);
         lTUSUARIO.Inserir(lQuery); 
       end; 
  

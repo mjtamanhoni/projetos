@@ -2,6 +2,6 @@
 <BorlandProject>
 	<Transactions/>
 	<Default.Personality>
-		<Projects ActiveProject="C:\Developer\Controle Financeiro\App\Fontes\Financeiro.dproj"/>
+		<Projects ActiveProject="C:\Developer\Controle Financeiro\Servidor\Fontes\Servidor.dproj"/>
 	</Default.Personality>
 </BorlandProject>

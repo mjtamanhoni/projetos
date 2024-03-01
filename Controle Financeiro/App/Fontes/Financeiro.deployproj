@@ -438,6 +438,24 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="..\..\DataBase\FINANCEIRO.S3DB" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Financeiro\assets\internal\</RemoteDir>
+            <RemoteName>FINANCEIRO.S3DB</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\..\DataBase\FINANCEIRO.S3DB" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Financeiro\assets\internal\</RemoteDir>
+            <RemoteName>FINANCEIRO.S3DB</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_470x320.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Financeiro\res\drawable-normal\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
@@ -477,6 +495,24 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="..\..\DataBase\FINANCEIRO.S3DB" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Financeiro\assets\internal\</RemoteDir>
+            <RemoteName>FINANCEIRO.S3DB</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\..\DataBase\FINANCEIRO.S3DB" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Financeiro\</RemoteDir>
+            <RemoteName>FINANCEIRO.S3DB</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Android\Release\styles.xml" Condition="'$(Config)'=='Release'">
             <RemoteDir>Financeiro\res\values\</RemoteDir>
             <RemoteName>styles.xml</RemoteName>
@@ -508,6 +544,15 @@
             <RemoteDir>Financeiro\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(NDKBasePath)\prebuilt\android-arm\gdbserver\gdbserver" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Financeiro\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>gdbserver</RemoteName>
+            <DeployClass>AndroidGDBServer</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -696,7 +741,18 @@
         </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='OSXARM64'"/>
-    <ItemGroup Condition="'$(Platform)'=='Win64'"/>
+    <ItemGroup Condition="'$(Platform)'=='Win64'">
+        <DeployFile Include="Win64\Release\Financeiro.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Financeiro\</RemoteDir>
+            <RemoteName>Financeiro.exe</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Linux64'"/>
     <ItemGroup Condition="'$(Platform)'=='iOSDevice64'"/>
     <ItemGroup Condition="'$(Platform)'=='iOSSimARM64'"/>
