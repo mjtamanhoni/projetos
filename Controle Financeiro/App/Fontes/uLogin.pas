@@ -7,6 +7,7 @@ uses
 
   uFuncoes,
   IniFiles,
+  uDM_Global,
 
   {$Region '99 Coders'}
     uFancyDialog,
@@ -55,6 +56,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure imgConfigClick(Sender: TObject);
+    procedure rctAcessarClick(Sender: TObject);
   private
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
@@ -114,6 +116,8 @@ begin
     FEnder := System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath,'FINANCEIRO.ini');
   {$ENDIF}
   FIniFile := TIniFile.Create(FEnder);
+
+  edEmail_User.Text := FIniFile.ReadString('LOGIN','EMAIL','');
 end;
 
 procedure TfrmLogin.FormShow(Sender: TObject);
@@ -122,6 +126,10 @@ var
 begin
   lHost := '';
   lHost := FIniFile.ReadString('SERVER','BASE_URL','');
+
+  if edEmail_User.CanFocus then
+    edEmail_User.SetFocus;
+
   if lHost = '' then
     FMensagem.Show(TIconDialog.Question,'Atenção','Não há URL de conexão com o Servidor configurada. Deseja configurar agora?','Sim',Config_URL,'Não');
 end;
@@ -166,6 +174,24 @@ begin
   if not Assigned(frmPerfilUsuario) then
     Application.CreateForm(TfrmPerfilUsuario,frmPerfilUsuario);
   frmPerfilUsuario.Show;
+end;
+
+procedure TfrmLogin.rctAcessarClick(Sender: TObject);
+begin
+  try
+    if Trim(edEmail_User.Text) = '' then
+      raise Exception.Create('E-mail é obrigatório');
+    if Trim(edEmail_User.Text) = '' then
+      raise Exception.Create('Senha é obrigatória');
+
+    if DM.Realizar_Login(edEmail_User.Text,edSenha.Text) then
+    begin
+      FMensagem.Show(TIconDialog.Success,'Atenção','Login Realizado','Ok');
+      FIniFile.WriteString('LOGIN','EMAIL',edEmail_User.Text);
+    end;
+  except on E: Exception do
+    FMensagem.Show(TIconDialog.Error,'Erro',E.Message,'Ok');
+  end;
 end;
 
 end.

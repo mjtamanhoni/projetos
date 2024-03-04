@@ -19,7 +19,8 @@ uses
   uPerfil_Usuario in 'uPerfil_Usuario.pas' {frmPerfilUsuario},
   uModel.Usuario in 'Modelo de Dados\uModel.Usuario.pas',
   uDM_Global in 'uDM_Global.pas' {DM: TDataModule},
-  uConfig in 'uConfig.pas' {frmConfig};
+  uConfig in 'uConfig.pas' {frmConfig},
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal};
 
 {$R *.res}
 

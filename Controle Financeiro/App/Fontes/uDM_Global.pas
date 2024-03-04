@@ -39,6 +39,8 @@ type
 
     procedure CarregarConfigDB(Connection: TFDConnection);
   public
+    function Realizar_Login(AEmail,ASenha:String):Boolean;
+
     {$Region 'Sincronizar'}
       function Sinc_Usuario:TJSONObject;
     {$EndRegion 'Sincronizar'}
@@ -100,6 +102,32 @@ end;
 procedure TDM.FDC_ConexaoBeforeCommit(Sender: TObject);
 begin
   //CarregarConfigDB(FDC_Conexao);
+end;
+
+function TDM.Realizar_Login(AEmail, ASenha: String): Boolean;
+begin
+  try
+    try
+      Result := False;
+
+      FDQ_Usuario.Active := False;
+      FDQ_Usuario.Sql.Clear;
+      FDQ_Usuario.Sql.Add('SELECT ');
+      FDQ_Usuario.Sql.Add('  U.* ');
+      FDQ_Usuario.Sql.Add('FROM USUARIO U ');
+      FDQ_Usuario.Sql.Add('WHERE U.SENHA = ' + QuotedStr(ASenha));
+      FDQ_Usuario.Sql.Add('  AND U.LOGIN = ' + QuotedStr(AEmail));
+      FDQ_Usuario.Active := True;
+      if FDQ_Usuario.IsEmpty then
+        raise Exception.Create('Usuário ou Senha inválidos')
+      else
+        Result := True;
+
+    except on E: Exception do
+      raise Exception.Create(e.Message);
+    end;
+  finally
+  end;
 end;
 
 function TDM.Sinc_Usuario: TJSONObject;

@@ -75,6 +75,8 @@ begin
   FIniFile := TIniFile.Create(FEnder);
 
   FMensagem := TFancyDialog.Create(frmConfig);
+
+  Ler_Config;
 end;
 
 procedure TfrmConfig.imgCancelarClick(Sender: TObject);
