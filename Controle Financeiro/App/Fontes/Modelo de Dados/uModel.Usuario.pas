@@ -22,10 +22,6 @@ uses
 
   function Campo_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const ATabela, ACampos: String): Boolean;
   function Tabela_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const ATabela: String): Boolean;
-  function Procedure_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AProcedure: String): Boolean;
-  function Trigger_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const ATrigger: String): Boolean;
-  function Generator_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AGenerator: String): Boolean;
-  function Indice_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AIndice: String): Boolean;
 
 const
   C_Paginas = 30;
@@ -63,7 +59,7 @@ type
     constructor Create(AConnexao: TFDConnection);
     destructor Destroy; override;
 
-    procedure Criar_Estrutura(const AFDScript:TFDScript;AFDQuery:TFDQuery);
+    procedure Criar_Estrutura(AFDQuery: TFDQuery);
     procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery; AManterDados:Boolean=False);
     procedure Inicia_Propriedades;
     function Inserir(const AFDQ_Query:TFDQuery):Integer;
@@ -121,92 +117,7 @@ begin
     AFDQ_Query.Connection := AConexao;
     AFDQ_Query.Active := False;
     AFDQ_Query.Sql.Clear;
-    AFDQ_Query.Sql.Add('SELECT * FROM SQLITE_MASTER WHERE TYPE= ' + QuotedStr(Trim(ATabela)));
-    AFDQ_Query.Active := True;
-    Result := (not AFDQ_Query.IsEmpty);
-  except
-    On Ex:Exception do
-    begin
-      Result := False;
-      raise Exception.Create(Ex.Message);
-    end;
-  end;
-end;
-
-function Procedure_Existe(const AConexao:TFDConnection; const AFDQ_Query: TFDQuery; const AProcedure: String): Boolean;
-begin
-  try
-    AFDQ_Query.Connection := AConexao;
-    AFDQ_Query.Active := False;
-    AFDQ_Query.Sql.Clear;
-    AFDQ_Query.Sql.Add('SELECT ');
-    AFDQ_Query.Sql.Add('  RP.* ');
-    AFDQ_Query.Sql.Add('FROM RDB$PROCEDURES RP ');
-    AFDQ_Query.Sql.Add('WHERE TRIM(RP.RDB$PROCEDURE_NAME) = ' + QuotedStr(Trim(AProcedure)));
-    AFDQ_Query.Active := True;
-    Result := (not AFDQ_Query.IsEmpty);
-  except
-    On Ex:Exception do
-    begin
-      Result := False;
-      raise Exception.Create(Ex.Message);
-    end;
-  end;
-end;
-
-function Trigger_Existe(const AConexao:TFDConnection; const AFDQ_Query: TFDQuery; const ATrigger: String): Boolean;
-begin
-  try
-    AFDQ_Query.Connection := AConexao;
-    AFDQ_Query.Active := False;
-    AFDQ_Query.Sql.Clear;
-    AFDQ_Query.Sql.Add('SELECT ');
-    AFDQ_Query.Sql.Add('  RT.* ');
-    AFDQ_Query.Sql.Add('FROM RDB$TRIGGERS RT ');
-    AFDQ_Query.Sql.Add('WHERE TRIM(RT.RDB$TRIGGER_NAME) = ' + QuotedStr(Trim(ATrigger)));
-    AFDQ_Query.Sql.Add('  AND RT.RDB$SYSTEM_FLAG = 0; ');
-    AFDQ_Query.Active := True;
-    Result := (not AFDQ_Query.IsEmpty);
-  except
-    On Ex:Exception do
-    begin
-      Result := False;
-      raise Exception.Create(Ex.Message);
-    end;
-  end;
-end;
-
-function Generator_Existe(const AConexao:TFDConnection; const AFDQ_Query: TFDQuery;  const AGenerator: String): Boolean;
-begin
-  try
-    AFDQ_Query.Connection := AConexao;
-    AFDQ_Query.Active := False;
-    AFDQ_Query.Sql.Clear;
-    AFDQ_Query.Sql.Add('SELECT ');
-    AFDQ_Query.Sql.Add('  RD.* ');
-    AFDQ_Query.Sql.Add('FROM RDB$DEPENDENCIES RD ');
-    AFDQ_Query.Sql.Add('WHERE TRIM(RD.RDB$DEPENDED_ON_NAME) = ' + QuotedStr(Trim(AGenerator)));
-    AFDQ_Query.Active := True;
-    Result := (not AFDQ_Query.IsEmpty);
-  except
-    On Ex:Exception do
-    begin
-      Result := False;
-      raise Exception.Create(Ex.Message);
-    end;
-  end;
-end;
-
-function Indice_Existe(const AConexao:TFDConnection;const AFDQ_Query:TFDQuery; const AIndice: String): Boolean;
-begin
-  try
-    AFDQ_Query.Connection := AConexao;
-    AFDQ_Query.Active := False;
-    AFDQ_Query.Sql.Clear;
-    AFDQ_Query.Sql.Add('SELECT ');
-    AFDQ_Query.Sql.Add('  RI.* ');
-    AFDQ_Query.Sql.Add('FROM RDB$INDICES RI ');
-    AFDQ_Query.Sql.Add('WHERE TRIM(RI.RDB$INDEX_NAME) = ' + QuotedStr(Trim(AIndice)));
+    AFDQ_Query.Sql.Add('SELECT * FROM SQLITE_MASTER WHERE TYPE = ''table'' AND NAME = ' + QuotedStr(Trim(ATabela)));
     AFDQ_Query.Active := True;
     Result := (not AFDQ_Query.IsEmpty);
   except
@@ -232,104 +143,16 @@ begin
   inherited;
 end;
 
-procedure TUSUARIO.Criar_Estrutura(const AFDScript: TFDScript; AFDQuery: TFDQuery);
-var
-  lScript: TStringList;
+procedure TUSUARIO.Criar_Estrutura(AFDQuery: TFDQuery);
 begin
   try
     try
-      AFDScript.Connection := FConexao;
-      AFDQuery.Connection := FConexao;
 
-      lScript := TStringList.Create;
-
-       //Relizando um DROP nos objetos da tabela...
-       begin
-         with AFDScript do
-         begin
-           SQLScripts.Clear;
-           SQLScripts.Add;
-           with SQLScripts[0].SQL do
-           begin
-            //Excluindo objetos da tabela USUARIO...
-
-            if Trigger_Existe(FConexao,AFDQuery,'USUARIO_BI') then
-              Add('DROP TRIGGER USUARIO_BI;');
-
-            if Generator_Existe(FConexao,AFDQuery,'GEN_USUARIO_ID') then
-              Add('DROP GENERATOR GEN_USUARIO_ID;');
-
-            if Tabela_Existe(FConexao,AFDQuery,'USUARIO') then
-              Add('DROP TABLE USUARIO;');
-
-            if Count > 0 then
-            begin
-              ValidateAll;
-              ExecuteAll;
-            end;
-          end;
-        end;
-      end;
-
-     //Criando tabelas...
-      lScript.Clear;
-      lScript.Add('CREATE TABLE USUARIO ( ');
-      lScript.Add('  ID INTEGER NOT NULL');
-      lScript.Add('  ,NOME VARCHAR(100) NOT NULL');
-      lScript.Add('  ,LOGIN VARCHAR(50) NOT NULL');
-      lScript.Add('  ,SENHA VARCHAR(50) NOT NULL');
-      lScript.Add('  ,PIN VARCHAR(4)');
-      lScript.Add('  ,CELULAR VARCHAR(15)');
-      lScript.Add('  ,EMAIL VARCHAR(255)');
-      lScript.Add('  ,DT_CADASTRO DATE DEFAULT CURRENT_DATE');
-      lScript.Add('  ,HR_CADASTRO TIME DEFAULT CURRENT_TIME');
-      lScript.Add(');');
-      AFDScript.ExecuteScript(lScript);
-
-      //Criando Chave primaria, estrangeira, generators e comentários...
-      with AFDScript do
-      begin
-        SQLScripts.Clear;
-        SQLScripts.Add;
-        with SQLScripts[0].SQL do
-        begin
-          Add('ALTER TABLE USUARIO ADD CONSTRAINT PK_USUARIO PRIMARY KEY (ID);');
-          Add('COMMENT ON COLUMN USUARIO.ID IS ''ID'';');
-          Add('COMMENT ON COLUMN USUARIO.NOME IS ''NOME'';');
-          Add('COMMENT ON COLUMN USUARIO.LOGIN IS ''LOGIN'';');
-          Add('COMMENT ON COLUMN USUARIO.SENHA IS ''SENHA'';');
-          Add('COMMENT ON COLUMN USUARIO.PIN IS ''PIN PARA ACESSO RAPIDO DO SISTEMA'';');
-          Add('COMMENT ON COLUMN USUARIO.CELULAR IS ''CELULAR PARA CONTATO'';');
-          Add('COMMENT ON COLUMN USUARIO.EMAIL IS ''EMAIL PARA CONTATO'';');
-          Add('COMMENT ON COLUMN USUARIO.DT_CADASTRO IS ''DATA DO CADASTRO'';');
-          Add('COMMENT ON COLUMN USUARIO.HR_CADASTRO IS ''HORA DO CADASTRO'';');
-          Add('CREATE SEQUENCE GEN_USUARIO_ID');
-          ValidateAll;
-          ExecuteAll;
-        end;
-      end;
-
-      lScript.Clear;
-      lScript.Add('SET TERM ^ ; ');
-      lScript.Add('CREATE OR ALTER TRIGGER USUARIO_BI FOR USUARIO ');
-      lScript.Add('ACTIVE BEFORE INSERT POSITION 0');
-      lScript.Add('AS');
-      lScript.Add('BEGIN');
-      lScript.Add('  IF (NEW.ID IS NULL) THEN');
-      lScript.Add('    NEW.ID = GEN_ID(GEN_USUARIO_ID,1);');
-      lScript.Add('END ^');
-      lScript.Add(' ');
-      AFDScript.ExecuteScript(lScript);
     except
       On Ex:Exception do
         raise Exception.Create(Ex.Message);
     end;
   finally
-    {$IFDEF MSWINDOWS}
-      FreeAndNil(lScript);
-    {$ELSE}
-      lScript.DisposeOf;
-    {$ENDIF}
   end;
 end;
 

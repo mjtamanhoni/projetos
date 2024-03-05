@@ -337,6 +337,11 @@
             <Form>frmPrincipal</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Modelo de Dados\uModel.Empresa.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.Cliente.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.Tabela.Precos.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.Projetos.pas"/>
+        <DCCReference Include="Modelo de Dados\uModel.Apontamentos.Horas.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -20,7 +20,12 @@ uses
   uModel.Usuario in 'Modelo de Dados\uModel.Usuario.pas',
   uDM_Global in 'uDM_Global.pas' {DM: TDataModule},
   uConfig in 'uConfig.pas' {frmConfig},
-  uPrincipal in 'uPrincipal.pas' {frmPrincipal};
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  uModel.Empresa in 'Modelo de Dados\uModel.Empresa.pas',
+  uModel.Cliente in 'Modelo de Dados\uModel.Cliente.pas',
+  uModel.Tabela.Precos in 'Modelo de Dados\uModel.Tabela.Precos.pas',
+  uModel.Projetos in 'Modelo de Dados\uModel.Projetos.pas',
+  uModel.Apontamentos.Horas in 'Modelo de Dados\uModel.Apontamentos.Horas.pas';
 
 {$R *.res}
 
