@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/04/13 14:30:14.000.565,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
+    <Transaction>2023/04/13 14:30:55.000.850,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
+    <Transaction>2023/04/13 14:31:29.000.427,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
+    <Transaction>2023/04/13 14:31:59.000.986,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
+    <Transaction>2023/04/13 14:32:27.000.790,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
+    <Transaction>2023/04/18 07:56:42.000.892,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
+    <Transaction>2024/02/27 09:22:39.000.419,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
+    <Transaction>2024/02/27 09:26:00.000.501,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.fmx=C:\Developer\Controle Financeiro\App\Fontes\uLogin.fmx</Transaction>
+    <Transaction>2024/02/27 09:26:00.000.501,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\uLogin.pas</Transaction>
+    <Transaction>2024/02/27 09:26:08.000.351,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Project1.dproj=C:\Developer\Controle Financeiro\App\Fontes\Financeiro.dproj</Transaction>
+    <Transaction>2024/02/27 10:59:07.000.444,=C:\Developer\Global\uFuncoes.pas</Transaction>
+    <Transaction>2024/02/27 11:00:15.000.606,=C:\Developer\Classes\99 Coders\Versao 11\u99Permissions.pas</Transaction>
+    <Transaction>2024/02/27 11:00:15.000.127,=C:\Developer\Classes\99 Coders\Versao 11\Android.KeyguardManager.pas</Transaction>
+    <Transaction>2024/02/27 11:00:15.000.740,=C:\Developer\Classes\99 Coders\Versao 11\uActionSheet.pas</Transaction>
+    <Transaction>2024/02/27 11:00:15.000.272,=C:\Developer\Classes\99 Coders\Versao 11\Androidapi.JNI.PowerManager.pas</Transaction>
+    <Transaction>2024/02/27 11:00:15.000.456,=C:\Developer\Classes\99 Coders\Versao 11\DW.Androidapi.JNI.KeyguardManager.pas</Transaction>
+    <Transaction>2024/02/27 11:00:15.000.944,=C:\Developer\Classes\99 Coders\Versao 11\uCombobox.pas</Transaction>
+    <Transaction>2024/02/27 11:00:16.000.252,=C:\Developer\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
+    <Transaction>2024/02/27 11:00:16.000.739,=C:\Developer\Classes\99 Coders\Versao 11\uSuperChart.pas</Transaction>
+    <Transaction>2024/02/27 11:00:16.000.915,=C:\Developer\Classes\99 Coders\Versao 11\uSuperChart_Old.pas</Transaction>
+    <Transaction>2024/02/27 11:00:16.000.594,=C:\Developer\Classes\99 Coders\Versao 11\uOpenViewUrl.pas</Transaction>
+    <Transaction>2024/02/27 11:00:16.000.115,=C:\Developer\Classes\99 Coders\Versao 11\uFancyDialog.pas</Transaction>
+    <Transaction>2024/02/27 11:00:16.000.405,=C:\Developer\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
+    <Transaction>2024/02/27 11:02:30.000.384,C:\Developer\Classes\99 Coders\Versao 11\uSuperChart_Old.pas=</Transaction>
+    <Transaction>2024/02/27 19:47:25.000.876,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/02/27 19:49:02.000.100,C:\Developer\Controle Financeiro\App\Fontes\uPerfil_Usuario.fmx=C:\Developer\Controle Financeiro\App\Fontes\Unit1.fmx</Transaction>
+    <Transaction>2024/02/27 19:49:02.000.100,C:\Developer\Controle Financeiro\App\Fontes\uPerfil_Usuario.pas=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/02/28 07:39:58.000.336,=C:\Developer\Controle Financeiro\App\Fontes\Modelo de Dados\uModel.Usuario.pas</Transaction>
+    <Transaction>2024/02/28 07:42:58.000.263,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/02/28 07:43:24.000.866,C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\uDM_Global.pas</Transaction>
+    <Transaction>2024/02/28 07:43:24.000.866,C:\Developer\Controle Financeiro\App\Fontes\Unit1.dfm=C:\Developer\Controle Financeiro\App\Fontes\uDM_Global.dfm</Transaction>
+    <Transaction>2024/02/28 08:10:41.000.896,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/02/28 08:11:59.000.376,C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\uConfig.pas</Transaction>
+    <Transaction>2024/02/28 08:11:59.000.377,C:\Developer\Controle Financeiro\App\Fontes\Unit1.fmx=C:\Developer\Controle Financeiro\App\Fontes\uConfig.fmx</Transaction>
+    <Transaction>2024/03/04 14:15:50.000.976,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/04 14:16:55.000.209,C:\Developer\Controle Financeiro\App\Fontes\uPrincipal.pas=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/04 14:16:55.000.209,C:\Developer\Controle Financeiro\App\Fontes\uPrincipal.fmx=C:\Developer\Controle Financeiro\App\Fontes\Unit1.fmx</Transaction>
+    <Transaction>2024/03/05 07:07:13.000.543,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/05 07:07:28.000.492,C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\Modelo de Dados\uModel.Empresa.pas</Transaction>
+    <Transaction>2024/03/05 07:27:55.000.601,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/05 07:28:14.000.638,C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\Modelo de Dados\uModel.Cliente.pas</Transaction>
+    <Transaction>2024/03/05 07:39:37.000.019,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/05 07:39:57.000.636,C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\Modelo de Dados\uModel.Tabela.Precos.pas</Transaction>
+    <Transaction>2024/03/05 07:46:59.000.358,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/05 07:47:39.000.304,C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\Modelo de Dados\uModel.Projetos.pas</Transaction>
+    <Transaction>2024/03/05 07:59:09.000.550,=C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/05 07:59:38.000.398,C:\Developer\Controle Financeiro\App\Fontes\Unit1.pas=C:\Developer\Controle Financeiro\App\Fontes\Modelo de Dados\uModel.Apontamentos.Horas.pas</Transaction>
+  </Transactions>
+	<BT_BuildType>Debug</BT_BuildType>
+</BorlandProject>
