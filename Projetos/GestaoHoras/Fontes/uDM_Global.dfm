@@ -1,7 +1,7 @@
 object DM: TDM
   OnCreate = DataModuleCreate
   Height = 446
-  Width = 442
+  Width = 289
   object FDC_Conexao: TFDConnection
     Params.Strings = (
       'Database=C:\Developer\Projetos\Base de Dados\DB_GLOBAL.S3DB'

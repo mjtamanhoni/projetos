@@ -27,7 +27,8 @@ uses
   uModel.Projetos in 'Modelo de Dados\uModel.Projetos.pas',
   uModel.Tabela.Precos in 'Modelo de Dados\uModel.Tabela.Precos.pas',
   uModel.Usuario in 'Modelo de Dados\uModel.Usuario.pas',
-  uEmpresa in 'uEmpresa.pas' {frmEmpresa};
+  uEmpresa in 'uEmpresa.pas' {frmEmpresa},
+  uMenu in 'uMenu.pas' {frmMenu};
 
 {$R *.res}
 
@@ -35,6 +36,5 @@ begin
   Application.Initialize;
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TfrmEmpresa, frmEmpresa);
   Application.Run;
 end.

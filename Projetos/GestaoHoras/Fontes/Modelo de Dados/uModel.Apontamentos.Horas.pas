@@ -143,6 +143,15 @@ begin
       begin
         if AManterDados then
         begin
+           if Tabela_Existe(FConexao,AFDQ_Query,'APONTAMENTOS_HORAS_TMP') then
+           begin
+              //Excluindo tabela...
+              AFDQ_Query.Active := False;
+              AFDQ_Query.Sql.Clear;
+              AFDQ_Query.Sql.Add('DROP TABLE APONTAMENTOS_HORAS_TMP;');
+              AFDQ_Query.ExecSQL;
+           end;
+
            //Criando tabela temporária....
            AFDQ_Query.Active := False;
            AFDQ_Query.Sql.Clear;
@@ -182,9 +191,9 @@ begin
            AFDQ_Query.Sql.Add('   ,HR_FIM ');
            AFDQ_Query.Sql.Add('   ,HR_TOTAL ');
            AFDQ_Query.Sql.Add('   ,VLR_TOTAL ');
-           AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO, ');
-           AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO, ');
-           AFDQ_Query.Sql.Add('   ,VLR_RESTANTE, ');
+           AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
+           AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO ');
+           AFDQ_Query.Sql.Add('   ,VLR_RESTANTE ');
            AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO) ');
@@ -200,9 +209,9 @@ begin
            AFDQ_Query.Sql.Add('   ,HR_FIM ');
            AFDQ_Query.Sql.Add('   ,HR_TOTAL ');
            AFDQ_Query.Sql.Add('   ,VLR_TOTAL ');
-           AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO, ');
-           AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO, ');
-           AFDQ_Query.Sql.Add('   ,VLR_RESTANTE, ');
+           AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
+           AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO ');
+           AFDQ_Query.Sql.Add('   ,VLR_RESTANTE ');
            AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO ');
@@ -260,9 +269,9 @@ begin
           AFDQ_Query.Sql.Add('   ,HR_FIM ');
           AFDQ_Query.Sql.Add('   ,HR_TOTAL ');
           AFDQ_Query.Sql.Add('   ,VLR_TOTAL ');
-          AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO, ');
-          AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO, ');
-          AFDQ_Query.Sql.Add('   ,VLR_RESTANTE, ');
+          AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
+          AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO ');
+          AFDQ_Query.Sql.Add('   ,VLR_RESTANTE ');
           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
           AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
           AFDQ_Query.Sql.Add('   ,HR_CADASTRO) ');
@@ -278,9 +287,9 @@ begin
           AFDQ_Query.Sql.Add('   ,HR_FIM ');
           AFDQ_Query.Sql.Add('   ,HR_TOTAL ');
           AFDQ_Query.Sql.Add('   ,VLR_TOTAL ');
-          AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO, ');
-          AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO, ');
-          AFDQ_Query.Sql.Add('   ,VLR_RESTANTE, ');
+          AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
+          AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO ');
+          AFDQ_Query.Sql.Add('   ,VLR_RESTANTE ');
           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
           AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
           AFDQ_Query.Sql.Add('   ,HR_CADASTRO ');

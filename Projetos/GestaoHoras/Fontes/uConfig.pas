@@ -68,7 +68,7 @@ procedure TfrmConfig.FormCreate(Sender: TObject);
 begin
   FEnder  := '';
   {$IFDEF MSWINDOWS}
-    FEnder := System.SysUtils.GetCurrentDir + '\FINANCEIRO.ini';
+    FEnder := System.SysUtils.GetCurrentDir + '\GESTOR_HORA.ini';
   {$ELSE}
     FEnder := System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath,'FINANCEIRO.ini');
   {$ENDIF}

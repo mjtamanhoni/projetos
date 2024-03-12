@@ -64,7 +64,7 @@ type
     constructor Create(AConnexao: TFDConnection);
     destructor Destroy; override;
 
-    procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery; AManterDados:Boolean=False);
+    procedure Atualizar_Estrutura(const AFDQ_Query,AFDQ_Query_1:TFDQuery; AManterDados:Boolean=False);
     procedure Inicia_Propriedades;
     function Inserir(const AFDQ_Query:TFDQuery):Integer;
     function Listar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0): TJSONArray;
@@ -97,12 +97,19 @@ begin
     AFDQ_Query.Active := False;
     AFDQ_Query.Sql.Clear;
     AFDQ_Query.Sql.Add('SELECT ');
-    AFDQ_Query.Sql.Add('    A.* ');
-    AFDQ_Query.Sql.Add('FROM pragma_table_info('+QuotedStr(ATabela)+') A ');
-    AFDQ_Query.Sql.Add('WHERE A.name = ' + QuotedStr(ACampos) );
-    //AFDQ_Query.Sql.Add('ORDER BY A.cid; ');
+    AFDQ_Query.Sql.Add(' TRIM(pragma_table_info.name) AS NOME ');
+    AFDQ_Query.Sql.Add('FROM pragma_table_info('+QuotedStr(ATabela)+') ');
     AFDQ_Query.Active := True;
-    Result := (not AFDQ_Query.IsEmpty);
+    if not AFDQ_Query.IsEmpty then
+    begin
+      AFDQ_Query.First;
+      while not AFDQ_Query.Eof do
+      begin
+        if UpperCase(Trim(ACampos)) = UpperCase(Trim(AFDQ_Query.FieldByName('NOME').AsString)) then
+          Result := True;
+        AFDQ_Query.Next;
+      end;
+    end;
   except
     On Ex:Exception do
     begin
@@ -137,7 +144,7 @@ begin
 
 end;
 
-procedure TCLIENTE.Atualizar_Estrutura(const AFDQ_Query: TFDQuery; AManterDados: Boolean);
+procedure TCLIENTE.Atualizar_Estrutura(const AFDQ_Query,AFDQ_Query_1:TFDQuery; AManterDados:Boolean=False);
 var
   lQuery :TFDQuery;
 begin
@@ -201,7 +208,7 @@ begin
            AFDQ_Query.Sql.Add('  ,NOME ');
            AFDQ_Query.Sql.Add('  ,STATUS ');
            AFDQ_Query.Sql.Add('  ,CELULAR ');
-           if Campo_Existe(FConexao,lQuery,'CLIENTE','EMAIL') then
+           if Campo_Existe(FConexao,AFDQ_Query_1,'CLIENTE','EMAIL') then
              AFDQ_Query.Sql.Add('  ,EMAIL ')
            else
              AFDQ_Query.Sql.Add('  ,'''' AS EMAIL ');

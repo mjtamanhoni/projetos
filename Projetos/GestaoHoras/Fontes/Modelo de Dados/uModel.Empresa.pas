@@ -66,7 +66,7 @@ type
     constructor Create(AConnexao: TFDConnection);
     destructor Destroy; override;
 
-    procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery; AManterDados:Boolean=False);
+    procedure Atualizar_Estrutura(const AFDQ_Query,AFDQ_Query_1:TFDQuery; AManterDados:Boolean=False);
     procedure Inicia_Propriedades;
     function Inserir(const AFDQ_Query:TFDQuery):Integer;
     function Listar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0): TJSONArray;
@@ -101,12 +101,19 @@ begin
     AFDQ_Query.Active := False;
     AFDQ_Query.Sql.Clear;
     AFDQ_Query.Sql.Add('SELECT ');
-    AFDQ_Query.Sql.Add('  A.* ');
-    AFDQ_Query.Sql.Add('FROM pragma_table_info('+QuotedStr(ATabela)+') A ');
-    AFDQ_Query.Sql.Add('WHERE A.name = ' + QuotedStr(ACampos) );
-    //AFDQ_Query.Sql.Add('ORDER BY A.cid; ');
+    AFDQ_Query.Sql.Add(' TRIM(pragma_table_info.name) AS NOME ');
+    AFDQ_Query.Sql.Add('FROM pragma_table_info('+QuotedStr(ATabela)+') ');
     AFDQ_Query.Active := True;
-    Result := (not AFDQ_Query.IsEmpty);
+    if not AFDQ_Query.IsEmpty then
+    begin
+      AFDQ_Query.First;
+      while not AFDQ_Query.Eof do
+      begin
+        if UpperCase(Trim(ACampos)) = UpperCase(Trim(AFDQ_Query.FieldByName('NOME').AsString)) then
+          Result := True;
+        AFDQ_Query.Next;
+      end;
+    end;
   except
     On Ex:Exception do
     begin
@@ -141,7 +148,7 @@ begin
 
 end;
 
-procedure TEMPRESA.Atualizar_Estrutura(const AFDQ_Query: TFDQuery; AManterDados: Boolean);
+procedure TEMPRESA.Atualizar_Estrutura(const AFDQ_Query,AFDQ_Query_1:TFDQuery; AManterDados:Boolean=False);
 var
   lQuery :TFDQuery;
 begin
@@ -206,7 +213,7 @@ begin
            AFDQ_Query.Sql.Add('  ,NOME ');
            AFDQ_Query.Sql.Add('  ,STATUS ');
            AFDQ_Query.Sql.Add('  ,CELULAR ');
-           if Campo_Existe(FConexao,lQuery,'EMPRESA','EMAIL') then
+           if Campo_Existe(FConexao,AFDQ_Query_1,'EMPRESA','EMAIL') then
              AFDQ_Query.Sql.Add('  ,EMAIL ')
            else
              AFDQ_Query.Sql.Add('  ,'''' AS EMAIL ');
@@ -352,6 +359,11 @@ begin
     try
       Result := 0;
 
+      if Trim(FNOME) = ''  then
+        raise Exception.Create('Nome da empresa é obrigatório');
+      if FSTATUS = -1 then
+        FSTATUS := 1;
+
       AFDQ_Query.Connection := FConexao;
 
       FDT_CADASTRO := Date;
@@ -362,43 +374,70 @@ begin
       AFDQ_Query.Sql.Add('INSERT INTO EMPRESA( ');
       AFDQ_Query.Sql.Add('  NOME ');
       AFDQ_Query.Sql.Add('  ,STATUS ');
-      AFDQ_Query.Sql.Add('  ,CELULAR ');
-      AFDQ_Query.Sql.Add('  ,EMAIL ');
-      AFDQ_Query.Sql.Add('  ,CEP ');
-      AFDQ_Query.Sql.Add('  ,ENDERECO ');
-      AFDQ_Query.Sql.Add('  ,COMPLEMENTO ');
-      AFDQ_Query.Sql.Add('  ,BAIRRO ');
-      AFDQ_Query.Sql.Add('  ,CIDADE ');
-      AFDQ_Query.Sql.Add('  ,UF ');
-      AFDQ_Query.Sql.Add('  ,SINCRONIZADO ');
+      if Trim(FCELULAR) <> '' then
+        AFDQ_Query.Sql.Add('  ,CELULAR ');
+      if Trim(FEMAIL) <> '' then
+        AFDQ_Query.Sql.Add('  ,EMAIL ');
+      if Trim(FCEP) <> '' then
+        AFDQ_Query.Sql.Add('  ,CEP ');
+      if Trim(FENDERECO) = '' then
+        AFDQ_Query.Sql.Add('  ,ENDERECO ');
+      if Trim(FCOMPLEMENTO) <> '' then
+        AFDQ_Query.Sql.Add('  ,COMPLEMENTO ');
+      if Trim(FBAIRRO) <> '' then
+        AFDQ_Query.Sql.Add('  ,BAIRRO ');
+      if Trim(FCIDADE) <> '' then
+        AFDQ_Query.Sql.Add('  ,CIDADE ');
+      if Trim(FUF) <> '' then
+        AFDQ_Query.Sql.Add('  ,UF ');
+      if FSINCRONIZADO >= 0 then
+        AFDQ_Query.Sql.Add('  ,SINCRONIZADO ');
       AFDQ_Query.Sql.Add('  ,DT_CADASTRO ');
       AFDQ_Query.Sql.Add('  ,HR_CADASTRO ');
       AFDQ_Query.Sql.Add(') VALUES( ');
       AFDQ_Query.Sql.Add('  :NOME ');
       AFDQ_Query.Sql.Add('  ,:STATUS ');
-      AFDQ_Query.Sql.Add('  ,:CELULAR ');
-      AFDQ_Query.Sql.Add('  ,:EMAIL ');
-      AFDQ_Query.Sql.Add('  ,:CEP ');
-      AFDQ_Query.Sql.Add('  ,:ENDERECO ');
-      AFDQ_Query.Sql.Add('  ,:COMPLEMENTO ');
-      AFDQ_Query.Sql.Add('  ,:BAIRRO ');
-      AFDQ_Query.Sql.Add('  ,:CIDADE ');
-      AFDQ_Query.Sql.Add('  ,:UF ');
-      AFDQ_Query.Sql.Add('  ,:SINCRONIZADO ');
+      if Trim(FCELULAR) <> '' then
+        AFDQ_Query.Sql.Add('  ,:CELULAR ');
+      if Trim(FEMAIL) <> '' then
+        AFDQ_Query.Sql.Add('  ,:EMAIL ');
+      if Trim(FCEP) <> '' then
+        AFDQ_Query.Sql.Add('  ,:CEP ');
+      if Trim(FENDERECO) = '' then
+        AFDQ_Query.Sql.Add('  ,:ENDERECO ');
+      if Trim(FCOMPLEMENTO) <> '' then
+        AFDQ_Query.Sql.Add('  ,:COMPLEMENTO ');
+      if Trim(FBAIRRO) <> '' then
+        AFDQ_Query.Sql.Add('  ,:BAIRRO ');
+      if Trim(FCIDADE) <> '' then
+        AFDQ_Query.Sql.Add('  ,:CIDADE ');
+      if Trim(FUF) <> '' then
+        AFDQ_Query.Sql.Add('  ,:UF ');
+      if FSINCRONIZADO >= 0 then
+        AFDQ_Query.Sql.Add('  ,:SINCRONIZADO ');
       AFDQ_Query.Sql.Add('  ,:DT_CADASTRO ');
       AFDQ_Query.Sql.Add('  ,:HR_CADASTRO ');
       AFDQ_Query.Sql.Add('); ');
       AFDQ_Query.ParamByName('NOME').AsString := FNOME;
       AFDQ_Query.ParamByName('STATUS').AsInteger := FSTATUS;
-      AFDQ_Query.ParamByName('CELULAR').AsString := FCELULAR;
-      AFDQ_Query.ParamByName('EMAIL').AsString := FEMAIL;
-      AFDQ_Query.ParamByName('CEP').AsString := FCEP;
-      AFDQ_Query.ParamByName('ENDERECO').AsString := FENDERECO;
-      AFDQ_Query.ParamByName('COMPLEMENTO').AsString := FCOMPLEMENTO;
-      AFDQ_Query.ParamByName('BAIRRO').AsString := FBAIRRO;
-      AFDQ_Query.ParamByName('CIDADE').AsString := FCIDADE;
-      AFDQ_Query.ParamByName('UF').AsString := FUF;
-      AFDQ_Query.ParamByName('SINCRONIZADO').AsInteger := FSINCRONIZADO;
+      if Trim(FCELULAR) <> '' then
+        AFDQ_Query.ParamByName('CELULAR').AsString := FCELULAR;
+      if Trim(FEMAIL) <> '' then
+        AFDQ_Query.ParamByName('EMAIL').AsString := FEMAIL;
+      if Trim(FCEP) <> '' then
+        AFDQ_Query.ParamByName('CEP').AsString := FCEP;
+      if Trim(FENDERECO) = '' then
+        AFDQ_Query.ParamByName('ENDERECO').AsString := FENDERECO;
+      if Trim(FCOMPLEMENTO) <> '' then
+        AFDQ_Query.ParamByName('COMPLEMENTO').AsString := FCOMPLEMENTO;
+      if Trim(FBAIRRO) <> '' then
+        AFDQ_Query.ParamByName('BAIRRO').AsString := FBAIRRO;
+      if Trim(FCIDADE) <> '' then
+        AFDQ_Query.ParamByName('CIDADE').AsString := FCIDADE;
+      if Trim(FUF) <> '' then
+        AFDQ_Query.ParamByName('UF').AsString := FUF;
+      if FSINCRONIZADO >= 0 then
+        AFDQ_Query.ParamByName('SINCRONIZADO').AsInteger := FSINCRONIZADO;
       AFDQ_Query.ParamByName('DT_CADASTRO').AsDate := FDT_CADASTRO;
       AFDQ_Query.ParamByName('HR_CADASTRO').AsTime := FHR_CADASTRO;
       AFDQ_Query.ExecSQL;

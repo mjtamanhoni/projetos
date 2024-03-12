@@ -23,6 +23,24 @@
         </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android64'">
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon192.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon192</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon192.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon192</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="..\..\Base de Dados\DB_GLOBAL.S3DB" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\assets\internal\</RemoteDir>
             <RemoteName>DB_GLOBAL.S3DB</RemoteName>
@@ -41,10 +59,10 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon72.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon144.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon72</DeployClass>
+            <DeployClass>Android_LauncherIcon144</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -59,15 +77,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android64\Release\splash_image_def.xml" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable\</RemoteDir>
-            <RemoteName>splash_image_def.xml</RemoteName>
-            <DeployClass>AndroidSplashImageDef</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon144.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
@@ -77,19 +86,46 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon192.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon192</DeployClass>
+        <DeployFile Include="Android64\Debug\AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\</RemoteDir>
+            <RemoteName>AndroidManifest.xml</RemoteName>
+            <DeployClass>ProjectAndroidManifest</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon48.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
+        <DeployFile Include="Android64\Release\splash_image_def.xml" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable\</RemoteDir>
+            <RemoteName>splash_image_def.xml</RemoteName>
+            <DeployClass>AndroidSplashImageDef</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon36.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-ldpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon48</DeployClass>
+            <DeployClass>Android_LauncherIcon36</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon36.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-ldpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon36</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon48</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -104,10 +140,83 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="Android64\Debug\libGestaoHoras.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\library\lib\arm64-v8a\</RemoteDir>
+            <RemoteName>libGestaoHoras.so</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage426.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage426</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage426.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage426</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage640.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-large\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage640</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage640.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\res\drawable-large\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
             <DeployClass>Android_SplashImage640</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\lib\android\debug\armeabi\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\library\lib\armeabi\</RemoteDir>
+            <RemoteName>libGestaoHoras.so</RemoteName>
+            <DeployClass>AndroidLibnativeArmeabiFile</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon24.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon24</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android64\Debug\colors.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\values\</RemoteDir>
+            <RemoteName>colors.xml</RemoteName>
+            <DeployClass>Android_Colors</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon24.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon24</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -122,19 +231,28 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon36.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon36</DeployClass>
+        <DeployFile Include="Android64\Debug\splash_image_def.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable\</RemoteDir>
+            <RemoteName>splash_image_def.xml</RemoteName>
+            <DeployClass>AndroidSplashImageDef</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon96.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon96</DeployClass>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon72.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon72.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon72</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -159,10 +277,28 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon96.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xhdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon96</DeployClass>
+        <DeployFile Include="$(BDS)\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\library\lib\mips\</RemoteDir>
+            <RemoteName>libGestaoHoras.so</RemoteName>
+            <DeployClass>AndroidLibnativeMipsFile</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android64\Debug\GestaoHoras.classes" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\classes\</RemoteDir>
+            <RemoteName>GestaoHoras.classes</RemoteName>
+            <DeployClass>AndroidClasses</DeployClass>
+            <Operation>64</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\lib\android\debug\armeabi-v7a\libnative-activity.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libGestaoHoras.so</RemoteName>
+            <DeployClass>AndroidLibnativeArmeabiv7aFile</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -177,37 +313,28 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon24.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
+        <DeployFile Include="Android64\Debug\styles.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\values\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <DeployClass>AndroidSplashStyles</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon72.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon24</DeployClass>
+            <DeployClass>Android_NotificationIcon72</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon36.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-ldpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon36</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage960.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xlarge\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage960</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage426.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-small\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage426</DeployClass>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon72.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon72</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -222,10 +349,46 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon72.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon96.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon72</DeployClass>
+            <DeployClass>Android_NotificationIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android64\Debug\strings.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\values\</RemoteDir>
+            <RemoteName>strings.xml</RemoteName>
+            <DeployClass>Android_Strings</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon96.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android64\Debug\styles-v21.xml" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\values-v21\</RemoteDir>
+            <RemoteName>styles.xml</RemoteName>
+            <DeployClass>AndroidSplashStylesV21</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage470.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-normal\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage470</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -240,17 +403,80 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-    </ItemGroup>
-    <ItemGroup Condition="'$(Platform)'=='Android'">
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage640.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-large\</RemoteDir>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage960.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-xlarge\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage640</DeployClass>
+            <DeployClass>Android_SplashImage960</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage960.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xlarge\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage960</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon96.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon48.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon96.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon36.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon36</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon36.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon36</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Android'">
         <DeployFile Include="Android\Release\GestaoHoras.classes" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\classes\</RemoteDir>
             <RemoteName>GestaoHoras.classes</RemoteName>
@@ -269,55 +495,10 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon72.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon72</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage470.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-normal\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage470</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon72.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon72</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon192.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon192</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon144.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon144</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon48.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon24.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon48</DeployClass>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon24</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -350,6 +531,33 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon72.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon96.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon96</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage470.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-normal\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage470</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage960.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\res\drawable-xlarge\</RemoteDir>
             <RemoteName>splash_image.png</RemoteName>
@@ -359,10 +567,64 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon36.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-ldpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon36</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage640.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-large\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage640</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon192.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon192</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon48.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\res\drawable-xhdpi\</RemoteDir>
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon48.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon48</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage426.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-small\</RemoteDir>
+            <RemoteName>splash_image.png</RemoteName>
+            <DeployClass>Android_SplashImage426</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon36.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
+            <RemoteName>ic_notification.png</RemoteName>
+            <DeployClass>Android_NotificationIcon36</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -405,15 +667,6 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon24.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-mdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon24</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\lib\android\debug\mips\libnative-activity.so" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\library\lib\mips\</RemoteDir>
             <RemoteName>libGestaoHoras.so</RemoteName>
@@ -423,28 +676,19 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_SplashImage426.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-small\</RemoteDir>
-            <RemoteName>splash_image.png</RemoteName>
-            <DeployClass>Android_SplashImage426</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon36.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-ldpi\</RemoteDir>
-            <RemoteName>ic_launcher.png</RemoteName>
-            <DeployClass>Android_LauncherIcon36</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon36.png" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon72.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>GestaoHoras\res\drawable-hdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon36</DeployClass>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon72</DeployClass>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="GestaoHoras\LaunchGen\Android_LauncherIcon144.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\res\drawable-xxhdpi\</RemoteDir>
+            <RemoteName>ic_launcher.png</RemoteName>
+            <DeployClass>Android_LauncherIcon144</DeployClass>
             <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -468,18 +712,30 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="GestaoHoras\LaunchGen\Android_NotificationIcon96.png" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\res\drawable-xxxhdpi\</RemoteDir>
-            <RemoteName>ic_notification.png</RemoteName>
-            <DeployClass>Android_NotificationIcon96</DeployClass>
-            <Operation>1</Operation>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='OSXARM64'"/>
+    <ItemGroup Condition="'$(Platform)'=='Win64'">
+        <DeployFile Include="Win64\Debug\GestaoHoras.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GestaoHoras\</RemoteDir>
+            <RemoteName>GestaoHoras.exe</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Win64\Release\GestaoHoras.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>GestaoHoras\</RemoteDir>
+            <RemoteName>GestaoHoras.exe</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
         </DeployFile>
     </ItemGroup>
-    <ItemGroup Condition="'$(Platform)'=='OSXARM64'"/>
-    <ItemGroup Condition="'$(Platform)'=='Win64'"/>
     <ItemGroup Condition="'$(Platform)'=='Linux64'"/>
     <ItemGroup Condition="'$(Platform)'=='iOSDevice64'"/>
     <ItemGroup Condition="'$(Platform)'=='iOSSimARM64'"/>

@@ -64,6 +64,8 @@ type
     imgMenu_Estrutura: TImage;
     ShadowEffect3: TShadowEffect;
     StyleBook_Principal: TStyleBook;
+    lytMenu: TLayout;
+    imgMenu: TImage;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure imgEscolhaClick(Sender: TObject);
@@ -73,6 +75,7 @@ type
     procedure imgMenuFecharClick(Sender: TObject);
     procedure imgMenu_ConfigClick(Sender: TObject);
     procedure imgMenu_EstruturaClick(Sender: TObject);
+    procedure imgMenuClick(Sender: TObject);
   private
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
@@ -106,7 +109,8 @@ implementation
 {$R *.fmx}
 
 uses
-  uConfig;
+  uConfig,
+  uMenu;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -139,9 +143,9 @@ begin
   FMensagem := TFancyDialog.Create(frmPrincipal);
   FEnder  := '';
   {$IFDEF MSWINDOWS}
-    FEnder := System.SysUtils.GetCurrentDir + '\FINANCEIRO.ini';
+    FEnder := System.SysUtils.GetCurrentDir + '\GESTOR_HORA.ini';
   {$ELSE}
-    FEnder := System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath,'FINANCEIRO.ini');
+    FEnder := System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath,'GESTOR_HORA.ini');
   {$ENDIF}
   FIniFile := TIniFile.Create(FEnder);
 
@@ -248,6 +252,14 @@ begin
   end;
 end;
 
+procedure TfrmPrincipal.imgMenuClick(Sender: TObject);
+begin
+  mvPrincipal.HideMaster;
+  if not Assigned(frmMenu) then
+    Application.CreateForm(TfrmMenu,frmMenu);
+  frmMenu.Show;
+end;
+
 procedure TfrmPrincipal.imgMenuFecharClick(Sender: TObject);
 begin
   mvPrincipal.HideMaster;
@@ -278,9 +290,12 @@ begin
   procedure
   var
     lFDQ_Query :TFDQuery;
+    lFDQ_Query_1 :TFDQuery;
   begin
     lFDQ_Query := TFDQuery.Create(Nil);
     lFDQ_Query.Connection := DM.FDC_Conexao;
+    lFDQ_Query_1 := TFDQuery.Create(Nil);
+    lFDQ_Query_1.Connection := DM.FDC_Conexao;
 
     TThread.Synchronize(nil,procedure
     begin
@@ -292,13 +307,13 @@ begin
     begin
       TLoading.ChangeText('Estrutura Empresa');
     end);
-    FTEMPRESA.Atualizar_Estrutura(lFDQ_Query,True);
+    FTEMPRESA.Atualizar_Estrutura(lFDQ_Query,lFDQ_Query_1,True);
 
     TThread.Synchronize(nil,procedure
     begin
       TLoading.ChangeText('Estrutura Cliente');
     end);
-    FTCLIENTE.Atualizar_Estrutura(lFDQ_Query,True);
+    FTCLIENTE.Atualizar_Estrutura(lFDQ_Query,lFDQ_Query_1,True);
 
     TThread.Synchronize(nil,procedure
     begin
@@ -320,8 +335,10 @@ begin
 
     {$IFDEF MSWINDOWS}
       FreeAndNil(lFDQ_Query);
+      FreeAndNil(lFDQ_Query_1);
     {$ELSE}
       lFDQ_Query.DisposeOf;
+      lFDQ_Query_1.DisposeOf;
     {$ENDIF}
   end);
 
