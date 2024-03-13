@@ -94,6 +94,11 @@ type
     imgNovo: TImage;
     imgSalvar: TImage;
     imgUF: TImage;
+    imgSinc_N: TImage;
+    imgSinc_S: TImage;
+    lytPesquisar: TLayout;
+    edPesquisar: TEdit;
+    imgClearPesquisa: TImage;
     procedure imgAnteriorClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -118,13 +123,21 @@ type
     procedure edComplementoTyping(Sender: TObject);
     procedure edBairroTyping(Sender: TObject);
     procedure edCidadeTyping(Sender: TObject);
+    procedure imgClearPesquisaClick(Sender: TObject);
+    procedure edPesquisarKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
+    procedure lvRegistrosPaint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
+    procedure lvRegistrosItemClick(const Sender: TObject; const AItem: TListViewItem);
   private
     FComboStatus :TCustomCombo;
     FComboUF :TCustomCombo;
+    FProcessando :String;
 
     FMensagem :TFancyDialog;
     FIniFile :TIniFile;
     FEnder :String;
+
+    FID :Integer;
 
     FTEMPRESA :TEMPRESA;
 
@@ -163,7 +176,6 @@ type
 
       procedure ThreadEnd_Empresas_LV(Sender: TOBject);
     {$EndRegion 'Listando Empresas'}
-
 
   public
     { Public declarations }
@@ -212,6 +224,11 @@ begin
     FEnder := System.IOUtils.TPath.Combine(System.IOUtils.TPath.GetDocumentsPath,'GESTOR_HORA.ini');
   {$ENDIF}
   FIniFile := TIniFile.Create(FEnder);
+end;
+
+procedure TfrmEmpresa.FormShow(Sender: TObject);
+begin
+  Listar_Empresas(edPesquisar.Text,0,True);
 end;
 
 procedure TfrmEmpresa.Cancelar_Empresa(Sender: TOBject);
@@ -403,6 +420,12 @@ begin
   TFuncoes.ExibeLabel(edNome,lbNome,faNome,10,-20);
 end;
 
+procedure TfrmEmpresa.edPesquisarKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    Listar_Empresas(edPesquisar.Text,0,True);
+end;
+
 procedure TfrmEmpresa.edStatusClick(Sender: TObject);
 begin
   Combo_Status;
@@ -432,6 +455,11 @@ end;
 procedure TfrmEmpresa.imgAnteriorClick(Sender: TObject);
 begin
   tcCadastro.GotoVisibleTab(tcCadastro.TabIndex + TImage(Sender).Tag);
+end;
+
+procedure TfrmEmpresa.imgClearPesquisaClick(Sender: TObject);
+begin
+  edPesquisar.Text := '';
 end;
 
 procedure TfrmEmpresa.imgVoltarClick(Sender: TObject);
@@ -480,18 +508,134 @@ end;
 {$ENDIF}
 
 procedure TfrmEmpresa.Listar_Empresas(const ABusca: String; const APagina: Integer; const AInd_Clear: Boolean);
-begin
+var
+  lCodigo :Integer;
+  lNome :String;
+  t :TThread;
 
+begin
+  //Em processamento...
+  if FProcessando = 'processando' then
+      exit;
+  FProcessando := 'processando';
+
+  lNome := '';
+  lCodigo := 0;
+
+  if ABusca <> '' then
+  begin
+    if TFuncoes.Possui_Letras(ABusca) then
+      lNome := UpperCase(ABusca)
+    else
+      lCodigo := StrToIntDef(ABusca,0);
+  end;
+
+  lvRegistros.BeginUpdate;
+
+  if AInd_Clear then
+  begin
+    lvRegistros.ScrollTo(0);
+    lvRegistros.Tag := 0;
+    lvRegistros.Items.Clear;
+  end;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FDQ_Select :TFDQuery;
+  begin
+    FDQ_Select := TFDQuery.Create(Nil);
+    FDQ_Select.Connection := DM.FDC_Conexao;
+
+    if lvRegistros.Tag >= 0 then
+      lvRegistros.Tag := (lvRegistros.Tag + 1);
+
+      FTEMPRESA.Listar(
+        FDQ_Select,
+        lNome,
+        lCodigo,
+        lvRegistros.Tag);
+
+      if not FDQ_Select.IsEmpty then
+      begin
+        FDQ_Select.First;
+        while not FDQ_Select.Eof do
+        begin
+          TThread.Synchronize(nil,
+          procedure
+          begin
+              AddEmpresas_LV(
+                FDQ_Select.FieldByName('ID').AsInteger
+                ,FDQ_Select.FieldByName('NOME').AsString
+                ,FDQ_Select.FieldByName('SINCRONIZADO').AsInteger
+              );
+          end);
+          FDQ_Select.Next;
+        end;
+      end
+      else
+      begin
+        lvRegistros.Tag := -1;
+      end;
+
+      //Força a chamada do evento onUpdateObjects da listview...
+      lvRegistros.Margins.Bottom := 2;
+      lvRegistros.Margins.Bottom := 0;
+      //---------------------------------------------
+
+      TThread.Synchronize(nil, procedure
+      begin
+        lvRegistros.EndUpdate;
+      end);
+      FProcessando := '';
+
+      if Assigned(FDQ_Select) then
+      begin
+        {$IFDEF MSWINDOWS}
+          FreeAndNil(FDQ_Select);
+        {$ELSE}
+          FDQ_Select.DisposeOf;
+        {$ENDIF}
+      end;
+  end);
+
+  t.OnTerminate := ThreadEnd_Empresas_LV;
+  t.Start;
+end;
+
+procedure TfrmEmpresa.lvRegistrosItemClick(const Sender: TObject; const AItem: TListViewItem);
+begin
+  FID := 0;
+  FID := AItem.Tag;
+end;
+
+procedure TfrmEmpresa.lvRegistrosPaint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
+begin
+  if (lvRegistros.Items.Count >= 0) and (lvRegistros.Tag >= 0) then
+  begin
+     if lvRegistros.GetItemRect(lvRegistros.Items.Count - 3).Bottom <= lvRegistros.Height then
+       Listar_Empresas(edPesquisar.Text,lvRegistros.Tag,False)
+  end;
 end;
 
 procedure TfrmEmpresa.AddEmpresas_LV(const ACodigo: Integer; const ANome: String; const ASinc: Integer);
 begin
-
+  with lvRegistros.Items.Add do
+  begin
+    //Height := 100;
+    Tag := ACodigo;
+    TListItemText(Objects.FindDrawable('edNome')).Text := ANome;
+    case ASinc of
+      0:TListItemImage(Objects.FindDrawable('imgSinc')).Bitmap := imgSinc_N.Bitmap;
+      1:TListItemImage(Objects.FindDrawable('imgSinc')).Bitmap := imgSinc_S.Bitmap;
+    end;
+  end;
 end;
 
 procedure TfrmEmpresa.ThreadEnd_Empresas_LV(Sender: TOBject);
 begin
-
+  if Assigned(TThread(Sender).FatalException) then
+      FMensagem.Show(TIconDialog.Error,'','Erro ao listar: ' + Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmEmpresa.Novo_Empresa(Sender: TOBject);
@@ -528,7 +672,7 @@ begin
     FTEMPRESA.COMPLEMENTO := edComplemento.Text;
     FTEMPRESA.BAIRRO := edBairro.Text;
     FTEMPRESA.CIDADE := edCidade.Text;
-    FTEMPRESA.UF := edUF.Text;
+    FTEMPRESA.UF := edUF.TagString;
     FTEMPRESA.SINCRONIZADO := 0;
     FTEMPRESA.DT_CADASTRO := Date;
     FTEMPRESA.HR_CADASTRO := Time;

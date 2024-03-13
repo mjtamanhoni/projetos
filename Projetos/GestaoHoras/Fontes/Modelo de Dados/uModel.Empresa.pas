@@ -69,7 +69,11 @@ type
     procedure Atualizar_Estrutura(const AFDQ_Query,AFDQ_Query_1:TFDQuery; AManterDados:Boolean=False);
     procedure Inicia_Propriedades;
     function Inserir(const AFDQ_Query:TFDQuery):Integer;
-    function Listar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0): TJSONArray;
+    function Listar(
+      const AFDQ_Query:TFDQuery;
+      const ANOME:String='';
+      const AID:Integer = 0;
+      const APagina:Integer=0): TJSONArray;
     procedure Atualizar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0);
     procedure Excluir(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0);
     procedure Marcar_Como_Sincronizado(const AFDQ_Query:TFDQuery; const AUsuario:Integer=0);
@@ -456,9 +460,41 @@ begin
   end;
 end;
 
-function TEMPRESA.Listar(const AFDQ_Query: TFDQuery; AID, APagina: Integer): TJSONArray;
+function TEMPRESA.Listar(
+  const AFDQ_Query:TFDQuery;
+  const ANOME:String='';
+  const AID:Integer = 0;
+  const APagina:Integer=0): TJSONArray;
+var
+  lOffSet :Integer;
+  lPos :String;
 begin
+  try
+    lOffSet := 0;
+    lOffSet := ((APagina * C_Paginas) - C_Paginas);
 
+    AFDQ_Query.Active := False;
+    AFDQ_Query.SQL.Clear;
+
+    AFDQ_Query.SQL.Add('SELECT ');
+    AFDQ_Query.SQL.Add('  E.* ');
+    AFDQ_Query.SQL.Add('FROM EMPRESA E ');
+    AFDQ_Query.SQL.Add('WHERE 1 = 1 ');
+    if AID > 0 then
+      AFDQ_Query.SQL.Add('  AND  E.ID = ' + AID.ToString);
+    if Trim(ANOME) <> '' then
+      AFDQ_Query.SQL.Add('  AND  E.NOME = ' + QuotedStr(ANOME));
+    AFDQ_Query.SQL.Add('ORDER BY E.ID ');
+    AFDQ_Query.Sql.Add('LIMIT ' + C_Paginas.ToString + ' OFFSET ' + lOffSet.ToString);
+    AFDQ_Query.Active := True;
+
+    lPos := '005';
+  except
+    On Ex:Exception do
+    begin
+      raise Exception.Create('Listar Empresa. ' + Ex.Message);
+    end;
+  end;
 end;
 
 procedure TEMPRESA.Marcar_Como_Sincronizado(const AFDQ_Query: TFDQuery; const AUsuario: Integer);

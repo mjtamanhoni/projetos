@@ -24,8 +24,8 @@
     <Transaction>2024/02/24 12:11:22.000.564,=C:\Developer\Controle Financeiro\Servidor\Fontes\Modelo de Dados\uModel.CLIENTE.pas</Transaction>
     <Transaction>2024/02/24 12:11:36.000.157,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.CLIENTE.pas</Transaction>
     <Transaction>2024/02/24 12:11:36.000.220,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.CLIENTE_TABELA.pas</Transaction>
-    <Transaction>2024/02/24 12:11:36.000.439,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.SERVICOS_PRESTADOS.pas</Transaction>
     <Transaction>2024/02/24 12:11:36.000.298,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.HISTORICO.pas</Transaction>
+    <Transaction>2024/02/24 12:11:36.000.439,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.SERVICOS_PRESTADOS.pas</Transaction>
     <Transaction>2024/02/24 12:11:36.000.501,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.TABELA_PRECO.pas</Transaction>
     <Transaction>2024/02/24 12:11:36.000.360,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.PRESTADOR_SERVICO.pas</Transaction>
     <Transaction>2024/02/24 12:11:36.000.595,=C:\Developer\Controle Financeiro\Servidor\Fontes\Rotas\uRota.USUARIO.pas</Transaction>
