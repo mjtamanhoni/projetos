@@ -194,7 +194,7 @@ begin
            AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,VLR_RESTANTE ');
-           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO) ');
            AFDQ_Query.Sql.Add(' SELECT ');
@@ -212,7 +212,7 @@ begin
            AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,VLR_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,VLR_RESTANTE ');
-           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO ');
            AFDQ_Query.Sql.Add(' FROM APONTAMENTOS_HORAS ');

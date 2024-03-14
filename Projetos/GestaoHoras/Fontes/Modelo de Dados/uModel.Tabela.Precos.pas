@@ -126,6 +126,13 @@ begin
       begin
         if AManterDados then
         begin
+          if Tabela_Existe(FConexao,AFDQ_Query,'TABELA_PRECOS_TMP') then
+          begin
+            AFDQ_Query.Active := False;
+            AFDQ_Query.Sql.Clear;
+            AFDQ_Query.Sql.Add('DROP TABLE TABELA_PRECOS_TMP;');
+            AFDQ_Query.ExecSQL;
+          end;
            //Criando tabela temporária....
            AFDQ_Query.Active := False;
            AFDQ_Query.Sql.Clear;
@@ -148,7 +155,7 @@ begin
            AFDQ_Query.Sql.Add('   ,DESCRICAO ');
            AFDQ_Query.Sql.Add('   ,STATUS ');
            AFDQ_Query.Sql.Add('   ,VALOR ');
-           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO) ');
            AFDQ_Query.Sql.Add(' SELECT ');
@@ -156,7 +163,7 @@ begin
            AFDQ_Query.Sql.Add('   ,DESCRICAO ');
            AFDQ_Query.Sql.Add('   ,STATUS ');
            AFDQ_Query.Sql.Add('   ,VALOR ');
-           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO ');
            AFDQ_Query.Sql.Add(' FROM TABELA_PRECOS ');

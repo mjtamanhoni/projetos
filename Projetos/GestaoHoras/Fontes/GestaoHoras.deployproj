@@ -475,15 +475,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Android\Release\libGestaoHoras.so" Condition="'$(Config)'=='Release'">
-            <RemoteDir>GestaoHoras\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>libGestaoHoras.so</RemoteName>
-            <DeployClass>ProjectOutput_Android32</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android'">
         <DeployFile Include="Android\Release\GestaoHoras.classes" Condition="'$(Config)'=='Release'">

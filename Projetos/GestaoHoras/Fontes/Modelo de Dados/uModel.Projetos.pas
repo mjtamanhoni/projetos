@@ -153,6 +153,13 @@ begin
       begin
         if AManterDados then
         begin
+          if Tabela_Existe(FConexao,AFDQ_Query,'PROJETOS_TMP') then
+          begin
+            AFDQ_Query.Active := False;
+            AFDQ_Query.Sql.Clear;
+            AFDQ_Query.Sql.Add('DROP TABLE PROJETOS_TMP;');
+            AFDQ_Query.ExecSQL;
+          end;
            //Criando tabela temporária....
            AFDQ_Query.Active := False;
            AFDQ_Query.Sql.Clear;
@@ -193,7 +200,7 @@ begin
            AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,HR_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,VALOR_DIFERENCA ');
-           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO) ');
            AFDQ_Query.Sql.Add(' SELECT ');
@@ -210,7 +217,7 @@ begin
            AFDQ_Query.Sql.Add('   ,DT_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,HR_RECEBIMENTO ');
            AFDQ_Query.Sql.Add('   ,VALOR_DIFERENCA ');
-           AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('   ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('   ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('   ,HR_CADASTRO ');
            AFDQ_Query.Sql.Add(' FROM PROJETOS ');

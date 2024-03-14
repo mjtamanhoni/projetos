@@ -193,14 +193,14 @@ begin
            AFDQ_Query.Sql.Add('  ,NOME ');
            AFDQ_Query.Sql.Add('  ,STATUS ');
            AFDQ_Query.Sql.Add('  ,CELULAR ');
-           AFDQ_Query.Sql.Add('  ,EMAIL ');
+           //AFDQ_Query.Sql.Add('  ,EMAIL ');
            AFDQ_Query.Sql.Add('  ,CEP ');
            AFDQ_Query.Sql.Add('  ,ENDERECO ');
            AFDQ_Query.Sql.Add('  ,COMPLEMENTO ');
            AFDQ_Query.Sql.Add('  ,BAIRRO ');
            AFDQ_Query.Sql.Add('  ,CIDADE ');
            AFDQ_Query.Sql.Add('  ,UF ');
-           AFDQ_Query.Sql.Add('  ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('  ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('  ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('  ,HR_CADASTRO) ');
            AFDQ_Query.Sql.Add('SELECT ');
@@ -208,17 +208,14 @@ begin
            AFDQ_Query.Sql.Add('  ,NOME ');
            AFDQ_Query.Sql.Add('  ,STATUS ');
            AFDQ_Query.Sql.Add('  ,CELULAR ');
-           if Campo_Existe(FConexao,AFDQ_Query_1,'CLIENTE','EMAIL') then
-             AFDQ_Query.Sql.Add('  ,EMAIL ')
-           else
-             AFDQ_Query.Sql.Add('  ,'''' AS EMAIL ');
+           //AFDQ_Query.Sql.Add('  ,EMAIL ');
            AFDQ_Query.Sql.Add('  ,CEP ');
            AFDQ_Query.Sql.Add('  ,ENDERECO ');
            AFDQ_Query.Sql.Add('  ,COMPLEMENTO ');
            AFDQ_Query.Sql.Add('  ,BAIRRO ');
            AFDQ_Query.Sql.Add('  ,CIDADE ');
            AFDQ_Query.Sql.Add('  ,UF ');
-           AFDQ_Query.Sql.Add('  ,SINCRONIZADO ');
+           //AFDQ_Query.Sql.Add('  ,SINCRONIZADO ');
            AFDQ_Query.Sql.Add('  ,DT_CADASTRO ');
            AFDQ_Query.Sql.Add('  ,HR_CADASTRO ');
            AFDQ_Query.Sql.Add('FROM CLIENTE ');

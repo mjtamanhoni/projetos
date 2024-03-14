@@ -8,38 +8,38 @@
     <Transaction>2023/04/13 14:32:27.000.790,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
     <Transaction>2023/04/18 07:56:42.000.892,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
     <Transaction>2024/03/07 07:33:23.000.191,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
-    <Transaction>2024/03/07 07:37:20.000.384,C:\Developer\Projetos\Gestão de Horas\Fontes\uInformacoes.fmx=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.fmx</Transaction>
-    <Transaction>2024/03/07 07:37:20.000.384,C:\Developer\Projetos\Gestão de Horas\Fontes\uInformacoes.pas=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas</Transaction>
-    <Transaction>2024/03/07 07:37:34.000.910,C:\Developer\Projetos\Gestão de Horas\Fontes\GestaoHoras.dproj=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Project1.dproj</Transaction>
-    <Transaction>2024/03/07 08:07:31.000.283,=C:\Developer\Classes\99 Coders\Versao 11\u99Permissions.pas</Transaction>
-    <Transaction>2024/03/07 08:07:31.000.155,=C:\Developer\Classes\99 Coders\Versao 11\Androidapi.JNI.PowerManager.pas</Transaction>
-    <Transaction>2024/03/07 08:07:31.000.073,=C:\Developer\Classes\99 Coders\Versao 11\Android.KeyguardManager.pas</Transaction>
+    <Transaction>2024/03/07 07:37:20.000.384,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.pas=C:\Developer\Projetos\Gestão de Horas\Fontes\uInformacoes.pas</Transaction>
+    <Transaction>2024/03/07 07:37:20.000.384,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit1.fmx=C:\Developer\Projetos\Gestão de Horas\Fontes\uInformacoes.fmx</Transaction>
+    <Transaction>2024/03/07 07:37:34.000.910,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Project1.dproj=C:\Developer\Projetos\Gestão de Horas\Fontes\GestaoHoras.dproj</Transaction>
     <Transaction>2024/03/07 08:07:31.000.218,=C:\Developer\Classes\99 Coders\Versao 11\DW.Androidapi.JNI.KeyguardManager.pas</Transaction>
-    <Transaction>2024/03/07 08:07:32.000.342,=C:\Developer\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
+    <Transaction>2024/03/07 08:07:31.000.073,=C:\Developer\Classes\99 Coders\Versao 11\Android.KeyguardManager.pas</Transaction>
+    <Transaction>2024/03/07 08:07:31.000.155,=C:\Developer\Classes\99 Coders\Versao 11\Androidapi.JNI.PowerManager.pas</Transaction>
+    <Transaction>2024/03/07 08:07:31.000.283,=C:\Developer\Classes\99 Coders\Versao 11\u99Permissions.pas</Transaction>
     <Transaction>2024/03/07 08:07:32.000.214,=C:\Developer\Classes\99 Coders\Versao 11\uFancyDialog.pas</Transaction>
+    <Transaction>2024/03/07 08:07:32.000.342,=C:\Developer\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
     <Transaction>2024/03/07 08:07:32.000.147,=C:\Developer\Classes\99 Coders\Versao 11\uCombobox.pas</Transaction>
+    <Transaction>2024/03/07 08:07:32.000.410,=C:\Developer\Classes\99 Coders\Versao 11\uOpenViewUrl.pas</Transaction>
+    <Transaction>2024/03/07 08:07:32.000.280,=C:\Developer\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
     <Transaction>2024/03/07 08:07:32.000.081,=C:\Developer\Classes\99 Coders\Versao 11\uActionSheet.pas</Transaction>
     <Transaction>2024/03/07 08:07:32.000.485,=C:\Developer\Classes\99 Coders\Versao 11\uSuperChart.pas</Transaction>
-    <Transaction>2024/03/07 08:07:32.000.280,=C:\Developer\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
-    <Transaction>2024/03/07 08:07:32.000.410,=C:\Developer\Classes\99 Coders\Versao 11\uOpenViewUrl.pas</Transaction>
     <Transaction>2024/03/07 08:16:12.000.156,=C:\Developer\Global\uFuncoes.pas</Transaction>
     <Transaction>2024/03/07 08:20:14.000.195,=C:\Developer\Projetos\GestaoHoras\Fontes\uConfig.pas</Transaction>
     <Transaction>2024/03/07 08:20:14.000.795,=C:\Developer\Projetos\GestaoHoras\Fontes\uDM_Global.pas</Transaction>
-    <Transaction>2024/03/07 08:20:15.000.615,=C:\Developer\Projetos\GestaoHoras\Fontes\uPrincipal.pas</Transaction>
     <Transaction>2024/03/07 08:20:15.000.392,=C:\Developer\Projetos\GestaoHoras\Fontes\uPerfil_Usuario.pas</Transaction>
     <Transaction>2024/03/07 08:20:15.000.079,=C:\Developer\Projetos\GestaoHoras\Fontes\uLogin.pas</Transaction>
+    <Transaction>2024/03/07 08:20:15.000.615,=C:\Developer\Projetos\GestaoHoras\Fontes\uPrincipal.pas</Transaction>
     <Transaction>2024/03/07 08:20:25.000.834,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Tabela.Precos.pas</Transaction>
-    <Transaction>2024/03/07 08:20:25.000.685,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Empresa.pas</Transaction>
+    <Transaction>2024/03/07 08:20:25.000.629,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Cliente.pas</Transaction>
     <Transaction>2024/03/07 08:20:25.000.758,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Projetos.pas</Transaction>
     <Transaction>2024/03/07 08:20:25.000.522,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Apontamentos.Horas.pas</Transaction>
     <Transaction>2024/03/07 08:20:25.000.912,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Usuario.pas</Transaction>
-    <Transaction>2024/03/07 08:20:25.000.629,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Cliente.pas</Transaction>
+    <Transaction>2024/03/07 08:20:25.000.685,=C:\Developer\Projetos\GestaoHoras\Fontes\Modelo de Dados\uModel.Empresa.pas</Transaction>
     <Transaction>2024/03/07 19:15:40.000.098,=C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.pas</Transaction>
-    <Transaction>2024/03/07 19:17:04.000.181,C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.fmx=C:\Developer\Projetos\GestaoHoras\Fontes\uEmpresa.fmx</Transaction>
-    <Transaction>2024/03/07 19:17:04.000.181,C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.pas=C:\Developer\Projetos\GestaoHoras\Fontes\uEmpresa.pas</Transaction>
+    <Transaction>2024/03/07 19:17:04.000.181,C:\Developer\Projetos\GestaoHoras\Fontes\uEmpresa.fmx=C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.fmx</Transaction>
+    <Transaction>2024/03/07 19:17:04.000.181,C:\Developer\Projetos\GestaoHoras\Fontes\uEmpresa.pas=C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.pas</Transaction>
     <Transaction>2024/03/08 11:36:43.000.597,=C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.pas</Transaction>
-    <Transaction>2024/03/08 11:38:01.000.034,C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.fmx=C:\Developer\Projetos\GestaoHoras\Fontes\uMenu.fmx</Transaction>
-    <Transaction>2024/03/08 11:38:01.000.034,C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.pas=C:\Developer\Projetos\GestaoHoras\Fontes\uMenu.pas</Transaction>
+    <Transaction>2024/03/08 11:38:01.000.034,C:\Developer\Projetos\GestaoHoras\Fontes\uMenu.pas=C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/03/08 11:38:01.000.034,C:\Developer\Projetos\GestaoHoras\Fontes\uMenu.fmx=C:\Developer\Projetos\GestaoHoras\Fontes\Unit1.fmx</Transaction>
   </Transactions>
-	<BT_BuildType>AppStore</BT_BuildType>
+	<BT_BuildType>Debug</BT_BuildType>
 </BorlandProject>
