@@ -40,6 +40,7 @@ type
     procedure CarregarConfigDB(Connection: TFDConnection);
   public
     function Realizar_Login(AEmail,ASenha:String):Boolean;
+    function SolicitaToken(const APIN:String):String;
 
     {$Region 'Sincronizar'}
       function Sinc_Usuario:TJSONObject;
@@ -195,6 +196,57 @@ begin
       lQuery.DisposeOf;
       lTUSUARIO.DisposeOf;
     {$ENDIF}
+  end;
+end;
+
+function TDM.SolicitaToken(const APIN: String): String;
+var
+  lBody :String;
+  lHost :String;
+  lResp :IResponse;
+  lJson :TJSONObject;
+
+begin
+  try
+    try
+      Result := '';
+
+      if Trim(APIN) = '' then
+        raise Exception.Create('Erro ao solicitar Token. PIN do usuário não informado');
+
+      lBody := '';
+      lBody := lBody + '{';
+      lBody := lBody + '  "login":"",';
+      lBody := lBody + '  "senha":"",';
+      lBody := lBody + '  "pin":"'+APIN+'"';
+      lBody := lBody + '  "}';
+
+      lHost := FIniFile.ReadString('SERVER','BASE_URL','');
+      if lHost = '' then
+        raise Exception.Create('Favor informar a URL de conexão nas Configurações do APP.');
+
+      if lHost = '' then
+        raise Exception.Create('Necessário informar o Host...');
+
+      lResp := TRequest.New.BaseURL(lHost)
+               .Resource('usuario/login')
+               .AddBody(lBody)
+               .Accept('application/json')
+               .Post;
+
+      if lResp.StatusCode = 200 then
+      begin
+        lJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(lResp.Content),0) as TJSONObject;
+        Result := lJson.GetValue<String>('tokenAuth');
+      end
+      else
+        raise Exception.Create(lResp.Content);
+
+    except on E: Exception do
+      raise Exception.Create('Solicitar Token: ' + E.Message);
+    end;
+  finally
+
   end;
 end;
 

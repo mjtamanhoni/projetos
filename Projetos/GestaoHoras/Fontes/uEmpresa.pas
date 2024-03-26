@@ -175,6 +175,8 @@ type
         const ASinc:Integer);
 
       procedure ThreadEnd_Empresas_LV(Sender: TOBject);
+    procedure Sincronizar(Sender: TOBject);
+    procedure TThreadEnd_Sincronizar(Sender: TOBject);
     {$EndRegion 'Listando Empresas'}
 
   public
@@ -710,7 +712,38 @@ begin
     imgAcao_2.Bitmap := imgEdit.Bitmap;
     lbTitulo.Text := 'Empresas';
     tcPrincipal.GotoVisibleTab(0);
+    Listar_Empresas(edPesquisar.Text,0,True);
+    FMensagem.Show(TIconDialog.Question,'Atenção','Deseja sincronizar a Empresa?','Sim',Sincronizar,'Não');
   end;
+end;
+
+procedure TfrmEmpresa.Sincronizar(Sender :TOBject);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmEmpresa,'Sincronizando');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    lToken :String;
+  begin
+    lToken := '';
+    lToken := DM.SolicitaToken(DM.FDQ_Usuario.FieldByName('PIN').AsString);
+
+    //Enviando dados...
+  end);
+
+  t.OnTerminate := TThreadEnd_Sincronizar;
+  t.Start;
+
+end;
+
+procedure TfrmEmpresa.TThreadEnd_Sincronizar(Sender :TOBject);
+begin
+  TLoading.Hide;
+  if Assigned(TThread(Sender).FatalException) then
+    FMensagem.Show(TIconDialog.Error,'Erro',Exception(Assigned(TThread(Sender).FatalException)).Message);
 end;
 
 end.

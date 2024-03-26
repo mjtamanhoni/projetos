@@ -24,7 +24,8 @@ uses
   uRota.USUARIO in 'Rotas\uRota.USUARIO.pas',
   uConfig in 'uConfig.pas' {frmConfig},
   uDM_Global in 'uDM_Global.pas' {DM: TDataModule},
-  uEstrutura.Gerar in '..\..\..\Global\uEstrutura.Gerar.pas' {frmCriarEstrutura};
+  uEstrutura.Gerar in '..\..\..\Global\uEstrutura.Gerar.pas' {frmCriarEstrutura},
+  uModel.EMPRESA in 'Modelo de Dados\uModel.EMPRESA.pas';
 
 {$R *.res}
 

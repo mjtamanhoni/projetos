@@ -73,12 +73,12 @@ type
  
     procedure Criar_Estrutura(const AFDScript:TFDScript;AFDQuery:TFDQuery); 
     procedure Atualizar_Estrutura(const AFDQ_Query:TFDQuery); 
-    procedure Inicia_Propriedades; 
+    procedure Inicia_Propriedades;
     procedure Inserir(const AFDQ_Query:TFDQuery);
     function Listar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0): TJSONArray;
     procedure Atualizar(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0);
-    procedure Excluir(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0); 
- 
+    procedure Excluir(const AFDQ_Query:TFDQuery; AID:Integer = 0; APagina:Integer=0);
+
     property ID:Integer read FID write SetID;
     property NOME:String read FNOME write SetNOME;
     property PESSOA:Integer read FPESSOA write SetPESSOA;
@@ -96,13 +96,13 @@ type
     property EMAIL:String read FEMAIL write SetEMAIL;
     property DT_CADASTRO:TDate read FDT_CADASTRO write SetDT_CADASTRO;
     property HR_CADASTRO:TTime read FHR_CADASTRO write SetHR_CADASTRO;
- 
-  end; 
- 
-implementation 
- 
-function Campo_Existe(const AConexao:TFDConnection; const AFDQ_Query:TFDQuery; const ATabela, ACampos: String): Boolean; 
-begin 
+
+  end;
+
+implementation
+
+function Campo_Existe(const AConexao:TFDConnection; const AFDQ_Query:TFDQuery; const ATabela, ACampos: String): Boolean;
+begin
   try 
     AFDQ_Query.Connection := AConexao; 
     AFDQ_Query.Active := False; 
@@ -371,19 +371,19 @@ begin
   ID := -1; 
   NOME := ''; 
   PESSOA := -1; 
-  DOCUMENTO := ''; 
-  INSC_EST := ''; 
-  CEP := ''; 
-  ENDERECO := ''; 
-  COMPLEMENTO := ''; 
-  NUMERO := ''; 
-  BAIRRO := ''; 
-  CIDADE := ''; 
-  UF := ''; 
-  TELEFONE := ''; 
-  CELULAR := ''; 
-  EMAIL := ''; 
-  DT_CADASTRO := Date; 
+  STATUS := '';
+  INSC_EST := '';
+  CEP := '';
+  ENDERECO := '';
+  COMPLEMENTO := '';
+  NUMERO := '';
+  BAIRRO := '';
+  CIDADE := '';
+  UF := '';
+  TELEFONE := '';
+  CELULAR := '';
+  EMAIL := '';
+  DT_CADASTRO := Date;
   HR_CADASTRO := Time; 
 end; 
  
