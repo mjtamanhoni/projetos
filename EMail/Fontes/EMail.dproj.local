@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/05/06 17:35:29.000.834,C:\Instalacoes\ACBr\Exemplos\ACBrTCP\ACBrMail\Delphi\MailTeste\MailTeste.dproj=C:\Developer\EMail\Fontes\EMail.dproj</Transaction>
+    <Transaction>2024/05/06 17:35:55.000.902,C:\Instalacoes\ACBr\Exemplos\ACBrTCP\ACBrMail\Delphi\MailTeste\unit1.pas=</Transaction>
+    <Transaction>2024/05/06 18:08:36.000.446,=C:\Developer\EMail\Fontes\unit1.pas</Transaction>
+    <Transaction>2024/05/06 18:29:12.000.979,=C:\Developer\EMail\Fontes\Unit2.pas</Transaction>
+    <Transaction>2024/05/06 18:29:30.000.196,C:\Developer\EMail\Fontes\Unit2.pas=C:\Developer\EMail\Fontes\DM.Email.pas</Transaction>
+    <Transaction>2024/05/06 18:29:30.000.196,C:\Developer\EMail\Fontes\Unit2.dfm=C:\Developer\EMail\Fontes\DM.Email.dfm</Transaction>
+    <Transaction>2024/05/07 07:09:24.000.713,C:\Developer\EMail\Fontes\DM.Email.pas=</Transaction>
+    <Transaction>2024/05/07 07:33:46.000.380,C:\Developer\EMail\Fontes\uPrincipal.dfm=C:\Developer\EMail\Fontes\unit1.dfm</Transaction>
+    <Transaction>2024/05/07 07:33:46.000.380,C:\Developer\EMail\Fontes\uPrincipal.pas=C:\Developer\EMail\Fontes\unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
