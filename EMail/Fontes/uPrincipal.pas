@@ -61,18 +61,6 @@ type
     pcPrincipal: TPageControl;
     tsMensagem: TTabSheet;
     tsConfigConta: TTabSheet;
-    grpOpcoes: TGroupBox;
-    cbUsarTXT: TCheckBox;
-    cbUsarHTML: TCheckBox;
-    cbAddImgHTML: TCheckBox;
-    cbAddImgAtt: TCheckBox;
-    cbAddPDF: TCheckBox;
-    cbAddXML: TCheckBox;
-    cbUsarThread: TCheckBox;
-    edSubject: TEdit;
-    Label2: TLabel;
-    mLog: TMemo;
-    Label5: TLabel;
     Label4: TLabel;
     mBody: TMemo;
     ProgressBar1: TProgressBar;
@@ -108,6 +96,16 @@ type
     cbEstilo: TComboBox;
     Label1: TLabel;
     pnOpcoes: TPanel;
+    Panel1: TPanel;
+    Label2: TLabel;
+    edSubject: TEdit;
+    Label5: TLabel;
+    mLog: TMemo;
+    lbPosicao: TLabel;
+    lbEmail: TLabel;
+    ProgressBar: TProgressBar;
+    TabSheet1: TTabSheet;
+    Memo_Log: TMemo;
     procedure ACBrMail1AfterMailProcess(Sender: TObject);
     procedure ACBrMail1BeforeMailProcess(Sender: TObject);
     procedure ACBrMail1MailException(const AMail: TACBrMail; const E: Exception; var ThrowIt: Boolean);
@@ -124,6 +122,7 @@ type
     procedure LerConfiguracao;
     procedure GravarConfiguracao;
     procedure EnviarEmail(AEnderDest,ANomeDest:String);
+    procedure Mensagem_Padrao;
     { private declarations }
   public
     { public declarations }
@@ -191,6 +190,62 @@ begin
 
   pcPrincipal.ActivePage := tsMensagem;
 
+  Mensagem_Padrao;
+
+end;
+
+procedure TfrmPrincipal.Mensagem_Padrao;
+begin
+  mBody.Lines.Clear;
+  mBody.Lines.Add('');
+  mBody.Lines.Add('<h2><span style="background-color:#000000"><img alt="" src="https://bet7k.com/casino/category/all" /></span></h2>');
+  mBody.Lines.Add('<p style="text-align:center"><img alt="" height="460" src="https://imagedelivery.net/BgH9d8bzsn4n0yijn4h7IQ/c34a7cd0-aeaa-449b-18a2-f7b28ddb0600/w=1817" width="1240" /></p>');
+  mBody.Lines.Add('<h1 style="text-align: center;"><span style="font-size:48px">A hora &eacute; agora!</span></h1>');
+  mBody.Lines.Add('<p><span style="font-size:24px">Ganhe at&eacute; 100 rodadas gr&aacute;tis em saldo real.</span></p>');
+  mBody.Lines.Add('<p><span style="font-size:24px">Realizando um dep&oacute;sito no valor exato de:</span></p>');
+  mBody.Lines.Add('<table border="0" cellpadding="1" cellspacing="1" style="width:500px">');
+  mBody.Lines.Add('  <tbody>');
+  mBody.Lines.Add('    <tr>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">R$ 5,00</span></td>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">5 rodadas gr&aacute;tis</span></td>');
+  mBody.Lines.Add('    </tr>');
+  mBody.Lines.Add('    <tr>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">R$ 10,00</span></td>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">10 rodadas gr&aacute;tis</span></td>');
+  mBody.Lines.Add('    </tr>');
+  mBody.Lines.Add('    <tr>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">R$ 20,00</span></td>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">20 rodadas gr&aacute;tis</span></td>');
+  mBody.Lines.Add('    </tr>');
+  mBody.Lines.Add('    <tr>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">R$ 30,00</span></td>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">30 rodadas gr&aacute;tis</span></td>');
+  mBody.Lines.Add('    </tr>');
+  mBody.Lines.Add('    <tr>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">R$ 40,00</span></td>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">40 rodadas gr&aacute;tis</span></td>');
+  mBody.Lines.Add('    </tr>');
+  mBody.Lines.Add('    <tr>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">R$ 50,00</span></td>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">50 rodadas gr&aacute;tis</span></td>');
+  mBody.Lines.Add('    </tr>');
+  mBody.Lines.Add('    <tr>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">R$ 100,00</span></td>');
+  mBody.Lines.Add('      <td><span style="font-size:24px">100 rodadas gr&aacute;tis</span></td>');
+  mBody.Lines.Add('    </tr>');
+  mBody.Lines.Add('  </tbody>');
+  mBody.Lines.Add('</table>');
+  mBody.Lines.Add('<p>&nbsp;</p>');
+  mBody.Lines.Add('<p><span style="font-size:24px">AP&Oacute;S REALIZAR O SEU DEP&Oacute;SITO, APROVEITE SUAS RODADAS GR&Aacute;TIS.</span></p>');
+  mBody.Lines.Add('<p><span style="font-size:24px">LEMBRE-SE: V&aacute;lido apenas para novos cadastros.</span></p>');
+  mBody.Lines.Add('<p>&nbsp;</p>');
+  mBody.Lines.Add('<p style="text-align: center;"><span style="color:#008000"><span style="font-size:24px">ACESSE O LINK E PARTICIPE AGORA MESMO.</span></span></p>');
+  mBody.Lines.Add('<p style="text-align: center;"><span style="font-size:28px"><a href="https://bit.ly/4bSpZlY">https://bit.ly/4bSpZlY</a></span></p>');
+  mBody.Lines.Add('<p style="text-align: center;"><span style="color:#008000"><span style="font-size:24px">Pormo&ccedil;&atilde;o v&aacute;lida at&eacute; 23:59:59 hs do dia '+DateToStr(Date)+'</span></span></p>');
+  mBody.Lines.Add('<p style="text-align: center;"><span style="font-size:28px"><a href="https://bit.ly/4bSpZlY">https://bit.ly/4bSpZlY</a></span></p>');
+  mBody.Lines.Add('<p>&nbsp;</p>');
+  mBody.Lines.Add('');
+
 end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);
@@ -245,43 +300,15 @@ begin
   end;
 
   ACBrMail1.Clear;
-  ACBrMail1.IsHTML := cbUsarHTML.Checked;
+  ACBrMail1.IsHTML := True;
   ACBrMail1.Subject := edSubject.Text;
 
   AjustaParametrosDeEnvio(AEnderDest,ANomeDest);
-
-  if cbUsarHTML.Checked then
-    ACBrMail1.Body.Assign(mBody.Lines);
-
-  if cbUsarHTML.Checked and cbAddImgHTML.Checked then
-  begin
-    // Depende de: "<img src='cid:LogoACBr'>" em ACBrMail1.Body;
-    if Pos('cid:LogoACBr', ACBrMail1.Body.Text) > 0 then
-      ACBrMail1.AddAttachment(Dir + 'acbr_logo2.png', 'LogoACBr', adInline);
-  end;
-
-  if cbAddImgAtt.Checked then
-    ACBrMail1.AddAttachment(Dir + 'acbr_logo.jpg', '', adAttachment);
-
-  if cbAddPDF.Checked then
-    ACBrMail1.AddAttachment(Dir + '35150905481336000137550010000111291000111298-nfe.pdf', 'DANFE', adAttachment);
-
-  if cbAddXML.Checked then
-  begin
-    MS := TMemoryStream.Create;
-    try
-      ArqXML := '35150905481336000137550010000111291000111298-nfe.xml';
-      MS.LoadFromFile(Dir + ArqXML);
-      ACBrMail1.AddAttachment(MS, ArqXML, adAttachment);
-    finally
-      MS.Free;
-    end;
-  end;
-
+  ACBrMail1.AddAddress(AEnderDest, ANomeDest);
+  ACBrMail1.Body.Assign(mBody.Lines);
 
   try
-    ACBrMail1.Send(cbUsarThread.Checked);
-
+    ACBrMail1.Send(True);
   except on E: Exception do
     ShowMessage(E.Message);
   end;
@@ -289,76 +316,81 @@ end;
 
 procedure TfrmPrincipal.ACBrMail1BeforeMailProcess(Sender: TObject);
 begin
-  mLog.Lines.Add('Antes de Enviar o email: ' + TACBrMail(Sender).Subject);
+  //mLog.Lines.Add('Antes de Enviar o email: ' + TACBrMail(Sender).Subject);
 end;
 
 procedure TfrmPrincipal.ACBrMail1MailException(const AMail: TACBrMail; const E: Exception; var ThrowIt: Boolean);
 begin
-  ShowMessage(E.Message);
   ThrowIt := False;
   mLog.Lines.Add('*** Erro ao Enviar o email: ' + AMail.Subject);
 end;
 
 procedure TfrmPrincipal.ACBrMail1MailProcess(const AMail: TACBrMail; const aStatus: TMailStatus);
 begin
+{
   ProgressBar1.Position := Integer(aStatus);
 
   case aStatus of
-    pmsStartProcess:
-      mLog.Lines.Add('Iniciando processo de envio.');
-    pmsConfigHeaders:
-      mLog.Lines.Add('Configurando o cabeçalho do e-mail.');
-    pmsLoginSMTP:
-      mLog.Lines.Add('Logando no servidor de e-mail.');
-    pmsStartSends:
-      mLog.Lines.Add('Iniciando os envios.');
-    pmsSendTo:
-      mLog.Lines.Add('Processando lista de destinatários.');
-    pmsSendCC:
-      mLog.Lines.Add('Processando lista CC.');
-    pmsSendBCC:
-      mLog.Lines.Add('Processando lista BCC.');
-    pmsSendReplyTo:
-      mLog.Lines.Add('Processando lista ReplyTo.');
-    pmsSendData:
-      mLog.Lines.Add('Enviando dados.');
-    pmsLogoutSMTP:
-      mLog.Lines.Add('Fazendo Logout no servidor de e-mail.');
-    pmsDone:
-      begin
-        mLog.Lines.Add('Terminando e limpando.');
-        ProgressBar1.Position := ProgressBar1.Max;
-      end;
+    //pmsStartProcess: mLog.Lines.Add('Iniciando processo de envio.');
+    //pmsConfigHeaders: mLog.Lines.Add('Configurando o cabeçalho do e-mail.');
+    //pmsLoginSMTP: mLog.Lines.Add('Logando no servidor de e-mail.');
+    //pmsStartSends: mLog.Lines.Add('Iniciando os envios.');
+    //pmsSendTo: mLog.Lines.Add('Processando lista de destinatários.');
+    //pmsSendCC: mLog.Lines.Add('Processando lista CC.');
+    //pmsSendBCC: mLog.Lines.Add('Processando lista BCC.');
+    //pmsSendReplyTo: mLog.Lines.Add('Processando lista ReplyTo.');
+    pmsSendData: mLog.Lines.Add('Enviando dados.');
+    //pmsLogoutSMTP: mLog.Lines.Add('Fazendo Logout no servidor de e-mail.');
+    //pmsDone:
+    //  begin
+    //    mLog.Lines.Add('Terminando e limpando.');
+    //    ProgressBar1.Position := ProgressBar1.Max;
+    //  end;
   end;
+
+  lbEmail.Caption := '';
 
   mLog.Lines.Add('   ' + AMail.Subject);
 
   Application.ProcessMessages;
+  }
 end;
 
 procedure TfrmPrincipal.ACBrMail1AfterMailProcess(Sender: TObject);
 begin
-  mLog.Lines.Add('Depois de Enviar o email: ' + TACBrMail(Sender).Subject);
+  //mLog.Lines.Add('Depois de Enviar o email: ' + TACBrMail(Sender).Subject);
 end;
 
 procedure TfrmPrincipal.bEnviarLoteClick(Sender: TObject);
 var
   A: Integer;
 begin
-  cbUsarThread.Checked := True;
+  frmPrincipal.Enabled := False;
 
   mLog.Lines.Add('***** Iniciando envio de '+IntToStr(Memo_ListaEmails.Lines.Count - 1)+' emails por Thread *****');
+
+  ProgressBar.Min := 0;
+  ProgressBar.Max := Memo_ListaEmails.Lines.Count - 1;
+  ProgressBar.Position := 0;
+
   for A := 0 to Memo_ListaEmails.Lines.Count - 1 do
   begin
-    //AjustaParametrosDeEnvio(Memo_ListaEmails.Lines.Strings[A],Memo_ListaEmails.Lines.Strings[A]);
+    lbPosicao.Caption := IntToStr(A) + ' de ' + IntToStr(ProgressBar.Max);
+    lbEmail.Caption := Memo_ListaEmails.Lines.Strings[A];
+    ProgressBar.Position := A;
+    Application.ProcessMessages;
+
     mLog.Lines.Add('***** Enviando email: ' + IntToStr(A));
-    edSubject.Text := 'Teste de email: ' + IntToStr(A);
-    //bEnviar.Click;
+    edSubject.Text := edSubject.Text;
     EnviarEmail(Memo_ListaEmails.Lines.Strings[A],Memo_ListaEmails.Lines.Strings[A]);
-    if A >= 250 then
-      Break;
   end;
+
   mLog.Lines.Add('***** ' + A.ToString + ' emails enviados ***** ');
+  frmPrincipal.Enabled := True;
+  ProgressBar1.Position := 0;
+  lbEmail.Caption := '';
+  lbPosicao.Caption := '0 de 0';
+
 end;
 
 procedure TfrmPrincipal.btnSalvarClick(Sender: TObject);
@@ -393,7 +425,7 @@ begin
   ACBrMail1.SetSSL := chkSSL.Checked;  // Verifique se o seu servidor necessita SSL
   ACBrMail1.DefaultCharset := TMailCharset(cbbDefaultCharset.ItemIndex);
   ACBrMail1.IDECharset := TMailCharset(cbbIdeCharSet.ItemIndex);
-  ACBrMail1.AddAddress(AEnderDest, ANomeDest);
+  //ACBrMail1.AddAddress(AEnderDest, ANomeDest);
   ACBrMail1.SSLType := TSSLType(cbxSSLTYPE.ItemIndex);
   //ACBrMail1.AddCC('outro_email@gmail.com'); // opcional
   //ACBrMail1.AddReplyTo('um_email'); // opcional

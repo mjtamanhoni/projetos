@@ -1312,7 +1312,7 @@ object frmLogin: TfrmLogin
               Size.Width = 360.000000000000000000
               Size.Height = 35.000000000000000000
               Size.PlatformDefault = False
-              TextPrompt = 'E-mail'
+              TextPrompt = 'E-Mail'
               StyledSettings = [Family, Style, FontColor]
               OnTyping = edEmail_UserTyping
               OnKeyDown = edEmail_UserKeyDown

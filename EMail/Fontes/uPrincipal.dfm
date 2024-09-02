@@ -1,10 +1,8 @@
 object frmPrincipal: TfrmPrincipal
   Left = 294
   Top = 202
-  BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
   Caption = 'Exemplo ACBrMail'
-  ClientHeight = 843
+  ClientHeight = 767
   ClientWidth = 986
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,6 +11,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Name = 'Tahoma'
   Font.Style = []
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 16
@@ -23,7 +22,7 @@ object frmPrincipal: TfrmPrincipal
     Height = 41
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 742
+    ExplicitWidth = 980
     object imgLogo: TImage
       Left = 1
       Top = 1
@@ -50,283 +49,226 @@ object frmPrincipal: TfrmPrincipal
     Left = 0
     Top = 41
     Width = 986
-    Height = 802
+    Height = 726
     ActivePage = tsMensagem
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 46
-    ExplicitWidth = 748
     object tsMensagem: TTabSheet
       Caption = 'E-Mail'
       object pnOpcoes: TPanel
         Left = 0
         Top = 0
         Width = 978
-        Height = 377
+        Height = 500
         Align = alTop
         BevelInner = bvLowered
-        TabOrder = 2
-        ExplicitWidth = 740
-        object Label2: TLabel
-          Left = 337
-          Top = 2
-          Width = 107
-          Height = 16
-          Caption = 'Assunto (Subject):'
-          Color = clBtnFace
-          ParentColor = False
-        end
+        TabOrder = 1
+        ExplicitWidth = 972
         object Label4: TLabel
-          Left = 10
-          Top = 195
-          Width = 175
+          Left = 2
+          Top = 197
+          Width = 974
           Height = 16
+          Align = alTop
           Caption = 'Mensagem (Body modo HTML)'
           Color = clBtnFace
           ParentColor = False
-        end
-        object Label5: TLabel
-          Left = 337
-          Top = 50
-          Width = 23
-          Height = 16
-          Caption = 'LOG'
-          Color = clBtnFace
-          ParentColor = False
-        end
-        object grpOpcoes: TGroupBox
-          Left = 3
-          Top = 5
-          Width = 318
-          Height = 171
-          Caption = '[ Op'#231#245'es ]'
-          TabOrder = 0
-          object cbUsarTXT: TCheckBox
-            AlignWithMargins = True
-            Left = 5
-            Top = 18
-            Width = 308
-            Height = 19
-            Margins.Top = 0
-            Margins.Bottom = 0
-            Align = alTop
-            Caption = 'Enviar Mensagem em TXT'
-            TabOrder = 0
-            ExplicitLeft = 16
-            ExplicitTop = 17
-            ExplicitWidth = 158
-          end
-          object cbUsarHTML: TCheckBox
-            AlignWithMargins = True
-            Left = 5
-            Top = 37
-            Width = 308
-            Height = 19
-            Margins.Top = 0
-            Margins.Bottom = 0
-            Align = alTop
-            Caption = 'Enviar Mensagem em HTML'
-            Checked = True
-            State = cbChecked
-            TabOrder = 1
-            ExplicitLeft = 16
-            ExplicitWidth = 170
-          end
-          object cbAddImgHTML: TCheckBox
-            AlignWithMargins = True
-            Left = 5
-            Top = 56
-            Width = 308
-            Height = 19
-            Margins.Top = 0
-            Margins.Bottom = 0
-            Align = alTop
-            Caption = 'Incluir Imagem em HTML'
-            TabOrder = 2
-            ExplicitLeft = 2
-            ExplicitWidth = 314
-          end
-          object cbAddImgAtt: TCheckBox
-            AlignWithMargins = True
-            Left = 5
-            Top = 75
-            Width = 308
-            Height = 19
-            Margins.Top = 0
-            Margins.Bottom = 0
-            Align = alTop
-            Caption = 'Incluir Imagem em Anexo'
-            Checked = True
-            State = cbChecked
-            TabOrder = 3
-            ExplicitLeft = 16
-            ExplicitTop = 76
-            ExplicitWidth = 156
-          end
-          object cbAddPDF: TCheckBox
-            AlignWithMargins = True
-            Left = 5
-            Top = 94
-            Width = 308
-            Height = 19
-            Margins.Top = 0
-            Margins.Bottom = 0
-            Align = alTop
-            Caption = 'Incluir Anexo de PDF'
-            TabOrder = 4
-            ExplicitLeft = 16
-            ExplicitTop = 96
-            ExplicitWidth = 129
-          end
-          object cbAddXML: TCheckBox
-            AlignWithMargins = True
-            Left = 5
-            Top = 113
-            Width = 308
-            Height = 19
-            Margins.Top = 0
-            Margins.Bottom = 0
-            Align = alTop
-            Caption = 'Incluir XML por Stream'
-            TabOrder = 5
-            ExplicitLeft = 16
-            ExplicitTop = 117
-            ExplicitWidth = 141
-          end
-          object cbUsarThread: TCheckBox
-            AlignWithMargins = True
-            Left = 5
-            Top = 132
-            Width = 308
-            Height = 19
-            Margins.Top = 0
-            Margins.Bottom = 0
-            Align = alTop
-            Caption = 'Usar thread'
-            TabOrder = 6
-            ExplicitLeft = 16
-            ExplicitTop = 137
-            ExplicitWidth = 80
-          end
-        end
-        object edSubject: TEdit
-          Left = 337
-          Top = 20
-          Width = 636
-          Height = 24
-          TabOrder = 1
-          Text = 'IPTV Master'
-        end
-        object mLog: TMemo
-          Left = 335
-          Top = 69
-          Width = 636
-          Height = 140
-          TabOrder = 2
+          ExplicitWidth = 175
         end
         object mBody: TMemo
-          Left = 8
-          Top = 214
-          Width = 963
-          Height = 128
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Lines.Strings = (
-            '<h1><strong>IPTV MASTER</strong></h1>'
-            
-              '<p><strong>Link para acesso a IPTV em Smartv, Computador, Celula' +
-              'r.</strong></p>'
-            
-              '<p><strong>Poder&aacute; ser feito a desist&ecirc;ncia at&eacute' +
-              '; 7 dias</strong></p>'
-            '<p><strong>Link Abaixo:</strong></p>'
-            '<p></p>'
-            
-              '<p><strong><a href="http://conesoftdobrasi.com.br">http://coneso' +
-              'ftdobrasi.com.br</a></strong></p>')
-          ParentFont = False
-          TabOrder = 3
-          WordWrap = False
-        end
-        object ProgressBar1: TProgressBar
-          Left = 10
-          Top = 348
-          Width = 961
-          Height = 20
-          Max = 11
-          Step = 1
-          TabOrder = 4
-        end
-      end
-      object gbListaEmails: TGroupBox
-        Left = 0
-        Top = 377
-        Width = 978
-        Height = 358
-        Align = alClient
-        Caption = '[ Lista de E-Mails ]'
-        TabOrder = 0
-        ExplicitLeft = 3
-        ExplicitTop = 374
-        ExplicitWidth = 729
-        ExplicitHeight = 355
-        object Memo_ListaEmails: TMemo
-          AlignWithMargins = True
-          Left = 5
-          Top = 21
-          Width = 968
-          Height = 332
+          Left = 2
+          Top = 213
+          Width = 974
+          Height = 265
           Align = alClient
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
           Font.Name = 'Tahoma'
           Font.Style = []
-          Lines.Strings = (
-            'mjtamanhoni@gmail.com'
-            'sltamanhoni@gmail.com'
-            'gctamanhoni@gmail.com'
-            'nltamanhoni@gmail.com')
           ParentFont = False
+          ScrollBars = ssBoth
           TabOrder = 0
-          ExplicitTop = 18
-          ExplicitWidth = 719
-          ExplicitHeight = 343
+          WordWrap = False
+          ExplicitWidth = 968
+        end
+        object ProgressBar1: TProgressBar
+          Left = 2
+          Top = 478
+          Width = 974
+          Height = 20
+          Align = alBottom
+          Max = 11
+          Step = 1
+          TabOrder = 1
+          ExplicitWidth = 968
+        end
+        object Panel1: TPanel
+          Left = 2
+          Top = 2
+          Width = 974
+          Height = 195
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 2
+          ExplicitWidth = 968
+          object Label2: TLabel
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 968
+            Height = 16
+            Align = alTop
+            Caption = 'Assunto (Subject):'
+            Color = clBtnFace
+            ParentColor = False
+            ExplicitLeft = 334
+            ExplicitTop = -1
+            ExplicitWidth = 107
+          end
+          object Label5: TLabel
+            AlignWithMargins = True
+            Left = 3
+            Top = 52
+            Width = 968
+            Height = 16
+            Align = alTop
+            Caption = 'LOG'
+            Color = clBtnFace
+            ParentColor = False
+            ExplicitLeft = 343
+            ExplicitTop = 47
+            ExplicitWidth = 23
+          end
+          object edSubject: TEdit
+            AlignWithMargins = True
+            Left = 3
+            Top = 22
+            Width = 968
+            Height = 24
+            Margins.Top = 0
+            Align = alTop
+            TabOrder = 0
+            Text = '100 Giros gr'#225'tis'
+            ExplicitLeft = 332
+            ExplicitTop = 17
+            ExplicitWidth = 636
+          end
+          object mLog: TMemo
+            AlignWithMargins = True
+            Left = 3
+            Top = 71
+            Width = 968
+            Height = 121
+            Margins.Top = 0
+            Align = alClient
+            ScrollBars = ssBoth
+            TabOrder = 1
+            ExplicitLeft = 332
+            ExplicitTop = 66
+            ExplicitWidth = 636
+            ExplicitHeight = 111
+          end
         end
       end
-      object pnAcoesListaEmails: TPanel
+      object gbListaEmails: TGroupBox
         Left = 0
-        Top = 735
+        Top = 500
         Width = 978
-        Height = 36
-        Align = alBottom
-        BevelOuter = bvLowered
-        TabOrder = 1
-        ExplicitLeft = 3
-        ExplicitTop = 734
-        ExplicitWidth = 724
-        object btGravarLista: TButton
-          Left = 1
-          Top = 1
-          Width = 150
-          Height = 34
-          Align = alLeft
-          Caption = 'Gravar Lista'
+        Height = 195
+        Align = alClient
+        Caption = '[ Lista de E-Mails ]'
+        TabOrder = 0
+        ExplicitWidth = 972
+        ExplicitHeight = 189
+        object Memo_ListaEmails: TMemo
+          AlignWithMargins = True
+          Left = 5
+          Top = 21
+          Width = 968
+          Height = 133
+          Align = alClient
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ScrollBars = ssBoth
           TabOrder = 0
+          ExplicitWidth = 962
+          ExplicitHeight = 127
         end
-        object bEnviarLote: TButton
-          Left = 151
-          Top = 1
-          Width = 150
-          Height = 34
-          Align = alLeft
-          Caption = 'Enviar E-Mails da Lista'
+        object pnAcoesListaEmails: TPanel
+          Left = 2
+          Top = 157
+          Width = 974
+          Height = 36
+          Align = alBottom
+          BevelOuter = bvLowered
           TabOrder = 1
-          OnClick = bEnviarLoteClick
-          ExplicitLeft = 301
+          ExplicitTop = 151
+          ExplicitWidth = 968
+          object lbPosicao: TLabel
+            AlignWithMargins = True
+            Left = 870
+            Top = 4
+            Width = 100
+            Height = 28
+            Align = alRight
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = '1.000 de 1.000'
+            Layout = tlCenter
+            ExplicitLeft = 876
+            ExplicitTop = 3
+            ExplicitHeight = 34
+          end
+          object lbEmail: TLabel
+            AlignWithMargins = True
+            Left = 304
+            Top = 4
+            Width = 295
+            Height = 28
+            Align = alClient
+            AutoSize = False
+            Caption = 'mjtamanhoni@gmail.com'
+            Layout = tlCenter
+            ExplicitLeft = 887
+            ExplicitTop = 1
+            ExplicitWidth = 100
+            ExplicitHeight = 34
+          end
+          object btGravarLista: TButton
+            Left = 1
+            Top = 1
+            Width = 150
+            Height = 34
+            Align = alLeft
+            Caption = 'Gravar Lista'
+            TabOrder = 0
+            Visible = False
+          end
+          object bEnviarLote: TButton
+            Left = 151
+            Top = 1
+            Width = 150
+            Height = 34
+            Align = alLeft
+            Caption = 'Enviar E-Mails da Lista'
+            TabOrder = 1
+            OnClick = bEnviarLoteClick
+          end
+          object ProgressBar: TProgressBar
+            AlignWithMargins = True
+            Left = 605
+            Top = 4
+            Width = 259
+            Height = 28
+            Align = alRight
+            TabOrder = 2
+            ExplicitLeft = 599
+          end
         end
       end
     end
@@ -558,6 +500,22 @@ object frmPrincipal: TfrmPrincipal
         Style = csDropDownList
         TabOrder = 14
         OnClick = cbEstiloClick
+      end
+    end
+    object TabSheet1: TTabSheet
+      Caption = 'Log'
+      ImageIndex = 2
+      object Memo_Log: TMemo
+        Left = 0
+        Top = 0
+        Width = 978
+        Height = 695
+        Align = alClient
+        TabOrder = 0
+        ExplicitLeft = 400
+        ExplicitTop = 304
+        ExplicitWidth = 185
+        ExplicitHeight = 89
       end
     end
   end
