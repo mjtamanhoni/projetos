@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/05/01 08:16:52.000.021,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/01 08:30:42.000.931,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/02 08:17:55.000.753,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/02 09:41:27.000.133,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/21 17:17:51.000.733,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/07/22 09:51:00.000.601,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/09/02 08:03:13.824,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/09/02 08:04:45.817,C:\Developer\Controle de Horas\DeskTop\Fontes\uPrincipal.fmx=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.fmx</Transaction>
+    <Transaction>2024/09/02 08:04:45.817,C:\Developer\Controle de Horas\DeskTop\Fontes\uPrincipal.pas=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/09/02 08:04:58.373,C:\Developer\Controle de Horas\DeskTop\Fontes\Controle.Horas.dproj=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Project3.dproj</Transaction>
+    <Transaction>2024/09/02 08:07:19.104,=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/09/02 08:08:25.830,C:\Developer\Controle de Horas\DeskTop\Fontes\Data_Modules\uDm.Global.pas=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/09/02 08:08:25.830,C:\Developer\Controle de Horas\DeskTop\Fontes\Data_Modules\uDm.Global.dfm=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2024/09/02 17:53:56.485,=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/09/02 17:55:55.311,C:\Developer\Controle de Horas\DeskTop\Fontes\uConfig.pas=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/09/02 17:55:55.311,C:\Developer\Controle de Horas\DeskTop\Fontes\uConfig.fmx=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.fmx</Transaction>
+    <Transaction>2024/09/02 19:11:42.369,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uActionSheet.pas</Transaction>
+    <Transaction>2024/09/02 19:11:42.517,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uFancyDialog.pas</Transaction>
+    <Transaction>2024/09/02 19:11:42.673,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
+    <Transaction>2024/09/02 19:11:42.813,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
+    <Transaction>2024/09/02 19:12:08.931,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uActionSheet.pas=</Transaction>
+    <Transaction>2024/09/02 19:12:09.122,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uFancyDialog.pas=</Transaction>
+    <Transaction>2024/09/02 19:12:09.162,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uFormat.pas=</Transaction>
+    <Transaction>2024/09/02 19:12:09.199,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Classes\99 Coders\Versao 11\uLoading.pas=</Transaction>
+    <Transaction>2024/09/02 19:12:33.459,=C:\Developer\Classes\99 Coders\Versao 11\uFancyDialog.pas</Transaction>
+    <Transaction>2024/09/02 19:12:33.598,=C:\Developer\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
+    <Transaction>2024/09/02 19:12:33.783,=C:\Developer\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
+    <Transaction>2024/09/02 19:56:11.753,=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/09/02 19:56:44.162,C:\Developer\Controle de Horas\DeskTop\Fontes\uCad.Usuario.pas=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/09/02 19:56:44.162,C:\Developer\Controle de Horas\DeskTop\Fontes\uCad.Usuario.fmx=C:\Developer\Controle de Horas\DeskTop\Fontes\Unit1.fmx</Transaction>
+  </Transactions>
+</BorlandProject>

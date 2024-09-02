@@ -1,0 +1,552 @@
+object frmConfig: TfrmConfig
+  Left = 0
+  Top = 0
+  Caption = 'Configura'#231#245'es'
+  ClientHeight = 500
+  ClientWidth = 800
+  Position = ScreenCenter
+  StyleBook = frmPrincipal.StyleBook_Principal
+  Transparency = True
+  WindowState = wsMaximized
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object rctTampa: TRectangle
+    Align = Client
+    Fill.Color = x64000000
+    Size.Width = 800.000000000000000000
+    Size.Height = 500.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object lytFormulario: TLayout
+      Align = Client
+      Size.Width = 800.000000000000000000
+      Size.Height = 500.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object rctDetail: TRectangle
+        Align = Client
+        Fill.Color = claWhite
+        Size.Width = 800.000000000000000000
+        Size.Height = 500.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFF363428
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 10.000000000000000000
+        YRadius = 10.000000000000000000
+        object rctFooter: TRectangle
+          Align = Bottom
+          Corners = [BottomLeft, BottomRight]
+          Fill.Color = xFF363428
+          Position.Y = 465.000000000000000000
+          Size.Width = 800.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          object imgConfirmar: TImage
+            MultiResBitmap = <
+              item
+                Width = 50
+                Height = 50
+                PNG = {
+                  89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                  B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                  02FB494441546843ED984F6ED34014C6671C14564D72037284DC80768944E274
+                  8904D43D01E104B427A0390149416219EC22B14C7302E004941B40D805ECE1BD
+                  C99BD4B1C78EB11D3CAAFC93A2F84D14C55FDEE76FFEB09A9A9A9A9A9ABBCED4
+                  1B3EC417955A2C7A3796893778C358708DAFA9D7BFA0E118460BB9F4EC2167CC
+                  A112E02FE82286B1426673BB2358F09A4A89106C4197318C15B2FC159C4107BA
+                  544AEE35F8882E631829E4ED957D18B39110E74F1FBB5FA88A619C10B4542002
+                  78C06F014B7D6FB5ACC4071D314E88CE520D8B3BC747EE0F2AB51825446B2926
+                  C6CFFA2EC46F3A4609D15AEAC0820EEDC6182153B79FCB520A986FAAE7DD47BB
+                  E707E2339584189F0CAE12E3368A111DF17D11B5D4CFAC9652542E445A8AB31E
+                  95128B67B794A2526BE92C2518739D8137A4323395764467A9F6010F2D12B353
+                  9990A96B8FCAB094A2126BBDFF647757BF03B014EFD0506E4B292AE9C86A8596
+                  0A89286029456247E483E88B5778DD6CF2974F1EB937F28382AC2D25B6F6195C
+                  F0D3E7B63BA13217891DF18360063287F8421BA030FA28376829C603F9E728A0
+                  1B8BA22290146B85970BBC03C2E6B8F5A4815CE82C75BF59CC528A1421624C17
+                  0487ADA7985DBA76AE1F96DFE30C56B7B770C6CFCAB26C6A6AAD4F2DE21B7E48
+                  980924CC29953BC1CD12EC33BE45BAB1706C6F4B581152530B176DF82052B901
+                  D43B537730C31BA4A15496CBFD594AB1337EF1418489EA087F9C86D64008C00D
+                  CE778991CF15864688322DA5C83C21626AFDF1C507CED9031A22C44DC3B28E75
+                  0703FFC3528A9D1D51E08DB65BBC0737F2958608DEC5445B6F53B7895A0A493B
+                  D22942662108AE8340CC212E276888E09D40887938D174968276A41EE91421F7
+                  5A6BE20D26F0E5132A3780C80B586E9C83A5702DB5998BB09360A9C2936A12FF
+                  D4913010BF4E42A28DA22210B054A9291525B71004130DC5C4122D22629F9652
+                  E4B656184AB46B48B4360D6DD8B7A514853AA2C07F1B26384DA2C9239DBDA454
+                  9452842038C1C944DB1293ED94D058704E2963D95F535353735761EC2F779C53
+                  C4715F4BBB0000000049454E44AE426082}
+              end>
+            Align = Left
+            Cursor = crHandPoint
+            Margins.Top = 2.000000000000000000
+            Margins.Bottom = 2.000000000000000000
+            Position.Y = 2.000000000000000000
+            Size.Width = 48.000000000000000000
+            Size.Height = 31.000000000000000000
+            Size.PlatformDefault = False
+            OnClick = imgConfirmarClick
+          end
+        end
+        object rctHeader: TRectangle
+          Align = Top
+          Corners = [TopLeft, TopRight]
+          Fill.Color = xFF363428
+          Size.Width = 800.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          object lbTitle: TLabel
+            Align = Contents
+            StyledSettings = [Family, Size]
+            Size.Width = 800.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFFA1B24E
+            TextSettings.HorzAlign = Center
+            Text = 'CONTROLE DE HORAS'
+            TabOrder = 0
+            object ShadowEffect3: TShadowEffect
+              Distance = 3.000000000000000000
+              Direction = 45.000000000000000000
+              Softness = 0.300000011920929000
+              Opacity = 0.600000023841857900
+              ShadowColor = claBlack
+            end
+          end
+          object imgFechar: TImage
+            MultiResBitmap = <
+              item
+                Width = 50
+                Height = 50
+                PNG = {
+                  89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                  B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                  017D494441546843ED99D14DC33010407DE53F7403CA066503FA4F9DF28F946C
+                  C008B413C00889D47F1497FF8E40D9A04C007481C3170C0912521B72A91DE95E
+                  95C67752253F9D4FF2A94A1004A157807B976446DF83C2994D8F5C2A50708B0A
+                  B2549B854B5422B9993ED8F0D685FD007191C4AB392DEB226F361C9E0CE0E2E6
+                  AAD8B87427E446A35BB604B7895E9DD36A50C62530A4EFAE2578A95AA026D26F
+                  442434442434442434442434D844F2423FD3F3B88ECB1BC2B16113B19727B09F
+                  F16E876B1F326C22A7115C22AA175F326C22D793E2DDA70C6BB3FB94A9CD235F
+                  3342A2CDAFA9911A9836E5C2E6A0DA44114C48D26518E7916ABF7B2B5236710B
+                  DAFEFE50F656A4297494E8485115E988D151AB5783F05291261C22D1156C223E
+                  250836119F12049B0835B52F09824D248DCD981E1F12046BB3FB444442434442
+                  434442434442E347C45E2F3EE8BD7C8AFF3F441D19BBE757B7ACCD23C574AE00
+                  EE5CD80FFEFAEB8D2019549002A833970A12AA0428CCBE25044110FA86529FC9
+                  E9B1468C448A740000000049454E44AE426082}
+              end>
+            Align = Right
+            Cursor = crHandPoint
+            Margins.Top = 2.000000000000000000
+            Margins.Bottom = 2.000000000000000000
+            Position.X = 752.000000000000000000
+            Position.Y = 2.000000000000000000
+            Size.Width = 48.000000000000000000
+            Size.Height = 31.000000000000000000
+            Size.PlatformDefault = False
+            OnClick = imgFecharClick
+          end
+        end
+        object ShadowEffect4: TShadowEffect
+          Distance = 5.000000000000000000
+          Direction = 45.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+        object tcPrincipal: TTabControl
+          Align = Client
+          Size.Width = 800.000000000000000000
+          Size.Height = 430.000000000000000000
+          Size.PlatformDefault = False
+          TabIndex = 0
+          TabOrder = 2
+          TabPosition = None
+          Sizes = (
+            800s
+            430s)
+          object tiDB: TTabItem
+            CustomIcon = <
+              item
+              end>
+            IsSelected = True
+            Size.Width = 8.000000000000000000
+            Size.Height = 8.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = ''
+            TabOrder = 0
+            Text = 'tiDB'
+            object lytConfig: TLayout
+              Align = Client
+              Size.Width = 800.000000000000000000
+              Size.Height = 430.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              object lytBDF_Row001: TLayout
+                Align = Top
+                Margins.Top = 5.000000000000000000
+                Position.Y = 5.000000000000000000
+                Size.Width = 800.000000000000000000
+                Size.Height = 35.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object lbBDF_Servidor: TLabel
+                  Align = Left
+                  StyledSettings = [Family]
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Servidor:'
+                  TabOrder = 2
+                end
+                object edBDF_Servidor: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Left
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 0
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Position.X = 122.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 300.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Informe o Nome ou IP do Servidor'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecUpperCase
+                  OnKeyDown = edBDF_ServidorKeyDown
+                end
+                object edBDF_Porta: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Right
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 1
+                  FilterChar = '0123456789'
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Position.X = 698.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Right = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Porta'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecUpperCase
+                  OnKeyDown = edBDF_PortaKeyDown
+                  object OpenDialog: TOpenDialog
+                    Left = 261
+                    Top = 240
+                  end
+                end
+                object lbBDF_Porta: TLabel
+                  Align = Right
+                  StyledSettings = [Family]
+                  Position.X = 576.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Porta:'
+                  TabOrder = 3
+                end
+              end
+              object lytBDF_Row002: TLayout
+                Align = Top
+                Position.Y = 40.000000000000000000
+                Size.Width = 800.000000000000000000
+                Size.Height = 35.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                object lbBDF_Banco: TLabel
+                  Align = Left
+                  StyledSettings = [Family]
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Banco:'
+                  TabOrder = 1
+                end
+                object edBDF_Banco: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 0
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Right = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 676.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Informe ou selecione o banco de dados'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecUpperCase
+                  OnKeyDown = edBDF_BancoKeyDown
+                  object dbBDF_Banco: TSpeedButton
+                    Align = Right
+                    Cursor = crHandPoint
+                    Position.X = 656.000000000000000000
+                    Size.Width = 20.000000000000000000
+                    Size.Height = 31.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = '...'
+                    OnClick = dbBDF_BancoClick
+                  end
+                end
+              end
+              object lytBDF_Row003: TLayout
+                Align = Top
+                Position.Y = 75.000000000000000000
+                Size.Width = 800.000000000000000000
+                Size.Height = 35.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+                object lbBDF_Usuario: TLabel
+                  Align = Left
+                  StyledSettings = [Family]
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Usu'#225'rio:'
+                  TabOrder = 3
+                end
+                object edBDF_Usuario: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Left
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 0
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Position.X = 122.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 300.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Nome do Usu'#225'rio'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecUpperCase
+                  OnKeyDown = edBDF_UsuarioKeyDown
+                end
+                object lbBDF_Senha: TLabel
+                  Align = Right
+                  StyledSettings = [Family]
+                  Position.X = 434.000000000000000000
+                  Size.Width = 62.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Senha:'
+                  TabOrder = 2
+                end
+                object edBDF_Senha: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Right
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 1
+                  Password = True
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Position.X = 498.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Right = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 300.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Senha do Banco'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecLowerCase
+                  OnKeyDown = edBDF_SenhaKeyDown
+                  object lytExibeSenha: TLayout
+                    Align = Right
+                    Margins.Right = 2.000000000000000000
+                    Position.X = 278.000000000000000000
+                    Size.Width = 20.000000000000000000
+                    Size.Height = 31.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object imgSenha: TImage
+                      MultiResBitmap = <
+                        item
+                          Width = 24
+                          Height = 24
+                          PNG = {
+                            89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+                            F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                            017949444154484BEDD4CB2B445100C7F121F2CC3BC58205524294AC50B6CA82
+                            8D94B0524A4AC9CE82FC0F884452CA4A76CA566465231B6FC2027925F2FAFECE
+                            DCC9BDD7DC31CCC266BEF5E19C73A7C3DC73677CD1FEBD18EB77A8E2508D52E4
+                            6A812EB18B6DBC6AE12F55601EF7F8F0A06BB32843D865621AEFD00633684309
+                            B2906D8DDBA1CD1FA0D74E2003212BC7099E318C34FC543A46F0822378BE1BDD
+                            E76B1C5B6377F518B2D469C1550DCE71854A2DD8D3E1E9AFEF215F0BB60AB101
+                            F7FD5F4701EC15E10CFBC8D142A0053CA1CACCBE4A869E961B74200189E8B4D6
+                            7690047BB5D05E7366467A6B3A24DD477783D0B5463373D6005D1B3033676378
+                            83F98727718B144D5CAD61D33F0CDA1656FD4347A9B8C3782C3F5AB08C47B8D3
+                            23AB83F3EA027A74DDE9D1D59EAD9A74A35883202D4187AF4FB3BB789C62D1CC
+                            BEA73DBBFC43EF9AA12766D4CC9CE93EEB5A939945903EC9DA68057DE887CE46
+                            6B5388387D21F6E210DA540ED08370BE2C7F559E255AB4403EDF2791AA5696C9
+                            500A480000000049454E44AE426082}
+                        end>
+                      Align = Client
+                      Size.Width = 20.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                    end
+                    object sbSenha: TSpeedButton
+                      Align = Contents
+                      Size.Width = 20.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      OnClick = sbSenhaClick
+                    end
+                  end
+                end
+              end
+              object lytBDF_Row004: TLayout
+                Align = Top
+                Position.Y = 110.000000000000000000
+                Size.Width = 800.000000000000000000
+                Size.Height = 35.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 3
+                object lbBDF_Biblioteca: TLabel
+                  Align = Left
+                  StyledSettings = [Family]
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Biblioteca:'
+                  TabOrder = 1
+                end
+                object edBDF_Biblioteca: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Client
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 0
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Right = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 676.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Informe ou selecione a biblioteca (FBCLIENTE.DLL)'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecUpperCase
+                  object sbBDF_Biblioteca: TSpeedButton
+                    Align = Right
+                    Position.X = 656.000000000000000000
+                    Size.Width = 20.000000000000000000
+                    Size.Height = 31.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = '...'
+                    OnClick = sbBDF_BibliotecaClick
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  object imgEsconteSenha: TImage
+    MultiResBitmap = <
+      item
+        Width = 24
+        Height = 24
+        PNG = {
+          89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+          F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+          01B349444154484BEDD5CB2B445100C7F1F14812498A3C124951945744D9C9C6
+          4E44F6B2518A8DB2F28CA25828796C28E11F106B498988920D25C446512884EF
+          EFBA33CEDC79783476F3AB4F73CF31F777CF7DCCE50AC74F4671F2B919FA8CE3
+          1D13D68844D89FC1128562142005D1B8C52176F18A484CA30DC3E8C5B729C722
+          EEA15539BDA0012A9FB1E786F06D52B104EDF0081DA41579484612725104B37C
+          0F09089A525C43A73D0295058ACA67A1F21D689F5314C26F2AA0CBA103546BC2
+          911A74211166F920944A68DF1BF81C241D973847B6268C64611B5A6133CC72CF
+          D362271FEA11AFB35F85AE778935FA4A1C8E71874698E54F38402CCCE8323F63
+          C11A912ABCA1DF1A79A71B5A792DCCF201D4D9DB9D7046F74F9D7ABC5D73D0B5
+          8FD7C09135B440E5FA9EBBDC9D7DAC7F6E7A45F7E901531AE8C6784EC7913204
+          2A57B400FDD8FC651957DA6842A636FCC42C775EC21868712BD6C83739D04311
+          3066F9A6268CE8153306FDAD5E13BF8DCAE7A102FD42F5B98176F460CB9ED302
+          7E1DB35C9745ABEDC0853D2767D0C17EF2B2F48A59DEA709237A8B6620CD1AFD
+          21C1CA439249A85C37EF5F7204FDBB0BC788CBF501711971317E0418A1000000
+          0049454E44AE426082}
+      end>
+    Position.X = 103.000000000000000000
+    Position.Y = 338.000000000000000000
+    Visible = False
+  end
+  object imgExibeSenha: TImage
+    MultiResBitmap = <
+      item
+        Width = 24
+        Height = 24
+        PNG = {
+          89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+          F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+          017949444154484BEDD4CB2B445100C7F121F2CC3BC58205524294AC50B6CA82
+          8D94B0524A4AC9CE82FC0F884452CA4A76CA566465231B6FC2027925F2FAFECE
+          DCC9BDD7DC31CCC266BEF5E19C73A7C3DC73677CD1FEBD18EB77A8E2508D52E4
+          6A812EB18B6DBC6AE12F55601EF7F8F0A06BB32843D865621AEFD00633684309
+          B2906D8DDBA1CD1FA0D74E2003212BC7099E318C34FC543A46F0822378BE1BDD
+          E76B1C5B6377F518B2D469C1550DCE71854A2DD8D3E1E9AFEF215F0BB60AB101
+          F7FD5F4701EC15E10CFBC8D142A0053CA1CACCBE4A869E961B74200189E8B4D6
+          7690047BB5D05E7366467A6B3A24DD477783D0B5463373D6005D1B3033676378
+          83F98727718B144D5CAD61D33F0CDA1656FD4347A9B8C3782C3F5AB08C47B8D3
+          23AB83F3EA027A74DDE9D1D59EAD9A74A35883202D4187AF4FB3BB789C62D1CC
+          BEA73DBBFC43EF9AA12766D4CC9CE93EEB5A939945903EC9DA68057DE887CE46
+          6B5388387D21F6E210DA540ED08370BE2C7F559E255AB4403EDF2791AA5696C9
+          500A480000000049454E44AE426082}
+      end>
+    Position.X = 103.000000000000000000
+    Position.Y = 280.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+  end
+end
