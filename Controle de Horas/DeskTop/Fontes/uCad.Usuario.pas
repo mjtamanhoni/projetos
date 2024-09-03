@@ -12,7 +12,11 @@ uses
     uFancyDialog,
   {$EndRegion '99 Coders'}
   IniFiles,
-  uPrincipal;
+  uPrincipal,
+  uDm.Global, System.Actions, FMX.ActnList, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Fmx.Bind.Navigator, Data.Bind.Components,
+  Data.Bind.DBScope;
 
 type
   TfrmCad_Usuario = class(TForm)
@@ -52,21 +56,39 @@ type
     sbBDF_Biblioteca: TSpeedButton;
     tiLista: TTabItem;
     lytPesquisa: TLayout;
-    Layout2: TLayout;
-    dxfmGrid: TdxfmGrid;
-    dxfmGridRootLevel1: TdxfmGridRootLevel;
     edPesquisar: TEdit;
     imgPesquisar: TImage;
     rctIncluir: TRectangle;
-    lbIncluir: TLabel;
     rctEditar: TRectangle;
-    lbEditar: TLabel;
     rctSalvar: TRectangle;
-    lbSalvar: TLabel;
     rctCancelar: TRectangle;
-    lbCancelar: TLabel;
     rctExcluir: TRectangle;
-    lbExcluir: TLabel;
+    FDQRegistros: TFDQuery;
+    FDQRegistrosID: TIntegerField;
+    FDQRegistrosNOME: TStringField;
+    FDQRegistrosLOGIN: TStringField;
+    FDQRegistrosSENHA: TStringField;
+    FDQRegistrosPIN: TStringField;
+    FDQRegistrosCELULAR: TStringField;
+    FDQRegistrosEMAIL: TStringField;
+    FDQRegistrosFOTO: TMemoField;
+    FDQRegistrosDT_CADASTRO: TDateField;
+    FDQRegistrosHR_CADASTRO: TTimeField;
+    FDQRegistrosSINCRONIZADO: TIntegerField;
+    DSRegistros: TDataSource;
+    imgIncluir: TImage;
+    imgEditar: TImage;
+    imgSalvar: TImage;
+    imgCancelar: TImage;
+    imgExcluir: TImage;
+    Layout2: TLayout;
+    dxfmGrid1: TdxfmGrid;
+    dxfmGrid1RootLevel1: TdxfmGridRootLevel;
+    dxfmGrid1RootLevel1Column1: TdxfmGridColumn;
+    dxfmGrid1RootLevel1Column2: TdxfmGridColumn;
+    dxfmGrid1RootLevel1Column3: TdxfmGridColumn;
+    dxfmGrid1RootLevel1Column4: TdxfmGridColumn;
+    dxfmGrid1RootLevel1Column5: TdxfmGridColumn;
     procedure imgFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -75,11 +97,14 @@ type
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
     FEnder :String;
+    FDm_Global :TDM_Global;
+
     procedure Cancelar;
     procedure Editar;
     procedure Excluir(Sender:TObject);
     procedure Incluir;
     procedure Salvar;
+    procedure Selecionar_Registros;
   public
     { Public declarations }
   end;
@@ -110,6 +135,33 @@ begin
   tcPrincipal.ActiveTab := tiLista;
 
   lytFormulario.Align := TAlignLayout.Center;
+
+  FDm_Global := TDM_Global.Create(Nil);
+  FDQRegistros.Connection := FDm_Global.FDC_Firebird;
+
+
+  Selecionar_Registros;
+end;
+
+procedure TfrmCad_Usuario.Selecionar_Registros;
+begin
+  try
+    try
+      FDQRegistros.Active := False;
+      FDQRegistros.SQL.Clear;
+      FDQRegistros.SQL.Add('SELECT ');
+      FDQRegistros.SQL.Add('  U.* ');
+      FDQRegistros.SQL.Add('FROM USUARIO U ');
+      FDQRegistros.SQL.Add('WHERE NOT U.ID IS NULL ');
+      FDQRegistros.SQL.Add('ORDER BY ');
+      FDQRegistros.SQL.Add('  U.ID; ');
+      FDQRegistros.Active := True;
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro','Selecionar. ' + E.Message,'Ok');
+    end;
+  finally
+
+  end;
 end;
 
 procedure TfrmCad_Usuario.imgFecharClick(Sender: TObject);

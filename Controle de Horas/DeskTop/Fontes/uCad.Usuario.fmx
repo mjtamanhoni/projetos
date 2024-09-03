@@ -5,6 +5,7 @@ object frmCad_Usuario: TfrmCad_Usuario
   ClientHeight = 500
   ClientWidth = 800
   Position = ScreenCenter
+  Transparency = True
   WindowState = wsMaximized
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -63,24 +64,34 @@ object frmCad_Usuario: TfrmCad_Usuario
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
             OnClick = rctCancelarClick
-            object lbIncluir: TLabel
+            object imgIncluir: TImage
+              MultiResBitmap = <
+                item
+                  Width = 100
+                  Height = 100
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                    54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    00E349444154785EEDDBA10DC33010405137D37480A8FBE3A803749B8618560A
+                    09F869DE23676A7D999D0700000000000070638F392FE7B53EBFF3F8D3F6FE5C
+                    F26ECB9C44081223488C203182C4081223488C203182C4081223488C203182C4
+                    081223488C203182C4081223488C203182C4081223488C203182C408122348CC
+                    69FBAF47BBB6FFEEAC5D622F244690184162048911244690184162FC318CF142
+                    6204891124469018416204891124469018416204891124469018416204891124
+                    4690184162048911244690184162048911244690184162048911040000000000
+                    0020628C1DA08D0C7E06072C160000000049454E44AE426082}
+                end>
               Align = Client
-              StyledSettings = [Family, Size]
+              HitTest = False
               Size.Width = 75.000000000000000000
               Size.Height = 29.000000000000000000
               Size.PlatformDefault = False
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.FontColor = xFF363428
-              TextSettings.HorzAlign = Center
-              Text = 'INCLUIR'
-              TabOrder = 0
             end
           end
           object rctEditar: TRectangle
             Tag = 1
             Align = Left
             Cursor = crHandPoint
-            Enabled = False
             Fill.Color = xFFA1B24E
             Margins.Top = 3.000000000000000000
             Margins.Right = 5.000000000000000000
@@ -94,24 +105,55 @@ object frmCad_Usuario: TfrmCad_Usuario
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
             OnClick = rctCancelarClick
-            object lbEditar: TLabel
+            object imgEditar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 100
+                  Height = 100
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                    54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    038649444154785EEDDA3F4C13711407F0BB6B1321321188A16561EBA171017A
+                    A8853A184D70607473737433C6ADABC6D1C9C9C595811849FC43220695627430
+                    816A34710283214C62C5B477BE1FF762D4A8F47A77BFFBBDE4FB499ABBDFA3DC
+                    5DEFF1BBA3EDD702000000000000000000000000000000000000008028BC89D2
+                    35F5E0A168395E8A551E77AFD0E2063DCE140B83BB1B9BDBCFF77F2094E886D0
+                    ACB8448B5BE168DFD9E1E2C02635E5358FC511DB106FDCBD1058D61D5AB5C3CA
+                    4FE7870B83EFA8296B3C16E5CF172382E7B9337E2B98B76D2BCFA5DF0481D572
+                    F2F66CBDDE58E092180E2FC550CD08DAC1DCBF9AA1A89FA9E7A8E772490C5133
+                    E4C4843BDD0E8207B4DA13560EF42D67DBE75EBC6C3CE5B1F1C434C4F34A63F4
+                    57FF840EB98F4B1D0ABED839FB74BDFEF615178C26A2219E77D4F5DBED653AD8
+                    7E2E454237FF1D2797ABD4EB6B0D2E19CBF87B886A46D06E2D76DB0C45FDAEDA
+                    86DA16978C65F40C29978F8F58FEDE333ACC212EC5147CB29C43A75657DF7CE4
+                    82718C9D215353A5A1C0FFBE985C33147B7F9B6ADB5C308E910D51276CAF69A9
+                    CBD4089712A3B6A9B66D6A538CBB644D4E8EF6FB2D7F9956D3BEDE379CBC5359
+                    5959DFE1B1118C9A21D5EA685FD0F21FD2AA8E9BAFABF6A5F6C9632318D3906A
+                    B5DAD3DCF5EFD3BFA8635C4A9DDA97DAA7DA379732674443C2666CCDD1EA7458
+                    D16A5AEDDB94A6647E0FA11391A713324FAB597FEEB4D07BF8C8ECD2D2528BC7
+                    99C87486D46A35A7F975EB2EAD9AF021E08C3A16754C3CCE44A6DF8734773FDF
+                    A6C5C5706484631FDEAF173636B7EFF158BBCC1AE24D946ED2E2723832CAD870
+                    71A08F9AF288C75A65D290F2B87B9D1657C391914E160B83BDD494C73CD6467B
+                    43381D520B4746ABD04CD9A3A6A837A9DA686DC82F091129B42759B435E42F09
+                    1129B42659B434E43F091129B42559523F41072544A4D0956449F54D50270911
+                    29742559529B215D2444A44835C9924A43BA4F8848915E9225F186C44D884891
+                    569225D17B4812091129D46B4C23C992D80C493E212245B249964466483A0911
+                    29924DB2C46E489A091129D46B4F2AC912EB92A531212245EC244BD733447342
+                    448AD84996AE1A924542448AB84996C80DC938212245D7499648F71083122252
+                    444EB2743C430C4B88481139C9D2F1F721062644A4889464E9A821062744A4E8
+                    38C9726043042444A4C82CC90200000000000000000000000000000000000000
+                    0000009024CBFA01206576EBB88D11070000000049454E44AE426082}
+                end>
               Align = Client
-              StyledSettings = [Family, Size]
+              HitTest = False
               Size.Width = 75.000000000000000000
               Size.Height = 29.000000000000000000
               Size.PlatformDefault = False
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.FontColor = xFF363428
-              TextSettings.HorzAlign = Center
-              Text = 'EDITAR'
-              TabOrder = 0
             end
           end
           object rctSalvar: TRectangle
             Tag = 2
             Align = Left
             Cursor = crHandPoint
-            Enabled = False
             Fill.Color = xFFA1B24E
             Margins.Top = 3.000000000000000000
             Margins.Right = 5.000000000000000000
@@ -125,24 +167,74 @@ object frmCad_Usuario: TfrmCad_Usuario
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
             OnClick = rctCancelarClick
-            object lbSalvar: TLabel
+            object imgSalvar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 100
+                  Height = 100
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                    54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    05CC49444154785EEDDC4F6F1B451400F01D2710A74622A8B99020E14BE5844B
+                    2D35FFC4A5C90D6EF413B4DCB8513E01E513907E82269FA0C9B1A79003B4761C
+                    B53D40ED1358A81108906289FC939A0CEFEDBE85E0DA3B33BBB3BBE3EEFB5D76
+                    67DD4A8D5FE7EDDB9997F518638C31C618638C31C618638C31C618CB92A0234B
+                    686571EEF685F4EEE0B9F0C456B9F2F6E6EEEEF343FF43031C90846EDEBC3E75
+                    7274B603A7F5E0CABF9E4D5626D64C8352A2238BE9E4E8741D0EFDC14075FACC
+                    08072481E51BB5554832B7693840D46783714062C25425857840436B3820319D
+                    1C9FDD834335180D23BB74A28D0312839FAAA4F7250D8712C2C3A019E12ACB10
+                    55554FE1347A7648B9DBDCEFC03DC60CCF1043C77F9FDE85832255793D311E3C
+                    9398E21962E0E3C58FEAAFE405CE0E95AF9AADB671C98B7886188060A8AB2A4C
+                    5531838138209A166FD4F0063DE801F0B2D8A92AC4294B4316A92AC433444316
+                    A92AC40151D04C55DE78690CABAFC438201196976B552184F201504AF9CD0F7B
+                    3F3DA361221C9008F2DC5FAB9A0A468349CF7BBEB7DF317E221F860332C4D2C2
+                    1CA620E593F65BA294A8AAEAC701190053151CBE0E46C3D94C55210EC80079A4
+                    AA1007A48F6EAA2A4969A5AAEAC70F8697D04AEECF701A393BE05BBBDFDC6BA7
+                    12109E21971C1F9D29531524ABEEE49509EBA92AC433842C2DCD7FE65DC88734
+                    1C4A48B9D6D8EF7C4743EB7886004C55100CF5F208A4AA3483813820C0855415
+                    2A7CCA722555850A3D43B453952737B308062A7440A8954791AABCDE64A59C4A
+                    893B48615316B6F24821B027375A49DC6A365F6CD12875859C21BA5D87F0BF75
+                    3BCB60A0420644AFEBD0EB952B1356577275142E65B99AAA42859A212EA7AA50
+                    A102A2DB759847AA0A15266565D9CA934461664896AD3C49C49E21F44B8E55E1
+                    89436FEC62BBD1E8FC421F39075B798410AA2DD99E1893F5BC7F0EE380D026CE
+                    6BBFE40881B9DB68BDB84F43678C4AAA0A19A72C08062EC4BDD638263DB9BEB4
+                    30A7B12E94AD51495521A380503746D47EF31D08CA8EBF68E780AC1AA46D329B
+                    21AF9425235AC59446C1CB8D41D7E1BA4BF73FA38094DF29EBF620D5E5B9788A
+                    F99BC699CBB3952709A380046F25909B34549982FCBDE36F00652CAFAE431B8C
+                    6FEAFEDE00DC0469A8821B400F97176B99FDE079761DDA10FB396469A1B6017F
+                    DDE44D051B50C97C4EE7A9C1A2020E91B3C34F55AD766EE934CA181D8DBD3CF8
+                    6B6B7666BA07A79F045794EA3333D3F56BD7661F75BBBF9FD235AB28557D118C
+                    868354F5E9AF077FFC4643A7245ECBC27424A5C01AFEDDE08A52ACB7E4A8D003
+                    ABB2EB1053956B37F2CB8CEF21FD1A7B9D8D7151C21481B345471DBE38EB1598
+                    6E2B8FCBC140890382F0E68841C1DC4C9754AA5881056FD3490E2B3998EACA6A
+                    4ED00BC65C662520088372A532611214DC2CDA495A81F9AB028E741DDA602D20
+                    08EF0B41F5A2FDAC02395D3C585E9CFF9686C65CEA3AB421769515C5AFC066A7
+                    DF83D395E08AD20A546CD597077F6ED3588B9FAAA4FA8D3BF0676E7DFFF8C736
+                    0D9D96B8CA8A4215983A9DFC47BB02A3AA0A97D5A3D7CC52FC5D8E34584D59FD
+                    B002C39E583835A9C076742A30DD17888D4AAA0AA53A4342B449843754DD6795
+                    43A8DAD6862D6DE8B6F264D5206D53AA3324845F2CA4A2AA490586BB7C832A30
+                    4C55BAAD3CA3160C94494010DE17B02CC62F8A2E29F915D8C2FCFFF6345CEE3A
+                    B4219394D52FEEC2A4EB5D8736E41210440B8126CF1F987E706644CE0E3F55B5
+                    DA99EFC1D892CA73880E78E678F2C1ECD52E7C8558859583AB913010AABDFA1E
+                    DCAB56D35A4DCE426E332414A3021B6E84535528F78020DCE5BB38175BF08FB9
+                    4E97CC612B4F8CD7B2BA26B32A2B0A767D182E4CF673AA9527092766C865312A
+                    30E444D7A10DB9DDD487C185C999F7AF0AA0977E8254A5DCB61D154EA4AC7EB8
+                    AB2784D4698878635255C8C98020CD85C97B2E77DDC7E1DC3DA45F50169F4329
+                    2B3EA44B446E365B9D376A7620E703120A9EECA5BF2C2FA4B7318A0B878C31C6
+                    18638C31C618638C319612CFFB078CB18268AF23F98B0000000049454E44AE42
+                    6082}
+                end>
               Align = Client
-              StyledSettings = [Family, Size]
+              HitTest = False
               Size.Width = 75.000000000000000000
               Size.Height = 29.000000000000000000
               Size.PlatformDefault = False
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.FontColor = xFF363428
-              TextSettings.HorzAlign = Center
-              Text = 'SALVAR'
-              TabOrder = 0
             end
           end
           object rctCancelar: TRectangle
             Tag = 3
             Align = Left
             Cursor = crHandPoint
-            Enabled = False
             Fill.Color = xFFA1B24E
             Margins.Top = 3.000000000000000000
             Margins.Right = 5.000000000000000000
@@ -156,24 +248,77 @@ object frmCad_Usuario: TfrmCad_Usuario
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
             OnClick = rctCancelarClick
-            object lbCancelar: TLabel
+            object imgCancelar: TImage
+              MultiResBitmap = <
+                item
+                  Width = 100
+                  Height = 100
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                    54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    064849444154785EED9D4D6F1B4518C777FC92D012528A5A09DA43C5A9494368
+                    05716CA7A169A356EA47E08CB8C0897E02AEDCE00417C487E08444414D69E238
+                    09A86A68932A121585F65002554A4A1BFCB23C7FEF33284A6B7B67773D3BBB9E
+                    9F64EDCC636B3DB33F3F3BE3F57AD7B1582C168BC562B1582C168BC562B158FA
+                    8D9999932F73B1EF88B2EF195E86627262E4A3278F7736A626C68F73A86F409F
+                    D1776C030E8522CBCBC050433EA6C527F4D8DF749AEF1E3BF2DAD7BFDD7FF067
+                    EBC994031975A7768D8A87E871F1E89143CEBDFB9B73AD2703227819886261F4
+                    53D775F77E3236734E7E7A6165F536D753C91E19FF2384F8ACBABC7689ABCA04
+                    164299F1392D3EF06ACF906A29ED64ECE28BA595F50FB9AC84B210CA08519A18
+                    FDD215CE7B1C6A472AA59C2E8C8ED55CF70A15DBC968215CE7ABC595B5F72963
+                    5C0EF94259C8E4E49BAFBB8D7FAF0BE10C73A82DD492BFB2B9FCD9C5C5D5550E
+                    259A52697CBC51AF5DA18DF60A87DAE2BACE23911D38B5B474E30E877CA13CCB
+                    C21B64F3CE392A6E7991F6A0E1CD7A6D0E9F2A0E2516F4017DF12383D8C23652
+                    9501943344522A8DBCD5AC3BDF53F18017E9C8C3BC10EFCC2FAFDDE47AA2E0DD
+                    D40F543CE8453AB295C939B38B8BEB3F715D89C042403F48D12903841202D22C
+                    45B70C10FA9B3A1A808650B1EB98421C4407A70A274E71DD58D046DD3240E80C
+                    91A8640A6620F94C666661F9D6750E19454B46B339E7672649442603442604A4
+                    414A9C3240A4424092A5C42D03442E0424518A0932402487DFF78286A2C154EC
+                    FEE591360036447962ACC021EDE0BD4D90017A922112B529B1BB9D7572B39595
+                    9BCB1CD00264349C3AB5510C71A8133D95017A2A04982CC53419A0E742808952
+                    4C9401B408012649315506E8C9A0FE3CD021748C8A3EBED18B216C30DA70531C
+                    880CACD35419405B86488AC5D1A2DB685EF6B341684AFC2427B2E72953163814
+                    0AC8A8BB8DCB349BDAC7A10EB8DB999C98D1290368CB1049B5BA5615D9CC7974
+                    98436DC186C3068C22535465A08DBA6500ED1922D199294164E083C301ADC426
+                    04E890922419205621A09752922603681F43F612644C29BE7DFC2C87DA82D724
+                    4D06883D43242A9942EC08D7BD58FDF1364EC77906C87085F8868A835EA413E6
+                    C800C60801514849B20C60941010464AD26500E3840045290E49C179624ED265
+                    00238580A9C248B9EE3ADF52F1452FD291A7BC7C81979D789C13CE8585E5F50A
+                    D78DC25821403553BA636E66488C1602A29362BE0C60BC10105E4A3264804408
+                    01C1A5244706488C10E04971F123D77E2FD2957F4456CC264506C8F03241B84D
+                    2EF840E5B56660775986610775C3305E487819123BED0D4D743224E64B315608
+                    CFA870E8E4252FD2119543277FD3CCEB82A9528C14A29A19693AB898E1A53128
+                    CAC0E1F77338FC8E070EC523E63DD5093184F7C07B71C0188CCA10B5B31BA3F8
+                    814AFF8970DD3046481432244996628490286548922A25F6314445064E03F223
+                    03A88D29CE01B4016DE17A6CC42A445506CEC9F22343924429B109092223C8A9
+                    A4520AD6C1A14EC42E251621BA64482005EB488214ED83BA6E19BB513BB5349E
+                    815E6B8678D79B6A9D49D25506E9D88E5206C0BA5432056D459BB9AE056D19A2
+                    72F12FC8E8F15FDA7C678AEE8BB0691162920C89A9527A2EC444191213A5F454
+                    88C93224A649E9D9A0AE228306D94771C800F49EAD811E1F080EB5057D419FD0
+                    370E454E4F3244558609179FA14CF1FDDFF55E664AE442922843628294488594
+                    CB6F8C346AF5AB543CEC45DA639A0C898A14E28F6C3E77A652F9799DEBA1894C
+                    481A6448E29412C9A0AE22837868B20C80C9052619F4D1E93AD01387D1776C03
+                    AE8722748628CB48D06562E3C8945042D22C43A25B4AE05D563FC80072F78571
+                    8F439D08BDFB0A9421FD2263378A17C90C9C29CA42FA5186448714E55D96A809
+                    CA5EC7CFFF2E36D3240360668819A2CFDD17B96B34B8EC1B6521B863CEA093C7
+                    F5ABEE7991E7D2BABB4E9A64487C4AB99B1FCC94ABD5B50DAEFB26D0A07E6D65
+                    F5976C5E9CA679FAAF1CDA4DEA6F0AD6490AED3DEEE406F695E7E76FDDE59012
+                    A1A6BDA5D2C9A3CDFAD3795ACD310EF5C51DDA247BC71492B191CB0F4C572A37
+                    1EB45E1080D05F0C5B526A3B57694DC3FD244322A550FF7F1F16CE99EF96D7E3
+                    BF87E34CE1C4ABC5E2D82857FB0E48999E1EF7739F118BC562B1582C168BC562
+                    B1582C168B252538CE7F5F03F481F9DDFCB20000000049454E44AE426082}
+                end>
               Align = Client
-              StyledSettings = [Family, Size]
+              HitTest = False
               Size.Width = 75.000000000000000000
               Size.Height = 29.000000000000000000
               Size.PlatformDefault = False
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.FontColor = xFF363428
-              TextSettings.HorzAlign = Center
-              Text = 'CANCELAR'
-              TabOrder = 0
             end
           end
           object rctExcluir: TRectangle
             Tag = 4
             Align = Left
             Cursor = crHandPoint
-            Enabled = False
             Fill.Color = xFFA1B24E
             Margins.Top = 3.000000000000000000
             Margins.Right = 5.000000000000000000
@@ -187,17 +332,24 @@ object frmCad_Usuario: TfrmCad_Usuario
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
             OnClick = rctCancelarClick
-            object lbExcluir: TLabel
+            object imgExcluir: TImage
+              MultiResBitmap = <
+                item
+                  Width = 100
+                  Height = 100
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                    54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    006A49444154785EEDD1B10D80400C044143351480E83F465F00DD40E2801C24
+                    4E622639C7DE0200000000000000000000000000000000003E36F53EB6ADCBD9
+                    E72FEDE378E597732F21040923481841C2081246903082000000000000000000
+                    000000000000000000DC545D0CA20410E3819E490000000049454E44AE426082}
+                end>
               Align = Client
-              StyledSettings = [Family, Size]
+              HitTest = False
               Size.Width = 75.000000000000000000
               Size.Height = 29.000000000000000000
               Size.PlatformDefault = False
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.FontColor = xFF363428
-              TextSettings.HorzAlign = Center
-              Text = 'EXCLUIR'
-              TabOrder = 0
             end
           end
         end
@@ -238,19 +390,19 @@ object frmCad_Usuario: TfrmCad_Usuario
                 PNG = {
                   89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
                   B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                  0183494441546843ED99D14DC33010406DF3DF76036083B201FD6F9DF28F946C
-                  C008B413C00889C43F8AE97F47A06C5026003A400E5F302448486DC8A576A47B
-                  5212FBA448793A9F74A7088661985E21DDB32435FA4E8A622E843A73A14029B6
-                  20549A68B374814A2433D37B2B70E3B6FD006019474F0B5CD645DEACC8E844C9
-                  8BEB69BE71E14EC88C06B76C49B18DF5EA1C57AADC97A811DEBB96A0A52A819A
-                  48BF6191D06091D06091D06091D02013C9F2D9335E8FEBA8EC108E0D99088094
-                  42CAF16E57AC7DC890890C87F2120AF1E24B864CE46A92BFFB94212D769F32B5
-                  79E46B4688B5F935356201E347B96D73003683819AA0A48B10CE23D5F7EECD48
-                  59C42D68FBFEA1ECCD4853F028E191C22CE211C3A356CF06E225234D3844A22B
-                  C8447C4A2064223E251032112C6A5F12089948323763BC7C4820A4C5EE131609
-                  0D16090D16090D16098D1F1100F8C0E7C32AFAFF1075646C4BF4EA96B579249F
-                  2D6CD377EBB6FDE0AF5F6F08CAD8E62F914A9CBA509060266C8B9A7E4B300CC3
-                  F40D213E01D594B846D03D26B40000000049454E44AE426082}
+                  0186494441546843ED99514E8340104067E1BFED0DD41BD41BD86F5BA8FF2670
+                  038F607B023D0224FE1B56FDEE11AC37A82750FB0F2BB3AE8289498B0CDD2599
+                  9700BB9390F0323BC94C008661985E21CC5393C8E046403E07F08F4DC851F28D
+                  023F8903B934814A2495D35B00EFCA6CFB8152CB287C58E0B22672FE566662E4
+                  7BE2F4729AAD4DB813521928B36C49BE8982A7135C797AAFF14778EF5A8296AA
+                  046A22FD86455C83455C83455C83455C834C24CD66CF78DDAF42DD211C1A3211
+                  A5840021C6DB6DB1B2214326321C8A3355C08B2D1932918B49F66E5386B4D86D
+                  CAD4E691AF19210AE4AFA9110B183FCA6C9BA3D47A30F02628692284F348F5BD
+                  3B33A28BB8056DDFDF979D19690A1E253C5298453C6278D4EAD940AC64A409FB
+                  48740599884D09844CC4A604422682456D4B02211389E7728C970D0984B4D86D
+                  C222AEC122AEC122AEC122AEF123A254F181CFBBC7F0FF43D481295BA257B3AC
+                  CD23D96C51367DD766DB0FFEFAF586A04CD9FCC5C28323137212CC44D9A226DF
+                  120CC3307D03E0130E25B847BE63B7300000000049454E44AE426082}
               end>
             Align = Right
             Cursor = crHandPoint
@@ -273,17 +425,21 @@ object frmCad_Usuario: TfrmCad_Usuario
         end
         object tcPrincipal: TTabControl
           Align = Client
-          Size.Width = 800.000000000000000000
-          Size.Height = 430.000000000000000000
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Size.Width = 790.000000000000000000
+          Size.Height = 420.000000000000000000
           Size.PlatformDefault = False
           TabIndex = 0
           TabOrder = 2
           TabPosition = None
           Sizes = (
-            800s
-            430s
-            800s
-            430s)
+            790s
+            420s
+            790s
+            420s)
           object tiLista: TTabItem
             CustomIcon = <
               item
@@ -295,6 +451,8 @@ object frmCad_Usuario: TfrmCad_Usuario
             StyleLookup = ''
             TabOrder = 0
             Text = 'tiLista'
+            ExplicitSize.cx = 8.000000000000000000
+            ExplicitSize.cy = 8.000000000000000000
             object lytPesquisa: TLayout
               Align = Top
               Margins.Left = 5.000000000000000000
@@ -302,9 +460,10 @@ object frmCad_Usuario: TfrmCad_Usuario
               Margins.Right = 5.000000000000000000
               Position.X = 5.000000000000000000
               Position.Y = 5.000000000000000000
-              Size.Width = 790.000000000000000000
+              Size.Width = 780.000000000000000000
               Size.Height = 35.000000000000000000
               Size.PlatformDefault = False
+              Visible = False
               TabOrder = 1
               object edPesquisar: TEdit
                 Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -316,7 +475,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                 Margins.Left = 2.000000000000000000
                 Margins.Top = 2.000000000000000000
                 Margins.Bottom = 2.000000000000000000
-                Size.Width = 788.000000000000000000
+                Size.Width = 778.000000000000000000
                 Size.Height = 31.000000000000000000
                 Size.PlatformDefault = False
                 TextPrompt = 'Digite o nome para pesquisar'
@@ -330,32 +489,32 @@ object frmCad_Usuario: TfrmCad_Usuario
                       PNG = {
                         89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
                         B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                        030F494441546843ED98DF4B145114C7EFDD1173D3A74A0CD7A817C1562A4ADB
-                        9642D7202AC11E22C407E9C73FD06BAFFBD0530F410FBDD55B51BD043E684864
-                        A1D18F19778B20DD0DA1905833B1A070D5C499DB39334768754777D6D9D96BCC
-                        07867BCEB9B073BE7BCEBD7766988F64701A4D22AD4D1F6168B63CC911ECBD96
-                        4C1F218F05685C616B8840383B4CD65AA022022F72A5255F9EAB2B62D2D6DABC
-                        874CE9B0CB2D470848FC80E31FA63F8D46C33BCCA044604E8B4C1F421B1677D2
-                        0C123942AA98720EE47C03B3C9D08DC1AEAE96EDD64CF9C15CF465E3390868C4
-                        1C2B99729EA64C7284BC4C8C7DE54A200695F909E5393A339D1D88C56215345D
-                        36BABBC395980B883884B9618E982B4D9BAC5923AA9A9A0828152741F51CB81D
-                        0B73DF1F092172B6692F89C7E381C92FFA63303BE0FA85B9618EE6E43FD82618
-                        89344599C1B01F6569AF79AEB076554DE7AC8D15F2EE5A88A6A5DF2A9C774265
-                        96285446C412E6622702B11582BC194D8D403FE2A2D2AD4859D03107CC85FCBC
-                        2834DA92C9CC4E34D4D77E02F3025C5EAF158333DEAB8EA6FAC8B76543214866
-                        6A76AC21B46B0A4CD89EBD845FD612A907E4AC4B41421010F32E545F9B05F3B4
-                        152931825D8587C2BBE46D48C1421010F3BA21B4731BFC536D142A11FC3A88B8
-                        414E4138128264A67E0C41654260B6581177E14CDCD612E96BE4164C518B170F
-                        C86391FD0FA1FC3D1472052ED83D3599BE44AE23D6DD7EEDE09C8BBDFB0EF482
-                        F9C48A6C1E78F4E83BDBD573855CC76C6A3BC567A0C9CFC600FCCA290A158760
-                        CF8235759DC3C3C3CB1471CCA6CF0578A8AC9ACFCEBC80DE8E52C82923C1EABA
-                        33206291FCA270E5808BC5C2350B59E3159807AD4861C0CD93B5BBABDBFBFB93
-                        F314F2F96F70A5B55670FAE102CE0BD7EE5FD4F62B23BE10D9F085C8862F4436
-                        7C21B2E10B910D5F886CF84264C36D2183347A8EAB42E045A993337E9109364D
-                        21CF70BDB5D444EA7EB026D0C839BF25042BFAF38E535C7DD55D4D24120E3361
-                        DC810A1DA7500E5BE65557D3C6C7B5D1F4092FDACD935DCB8B762B696BE5C36C
-                        37C3B809E66F682D573F82FBC803637F01EB17F0F56467ABE10000000049454E
-                        44AE426082}
+                        031C494441546843ED98CF6B134114C767766B35DA5E8A816A5AF4520C2954B4
+                        750D4A1B05510BEDA1485128FEF807BC7ACDC19307C18337BD29EA45E8A19522
+                        5669C51FBB4D2A826D128A4891D456AAE08F44ADC93C679257646DB6CDA6DBED
+                        54F603CBBEF79D90BC6FF2E66D76898764503C17D05AF7BC219436632A370C5E
+                        19E3A9FD981105CF45368A098142F761B414AD2D08E2C0545A4AD569FE4590F6
+                        B6E6460CA5C3AA36931106E4B538FF22F987E170A8AE204A84A8E907E48645CC
+                        3777BC202226233EAA76733B1F7818647936D4D5D5BAB5B8B2FE885A72BFD963
+                        85D226516335517B70A980C9C8D3D8C47BAAAA1106F099003930379B198C4422
+                        55B8BC6EF4F686AA452D0A257B456DA246512B2E1758B247743D31A5566D3A0A
+                        847DE73FDF91ECB7B97B00601AD36E128D4695E977B9FBA2169E7E11B5891A8B
+                        AB7FB12C50D38261BE69783F5249DA0BB254A51DBA9E34ED8D454A4E2D816124
+                        5FAA54E9E4FDB880D23AC216442D5626049646042FC612A3BC1F7B00481E25D7
+                        119F2D6A10B5A0541215CF96A4D3F3538D017F8A87A7F8E1F65E617C4AF5E963
+                        897ECC2D59D188203D333FD110D83EC3433E9EDD849E3762893B982C4B594604
+                        DCCC7860A73FC3C3E345658D0172D188276F62B622651B117033CF1B02759BF9
+                        37D58ED21A412F73135730290B5B4604E9994FC3811DFE00DF2DAD28390A25EC
+                        BA114B5DC2B46C2ADABCE20279500BDE25404FA3E40894C12D7D3C750E535B2C
+                        3B7EADA094C2AEDD2D7D40E0014AAB8611E83FD97DE602A6B659D53815FF81A6
+                        DFE607F94DCE31942A83C1235F6D7DE7C8C8480E15DBACFABAC0FF546EC9643E
+                        3E51088451B207C0A8AFA6FE0437F113958A70E4021789846AB219F68CBF590B
+                        4A65C15F1FF7D76FEB1818886751F2F86F70A4B516B1FBE0C288251DFBFC8AC6
+                        AF8C784664C333221B9E11D9F08CC8866744363C23B2E119910D678D0019C2C8
+                        751C3562C4939D94D0B384C12C4AAEE1786BE9B1C46D5FADDA4429BDC61854FC
+                        78C72E8EDEEAFE8BA6854204D80DDE72875032B1616E750D6372D2184B1E76A3
+                        DD5C995A6EB4DB9AB656290AED96675779F8950F07471F827BC803217F008B9B
+                        0AFD45BC55960000000049454E44AE426082}
                     end>
                   Align = Right
                   Cursor = crHandPoint
@@ -363,7 +522,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 5.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Position.X = 752.000000000000000000
+                  Position.X = 742.000000000000000000
                   Position.Y = 2.000000000000000000
                   Size.Width = 31.000000000000000000
                   Size.Height = 27.000000000000000000
@@ -377,18 +536,49 @@ object frmCad_Usuario: TfrmCad_Usuario
               Margins.Top = 5.000000000000000000
               Margins.Right = 5.000000000000000000
               Margins.Bottom = 5.000000000000000000
-              Size.Width = 790.000000000000000000
-              Size.Height = 380.000000000000000000
+              Size.Width = 780.000000000000000000
+              Size.Height = 410.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
-              object dxfmGrid: TdxfmGrid
+              object dxfmGrid1: TdxfmGrid
                 Align = Client
-                Size.Width = 790.000000000000000000
-                Size.Height = 380.000000000000000000
+                Size.Width = 780.000000000000000000
+                Size.Height = 410.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
-                object dxfmGridRootLevel1: TdxfmGridRootLevel
+                object dxfmGrid1RootLevel1: TdxfmGridRootLevel
+                  DataController.DataSource = DSRegistros
                   AppearanceClassName = 'TdxfmGridTableAppearance'
+                  object dxfmGrid1RootLevel1Column1: TdxfmGridColumn
+                    FieldName = 'ID'
+                    HeaderText = 'Id'
+                    Options.Editing = False
+                    Width = 50.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1Column2: TdxfmGridColumn
+                    FieldName = 'NOME'
+                    HeaderText = 'Nome'
+                    Options.Editing = False
+                    Width = 250.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1Column3: TdxfmGridColumn
+                    FieldName = 'LOGIN'
+                    HeaderText = 'Login'
+                    Options.Editing = False
+                    Width = 250.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1Column4: TdxfmGridColumn
+                    FieldName = 'CELULAR'
+                    HeaderText = 'Celular'
+                    Options.Editing = False
+                    Width = 100.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1Column5: TdxfmGridColumn
+                    FieldName = 'EMAIL'
+                    HeaderText = 'E-Mail'
+                    Options.Editing = False
+                    Width = 250.000000000000000000
+                  end
                 end
               end
             end
@@ -408,15 +598,15 @@ object frmCad_Usuario: TfrmCad_Usuario
             ExplicitSize.cy = 8.000000000000000000
             object lytConfig: TLayout
               Align = Client
-              Size.Width = 800.000000000000000000
-              Size.Height = 430.000000000000000000
+              Size.Width = 790.000000000000000000
+              Size.Height = 420.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
               object lytBDF_Row001: TLayout
                 Align = Top
                 Margins.Top = 5.000000000000000000
                 Position.Y = 5.000000000000000000
-                Size.Width = 800.000000000000000000
+                Size.Width = 790.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
@@ -459,7 +649,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                   FilterChar = '0123456789'
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 698.000000000000000000
+                  Position.X = 688.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -479,7 +669,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                 object lbBDF_Porta: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 576.000000000000000000
+                  Position.X = 566.000000000000000000
                   Size.Width = 120.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
@@ -493,7 +683,7 @@ object frmCad_Usuario: TfrmCad_Usuario
               object lytBDF_Row002: TLayout
                 Align = Top
                 Position.Y = 40.000000000000000000
-                Size.Width = 800.000000000000000000
+                Size.Width = 790.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 1
@@ -520,7 +710,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 676.000000000000000000
+                  Size.Width = 666.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Informe ou selecione o banco de dados'
@@ -529,7 +719,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                   object dbBDF_Banco: TSpeedButton
                     Align = Right
                     Cursor = crHandPoint
-                    Position.X = 656.000000000000000000
+                    Position.X = 646.000000000000000000
                     Size.Width = 20.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
@@ -540,7 +730,7 @@ object frmCad_Usuario: TfrmCad_Usuario
               object lytBDF_Row003: TLayout
                 Align = Top
                 Position.Y = 75.000000000000000000
-                Size.Width = 800.000000000000000000
+                Size.Width = 790.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 2
@@ -578,7 +768,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                 object lbBDF_Senha: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 434.000000000000000000
+                  Position.X = 424.000000000000000000
                   Size.Width = 62.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
@@ -596,7 +786,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                   Password = True
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 498.000000000000000000
+                  Position.X = 488.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -655,7 +845,7 @@ object frmCad_Usuario: TfrmCad_Usuario
               object lytBDF_Row004: TLayout
                 Align = Top
                 Position.Y = 110.000000000000000000
-                Size.Width = 800.000000000000000000
+                Size.Width = 790.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 3
@@ -682,7 +872,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 676.000000000000000000
+                  Size.Width = 666.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Informe ou selecione a biblioteca (FBCLIENTE.DLL)'
@@ -690,7 +880,7 @@ object frmCad_Usuario: TfrmCad_Usuario
                   CharCase = ecUpperCase
                   object sbBDF_Biblioteca: TSpeedButton
                     Align = Right
-                    Position.X = 656.000000000000000000
+                    Position.X = 646.000000000000000000
                     Size.Width = 20.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
@@ -703,5 +893,73 @@ object frmCad_Usuario: TfrmCad_Usuario
         end
       end
     end
+  end
+  object FDQRegistros: TFDQuery
+    Connection = DM_Global.FDC_Firebird
+    SQL.Strings = (
+      'SELECT * FROM USUARIO ORDER BY ID;')
+    Left = 288
+    Top = 312
+    object FDQRegistrosID: TIntegerField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQRegistrosNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 100
+    end
+    object FDQRegistrosLOGIN: TStringField
+      FieldName = 'LOGIN'
+      Origin = 'LOGIN'
+      Required = True
+      Size = 50
+    end
+    object FDQRegistrosSENHA: TStringField
+      FieldName = 'SENHA'
+      Origin = 'SENHA'
+      Required = True
+      Size = 50
+    end
+    object FDQRegistrosPIN: TStringField
+      FieldName = 'PIN'
+      Origin = 'PIN'
+      Size = 4
+    end
+    object FDQRegistrosCELULAR: TStringField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
+      Size = 15
+    end
+    object FDQRegistrosEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 255
+    end
+    object FDQRegistrosFOTO: TMemoField
+      FieldName = 'FOTO'
+      Origin = 'FOTO'
+      BlobType = ftMemo
+    end
+    object FDQRegistrosDT_CADASTRO: TDateField
+      FieldName = 'DT_CADASTRO'
+      Origin = 'DT_CADASTRO'
+    end
+    object FDQRegistrosHR_CADASTRO: TTimeField
+      FieldName = 'HR_CADASTRO'
+      Origin = 'HR_CADASTRO'
+    end
+    object FDQRegistrosSINCRONIZADO: TIntegerField
+      FieldName = 'SINCRONIZADO'
+      Origin = 'SINCRONIZADO'
+    end
+  end
+  object DSRegistros: TDataSource
+    DataSet = FDQRegistros
+    Left = 376
+    Top = 320
   end
 end

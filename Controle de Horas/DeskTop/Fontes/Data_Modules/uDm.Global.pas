@@ -7,7 +7,7 @@ uses
   FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Comp.UI,
-  FireDAC.Phys.IBBase;
+  FireDAC.Phys.IBBase, System.ImageList, FMX.ImgList, FireDAC.FMXUI.Wait;
 
 type
   TDM_Global = class(TDataModule)
@@ -20,6 +20,7 @@ type
     FDQ_Update: TFDQuery;
     FDQ_Delete: TFDQuery;
     FDQ_Sequencia: TFDQuery;
+    imRegistros: TImageList;
   private
     { Private declarations }
   public
