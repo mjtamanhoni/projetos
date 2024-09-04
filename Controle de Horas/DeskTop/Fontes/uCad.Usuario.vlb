@@ -1,9 +1,6 @@
 ﻿[ShadowEffect4]
 Coordinates=568,232,88,33
 
-[edBDF_Banco]
-Coordinates=448,342,84,51
-
 [sbSenha]
 Coordinates=842,10,57,51
 
@@ -16,14 +13,8 @@ Coordinates=1047,546,59,33
 [rctTampa]
 Coordinates=968,546,60,33
 
-[lbBDF_Servidor]
-Coordinates=637,10,92,51
-
 [rctSalvar]
 Coordinates=822,546,58,33
-
-[lbBDF_Banco]
-Coordinates=459,10,81,51
 
 [rctDetail]
 Coordinates=750,546,55,33
@@ -33,9 +24,6 @@ Coordinates=659,546,71,33
 
 [rctHeader]
 Coordinates=578,546,62,33
-
-[edBDF_Servidor]
-Coordinates=839,410,95,51
 
 [lytBDF_Row004]
 Coordinates=461,546,92,33
@@ -49,23 +37,11 @@ Coordinates=502,410,44,51
 [tiLista]
 Coordinates=285,546,44,33
 
-[lbBDF_Biblioteca]
-Coordinates=198,410,99,51
-
-[lbBDF_Usuario]
-Coordinates=917,10,88,51
-
-[dbBDF_Banco]
-Coordinates=10,410,85,51
-
 [tiCadastro]
 Coordinates=202,546,65,33
 
 [lytConfig]
 Coordinates=127,546,58,33
-
-[lbBDF_Senha]
-Coordinates=10,478,81,51
 
 [lytBDF_Row001]
 Coordinates=10,546,92,33
@@ -79,9 +55,6 @@ Coordinates=707,276,88,33
 [imgPesquisar]
 Coordinates=400,410,81,51
 
-[lbBDF_Porta]
-Coordinates=187,478,76,51
-
 [OpenDialog]
 Coordinates=707,331,72,33
 
@@ -90,9 +63,6 @@ Coordinates=874,478,71,33
 
 [edPesquisar]
 Coordinates=10,342,75,51
-
-[edBDF_Senha]
-Coordinates=285,478,84,51
 
 [imgSenha]
 Coordinates=203,342,63,51
@@ -106,26 +76,14 @@ Coordinates=691,478,80,33
 [lytExibeSenha]
 Coordinates=584,478,84,33
 
-[edBDF_Porta]
-Coordinates=837,342,79,51
-
 [rctIncluir]
 Coordinates=510,478,58,33
-
-[sbBDF_Biblioteca]
-Coordinates=628,342,102,51
 
 [lytBDF_Row002]
 Coordinates=393,478,92,33
 
 [imgFechar]
 Coordinates=215,10,66,51
-
-[edBDF_Usuario]
-Coordinates=723,410,91,51
-
-[edBDF_Biblioteca]
-Coordinates=939,342,102,51
 
 [FDQRegistros]
 Coordinates=970,737,83,33
@@ -198,6 +156,42 @@ Coordinates=106,342,76,51
 Coordinates=300,10,126,51
 
 []
-Coordinates=114,478,57,51
+Coordinates=628,342,102,51
 Visible=True
+
+[lbID]
+Coordinates=637,10,92,51
+
+[edID]
+Coordinates=839,410,95,51
+
+[lbPIN]
+Coordinates=187,478,76,51
+
+[edPIN]
+Coordinates=837,342,79,51
+
+[lbNOME]
+Coordinates=459,10,81,51
+
+[edNOME]
+Coordinates=448,342,84,51
+
+[lbLOGIN]
+Coordinates=917,10,88,51
+
+[edLOGIN]
+Coordinates=723,410,91,51
+
+[lbSENHA]
+Coordinates=10,478,81,51
+
+[edSENHA]
+Coordinates=285,478,84,51
+
+[lbEMAIL]
+Coordinates=198,410,99,51
+
+[edEMAIL]
+Coordinates=939,342,102,51
 

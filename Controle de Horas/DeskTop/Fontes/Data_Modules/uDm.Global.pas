@@ -7,7 +7,8 @@ uses
   FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Comp.UI,
-  FireDAC.Phys.IBBase, System.ImageList, FMX.ImgList, FireDAC.FMXUI.Wait;
+  FireDAC.Phys.IBBase, System.ImageList, FMX.ImgList, FireDAC.FMXUI.Wait,
+  IniFiles;
 
 type
   TDM_Global = class(TDataModule)
@@ -21,10 +22,14 @@ type
     FDQ_Delete: TFDQuery;
     FDQ_Sequencia: TFDQuery;
     imRegistros: TImageList;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
-    { Public declarations }
+    Firebird_Erro: String;
+    Firebird_Conectado: Boolean;
+
+    procedure Conectar_Banco;
   end;
 
 var
@@ -35,5 +40,115 @@ implementation
 {%CLASSGROUP 'FMX.Controls.TControl'}
 
 {$R *.dfm}
+
+procedure TDM_Global.Conectar_Banco;
+var
+  IniFile  :TIniFile;
+  lEnder   :String;
+
+  lDatabase :String;
+  lUser_Name :String;
+  lPassword :String;
+  lProtocol :String;
+  lPort :String;
+  lServer :String;
+  lDriverID :String;
+begin
+  Firebird_Conectado := True;
+  Firebird_Erro := '';
+
+  FDC_Firebird.Connected   := False;
+  try
+    try
+      lEnder  := '';
+      lEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
+
+      if not FileExists(lEnder) then
+        Exit;
+      IniFile := TIniFile.Create(lEnder);
+
+      if IniFile.ReadString('BANDO_FIREBIRD','BANCO','') = '' then
+        Exit;
+
+      if not FileExists(IniFile.ReadString('BANDO_FIREBIRD','BANCO','')) then
+        Exit;
+
+      {$Region 'Pegando informações do arquivo INI'}
+        lDatabase := '';
+        lUser_Name := '';
+        lPassword := '';
+        lProtocol := '';
+        lPort := '';
+        lServer := '';
+        lDriverID := '';
+
+        lDatabase := IniFile.ReadString('BANDO_FIREBIRD','BANCO','');
+        lUser_Name := IniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
+        lPassword := IniFile.ReadString('BANDO_FIREBIRD','SENHA','');
+        lServer := IniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
+        if lServer = 'LOCALHOST' then
+          lProtocol := 'LOCAL'
+        else
+          lProtocol := 'TCPIP';
+        lPort := IniFile.ReadString('BANDO_FIREBIRD','PORTA','');
+        lDriverID := 'FB';
+      {$EndRegion 'Pegando informações do arquivo INI'}
+
+      FDC_Firebird.LoginPrompt := False;
+      FDC_Firebird.Params.Clear;
+      FDC_Firebird.Params.Add('Database=' + lDatabase);
+      FDC_Firebird.Params.Add('User_Name=' + lUser_Name);
+      FDC_Firebird.Params.Add('Password=' + lPassword);
+      FDC_Firebird.Params.Add('Protocol=' + lProtocol);
+      FDC_Firebird.Params.Add('Port=' + lPort);
+      FDC_Firebird.Params.Add('Server=' + lServer);
+      FDC_Firebird.Params.Add('DriverID=' + lDriverID);
+
+      //if IniFile.ReadString('BANDO_FIREBIRD','VERSAO','') = 'FIREBIRD 2.1' then
+      //begin
+      //  FDP_Firebired.VendorLib := '';
+      //  FDP_Firebired.VendorLib := IniFile.ReadString('BANDO_FIREBIRD','LIBRARY','');
+      //end;
+
+      FDC_Firebird.Connected := True;
+      Firebird_Conectado := FDC_Firebird.Connected;
+
+      if not Firebird_Conectado then
+      begin
+        Firebird_Erro := Firebird_Erro + lServer + ' - ' +  lPort + sLineBreak;
+        Firebird_Erro := Firebird_Erro + lUser_Name + sLineBreak;
+        Firebird_Erro := Firebird_Erro + lPassword + sLineBreak;
+        Firebird_Erro := Firebird_Erro + lDatabase;
+      end
+      else
+        Firebird_Erro := Firebird_Erro + ' Conectado';
+    except
+      On Ex:Exception do
+      begin
+        if (Ex is EDatabaseError) then
+        begin
+          Firebird_Erro := Firebird_Erro + sLineBreak + Ex.Message;
+          raise Exception.Create(Ex.Message);
+        end
+        else
+        begin
+          Firebird_Erro := Firebird_Erro + sLineBreak + Ex.Message;
+          raise Exception.Create(Ex.Message);
+        end;
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNil(IniFile);
+    {$ELSE}
+      IniFile.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+procedure TDM_Global.DataModuleCreate(Sender: TObject);
+begin
+  Conectar_Banco;
+end;
 
 end.
