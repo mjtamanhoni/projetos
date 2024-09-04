@@ -5,7 +5,10 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects, FMX.Effects, FMX.StdCtrls,
-  FMX.ListBox, FMX.Layouts, FMX.Controls.Presentation, FMX.MultiView;
+  FMX.ListBox, FMX.Layouts, FMX.Controls.Presentation, FMX.MultiView, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  uDm.Global;
 
 type
   TfrmPrincipal = class(TForm)
@@ -41,21 +44,30 @@ type
     lytTollBar: TLayout;
     lytPrincipal: TLayout;
     imgFechar: TImage;
-    Rectangle1: TRectangle;
+    rctVersao: TRectangle;
     lbVersaoPrincipal: TLabel;
     lbiCadUsuario: TListBoxItem;
     rctCadUsuario: TRectangle;
     imgCadUsuario: TImage;
     lbCadUsuario: TLabel;
+    rctUsuario: TRectangle;
+    lbUsuario: TLabel;
     procedure imgLogClick(Sender: TObject);
     procedure rctConfigClick(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure rctCadUsuarioClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
-    { Private declarations }
+    FDm_Global :TDM_Global;
+
   public
-    { Public declarations }
+    FUser_Login: String;
+    FUser_Nome: String;
+    FUser_Celular: String;
+    FUser_Id: Integer;
+    FUser_PIN: String;
   end;
 
 var
@@ -71,8 +83,53 @@ uses
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  FreeAndNil(FDm_Global);
+
   Action := tCloseAction.caFree;
   frmPrincipal := Nil;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  FDm_Global := TDM_Global.Create(Nil);
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+var
+  FDQuery :TFDQuery;
+begin
+  try
+    try
+      FDQuery := TFDQuery.Create(Nil);
+      FDQuery.Connection := FDm_Global.FDC_Firebird;
+      FUser_Login := '';
+      FUser_Nome := '';
+      FUser_Celular := '';
+      FUser_Id := 0;
+
+      if Trim(FUser_PIN) <> '' then
+      begin
+        FDQuery.Active := False;
+        FDQuery.SQL.Clear;
+        FDQuery.SQL.Add('SELECT ');
+        FDQuery.SQL.Add('  U.* ');
+        FDQuery.SQL.Add('FROM USUARIO U ');
+        FDQuery.SQL.Add('WHERE U.PIN = ' + QuotedStr(FUser_PIN));
+        FDQuery.Active := True;
+        if not FDQuery.IsEmpty then
+        begin
+          FUser_Login := FDQuery.FieldByName('LOGIN').AsString;
+          FUser_Nome := FDQuery.FieldByName('NOME').AsString;
+          FUser_Celular := FDQuery.FieldByName('CELULAR').AsString;
+          FUser_Id := FDQuery.FieldByName('ID').AsInteger;
+        end;
+      end;
+    except on E: Exception do
+    end;
+  finally
+    lbUsuario.Text := FUser_Nome;
+    FreeAndNil(FDQuery);
+  end;
 end;
 
 procedure TfrmPrincipal.imgFecharClick(Sender: TObject);

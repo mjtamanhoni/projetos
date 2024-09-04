@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{0FBDA3EE-3347-432B-8024-1AF7A54F959E}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="DeskTop\Fontes\Controle.Horas.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Controle_Horas">
+        <MSBuild Projects="DeskTop\Fontes\Controle.Horas.dproj"/>
+    </Target>
+    <Target Name="Controle_Horas:Clean">
+        <MSBuild Projects="DeskTop\Fontes\Controle.Horas.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Controle_Horas:Make">
+        <MSBuild Projects="DeskTop\Fontes\Controle.Horas.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Controle_Horas"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Controle_Horas:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Controle_Horas:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

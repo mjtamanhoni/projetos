@@ -9,12 +9,14 @@ uses
   uFancyDialog in '..\..\..\Classes\99 Coders\Versao 11\uFancyDialog.pas',
   uFormat in '..\..\..\Classes\99 Coders\Versao 11\uFormat.pas',
   uLoading in '..\..\..\Classes\99 Coders\Versao 11\uLoading.pas',
-  uCad.Usuario in 'uCad.Usuario.pas' {frmCad_Usuario};
+  uCad.Usuario in 'uCad.Usuario.pas' {frmCad_Usuario},
+  uLogin in 'uLogin.pas' {frmLogin},
+  uCad.PrestServico in 'uCad.PrestServico.pas' {frmCad_PrestServico};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmLogin, frmLogin);
   Application.Run;
 end.

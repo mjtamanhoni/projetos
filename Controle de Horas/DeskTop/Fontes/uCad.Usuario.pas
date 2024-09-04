@@ -136,6 +136,7 @@ procedure TfrmCad_Usuario.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   FreeAndNil(FFancyDialog);
   FreeAndNil(FIniFile);
+  FreeAndNil(FDm_Global);
 
   Action := TCloseAction.caFree;
   frmCad_Usuario := Nil;

@@ -730,4 +730,9 @@ object DM_Global: TDM_Global
     Left = 360
     Top = 176
   end
+  object FDQ_DadosUsuarios: TFDQuery
+    Connection = FDC_Firebird
+    Left = 376
+    Top = 24
+  end
 end

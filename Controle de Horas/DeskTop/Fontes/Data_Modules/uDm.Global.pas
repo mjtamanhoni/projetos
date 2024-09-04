@@ -22,6 +22,7 @@ type
     FDQ_Delete: TFDQuery;
     FDQ_Sequencia: TFDQuery;
     imRegistros: TImageList;
+    FDQ_DadosUsuarios: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -30,6 +31,7 @@ type
     Firebird_Conectado: Boolean;
 
     procedure Conectar_Banco;
+    function Valida_Pin(APin :String):Boolean;
   end;
 
 var
@@ -149,6 +151,34 @@ end;
 procedure TDM_Global.DataModuleCreate(Sender: TObject);
 begin
   Conectar_Banco;
+end;
+
+function TDM_Global.Valida_Pin(APin: String): Boolean;
+var
+  FDQuery :TFDQuery;
+begin
+  try
+    try
+      Result := False;
+      FDQuery := TFDQuery.Create(Nil);
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.SQL.Clear;
+      FDQuery.SQL.Add('SELECT ');
+      FDQuery.SQL.Add('  U.* ');
+      FDQuery.SQL.Add('FROM USUARIO U ');
+      FDQuery.SQL.Add('WHERE U.PIN = ' + QuotedStr(APin));
+      FDQuery.Active := True;
+      if FDQuery.IsEmpty then
+        raise Exception.Create('PIN Inválido')
+      else
+        Result := True;
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    FreeAndNil(FDQuery);
+  end;
 end;
 
 end.
