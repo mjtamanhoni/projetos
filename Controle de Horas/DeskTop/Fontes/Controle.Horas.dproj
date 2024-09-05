@@ -304,6 +304,10 @@
             <Form>frmCad_PrestServico</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uCad.Cliente.pas">
+            <Form>frmCad_Cliente</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

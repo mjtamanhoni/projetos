@@ -11,7 +11,8 @@ uses
   uLoading in '..\..\..\Classes\99 Coders\Versao 11\uLoading.pas',
   uCad.Usuario in 'uCad.Usuario.pas' {frmCad_Usuario},
   uLogin in 'uLogin.pas' {frmLogin},
-  uCad.PrestServico in 'uCad.PrestServico.pas' {frmCad_PrestServico};
+  uCad.PrestServico in 'uCad.PrestServico.pas' {frmCad_PrestServico},
+  uCad.Cliente in 'uCad.Cliente.pas' {frmCad_Cliente};
 
 {$R *.res}
 

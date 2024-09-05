@@ -16,7 +16,6 @@ type
     ShadowEffect1: TShadowEffect;
     ShadowEffect2: TShadowEffect;
     imgLog: TImage;
-    StyleBook_Principal: TStyleBook;
     mtvMenu: TMultiView;
     lytMenu_Header: TLayout;
     rctMenuHeader: TRectangle;
@@ -52,6 +51,15 @@ type
     lbCadUsuario: TLabel;
     rctUsuario: TRectangle;
     lbUsuario: TLabel;
+    lbiPrestService: TListBoxItem;
+    rctPrestService: TRectangle;
+    imgPrestService: TImage;
+    lbPrestService: TLabel;
+    StyleBook_Adapta: TStyleBook;
+    lbiCliente: TListBoxItem;
+    rctCliente: TRectangle;
+    imgCliente: TImage;
+    lbCliente: TLabel;
     procedure imgLogClick(Sender: TObject);
     procedure rctConfigClick(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -59,6 +67,8 @@ type
     procedure rctCadUsuarioClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure rctPrestServiceClick(Sender: TObject);
+    procedure rctClienteClick(Sender: TObject);
   private
     FDm_Global :TDM_Global;
 
@@ -79,7 +89,9 @@ implementation
 
 uses
   uConfig
-  ,uCad.Usuario;
+  ,uCad.Usuario
+  ,uCad.PrestServico
+  ,uCad.Cliente;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -150,12 +162,29 @@ begin
   frmCad_Usuario.Show;
 end;
 
+procedure TfrmPrincipal.rctClienteClick(Sender: TObject);
+begin
+  mtvMenu.HideMaster;
+  Application.CreateForm(TfrmCad_Cliente,frmCad_Cliente);
+  frmCad_Cliente.Parent := lytPrincipal;
+  frmCad_Cliente.Show;
+end;
+
 procedure TfrmPrincipal.rctConfigClick(Sender: TObject);
 begin
   mtvMenu.HideMaster;
   Application.CreateForm(TfrmConfig,frmConfig);
   frmConfig.Parent := lytPrincipal;
   frmConfig.Show;
+end;
+
+procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);
+begin
+  mtvMenu.HideMaster;
+  Application.CreateForm(TfrmCad_PrestServico,frmCad_PrestServico);
+  frmCad_PrestServico.Parent := lytPrincipal;
+  frmCad_PrestServico.Show;
+
 end;
 
 end.
