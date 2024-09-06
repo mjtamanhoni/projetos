@@ -1,0 +1,15 @@
+object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
+  Left = 0
+  Top = 0
+  Caption = 'Servi'#231'os Prestados'
+  ClientHeight = 600
+  ClientWidth = 1000
+  Position = ScreenCenter
+  StyleBook = frmPrincipal.StyleBook_Adapta
+  Transparency = True
+  WindowState = wsMaximized
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+end

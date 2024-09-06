@@ -64,6 +64,12 @@ type
     rctTabPrecos: TRectangle;
     imgTabPrecos: TImage;
     lbTabPrecos: TLabel;
+    lbiContas: TListBoxItem;
+    rctContas: TRectangle;
+    imgContas: TImage;
+    lbContas: TLabel;
+    sbMenu: TScrollBox;
+    exCadastro: TExpander;
     procedure imgLogClick(Sender: TObject);
     procedure rctConfigClick(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -74,6 +80,7 @@ type
     procedure rctPrestServiceClick(Sender: TObject);
     procedure rctClienteClick(Sender: TObject);
     procedure rctTabPrecosClick(Sender: TObject);
+    procedure rctContasClick(Sender: TObject);
   private
     FDm_Global :TDM_Global;
 
@@ -97,7 +104,8 @@ uses
   ,uCad.Usuario
   ,uCad.PrestServico
   ,uCad.Cliente
-  ,uCad.TabPrecos;
+  ,uCad.TabPrecos
+  ,uCad.Contas;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -157,6 +165,7 @@ end;
 
 procedure TfrmPrincipal.imgLogClick(Sender: TObject);
 begin
+  exCadastro.IsExpanded := False;
   mtvMenu.ShowMaster;
 end;
 
@@ -182,6 +191,14 @@ begin
   Application.CreateForm(TfrmConfig,frmConfig);
   frmConfig.Parent := lytPrincipal;
   frmConfig.Show;
+end;
+
+procedure TfrmPrincipal.rctContasClick(Sender: TObject);
+begin
+  mtvMenu.HideMaster;
+  Application.CreateForm(TfrmCad_Contas,frmCad_Contas);
+  frmCad_Contas.Parent := lytPrincipal;
+  frmCad_Contas.Show;
 end;
 
 procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);

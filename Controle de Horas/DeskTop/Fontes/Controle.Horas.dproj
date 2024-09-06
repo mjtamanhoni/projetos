@@ -312,6 +312,14 @@
             <Form>frmCad_TabPrecos</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uMov.ServicosPrestados.pas">
+            <Form>frmMov_ServicosPrestados</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Contas.pas">
+            <Form>frmCad_Contas</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

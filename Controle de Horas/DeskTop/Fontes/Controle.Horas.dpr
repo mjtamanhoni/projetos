@@ -13,7 +13,9 @@ uses
   uLogin in 'uLogin.pas' {frmLogin},
   uCad.PrestServico in 'uCad.PrestServico.pas' {frmCad_PrestServico},
   uCad.Cliente in 'uCad.Cliente.pas' {frmCad_Cliente},
-  uCad.TabPrecos in 'uCad.TabPrecos.pas' {frmCad_TabPrecos};
+  uCad.TabPrecos in 'uCad.TabPrecos.pas' {frmCad_TabPrecos},
+  uMov.ServicosPrestados in 'uMov.ServicosPrestados.pas' {frmMov_ServicosPrestados},
+  uCad.Contas in 'uCad.Contas.pas' {frmCad_Contas};
 
 {$R *.res}
 
