@@ -60,6 +60,10 @@ type
     rctCliente: TRectangle;
     imgCliente: TImage;
     lbCliente: TLabel;
+    lbiTabPrecos: TListBoxItem;
+    rctTabPrecos: TRectangle;
+    imgTabPrecos: TImage;
+    lbTabPrecos: TLabel;
     procedure imgLogClick(Sender: TObject);
     procedure rctConfigClick(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -69,6 +73,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure rctPrestServiceClick(Sender: TObject);
     procedure rctClienteClick(Sender: TObject);
+    procedure rctTabPrecosClick(Sender: TObject);
   private
     FDm_Global :TDM_Global;
 
@@ -91,7 +96,8 @@ uses
   uConfig
   ,uCad.Usuario
   ,uCad.PrestServico
-  ,uCad.Cliente;
+  ,uCad.Cliente
+  ,uCad.TabPrecos;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -185,6 +191,14 @@ begin
   frmCad_PrestServico.Parent := lytPrincipal;
   frmCad_PrestServico.Show;
 
+end;
+
+procedure TfrmPrincipal.rctTabPrecosClick(Sender: TObject);
+begin
+  mtvMenu.HideMaster;
+  Application.CreateForm(TfrmCad_TabPrecos,frmCad_TabPrecos);
+  frmCad_TabPrecos.Parent := lytPrincipal;
+  frmCad_TabPrecos.Show;
 end;
 
 end.

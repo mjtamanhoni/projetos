@@ -18,7 +18,9 @@ uses
 
   IniFiles,
   uPrincipal,
-  uDm.Global, FMX.ListBox;
+  uDm.Global,
+  uCad.TabPrecos,
+  FMX.ListBox;
 
 type
   TTab_Status = (dsInsert,dsEdit);
@@ -126,6 +128,23 @@ type
     lbUF: TLabel;
     edTELEFONE: TEdit;
     lbTELEFONE: TLabel;
+    lytRow_007: TLayout;
+    lbID_TAB_PRECO: TLabel;
+    edID_TAB_PRECO_Desc: TEdit;
+    edID_TAB_PRECO: TEdit;
+    FDQRegistrosID_TAB_PRECO: TIntegerField;
+    FDQRegistrosPESSOA_DESC: TStringField;
+    FDQRegistrosDESCRICAO: TStringField;
+    FDQRegistrosTIPO_DESC: TStringField;
+    FDQRegistrosVALOR: TFMTBCDField;
+    dxfmGrid1RootLevel1ID_TAB_PRECO: TdxfmGridColumn;
+    dxfmGrid1RootLevel1PESSOA_DESC: TdxfmGridColumn;
+    dxfmGrid1RootLevel1DESCRICAO: TdxfmGridColumn;
+    dxfmGrid1RootLevel1TIPO_DESC: TdxfmGridColumn;
+    dxfmGrid1RootLevel1VALOR: TdxfmGridColumn;
+    edID_TAB_PRECO_Valor: TEdit;
+    edID_TAB_PRECO_Tipo: TEdit;
+    imgID_TAB_PRECO: TImage;
     procedure edPESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDOCUMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -147,6 +166,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
+    procedure imgID_TAB_PRECOClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -161,6 +181,7 @@ type
     procedure Salvar;
     procedure Selecionar_Registros;
     procedure Configura_Botoes;
+    procedure Sel_TabPreco(Aid: Integer; ADescricao: String; ATipo: Integer; AValor: Double);
   public
     { Public declarations }
   end;
@@ -288,6 +309,10 @@ begin
       edTELEFONE.Text := FDQRegistros.FieldByName('TELEFONE').AsString;
       edCELULAR.Text := FDQRegistros.FieldByName('CELULAR').AsString;
       edEMAIL.Text := FDQRegistros.FieldByName('EMAIL').AsString;
+      edID_TAB_PRECO.Text := FDQRegistros.FieldByName('ID_TAB_PRECO').AsString;
+      edID_TAB_PRECO_Desc.Text := FDQRegistros.FieldByName('DESCRICAO').AsString;
+      edID_TAB_PRECO_Tipo.Text := FDQRegistros.FieldByName('TIPO_DESC').AsString;
+      edID_TAB_PRECO_Valor.Text := FormatFLoat('R$ #,##0.00',FDQRegistros.FieldByName('VALOR').AsFloat);
 
       FTab_Status := TTab_Status.dsEdit;
 
@@ -401,6 +426,28 @@ begin
   Close;
 end;
 
+procedure TfrmCad_Cliente.imgID_TAB_PRECOClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_TabPrecos) then
+    Application.CreateForm(TfrmCad_TabPrecos, frmCad_TabPrecos);
+
+  frmCad_TabPrecos.Pesquisa := True;
+  frmCad_TabPrecos.ExecuteOnClose := Sel_TabPreco;
+
+  frmCad_TabPrecos.Show;
+end;
+
+procedure TfrmCad_Cliente.Sel_TabPreco(Aid:Integer; ADescricao:String; ATipo:Integer; AValor:Double);
+begin
+  edID_TAB_PRECO.Text := Aid.ToString;
+  edID_TAB_PRECO_Desc.Text := ADescricao;
+  case ATipo of
+    0:edID_TAB_PRECO_Tipo.Text := 'HORA';
+    1:edID_TAB_PRECO_Tipo.Text := 'FIXO';
+  end;
+  edID_TAB_PRECO_Valor.Text := FormatFloat('R$ #,##0.00',AValor);
+end;
+
 procedure TfrmCad_Cliente.Incluir;
 begin
   try
@@ -464,6 +511,7 @@ begin
           FQuery.Sql.Add('  ,TELEFONE ');
           FQuery.Sql.Add('  ,CELULAR ');
           FQuery.Sql.Add('  ,EMAIL ');
+          FQuery.Sql.Add('  ,ID_TAB_PRECO ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
           FQuery.Sql.Add('  ,HR_CADASTRO ');
           FQuery.Sql.Add(') VALUES( ');
@@ -481,6 +529,7 @@ begin
           FQuery.Sql.Add('  ,:TELEFONE ');
           FQuery.Sql.Add('  ,:CELULAR ');
           FQuery.Sql.Add('  ,:EMAIL ');
+          FQuery.Sql.Add('  ,:ID_TAB_PRECO ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
           FQuery.Sql.Add('  ,:HR_CADASTRO ');
           FQuery.Sql.Add('); ');
@@ -503,6 +552,7 @@ begin
           FQuery.Sql.Add('  ,TELEFONE = :TELEFONE ');
           FQuery.Sql.Add('  ,CELULAR = :CELULAR ');
           FQuery.Sql.Add('  ,EMAIL = :EMAIL ');
+          FQuery.Sql.Add('  ,ID_TAB_PRECO = :ID_TAB_PRECO ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := StrToIntDef(edID.Text,0);
         end;
@@ -521,6 +571,7 @@ begin
       FQuery.ParamByName('TELEFONE').AsString := edTELEFONE.Text;
       FQuery.ParamByName('CELULAR').AsString := edCELULAR.Text;
       FQuery.ParamByName('EMAIL').AsString := edEMAIL.Text;
+      FQuery.ParamByName('ID_TAB_PRECO').AsInteger := StrToIntDef(edID_TAB_PRECO.Text,0);
       FQuery.ExecSQL;
     except on E: Exception do
       raise Exception.Create('Salvar: ' + E.Message);
@@ -540,7 +591,18 @@ begin
       FDQRegistros.SQL.Clear;
       FDQRegistros.SQL.Add('SELECT ');
       FDQRegistros.SQL.Add('  C.* ');
+      FDQRegistros.SQL.Add('  ,CASE C.PESSOA ');
+      FDQRegistros.SQL.Add('    WHEN 0 THEN ''FÍSICA'' ');
+      FDQRegistros.SQL.Add('    WHEN 1 THEN ''JURÍDICA'' ');
+      FDQRegistros.SQL.Add('  END PESSOA_DESC ');
+      FDQRegistros.SQL.Add('  ,TP.DESCRICAO ');
+      FDQRegistros.SQL.Add('  ,CASE TP.TIPO ');
+      FDQRegistros.SQL.Add('    WHEN 0 THEN ''HORA'' ');
+      FDQRegistros.SQL.Add('    WHEN 1 THEN ''FIXO'' ');
+      FDQRegistros.SQL.Add('  END TIPO_DESC ');
+      FDQRegistros.SQL.Add('  ,TP.VALOR ');
       FDQRegistros.SQL.Add('FROM CLIENTE C ');
+      FDQRegistros.SQL.Add('  LEFT JOIN TABELA_PRECO TP ON TP.ID = C.ID_TAB_PRECO ');
       FDQRegistros.SQL.Add('ORDER BY ');
       FDQRegistros.SQL.Add('  C.ID; ');
       FDQRegistros.Active := True;
