@@ -1,14 +1,10 @@
-unit uCad.Cliente;
+unit uCad.Empresa;
 
 interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.dxGrid, FMX.dxControlUtils,
-  FMX.dxControls, FMX.dxCustomization, FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation,
-  FMX.StdCtrls, FMX.Layouts, FMX.Objects, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
 
   {$Region '99 Coders'}
     uFancyDialog,
@@ -18,15 +14,37 @@ uses
 
   IniFiles,
   uPrincipal,
-  uDm.Global,
-  uCad.TabPrecos,
-  FMX.ListBox;
+  uDm.Global, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, FMX.ListBox, FMX.dxGrid, FMX.dxControlUtils, FMX.dxControls, FMX.dxCustomization,
+  FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Objects;
 
 type
   TTab_Status = (dsInsert,dsEdit);
   TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
 
-  TfrmCad_Cliente = class(TForm)
+  TfrmCad_Empresa = class(TForm)
+    FDQRegistros: TFDQuery;
+    FDQRegistrosID: TIntegerField;
+    FDQRegistrosNOME: TStringField;
+    FDQRegistrosPESSOA: TIntegerField;
+    FDQRegistrosDOCUMENTO: TStringField;
+    FDQRegistrosINSC_EST: TStringField;
+    FDQRegistrosCEP: TStringField;
+    FDQRegistrosENDERECO: TStringField;
+    FDQRegistrosCOMPLEMENTO: TStringField;
+    FDQRegistrosNUMERO: TStringField;
+    FDQRegistrosBAIRRO: TStringField;
+    FDQRegistrosCIDADE: TStringField;
+    FDQRegistrosUF: TStringField;
+    FDQRegistrosTELEFONE: TStringField;
+    FDQRegistrosCELULAR: TStringField;
+    FDQRegistrosEMAIL: TStringField;
+    FDQRegistrosDT_CADASTRO: TDateField;
+    FDQRegistrosHR_CADASTRO: TTimeField;
+    FDQRegistrosPESSOA_DESC: TStringField;
+    DSRegistros: TDataSource;
+    OpenDialog: TOpenDialog;
     imgEsconteSenha: TImage;
     imgExibeSenha: TImage;
     rctTampa: TRectangle;
@@ -56,42 +74,10 @@ type
     Layout2: TLayout;
     dxfmGrid1: TdxfmGrid;
     dxfmGrid1RootLevel1: TdxfmGridRootLevel;
-    tiCadastro: TTabItem;
-    lytConfig: TLayout;
-    lytRow_001: TLayout;
-    lbID: TLabel;
-    edID: TEdit;
-    lytRow_002: TLayout;
-    lbNOME: TLabel;
-    edNOME: TEdit;
-    lytRow_006: TLayout;
-    lbEMAIL: TLabel;
-    edEMAIL: TEdit;
-    lbCELULAR: TLabel;
-    edCELULAR: TEdit;
-    OpenDialog: TOpenDialog;
-    FDQRegistros: TFDQuery;
-    DSRegistros: TDataSource;
-    FDQRegistrosID: TIntegerField;
-    FDQRegistrosNOME: TStringField;
-    FDQRegistrosPESSOA: TIntegerField;
-    FDQRegistrosDOCUMENTO: TStringField;
-    FDQRegistrosINSC_EST: TStringField;
-    FDQRegistrosCEP: TStringField;
-    FDQRegistrosENDERECO: TStringField;
-    FDQRegistrosCOMPLEMENTO: TStringField;
-    FDQRegistrosNUMERO: TStringField;
-    FDQRegistrosBAIRRO: TStringField;
-    FDQRegistrosCIDADE: TStringField;
-    FDQRegistrosUF: TStringField;
-    FDQRegistrosTELEFONE: TStringField;
-    FDQRegistrosCELULAR: TStringField;
-    FDQRegistrosEMAIL: TStringField;
-    FDQRegistrosDT_CADASTRO: TDateField;
-    FDQRegistrosHR_CADASTRO: TTimeField;
     dxfmGrid1RootLevel1ID: TdxfmGridColumn;
     dxfmGrid1RootLevel1NOME: TdxfmGridColumn;
     dxfmGrid1RootLevel1PESSOA: TdxfmGridColumn;
+    dxfmGrid1RootLevel1PESSOA_DESC: TdxfmGridColumn;
     dxfmGrid1RootLevel1DOCUMENTO: TdxfmGridColumn;
     dxfmGrid1RootLevel1INSC_EST: TdxfmGridColumn;
     dxfmGrid1RootLevel1CEP: TdxfmGridColumn;
@@ -104,12 +90,27 @@ type
     dxfmGrid1RootLevel1TELEFONE: TdxfmGridColumn;
     dxfmGrid1RootLevel1CELULAR: TdxfmGridColumn;
     dxfmGrid1RootLevel1EMAIL: TdxfmGridColumn;
+    tiCadastro: TTabItem;
+    lytConfig: TLayout;
+    lytRow_001: TLayout;
+    lbID: TLabel;
+    edID: TEdit;
     lbPESSOA: TLabel;
     edPESSOA: TComboBox;
     lbDOCUMENTO: TLabel;
     edDOCUMENTO: TEdit;
     lbINSC_EST: TLabel;
     edINSC_EST: TEdit;
+    lytRow_002: TLayout;
+    lbNOME: TLabel;
+    edNOME: TEdit;
+    lytRow_006: TLayout;
+    lbEMAIL: TLabel;
+    edEMAIL: TEdit;
+    lbCELULAR: TLabel;
+    edCELULAR: TEdit;
+    edTELEFONE: TEdit;
+    lbTELEFONE: TLabel;
     lytRow_003: TLayout;
     lbCEP: TLabel;
     edCEP: TEdit;
@@ -127,25 +128,6 @@ type
     lbCIDADE: TLabel;
     edUF: TEdit;
     lbUF: TLabel;
-    edTELEFONE: TEdit;
-    lbTELEFONE: TLabel;
-    lytRow_007: TLayout;
-    lbID_TAB_PRECO: TLabel;
-    edID_TAB_PRECO_Desc: TEdit;
-    edID_TAB_PRECO: TEdit;
-    FDQRegistrosID_TAB_PRECO: TIntegerField;
-    FDQRegistrosPESSOA_DESC: TStringField;
-    FDQRegistrosDESCRICAO: TStringField;
-    FDQRegistrosTIPO_DESC: TStringField;
-    FDQRegistrosVALOR: TFMTBCDField;
-    dxfmGrid1RootLevel1ID_TAB_PRECO: TdxfmGridColumn;
-    dxfmGrid1RootLevel1PESSOA_DESC: TdxfmGridColumn;
-    dxfmGrid1RootLevel1DESCRICAO: TdxfmGridColumn;
-    dxfmGrid1RootLevel1TIPO_DESC: TdxfmGridColumn;
-    dxfmGrid1RootLevel1VALOR: TdxfmGridColumn;
-    edID_TAB_PRECO_Valor: TEdit;
-    edID_TAB_PRECO_Tipo: TEdit;
-    imgID_TAB_PRECO: TImage;
     procedure edPESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDOCUMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -153,27 +135,27 @@ type
     procedure edCEPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edENDERECOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edNUMEROKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-    procedure edCOMPLEMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edBAIRROKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edCIDADEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edUFKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edEMAILKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edTELEFONEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-    procedure imgFecharClick(Sender: TObject);
-    procedure edTELEFONETyping(Sender: TObject);
     procedure edCELULARTyping(Sender: TObject);
     procedure edCEPTyping(Sender: TObject);
     procedure edDOCUMENTOTyping(Sender: TObject);
+    procedure edTELEFONETyping(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure imgFecharClick(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
-    procedure imgID_TAB_PRECOClick(Sender: TObject);
+    procedure edCOMPLEMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
     FEnder :String;
     FDm_Global :TDM_Global;
     FTab_Status :TTab_Status;
+    FPesquisa: Boolean;
 
     procedure Cancelar;
     procedure Editar;
@@ -183,19 +165,21 @@ type
     procedure Selecionar_Registros;
     procedure Configura_Botoes;
     procedure Limpar_Campos;
-    procedure Sel_TabPreco(Aid: Integer; ADescricao: String; ATipo: Integer; AValor: Double);
+    procedure SetPesquisa(const Value: Boolean);
   public
-    { Public declarations }
+    ExecuteOnClose :TExecuteOnClose;
+
+    property Pesquisa:Boolean read FPesquisa write SetPesquisa;
   end;
 
 var
-  frmCad_Cliente: TfrmCad_Cliente;
+  frmCad_Empresa: TfrmCad_Empresa;
 
 implementation
 
 {$R *.fmx}
 
-procedure TfrmCad_Cliente.Cancelar;
+procedure TfrmCad_Empresa.Cancelar;
 begin
   try
     try
@@ -207,7 +191,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.Configura_Botoes;
+procedure TfrmCad_Empresa.Configura_Botoes;
 begin
   rctIncluir.Enabled := (tcPrincipal.ActiveTab = tiLista);
   rctSalvar.Enabled := (tcPrincipal.ActiveTab = tiCadastro);
@@ -216,51 +200,56 @@ begin
   rctExcluir.Enabled := ((tcPrincipal.ActiveTab = tiLista) and (not FDQRegistros.IsEmpty));
 end;
 
-procedure TfrmCad_Cliente.edBAIRROKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edBAIRROKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edCIDADE.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edCELULARTyping(Sender: TObject);
+procedure TfrmCad_Empresa.edCELULARTyping(Sender: TObject);
 begin
   Formatar(edCELULAR,Celular);
 end;
 
-procedure TfrmCad_Cliente.edCEPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+procedure TfrmCad_Empresa.edCEPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
   if Key = vkReturn then
     edENDERECO.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edCEPTyping(Sender: TObject);
+procedure TfrmCad_Empresa.edCEPTyping(Sender: TObject);
 begin
   Formatar(edCEP,CEP);
 end;
 
-procedure TfrmCad_Cliente.edCIDADEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edCIDADEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edUF.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edCOMPLEMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edCOMPLEMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edBAIRRO.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edDOCUMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edDOCUMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edINSC_EST.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edDOCUMENTOTyping(Sender: TObject);
+procedure TfrmCad_Empresa.edDOCUMENTOTyping(Sender: TObject);
 begin
   case edPESSOA.ItemIndex of
     0:Formatar(edDOCUMENTO,CPF);
@@ -268,28 +257,31 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.edEMAILKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edEMAILKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edTELEFONE.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edENDERECOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edENDERECOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edNUMERO.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edNOME.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.Editar;
+procedure TfrmCad_Empresa.Editar;
 begin
   try
     try
@@ -311,10 +303,6 @@ begin
       edTELEFONE.Text := FDQRegistros.FieldByName('TELEFONE').AsString;
       edCELULAR.Text := FDQRegistros.FieldByName('CELULAR').AsString;
       edEMAIL.Text := FDQRegistros.FieldByName('EMAIL').AsString;
-      edID_TAB_PRECO.Text := FDQRegistros.FieldByName('ID_TAB_PRECO').AsString;
-      edID_TAB_PRECO_Desc.Text := FDQRegistros.FieldByName('DESCRICAO').AsString;
-      edID_TAB_PRECO_Tipo.Text := FDQRegistros.FieldByName('TIPO_DESC').AsString;
-      edID_TAB_PRECO_Valor.Text := FormatFLoat('R$ #,##0.00',FDQRegistros.FieldByName('VALOR').AsFloat);
 
       FTab_Status := TTab_Status.dsEdit;
 
@@ -328,46 +316,50 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.edNOMEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edNOMEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edCEP.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edNUMEROKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edNUMEROKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edCOMPLEMENTO.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edPESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edPESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edDOCUMENTO.SetFocus;
 end;
 
-procedure TfrmCad_Cliente.edTELEFONEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_Empresa.edTELEFONEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edCELULAR.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.edTELEFONETyping(Sender: TObject);
+procedure TfrmCad_Empresa.edTELEFONETyping(Sender: TObject);
 begin
   Formatar(edTELEFONE,TelefoneFixo);
 end;
 
-procedure TfrmCad_Cliente.edUFKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+procedure TfrmCad_Empresa.edUFKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
   if Key = vkReturn then
     edEMAIL.SetFocus;
+
 end;
 
-procedure TfrmCad_Cliente.Excluir(Sender: TObject);
+procedure TfrmCad_Empresa.Excluir(Sender: TObject);
 var
   FQuery :TFDQuery;
 begin
@@ -381,7 +373,7 @@ begin
 
       FQuery.Active := False;
       FQuery.SQL.Clear;
-      FQuery.SQL.Add('DELETE FROM CLIENTE WHERE ID = :ID');
+      FQuery.SQL.Add('DELETE FROM EMPRESA WHERE ID = :ID');
       FQuery.ParamByName('ID').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
       FQuery.ExecSQL;
 
@@ -395,19 +387,19 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCad_Empresa.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   FreeAndNil(FFancyDialog);
   FreeAndNil(FIniFile);
   FreeAndNil(FDm_Global);
 
   Action := TCloseAction.caFree;
-  frmCad_Cliente := Nil;
+  frmCad_Empresa := Nil;
 end;
 
-procedure TfrmCad_Cliente.FormCreate(Sender: TObject);
+procedure TfrmCad_Empresa.FormCreate(Sender: TObject);
 begin
-  FFancyDialog := TFancyDialog.Create(frmCad_Cliente);
+  FFancyDialog := TFancyDialog.Create(frmCad_Empresa);
   FEnder := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
   FIniFile := TIniFile.Create(FEnder);
@@ -421,36 +413,15 @@ begin
 
   Selecionar_Registros;
   Configura_Botoes;
+
 end;
 
-procedure TfrmCad_Cliente.imgFecharClick(Sender: TObject);
+procedure TfrmCad_Empresa.imgFecharClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TfrmCad_Cliente.imgID_TAB_PRECOClick(Sender: TObject);
-begin
-  if NOT Assigned(frmCad_TabPrecos) then
-    Application.CreateForm(TfrmCad_TabPrecos, frmCad_TabPrecos);
-
-  frmCad_TabPrecos.Pesquisa := True;
-  frmCad_TabPrecos.ExecuteOnClose := Sel_TabPreco;
-
-  frmCad_TabPrecos.Show;
-end;
-
-procedure TfrmCad_Cliente.Sel_TabPreco(Aid:Integer; ADescricao:String; ATipo:Integer; AValor:Double);
-begin
-  edID_TAB_PRECO.Text := Aid.ToString;
-  edID_TAB_PRECO_Desc.Text := ADescricao;
-  case ATipo of
-    0:edID_TAB_PRECO_Tipo.Text := 'HORA';
-    1:edID_TAB_PRECO_Tipo.Text := 'FIXO';
-  end;
-  edID_TAB_PRECO_Valor.Text := FormatFloat('R$ #,##0.00',AValor);
-end;
-
-procedure TfrmCad_Cliente.Incluir;
+procedure TfrmCad_Empresa.Incluir;
 begin
   try
     try
@@ -467,7 +438,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.Limpar_Campos;
+procedure TfrmCad_Empresa.Limpar_Campos;
 begin
   edID.Text := '';
   edNOME.Text := '';
@@ -484,13 +455,9 @@ begin
   edTELEFONE.Text := '';
   edCELULAR.Text := '';
   edEMAIL.Text := '';
-  edID_TAB_PRECO.Text := '';
-  edID_TAB_PRECO_Desc.Text := '';
-  edID_TAB_PRECO_Tipo.Text := '';
-  edID_TAB_PRECO_Valor.Text := '';
 end;
 
-procedure TfrmCad_Cliente.rctCancelarClick(Sender: TObject);
+procedure TfrmCad_Empresa.rctCancelarClick(Sender: TObject);
 begin
   try
     try
@@ -507,9 +474,10 @@ begin
   finally
     Configura_Botoes;
   end;
+
 end;
 
-procedure TfrmCad_Cliente.Salvar;
+procedure TfrmCad_Empresa.Salvar;
 var
   FQuery :TFDQuery;
 begin
@@ -522,7 +490,7 @@ begin
 
       case FTab_Status of
         dsInsert :begin
-          FQuery.Sql.Add('INSERT INTO CLIENTE( ');
+          FQuery.Sql.Add('INSERT INTO EMPRESA( ');
           FQuery.Sql.Add('  NOME ');
           FQuery.Sql.Add('  ,PESSOA ');
           FQuery.Sql.Add('  ,DOCUMENTO ');
@@ -537,7 +505,6 @@ begin
           FQuery.Sql.Add('  ,TELEFONE ');
           FQuery.Sql.Add('  ,CELULAR ');
           FQuery.Sql.Add('  ,EMAIL ');
-          FQuery.Sql.Add('  ,ID_TAB_PRECO ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
           FQuery.Sql.Add('  ,HR_CADASTRO ');
           FQuery.Sql.Add(') VALUES( ');
@@ -555,7 +522,6 @@ begin
           FQuery.Sql.Add('  ,:TELEFONE ');
           FQuery.Sql.Add('  ,:CELULAR ');
           FQuery.Sql.Add('  ,:EMAIL ');
-          FQuery.Sql.Add('  ,:ID_TAB_PRECO ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
           FQuery.Sql.Add('  ,:HR_CADASTRO ');
           FQuery.Sql.Add('); ');
@@ -563,7 +529,7 @@ begin
           FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
         end;
         dsEdit :begin
-          FQuery.Sql.Add('UPDATE CLIENTE SET ');
+          FQuery.Sql.Add('UPDATE EMPRESA SET ');
           FQuery.Sql.Add('  NOME = :NOME ');
           FQuery.Sql.Add('  ,PESSOA = :PESSOA ');
           FQuery.Sql.Add('  ,DOCUMENTO = :DOCUMENTO ');
@@ -578,7 +544,6 @@ begin
           FQuery.Sql.Add('  ,TELEFONE = :TELEFONE ');
           FQuery.Sql.Add('  ,CELULAR = :CELULAR ');
           FQuery.Sql.Add('  ,EMAIL = :EMAIL ');
-          FQuery.Sql.Add('  ,ID_TAB_PRECO = :ID_TAB_PRECO ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := StrToIntDef(edID.Text,0);
         end;
@@ -597,7 +562,6 @@ begin
       FQuery.ParamByName('TELEFONE').AsString := edTELEFONE.Text;
       FQuery.ParamByName('CELULAR').AsString := edCELULAR.Text;
       FQuery.ParamByName('EMAIL').AsString := edEMAIL.Text;
-      FQuery.ParamByName('ID_TAB_PRECO').AsInteger := StrToIntDef(edID_TAB_PRECO.Text,0);
       FQuery.ExecSQL;
     except on E: Exception do
       raise Exception.Create('Salvar: ' + E.Message);
@@ -609,34 +573,32 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.Selecionar_Registros;
+procedure TfrmCad_Empresa.Selecionar_Registros;
 begin
   try
     try
       FDQRegistros.Active := False;
       FDQRegistros.SQL.Clear;
       FDQRegistros.SQL.Add('SELECT ');
-      FDQRegistros.SQL.Add('  C.* ');
-      FDQRegistros.SQL.Add('  ,CASE C.PESSOA ');
+      FDQRegistros.SQL.Add('  E.* ');
+      FDQRegistros.SQL.Add('  ,CASE E.PESSOA ');
       FDQRegistros.SQL.Add('    WHEN 0 THEN ''FÍSICA'' ');
       FDQRegistros.SQL.Add('    WHEN 1 THEN ''JURÍDICA'' ');
       FDQRegistros.SQL.Add('  END PESSOA_DESC ');
-      FDQRegistros.SQL.Add('  ,TP.DESCRICAO ');
-      FDQRegistros.SQL.Add('  ,CASE TP.TIPO ');
-      FDQRegistros.SQL.Add('    WHEN 0 THEN ''HORA'' ');
-      FDQRegistros.SQL.Add('    WHEN 1 THEN ''FIXO'' ');
-      FDQRegistros.SQL.Add('  END TIPO_DESC ');
-      FDQRegistros.SQL.Add('  ,TP.VALOR ');
-      FDQRegistros.SQL.Add('FROM CLIENTE C ');
-      FDQRegistros.SQL.Add('  LEFT JOIN TABELA_PRECO TP ON TP.ID = C.ID_TAB_PRECO ');
+      FDQRegistros.SQL.Add('FROM EMPRESA E ');
       FDQRegistros.SQL.Add('ORDER BY ');
-      FDQRegistros.SQL.Add('  C.ID; ');
+      FDQRegistros.SQL.Add('  E.ID; ');
       FDQRegistros.Active := True;
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro','Selecionar. ' + E.Message,'Ok');
     end;
   finally
   end;
+end;
+
+procedure TfrmCad_Empresa.SetPesquisa(const Value: Boolean);
+begin
+  FPesquisa := Value;
 end;
 
 end.

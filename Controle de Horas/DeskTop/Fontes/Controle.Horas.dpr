@@ -15,7 +15,9 @@ uses
   uCad.Cliente in 'uCad.Cliente.pas' {frmCad_Cliente},
   uCad.TabPrecos in 'uCad.TabPrecos.pas' {frmCad_TabPrecos},
   uMov.ServicosPrestados in 'uMov.ServicosPrestados.pas' {frmMov_ServicosPrestados},
-  uCad.Contas in 'uCad.Contas.pas' {frmCad_Contas};
+  uCad.Contas in 'uCad.Contas.pas' {frmCad_Contas},
+  uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa},
+  uCad.Fornecedor in 'uCad.Fornecedor.pas' {frmCad_Fornecedor};
 
 {$R *.res}
 

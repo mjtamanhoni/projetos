@@ -320,6 +320,14 @@
             <Form>frmCad_Contas</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uCad.Empresa.pas">
+            <Form>frmCad_Empresa</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Fornecedor.pas">
+            <Form>frmCad_Fornecedor</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
