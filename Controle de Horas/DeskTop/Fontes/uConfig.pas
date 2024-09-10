@@ -26,7 +26,7 @@ type
     rctTampa: TRectangle;
     tcPrincipal: TTabControl;
     tiDB: TTabItem;
-    lytConfig: TLayout;
+    lytBancoDados: TLayout;
     imgConfirmar: TImage;
     lytBDF_Row001: TLayout;
     lbBDF_Servidor: TLabel;
@@ -52,6 +52,20 @@ type
     OpenDialog: TOpenDialog;
     imgEsconteSenha: TImage;
     imgExibeSenha: TImage;
+    rctSubTit: TRectangle;
+    lbSubTit: TLabel;
+    ShadowEffect1: TShadowEffect;
+    lytOpcoes: TLayout;
+    gplOpcoes: TGridPanelLayout;
+    imgDB: TImage;
+    imgOpcoes: TImage;
+    tiPlanoContas: TTabItem;
+    lytPlanoContas: TLayout;
+    lytRow_001: TLayout;
+    lbApontHoras: TLabel;
+    edApontHoras: TEdit;
+    edID_ApontHoras: TEdit;
+    imgID_ApontHoras: TImage;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -65,6 +79,8 @@ type
     procedure edBDF_UsuarioKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edBDF_SenhaKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure imgDBClick(Sender: TObject);
+    procedure imgID_ApontHorasClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -72,6 +88,7 @@ type
 
     procedure Grava_Configuracoes;
     procedure Ler_Configuracoes;
+    procedure Sel_Conta(Aid:Integer; ADescricao:String; ATipo:Integer);
   public
     { Public declarations }
   end;
@@ -82,6 +99,9 @@ var
 implementation
 
 {$R *.fmx}
+
+uses
+  uCad.Contas;
 
 procedure TfrmConfig.dbBDF_BancoClick(Sender: TObject);
 begin
@@ -145,6 +165,7 @@ begin
   FIniFile := TIniFile.Create(FEnder);
 
   lytFormulario.Align := TAlignLayout.Center;
+  tcPrincipal.ActiveTab := tiDB;
 
   Ler_Configuracoes;
 end;
@@ -159,12 +180,20 @@ procedure TfrmConfig.Ler_Configuracoes;
 begin
   try
     try
-      edBDF_Servidor.Text    := FIniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
-      edBDF_Porta.Text       := FIniFile.ReadInteger('BANDO_FIREBIRD','PORTA',3050).ToString;
-      edBDF_Banco.Text       := FIniFile.ReadString('BANDO_FIREBIRD','BANCO','');
-      edBDF_Usuario.Text     := FIniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
-      edBDF_Senha.Text       := FIniFile.ReadString('BANDO_FIREBIRD','SENHA','');
-      edBDF_Biblioteca.Text  := FIniFile.ReadString('BANDO_FIREBIRD','BIBLIOTECA','');
+      {$Region 'Banco de Dados'}
+        edBDF_Servidor.Text    := FIniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
+        edBDF_Porta.Text       := FIniFile.ReadInteger('BANDO_FIREBIRD','PORTA',3050).ToString;
+        edBDF_Banco.Text       := FIniFile.ReadString('BANDO_FIREBIRD','BANCO','');
+        edBDF_Usuario.Text     := FIniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
+        edBDF_Senha.Text       := FIniFile.ReadString('BANDO_FIREBIRD','SENHA','');
+        edBDF_Biblioteca.Text  := FIniFile.ReadString('BANDO_FIREBIRD','BIBLIOTECA','');
+      {$EndRegion 'Banco de Dados'}
+
+      {$Region 'Plano de Contas - Lançamentos'}
+        edID_ApontHoras.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS','');
+        edApontHoras.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS.DESC','');
+      {$EndRegion 'Plano de Contas - Lançamentos'}
+
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Lendo Configurações',E.Message,'Ok');
     end;
@@ -176,6 +205,24 @@ end;
 procedure TfrmConfig.imgConfirmarClick(Sender: TObject);
 begin
   Grava_Configuracoes;
+end;
+
+procedure TfrmConfig.imgDBClick(Sender: TObject);
+begin
+  imgDB.Opacity := 0.5;
+  imgOpcoes.Opacity := 0.5;
+
+  case TImage(Sender).Tag of
+    0:begin
+      lbSubTit.Text := 'Banco de Dados';
+    end;
+    1:begin
+      lbSubTit.Text := 'Plano de Contas padrão (Lançamentos)';
+    end;
+  end;
+  TImage(Sender).Opacity := 1;
+
+  tcPrincipal.GotoVisibleTab(TImage(Sender).Tag);
 end;
 
 procedure TfrmConfig.Grava_Configuracoes;
@@ -191,6 +238,11 @@ begin
         FIniFile.WriteString('BANDO_FIREBIRD','BIBLIOTECA',edBDF_Biblioteca.Text);
       {$EndRegion 'Banco de Dados'}
 
+      {$Region 'Plano de Contas - Lançamentos'}
+        FIniFile.WriteString('PLANO_CONTAS.LANC','APONT.HORAS',edID_ApontHoras.Text);
+        FIniFile.WriteString('PLANO_CONTAS.LANC','APONT.HORAS.DESC',edApontHoras.Text);
+      {$EndRegion 'Plano de Contas - Lançamentos'}
+
       FFancyDialog.Show(TIconDialog.Success,'Atenção','Configurações com sucesso','Ok');
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'Ok');
@@ -204,6 +256,24 @@ procedure TfrmConfig.imgFecharClick(Sender: TObject);
 begin
   Close;
 end;
+
+procedure TfrmConfig.imgID_ApontHorasClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Contas) then
+    Application.CreateForm(TfrmCad_Contas, frmCad_Contas);
+
+  frmCad_Contas.Pesquisa := True;
+  frmCad_Contas.ExecuteOnClose := Sel_Conta;
+
+  frmCad_Contas.Show;
+end;
+
+procedure TfrmConfig.Sel_Conta(Aid:Integer; ADescricao:String; ATipo:Integer);
+begin
+  edID_ApontHoras.Text := Aid.ToString;
+  edApontHoras.Text := ADescricao;
+end;
+
 
 procedure TfrmConfig.sbBDF_BibliotecaClick(Sender: TObject);
 begin

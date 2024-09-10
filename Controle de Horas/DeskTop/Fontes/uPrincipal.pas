@@ -21,7 +21,7 @@ type
     rctMenuHeader: TRectangle;
     ShadowEffect18: TShadowEffect;
     lytMenu_Detail: TLayout;
-    lbxMenu: TListBox;
+    lbxCadastro: TListBox;
     lbiConfig: TListBoxItem;
     rctConfig: TRectangle;
     imgConfig: TImage;
@@ -34,7 +34,7 @@ type
     lbFechar: TLabel;
     sbFechar: TSpeedButton;
     lbVersao: TLabel;
-    Label1: TLabel;
+    lbMenuPrincipal: TLabel;
     rctFooter: TRectangle;
     lytHeaderPrincipal: TLayout;
     lytHeaderTitle: TLayout;
@@ -74,6 +74,16 @@ type
     rctEmpresa: TRectangle;
     imgEmpresa: TImage;
     lbEmpresa: TLabel;
+    lbiFornecedor: TListBoxItem;
+    rctFornecedor: TRectangle;
+    imgFornecedor: TImage;
+    lbFornecedor: TLabel;
+    exMovimento: TExpander;
+    lbxMovimento: TListBox;
+    lbiServPrestados: TListBoxItem;
+    rctServPrestados: TRectangle;
+    imgServPrestados: TImage;
+    lbServPrestados: TLabel;
     procedure imgLogClick(Sender: TObject);
     procedure rctConfigClick(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -86,6 +96,8 @@ type
     procedure rctTabPrecosClick(Sender: TObject);
     procedure rctContasClick(Sender: TObject);
     procedure rctEmpresaClick(Sender: TObject);
+    procedure rctFornecedorClick(Sender: TObject);
+    procedure rctServPrestadosClick(Sender: TObject);
   private
     FDm_Global :TDM_Global;
 
@@ -111,7 +123,9 @@ uses
   ,uCad.Cliente
   ,uCad.TabPrecos
   ,uCad.Contas
-  ,uCad.Empresa;
+  ,uCad.Empresa
+  ,uCad.Fornecedor
+  ,uMov.ServicosPrestados;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -175,6 +189,15 @@ begin
   mtvMenu.ShowMaster;
 end;
 
+procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);
+begin
+  mtvMenu.HideMaster;
+  Application.CreateForm(TfrmMov_ServicosPrestados,frmMov_ServicosPrestados);
+  frmMov_ServicosPrestados.Parent := lytPrincipal;
+  lytPrincipal.AddObject(frmMov_ServicosPrestados.rctTampa);
+  frmMov_ServicosPrestados.Show;
+end;
+
 procedure TfrmPrincipal.rctCadUsuarioClick(Sender: TObject);
 begin
   mtvMenu.HideMaster;
@@ -196,6 +219,7 @@ begin
   mtvMenu.HideMaster;
   Application.CreateForm(TfrmConfig,frmConfig);
   frmConfig.Parent := lytPrincipal;
+  lytPrincipal.AddObject(frmConfig.rctTampa);
   frmConfig.Show;
 end;
 
@@ -213,6 +237,15 @@ begin
   Application.CreateForm(TfrmCad_Empresa,frmCad_Empresa);
   frmCad_Empresa.Parent := lytPrincipal;
   frmCad_Empresa.Show;
+end;
+
+procedure TfrmPrincipal.rctFornecedorClick(Sender: TObject);
+begin
+  mtvMenu.HideMaster;
+  Application.CreateForm(TfrmCad_Fornecedor,frmCad_Fornecedor);
+  frmCad_Fornecedor.Parent := lytPrincipal;
+  frmCad_Fornecedor.Show;
+
 end;
 
 procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);

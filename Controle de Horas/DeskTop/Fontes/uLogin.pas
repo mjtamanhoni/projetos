@@ -20,7 +20,7 @@ type
   TfrmLogin = class(TForm)
     rctFooter: TRectangle;
     ShadowEffect2: TShadowEffect;
-    Rectangle1: TRectangle;
+    rctVersao: TRectangle;
     lbVersaoPrincipal: TLabel;
     rctHeader: TRectangle;
     ShadowEffect1: TShadowEffect;

@@ -20,26 +20,11 @@ uses
   FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Objects;
 
 type
+  TTab_Status = (dsInsert,dsEdit);
+  TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
+
   TfrmCad_Fornecedor = class(TForm)
     FDQRegistros: TFDQuery;
-    FDQRegistrosID: TIntegerField;
-    FDQRegistrosNOME: TStringField;
-    FDQRegistrosPESSOA: TIntegerField;
-    FDQRegistrosDOCUMENTO: TStringField;
-    FDQRegistrosINSC_EST: TStringField;
-    FDQRegistrosCEP: TStringField;
-    FDQRegistrosENDERECO: TStringField;
-    FDQRegistrosCOMPLEMENTO: TStringField;
-    FDQRegistrosNUMERO: TStringField;
-    FDQRegistrosBAIRRO: TStringField;
-    FDQRegistrosCIDADE: TStringField;
-    FDQRegistrosUF: TStringField;
-    FDQRegistrosTELEFONE: TStringField;
-    FDQRegistrosCELULAR: TStringField;
-    FDQRegistrosEMAIL: TStringField;
-    FDQRegistrosDT_CADASTRO: TDateField;
-    FDQRegistrosHR_CADASTRO: TTimeField;
-    FDQRegistrosPESSOA_DESC: TStringField;
     DSRegistros: TDataSource;
     OpenDialog: TOpenDialog;
     imgEsconteSenha: TImage;
@@ -125,6 +110,24 @@ type
     lbCIDADE: TLabel;
     edUF: TEdit;
     lbUF: TLabel;
+    FDQRegistrosID: TIntegerField;
+    FDQRegistrosNOME: TStringField;
+    FDQRegistrosPESSOA: TIntegerField;
+    FDQRegistrosDOCUMENTO: TStringField;
+    FDQRegistrosINSC_EST: TStringField;
+    FDQRegistrosCEP: TStringField;
+    FDQRegistrosENDERECO: TStringField;
+    FDQRegistrosCOMPLEMENTO: TStringField;
+    FDQRegistrosNUMERO: TStringField;
+    FDQRegistrosBAIRRO: TStringField;
+    FDQRegistrosCIDADE: TStringField;
+    FDQRegistrosUF: TStringField;
+    FDQRegistrosTELEFONE: TStringField;
+    FDQRegistrosCELULAR: TStringField;
+    FDQRegistrosEMAIL: TStringField;
+    FDQRegistrosDT_CADASTRO: TDateField;
+    FDQRegistrosHR_CADASTRO: TTimeField;
+    FDQRegistrosPESSOA_DESC: TStringField;
     procedure edPESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDOCUMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -138,10 +141,35 @@ type
     procedure edUFKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edEMAILKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edTELEFONEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edDOCUMENTOTyping(Sender: TObject);
+    procedure edCEPTyping(Sender: TObject);
+    procedure edTELEFONETyping(Sender: TObject);
+    procedure edCELULARTyping(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure imgFecharClick(Sender: TObject);
+    procedure rctCancelarClick(Sender: TObject);
   private
-    { Private declarations }
+    FFancyDialog :TFancyDialog;
+    FIniFile :TIniFile;
+    FEnder :String;
+    FDm_Global :TDM_Global;
+    FTab_Status :TTab_Status;
+    FPesquisa: Boolean;
+
+    procedure Cancelar;
+    procedure Editar;
+    procedure Excluir(Sender:TObject);
+    procedure Incluir;
+    procedure Salvar;
+    procedure Selecionar_Registros;
+    procedure Configura_Botoes;
+    procedure Limpar_Campos;
+    procedure SetPesquisa(const Value: Boolean);
   public
-    { Public declarations }
+    ExecuteOnClose :TExecuteOnClose;
+
+    property Pesquisa:Boolean read FPesquisa write SetPesquisa;
   end;
 
 var
@@ -151,6 +179,27 @@ implementation
 
 {$R *.fmx}
 
+procedure TfrmCad_Fornecedor.Cancelar;
+begin
+  try
+    try
+      tcPrincipal.GotoVisibleTab(0);
+    except on E: Exception do
+      raise Exception.Create('Cancelar: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TfrmCad_Fornecedor.Configura_Botoes;
+begin
+  rctIncluir.Enabled := (tcPrincipal.ActiveTab = tiLista);
+  rctSalvar.Enabled := (tcPrincipal.ActiveTab = tiCadastro);
+  rctCancelar.Enabled := (tcPrincipal.ActiveTab = tiCadastro);
+  rctEditar.Enabled := ((tcPrincipal.ActiveTab = tiLista) and (not FDQRegistros.IsEmpty));
+  rctExcluir.Enabled := ((tcPrincipal.ActiveTab = tiLista) and (not FDQRegistros.IsEmpty));
+end;
+
 procedure TfrmCad_Fornecedor.edBAIRROKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
@@ -159,12 +208,22 @@ begin
 
 end;
 
+procedure TfrmCad_Fornecedor.edCELULARTyping(Sender: TObject);
+begin
+  Formatar(edCELULAR,Celular);
+end;
+
 procedure TfrmCad_Fornecedor.edCEPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edENDERECO.SetFocus;
 
+end;
+
+procedure TfrmCad_Fornecedor.edCEPTyping(Sender: TObject);
+begin
+  Formatar(edCEP,CEP);
 end;
 
 procedure TfrmCad_Fornecedor.edCIDADEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -191,6 +250,14 @@ begin
 
 end;
 
+procedure TfrmCad_Fornecedor.edDOCUMENTOTyping(Sender: TObject);
+begin
+  case edPESSOA.ItemIndex of
+    0:Formatar(edDOCUMENTO,CPF);
+    1:Formatar(edDOCUMENTO,CNPJ);
+  end;
+end;
+
 procedure TfrmCad_Fornecedor.edEMAILKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
@@ -213,6 +280,41 @@ begin
   if Key = vkReturn then
     edNOME.SetFocus;
 
+end;
+
+procedure TfrmCad_Fornecedor.Editar;
+begin
+  try
+    try
+      if FDQRegistros.IsEmpty then
+        raise Exception.Create('Não há registros para ser Editado');
+
+      edID.Text := FDQRegistros.FieldByName('ID').AsInteger.ToString;
+      edNOME.Text := FDQRegistros.FieldByName('NOME').AsString;
+      edPESSOA.ItemIndex := FDQRegistros.FieldByName('PESSOA').AsInteger;
+      edDOCUMENTO.Text := FDQRegistros.FieldByName('DOCUMENTO').AsString;
+      edINSC_EST.Text := FDQRegistros.FieldByName('INSC_EST').AsString;
+      edCEP.Text := FDQRegistros.FieldByName('CEP').AsString;
+      edENDERECO.Text := FDQRegistros.FieldByName('ENDERECO').AsString;
+      edCOMPLEMENTO.Text := FDQRegistros.FieldByName('COMPLEMENTO').AsString;
+      edNUMERO.Text := FDQRegistros.FieldByName('NUMERO').AsString;
+      edBAIRRO.Text := FDQRegistros.FieldByName('BAIRRO').AsString;
+      edCIDADE.Text := FDQRegistros.FieldByName('CIDADE').AsString;
+      edUF.Text := FDQRegistros.FieldByName('UF').AsString;
+      edTELEFONE.Text := FDQRegistros.FieldByName('TELEFONE').AsString;
+      edCELULAR.Text := FDQRegistros.FieldByName('CELULAR').AsString;
+      edEMAIL.Text := FDQRegistros.FieldByName('EMAIL').AsString;
+
+      FTab_Status := TTab_Status.dsEdit;
+
+      tcPrincipal.GotoVisibleTab(1);
+      if edPESSOA.CanFocus then
+        edPESSOA.SetFocus;
+    except on E: Exception do
+      raise Exception.Create('Editar: ' + E.Message);
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmCad_Fornecedor.edNOMEKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -246,12 +348,260 @@ begin
 
 end;
 
+procedure TfrmCad_Fornecedor.edTELEFONETyping(Sender: TObject);
+begin
+  Formatar(edTELEFONE,TelefoneFixo);
+end;
+
 procedure TfrmCad_Fornecedor.edUFKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     edEMAIL.SetFocus;
 
+end;
+
+procedure TfrmCad_Fornecedor.Excluir(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      if FDQRegistros.IsEmpty then
+        raise Exception.Create('Não há registros para ser Excluído');
+
+      FQuery.Active := False;
+      FQuery.SQL.Clear;
+      FQuery.SQL.Add('DELETE FROM FORNECEDOR WHERE ID = :ID');
+      FQuery.ParamByName('ID').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
+      FQuery.ExecSQL;
+
+    except on E: Exception do
+      raise Exception.Create('Excluir: ' + E.Message);
+    end;
+  finally
+    FreeAndNil(FQuery);
+    tcPrincipal.GotoVisibleTab(0);
+    Selecionar_Registros;
+  end;
+end;
+
+procedure TfrmCad_Fornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FreeAndNil(FFancyDialog);
+  FreeAndNil(FIniFile);
+  FreeAndNil(FDm_Global);
+
+  Action := TCloseAction.caFree;
+  frmCad_Fornecedor := Nil;
+end;
+
+procedure TfrmCad_Fornecedor.FormCreate(Sender: TObject);
+begin
+  FFancyDialog := TFancyDialog.Create(frmCad_Fornecedor);
+  FEnder := '';
+  FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
+  FIniFile := TIniFile.Create(FEnder);
+
+  tcPrincipal.ActiveTab := tiLista;
+
+  lytFormulario.Align := TAlignLayout.Center;
+
+  FDm_Global := TDM_Global.Create(Nil);
+  FDQRegistros.Connection := FDm_Global.FDC_Firebird;
+
+  Selecionar_Registros;
+  Configura_Botoes;
+
+end;
+
+procedure TfrmCad_Fornecedor.imgFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmCad_Fornecedor.Incluir;
+begin
+  try
+    try
+      FTab_Status := TTab_Status.dsInsert;
+      Limpar_Campos;
+
+      tcPrincipal.GotoVisibleTab(1);
+      if edPESSOA.CanFocus then
+        edPESSOA.SetFocus;
+    except on E: Exception do
+      raise Exception.Create('Incluir: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TfrmCad_Fornecedor.Limpar_Campos;
+begin
+  edID.Text := '';
+  edNOME.Text := '';
+  edPESSOA.ItemIndex := -1;
+  edDOCUMENTO.Text := '';
+  edINSC_EST.Text := '';
+  edCEP.Text := '';
+  edENDERECO.Text := '';
+  edCOMPLEMENTO.Text := '';
+  edNUMERO.Text := '';
+  edBAIRRO.Text := '';
+  edCIDADE.Text := '';
+  edUF.Text := '';
+  edTELEFONE.Text := '';
+  edCELULAR.Text := '';
+  edEMAIL.Text := '';
+end;
+
+procedure TfrmCad_Fornecedor.rctCancelarClick(Sender: TObject);
+begin
+  try
+    try
+      case TRectangle(Sender).Tag of
+        0:Incluir;
+        1:Editar;
+        2:Salvar;
+        3:Cancelar;
+        4:FFancyDialog.Show(TIconDialog.Question,'Excluir','Deseja Excluir o registro selecionado?','Sim',Excluir,'Não') ;
+      end;
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
+    end;
+  finally
+    Configura_Botoes;
+  end;
+
+end;
+
+procedure TfrmCad_Fornecedor.Salvar;
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+      FQuery.Active := False;
+      FQuery.Sql.Clear;
+
+      case FTab_Status of
+        dsInsert :begin
+          FQuery.Sql.Add('INSERT INTO FORNECEDOR( ');
+          FQuery.Sql.Add('  NOME ');
+          FQuery.Sql.Add('  ,PESSOA ');
+          FQuery.Sql.Add('  ,DOCUMENTO ');
+          FQuery.Sql.Add('  ,INSC_EST ');
+          FQuery.Sql.Add('  ,CEP ');
+          FQuery.Sql.Add('  ,ENDERECO ');
+          FQuery.Sql.Add('  ,COMPLEMENTO ');
+          FQuery.Sql.Add('  ,NUMERO ');
+          FQuery.Sql.Add('  ,BAIRRO ');
+          FQuery.Sql.Add('  ,CIDADE ');
+          FQuery.Sql.Add('  ,UF ');
+          FQuery.Sql.Add('  ,TELEFONE ');
+          FQuery.Sql.Add('  ,CELULAR ');
+          FQuery.Sql.Add('  ,EMAIL ');
+          FQuery.Sql.Add('  ,DT_CADASTRO ');
+          FQuery.Sql.Add('  ,HR_CADASTRO ');
+          FQuery.Sql.Add(') VALUES( ');
+          FQuery.Sql.Add('  :NOME ');
+          FQuery.Sql.Add('  ,:PESSOA ');
+          FQuery.Sql.Add('  ,:DOCUMENTO ');
+          FQuery.Sql.Add('  ,:INSC_EST ');
+          FQuery.Sql.Add('  ,:CEP ');
+          FQuery.Sql.Add('  ,:ENDERECO ');
+          FQuery.Sql.Add('  ,:COMPLEMENTO ');
+          FQuery.Sql.Add('  ,:NUMERO ');
+          FQuery.Sql.Add('  ,:BAIRRO ');
+          FQuery.Sql.Add('  ,:CIDADE ');
+          FQuery.Sql.Add('  ,:UF ');
+          FQuery.Sql.Add('  ,:TELEFONE ');
+          FQuery.Sql.Add('  ,:CELULAR ');
+          FQuery.Sql.Add('  ,:EMAIL ');
+          FQuery.Sql.Add('  ,:DT_CADASTRO ');
+          FQuery.Sql.Add('  ,:HR_CADASTRO ');
+          FQuery.Sql.Add('); ');
+          FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
+          FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
+        end;
+        dsEdit :begin
+          FQuery.Sql.Add('UPDATE FORNECEDOR SET ');
+          FQuery.Sql.Add('  NOME = :NOME ');
+          FQuery.Sql.Add('  ,PESSOA = :PESSOA ');
+          FQuery.Sql.Add('  ,DOCUMENTO = :DOCUMENTO ');
+          FQuery.Sql.Add('  ,INSC_EST = :INSC_EST ');
+          FQuery.Sql.Add('  ,CEP = :CEP ');
+          FQuery.Sql.Add('  ,ENDERECO = :ENDERECO ');
+          FQuery.Sql.Add('  ,COMPLEMENTO = :COMPLEMENTO ');
+          FQuery.Sql.Add('  ,NUMERO = :NUMERO ');
+          FQuery.Sql.Add('  ,BAIRRO = :BAIRRO ');
+          FQuery.Sql.Add('  ,CIDADE = :CIDADE ');
+          FQuery.Sql.Add('  ,UF = :UF ');
+          FQuery.Sql.Add('  ,TELEFONE = :TELEFONE ');
+          FQuery.Sql.Add('  ,CELULAR = :CELULAR ');
+          FQuery.Sql.Add('  ,EMAIL = :EMAIL ');
+          FQuery.Sql.Add('WHERE ID = :ID; ');
+          FQuery.ParamByName('ID').AsInteger := StrToIntDef(edID.Text,0);
+        end;
+      end;
+      FQuery.ParamByName('NOME').AsString := edNOME.Text;
+      FQuery.ParamByName('PESSOA').AsInteger := edPESSOA.ItemIndex;
+      FQuery.ParamByName('DOCUMENTO').AsString := edDOCUMENTO.Text;
+      FQuery.ParamByName('INSC_EST').AsString := edINSC_EST.Text;
+      FQuery.ParamByName('CEP').AsString := edCEP.Text;
+      FQuery.ParamByName('ENDERECO').AsString := edENDERECO.Text;
+      FQuery.ParamByName('COMPLEMENTO').AsString := edCOMPLEMENTO.Text;
+      FQuery.ParamByName('NUMERO').AsString := edNUMERO.Text;
+      FQuery.ParamByName('BAIRRO').AsString := edBAIRRO.Text;
+      FQuery.ParamByName('CIDADE').AsString := edCIDADE.Text;
+      FQuery.ParamByName('UF').AsString := edUF.Text;
+      FQuery.ParamByName('TELEFONE').AsString := edTELEFONE.Text;
+      FQuery.ParamByName('CELULAR').AsString := edCELULAR.Text;
+      FQuery.ParamByName('EMAIL').AsString := edEMAIL.Text;
+      FQuery.ExecSQL;
+    except on E: Exception do
+      raise Exception.Create('Salvar: ' + E.Message);
+    end;
+  finally
+    FreeAndNil(FQuery);
+    tcPrincipal.GotoVisibleTab(0);
+    Selecionar_Registros;
+  end;
+end;
+
+procedure TfrmCad_Fornecedor.Selecionar_Registros;
+begin
+  try
+    try
+      FDQRegistros.Active := False;
+      FDQRegistros.SQL.Clear;
+      FDQRegistros.SQL.Add('SELECT ');
+      FDQRegistros.SQL.Add('  F.* ');
+      FDQRegistros.SQL.Add('  ,CASE F.PESSOA ');
+      FDQRegistros.SQL.Add('    WHEN 0 THEN ''FÍSICA'' ');
+      FDQRegistros.SQL.Add('    WHEN 1 THEN ''JURÍDICA'' ');
+      FDQRegistros.SQL.Add('  END PESSOA_DESC ');
+      FDQRegistros.SQL.Add('FROM FORNECEDOR F ');
+      FDQRegistros.SQL.Add('ORDER BY ');
+      FDQRegistros.SQL.Add('  F.ID; ');
+      FDQRegistros.Active := True;
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro','Selecionar. ' + E.Message,'Ok');
+    end;
+  finally
+
+  end;
+end;
+
+procedure TfrmCad_Fornecedor.SetPesquisa(const Value: Boolean);
+begin
+  FPesquisa := Value;
 end;
 
 end.
