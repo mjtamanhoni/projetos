@@ -22,6 +22,7 @@ uses
 
 type
   TTab_Status = (dsInsert,dsEdit);
+  TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
 
   TfrmCad_PrestServico = class(TForm)
     FDQRegistros: TFDQuery;
@@ -93,6 +94,7 @@ type
     FEnder :String;
     FDm_Global :TDM_Global;
     FTab_Status :TTab_Status;
+    FPesquisa: Boolean;
 
     procedure Cancelar;
     procedure Editar;
@@ -101,8 +103,11 @@ type
     procedure Salvar;
     procedure Selecionar_Registros;
     procedure Configura_Botoes;
+    procedure SetPesquisa(const Value: Boolean);
   public
-    { Public declarations }
+    ExecuteOnClose :TExecuteOnClose;
+
+    property Pesquisa:Boolean read FPesquisa write SetPesquisa;
   end;
 
 var
@@ -241,6 +246,13 @@ end;
 
 procedure TfrmCad_PrestServico.imgFecharClick(Sender: TObject);
 begin
+  if FPesquisa then
+  begin
+    ExecuteOnClose(
+      FDQRegistros.FieldByName('ID').AsInteger
+      ,FDQRegistros.FieldByName('NOME').AsString);
+  end;
+
   Close;
 end;
 
@@ -349,6 +361,11 @@ begin
   finally
   end;
 
+end;
+
+procedure TfrmCad_PrestServico.SetPesquisa(const Value: Boolean);
+begin
+  FPesquisa := Value;
 end;
 
 end.

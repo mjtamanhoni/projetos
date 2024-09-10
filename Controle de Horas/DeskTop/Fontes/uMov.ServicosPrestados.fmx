@@ -11,6 +11,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
   DesignerMasterStyle = 0
   object OpenDialog: TOpenDialog
     Left = 189
@@ -123,6 +125,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgIncluir: TImage
               MultiResBitmap = <
                 item
@@ -163,6 +166,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgEditar: TImage
               MultiResBitmap = <
                 item
@@ -225,6 +229,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgSalvar: TImage
               MultiResBitmap = <
                 item
@@ -306,6 +311,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgCancelar: TImage
               MultiResBitmap = <
                 item
@@ -389,6 +395,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgExcluir: TImage
               MultiResBitmap = <
                 item
@@ -410,7 +417,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             end
           end
           object rctPagamento: TRectangle
-            Tag = 4
+            Tag = 5
             Align = Right
             Cursor = crHandPoint
             Fill.Color = xFFA1B24E
@@ -426,6 +433,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imPagamento: TImage
               MultiResBitmap = <
                 item
@@ -559,6 +567,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Size.Width = 48.000000000000000000
             Size.Height = 31.000000000000000000
             Size.PlatformDefault = False
+            OnClick = imgFecharClick
           end
         end
         object ShadowEffect4: TShadowEffect
@@ -577,7 +586,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
           Size.Width = 990.000000000000000000
           Size.Height = 515.000000000000000000
           Size.PlatformDefault = False
-          TabIndex = 1
+          TabIndex = 0
           TabOrder = 2
           TabPosition = None
           Sizes = (
@@ -589,7 +598,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             CustomIcon = <
               item
               end>
-            IsSelected = False
+            IsSelected = True
             Size.Width = 8.000000000000000000
             Size.Height = 8.000000000000000000
             Size.PlatformDefault = False
@@ -860,7 +869,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             CustomIcon = <
               item
               end>
-            IsSelected = True
+            IsSelected = False
             Size.Width = 8.000000000000000000
             Size.Height = 8.000000000000000000
             Size.PlatformDefault = False
@@ -945,7 +954,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   StyleLookup = 'ComboBox1Style_Adapta'
                   TabOrder = 5
                 end
-                object lbTIPO: TLabel
+                object lbDATA: TLabel
                   Align = Right
                   StyledSettings = [Family]
                   Position.X = 505.000000000000000000
@@ -955,7 +964,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Tipo:'
+                  Text = 'Data:'
                   TabOrder = 2
                 end
                 object edDATA: TEdit
@@ -978,6 +987,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.PlatformDefault = False
                   TextPrompt = '00/00/0000'
                   StyledSettings = [Family, FontColor]
+                  OnTyping = edDATATyping
                   OnKeyDown = edDATAKeyDown
                 end
               end
@@ -1039,7 +1049,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Text = 'Empresa:'
                   TabOrder = 2
                 end
-                object edIID_EMPRESA_Desc: TEdit
+                object edID_EMPRESA_Desc: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Client
                   StyleLookup = 'Editstyle_Adapta'
@@ -1123,6 +1133,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                     Size.Width = 15.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
+                    OnClick = imgID_EMPRESAClick
                   end
                 end
               end
@@ -1165,6 +1176,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   CharCase = ecUpperCase
                 end
                 object edID_PRESTADOR_SERVICO: TEdit
+                  Tag = 1
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Left
                   StyleLookup = 'Editstyle_Adapta'
@@ -1229,6 +1241,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                     Size.Width = 15.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
+                    OnClick = imgID_PRESTADOR_SERVICOClick
                   end
                 end
               end
@@ -1271,6 +1284,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   CharCase = ecUpperCase
                 end
                 object edID_CLIENTE: TEdit
+                  Tag = 2
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Left
                   StyleLookup = 'Editstyle_Adapta'
@@ -1335,6 +1349,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                     Size.Width = 15.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
+                    OnClick = imgID_CLIENTEClick
                   end
                 end
               end
@@ -1377,6 +1392,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   CharCase = ecUpperCase
                 end
                 object edID_TABELA: TEdit
+                  Tag = 3
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Left
                   StyleLookup = 'Editstyle_Adapta'
@@ -1396,6 +1412,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   TextPrompt = 'C'#243'digo'
                   StyledSettings = [Family, FontColor]
                   CharCase = ecLowerCase
+                  OnChange = edSUB_TOTALChange
+                  OnChangeTracking = edID_TABELAChangeTracking
                   OnKeyDown = edID_TABELAKeyDown
                   object imgID_TABELA: TImage
                     MultiResBitmap = <
@@ -1441,6 +1459,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                     Size.Width = 15.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
+                    OnClick = imgID_TABELAClick
                   end
                 end
                 object edID_TABELA_Valor: TEdit
@@ -1526,6 +1545,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.PlatformDefault = False
                   TextPrompt = '00:00:00'
                   StyledSettings = [Family, FontColor]
+                  OnChange = edHR_INICIOChange
+                  OnTyping = edHR_INICIOTyping
                   OnKeyDown = edHR_INICIOKeyDown
                 end
                 object edHR_FIM: TEdit
@@ -1548,6 +1569,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.PlatformDefault = False
                   TextPrompt = '00:00:00'
                   StyledSettings = [Family, FontColor]
+                  OnChange = edHR_INICIOChange
+                  OnTyping = edHR_FIMTyping
                   OnKeyDown = edHR_FIMKeyDown
                 end
                 object lbHR_FIM: TLabel
@@ -1671,6 +1694,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.PlatformDefault = False
                   TextPrompt = 'R$ 0,00'
                   StyledSettings = [Family, FontColor]
+                  OnChange = edSUB_TOTALChange
+                  OnTyping = edSUB_TOTALTyping
                   OnKeyDown = edSUB_TOTALKeyDown
                 end
                 object lbDESCONTO: TLabel
@@ -1705,6 +1730,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.PlatformDefault = False
                   TextPrompt = 'R$ 0,00'
                   StyledSettings = [Family, FontColor]
+                  OnChange = edSUB_TOTALChange
+                  OnTyping = edDESCONTOTyping
                   OnKeyDown = edDESCONTOKeyDown
                 end
                 object lbACRESCIMO: TLabel
@@ -1739,6 +1766,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.PlatformDefault = False
                   TextPrompt = 'R$ 0,00'
                   StyledSettings = [Family, FontColor]
+                  OnChange = edSUB_TOTALChange
+                  OnTyping = edACRESCIMOTyping
                   OnKeyDown = edACRESCIMOKeyDown
                 end
                 object lbTOTAL: TLabel
@@ -1831,7 +1860,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Sub-Total'
+                  Text = 'Dt. Pagamento:'
                   TabOrder = 3
                 end
                 object edDT_PAGO: TEdit
@@ -1980,18 +2009,21 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
     object FDQRegistrosVLR_HORA: TFMTBCDField
       FieldName = 'VLR_HORA'
       Origin = 'VLR_HORA'
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
     object FDQRegistrosSUB_TOTAL: TFMTBCDField
       FieldName = 'SUB_TOTAL'
       Origin = 'SUB_TOTAL'
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
     object FDQRegistrosDESCONTO: TFMTBCDField
       FieldName = 'DESCONTO'
       Origin = 'DESCONTO'
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
@@ -2003,6 +2035,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
     object FDQRegistrosACRESCIMO: TFMTBCDField
       FieldName = 'ACRESCIMO'
       Origin = 'ACRESCIMO'
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
@@ -2014,6 +2047,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
     object FDQRegistrosTOTAL: TFMTBCDField
       FieldName = 'TOTAL'
       Origin = 'TOTAL'
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
@@ -2029,6 +2063,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
     object FDQRegistrosVLR_PAGO: TFMTBCDField
       FieldName = 'VLR_PAGO'
       Origin = 'VLR_PAGO'
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end

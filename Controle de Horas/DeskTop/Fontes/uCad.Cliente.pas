@@ -174,6 +174,7 @@ type
     FEnder :String;
     FDm_Global :TDM_Global;
     FTab_Status :TTab_Status;
+    FPesquisa: Boolean;
 
     procedure Cancelar;
     procedure Editar;
@@ -184,8 +185,10 @@ type
     procedure Configura_Botoes;
     procedure Limpar_Campos;
     procedure Sel_TabPreco(Aid: Integer; ADescricao: String; ATipo: Integer; AValor: Double);
+    procedure SetPesquisa(const Value: Boolean);
   public
-    { Public declarations }
+    ExecuteOnClose :TExecuteOnClose;
+    property Pesquisa:Boolean read FPesquisa write SetPesquisa;
   end;
 
 var
@@ -425,6 +428,13 @@ end;
 
 procedure TfrmCad_Cliente.imgFecharClick(Sender: TObject);
 begin
+  if FPesquisa then
+  begin
+    ExecuteOnClose(
+      FDQRegistros.FieldByName('ID').AsInteger
+      ,FDQRegistros.FieldByName('NOME').AsString);
+  end;
+
   Close;
 end;
 
@@ -448,6 +458,11 @@ begin
     1:edID_TAB_PRECO_Tipo.Text := 'FIXO';
   end;
   edID_TAB_PRECO_Valor.Text := FormatFloat('R$ #,##0.00',AValor);
+end;
+
+procedure TfrmCad_Cliente.SetPesquisa(const Value: Boolean);
+begin
+  FPesquisa := Value;
 end;
 
 procedure TfrmCad_Cliente.Incluir;

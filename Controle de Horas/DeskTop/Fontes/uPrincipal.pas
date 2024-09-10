@@ -190,12 +190,22 @@ begin
 end;
 
 procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);
+var
+  FForm :TfrmMov_ServicosPrestados;
 begin
   mtvMenu.HideMaster;
+  {
   Application.CreateForm(TfrmMov_ServicosPrestados,frmMov_ServicosPrestados);
   frmMov_ServicosPrestados.Parent := lytPrincipal;
-  lytPrincipal.AddObject(frmMov_ServicosPrestados.rctTampa);
+  //lytPrincipal.AddObject(frmMov_ServicosPrestados.rctTampa);
+  //lytPrincipal.RemoveFreeNotification()
   frmMov_ServicosPrestados.Show;
+  }
+
+  FForm := TfrmMov_ServicosPrestados.Create(lytPrincipal);
+  FForm.Parent := lytPrincipal;
+  FForm.Show;
+  //lytPrincipal.AddObject(FForm.rctTampa);
 end;
 
 procedure TfrmPrincipal.rctCadUsuarioClick(Sender: TObject);

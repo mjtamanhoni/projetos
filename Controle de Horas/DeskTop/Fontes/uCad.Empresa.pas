@@ -418,6 +418,13 @@ end;
 
 procedure TfrmCad_Empresa.imgFecharClick(Sender: TObject);
 begin
+  if FPesquisa then
+  begin
+    ExecuteOnClose(
+      FDQRegistros.FieldByName('ID').AsInteger
+      ,FDQRegistros.FieldByName('NOME').AsString);
+  end;
+
   Close;
 end;
 
