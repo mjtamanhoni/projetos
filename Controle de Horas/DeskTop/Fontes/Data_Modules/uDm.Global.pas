@@ -32,6 +32,16 @@ type
 
     procedure Conectar_Banco;
     function Valida_Pin(APin :String):Boolean;
+
+    {$Region 'Listar Dados'}
+      procedure Listar_Usuarios(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_Empresa(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_Cliente(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_Fornecedor(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_TabelaPrecos(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_PrestadorServico(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+    {$EndRegion 'Listar Dados'}
+
   end;
 
 var
@@ -151,6 +161,160 @@ end;
 procedure TDM_Global.DataModuleCreate(Sender: TObject);
 begin
   Conectar_Banco;
+end;
+
+procedure TDM_Global.Listar_Cliente(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  C.* ');
+      FDQuery.Sql.Add('FROM CLIENTE C ');
+      FDQuery.Sql.Add('WHERE NOT C.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND C.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND C.NOME LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  C.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Cliente: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TDM_Global.Listar_Empresa(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  E.* ');
+      FDQuery.Sql.Add('FROM EMPRESA E ');
+      FDQuery.Sql.Add('WHERE NOT E.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND E.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND E.NOME LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  E.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Empresa: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TDM_Global.Listar_Fornecedor(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  F.* ');
+      FDQuery.Sql.Add('FROM FORNECEDOR F ');
+      FDQuery.Sql.Add('WHERE NOT F.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND F.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND F.NOME LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  F.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Fornecedores: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TDM_Global.Listar_PrestadorServico(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  PS.* ');
+      FDQuery.Sql.Add('FROM PRESTADOR_SERVICO PS ');
+      FDQuery.Sql.Add('WHERE NOT PS.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND PS.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND PS.NOME LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  PS.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Prestador de Serviço: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TDM_Global.Listar_TabelaPrecos(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  TP.* ');
+      FDQuery.Sql.Add('  ,CASE TP.TIPO ');
+      FDQuery.Sql.Add('    WHEN 0 THEN ''HORAS'' ');
+      FDQuery.Sql.Add('    WHEN 1 THEN ''FIXO'' ');
+      FDQuery.Sql.Add('  END TABELA_TIPO ');
+      FDQuery.Sql.Add('FROM TABELA_PRECO TP ');
+      FDQuery.Sql.Add('WHERE NOT TP.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND TP.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND TP.DESCRICAO LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  TP.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Tabela de Preços: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TDM_Global.Listar_Usuarios(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  U.* ');
+      FDQuery.Sql.Add('FROM USUARIO U ');
+      FDQuery.Sql.Add('WHERE NOT U.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND U.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND U.NOME LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  U.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Usuário: ' + E.Message);
+    end;
+  finally
+  end;
 end;
 
 function TDM_Global.Valida_Pin(APin: String): Boolean;

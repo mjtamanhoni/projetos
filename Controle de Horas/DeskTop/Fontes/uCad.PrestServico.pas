@@ -136,6 +136,7 @@ begin
   rctCancelar.Enabled := (tcPrincipal.ActiveTab = tiCadastro);
   rctEditar.Enabled := ((tcPrincipal.ActiveTab = tiLista) and (not FDQRegistros.IsEmpty));
   rctExcluir.Enabled := ((tcPrincipal.ActiveTab = tiLista) and (not FDQRegistros.IsEmpty));
+  imgFechar.Enabled := (tcPrincipal.ActiveTab = tiLista);
 end;
 
 procedure TfrmCad_PrestServico.edCELULARTyping(Sender: TObject);

@@ -11,6 +11,8 @@ uses
   uDm.Global;
 
 type
+  TFormClass = class of TForm;
+
   TfrmPrincipal = class(TForm)
     rctHeader: TRectangle;
     ShadowEffect1: TShadowEffect;
@@ -100,6 +102,7 @@ type
     procedure rctServPrestadosClick(Sender: TObject);
   private
     FDm_Global :TDM_Global;
+    procedure AbreForm(AForm:TFormClass);
 
   public
     FUser_Login: String;
@@ -138,6 +141,8 @@ end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
   FDm_Global := TDM_Global.Create(Nil);
+  exCadastro.Height := 400;
+  exMovimento.Height := 100;
 end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);
@@ -189,90 +194,68 @@ begin
   mtvMenu.ShowMaster;
 end;
 
-procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);
+procedure TfrmPrincipal.AbreForm(AForm:TFormClass);
 var
-  FForm :TfrmMov_ServicosPrestados;
+  FForm :TForm;
+
 begin
   mtvMenu.HideMaster;
-  {
-  Application.CreateForm(TfrmMov_ServicosPrestados,frmMov_ServicosPrestados);
-  frmMov_ServicosPrestados.Parent := lytPrincipal;
-  //lytPrincipal.AddObject(frmMov_ServicosPrestados.rctTampa);
-  //lytPrincipal.RemoveFreeNotification()
-  frmMov_ServicosPrestados.Show;
-  }
+  exCadastro.IsExpanded := False;
+  exMovimento.IsExpanded := False;
+  exCadastro.Height := 400;
+  exMovimento.Height := 100;
 
-  FForm := TfrmMov_ServicosPrestados.Create(lytPrincipal);
-  FForm.Parent := lytPrincipal;
+  FForm := AForm.Create(Nil);
+  FForm.Parent := Self;
+  FForm.Height := Self.Height;
+  FForm.Width := Self.Width;
   FForm.Show;
-  //lytPrincipal.AddObject(FForm.rctTampa);
+
+end;
+
+procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);
+begin
+  AbreForm(TfrmMov_ServicosPrestados);
 end;
 
 procedure TfrmPrincipal.rctCadUsuarioClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmCad_Usuario,frmCad_Usuario);
-  frmCad_Usuario.Parent := lytPrincipal;
-  frmCad_Usuario.Show;
+  AbreForm(TfrmCad_Usuario);
 end;
 
 procedure TfrmPrincipal.rctClienteClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmCad_Cliente,frmCad_Cliente);
-  frmCad_Cliente.Parent := lytPrincipal;
-  frmCad_Cliente.Show;
+  AbreForm(TfrmCad_Cliente);
 end;
 
 procedure TfrmPrincipal.rctConfigClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmConfig,frmConfig);
-  frmConfig.Parent := lytPrincipal;
-  lytPrincipal.AddObject(frmConfig.rctTampa);
-  frmConfig.Show;
+  AbreForm(TfrmConfig);
 end;
 
 procedure TfrmPrincipal.rctContasClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmCad_Contas,frmCad_Contas);
-  frmCad_Contas.Parent := lytPrincipal;
-  frmCad_Contas.Show;
+  AbreForm(TfrmCad_Contas);
 end;
 
 procedure TfrmPrincipal.rctEmpresaClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmCad_Empresa,frmCad_Empresa);
-  frmCad_Empresa.Parent := lytPrincipal;
-  frmCad_Empresa.Show;
+  AbreForm(TfrmCad_Empresa);
 end;
 
 procedure TfrmPrincipal.rctFornecedorClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmCad_Fornecedor,frmCad_Fornecedor);
-  frmCad_Fornecedor.Parent := lytPrincipal;
-  frmCad_Fornecedor.Show;
-
+  AbreForm(TfrmCad_Fornecedor);
 end;
 
 procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmCad_PrestServico,frmCad_PrestServico);
-  frmCad_PrestServico.Parent := lytPrincipal;
-  frmCad_PrestServico.Show;
-
+  AbreForm(TfrmCad_PrestServico);
 end;
 
 procedure TfrmPrincipal.rctTabPrecosClick(Sender: TObject);
 begin
-  mtvMenu.HideMaster;
-  Application.CreateForm(TfrmCad_TabPrecos,frmCad_TabPrecos);
-  frmCad_TabPrecos.Parent := lytPrincipal;
-  frmCad_TabPrecos.Show;
+  AbreForm(TfrmCad_TabPrecos);
 end;
 
 end.

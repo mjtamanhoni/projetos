@@ -328,6 +328,7 @@
             <Form>frmCad_Fornecedor</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Funcoes\uFuncoes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
