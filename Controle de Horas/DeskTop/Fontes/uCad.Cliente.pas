@@ -379,6 +379,7 @@ begin
     try
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.FDC_Firebird.StartTransaction;
 
       if FDQRegistros.IsEmpty then
         raise Exception.Create('Não há registros para ser Excluído');
@@ -389,8 +390,13 @@ begin
       FQuery.ParamByName('ID').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
       FQuery.ExecSQL;
 
+
+      FDm_Global.FDC_Firebird.Commit;
     except on E: Exception do
-      raise Exception.Create('Excluir: ' + E.Message);
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Excluir: ' + E.Message);
+      end;
     end;
   finally
     FreeAndNil(FQuery);
@@ -533,6 +539,8 @@ begin
     try
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.FDC_Firebird.StartTransaction;
+
       FQuery.Active := False;
       FQuery.Sql.Clear;
 
@@ -615,8 +623,13 @@ begin
       FQuery.ParamByName('EMAIL').AsString := edEMAIL.Text;
       FQuery.ParamByName('ID_TAB_PRECO').AsInteger := StrToIntDef(edID_TAB_PRECO.Text,0);
       FQuery.ExecSQL;
+
+      FDm_Global.FDC_Firebird.Commit;
     except on E: Exception do
-      raise Exception.Create('Salvar: ' + E.Message);
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Salvar: ' + E.Message);
+      end;
     end;
   finally
     FreeAndNil(FQuery);

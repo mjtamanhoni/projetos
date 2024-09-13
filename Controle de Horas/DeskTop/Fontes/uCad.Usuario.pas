@@ -96,6 +96,20 @@ type
     edCELULAR: TEdit;
     imgEsconteSenha: TImage;
     imgExibeSenha: TImage;
+    lytBDF_Row005: TLayout;
+    lbID_EMPRESA: TLabel;
+    edID_EMPRESA_Desc: TEdit;
+    edID_EMPRESA: TEdit;
+    imgID_EMPRESA: TImage;
+    lytBDF_Row006: TLayout;
+    lbID_PRESTADOR_SERVICO: TLabel;
+    edID_PRESTADOR_SERVICO_Desc: TEdit;
+    edID_PRESTADOR_SERVICO: TEdit;
+    imgID_PRESTADOR_SERVICO: TImage;
+    FDQRegistrosID_EMPRESA: TIntegerField;
+    FDQRegistrosID_PRESTADOR_SERVICO: TIntegerField;
+    FDQRegistrosEMPRESA: TStringField;
+    FDQRegistrosPRESTADOR_SERVICO: TStringField;
     procedure imgFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -107,6 +121,10 @@ type
     procedure edSENHAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edEMAILKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edCELULARTyping(Sender: TObject);
+    procedure imgID_EMPRESAClick(Sender: TObject);
+    procedure imgID_PRESTADOR_SERVICOClick(Sender: TObject);
+    procedure edID_EMPRESAExit(Sender: TObject);
+    procedure edID_PRESTADOR_SERVICOExit(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -121,6 +139,8 @@ type
     procedure Salvar;
     procedure Selecionar_Registros;
     procedure Configura_Botoes;
+    procedure Sel_Empresa(Aid: Integer; ANome: String);
+    procedure Sel_PrestServicos(Aid: Integer; ANome: String);
   public
     { Public declarations }
   end;
@@ -131,6 +151,10 @@ var
 implementation
 
 {$R *.fmx}
+
+uses
+  uCad.Empresa
+  ,uCad.PrestServico;
 
 procedure TfrmCad_Usuario.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -168,7 +192,11 @@ begin
       FDQRegistros.SQL.Clear;
       FDQRegistros.SQL.Add('SELECT ');
       FDQRegistros.SQL.Add('  U.* ');
+      FDQRegistros.SQL.Add('  ,E.NOME AS EMPRESA ');
+      FDQRegistros.SQL.Add('  ,PS.NOME AS PRESTADOR_SERVICO ');
       FDQRegistros.SQL.Add('FROM USUARIO U ');
+      FDQRegistros.SQL.Add('  LEFT JOIN EMPRESA E ON E.ID = U.ID_EMPRESA ');
+      FDQRegistros.SQL.Add('  LEFT JOIN PRESTADOR_SERVICO PS ON PS.ID = U.ID_PRESTADOR_SERVICO ');
       FDQRegistros.SQL.Add('WHERE NOT U.ID IS NULL ');
       FDQRegistros.SQL.Add('ORDER BY ');
       FDQRegistros.SQL.Add('  U.ID; ');
@@ -202,9 +230,92 @@ begin
     edCELULAR.SetFocus;
 end;
 
+procedure TfrmCad_Usuario.edID_EMPRESAExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.Listar_Empresa(edID_EMPRESA.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edID_EMPRESA_Desc.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmCad_Usuario.edID_PRESTADOR_SERVICOExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.Listar_PrestadorServico(edID_PRESTADOR_SERVICO.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edID_PRESTADOR_SERVICO_Desc.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
 procedure TfrmCad_Usuario.imgFecharClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmCad_Usuario.imgID_EMPRESAClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Empresa) then
+    Application.CreateForm(TfrmCad_Empresa, frmCad_Empresa);
+
+  frmCad_Empresa.Pesquisa := True;
+  frmCad_Empresa.ExecuteOnClose := Sel_Empresa;
+  frmCad_Empresa.Height := frmPrincipal.Height;
+  frmCad_Empresa.Width := frmPrincipal.Width;
+
+  frmCad_Empresa.Show;
+end;
+
+procedure TfrmCad_Usuario.imgID_PRESTADOR_SERVICOClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_PrestServico) then
+    Application.CreateForm(TfrmCad_PrestServico, frmCad_PrestServico);
+
+  frmCad_PrestServico.Pesquisa := True;
+  frmCad_PrestServico.ExecuteOnClose := Sel_PrestServicos;
+  frmCad_PrestServico.Height := frmPrincipal.Height;
+  frmCad_PrestServico.Width := frmPrincipal.Width;
+
+  frmCad_PrestServico.Show;
+end;
+
+procedure TfrmCad_Usuario.Sel_PrestServicos(Aid: Integer; ANome: String);
+begin
+  edID_PRESTADOR_SERVICO.Text := Aid.ToString;
+  edID_PRESTADOR_SERVICO_Desc.Text := ANome;
+end;
+
+procedure TfrmCad_Usuario.Sel_Empresa(Aid: Integer; ANome: String);
+begin
+  edID_EMPRESA.Text := AId.ToString;
+  edID_EMPRESA_Desc.Text := ANome;
+
+  if edID_PRESTADOR_SERVICO.CanFocus then
+    edID_PRESTADOR_SERVICO.SetFocus;
 end;
 
 procedure TfrmCad_Usuario.rctCancelarClick(Sender: TObject);
@@ -256,6 +367,10 @@ begin
       edPIN.Text := FDQRegistros.FieldByName('PIN').AsString;
       edCELULAR.Text := FDQRegistros.FieldByName('CELULAR').AsString;
       edEMAIL.Text := FDQRegistros.FieldByName('EMAIL').AsString;
+      edID_EMPRESA.Text := FDQRegistros.FieldByName('ID_EMPRESA').AsString;
+      edID_EMPRESA_Desc.Text := FDQRegistros.FieldByName('EMPRESA').AsString;
+      edID_PRESTADOR_SERVICO.Text := FDQRegistros.FieldByName('ID_PRESTADOR_SERVICO').AsString;
+      edID_PRESTADOR_SERVICO_Desc.Text := FDQRegistros.FieldByName('PRESTADOR_SERVICO').AsString;
 
       FTab_Status := TTab_Status.dsEdit;
 
@@ -304,6 +419,8 @@ begin
     try
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.FDC_Firebird.StartTransaction;
+
       FQuery.Active := False;
       FQuery.Sql.Clear;
 
@@ -316,6 +433,8 @@ begin
           FQuery.Sql.Add('  ,PIN ');
           FQuery.Sql.Add('  ,CELULAR ');
           FQuery.Sql.Add('  ,EMAIL ');
+          FQuery.Sql.Add('  ,ID_EMPRESA ');
+          FQuery.Sql.Add('  ,ID_PRESTADOR_SERVICO ');
           FQuery.Sql.Add('  ,FOTO ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
           FQuery.Sql.Add('  ,HR_CADASTRO ');
@@ -327,6 +446,8 @@ begin
           FQuery.Sql.Add('  ,:PIN ');
           FQuery.Sql.Add('  ,:CELULAR ');
           FQuery.Sql.Add('  ,:EMAIL ');
+          FQuery.Sql.Add('  ,:ID_EMPRESA ');
+          FQuery.Sql.Add('  ,:ID_PRESTADOR_SERVICO ');
           FQuery.Sql.Add('  ,:FOTO ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
           FQuery.Sql.Add('  ,:HR_CADASTRO ');
@@ -343,6 +464,8 @@ begin
           FQuery.Sql.Add('  ,PIN = :PIN ');
           FQuery.Sql.Add('  ,CELULAR = :CELULAR ');
           FQuery.Sql.Add('  ,EMAIL = :EMAIL ');
+          FQuery.Sql.Add('  ,ID_EMPRESA = :ID_EMPRESA ');
+          FQuery.Sql.Add('  ,ID_PRESTADOR_SERVICO = :ID_PRESTADOR_SERVICO ');
           FQuery.Sql.Add('  ,FOTO = :FOTO ');
           FQuery.Sql.Add('  ,SINCRONIZADO = :SINCRONIZADO ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
@@ -355,11 +478,18 @@ begin
       FQuery.ParamByName('PIN').AsString := edPIN.Text;
       FQuery.ParamByName('CELULAR').AsString := edCELULAR.Text;
       FQuery.ParamByName('EMAIL').AsString := edEMAIL.Text;
+      FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edID_EMPRESA.Text,0);
+      FQuery.ParamByName('ID_PRESTADOR_SERVICO').AsInteger := StrToIntDef(edID_PRESTADOR_SERVICO.Text,0);
       FQuery.ParamByName('FOTO').AsString := '';;
       FQuery.ParamByName('SINCRONIZADO').AsInteger := 0;
       FQuery.ExecSQL;
+
+      FDm_Global.FDC_Firebird.Commit;
     except on E: Exception do
-      raise Exception.Create('Salvar: ' + E.Message);
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Salvar: ' + E.Message);
+      end;
     end;
   finally
     FreeAndNil(FQuery);
@@ -404,6 +534,7 @@ begin
     try
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.FDC_Firebird.StartTransaction;
 
       if FDQRegistros.IsEmpty then
         raise Exception.Create('Não há registros para ser Excluído');
@@ -414,8 +545,13 @@ begin
       FQuery.ParamByName('ID').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
       FQuery.ExecSQL;
 
+      FDm_Global.FDC_Firebird.Commit;
+
     except on E: Exception do
-      raise Exception.Create('Excluir: ' + E.Message);
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Excluir: ' + E.Message);
+      end;
     end;
   finally
     FreeAndNil(FQuery);

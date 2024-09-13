@@ -54,9 +54,7 @@ type
     tcPrincipal: TTabControl;
     tiLista: TTabItem;
     lytPesquisa: TLayout;
-    edPesquisar: TEdit;
-    imgPesquisar: TImage;
-    Layout2: TLayout;
+    lytLista: TLayout;
     dxfmGrid1: TdxfmGrid;
     dxfmGrid1RootLevel1: TdxfmGridRootLevel;
     tiCadastro: TTabItem;
@@ -189,6 +187,30 @@ type
     rctTotalReceber: TRectangle;
     lbTotalReceber_Tit: TLabel;
     lbTotalReceber: TLabel;
+    lytFiltro_Periodo: TLayout;
+    lytFiltro_Empresa: TLayout;
+    lytFiltro_Prestador: TLayout;
+    lytFiltro_Cliente: TLayout;
+    lbFiltro_Periodo_Tit: TLabel;
+    lytFiltro_Cliente_Tit: TLabel;
+    lytFiltro_Empresa_Tit: TLabel;
+    lytFiltro_Prestador_Filtro: TLabel;
+    lbFiltro_Data_A: TLabel;
+    edFiltro_Empresa_ID: TEdit;
+    imgFiltro_Empresa: TImage;
+    edFiltro_Empresa: TEdit;
+    edFiltro_Cliente_ID: TEdit;
+    imgFiltro_Cliente: TImage;
+    edFiltro_Cliente: TEdit;
+    edFiltro_Prestador_ID: TEdit;
+    imgFiltro_Prestador: TImage;
+    edFiltro_Prestador: TEdit;
+    rctFiltro_Periodo: TRectangle;
+    rctFiltro_Cliente: TRectangle;
+    rctFiltro_Empresa: TRectangle;
+    rctFiltro_Prestador: TRectangle;
+    edFIltro_Dt_I: TEdit;
+    edFIltro_Dt_F: TEdit;
     procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -223,6 +245,24 @@ type
     procedure edID_EMPRESAExit(Sender: TObject);
     procedure edID_PRESTADOR_SERVICOExit(Sender: TObject);
     procedure edID_TABELAExit(Sender: TObject);
+    procedure imgFiltro_EmpresaClick(Sender: TObject);
+    procedure edFiltro_Empresa_IDExit(Sender: TObject);
+    procedure imgFiltro_PrestadorClick(Sender: TObject);
+    procedure edFiltro_Prestador_IDExit(Sender: TObject);
+    procedure imgFiltro_ClienteClick(Sender: TObject);
+    procedure edFiltro_Cliente_IDExit(Sender: TObject);
+    procedure edFIltro_Dt_ITyping(Sender: TObject);
+    procedure edFIltro_Dt_FTyping(Sender: TObject);
+    procedure edFIltro_Dt_IExit(Sender: TObject);
+    procedure edFIltro_Dt_FExit(Sender: TObject);
+    procedure edFIltro_Dt_IKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edFIltro_Dt_FKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edFiltro_Empresa_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edFiltro_Prestador_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edFiltro_Cliente_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -232,6 +272,12 @@ type
     FPesquisa: Boolean;
 
     procedure Sel_Empresa(Aid: Integer; ANome: String);
+    procedure Sel_Empresa_Filtro(Aid: Integer; ANome: String);
+    procedure Sel_PrestServicos(Aid: Integer; ANome: String);
+    procedure Sel_PrestServicos_Filtro(Aid: Integer; ANome: String);
+    procedure Sel_Cliente(Aid: Integer; ANome: String);
+    procedure Sel_Cliente_Filtro(Aid: Integer; ANome: String);
+    procedure Sel_TabPrecos(Aid: Integer; ADescricao: String; ATipo: Integer; AValor: Double);
 
     procedure Cancelar;
     procedure Editar;
@@ -242,9 +288,6 @@ type
     procedure Configura_Botoes;
     procedure Limpar_Campos;
     procedure SetPesquisa(const Value: Boolean);
-    procedure Sel_PrestServicos(Aid: Integer; ANome: String);
-    procedure Sel_Cliente(Aid: Integer; ANome: String);
-    procedure Sel_TabPrecos(Aid: Integer; ADescricao: String; ATipo: Integer; AValor: Double);
     procedure TThreadEnd_CalcHora(Sender: TObject);
     procedure TThreadEnd_CalculaValor(Sender: TOBject);
     procedure Baixar_Servico(Sender: TOBject);
@@ -333,6 +376,106 @@ begin
   if Key = vkReturn then
     edID_EMPRESA.SetFocus;
 
+end;
+
+procedure TfrmMov_ServicosPrestados.edFiltro_Cliente_IDExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      if Trim(edFiltro_Cliente_ID.Text) = '' then
+        Exit;
+
+      FDm_Global.Listar_Cliente(edFiltro_Cliente_ID.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edFiltro_Cliente.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+    Selecionar_Registros;
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFiltro_Cliente_IDKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFIltro_Dt_I.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFiltro_Empresa_IDExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      if edFiltro_Empresa_ID.Text = '' then
+        Exit;
+
+      FDm_Global.Listar_Empresa(edFiltro_Empresa_ID.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edFiltro_Empresa.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+    Selecionar_Registros;
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFiltro_Empresa_IDKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFiltro_Prestador_ID.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFiltro_Prestador_IDExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      if Trim(edFiltro_Prestador_ID.Text) = '' then
+        Exit;
+
+      FDm_Global.Listar_PrestadorServico(edFiltro_Prestador_ID.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edFiltro_Prestador.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+    Selecionar_Registros;
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFiltro_Prestador_IDKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFiltro_Cliente_ID.SetFocus;
 end;
 
 procedure TfrmMov_ServicosPrestados.edHR_FIMKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -445,6 +588,10 @@ begin
     try
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      if Trim(edID_EMPRESA.Text) = '' then
+        Exit;
+
       FDm_Global.Listar_Empresa(edID_EMPRESA.Text.ToInteger,'',FQuery);
 
       if not FQuery.IsEmpty then
@@ -551,6 +698,40 @@ begin
   if Key = vkReturn then
     edHR_INICIO.SetFocus;
 
+end;
+
+procedure TfrmMov_ServicosPrestados.edFIltro_Dt_FExit(Sender: TObject);
+begin
+  Selecionar_Registros;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFIltro_Dt_FKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFiltro_Empresa_ID.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFIltro_Dt_FTyping(Sender: TObject);
+begin
+  Formatar(edFIltro_Dt_F,Dt);
+end;
+
+procedure TfrmMov_ServicosPrestados.edFIltro_Dt_IExit(Sender: TObject);
+begin
+  Selecionar_Registros;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFIltro_Dt_IKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFIltro_Dt_F.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.edFIltro_Dt_ITyping(Sender: TObject);
+begin
+  Formatar(edFIltro_Dt_I,Dt);
 end;
 
 procedure TfrmMov_ServicosPrestados.Editar;
@@ -675,8 +856,19 @@ begin
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
 
+      FDm_Global.FDC_Firebird.StartTransaction;
+
       if FDQRegistros.IsEmpty then
         raise Exception.Create('Não há registros para ser Excluído');
+
+      FQuery.Active := False;
+      FQuery.Sql.Clear;
+      FQuery.Sql.Add('DELETE FROM LANCAMENTOS ');
+      FQuery.Sql.Add('WHERE ORIGEM_LANCAMENTO = :ORIGEM_LANCAMENTO ');
+      FQuery.Sql.Add('  AND ID_ORIGEM_LANCAMENTO = :ID_ORIGEM_LANCAMENTO; ');
+      FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'SERVICOS_PRESTADOS';
+      FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
+      FQuery.ExecSQL;
 
       FQuery.Active := False;
       FQuery.SQL.Clear;
@@ -684,8 +876,13 @@ begin
       FQuery.ParamByName('ID').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
       FQuery.ExecSQL;
 
+      FDm_Global.FDC_Firebird.Commit;
+
     except on E: Exception do
-      raise Exception.Create('Excluir: ' + E.Message);
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Excluir: ' + E.Message);
+      end;
     end;
   finally
     FreeAndNil(FQuery);
@@ -705,26 +902,96 @@ begin
 end;
 
 procedure TfrmMov_ServicosPrestados.FormCreate(Sender: TObject);
+var
+  FQuery :TFDQuery;
 begin
-  FFancyDialog := TFancyDialog.Create(frmMov_ServicosPrestados);
-  FEnder := '';
-  FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
-  FIniFile := TIniFile.Create(FEnder);
+  try
+    FDm_Global := TDM_Global.Create(Nil);
+    FDQRegistros.Connection := FDm_Global.FDC_Firebird;
 
-  tcPrincipal.ActiveTab := tiLista;
+    FQuery := TFDQuery.Create(Nil);
+    FQuery.Connection := FDm_Global.FDC_Firebird;
 
-  lytFormulario.Align := TAlignLayout.Center;
+    with TFuncoes.Datas(Date) do
+    begin
+      edFIltro_Dt_I.Text := DateToStr(PrimeiroDia);
+      edFIltro_Dt_F.Text := DateToStr(UltimoDia);
+    end;
+    if frmPrincipal.FUser_Empresa > 0 then
+    begin
+      edFiltro_Empresa_ID.Text := IntToStr(frmPrincipal.FUser_Empresa);
+      FDm_Global.Listar_Empresa(frmPrincipal.FUser_Empresa,'',FQuery);
+      if not FQuery.IsEmpty then
+        edFiltro_Empresa.Text := FQuery.FieldByName('NOME').AsString;
+    end;
+    if frmPrincipal.FUser_Prestador > 0 then
+    begin
+      edFiltro_Prestador_ID.Text := IntToStr(frmPrincipal.FUser_Prestador);
+      FDm_Global.Listar_PrestadorServico(frmPrincipal.FUser_Prestador,'',FQuery);
+      if not FQuery.IsEmpty then
+        edFiltro_Prestador.Text := FQuery.FieldByName('NOME').AsString;
+    end;
 
-  FDm_Global := TDM_Global.Create(Nil);
-  FDQRegistros.Connection := FDm_Global.FDC_Firebird;
+    FFancyDialog := TFancyDialog.Create(frmMov_ServicosPrestados);
+    FEnder := '';
+    FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
+    FIniFile := TIniFile.Create(FEnder);
 
-  Selecionar_Registros;
-  Configura_Botoes;
+    tcPrincipal.ActiveTab := tiLista;
+
+    lytFormulario.Align := TAlignLayout.Center;
+
+    Selecionar_Registros;
+    Configura_Botoes;
+  finally
+    FreeAndNil(FQuery);
+  end;
 end;
 
 procedure TfrmMov_ServicosPrestados.imgFecharClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmMov_ServicosPrestados.imgFiltro_ClienteClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Cliente) then
+    Application.CreateForm(TfrmCad_Cliente, frmCad_Cliente);
+
+  frmCad_Cliente.Pesquisa := True;
+  frmCad_Cliente.ExecuteOnClose := Sel_Cliente_Filtro;
+  frmCad_Cliente.Height := frmPrincipal.Height;
+  frmCad_Cliente.Width := frmPrincipal.Width;
+
+  frmCad_Cliente.Show;
+
+end;
+
+procedure TfrmMov_ServicosPrestados.imgFiltro_EmpresaClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Empresa) then
+    Application.CreateForm(TfrmCad_Empresa, frmCad_Empresa);
+
+  frmCad_Empresa.Pesquisa := True;
+  frmCad_Empresa.ExecuteOnClose := Sel_Empresa_Filtro;
+  frmCad_Empresa.Height := frmPrincipal.Height;
+  frmCad_Empresa.Width := frmPrincipal.Width;
+
+  frmCad_Empresa.Show;
+end;
+
+procedure TfrmMov_ServicosPrestados.imgFiltro_PrestadorClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_PrestServico) then
+    Application.CreateForm(TfrmCad_PrestServico, frmCad_PrestServico);
+
+  frmCad_PrestServico.Pesquisa := True;
+  frmCad_PrestServico.ExecuteOnClose := Sel_PrestServicos_Filtro;
+  frmCad_PrestServico.Height := frmPrincipal.Height;
+  frmCad_PrestServico.Width := frmPrincipal.Width;
+
+  frmCad_PrestServico.Show;
+
 end;
 
 procedure TfrmMov_ServicosPrestados.imgID_CLIENTEClick(Sender: TObject);
@@ -747,6 +1014,13 @@ begin
 
   if edID_TABELA.CanFocus then
     edID_TABELA.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.Sel_Cliente_Filtro(Aid: Integer; ANome: String);
+begin
+  edFiltro_Cliente_ID.Text := AId.ToString;
+  edFiltro_Cliente.Text := ANome;
+  Selecionar_Registros;
 end;
 
 procedure TfrmMov_ServicosPrestados.imgID_EMPRESAClick(Sender: TObject);
@@ -812,6 +1086,13 @@ begin
 
   if edID_CLIENTE.CanFocus then
     edID_CLIENTE.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.Sel_PrestServicos_Filtro(Aid: Integer; ANome: String);
+begin
+  edFiltro_Prestador_ID.Text := Aid.ToString;
+  edFiltro_Prestador.Text := ANome;
+  Selecionar_Registros;
 end;
 
 procedure TfrmMov_ServicosPrestados.Incluir;
@@ -897,6 +1178,7 @@ begin
     try
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.FDC_Firebird.StartTransaction;
 
       FId := 0;
       FQuery.Active := False;
@@ -984,6 +1266,7 @@ begin
           FQuery.Sql.Add('  ,OBSERVACAO = :OBSERVACAO ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := StrToIntDef(edID.Text,0);
+          FId := StrToIntDef(edID.Text,0);
         end;
       end;
       FQuery.ParamByName('DESCRICAO').AsString := edDESCRICAO.Text;
@@ -1006,11 +1289,15 @@ begin
       FQuery.ParamByName('OBSERVACAO').AsString := edOBSERVACAO.Text;
       FQuery.ExecSQL;
 
-      if FTab_Status = dsInsert then
-        Lancar_ContasReceber(FId);
+      Lancar_ContasReceber(FId);
+
+      FDm_Global.FDC_Firebird.Commit;
 
     except on E: Exception do
-      raise Exception.Create('Salvar: ' + E.Message);
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Salvar: ' + E.Message);
+      end;
     end;
   finally
     FreeAndNil(FQuery);
@@ -1030,47 +1317,60 @@ begin
       FData := TFuncoes.Datas(FData,0,5).Data_Add_Dia;
 
       FQuery.Connection := FDm_Global.FDC_Firebird;
-      FQuery.Active := False;
-      FQuery.Sql.Clear;
-        FQuery.Sql.Add('INSERT INTO LANCAMENTOS( ');
-        FQuery.Sql.Add('  ID_EMPRESA ');
-        FQuery.Sql.Add('  ,DT_EMISSAO ');
-        FQuery.Sql.Add('  ,ID_CONTA ');
-        FQuery.Sql.Add('  ,ID_PESSOA ');
-        FQuery.Sql.Add('  ,STATUS ');
-        FQuery.Sql.Add('  ,DT_VENCIMENTO ');
-        FQuery.Sql.Add('  ,VALOR ');
-        FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
-        FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
-        FQuery.Sql.Add('  ,ID_USUARIO ');
-        FQuery.Sql.Add('  ,DT_CADASTRO ');
-        FQuery.Sql.Add('  ,HR_CADASTRO ');
-        FQuery.Sql.Add(') VALUES( ');
-        FQuery.Sql.Add('  :ID_EMPRESA ');
-        FQuery.Sql.Add('  ,:DT_EMISSAO ');
-        FQuery.Sql.Add('  ,:ID_CONTA ');
-        FQuery.Sql.Add('  ,:ID_PESSOA ');
-        FQuery.Sql.Add('  ,:STATUS ');
-        FQuery.Sql.Add('  ,:DT_VENCIMENTO ');
-        FQuery.Sql.Add('  ,:VALOR ');
-        FQuery.Sql.Add('  ,:ORIGEM_LANCAMENTO ');
-        FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
-        FQuery.Sql.Add('  ,:ID_USUARIO ');
-        FQuery.Sql.Add('  ,:DT_CADASTRO ');
-        FQuery.Sql.Add('  ,:HR_CADASTRO ');
-        FQuery.Sql.Add('); ');
-        FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edID_EMPRESA.Text,0);;
-        FQuery.ParamByName('DT_EMISSAO').AsDate := Date;
-        FQuery.ParamByName('ID_CONTA').AsInteger := StrToIntDef(FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS','0'),0);
-        FQuery.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edID_CLIENTE.Text,0);;
-        FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
-        FQuery.ParamByName('DT_VENCIMENTO').AsDate := FData; //Calcular
-        FQuery.ParamByName('VALOR').AsFloat := edTOTAL.TagFloat;
+
+      if FTab_Status = dsEdit then
+      begin
+        FQuery.Active := False;
+        FQuery.Sql.Clear;
+        FQuery.Sql.Add('DELETE FROM LANCAMENTOS ');
+        FQuery.Sql.Add('WHERE ORIGEM_LANCAMENTO = :ORIGEM_LANCAMENTO ');
+        FQuery.Sql.Add('  AND ID_ORIGEM_LANCAMENTO = :ID_ORIGEM_LANCAMENTO; ');
         FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'SERVICOS_PRESTADOS';
         FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := AId;
-        FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
-        FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
-        FQuery.ParamByName('ID_USUARIO').AsInteger := frmPrincipal.FUser_Id;
+        FQuery.ExecSQL;
+      end;
+
+      FQuery.Active := False;
+      FQuery.Sql.Clear;
+      FQuery.Sql.Add('INSERT INTO LANCAMENTOS( ');
+      FQuery.Sql.Add('  ID_EMPRESA ');
+      FQuery.Sql.Add('  ,DT_EMISSAO ');
+      FQuery.Sql.Add('  ,ID_CONTA ');
+      FQuery.Sql.Add('  ,ID_PESSOA ');
+      FQuery.Sql.Add('  ,STATUS ');
+      FQuery.Sql.Add('  ,DT_VENCIMENTO ');
+      FQuery.Sql.Add('  ,VALOR ');
+      FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
+      FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
+      FQuery.Sql.Add('  ,ID_USUARIO ');
+      FQuery.Sql.Add('  ,DT_CADASTRO ');
+      FQuery.Sql.Add('  ,HR_CADASTRO ');
+      FQuery.Sql.Add(') VALUES( ');
+      FQuery.Sql.Add('  :ID_EMPRESA ');
+      FQuery.Sql.Add('  ,:DT_EMISSAO ');
+      FQuery.Sql.Add('  ,:ID_CONTA ');
+      FQuery.Sql.Add('  ,:ID_PESSOA ');
+      FQuery.Sql.Add('  ,:STATUS ');
+      FQuery.Sql.Add('  ,:DT_VENCIMENTO ');
+      FQuery.Sql.Add('  ,:VALOR ');
+      FQuery.Sql.Add('  ,:ORIGEM_LANCAMENTO ');
+      FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
+      FQuery.Sql.Add('  ,:ID_USUARIO ');
+      FQuery.Sql.Add('  ,:DT_CADASTRO ');
+      FQuery.Sql.Add('  ,:HR_CADASTRO ');
+      FQuery.Sql.Add('); ');
+      FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edID_EMPRESA.Text,0);;
+      FQuery.ParamByName('DT_EMISSAO').AsDate := Date;
+      FQuery.ParamByName('ID_CONTA').AsInteger := StrToIntDef(FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS','0'),0);
+      FQuery.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edID_CLIENTE.Text,0);;
+      FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
+      FQuery.ParamByName('DT_VENCIMENTO').AsDate := FData; //Calcular
+      FQuery.ParamByName('VALOR').AsFloat := edTOTAL.TagFloat;
+      FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'SERVICOS_PRESTADOS';
+      FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := AId;
+      FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
+      FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
+      FQuery.ParamByName('ID_USUARIO').AsInteger := frmPrincipal.FUser_Id;
       FQuery.ExecSQL;
 
       {$Region 'ORIGEM_LANCAMENTO'}
@@ -1116,8 +1416,27 @@ begin
       FDQRegistros.SQL.Add('  JOIN PRESTADOR_SERVICO PS ON PS.ID = SP.ID_PRESTADOR_SERVICO ');
       FDQRegistros.SQL.Add('  JOIN CLIENTE C ON C.ID = SP.ID_CLIENTE ');
       FDQRegistros.SQL.Add('  JOIN TABELA_PRECO TP ON TP.ID = SP.ID_TABELA ');
+      FDQRegistros.SQL.Add('WHERE NOT SP.ID IS NULL ');
+      FDQRegistros.SQL.Add('  AND SP.DATA BETWEEN :DATA_I AND :DATA_F');
+      if Trim(edFiltro_Empresa_ID.Text) <> '' then
+      begin
+        FDQRegistros.SQL.Add('  AND SP.ID_EMPRESA = :ID_EMPRESA');
+        FDQRegistros.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edFiltro_Empresa_ID.Text,0);
+      end;
+      if Trim(edFiltro_Prestador_ID.Text) <> '' then
+      begin
+        FDQRegistros.SQL.Add('  AND SP.ID_PRESTADOR_SERVICO = :ID_PRESTADOR_SERVICO');
+        FDQRegistros.ParamByName('ID_PRESTADOR_SERVICO').AsInteger := StrToIntDef(edFiltro_Prestador_ID.Text,0);
+      end;
+      if Trim(edFiltro_Cliente_ID.Text) <> '' then
+      begin
+        FDQRegistros.SQL.Add('  AND SP.ID_CLIENTE = :ID_CLIENTE');
+        FDQRegistros.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
+      end;
       FDQRegistros.SQL.Add('ORDER BY ');
       FDQRegistros.SQL.Add('  SP.ID; ');
+      FDQRegistros.ParamByName('DATA_I').AsDate := StrToDateDef(edFIltro_Dt_I.Text,Date);
+      FDQRegistros.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
       FDQRegistros.Active := True;
 
       {$Region 'Totalizando'}
@@ -1151,7 +1470,27 @@ begin
         FQuery.Sql.Add('          ,SUM(CAST(EXTRACT(MINUTE FROM SP.HR_TOTAL) AS INTEGER)) AS MINUTO ');
         FQuery.Sql.Add('          ,SUM(CAST(EXTRACT(SECOND FROM SP.HR_TOTAL) AS INTEGER)) AS SEGUNDO ');
         FQuery.Sql.Add('          ,SUM(SP.TOTAL) AS TOTAL ');
-        FQuery.Sql.Add('        FROM SERVICOS_PRESTADOS SP) A) B) C) D; ');
+        FQuery.Sql.Add('        FROM SERVICOS_PRESTADOS SP ');
+        FQuery.SQL.Add('        WHERE NOT SP.ID IS NULL ');
+        FQuery.SQL.Add('          AND SP.DATA BETWEEN :DATA_I AND :DATA_F ');
+        if Trim(edFiltro_Empresa_ID.Text) <> '' then
+        begin
+          FQuery.SQL.Add('          AND SP.ID_EMPRESA = :ID_EMPRESA');
+          FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edFiltro_Empresa_ID.Text,0);
+        end;
+        if Trim(edFiltro_Prestador_ID.Text) <> '' then
+        begin
+          FQuery.SQL.Add('          AND SP.ID_PRESTADOR_SERVICO = :ID_PRESTADOR_SERVICO');
+          FQuery.ParamByName('ID_PRESTADOR_SERVICO').AsInteger := StrToIntDef(edFiltro_Prestador_ID.Text,0);
+        end;
+        if Trim(edFiltro_Cliente_ID.Text) <> '' then
+        begin
+          FQuery.SQL.Add('          AND SP.ID_CLIENTE = :ID_CLIENTE');
+          FQuery.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
+        end;
+        FQuery.SQL.Add(') A) B) C) D; ');
+        FQuery.ParamByName('DATA_I').AsDate := StrToDateDef(edFIltro_Dt_I.Text,Date);
+        FQuery.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
         FQuery.Active := True;
         if not FQuery.IsEmpty then
         begin
@@ -1177,6 +1516,13 @@ begin
 
   if edID_PRESTADOR_SERVICO.CanFocus then
     edID_PRESTADOR_SERVICO.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.Sel_Empresa_Filtro(Aid: Integer; ANome: String);
+begin
+  edFiltro_Empresa_ID.Text := AId.ToString;
+  edFiltro_Empresa.Text := ANome;
+  Selecionar_Registros;
 end;
 
 procedure TfrmMov_ServicosPrestados.SetPesquisa(const Value: Boolean);

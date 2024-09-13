@@ -103,6 +103,7 @@ type
   private
     FDm_Global :TDM_Global;
     procedure AbreForm(AForm:TFormClass);
+    procedure Config_Menu;
 
   public
     FUser_Login: String;
@@ -110,6 +111,8 @@ type
     FUser_Celular: String;
     FUser_Id: Integer;
     FUser_PIN: String;
+    FUser_Empresa :Integer;
+    FUser_Prestador :Integer;
   end;
 
 var
@@ -157,6 +160,8 @@ begin
       FUser_Nome := '';
       FUser_Celular := '';
       FUser_Id := 0;
+      FUser_Empresa := 0;
+      FUser_Prestador := 0;
 
       if Trim(FUser_PIN) <> '' then
       begin
@@ -173,6 +178,8 @@ begin
           FUser_Nome := FDQuery.FieldByName('NOME').AsString;
           FUser_Celular := FDQuery.FieldByName('CELULAR').AsString;
           FUser_Id := FDQuery.FieldByName('ID').AsInteger;
+          FUser_Empresa := FDQuery.FieldByName('ID_EMPRESA').AsInteger;
+          FUser_Prestador := FDQuery.FieldByName('ID_PRESTADOR_SERVICO').AsInteger;
         end;
       end;
     except on E: Exception do
@@ -205,7 +212,7 @@ begin
   exCadastro.Height := 400;
   exMovimento.Height := 100;
 
-  FForm := AForm.Create(Nil);
+  Application.CreateForm(AForm,FForm);
   FForm.Parent := Self;
   FForm.Height := Self.Height;
   FForm.Width := Self.Width;
@@ -213,49 +220,103 @@ begin
 
 end;
 
+procedure TfrmPrincipal.Config_Menu;
+begin
+  mtvMenu.HideMaster;
+  exCadastro.IsExpanded := False;
+  exMovimento.IsExpanded := False;
+  exCadastro.Height := 400;
+  exMovimento.Height := 100;
+end;
+
 procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);
 begin
-  AbreForm(TfrmMov_ServicosPrestados);
+  Config_Menu;
+  Application.CreateForm(TfrmMov_ServicosPrestados,frmMov_ServicosPrestados);
+  frmMov_ServicosPrestados.Parent := Self;
+  frmMov_ServicosPrestados.Height := Self.Height;
+  frmMov_ServicosPrestados.Width := Self.Width;
+  frmMov_ServicosPrestados.Show;
 end;
 
 procedure TfrmPrincipal.rctCadUsuarioClick(Sender: TObject);
 begin
-  AbreForm(TfrmCad_Usuario);
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Usuario,frmCad_Usuario);
+  frmCad_Usuario.Parent := Self;
+  frmCad_Usuario.Height := Self.Height;
+  frmCad_Usuario.Width := Self.Width;
+  frmCad_Usuario.Show;
 end;
 
 procedure TfrmPrincipal.rctClienteClick(Sender: TObject);
 begin
-  AbreForm(TfrmCad_Cliente);
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Cliente,frmCad_Cliente);
+  frmCad_Cliente.Parent := Self;
+  frmCad_Cliente.Height := Self.Height;
+  frmCad_Cliente.Width := Self.Width;
+  frmCad_Cliente.Show;
 end;
 
 procedure TfrmPrincipal.rctConfigClick(Sender: TObject);
 begin
-  AbreForm(TfrmConfig);
+  Config_Menu;
+  Application.CreateForm(TfrmConfig,frmConfig);
+  frmConfig.Parent := Self;
+  frmConfig.Height := Self.Height;
+  frmConfig.Width := Self.Width;
+  frmConfig.Show;
 end;
 
 procedure TfrmPrincipal.rctContasClick(Sender: TObject);
 begin
-  AbreForm(TfrmCad_Contas);
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Contas,frmCad_Contas);
+  frmCad_Contas.Parent := Self;
+  frmCad_Contas.Height := Self.Height;
+  frmCad_Contas.Width := Self.Width;
+  frmCad_Contas.Show;
 end;
 
 procedure TfrmPrincipal.rctEmpresaClick(Sender: TObject);
 begin
-  AbreForm(TfrmCad_Empresa);
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Empresa,frmCad_Empresa);
+  frmCad_Empresa.Parent := Self;
+  frmCad_Empresa.Height := Self.Height;
+  frmCad_Empresa.Width := Self.Width;
+  frmCad_Empresa.Show;
 end;
 
 procedure TfrmPrincipal.rctFornecedorClick(Sender: TObject);
 begin
-  AbreForm(TfrmCad_Fornecedor);
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Fornecedor,frmCad_Fornecedor);
+  frmCad_Fornecedor.Parent := Self;
+  frmCad_Fornecedor.Height := Self.Height;
+  frmCad_Fornecedor.Width := Self.Width;
+  frmCad_Fornecedor.Show;
 end;
 
 procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);
 begin
-  AbreForm(TfrmCad_PrestServico);
+  Config_Menu;
+  Application.CreateForm(TfrmCad_PrestServico,frmCad_PrestServico);
+  frmCad_PrestServico.Parent := Self;
+  frmCad_PrestServico.Height := Self.Height;
+  frmCad_PrestServico.Width := Self.Width;
+  frmCad_PrestServico.Show;
 end;
 
 procedure TfrmPrincipal.rctTabPrecosClick(Sender: TObject);
 begin
-  AbreForm(TfrmCad_TabPrecos);
+  Config_Menu;
+  Application.CreateForm(TfrmCad_TabPrecos,frmCad_TabPrecos);
+  frmCad_TabPrecos.Parent := Self;
+  frmCad_TabPrecos.Height := Self.Height;
+  frmCad_TabPrecos.Width := Self.Width;
+  frmCad_TabPrecos.Show;
 end;
 
 end.
