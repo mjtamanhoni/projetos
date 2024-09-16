@@ -10,6 +10,7 @@ uses
     uFancyDialog,
     uFormat,
     uLoading,
+    uActionSheet,
   {$EndRegion '99 Coders'}
 
   IniFiles,
@@ -21,7 +22,7 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.ListBox, FMX.dxGrid, FMX.dxControlUtils, FMX.dxControls,
   FMX.dxCustomization, FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls,
-  FMX.Layouts;
+  FMX.Layouts, FMX.Ani;
 
 type
   TTab_Status = (dsInsert,dsEdit);
@@ -211,6 +212,16 @@ type
     rctFiltro_Prestador: TRectangle;
     edFIltro_Dt_I: TEdit;
     edFIltro_Dt_F: TEdit;
+    rctMenu_Tampa: TRectangle;
+    rctMenu: TRectangle;
+    lytMenu_Titulo: TLayout;
+    lbMenu_Titulo: TLabel;
+    lbMenu_LancHorasEx: TLabel;
+    rctMenu_LancHorasEx: TRectangle;
+    rctMenu_BaixarHoras: TRectangle;
+    lbMenu_BaixarHoras: TLabel;
+    imgMenuFechar: TImage;
+    faMenu: TFloatAnimation;
     procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -263,6 +274,8 @@ type
       Shift: TShiftState);
     procedure edFiltro_Cliente_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure imgMenuFecharClick(Sender: TObject);
+    procedure rctMenu_BaixarHorasClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -290,8 +303,11 @@ type
     procedure SetPesquisa(const Value: Boolean);
     procedure TThreadEnd_CalcHora(Sender: TObject);
     procedure TThreadEnd_CalculaValor(Sender: TOBject);
-    procedure Baixar_Servico(Sender: TOBject);
+    procedure Menu(Sender: TOBject);
     procedure Lancar_ContasReceber(AId:Integer);
+    procedure TThreadEnd_Menu(Sender: TObject);
+    procedure BaixarHoras(Sender: TOBject);
+    procedure LancarHoras(Sender: TOBject);
   public
     ExecuteOnClose :TExecuteOnClose;
 
@@ -943,6 +959,8 @@ begin
 
     Selecionar_Registros;
     Configura_Botoes;
+
+    rctMenu.Width := 0;
   finally
     FreeAndNil(FQuery);
   end;
@@ -1063,6 +1081,11 @@ begin
   frmCad_TabPrecos.Show;
 end;
 
+procedure TfrmMov_ServicosPrestados.imgMenuFecharClick(Sender: TObject);
+begin
+  rctMenu_Tampa.Visible := False;
+end;
+
 procedure TfrmMov_ServicosPrestados.Sel_TabPrecos(Aid:Integer; ADescricao:String; ATipo:Integer; AValor:Double);
 begin
   edID_TABELA.Text := Aid.ToString;
@@ -1154,7 +1177,7 @@ begin
         2:Salvar;
         3:Cancelar;
         4:FFancyDialog.Show(TIconDialog.Question,'Excluir','Deseja Excluir o registro selecionado?','Sim',Excluir,'Não') ;
-        5:FFancyDialog.Show(TIconDialog.Question,'Baixar','Deseja o Serviço selecionado?','Sim',Baixar_Servico,'Não') ;
+        5:Menu(Sender);
       end;
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
@@ -1164,9 +1187,65 @@ begin
   end;
 end;
 
-procedure TfrmMov_ServicosPrestados.Baixar_Servico(Sender :TOBject);
+procedure TfrmMov_ServicosPrestados.rctMenu_BaixarHorasClick(Sender: TObject);
+begin
+  case TRectangle(Sender).Tag of
+    0:FFancyDialog.Show(TIconDialog.Question,'','Baixar as horas filtradas?','SIM',BaixarHoras,'NÃO');
+    1:FFancyDialog.Show(TIconDialog.Question,'','Lançar horas excedidas?','SIM',LancarHoras,'NÃO');
+  end;
+  rctMenu_Tampa.Visible := False;
+end;
+
+procedure TfrmMov_ServicosPrestados.BaixarHoras(Sender :TOBject);
 begin
   //
+end;
+
+procedure TfrmMov_ServicosPrestados.LancarHoras(Sender :TOBject);
+begin
+  //
+end;
+
+procedure TfrmMov_ServicosPrestados.Menu(Sender :TOBject);
+var
+  t :TThread;
+
+begin
+    rctMenu.Width := 0;
+    rctMenu_Tampa.Visible := True;
+    faMenu.StartValue := 0;
+    faMenu.StopValue := 240;
+    faMenu.Start;
+
+{
+  t := TThread.CreateAnonymousThread(
+  procedure
+  begin
+    //faMenu.Inverse := (rctMenu_Tampa.Visible = True);
+    rctMenu.Width := 0;
+    rctMenu_Tampa.Visible := True;
+    faMenu.StartValue := 0;
+    faMenu.StopValue := 240;
+
+    t.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      faMenu.Start;
+    end);
+
+  end);
+
+  t.OnTerminate := TThreadEnd_Menu;
+  t.Start;
+ }
+end;
+
+procedure TfrmMov_ServicosPrestados.TThreadEnd_Menu(Sender :TObject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'','Calculando horas. ' + Exception(TThread(Sender).FatalException).Message)
+  else
+    faMenu.Enabled := False;
 end;
 
 procedure TfrmMov_ServicosPrestados.Salvar;
@@ -1360,7 +1439,7 @@ begin
       FQuery.Sql.Add('  ,:HR_CADASTRO ');
       FQuery.Sql.Add('); ');
       FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edID_EMPRESA.Text,0);;
-      FQuery.ParamByName('DT_EMISSAO').AsDate := Date;
+      FQuery.ParamByName('DT_EMISSAO').AsDate := StrToDateDef(edDATA.Text,Date);
       FQuery.ParamByName('ID_CONTA').AsInteger := StrToIntDef(FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS','0'),0);
       FQuery.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edID_CLIENTE.Text,0);;
       FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago

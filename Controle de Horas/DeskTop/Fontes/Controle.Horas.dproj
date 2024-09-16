@@ -329,6 +329,7 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Funcoes\uFuncoes.pas"/>
+        <DCCReference Include="..\..\..\Classes\99 Coders\Versao 11\uActionSheet.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

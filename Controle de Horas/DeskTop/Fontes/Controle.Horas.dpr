@@ -18,7 +18,8 @@ uses
   uCad.Contas in 'uCad.Contas.pas' {frmCad_Contas},
   uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa},
   uCad.Fornecedor in 'uCad.Fornecedor.pas' {frmCad_Fornecedor},
-  uFuncoes in 'Funcoes\uFuncoes.pas';
+  uFuncoes in 'Funcoes\uFuncoes.pas',
+  uActionSheet in '..\..\..\Classes\99 Coders\Versao 11\uActionSheet.pas';
 
 {$R *.res}
 

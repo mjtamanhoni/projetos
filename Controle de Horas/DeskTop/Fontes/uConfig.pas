@@ -66,6 +66,16 @@ type
     edApontHoras: TEdit;
     edID_ApontHoras: TEdit;
     imgID_ApontHoras: TImage;
+    lytRow_002: TLayout;
+    lbHrExced_MesAnt: TLabel;
+    edHrExced_MesAnt_Desc: TEdit;
+    edHrExced_MesAnt: TEdit;
+    imgHrExced_MesAnt: TImage;
+    lytRow_003: TLayout;
+    lbedHorasPagas: TLabel;
+    edHorasPagas_Desc: TEdit;
+    ededHorasPagas: TEdit;
+    imgedHorasPagas: TImage;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -81,6 +91,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure imgDBClick(Sender: TObject);
     procedure imgID_ApontHorasClick(Sender: TObject);
+    procedure imgHrExced_MesAntClick(Sender: TObject);
+    procedure imgedHorasPagasClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -88,7 +100,9 @@ type
 
     procedure Grava_Configuracoes;
     procedure Ler_Configuracoes;
-    procedure Sel_Conta(Aid:Integer; ADescricao:String; ATipo:Integer);
+    procedure Sel_ApontHoras(Aid:Integer; ADescricao:String; ATipo:Integer);
+    procedure Sel_HorasExcedida(Aid:Integer; ADescricao:String; ATipo:Integer);
+    procedure Sel_HorasPagas(Aid:Integer; ADescricao:String; ATipo:Integer);
   public
     { Public declarations }
   end;
@@ -192,6 +206,10 @@ begin
       {$Region 'Plano de Contas - Lançamentos'}
         edID_ApontHoras.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS','');
         edApontHoras.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS.DESC','');
+        edHrExced_MesAnt.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.EXCED','');
+        edHrExced_MesAnt_DEsc.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.EXCED.DESC','');
+        ededHorasPagas.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.PAGAS','');
+        edHorasPagas_Desc.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.PAGAS.DESC','');
       {$EndRegion 'Plano de Contas - Lançamentos'}
 
     except on E: Exception do
@@ -225,6 +243,21 @@ begin
   tcPrincipal.GotoVisibleTab(TImage(Sender).Tag);
 end;
 
+procedure TfrmConfig.imgedHorasPagasClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Contas) then
+    Application.CreateForm(TfrmCad_Contas, frmCad_Contas);
+
+  frmCad_Contas.Pesquisa := True;
+  frmCad_Contas.ExecuteOnClose := Sel_HorasPagas;
+  frmCad_Contas.Parent := frmPrincipal;
+  frmCad_Contas.Height := frmPrincipal.Height;
+  frmCad_Contas.Width := frmPrincipal.Width;
+
+  frmCad_Contas.Show;
+
+end;
+
 procedure TfrmConfig.Grava_Configuracoes;
 begin
   try
@@ -241,6 +274,10 @@ begin
       {$Region 'Plano de Contas - Lançamentos'}
         FIniFile.WriteString('PLANO_CONTAS.LANC','APONT.HORAS',edID_ApontHoras.Text);
         FIniFile.WriteString('PLANO_CONTAS.LANC','APONT.HORAS.DESC',edApontHoras.Text);
+        FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.EXCED',edHrExced_MesAnt.Text);
+        FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.EXCED.DESC',edHrExced_MesAnt_DEsc.Text);
+        FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.PAGAS',ededHorasPagas.Text);
+        FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.PAGAS.DESC',edHorasPagas_Desc.Text);
       {$EndRegion 'Plano de Contas - Lançamentos'}
 
       FFancyDialog.Show(TIconDialog.Success,'Atenção','Configurações com sucesso','Ok');
@@ -251,6 +288,20 @@ begin
   end;
 end;
 
+
+procedure TfrmConfig.imgHrExced_MesAntClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Contas) then
+    Application.CreateForm(TfrmCad_Contas, frmCad_Contas);
+
+  frmCad_Contas.Pesquisa := True;
+  frmCad_Contas.ExecuteOnClose := Sel_HorasExcedida;
+  frmCad_Contas.Parent := frmPrincipal;
+  frmCad_Contas.Height := frmPrincipal.Height;
+  frmCad_Contas.Width := frmPrincipal.Width;
+
+  frmCad_Contas.Show;
+end;
 
 procedure TfrmConfig.imgFecharClick(Sender: TObject);
 begin
@@ -263,17 +314,31 @@ begin
     Application.CreateForm(TfrmCad_Contas, frmCad_Contas);
 
   frmCad_Contas.Pesquisa := True;
-  frmCad_Contas.ExecuteOnClose := Sel_Conta;
+  frmCad_Contas.ExecuteOnClose := Sel_ApontHoras;
+  frmCad_Contas.Parent := frmPrincipal;
+  frmCad_Contas.Height := frmPrincipal.Height;
+  frmCad_Contas.Width := frmPrincipal.Width;
 
   frmCad_Contas.Show;
 end;
 
-procedure TfrmConfig.Sel_Conta(Aid:Integer; ADescricao:String; ATipo:Integer);
+procedure TfrmConfig.Sel_ApontHoras(Aid:Integer; ADescricao:String; ATipo:Integer);
 begin
   edID_ApontHoras.Text := Aid.ToString;
   edApontHoras.Text := ADescricao;
 end;
 
+procedure TfrmConfig.Sel_HorasExcedida(Aid: Integer; ADescricao: String; ATipo: Integer);
+begin
+  edHrExced_MesAnt.Text := Aid.ToString;
+  edHrExced_MesAnt_Desc.Text := ADescricao;
+end;
+
+procedure TfrmConfig.Sel_HorasPagas(Aid: Integer; ADescricao: String; ATipo: Integer);
+begin
+  ededHorasPagas.Text := Aid.ToString;
+  edHorasPagas_Desc.Text := ADescricao;
+end;
 
 procedure TfrmConfig.sbBDF_BibliotecaClick(Sender: TObject);
 begin
