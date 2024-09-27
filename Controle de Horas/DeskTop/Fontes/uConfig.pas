@@ -76,6 +76,12 @@ type
     edHorasPagas_Desc: TEdit;
     ededHorasPagas: TEdit;
     imgedHorasPagas: TImage;
+    tiFinanceiro: TTabItem;
+    lytFinanceiro: TLayout;
+    lytFin_Row001: TLayout;
+    lbTotalHoraBase: TLabel;
+    edTotalHorasBase: TEdit;
+    imgFinanceiro: TImage;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -212,6 +218,10 @@ begin
         edHorasPagas_Desc.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.PAGAS.DESC','');
       {$EndRegion 'Plano de Contas - Lançamentos'}
 
+      {$Region 'Financeiro'}
+        edTotalHorasBase.Text := FIniFile.ReadString('FINANCEIRO','TOTAL.HORAS','');
+      {$EndRegion 'Financeiro'}
+
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Lendo Configurações',E.Message,'Ok');
     end;
@@ -229,6 +239,7 @@ procedure TfrmConfig.imgDBClick(Sender: TObject);
 begin
   imgDB.Opacity := 0.5;
   imgOpcoes.Opacity := 0.5;
+  imgFinanceiro.Opacity := 0.5;
 
   case TImage(Sender).Tag of
     0:begin
@@ -236,6 +247,9 @@ begin
     end;
     1:begin
       lbSubTit.Text := 'Plano de Contas padrão (Lançamentos)';
+    end;
+    2:begin
+      lbSubTit.Text := 'Financeiro';
     end;
   end;
   TImage(Sender).Opacity := 1;
@@ -279,6 +293,10 @@ begin
         FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.PAGAS',ededHorasPagas.Text);
         FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.PAGAS.DESC',edHorasPagas_Desc.Text);
       {$EndRegion 'Plano de Contas - Lançamentos'}
+
+      {$Region 'Financeiro'}
+        FIniFile.WriteString('FINANCEIRO','TOTAL.HORAS',edTotalHorasBase.Text);
+      {$EndRegion 'Financeiro'}
 
       FFancyDialog.Show(TIconDialog.Success,'Atenção','Configurações com sucesso','Ok');
     except on E: Exception do

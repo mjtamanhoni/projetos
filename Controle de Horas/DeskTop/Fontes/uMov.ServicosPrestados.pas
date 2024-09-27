@@ -79,7 +79,6 @@ type
     FDQRegistrosDATA: TDateField;
     FDQRegistrosHR_INICIO: TTimeField;
     FDQRegistrosHR_FIM: TTimeField;
-    FDQRegistrosHR_TOTAL: TTimeField;
     FDQRegistrosVLR_HORA: TFMTBCDField;
     FDQRegistrosSUB_TOTAL: TFMTBCDField;
     FDQRegistrosDESCONTO: TFMTBCDField;
@@ -216,12 +215,30 @@ type
     rctMenu: TRectangle;
     lytMenu_Titulo: TLayout;
     lbMenu_Titulo: TLabel;
-    lbMenu_LancHorasEx: TLabel;
-    rctMenu_LancHorasEx: TRectangle;
     rctMenu_BaixarHoras: TRectangle;
     lbMenu_BaixarHoras: TLabel;
     imgMenuFechar: TImage;
     faMenu: TFloatAnimation;
+    rctFecharMes: TRectangle;
+    lbFecharMes: TLabel;
+    FDQRegistrosHR_TOTAL: TStringField;
+    rctMenuBaixar_Horas: TRectangle;
+    rctBH_Detail: TRectangle;
+    ShadowEffect1: TShadowEffect;
+    rctBH_Header: TRectangle;
+    lbBH_Titulo: TLabel;
+    lytBH_ValorPago: TLayout;
+    edBH_ValorPago: TEdit;
+    lytBH_Data: TLayout;
+    Edit2: TEdit;
+    lytBH_TotalHoras: TLayout;
+    lbBH_TotalHoras: TLabel;
+    lytBH_Footer: TLayout;
+    gplBH_Footer: TGridPanelLayout;
+    rctBH_Cancelar: TRectangle;
+    imgBH_Cancelar: TImage;
+    rctBH_Confirmar: TRectangle;
+    imgBH_Confirmar: TImage;
     procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -276,6 +293,10 @@ type
       Shift: TShiftState);
     procedure imgMenuFecharClick(Sender: TObject);
     procedure rctMenu_BaixarHorasClick(Sender: TObject);
+    procedure edHR_TOTALTyping(Sender: TObject);
+    procedure edHR_TOTALChange(Sender: TObject);
+    procedure edHR_TOTALKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure rctBH_CancelarClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -307,7 +328,9 @@ type
     procedure Lancar_ContasReceber(AId:Integer);
     procedure TThreadEnd_Menu(Sender: TObject);
     procedure BaixarHoras(Sender: TOBject);
-    procedure LancarHoras(Sender: TOBject);
+    procedure FecharMes(Sender: TOBject);
+    procedure CancelaPagamento(Sender: TObject);
+    procedure ConfirmaPagamento(Sender: TObject);
   public
     ExecuteOnClose :TExecuteOnClose;
 
@@ -498,7 +521,16 @@ procedure TfrmMov_ServicosPrestados.edHR_FIMKeyDown(Sender: TObject; var Key: Wo
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edSUB_TOTAL.SetFocus;
+  begin
+    edHR_TOTAL.ReadOnly := True;
+    if ((Trim(edHR_INICIO.Text) = '') and (Trim(edHR_FIM.Text) = '')) then
+    begin
+      edHR_TOTAL.SetFocus;
+      edHR_TOTAL.ReadOnly := False;
+    end
+    else
+      edSUB_TOTAL.SetFocus;
+  end;
 
 end;
 
@@ -565,6 +597,51 @@ end;
 procedure TfrmMov_ServicosPrestados.edHR_INICIOTyping(Sender: TObject);
 begin
   Formatar(edHR_INICIO,Hr);
+end;
+
+procedure TfrmMov_ServicosPrestados.edHR_TOTALChange(Sender: TObject);
+var
+  FHora_Resultado :TDateTime;
+  FTotal_Receber :Double;
+  FHora, FMinuto, FSegundo :Integer;
+  FVlr_Hr, FVlr_Mn, FVlr_Sg :Double;
+
+begin
+  if ((Trim(edHR_INICIO.Text) = '') and (Trim(edHR_FIM.Text) = '')) then
+  begin
+    FHora := 0;
+    FMinuto := 0;
+    FSegundo := 0;
+    FVlr_Hr := 0;
+    FVlr_Mn := 0;
+    FVlr_Sg := 0;
+
+    FHora := StrToIntDef(Copy(edHR_TOTAL.Text,1,3),0);
+    FMinuto := StrToIntDef(Copy(edHR_TOTAL.Text,5,2),0);
+    FSegundo := StrToIntDef(Copy(edHR_TOTAL.Text,8,2),0);
+
+    FVlr_Hr := (FHora * edVLR_HORA.TagFloat);
+    FVlr_Mn := (FMinuto * (edVLR_HORA.TagFloat / 60));
+    FVlr_Sg := (FSegundo * (edVLR_HORA.TagFloat / 3600));;
+
+    FTotal_Receber := (FVlr_Hr + FVlr_Mn + FVlr_Sg);
+    edSUB_TOTAL.Text := FormatFloat('R$ #,##0.00',FTotal_Receber);
+    edSUB_TOTAL.TagFloat := FTotal_Receber;
+    edSUB_TOTALChange(Sender);
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.edHR_TOTALKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edSUB_TOTAL.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.edHR_TOTALTyping(Sender: TObject);
+begin
+  if ((Trim(edHR_INICIO.Text) = '') and (Trim(edHR_FIM.Text) = '')) then
+    Formatar(edHR_TOTAL,Tempo);
 end;
 
 procedure TfrmMov_ServicosPrestados.edID_CLIENTEExit(Sender: TObject);
@@ -1167,6 +1244,24 @@ begin
   edVLR_PAGO.Text := '';
 end;
 
+procedure TfrmMov_ServicosPrestados.rctBH_CancelarClick(Sender: TObject);
+begin
+  case TRectangle(Sender).Tag of
+    0:FFancyDialog.Show(TIconDialog.Question,'Pagamento','Cancela o Pagamento?','Sim',CancelaPagamento,'Não');
+    1:FFancyDialog.Show(TIconDialog.Question,'Pagamento','Confirma o Pagamento?','Sim',ConfirmaPagamento,'Não');
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.CancelaPagamento(Sender: TObject);
+begin
+  rctMenuBaixar_Horas.Visible := False;
+end;
+
+procedure TfrmMov_ServicosPrestados.ConfirmaPagamento(Sender: TObject);
+begin
+  rctMenuBaixar_Horas.Visible := False;
+end;
+
 procedure TfrmMov_ServicosPrestados.rctCancelarClick(Sender: TObject);
 begin
   try
@@ -1190,18 +1285,18 @@ end;
 procedure TfrmMov_ServicosPrestados.rctMenu_BaixarHorasClick(Sender: TObject);
 begin
   case TRectangle(Sender).Tag of
-    0:FFancyDialog.Show(TIconDialog.Question,'','Baixar as horas filtradas?','SIM',BaixarHoras,'NÃO');
-    1:FFancyDialog.Show(TIconDialog.Question,'','Lançar horas excedidas?','SIM',LancarHoras,'NÃO');
+    0:FFancyDialog.Show(TIconDialog.Question,'','Baixar horas?','SIM',BaixarHoras,'NÃO');
+    1:FFancyDialog.Show(TIconDialog.Question,'','Deseja fechar o mês atual?','SIM',FecharMes,'NÃO');
   end;
   rctMenu_Tampa.Visible := False;
 end;
 
 procedure TfrmMov_ServicosPrestados.BaixarHoras(Sender :TOBject);
 begin
-  //
+  rctMenuBaixar_Horas.Visible := True;
 end;
 
-procedure TfrmMov_ServicosPrestados.LancarHoras(Sender :TOBject);
+procedure TfrmMov_ServicosPrestados.FecharMes(Sender :TOBject);
 begin
   //
 end;
@@ -1355,9 +1450,15 @@ begin
       FQuery.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edID_CLIENTE.Text,0);
       FQuery.ParamByName('ID_TABELA').AsInteger := StrToIntDef(edID_TABELA.Text,0);
       FQuery.ParamByName('DATA').AsDate := StrToDateDef(edDATA.Text,Date);
-      FQuery.ParamByName('HR_INICIO').AsTime := StrToTimeDef(edHR_INICIO.Text,Time);
-      FQuery.ParamByName('HR_FIM').AsTime := StrToTimeDef(edHR_FIM.Text,Time);
-      FQuery.ParamByName('HR_TOTAL').AsTime := StrToTimeDef(edHR_TOTAL.Text,Time);
+      if Trim(edHR_INICIO.Text) <> '' then
+        FQuery.ParamByName('HR_INICIO').AsTime := StrToTimeDef(edHR_INICIO.Text,Time)
+      else
+        FQuery.ParamByName('HR_INICIO').AsTime := StrToTimeDef('00:00:00',Time);
+      if Trim(edHR_FIM.Text) <> '' then
+        FQuery.ParamByName('HR_FIM').AsTime := StrToTimeDef(edHR_FIM.Text,Time)
+      else
+        FQuery.ParamByName('HR_FIM').AsTime := StrToTimeDef('00:00:00',Time);
+      FQuery.ParamByName('HR_TOTAL').AsString := edHR_TOTAL.Text;
       FQuery.ParamByName('VLR_HORA').AsFloat := edVLR_HORA.TagFloat;
       FQuery.ParamByName('SUB_TOTAL').AsFloat := edSUB_TOTAL.TagFloat;
       FQuery.ParamByName('DESCONTO').AsFloat := edDESCONTO.TagFloat;
@@ -1395,6 +1496,7 @@ begin
       FData := TFuncoes.Datas(Date).UltimoDia;
       FData := TFuncoes.Datas(FData,0,5).Data_Add_Dia;
 
+      FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
 
       if FTab_Status = dsEdit then
@@ -1422,6 +1524,7 @@ begin
       FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
       FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
       FQuery.Sql.Add('  ,ID_USUARIO ');
+      FQuery.Sql.Add('  ,OBSERVACAO ');
       FQuery.Sql.Add('  ,DT_CADASTRO ');
       FQuery.Sql.Add('  ,HR_CADASTRO ');
       FQuery.Sql.Add(') VALUES( ');
@@ -1435,6 +1538,7 @@ begin
       FQuery.Sql.Add('  ,:ORIGEM_LANCAMENTO ');
       FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
       FQuery.Sql.Add('  ,:ID_USUARIO ');
+      FQuery.Sql.Add('  ,:OBSERVACAO ');
       FQuery.Sql.Add('  ,:DT_CADASTRO ');
       FQuery.Sql.Add('  ,:HR_CADASTRO ');
       FQuery.Sql.Add('); ');
@@ -1447,6 +1551,7 @@ begin
       FQuery.ParamByName('VALOR').AsFloat := edTOTAL.TagFloat;
       FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'SERVICOS_PRESTADOS';
       FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := AId;
+      FQuery.ParamByName('OBSERVACAO').AsString := edOBSERVACAO.Text;
       FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
       FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
       FQuery.ParamByName('ID_USUARIO').AsInteger := frmPrincipal.FUser_Id;
@@ -1463,16 +1568,19 @@ begin
       raise Exception.Create('Contas a Receber: ' + E.Message);
     end;
   finally
-
+    FreeAndNil(FQuery);
   end;
 end;
 
 procedure TfrmMov_ServicosPrestados.Selecionar_Registros;
 var
-  FQuery :TFDQuery;
+  FDQ_Total :TFDQuery;
 begin
   try
     try
+      FDQ_Total := TFDQuery.Create(Nil);
+      FDQ_Total.Connection := FDm_Global.FDC_Firebird;
+
       FDQRegistros.Active := False;
       FDQRegistros.SQL.Clear;
       FDQRegistros.SQL.Add('SELECT ');
@@ -1513,70 +1621,77 @@ begin
         FDQRegistros.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
       end;
       FDQRegistros.SQL.Add('ORDER BY ');
-      FDQRegistros.SQL.Add('  SP.ID; ');
+      FDQRegistros.SQL.Add('  SP.DATA; ');
       FDQRegistros.ParamByName('DATA_I').AsDate := StrToDateDef(edFIltro_Dt_I.Text,Date);
       FDQRegistros.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
       FDQRegistros.Active := True;
 
       {$Region 'Totalizando'}
-        FQuery := TFDQuery.Create(Nil);
-        FQuery.Connection := FDm_Global.FDC_Firebird;
-        FQuery.Active := False;
-        FQuery.Sql.Clear;
-        FQuery.Sql.Add('SELECT ');
-        FQuery.Sql.Add('  LPAD(DATEDIFF(HOUR,CAST(CURRENT_DATE AS TIMESTAMP),D.DH),2,''0'') || '':'' || ');
-        FQuery.Sql.Add('  LPAD(EXTRACT(MINUTE FROM D.DH),2,''0'') || '':'' || ');
-        FQuery.Sql.Add('  LPAD(CAST(EXTRACT(SECOND FROM D.DH) AS INTEGER),2,''0'') AS HORA');
-        FQuery.Sql.Add('  ,D.TOTAL ');
-        FQuery.Sql.Add('FROM ( ');
-        FQuery.Sql.Add('  SELECT ');
-        FQuery.Sql.Add('    DATEADD(HOUR,C.HORA,C.DM) AS DH ');
-        FQuery.Sql.Add('    ,C.TOTAL ');
-        FQuery.Sql.Add('  FROM ( ');
-        FQuery.Sql.Add('    SELECT ');
-        FQuery.Sql.Add('      B.HORA ');
-        FQuery.Sql.Add('      ,DATEADD(MINUTE,B.MINUTO,B.DS) DM ');
-        FQuery.Sql.Add('      ,B.TOTAL ');
-        FQuery.Sql.Add('    FROM ( ');
-        FQuery.Sql.Add('      SELECT ');
-        FQuery.Sql.Add('        A.HORA ');
-        FQuery.Sql.Add('        ,A.MINUTO ');
-        FQuery.Sql.Add('        ,DATEADD(SECOND, A.SEGUNDO, CAST(CURRENT_DATE AS TIMESTAMP)) AS DS ');
-        FQuery.Sql.Add('        ,A.TOTAL ');
-        FQuery.Sql.Add('      FROM ( ');
-        FQuery.Sql.Add('        SELECT ');
-        FQuery.Sql.Add('          SUM(CAST(EXTRACT(HOUR FROM SP.HR_TOTAL) AS INTEGER)) AS HORA ');
-        FQuery.Sql.Add('          ,SUM(CAST(EXTRACT(MINUTE FROM SP.HR_TOTAL) AS INTEGER)) AS MINUTO ');
-        FQuery.Sql.Add('          ,SUM(CAST(EXTRACT(SECOND FROM SP.HR_TOTAL) AS INTEGER)) AS SEGUNDO ');
-        FQuery.Sql.Add('          ,SUM(SP.TOTAL) AS TOTAL ');
-        FQuery.Sql.Add('        FROM SERVICOS_PRESTADOS SP ');
-        FQuery.SQL.Add('        WHERE NOT SP.ID IS NULL ');
-        FQuery.SQL.Add('          AND SP.DATA BETWEEN :DATA_I AND :DATA_F ');
+        FDQ_Total.Active := False;
+        FDQ_Total.Sql.Clear;
+        FDQ_Total.Sql.Add('SELECT ');
+        FDQ_Total.Sql.Add('  LPAD(DATEDIFF(HOUR,CAST(CURRENT_DATE AS TIMESTAMP),D.DH),3,''0'') || '':'' || ');
+        FDQ_Total.Sql.Add('  LPAD(EXTRACT(MINUTE FROM D.DH),2,''0'') || '':'' || ');
+        FDQ_Total.Sql.Add('  LPAD(CAST(EXTRACT(SECOND FROM D.DH) AS INTEGER),2,''0'') AS HORA');
+        FDQ_Total.Sql.Add('  ,D.TOTAL ');
+        FDQ_Total.Sql.Add('FROM ( ');
+        FDQ_Total.Sql.Add('  SELECT ');
+        FDQ_Total.Sql.Add('    DATEADD(HOUR,C.HORA,C.DM) AS DH ');
+        FDQ_Total.Sql.Add('    ,C.TOTAL ');
+        FDQ_Total.Sql.Add('  FROM ( ');
+        FDQ_Total.Sql.Add('    SELECT ');
+        FDQ_Total.Sql.Add('      B.HORA ');
+        FDQ_Total.Sql.Add('      ,DATEADD(MINUTE,B.MINUTO,B.DS) DM ');
+        FDQ_Total.Sql.Add('      ,B.TOTAL ');
+        FDQ_Total.Sql.Add('    FROM ( ');
+        FDQ_Total.Sql.Add('      SELECT ');
+        FDQ_Total.Sql.Add('        A.HORA ');
+        FDQ_Total.Sql.Add('        ,A.MINUTO ');
+        FDQ_Total.Sql.Add('        ,DATEADD(SECOND, A.SEGUNDO, CAST(CURRENT_DATE AS TIMESTAMP)) AS DS ');
+        FDQ_Total.Sql.Add('        ,A.TOTAL ');
+        FDQ_Total.Sql.Add('      FROM ( ');
+        FDQ_Total.Sql.Add('        SELECT ');
+				FDQ_Total.Sql.Add('	      	 SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
+				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 2) ');
+				FDQ_Total.Sql.Add('	      		       WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3) ');
+				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS HORA ');
+				FDQ_Total.Sql.Add('	      	 ,SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
+				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 4 FOR 2) ');
+				FDQ_Total.Sql.Add('	      		       WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 5 FOR 2) ');
+				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS MINUTO ');
+				FDQ_Total.Sql.Add('	      	 ,SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
+				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 7 FOR 2) ');
+				FDQ_Total.Sql.Add('	      		       WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 8 FOR 2) ');
+				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS SEGUNDO ');
+        FDQ_Total.Sql.Add('          ,SUM(SP.TOTAL) AS TOTAL ');
+        FDQ_Total.Sql.Add('        FROM SERVICOS_PRESTADOS SP ');
+        FDQ_Total.SQL.Add('        WHERE NOT SP.ID IS NULL ');
+        FDQ_Total.SQL.Add('          AND SP.DATA BETWEEN :DATA_I AND :DATA_F ');
         if Trim(edFiltro_Empresa_ID.Text) <> '' then
         begin
-          FQuery.SQL.Add('          AND SP.ID_EMPRESA = :ID_EMPRESA');
-          FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edFiltro_Empresa_ID.Text,0);
+          FDQ_Total.SQL.Add('          AND SP.ID_EMPRESA = :ID_EMPRESA');
+          FDQ_Total.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edFiltro_Empresa_ID.Text,0);
         end;
         if Trim(edFiltro_Prestador_ID.Text) <> '' then
         begin
-          FQuery.SQL.Add('          AND SP.ID_PRESTADOR_SERVICO = :ID_PRESTADOR_SERVICO');
-          FQuery.ParamByName('ID_PRESTADOR_SERVICO').AsInteger := StrToIntDef(edFiltro_Prestador_ID.Text,0);
+          FDQ_Total.SQL.Add('          AND SP.ID_PRESTADOR_SERVICO = :ID_PRESTADOR_SERVICO');
+          FDQ_Total.ParamByName('ID_PRESTADOR_SERVICO').AsInteger := StrToIntDef(edFiltro_Prestador_ID.Text,0);
         end;
         if Trim(edFiltro_Cliente_ID.Text) <> '' then
         begin
-          FQuery.SQL.Add('          AND SP.ID_CLIENTE = :ID_CLIENTE');
-          FQuery.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
+          FDQ_Total.SQL.Add('          AND SP.ID_CLIENTE = :ID_CLIENTE');
+          FDQ_Total.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
         end;
-        FQuery.SQL.Add(') A) B) C) D; ');
-        FQuery.ParamByName('DATA_I').AsDate := StrToDateDef(edFIltro_Dt_I.Text,Date);
-        FQuery.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
-        FQuery.Active := True;
-        if not FQuery.IsEmpty then
+        FDQ_Total.SQL.Add(') A) B) C) D; ');
+        FDQ_Total.ParamByName('DATA_I').AsDate := StrToDateDef(edFIltro_Dt_I.Text,Date);
+        FDQ_Total.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
+        FDQ_Total.Active := True;
+        if not FDQ_Total.IsEmpty then
         begin
           lbTotalHoras.Text := '';
           lbTotalReceber.Text := '';
-          lbTotalHoras.Text := FQuery.FieldByName('HORA').AsString;
-          lbTotalReceber.Text := FormatFloat('R$ #,##0.00',FQuery.FieldByName('TOTAL').AsFloat);
+          lbTotalHoras.Text := FDQ_Total.FieldByName('HORA').AsString;
+          lbTotalReceber.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('TOTAL').AsFloat);
         end;
       {$EndRegion 'Totalizando'}
 
@@ -1584,7 +1699,7 @@ begin
       FFancyDialog.Show(TIconDialog.Error,'Erro','Selecionar. ' + E.Message,'Ok');
     end;
   finally
-    FreeAndNil(FQuery);
+    FreeAndNil(FDQ_Total);
   end;
 end;
 
