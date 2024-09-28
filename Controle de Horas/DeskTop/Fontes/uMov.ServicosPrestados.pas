@@ -315,6 +315,7 @@ type
     FTab_Status :TTab_Status;
     FPesquisa: Boolean;
     FCliRetorno :Integer;
+    FHorasCalculadas :String;
 
     procedure Sel_Empresa(Aid: Integer; ANome: String);
     procedure Sel_Empresa_Filtro(Aid: Integer; ANome: String);
@@ -344,6 +345,7 @@ type
     procedure ConfirmaPagamento(Sender: TObject);
     procedure CalcularHoras;
     procedure TThredEnd_CalcularHoras(Sender: TOBject);
+    procedure TThreadEnd_ConfirmaPagamento(Sender: TOBject);
   public
     ExecuteOnClose :TExecuteOnClose;
 
@@ -1386,6 +1388,9 @@ begin
       FSegundos := Trunc((Frac(FHorasTrabalhadas) * 60 - FMinutos) * 60);
     {$EndRegion 'Calculando a quantidade de horas pagas'}
 
+    FHorasCalculadas := '';
+    FHorasCalculadas := FHoras.ToString + ':' + FMinutos.ToString + ':' + FSegundos.ToString;
+
     TThread.Synchronize(TThread.CurrentThread,
     procedure
     begin
@@ -1406,16 +1411,107 @@ begin
 end;
 
 procedure TfrmMov_ServicosPrestados.ConfirmaPagamento(Sender: TObject);
+var
+  t :TThread;
 begin
-  try
-    try
-      //Rotina para baixar Horas, gerar saldo restante de horas, baixar lançamentos e gerar saldo restando no lançamento.
-      rctMenuBaixar_Horas.Visible := False;
-    except on E: Exception do
-      FFancyDialog.Show(TIconDialog.Error,'Erro',e.Message,'Ok');
+
+  TLoading.Show(frmMov_ServicosPrestados,'Realizando pagamentos');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FHor, FHor_Paga :Integer;
+    FMin, FMin_Pago :Integer;
+    FSeg, FSeg_Pago :Integer;
+
+    FSegundos, FSegundosPagos :Integer;
+  begin
+    //Rotina para baixar Horas, gerar saldo restante de horas, baixar lançamentos e gerar saldo restando no lançamento.
+    if Trim(FHorasCalculadas) = '' then
+      raise Exception.Create('Não há valor informado');
+    if FDQRegistros.IsEmpty then
+      raise Exception.Create('Não há registros a serem baixados');
+
+    {$Region 'Hora, Minuto e Segundos pagos'}
+      FHor_Paga := 0;
+      FMin_Pago := 0;
+      FSeg_Pago := 0;
+      FSegundosPagos := 0;
+      if Length(FHorasCalculadas) = 8 then
+      begin
+        FHor_Paga := StrToIntDef(Copy(FHorasCalculadas,1,2),0);
+        FMin_Pago := StrToIntDef(Copy(FHorasCalculadas,4,2),0);
+        FSeg_Pago := StrToIntDef(Copy(FHorasCalculadas,7,2),0);
+      end
+      else
+      begin
+        FHor_Paga := StrToIntDef(Copy(FHorasCalculadas,1,3),0);
+        FMin_Pago := StrToIntDef(Copy(FHorasCalculadas,5,2),0);
+        FSeg_Pago := StrToIntDef(Copy(FHorasCalculadas,8,2),0);
+      end;
+
+      FSegundosPagos := (FHor_Paga * 3600) + (FMin_Pago * 60) + FSeg_Pago;
+    {$EndRegion 'Hora, Minuto e Segundos pagos'}
+
+    FDQRegistros.DisableConstraints;
+    FDQRegistros.First;
+    while not FDQRegistros.Eof do
+    begin
+      if FDQRegistrosSTATUS.AsInteger = 0 then
+      begin
+        {
+         if FHor < FHor_Paga then
+           continua := True
+         else
+         begin
+           if FMin < Min_Pago then
+             continua := True
+           else
+           begin
+             if FSeg < Seg_Pago then
+               continua := True
+             else
+               continua := False
+           end;
+         end;
+
+         if continua then
+         begin
+           baixa horas
+           baixa lançamentos
+           abate nas horas pagas
+         end
+         else
+         begin
+           calcula saldo restante
+           lança saldo restante nas horas
+           lança valor do saldo restante nos lançamentos
+         end;
+        }
+      end;
+
+      FDQRegistros.Next;
     end;
-  finally
+
+  end);
+
+  t.OnTerminate := TThreadEnd_ConfirmaPagamento;
+  t.Start;
+end;
+
+procedure TfrmMov_ServicosPrestados.TThreadEnd_ConfirmaPagamento(Sender :TOBject);
+begin
+  FDQRegistros.EnableControls;
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'','Total horas pagas. ' + Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    rctMenuBaixar_Horas.Visible := False;
   end;
+
+  Selecionar_Registros;
 end;
 
 procedure TfrmMov_ServicosPrestados.rctCancelarClick(Sender: TObject);
@@ -1784,15 +1880,15 @@ begin
         FDQ_Total.Sql.Add('        SELECT ');
 				FDQ_Total.Sql.Add('	      	 SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
 				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 2) ');
-				FDQ_Total.Sql.Add('	      		       WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3) ');
+				FDQ_Total.Sql.Add('	      		        WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3) ');
 				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS HORA ');
 				FDQ_Total.Sql.Add('	      	 ,SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
 				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 4 FOR 2) ');
-				FDQ_Total.Sql.Add('	      		       WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 5 FOR 2) ');
+				FDQ_Total.Sql.Add('	      		        WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 5 FOR 2) ');
 				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS MINUTO ');
 				FDQ_Total.Sql.Add('	      	 ,SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
 				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 7 FOR 2) ');
-				FDQ_Total.Sql.Add('	      		       WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 8 FOR 2) ');
+				FDQ_Total.Sql.Add('	      		        WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 8 FOR 2) ');
 				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS SEGUNDO ');
         FDQ_Total.Sql.Add('          ,SUM(SP.TOTAL) AS TOTAL ');
         FDQ_Total.Sql.Add('        FROM SERVICOS_PRESTADOS SP ');
