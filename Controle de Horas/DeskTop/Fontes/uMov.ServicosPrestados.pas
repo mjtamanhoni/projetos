@@ -230,7 +230,7 @@ type
     lytBH_ValorPago: TLayout;
     edBH_ValorPago: TEdit;
     lytBH_Data: TLayout;
-    Edit2: TEdit;
+    edBH_Data: TEdit;
     lytBH_TotalHoras: TLayout;
     lbBH_TotalHoras: TLabel;
     lytBH_Footer: TLayout;
@@ -239,6 +239,10 @@ type
     imgBH_Cancelar: TImage;
     rctBH_Confirmar: TRectangle;
     imgBH_Confirmar: TImage;
+    lytBH_Cliente: TLayout;
+    edBH_Cliente: TEdit;
+    lbBH_Cliente: TLabel;
+    imgBH_Cliente: TImage;
     procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -297,6 +301,12 @@ type
     procedure edHR_TOTALChange(Sender: TObject);
     procedure edHR_TOTALKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure rctBH_CancelarClick(Sender: TObject);
+    procedure imgBH_ClienteClick(Sender: TObject);
+    procedure edBH_ClienteExit(Sender: TObject);
+    procedure edBH_ValorPagoChange(Sender: TObject);
+    procedure edBH_ValorPagoKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edBH_ValorPagoTyping(Sender: TObject);
+    procedure edBH_DataTyping(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -304,6 +314,7 @@ type
     FDm_Global :TDM_Global;
     FTab_Status :TTab_Status;
     FPesquisa: Boolean;
+    FCliRetorno :Integer;
 
     procedure Sel_Empresa(Aid: Integer; ANome: String);
     procedure Sel_Empresa_Filtro(Aid: Integer; ANome: String);
@@ -331,6 +342,8 @@ type
     procedure FecharMes(Sender: TOBject);
     procedure CancelaPagamento(Sender: TObject);
     procedure ConfirmaPagamento(Sender: TObject);
+    procedure CalcularHoras;
+    procedure TThredEnd_CalcularHoras(Sender: TOBject);
   public
     ExecuteOnClose :TExecuteOnClose;
 
@@ -375,13 +388,57 @@ procedure TfrmMov_ServicosPrestados.edACRESCIMOKeyDown(Sender: TObject; var Key:
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edOBSERVACAO.SetFocus;
-
+    edBH_ValorPago.SetFocus;
 end;
 
 procedure TfrmMov_ServicosPrestados.edACRESCIMOTyping(Sender: TObject);
 begin
   Formatar(edACRESCIMO,Money);
+end;
+
+procedure TfrmMov_ServicosPrestados.edBH_ClienteExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.Listar_Cliente(edBH_Cliente.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        lbBH_Cliente.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.edBH_DataTyping(Sender: TObject);
+begin
+  Formatar(edBH_Data,Dt);
+end;
+
+procedure TfrmMov_ServicosPrestados.edBH_ValorPagoChange(Sender: TObject);
+begin
+  edBH_ValorPago.TagFloat := 0;
+  edBH_ValorPago.TagFloat := (StrToFloatDef(TFuncoes.ApenasNumeros(edBH_ValorPago.Text),0) / 100);
+  CalcularHoras;
+end;
+
+procedure TfrmMov_ServicosPrestados.edBH_ValorPagoKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edBH_Data.SetFocus;
+end;
+
+procedure TfrmMov_ServicosPrestados.edBH_ValorPagoTyping(Sender: TObject);
+begin
+  Formatar(edBH_ValorPago,Money);
 end;
 
 procedure TfrmMov_ServicosPrestados.edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -401,7 +458,6 @@ procedure TfrmMov_ServicosPrestados.edDESCONTOKeyDown(Sender: TObject; var Key: 
 begin
   if Key = vkReturn then
     edACRESCIMO.SetFocus;
-
 end;
 
 procedure TfrmMov_ServicosPrestados.edDESCONTOTyping(Sender: TObject);
@@ -414,7 +470,6 @@ procedure TfrmMov_ServicosPrestados.edDESCRICAOKeyDown(Sender: TObject; var Key:
 begin
   if Key = vkReturn then
     edID_EMPRESA.SetFocus;
-
 end;
 
 procedure TfrmMov_ServicosPrestados.edFiltro_Cliente_IDExit(Sender: TObject);
@@ -1043,6 +1098,20 @@ begin
   end;
 end;
 
+procedure TfrmMov_ServicosPrestados.imgBH_ClienteClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Cliente) then
+    Application.CreateForm(TfrmCad_Cliente, frmCad_Cliente);
+
+  FCliRetorno := 1;
+  frmCad_Cliente.Pesquisa := True;
+  frmCad_Cliente.ExecuteOnClose := Sel_Cliente;
+  frmCad_Cliente.Height := frmPrincipal.Height;
+  frmCad_Cliente.Width := frmPrincipal.Width;
+
+  frmCad_Cliente.Show;
+end;
+
 procedure TfrmMov_ServicosPrestados.imgFecharClick(Sender: TObject);
 begin
   Close;
@@ -1094,6 +1163,7 @@ begin
   if NOT Assigned(frmCad_Cliente) then
     Application.CreateForm(TfrmCad_Cliente, frmCad_Cliente);
 
+  FCliRetorno := 0;
   frmCad_Cliente.Pesquisa := True;
   frmCad_Cliente.ExecuteOnClose := Sel_Cliente;
   frmCad_Cliente.Height := frmPrincipal.Height;
@@ -1104,11 +1174,20 @@ end;
 
 procedure TfrmMov_ServicosPrestados.Sel_Cliente(Aid:Integer; ANome:String);
 begin
-  edID_CLIENTE.Text := AId.ToString;
-  edID_CLIENTE_Desc.Text := ANome;
-
-  if edID_TABELA.CanFocus then
-    edID_TABELA.SetFocus;
+  case FCliRetorno of
+    0:begin
+      edID_CLIENTE.Text := AId.ToString;
+      edID_CLIENTE_Desc.Text := ANome;
+      if edID_TABELA.CanFocus then
+        edID_TABELA.SetFocus;
+    end;
+    1:begin
+      edBH_Cliente.Text := AId.ToString;
+      lbBH_Cliente.Text := ANome;
+      if edBH_ValorPago.CanFocus then
+        edBH_ValorPago.SetFocus;
+    end;
+  end;
 end;
 
 procedure TfrmMov_ServicosPrestados.Sel_Cliente_Filtro(Aid: Integer; ANome: String);
@@ -1257,9 +1336,86 @@ begin
   rctMenuBaixar_Horas.Visible := False;
 end;
 
+procedure TfrmMov_ServicosPrestados.CalcularHoras;
+var
+  t :TThread;
+
+begin
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FValorRecebido, FTaxaHoraria, FHorasTrabalhadas: Double;
+    FHoras, FMinutos, FSegundos: Integer;
+    FDQSelect :TFDQuery;
+  begin
+    FValorRecebido := 0;
+    FTaxaHoraria := 0;
+    FHorasTrabalhadas := 0;
+    FHoras := 0;
+    FMinutos := 0;
+    FSegundos := 0;
+
+    if edBH_ValorPago.TagFloat = 0 then
+      raise Exception.Create('Favor informar o valor do pagamento');
+    if Trim(edBH_Cliente.Text) = '' then
+      raise Exception.Create('Favor informar o cliente');
+
+    {$Region 'Calculando a quantidade de horas pagas'}
+      FDQSelect := TFDQuery.Create(Nil);
+      FDQSelect.Connection := FDm_Global.FDC_Firebird;
+      FDQSelect.Active := False;
+      FDQSelect.Sql.Clear;
+      FDQSelect.Sql.Add('SELECT ');
+      FDQSelect.Sql.Add('  C.ID_TAB_PRECO ');
+      FDQSelect.Sql.Add('  ,TP.TIPO ');
+      FDQSelect.Sql.Add('  ,TP.VALOR ');
+      FDQSelect.Sql.Add('FROM CLIENTE C ');
+      FDQSelect.Sql.Add('  JOIN TABELA_PRECO TP ON TP.ID = C.ID_TAB_PRECO ');
+      FDQSelect.Sql.Add('WHERE C.ID = ' + edBH_Cliente.Text);
+      FDQSelect.Active := True;
+      if not FDQSelect.IsEmpty then
+        FTaxaHoraria := FDQSelect.FieldByName('VALOR').AsFloat;
+
+      FValorRecebido := edBH_ValorPago.TagFloat;
+      // Calcule as horas trabalhadas
+      FHorasTrabalhadas := FValorRecebido / FTaxaHoraria;
+
+      // Converta para HH:MM:SS
+      FHoras := Trunc(FHorasTrabalhadas);
+      FMinutos := Trunc(Frac(FHorasTrabalhadas) * 60);
+      FSegundos := Trunc((Frac(FHorasTrabalhadas) * 60 - FMinutos) * 60);
+    {$EndRegion 'Calculando a quantidade de horas pagas'}
+
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      lbBH_TotalHoras.Text := FHoras.ToString + ':' + FMinutos.ToString + ':' + FSegundos.ToString + 'hr pagas';
+    end);
+    FreeAndNil(FDQSelect);
+  end);
+
+  t.OnTerminate := TThredEnd_CalcularHoras;
+  t.Start;
+
+end;
+
+procedure TfrmMov_ServicosPrestados.TThredEnd_CalcularHoras(Sender :TOBject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'','Total horas pagas. ' + Exception(TThread(Sender).FatalException).Message)
+end;
+
 procedure TfrmMov_ServicosPrestados.ConfirmaPagamento(Sender: TObject);
 begin
-  rctMenuBaixar_Horas.Visible := False;
+  try
+    try
+      //Rotina para baixar Horas, gerar saldo restante de horas, baixar lançamentos e gerar saldo restando no lançamento.
+      rctMenuBaixar_Horas.Visible := False;
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',e.Message,'Ok');
+    end;
+  finally
+  end;
 end;
 
 procedure TfrmMov_ServicosPrestados.rctCancelarClick(Sender: TObject);
@@ -1302,37 +1458,12 @@ begin
 end;
 
 procedure TfrmMov_ServicosPrestados.Menu(Sender :TOBject);
-var
-  t :TThread;
-
 begin
-    rctMenu.Width := 0;
-    rctMenu_Tampa.Visible := True;
-    faMenu.StartValue := 0;
-    faMenu.StopValue := 240;
-    faMenu.Start;
-
-{
-  t := TThread.CreateAnonymousThread(
-  procedure
-  begin
-    //faMenu.Inverse := (rctMenu_Tampa.Visible = True);
-    rctMenu.Width := 0;
-    rctMenu_Tampa.Visible := True;
-    faMenu.StartValue := 0;
-    faMenu.StopValue := 240;
-
-    t.Synchronize(TThread.CurrentThread,
-    procedure
-    begin
-      faMenu.Start;
-    end);
-
-  end);
-
-  t.OnTerminate := TThreadEnd_Menu;
-  t.Start;
- }
+  rctMenu.Width := 0;
+  rctMenu_Tampa.Visible := True;
+  faMenu.StartValue := 0;
+  faMenu.StopValue := 240;
+  faMenu.Start;
 end;
 
 procedure TfrmMov_ServicosPrestados.TThreadEnd_Menu(Sender :TObject);

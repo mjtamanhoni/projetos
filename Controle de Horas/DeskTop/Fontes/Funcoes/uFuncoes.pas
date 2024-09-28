@@ -24,11 +24,33 @@ type
 
   public
     class function Datas(AData_1:TDate; AData_2:TDate=0; ADias:Integer=0; AMes:Integer=0; AAno:Integer=0): TDatas;
+    class function ApenasNumeros(const Texto: string): string;
   end;
 
 implementation
 
 { TFuncoes }
+
+class function TFuncoes.ApenasNumeros(const Texto: string): string;
+var
+  i: Integer;
+  Resultado: string;
+begin
+  try
+    try
+      Resultado := '';
+      for i := 1 to Length(Texto) do
+      begin
+        if Texto[i] in ['0'..'9'] then
+          Resultado := Resultado + Texto[i];
+      end;
+      Result := Resultado;
+    except on E: Exception do
+      raise Exception.Create('Erro ao retornar apenas números');
+    end;
+  finally
+  end;
+end;
 
 class function TFuncoes.Datas(AData_1:TDate; AData_2:TDate=0; ADias:Integer=0; AMes:Integer=0; AAno:Integer=0): TDatas;
 var
