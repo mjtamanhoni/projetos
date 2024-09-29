@@ -19,7 +19,8 @@ uses
   uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa},
   uCad.Fornecedor in 'uCad.Fornecedor.pas' {frmCad_Fornecedor},
   uFuncoes in 'Funcoes\uFuncoes.pas',
-  uActionSheet in '..\..\..\Classes\99 Coders\Versao 11\uActionSheet.pas';
+  uActionSheet in '..\..\..\Classes\99 Coders\Versao 11\uActionSheet.pas',
+  uLanc_Financeiros in 'uLanc_Financeiros.pas' {frmLanc_Financeiros};
 
 {$R *.res}
 
