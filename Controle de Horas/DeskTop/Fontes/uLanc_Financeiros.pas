@@ -4,6 +4,20 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+
+  {$Region '99 Coders'}
+    uFancyDialog,
+    uFormat,
+    uLoading,
+    uActionSheet,
+  {$EndRegion '99 Coders'}
+
+  IniFiles,
+  uPrincipal,
+  uDm.Global,
+  uFuncoes,
+
+
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.Objects,

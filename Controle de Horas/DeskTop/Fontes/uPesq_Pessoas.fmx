@@ -1,0 +1,647 @@
+object frmPesq_Pessoas: TfrmPesq_Pessoas
+  Left = 0
+  Top = 0
+  Caption = 'Pesquisa de Pessoas [Cliente/Fornecedor]'
+  ClientHeight = 600
+  ClientWidth = 1000
+  Position = ScreenCenter
+  StyleBook = frmPrincipal.StyleBook_Adapta
+  Transparency = True
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object rctTampa: TRectangle
+    Align = Contents
+    Fill.Color = x64000000
+    Size.Width = 1000.000000000000000000
+    Size.Height = 600.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object lytFormulario: TLayout
+      Align = Client
+      Size.Width = 1000.000000000000000000
+      Size.Height = 600.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object rctDetail: TRectangle
+        Align = Client
+        Fill.Color = claWhite
+        Size.Width = 1000.000000000000000000
+        Size.Height = 600.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFF363428
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 10.000000000000000000
+        YRadius = 10.000000000000000000
+        object rctFooter: TRectangle
+          Align = Bottom
+          Corners = [BottomLeft, BottomRight]
+          Fill.Color = xFF363428
+          Position.Y = 560.000000000000000000
+          Size.Width = 1000.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          object rctIncluir: TRectangle
+            Align = Left
+            Cursor = crHandPoint
+            Fill.Color = xFFA1B24E
+            Margins.Left = 5.000000000000000000
+            Margins.Top = 5.000000000000000000
+            Margins.Right = 5.000000000000000000
+            Margins.Bottom = 5.000000000000000000
+            Position.X = 5.000000000000000000
+            Position.Y = 5.000000000000000000
+            Size.Width = 75.000000000000000000
+            Size.Height = 30.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            XRadius = 5.000000000000000000
+            YRadius = 5.000000000000000000
+            object imgIncluir: TImage
+              MultiResBitmap = <
+                item
+                  Width = 100
+                  Height = 100
+                  PNG = {
+                    89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                    54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                    00E349444154785EEDDBA10DC33010405137D37480A8FBE3A803749B8618560A
+                    09F869DE23676A7D999D0700000000000070638F392FE7B53EBFF3F8D3F6FE5C
+                    F26ECB9C44081223488C203182C4081223488C203182C4081223488C203182C4
+                    081223488C203182C4081223488C203182C4081223488C203182C408122348CC
+                    69FBAF47BBB6FFEEAC5D622F244690184162048911244690184162FC318CF142
+                    6204891124469018416204891124469018416204891124469018416204891124
+                    4690184162048911244690184162048911244690184162048911040000000000
+                    0020628C1DA08D0C7E06072C160000000049454E44AE426082}
+                end>
+              Align = Client
+              HitTest = False
+              Size.Width = 75.000000000000000000
+              Size.Height = 30.000000000000000000
+              Size.PlatformDefault = False
+            end
+          end
+        end
+        object rctHeader: TRectangle
+          Align = Top
+          Corners = [TopLeft, TopRight]
+          Fill.Color = xFF363428
+          Size.Width = 1000.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          object lbTitle: TLabel
+            Align = Contents
+            StyledSettings = [Family, Size]
+            Size.Width = 1000.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = xFFA1B24E
+            TextSettings.HorzAlign = Center
+            Text = 'SERVI'#199'OS PRESTADOS'
+            TabOrder = 0
+            object ShadowEffect3: TShadowEffect
+              Distance = 3.000000000000000000
+              Direction = 45.000000000000000000
+              Softness = 0.300000011920929000
+              Opacity = 0.600000023841857900
+              ShadowColor = claBlack
+            end
+          end
+          object imgFechar: TImage
+            MultiResBitmap = <
+              item
+                Width = 50
+                Height = 50
+                PNG = {
+                  89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
+                  B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                  0189494441546843ED99514E8340104067E1A37F6D6FA0DEA0DEC07EF9D342FD
+                  37811B7804DB13E81120F1DFB0ADDF3D82F506F5046AFF616570154C4C5A64E8
+                  2EC9BC04D89D848497D9496602300CC3740AA19F0591F4EE04A43300F754872C
+                  25DD2A70A3D0930B1D28456239B907706EF4B61B28B508FCE51C971591CB3780
+                  DED075C4F9F524D9E8702BC4D2537AD990741B784F67B8728A7D416F88F7B625
+                  68294BA022D26D58C43658C43658C43658C436C844E264FA8CD7E3DA2F3A8463
+                  4326A2941020C468B7CBD62664C844060371A132783125432672354EDE4DCA90
+                  16BB4999CA3CF23523049EFC35356201E347E96D7D94DAF4FBCE18257584701E
+                  29BF776F468A226E40D3F70F656F46EA8247098F1466118F181EB56A36102319
+                  A9C321126D41266252022113312981908960519B9240C844C2991CE165420221
+                  2D7693B0886DB0886DB0886DB0886DFC8828957DE0F361E5FF7F883A32794BF4
+                  AA9795792499CEF3A6EF566FBBC15FBFDE1094C99BBF503870A243568299C85B
+                  D4E85B826118A66B007C028EADB84B01DEE4EF0000000049454E44AE426082}
+              end>
+            Align = Right
+            Cursor = crHandPoint
+            Margins.Top = 2.000000000000000000
+            Margins.Bottom = 2.000000000000000000
+            Position.X = 952.000000000000000000
+            Position.Y = 2.000000000000000000
+            Size.Width = 48.000000000000000000
+            Size.Height = 31.000000000000000000
+            Size.PlatformDefault = False
+          end
+        end
+        object ShadowEffect4: TShadowEffect
+          Distance = 5.000000000000000000
+          Direction = 45.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+        object tcPrincipal: TTabControl
+          Align = Client
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Size.Width = 990.000000000000000000
+          Size.Height = 515.000000000000000000
+          Size.PlatformDefault = False
+          TabIndex = 0
+          TabOrder = 2
+          TabPosition = None
+          Sizes = (
+            990s
+            515s)
+          object tiLista: TTabItem
+            CustomIcon = <
+              item
+              end>
+            IsSelected = True
+            Size.Width = 8.000000000000000000
+            Size.Height = 8.000000000000000000
+            Size.PlatformDefault = False
+            StyleLookup = ''
+            TabOrder = 0
+            Text = 'tiLista'
+            ExplicitSize.cx = 8.000000000000000000
+            ExplicitSize.cy = 8.000000000000000000
+            object lytPesquisa: TLayout
+              Align = Top
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Position.X = 5.000000000000000000
+              Position.Y = 5.000000000000000000
+              Size.Width = 980.000000000000000000
+              Size.Height = 50.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              object lytFiltro_Tipo: TLayout
+                Align = Left
+                Margins.Right = 2.000000000000000000
+                Size.Width = 185.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                object rctFiltro_Tipo: TRectangle
+                  Align = Client
+                  Fill.Kind = None
+                  Size.Width = 185.000000000000000000
+                  Size.Height = 50.000000000000000000
+                  Size.PlatformDefault = False
+                  Stroke.Color = xFF363428
+                  XRadius = 4.500000000000000000
+                  YRadius = 4.500000000000000000
+                  object lbFiltro_Tipo: TLabel
+                    Align = Top
+                    Margins.Left = 3.000000000000000000
+                    Position.X = 3.000000000000000000
+                    Size.Width = 182.000000000000000000
+                    Size.Height = 17.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = 'Tipo'
+                    TabOrder = 0
+                  end
+                  object edFiltro_Tipo: TComboBox
+                    Align = Client
+                    Items.Strings = (
+                      'TODOS'
+                      'CLIENTE'
+                      'FORNECEDOR')
+                    ItemIndex = 0
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 2.000000000000000000
+                    Margins.Right = 2.000000000000000000
+                    Margins.Bottom = 2.000000000000000000
+                    Size.Width = 181.000000000000000000
+                    Size.Height = 29.000000000000000000
+                    Size.PlatformDefault = False
+                    StyleLookup = 'ComboBox1Style_Adapta'
+                    TabOrder = 5
+                  end
+                end
+              end
+              object lytFiltro_Pessoa: TLayout
+                Align = Client
+                Size.Width = 793.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object rctFiltro_Pessoa: TRectangle
+                  Align = Client
+                  Fill.Kind = None
+                  Size.Width = 793.000000000000000000
+                  Size.Height = 50.000000000000000000
+                  Size.PlatformDefault = False
+                  Stroke.Color = xFF363428
+                  XRadius = 4.500000000000000000
+                  YRadius = 4.500000000000000000
+                  object edFiltro_Pessoa: TEdit
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Client
+                    StyleLookup = 'Editstyle_Adapta'
+                    TabOrder = 1
+                    TextSettings.Font.Size = 14.000000000000000000
+                    TextSettings.Font.StyleExt = {00060000000000000004000000}
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 2.000000000000000000
+                    Margins.Right = 3.000000000000000000
+                    Margins.Bottom = 3.000000000000000000
+                    Size.Width = 718.000000000000000000
+                    Size.Height = 28.000000000000000000
+                    Size.PlatformDefault = False
+                    TextPrompt = 'Descri'#231#227'o'
+                    StyledSettings = [Family, FontColor]
+                    CharCase = ecUpperCase
+                  end
+                  object edFiltro_Pessoa_ID: TEdit
+                    Tag = 2
+                    Touch.InteractiveGestures = [LongTap, DoubleTap]
+                    Align = Left
+                    StyleLookup = 'Editstyle_Adapta'
+                    TabOrder = 2
+                    FilterChar = '0123456789'
+                    TextSettings.Font.Size = 14.000000000000000000
+                    TextSettings.Font.StyleExt = {00060000000000000004000000}
+                    Position.X = 3.000000000000000000
+                    Position.Y = 19.000000000000000000
+                    Margins.Left = 3.000000000000000000
+                    Margins.Top = 2.000000000000000000
+                    Margins.Right = 2.000000000000000000
+                    Margins.Bottom = 3.000000000000000000
+                    Size.Width = 65.000000000000000000
+                    Size.Height = 28.000000000000000000
+                    Size.PlatformDefault = False
+                    TextPrompt = 'C'#243'digo'
+                    StyledSettings = [Family, FontColor]
+                    CharCase = ecLowerCase
+                  end
+                  object lytFiltro_Pessoa_Tit: TLabel
+                    Align = Top
+                    Margins.Left = 3.000000000000000000
+                    Margins.Right = 3.000000000000000000
+                    Position.X = 3.000000000000000000
+                    Size.Width = 787.000000000000000000
+                    Size.Height = 17.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = 'Pessoa'
+                    TabOrder = 0
+                  end
+                end
+              end
+            end
+            object lytLista: TLayout
+              Align = Client
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Size.Width = 980.000000000000000000
+              Size.Height = 450.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              object dxfmGrid1: TdxfmGrid
+                Align = Client
+                Size.Width = 980.000000000000000000
+                Size.Height = 450.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                object dxfmGrid1RootLevel1: TdxfmGridRootLevel
+                  DataController.DataSource = DSRegistros
+                  DataController.KeyFieldNames = 'ID'
+                  AppearanceClassName = 'TdxfmGridTableAppearance'
+                  OptionsData.Appending = False
+                  OptionsData.Deleting = False
+                  OptionsData.DeletingConfirmation = False
+                  OptionsData.Editing = False
+                  OptionsData.Inserting = False
+                  object dxfmGrid1RootLevel1TIPO: TdxfmGridColumn
+                    FieldName = 'TIPO'
+                    HeaderText = 'Tipo'
+                    Kind = Text
+                    Width = 100.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1ID: TdxfmGridColumn
+                    FieldName = 'ID'
+                    HeaderText = 'Id'
+                    Kind = Integer
+                    Width = 75.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1NOME: TdxfmGridColumn
+                    FieldName = 'NOME'
+                    HeaderText = 'Nome'
+                    Kind = Text
+                    Width = 300.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1PESSOA_DESC: TdxfmGridColumn
+                    FieldName = 'PESSOA_DESC'
+                    HeaderText = 'Pessoa'
+                    Kind = Text
+                    Width = 100.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1PESSOA: TdxfmGridColumn
+                    FieldName = 'PESSOA'
+                    Visible = False
+                  end
+                  object dxfmGrid1RootLevel1DOCUMENTO: TdxfmGridColumn
+                    FieldName = 'DOCUMENTO'
+                    HeaderText = 'Documento'
+                    Kind = Text
+                    Width = 150.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1INSC_EST: TdxfmGridColumn
+                    FieldName = 'INSC_EST'
+                    HeaderText = 'Insc. Estadual'
+                    Kind = Text
+                    Width = 120.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1ENDERECO: TdxfmGridColumn
+                    FieldName = 'ENDERECO'
+                    HeaderText = 'Endere'#231'o'
+                    Kind = Text
+                    Width = 300.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1COMPLEMENTO: TdxfmGridColumn
+                    FieldName = 'COMPLEMENTO'
+                    HeaderText = 'Complemento'
+                    Kind = Text
+                    Width = 300.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1NUMERO: TdxfmGridColumn
+                    FieldName = 'NUMERO'
+                    HeaderText = 'Nr.'
+                    Kind = Text
+                    Width = 50.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1BAIRRO: TdxfmGridColumn
+                    FieldName = 'BAIRRO'
+                    HeaderText = 'Bairro'
+                    Kind = Text
+                    Width = 250.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1CIDADE: TdxfmGridColumn
+                    FieldName = 'CIDADE'
+                    HeaderText = 'Cidade'
+                    Kind = Text
+                    Width = 250.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1UF: TdxfmGridColumn
+                    FieldName = 'UF'
+                    Kind = Text
+                    Width = 50.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1TELEFONE: TdxfmGridColumn
+                    FieldName = 'TELEFONE'
+                    HeaderText = 'Telefone'
+                    Kind = Text
+                    Width = 110.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1CELULAR: TdxfmGridColumn
+                    FieldName = 'CELULAR'
+                    HeaderText = 'Celular'
+                    Kind = Text
+                    Width = 100.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1EMAIL: TdxfmGridColumn
+                    FieldName = 'EMAIL'
+                    HeaderText = 'E-Mail'
+                    Kind = Text
+                    Width = 300.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1ID_TAB_PRECO: TdxfmGridColumn
+                    FieldName = 'ID_TAB_PRECO'
+                    HeaderText = 'Tabela'
+                    Kind = Integer
+                    Width = 50.000000000000000000
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+  object FDQRegistros: TFDQuery
+    Connection = DM_Global.FDC_Firebird
+    SQL.Strings = (
+      'SELECT '
+      #9'C.TIPO'
+      #9',C.ID'
+      #9',C.NOME'
+      #9',C.PESSOA '
+      #9',C.DOCUMENTO '
+      #9',C.INSC_EST '
+      #9',C.ENDERECO '
+      #9',C.COMPLEMENTO '
+      #9',C.NUMERO '
+      #9',C.BAIRRO '
+      #9',C.CIDADE '
+      #9',C.UF '
+      #9',C.TELEFONE '
+      #9',C.CELULAR '
+      #9',C.EMAIL'
+      #9',C.ID_TAB_PRECO '
+      #9',CASE C.PESSOA'
+      #9#9'WHEN 0 THEN '#39'F'#205'SICA'#39
+      #9#9'WHEN 1 THEN '#39'JUR'#205'DICA'#39
+      #9'END PESSOA_DESC'
+      'FROM RDB$DATABASE'
+      #9'JOIN (SELECT'
+      #9#9#9#9#9#39'CLIENTE'#39' AS TIPO'
+      #9#9#9#9#9',C.ID'
+      #9#9#9#9#9',C.NOME'
+      #9#9#9#9#9',C.PESSOA '
+      #9#9#9#9#9',C.DOCUMENTO '
+      #9#9#9#9#9',C.INSC_EST '
+      #9#9#9#9#9',C.ENDERECO '
+      #9#9#9#9#9',C.COMPLEMENTO '
+      #9#9#9#9#9',C.NUMERO '
+      #9#9#9#9#9',C.BAIRRO '
+      #9#9#9#9#9',C.CIDADE '
+      #9#9#9#9#9',C.UF '
+      #9#9#9#9#9',C.TELEFONE '
+      #9#9#9#9#9',C.CELULAR '
+      #9#9#9#9#9',C.EMAIL'
+      #9#9#9#9#9',C.ID_TAB_PRECO '
+      #9#9#9#9'FROM CLIENTE C'
+      #9#9#9#9'UNION ALL'
+      #9#9#9#9'SELECT'
+      #9#9#9#9#9#39'FOENECEDOR'#39' AS TIPO'
+      #9#9#9#9#9',F.ID'
+      #9#9#9#9#9',F.NOME'
+      #9#9#9#9#9',F.PESSOA '
+      #9#9#9#9#9',F.DOCUMENTO '
+      #9#9#9#9#9',F.INSC_EST '
+      #9#9#9#9#9',F.ENDERECO '
+      #9#9#9#9#9',F.COMPLEMENTO '
+      #9#9#9#9#9',F.NUMERO '
+      #9#9#9#9#9',F.BAIRRO '
+      #9#9#9#9#9',F.CIDADE '
+      #9#9#9#9#9',F.UF '
+      #9#9#9#9#9',F.TELEFONE '
+      #9#9#9#9#9',F.CELULAR '
+      #9#9#9#9#9',F.EMAIL'
+      #9#9#9#9#9',0 AS ID_TAB_PRECO '
+      #9#9#9#9'FROM FORNECEDOR F) C ON 1=1'
+      'WHERE NOT C.ID IS NULL'
+      'ORDER BY 1,2;'
+      '')
+    Left = 336
+    Top = 360
+    object FDQRegistrosTIPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 10
+    end
+    object FDQRegistrosID: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQRegistrosNOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 255
+    end
+    object FDQRegistrosPESSOA: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'PESSOA'
+      Origin = 'PESSOA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQRegistrosDOCUMENTO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DOCUMENTO'
+      Origin = 'DOCUMENTO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQRegistrosINSC_EST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'INSC_EST'
+      Origin = 'INSC_EST'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQRegistrosENDERECO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ENDERECO'
+      Origin = 'ENDERECO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 255
+    end
+    object FDQRegistrosCOMPLEMENTO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 255
+    end
+    object FDQRegistrosNUMERO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 10
+    end
+    object FDQRegistrosBAIRRO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object FDQRegistrosCIDADE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CIDADE'
+      Origin = 'CIDADE'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object FDQRegistrosUF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UF'
+      Origin = 'UF'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 2
+    end
+    object FDQRegistrosTELEFONE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TELEFONE'
+      Origin = 'TELEFONE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQRegistrosCELULAR: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQRegistrosEMAIL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 255
+    end
+    object FDQRegistrosID_TAB_PRECO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ID_TAB_PRECO'
+      Origin = 'ID_TAB_PRECO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object FDQRegistrosPESSOA_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PESSOA_DESC'
+      Origin = 'PESSOA_DESC'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 8
+    end
+  end
+  object DSRegistros: TDataSource
+    DataSet = FDQRegistros
+    Left = 288
+    Top = 360
+  end
+end

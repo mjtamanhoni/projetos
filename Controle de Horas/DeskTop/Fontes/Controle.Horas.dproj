@@ -334,6 +334,10 @@
             <Form>frmLanc_Financeiros</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uPesq_Pessoas.pas">
+            <Form>frmPesq_Pessoas</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
