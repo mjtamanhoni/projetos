@@ -2,14 +2,16 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
   Left = 0
   Top = 0
   Caption = 'Lan'#231'amentos Financeiros'
-  ClientHeight = 600
-  ClientWidth = 1000
+  ClientHeight = 688
+  ClientWidth = 1109
   Position = ScreenCenter
   StyleBook = frmPrincipal.StyleBook_Adapta
   Transparency = True
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
   DesignerMasterStyle = 0
   object OpenDialog: TOpenDialog
     Left = 189
@@ -75,21 +77,21 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
   object rctTampa: TRectangle
     Align = Contents
     Fill.Color = x64000000
-    Size.Width = 1000.000000000000000000
-    Size.Height = 600.000000000000000000
+    Size.Width = 1109.000000000000000000
+    Size.Height = 688.000000000000000000
     Size.PlatformDefault = False
     Stroke.Kind = None
     object lytFormulario: TLayout
       Align = Client
-      Size.Width = 1000.000000000000000000
-      Size.Height = 600.000000000000000000
+      Size.Width = 1109.000000000000000000
+      Size.Height = 688.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object rctDetail: TRectangle
         Align = Client
         Fill.Color = claWhite
-        Size.Width = 1000.000000000000000000
-        Size.Height = 600.000000000000000000
+        Size.Width = 1109.000000000000000000
+        Size.Height = 688.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = xFF363428
         Stroke.Thickness = 2.000000000000000000
@@ -99,8 +101,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
           Align = Bottom
           Corners = [BottomLeft, BottomRight]
           Fill.Color = xFF363428
-          Position.Y = 560.000000000000000000
-          Size.Width = 1000.000000000000000000
+          Position.Y = 648.000000000000000000
+          Size.Width = 1109.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
@@ -418,7 +420,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Margins.Top = 5.000000000000000000
             Margins.Right = 5.000000000000000000
             Margins.Bottom = 5.000000000000000000
-            Position.X = 915.000000000000000000
+            Position.X = 1024.000000000000000000
             Position.Y = 5.000000000000000000
             Size.Width = 80.000000000000000000
             Size.Height = 30.000000000000000000
@@ -434,34 +436,34 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   PNG = {
                     89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                     54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                    035149444154785EEDDB4F4854511406F07BEF73661C461441372A516189466D
-                    9271A1E0C6459B3011095A042DDB4744AB566D5AB62C825A49062144B5104234
-                    FC97D4A6D1FE2C0A1A0B7423383A6F66DEBDCDE8095A24A4F346BE07DF6FF3CE
-                    3DE0209CF7DECC9D379F22222222A21AD0728C948181B3CDC57C71CC2A37AC6D
-                    D0E94CB1ADD2D736B6A68CF96CB4996C684A4D4C4D2D6FEEFE4184446A20FDFD
-                    3DC74ABEBDEDD4D635A51AE2D2FE27BFA8F2F531FB309E34776766567F4A1B5E
-                    6406924EF78CF9BE7D9288A97A69FD27BBED6973796E69F58534A079728496EE
-                    EDBEA19C7B50E7A93A691D808E39A5AEB477B4FEC86637DE4B1316FC15D2D7DB
-                    35EA947E26CB6A5865BCA1C5C58F6F640D097A20E9F4B913BE5FC81CFC36B5AF
-                    CD787DFDA9D9D90FEBB28663E408C9950AF7421C464553C1F7EF480D09F60AE9
-                    EB3BD3ED822023CB502553A9D6E9E9E50D5942C1BD42AC1D952A74F9DCCE4529
-                    E1C00EC4397741CAD039676BF6DAD5C21D880A3AA40C9F73A7A582033B10AD74
-                    AB94E133EAB85470803F6595CAFBB9DA702A7F880DE6D1001E48FC9714A1DBFD
-                    121214EC40AC52DFA50C9D36E69B9470600762947E2D65E89C32AFA484833B90
-                    3AFD5CCAD079B1DABD76B56007323F9FF95A3E959FCA3244F6F1DCDC4ACD6E87
-                    D5027E532F9FC9717DB3F2A049962128E492BAEE962C20410FA472262712E6AA
-                    2CAB65B5171F995ECAD4ECD35B18E01F5065B3EB998EF696CA5532B4D7392467
-                    AE2F2EADD4E01618AE483C31CCAE6DBCED686BF9A4546EB8BC3F39E0FF6CB7B5
-                    672E9587312E0D68D0B7ACBF2DBC5B1D57A6B94B5BF5686B6BA724ED7DC97BCF
-                    FD44D2742E2CACBCDCEBE28BD4AF4EFE181C3CDF92DFCE8D38A74603179CF474
-                    D0E654E07490CC2ACF7E51C64C3436A626A3F833202222222222A2A316C98D21
-                    F32120980F01C27C0810E64380301F0284F91030CC8700613E040DF32158980F
-                    01C37C0818E643E0301F0286F91028CC8780613E040CF32160980F01C47C0818
-                    E64300311F0288F91040CC8700633E848888888888283C91DC18321F0282F910
-                    20CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030CC878061
-                    3E040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E0410F321
-                    80980F01C47C0830E64388888888E82094FA0DC8F74D5DA9E359E20000000049
-                    454E44AE426082}
+                    034F49444154785EEDDB4F4814611806F0F7FBC6DD753194482F2A516189465D
+                    92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
+                    FC97D4A5D5FE1C0A5A0BF4A2A1EEAAF37DB9FA061D12D29D9567E0F95DE6FD5E
+                    D865E19D99DDD9994788888888A80C8C6E63A5B3F3CCE18DFC46BF13DF635CD8
+                    E4ED467DB16F5C625EACFD648D1D3A545335383C3CB3B4FD821889D5403A3A5A
+                    8F6E16DC2D2FCB5745AA93DAFEA7C286E42B13EE41326DEF8C8ECEFDD036BCD8
+                    0C249369ED2F14DCE354422AB5F59FDC6A60ECA5F1E9B9E7DA8016E8165AA6AD
+                    E5BA787FBF22900A6DED81497891CB0D8D75DF73B9C577DA84057F84B4B735F7
+                    79314F75590A2736E89E9AFAF05AD790A00792C99C3D5E28AC67F77E9ADAD552
+                    B2B2F2E4D8D8FB055DC3B1BA85E437D7EF46388CA29AF542E1B6D690608F90F6
+                    F6D32D3E0CB3BA8C54BAAAAA6E646466519750708F10E7FAB48A5C7E65ED8296
+                    706007E2BD3FAF65E4BC77657BEF52E10E44C2462DA3E7FD29ADE0C00EC488A9
+                    D3327A568E690507F857D6E6D6F55C7978C9EFE302F360000F24F9538BC86DFF
+                    09090A76204EE49B969133D67ED5120EEC40AC98575A46CE8B7DA9251CDC8154
+                    98675A462E4894EFBD4B053B908989EC97AD5DF9892E23E41E8D8FCF96ED7458
+                    2AE02FF5AD3D39696E146F34E93202EB2B695371531790A00752DC9353297B45
+                    97A5722648F68E4C67CBF6EB2D0AF037A872B9856C63436DF128E9DEE9EC93B7
+                    D7A6A667CB700A8C562CEE18E6E617DF34D6D77E14F9D52392DAE36776AB26B0
+                    17B78631A00D68D0A7ACBF4DBE9D1B107BA4D93879B8BCBCB6A9ED5DE977CFBD
+                    54DA364D4ECEBED8E9E28BD553277F74759DABCDAFAEF47A2F7DA10F4F0426AC
+                    F7127A13A67312B8CF62ED607575D5501C1F032222222222223A68B1BC30643E
+                    0404F32140980F01C27C0810E64380301F0286F91020CC87A0613E040BF32160
+                    980F01C37C081CE643C0301F0285F91030CC8780613E040CF32180980F01C37C
+                    0820E64300311F0288F91060CC871011111111114527961786CC8780603E0408
+                    F32140980F01C27C0810E643C0301F0284F91034CC8760613E040CF32160980F
+                    81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F01C47C0820
+                    E64300311F028CF91022222222DA0B91DF968F4D5482D413A20000000049454E
+                    44AE426082}
                 end>
               Align = Client
               HitTest = False
@@ -479,7 +481,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Margins.Top = 5.000000000000000000
             Margins.Right = 5.000000000000000000
             Margins.Bottom = 5.000000000000000000
-            Position.X = 435.000000000000000000
+            Position.X = 544.000000000000000000
             Position.Y = 5.000000000000000000
             Size.Width = 150.000000000000000000
             Size.Height = 30.000000000000000000
@@ -524,7 +526,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Margins.Top = 5.000000000000000000
             Margins.Right = 10.000000000000000000
             Margins.Bottom = 5.000000000000000000
-            Position.X = 590.000000000000000000
+            Position.X = 699.000000000000000000
             Position.Y = 5.000000000000000000
             Size.Width = 150.000000000000000000
             Size.Height = 30.000000000000000000
@@ -569,7 +571,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Margins.Top = 5.000000000000000000
             Margins.Right = 10.000000000000000000
             Margins.Bottom = 5.000000000000000000
-            Position.X = 750.000000000000000000
+            Position.X = 859.000000000000000000
             Position.Y = 5.000000000000000000
             Size.Width = 150.000000000000000000
             Size.Height = 30.000000000000000000
@@ -613,7 +615,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
           Align = Top
           Corners = [TopLeft, TopRight]
           Fill.Color = xFF363428
-          Size.Width = 1000.000000000000000000
+          Size.Width = 1109.000000000000000000
           Size.Height = 35.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
@@ -622,7 +624,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
           object lbTitle: TLabel
             Align = Contents
             StyledSettings = [Family, Size]
-            Size.Width = 1000.000000000000000000
+            Size.Width = 1109.000000000000000000
             Size.Height = 35.000000000000000000
             Size.PlatformDefault = False
             TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -664,11 +666,12 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Cursor = crHandPoint
             Margins.Top = 2.000000000000000000
             Margins.Bottom = 2.000000000000000000
-            Position.X = 952.000000000000000000
+            Position.X = 1061.000000000000000000
             Position.Y = 2.000000000000000000
             Size.Width = 48.000000000000000000
             Size.Height = 31.000000000000000000
             Size.PlatformDefault = False
+            OnClick = imgFecharClick
           end
         end
         object ShadowEffect4: TShadowEffect
@@ -684,17 +687,17 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
           Margins.Top = 5.000000000000000000
           Margins.Right = 5.000000000000000000
           Margins.Bottom = 5.000000000000000000
-          Size.Width = 990.000000000000000000
-          Size.Height = 515.000000000000000000
+          Size.Width = 1099.000000000000000000
+          Size.Height = 603.000000000000000000
           Size.PlatformDefault = False
           TabIndex = 0
           TabOrder = 2
           TabPosition = None
           Sizes = (
-            990s
-            515s
-            990s
-            515s)
+            1099s
+            603s
+            1099s
+            603s)
           object tiLista: TTabItem
             CustomIcon = <
               item
@@ -715,21 +718,22 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               Margins.Right = 5.000000000000000000
               Position.X = 5.000000000000000000
               Position.Y = 5.000000000000000000
-              Size.Width = 980.000000000000000000
+              Size.Width = 1089.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 1
               object lytFiltro_Periodo: TLayout
                 Align = Left
                 Margins.Right = 2.000000000000000000
-                Size.Width = 185.000000000000000000
+                Position.X = 102.000000000000000000
+                Size.Width = 290.000000000000000000
                 Size.Height = 50.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 3
+                TabOrder = 4
                 object rctFiltro_Periodo: TRectangle
                   Align = Client
                   Fill.Kind = None
-                  Size.Width = 185.000000000000000000
+                  Size.Width = 290.000000000000000000
                   Size.Height = 50.000000000000000000
                   Size.PlatformDefault = False
                   Stroke.Color = xFF363428
@@ -739,7 +743,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Align = Top
                     Margins.Left = 3.000000000000000000
                     Position.X = 3.000000000000000000
-                    Size.Width = 182.000000000000000000
+                    Size.Width = 287.000000000000000000
                     Size.Height = 17.000000000000000000
                     Size.PlatformDefault = False
                     Text = 'Per'#237'odo'
@@ -763,7 +767,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     TextSettings.Font.Size = 14.000000000000000000
                     TextSettings.Font.StyleExt = {00060000000000000004000000}
                     TextSettings.HorzAlign = Center
-                    Position.X = 3.000000000000000000
+                    Position.X = 108.000000000000000000
                     Position.Y = 19.000000000000000000
                     Margins.Left = 3.000000000000000000
                     Margins.Top = 2.000000000000000000
@@ -775,6 +779,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     TextPrompt = '00/00/0000'
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
+                    OnChange = edFIltro_Dt_IChange
                   end
                   object edFIltro_Dt_F: TEdit
                     Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -785,7 +790,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     TextSettings.Font.Size = 14.000000000000000000
                     TextSettings.Font.StyleExt = {00060000000000000004000000}
                     TextSettings.HorzAlign = Center
-                    Position.X = 100.000000000000000000
+                    Position.X = 205.000000000000000000
                     Position.Y = 19.000000000000000000
                     Margins.Left = 3.000000000000000000
                     Margins.Top = 2.000000000000000000
@@ -797,21 +802,41 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     TextPrompt = '00/00/0000'
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
+                    OnChange = edFIltro_Dt_FChange
+                  end
+                  object cbFiltro_Tipo_Periodo: TComboBox
+                    Align = Left
+                    Items.Strings = (
+                      'EMISS'#195'O'
+                      'VENCIMENTO')
+                    ItemIndex = 1
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 2.000000000000000000
+                    Margins.Right = 2.000000000000000000
+                    Margins.Bottom = 2.000000000000000000
+                    Position.X = 2.000000000000000000
+                    Position.Y = 19.000000000000000000
+                    Size.Width = 101.000000000000000000
+                    Size.Height = 29.000000000000000000
+                    Size.PlatformDefault = False
+                    StyleLookup = 'ComboBox1Style_Adapta'
+                    TabOrder = 5
+                    OnChange = cbFiltro_Tipo_PeriodoChange
                   end
                 end
               end
               object lytFiltro_Empresa: TLayout
                 Align = Left
                 Margins.Right = 2.000000000000000000
-                Position.X = 187.000000000000000000
-                Size.Width = 264.000000000000000000
+                Position.X = 394.000000000000000000
+                Size.Width = 265.000000000000000000
                 Size.Height = 50.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 2
+                TabOrder = 3
                 object rctFiltro_Empresa: TRectangle
                   Align = Client
                   Fill.Kind = None
-                  Size.Width = 264.000000000000000000
+                  Size.Width = 265.000000000000000000
                   Size.Height = 50.000000000000000000
                   Size.PlatformDefault = False
                   Stroke.Color = xFF363428
@@ -821,7 +846,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Align = Top
                     Margins.Left = 3.000000000000000000
                     Position.X = 3.000000000000000000
-                    Size.Width = 261.000000000000000000
+                    Size.Width = 262.000000000000000000
                     Size.Height = 17.000000000000000000
                     Size.PlatformDefault = False
                     Text = 'Empresa'
@@ -847,6 +872,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     TextPrompt = 'C'#243'digo'
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
+                    OnChange = edFiltro_Empresa_IDChange
                     object imgFiltro_Empresa: TImage
                       MultiResBitmap = <
                         item
@@ -857,7 +883,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                             54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
                             034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
                             D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
-                            2BA94BAB7D1C0A5A8BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
+                            2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
                             BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
                             7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
                             87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
@@ -881,7 +907,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                             01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
                             3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
                             70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
-                            7C0820E64380311F4244444444BB21F21B67474D2A73702B910000000049454E
+                            7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
                             44AE426082}
                         end>
                       Align = Right
@@ -891,6 +917,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                       Size.Width = 15.000000000000000000
                       Size.Height = 28.000000000000000000
                       Size.PlatformDefault = False
+                      OnClick = imgFiltro_EmpresaClick
                     end
                   end
                   object edFiltro_Empresa: TEdit
@@ -905,7 +932,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Margins.Top = 2.000000000000000000
                     Margins.Right = 3.000000000000000000
                     Margins.Bottom = 3.000000000000000000
-                    Size.Width = 189.000000000000000000
+                    Size.Width = 190.000000000000000000
                     Size.Height = 28.000000000000000000
                     Size.PlatformDefault = False
                     TextPrompt = 'Descri'#231#227'o'
@@ -914,182 +941,16 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   end
                 end
               end
-              object lytFiltro_Status: TLayout
-                Align = Left
-                Margins.Right = 2.000000000000000000
-                Position.X = 453.000000000000000000
-                Size.Width = 200.000000000000000000
-                Size.Height = 50.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 1
-                object rctFiltro_Prestador: TRectangle
-                  Align = Client
-                  Fill.Kind = None
-                  Size.Width = 200.000000000000000000
-                  Size.Height = 50.000000000000000000
-                  Size.PlatformDefault = False
-                  Stroke.Color = xFF363428
-                  XRadius = 4.500000000000000000
-                  YRadius = 4.500000000000000000
-                  object imgFiltro_Aberto: TImage
-                    Tag = 1
-                    MultiResBitmap = <
-                      item
-                        Width = 100
-                        Height = 100
-                        PNG = {
-                          89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                          54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          07E649444154785EEDDD6D6C5B671507F0739E6B27A4A9BA8E8CC2AA891624D6
-                          38690BA27E69D695088D367D59B7555B296BBF944A4C083184F6614814542A26
-                          8600A91F40208DD72175A28ADA491B55A2053665ED1AFBDAD1A0C912972111C1
-                          5E5AD6AA55D7972DB19FC373AF4F0B0E71EEB5BDD8D7CDF97DF1738E5BB7F2FF
-                          BEF9F1BDD720841042082184103586FC589558ACB30748F7205282342C358F4B
-                          CC4B2FE0A76F527455139E55086F11A0AD2CEA4BA5B203FC64C5AA0A2416EBD8
-                          658238685EC4042000F4DB08F8682A73FA0837CA565120EBD7B7DFFEDE357C1A
-                          8136704BFC2F84E75B16B4EE1D1C1C3EC71DDFCA0E241E8F3C405AFFC62C09B7
-                          724BCC40139D5556E861DB7EED256EF95256206BA39DDB34E49FE35278D3A0AC
-                          2F94138AEF40BABA22CB7253F95104B5905BC20FADCF63B8A933951A3DCB9D59
-                          297EF494CF51AF845101A5DA203FF97BAE3CF90A24115BB10708625C8A3211A8
-                          8D8944640B97B3F21508E5E1491E8A0A514EFF8887B3F20C241EEFFC3C28FC18
-                          97A252889D774557ADE0AA24CF40CC21EE361E8A2AE571F25E1E96E4190822DD
-                          CD43512DC2F53C2AC97B1F42F4511E892A69804FF2B0243F3BF5DBF95154C97C
-                          E8FB380F4BF21108867920AA770B3F96E4670D11352481048C0412301248C048
-                          20012381048C0412301248C048201E08E8020F6B42029905019C0A37B52D2384
-                          DF726BCE49202568823716A0EA3979F2E4BBE974762F227ECD4434C54FCF1909
-                          64467435140E6F194C8F9DE106A4D2E3BFD000492EE78C04F2FF345AF8403239
-                          32C2B52B1E8DFC5081F7F719D59240A6319BA6AF4F3F47D73D6516E85B5CCE29
-                          09A4D84F9D4D138F5D77C5DABB90F2BFE372CE49208C0007366FDDF94D2E5D89
-                          C48AE55344C76AF99D90046298C3DBF1C5B786B71F3870C0ECB70BE2F1F8A27C
-                          0E5EA8F539CC1288A633A8C21B07064E5DE10EECD8B1C382DCC5E714E2A7B855
-                          33F33A10ADE11A86C33DB63DF206B75C131323BF04A5BAB9ACA9F91C08852DF8
-                          622A357A8A6B5722D6FE18127C99CB9A9BC781E0E343E9EC1FB9702512ED1B88
-                          E0C75CD6C5BC0CC4999BB233E33FE1D295487446284FCF9A615DDF93F91788D6
-                          83CB97AFFA0A57AEEEEE35B7E573F917CC5AD3CAADBA9957813887B7105A7C5F
-                          6F6F6F9E5BB069D3A6E66B97AFF429843BB85557F3299073CEE1AD6DDB97B876
-                          9DFFF7C4214088725977F508E41D0BB1DB2CAD459377738D30B479FAE16D3CDA
-                          FE042A7890CB40A87520EF58E1D0E786D2E32F879B3EBCCED4AF14DA730B811E
-                          4AA747335CBA0A1386B0AF5005474D0341CBEA1E1A1ACD3A63E78B1F3B93BD9B
-                          34CCF155BDB86FFA85FC8509437D88CB40A9692094CBEFDBBF7F7FD1BFB965DB
-                          CEEDA4F10F5C7ED09E3187B73FE0B1EBBF1386C154DB4D16C2EEFE63878F3EF2
-                          C89A1BB3A7CE849E3D3CB60B41FF8C5B1F0CD2439FF96CEB1EAE5CF59A302C47
-                          ADF721CEA1E7FD7F19BEDCE71C6E72CBF952885299BF3D6A86DF2E74AAA3895E
-                          6F6A69DEFAD453C337BE03AFE78461396A1E880BF19E73E7FE31B061C3EAA20F
-                          62669FF2A4F93CE02CD526B7CA38A7ED5821D878E2C448D1E93BF59C302C477D
-                          02319CEFA72F5D981CECEEFEF4626EB992E9ECD308F090796B2B38C383A6C288
-                          5B53A9D313DC702562916FD473C2B01C750BC461568335572EBFF74A57D7EAA2
-                          DB3BA532D9A3A0423DE64FDCF88EC20F426BCFC97476884B5761C2900E721978
-                          750DC461B6E91D539393C975EB3A8AAEBF736ED862815A6FDEE68BDCF2F2443A
-                          3DF60C8F5D4199302C4720FEA366BFF189C9F7F550221129DAE10E65C65FB5C2
-                          E12EB39B7E9B5B33329F658E98FDCF77B9740569C2B01C815972CC7E63294DE5
-                          4D282B5773CBE57C906C8670C2ECACFFCEAD620499B625CB7773E50ADA846139
-                          82B52A2BD5969FCA1D8FC7DBD772C7753CF3DABF1621AE35C7B3AF72CB450413
-                          2D0B5B37F7F7F7BFCF2D57D0260CCB11B86DAB52B048E7E0C5AE58E41E6EB9FE
-                          9CCE9EBFA5ADD93973D09DFFD21A2EA9106E9C7E1BBD78B47D7FD0260CCB11C8
-                          9D9D09A5254FF4A744B4E33E6EB99C334378FEEB880AA9EDA9D4F8EBFC942B11
-                          8DEC340FDF2B548DC9F38E726689ABF8435AB5B4A69C0A59BB6C7BAC975B25C5
-                          622BA348B913667863062088CC0235EB7B1EC835E43AA5306452391C8F46F672
-                          6B46F1F8AA3B4C187D6618E830FC087420CC2C51F46BB3A6169DE6799D33FD42
-                          7ACA1CDEC26D854E636B8440AE3B6842F93E8F5DCE54FEC50B53CF9AC422DC6A
-                          788D1488E33B26949F1391BB1DEE3B76F8E0CD7633E740EFD44B22380416BE64
-                          3E97FC8A3B0DA3A177EA2521EC6EC430FC68CC406E621248C04820012381048C
-                          0412301248C04820012381048C672044F02E0F4595FCBC979E8120C15B3C14D5
-                          4228BA1C6226DE9B2C24CF1711FE20C03F7958928F40F0388F44D5F0651E94E4
-                          BDC9B2A0E8D2615139150A3DCFC3923CA7DF1DB1E89D13086A1997A202CE19F9
-                          99E1D377725992F726CBB0D07A9C87A24261858FF17056BED610472CDA7EDCFC
-                          61F9B59D4A10F4DBC3D9CD5CCDCAD71AE2B042CD5F32AFECF7C467C19C9F60C5
-                          50A8E84AAED9F80E2499FCEB9B0AAD87B914FEE82685DBFDFECAA7C377208E64
-                          7AACDFFC8D7B6B7D73E146E4AC19CEEFE04EBF5EC54B5981386C3B7BEC432DD8
-                          E9DC128F5B623AC4A3AD0B17AE2CF797A21DBE77EA33591BEBD8AD493B57277D
-                          A4D099DF9C9B2F2B0BBEEA2CB4DC2A5B55815C178B75F620E5B79A575B431A96
-                          22D212F3D20BF8E99B145D058D67B4A2372DC424A1EAB7EDB117F94921841042
-                          082184681000FF0113C98941AB59C73C0000000049454E44AE426082}
-                      end>
-                    Align = Left
-                    Margins.Top = 10.000000000000000000
-                    Margins.Bottom = 10.000000000000000000
-                    Position.Y = 10.000000000000000000
-                    Size.Width = 50.000000000000000000
-                    Size.Height = 30.000000000000000000
-                    Size.PlatformDefault = False
-                  end
-                  object lbFiltro_Aberto: TLabel
-                    Align = Left
-                    Position.X = 50.000000000000000000
-                    Size.Width = 55.000000000000000000
-                    Size.Height = 50.000000000000000000
-                    Size.PlatformDefault = False
-                    Text = 'Aberto'
-                    TabOrder = 2
-                  end
-                  object imgFiltro_Pago: TImage
-                    MultiResBitmap = <
-                      item
-                        Width = 100
-                        Height = 100
-                        PNG = {
-                          89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                          54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          037349444154785EEDDDB153134114C7F17D9BE8D899C64A67D446A38D7120E8
-                          584949C77F00F94FF29F10FE02FD0FB47284C0181A0D3662416791B46AF6792F
-                          B71967F4927D9730CC83FB7D1AEE8EB160BFEEED868275000000000000978CE2
-                          D795BC6A3F6D4D1CEF04E61631371C512B7EEB7A631E30D1C8130D6A8EF63FF4
-                          3F0FE27796B6529097EDE6CE24B82E917B101F551AB33BAB79D7FDD81FEEC747
-                          A52D154466C4EF30D9ABCC4C282B9B39755FEB2C33634A07D9D878B2ED42D8CB
-                          FE69233E82423C72DE770E0FBFBC8D0F544A05C963F09B780B0AD99ABA79707C
-                          FA3EDE26A9834C5F533C79879951168FEA54DBD4BEBE7CFC9A345D33106309D4
-                          C8C74E4715E445FBF12E16F0156463371D4305D52BABBDD6FCA6D8DA8E995CEF
-                          86F3BD8BD88F5F05F21AFFE5C22EB193C1BE9D3F2D265BE2FEF1F061BC9D2B19
-                          245F3BC2A7785B28B03BB9E9FD6E5542FC4BC6E867083D4FEE597C54A84EFE79
-                          6A8C92AF2CF91F102FE719573986909F5DC620BB1CE74F8A29C6321D842661E1
-                          DA21AFA92AC798913190B188B785526329D28B3AD1C277A3AC19F1B2F2926391
-                          184BA109B2B02A66C75FC9B150EC5455DB5EB83C08620C82188320C620883108
-                          620C82188320C620883108620C82188320C620883108620C82188320C6208831
-                          08620C82188320C620883108620C82188320C620883108620C82188320C62088
-                          3108620C82188320C620883108620C82188320C620883108620C82188320C620
-                          883108620C82188320C620883108620C82188320C620883108620C82188320C6
-                          20883108620C82188320C6208831C92072F241BC2C242703C4CBCA4B8D456A2C
-                          453288E7308A9785347FF1BF2A5263911A4B910CC235BFF0EF9913F30E66493E
-                          3B642CE26DA1D4588A6490F4E907F9194B558E223FBBE68C2ECD4912BA238FD6
-                          1F9D91F3F7E3ED1C3C22F2BD8B3A82F42A901072E42CB3BCAA16C76017BEF78F
-                          BE264F4455059103AD98497DD218FC8F883B07FDD38B9921627DAD39489DB104
-                          C5647775743C54BDD2D59F4334672C41A1E9195DF13A491D64BA2E78C216B7A4
-                          6CE7B55D664DADC5AF2AE7E73F8677EFDD39C956A8ADECF656FE14E6186731B6
-                          CA9C832BD43364464E3FAE937FADF9D4595532363246656308F5A25E44765F81
-                          B99BDE1257836C6D3D5157B39B9A67A52033B21F9F1E413A09AD40BE5195DD98
-                          CC04F975887C02AFD291B30000000000709D38F707243D20F16B176CE0000000
-                          0049454E44AE426082}
-                      end>
-                    Align = Left
-                    Margins.Top = 10.000000000000000000
-                    Margins.Bottom = 10.000000000000000000
-                    Position.X = 105.000000000000000000
-                    Position.Y = 10.000000000000000000
-                    Size.Width = 50.000000000000000000
-                    Size.Height = 30.000000000000000000
-                    Size.PlatformDefault = False
-                  end
-                  object lbFIltro_Pago: TLabel
-                    Align = Left
-                    Position.X = 155.000000000000000000
-                    Size.Width = 47.000000000000000000
-                    Size.Height = 50.000000000000000000
-                    Size.PlatformDefault = False
-                    Text = 'Pago'
-                    TabOrder = 1
-                  end
-                end
-              end
               object lytFiltro_Cliente: TLayout
                 Align = Client
-                Size.Width = 325.000000000000000000
+                Size.Width = 265.000000000000000000
                 Size.Height = 50.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
                 object rctFiltro_Cliente: TRectangle
                   Align = Client
                   Fill.Kind = None
-                  Size.Width = 325.000000000000000000
+                  Size.Width = 265.000000000000000000
                   Size.Height = 50.000000000000000000
                   Size.PlatformDefault = False
                   Stroke.Color = xFF363428
@@ -1107,7 +968,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Margins.Top = 2.000000000000000000
                     Margins.Right = 3.000000000000000000
                     Margins.Bottom = 3.000000000000000000
-                    Size.Width = 250.000000000000000000
+                    Size.Width = 190.000000000000000000
                     Size.Height = 28.000000000000000000
                     Size.PlatformDefault = False
                     TextPrompt = 'Descri'#231#227'o'
@@ -1119,7 +980,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Touch.InteractiveGestures = [LongTap, DoubleTap]
                     Align = Left
                     StyleLookup = 'Editstyle_Adapta'
-                    TabOrder = 1
+                    TabOrder = 2
                     FilterChar = '0123456789'
                     TextSettings.Font.Size = 14.000000000000000000
                     TextSettings.Font.StyleExt = {00060000000000000004000000}
@@ -1135,6 +996,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     TextPrompt = 'C'#243'digo'
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
+                    OnChange = edFiltro_Cliente_IDChange
                     object imgFiltro_Cliente: TImage
                       MultiResBitmap = <
                         item
@@ -1145,7 +1007,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                             54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
                             034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
                             D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
-                            2BA94BAB7D1C0A5A8BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
+                            2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
                             BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
                             7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
                             87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
@@ -1169,7 +1031,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                             01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
                             3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
                             70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
-                            7C0820E64380311F4244444444BB21F21B67474D2A73702B910000000049454E
+                            7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
                             44AE426082}
                         end>
                       Align = Right
@@ -1179,32 +1041,250 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                       Size.Width = 15.000000000000000000
                       Size.Height = 28.000000000000000000
                       Size.PlatformDefault = False
+                      OnClick = imgFiltro_ClienteClick
                     end
                   end
-                  object lytFiltro_Cliente_Label: TLayout
+                  object lbFiltroPessoa: TLabel
+                    Tag = -1
                     Align = Top
-                    Size.Width = 325.000000000000000000
+                    Margins.Left = 3.000000000000000000
+                    Position.X = 3.000000000000000000
+                    Size.Width = 262.000000000000000000
                     Size.Height = 17.000000000000000000
                     Size.PlatformDefault = False
+                    Text = 'Pessoa'
+                    TabOrder = 1
+                  end
+                end
+              end
+              object lytFiltro_TipoStatus: TLayout
+                Align = Left
+                Margins.Right = 2.000000000000000000
+                Position.X = 661.000000000000000000
+                Size.Width = 161.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+                object rctFiltro_TipoStatus: TRectangle
+                  Align = Client
+                  Fill.Kind = None
+                  Size.Width = 161.000000000000000000
+                  Size.Height = 50.000000000000000000
+                  Size.PlatformDefault = False
+                  Stroke.Color = xFF363428
+                  XRadius = 4.500000000000000000
+                  YRadius = 4.500000000000000000
+                  object imgFiltro_Aberto: TImage
+                    Tag = 1
+                    MultiResBitmap = <
+                      item
+                        Width = 100
+                        Height = 100
+                        PNG = {
+                          89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                          54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                          07F449444154785EEDDD7F6C13E71907F0E7BD7B6D37A4A57450B6A26AB04A1D
+                          71026C1A3E9B94B268EA20FC286D514B59E11F86B46A9AD669EA1F9D343631B4
+                          6A9DB649FCB16993BA9F9D44351441A5B62851B3B64AA1C43E3BEA46D2C41D93
+                          166DFD012B08442934F1DDFBEE7DCF0F6CCEE2DCD96EEC33793EFFE4791E435A
+                          FCF5F9CEAFCF6720841042082184903A63F8B32696D5D10D5274332653AE8025
+                          26138B018C7978F3754A5C768471861BF0AE04661BA6ECCD64F2FD7863D56A0A
+                          C4B2DA774A290E18002A0002E0BCC7C07C2C937BEB300E2A565520EBD6B5DDF6
+                          D115F60C03B91E47E47F3178A1655EEB9E8181A1B33809ACE24092C9F8034238
+                          BF33C0BC0547641A8E2BCEF048E411DB7EF3551C055251206B121D5B05B8CF63
+                          4BFC0930CC2F57124AE0403A3BE34B9D42618401BF11472408C739C762377464
+                          322367703223B53F0EC675640F855105CE17823BF947EC7C050A24652DDF0D12
+                          2C6C498524181B52A9F8666C6714281059104F6149AA240BEE4FB09C916F20C9
+                          64C797809B9FC29654CB303AEE4AAC5C8E5D59BE814821B662496AE4B2C97BB1
+                          2CCB3710C6E4DD58925A49B60EABB2FCF721527C122B5223017007966505D8A9
+                          CBDBB02035522FFA3E8D6559010231235890DADD8C3FCB0A1008A9270A246428
+                          9090A14042860209190A2464289090A140428602F121C03D8F655D5020331000
+                          27A3D15B974A06BFC7D1ACA340CA7004BCDDCA8CEE13274E7C90CDE6F730C6BE
+                          01E016F0E65943814C4B5C8E46239B07B2A3A7710099ECD8AF0418696C670D05
+                          F2FF04338D07D2E9E161EC3DC944FCC706F8BF9F512B0A640AF5D4F4CDA9E7E8
+                          EA536601E477B09D551448A99FEBA726AC3D77596D9D4C16FE80EDACA3409004
+                          D6BF69CB8E6F63EB49A5962F9B94EED17ABE27448128EAF0766CC12D916DFBF7
+                          EF57655132999CEF38E2A57A9FC34C8138EE69C3886CE8EF3FF9214E60FBF6ED
+                          2638179E379979278EEA664E07E2387085C562DDB63DFC368E3CE3E3C3BF06C3
+                          E8C2B6AEE672203216818733999193D87B5256DBE34CC257B1ADBB391C087B62
+                          309B7F111B4F2AD5B65E4AF829B60D312703D16B53766EEC67D87A52A98EB874
+                          DDE754D9D0FB64EE0522C4C0B2652BBF869DA7AB6BF5A242C17D491DDEB6E2A8
+                          61E65420FAF016F882FB7A7A7A5C1CC1C68D1B63572E7DD8CB0DB81D470D3597
+                          0239AB0F6F6DDBBE88BDE7DCBFC70F028304B60DD78840DE3719EB9200258B77
+                          B34D32BE69EAE16D32D1F62433E0416C43A1DE81BC6F46F81707B363AF45A29F
+                          58ABFAD78BE3D9C5403E94CD8EE4B0F514170C616FB10B8FBA06C24CB36B7070
+                          24AF6BFDC68F9DCBDF2D05CCF2A77AD9DEA91FE42F2E188A83D8864A5D03918E
+                          BB77DFBE7D25FFCDCD5B776C9382FD09DB8FDBB3EAF0F647587BFEBB60184EF5
+                          7DCA62B0ABEFE8A1238F3EBAFADAEAA95ED0B38746773210BFC0D1C7438AC1CF
+                          7FA17537769E462D1856A2DEFB10503BF3FBFF3274A9571F6EE248BF292433B9
+                          BF3DA6CAEF1627B571A57B2ADA12DBF2F4D343D7DE036FE4826125EA1E8887B1
+                          7BCE9EFD47FFFAF5AB4A5E88A97DCA530603FDA856B955479FB6C3B9B1E1F8F1
+                          E192D3771AB9605889C604A2E8F7A72F9E9F1CE8EAFADC021C79D2D9FC330CE0
+                          A1EACEF0700B51666EC964DE1AC7812765C5BFD5C805C34A342C104D6D06AB2F
+                          5DFAE8F5CECE55259777CAE4F247C08876AB3BF8DA7B14414816D97D229B1FC4
+                          D6535C309407B00DBD8606A2A91789ED131393E9B56BDB4B3E7FA72FD862025F
+                          A7EEE60B38F2F364363BFA2CD69EB02C18562214FFA3DC80CF4C4E88C1542A5E
+                          B2C31DCC8DBD6146229D00CE7B389A967A2D7358ED7FBE8FAD274C0B869508CD
+                          2347ED3796C889820A65C52A1C79F40BC918C45212C4DF71544A426EE1E265BB
+                          B0F3846DC1B012E1DA94395F5898708E25936D6B70E239967BF35FF399B1461D
+                          CFBE81238F2B61BCE5C6D64D7D7D7D1338F2846DC1B012A17B6EE51CE63B93F0
+                          4AA715BF07479E97B3F973372F8AE93307BDF52FC7818B9CB30D532FA3974CB4
+                          ED0BDB82612542B9B353A1B4B852FE399568BF0F471E7D6608AE7F1DE651635B
+                          2633760A6FF2A412F11DEAC70F8A5D73F2BDA29C7AC455FD22AD568EE33A3C1A
+                          D969DBA33D382ACBB2562498748EABF2DA0A4018A907D48CF77928B790AB3837
+                          390871289988EFC1D1B492C995B7AB307A5519EA3082087520483DA2E46FD596
+                          5A729AE7557AF94588823ABC8545C549736B8640AE3AA042F921D61EBD947FE1
+                          7CE139F58F88E3A8E9355320DAF75428BF94527ACFC3BD470F1DB8DE2EE61CEA
+                          9D7A59120E82C95E05217F8393A6D1D43BF5B218EC6AC6308268CE40AE631448
+                          C85020214381840C0512321448C85020214381848C6F20AE0B1F60496A14E4BE
+                          F40DC40478174B52236642C9C721A6E3FF946548DF5F42825177F63FB12CCB3F
+                          10C68E61456AC65EC3A22CDF40D46656F2D161523D83F317B02CCB77F95DB312
+                          778E333097624BAAA0CFC81F1A3AF5596CCBF27FCA524CC69FC09254296A988F
+                          6339A3405B886625DA8EA93F4CDFB6530D097DF6507E1376330AB48568268F7D
+                          45FDE6A0273E13A4BF8295715EF249AE99040E249DFEEB3B06331FC19604236E
+                          E0FA84BE60DFF2A9050E444B6747FBD4DFB8B7DE17176E467ACBD0DF833BF5F3
+                          2A7E2A0A44B3EDFCD19616B3435F120F47642AC68EDC34FFA615957E53B41678
+                          A73E9D3556FB2E2185FE74D2ADC5C9DCA62FBECC397C5D3F687154B19A02B9CA
+                          B23ABA9974B7A8DFB6DA15B0C46462B1DAF8E6E1CDD72971191CE3B4E0F21D93
+                          B1B464469F6D8FBE823712420821841042489300F80F8A4B8D514F4F61950000
+                          000049454E44AE426082}
+                      end>
+                    Align = Left
+                    Anchors = []
+                    Cursor = crHandPoint
+                    Margins.Left = 5.000000000000000000
+                    Position.X = 5.000000000000000000
+                    Position.Y = 17.000000000000000000
+                    Size.Width = 25.000000000000000000
+                    Size.Height = 33.000000000000000000
+                    Size.PlatformDefault = False
+                    OnClick = imgFiltro_AbertoClick
+                  end
+                  object lbFiltro_Aberto: TLabel
+                    Align = Left
+                    Margins.Right = 2.000000000000000000
+                    Position.X = 30.000000000000000000
+                    Position.Y = 17.000000000000000000
+                    Size.Width = 51.000000000000000000
+                    Size.Height = 33.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = 'Aberto'
+                    TabOrder = 3
+                  end
+                  object imgFiltro_Pago: TImage
+                    MultiResBitmap = <
+                      item
+                        Width = 100
+                        Height = 100
+                        PNG = {
+                          89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                          54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                          037949444154785EEDDDC14E13411CC7F199D912BDD98B274DD48311BD58538B
+                          C6931CB9F106C09BF44D284FA06FA02723D4C672518807F1C0CD437B34B833EE
+                          BF1D62A2DBCE7F5B427EB0BFCFA5BB4B0861BECCEE9443C71011111111115D32
+                          1B5F97F2AAF3A4959BB0E54368591F9AC6D956FCD2F5E6C330383B72D60E3363
+                          F73EF4BF0CE35716B65490979DD5AD336FBA9935F7E3A55ACB83395971A6FBB1
+                          7FB4172F55B650109911BFF37CB73633A1AA62E634B26C6791195339C8DADAE3
+                          4DE3FD6EF1ADCD78894A8591716EE7E0E0EBDB7841A55290698CF0269E92820D
+                          617D7F70FC3E9E26A9834C6E53217FC799515518356CB6AEBD7DB9F89A347966
+                          30C6026C733A763AAA202F3A8FB6F9005F42317693315450DDB2DAEDD5EF8AA5
+                          ED3858D35B31AE7711EBF1AB406EE367C66FDB6064B06F4DAF969325F16070F4
+                          209ECE940C327D76F8CFF1B454F1C30E6F38B75D9710FF9231FAE57DAFF8A37D
+                          1A2F956A58F72C3546C95B96FC05C4C359C6758E21E4779731280EC7D32BE514
+                          63990E62733FF7D921B7A93AC73827632063114F4BA5C652281EEA76EEBD519E
+                          19F1B0F6D263317F2C453A486275C5D9F157722C142B55D5B2972E0F83806110
+                          300C028641C03008180601C3206018040C83806110300C028641C03008180601
+                          C3206018040C83806110300C028641C03008180601C3206018040C8380611030
+                          0C028641C03008180601C3206018040C83806110300C028641C03008180601C3
+                          206018040C83806110300C028641C03008180601C3206018040C83806110300C
+                          028641C03008180601C3206018044C3288EC7C100F4BC9CE00F1B0F65263911A
+                          4B910C92053F8A87A5349FF85F17A9B1488DA5480609999BFB79E636842DCE92
+                          E9EC90B188A7A55263299241149FF83FD963A9CE51E477D7ECD1A5D94942B5E5
+                          51E7F9C3136BB27BF1748630B2D6F52E6A0BD2AB4042C896B321C8AD6A7E8C60
+                          F21FFD4FDF923BA2AA82C886562158F54E63F43F6BC3CE7EFFF862668868B757
+                          87A93D96A89CACAE068323D52D5DFD3E44B3C712959AECD1158F93D44126CF05
+                          67B9C4ADA858796D5679A666F155E5F4F4E7D19DBBB70F8B27D446717A737A95
+                          6618173136AAEC832BD433E49CEC7EDCB0EEB5E65D675DC9D8C818558D21D40F
+                          F532B2FAF2C177D34BE27A90A5ADB3AEAB594DCDB2549073B21E9F6C419AFB56
+                          6E5DB32EAB319909F2EF1079075EA72D678988888888E83A31E60FEC6720F167
+                          EB020A0000000049454E44AE426082}
+                      end>
+                    Align = Left
+                    Cursor = crHandPoint
+                    Margins.Left = 2.000000000000000000
+                    Position.X = 85.000000000000000000
+                    Position.Y = 17.000000000000000000
+                    Size.Width = 25.000000000000000000
+                    Size.Height = 33.000000000000000000
+                    Size.PlatformDefault = False
+                    OnClick = imgFiltro_PagoClick
+                  end
+                  object lbFiltro_Pago: TLabel
+                    Align = Left
+                    Margins.Right = 2.000000000000000000
+                    Position.X = 110.000000000000000000
+                    Position.Y = 17.000000000000000000
+                    Size.Width = 45.000000000000000000
+                    Size.Height = 33.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = 'Pago'
                     TabOrder = 2
-                    object rbCliente: TRadioButton
-                      Align = Left
-                      IsChecked = True
-                      Size.Width = 65.000000000000000000
-                      Size.Height = 17.000000000000000000
-                      Size.PlatformDefault = False
-                      TabOrder = 1
-                      Text = 'Cliente'
-                    end
-                    object rbFornecedor: TRadioButton
-                      Align = Left
-                      Position.X = 65.000000000000000000
-                      Size.Width = 120.000000000000000000
-                      Size.Height = 17.000000000000000000
-                      Size.PlatformDefault = False
-                      TabOrder = 0
-                      Text = 'Fornecedor'
-                    end
+                  end
+                  object lbFiltro_TipoStatus: TLabel
+                    Align = Top
+                    Margins.Left = 3.000000000000000000
+                    Position.X = 3.000000000000000000
+                    Size.Width = 158.000000000000000000
+                    Size.Height = 17.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = 'Status'
+                    TabOrder = 1
+                  end
+                end
+              end
+              object lytFiltro_Tipo_DC: TLayout
+                Align = Left
+                Margins.Right = 2.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 50.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                object rctFiltro_Tipo_DC: TRectangle
+                  Align = Client
+                  Fill.Kind = None
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 50.000000000000000000
+                  Size.PlatformDefault = False
+                  Stroke.Color = xFF363428
+                  XRadius = 4.500000000000000000
+                  YRadius = 4.500000000000000000
+                  object lbFIltro_Tipo_DC: TLabel
+                    Align = Top
+                    Margins.Left = 3.000000000000000000
+                    Position.X = 3.000000000000000000
+                    Size.Width = 97.000000000000000000
+                    Size.Height = 17.000000000000000000
+                    Size.PlatformDefault = False
+                    Text = 'Receber/Pagar'
+                    TabOrder = 1
+                  end
+                  object cbFiltro_Tipo_DC: TComboBox
+                    Align = Client
+                    Items.Strings = (
+                      'AMBAS'
+                      'RECEBER'
+                      'PAGAR')
+                    ItemIndex = 1
+                    Margins.Left = 2.000000000000000000
+                    Margins.Top = 2.000000000000000000
+                    Margins.Right = 2.000000000000000000
+                    Margins.Bottom = 2.000000000000000000
+                    Size.Width = 96.000000000000000000
+                    Size.Height = 29.000000000000000000
+                    Size.PlatformDefault = False
+                    StyleLookup = 'ComboBox1Style_Adapta'
+                    TabOrder = 5
+                    OnChange = cbFiltro_Tipo_DCChange
                   end
                 end
               end
@@ -1215,14 +1295,14 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               Margins.Top = 5.000000000000000000
               Margins.Right = 5.000000000000000000
               Margins.Bottom = 5.000000000000000000
-              Size.Width = 980.000000000000000000
-              Size.Height = 450.000000000000000000
+              Size.Width = 1089.000000000000000000
+              Size.Height = 538.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
               object dxfmGrid1: TdxfmGrid
                 Align = Client
-                Size.Width = 980.000000000000000000
-                Size.Height = 450.000000000000000000
+                Size.Width = 1089.000000000000000000
+                Size.Height = 538.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
                 object dxfmGrid1RootLevel1: TdxfmGridRootLevel
@@ -1236,9 +1316,13 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   OptionsData.Inserting = False
                   object dxfmGrid1RootLevel1TIPO_CONTA_DESC: TdxfmGridColumn
                     FieldName = 'TIPO_CONTA_DESC'
+                    GroupIndex = 0
                     HeaderText = 'D/C'
+                    Kind = Text
                     Options.Editing = False
-                    Width = 100.000000000000000000
+                    SortOrder = Ascending
+                    SortIndex = 0
+                    Width = 200.000000000000000000
                   end
                   object dxfmGrid1RootLevel1STATUS_DESC: TdxfmGridColumn
                     FieldName = 'STATUS_DESC'
@@ -1270,7 +1354,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     HeaderText = 'Emiss'#227'o'
                     Kind = DateTime
                     Options.Editing = False
-                    Width = 75.000000000000000000
+                    Width = 100.000000000000000000
                   end
                   object dxfmGrid1RootLevel1ID_CONTA: TdxfmGridColumn
                     FieldName = 'ID_CONTA'
@@ -1286,42 +1370,42 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     FieldName = 'Vencimento'
                     Kind = DateTime
                     Options.Editing = False
-                    Width = 75.000000000000000000
+                    Width = 100.000000000000000000
                   end
                   object dxfmGrid1RootLevel1VALOR: TdxfmGridColumn
                     FieldName = 'VALOR'
                     HeaderText = 'Valor'
                     Kind = Currency
                     Options.Editing = False
-                    Width = 100.000000000000000000
+                    Width = 120.000000000000000000
                   end
                   object dxfmGrid1RootLevel1DT_PAGAMENTO: TdxfmGridColumn
                     FieldName = 'DT_PAGAMENTO'
                     HeaderText = 'Pagamento'
                     Kind = DateTime
                     Options.Editing = False
-                    Width = 75.000000000000000000
+                    Width = 100.000000000000000000
                   end
                   object dxfmGrid1RootLevel1DESCONTO: TdxfmGridColumn
                     FieldName = 'DESCONTO'
                     HeaderText = 'Desconto'
                     Kind = Currency
                     Options.Editing = False
-                    Width = 100.000000000000000000
+                    Width = 120.000000000000000000
                   end
                   object dxfmGrid1RootLevel1JUROS: TdxfmGridColumn
                     FieldName = 'JUROS'
                     HeaderText = 'Juros'
                     Kind = Currency
                     Options.Editing = False
-                    Width = 100.000000000000000000
+                    Width = 120.000000000000000000
                   end
                   object dxfmGrid1RootLevel1VALOR_PAGO: TdxfmGridColumn
                     FieldName = 'VALOR_PAGO'
                     HeaderText = 'Valor Pago'
                     Kind = Currency
                     Options.Editing = False
-                    Width = 100.000000000000000000
+                    Width = 120.000000000000000000
                   end
                   object dxfmGrid1RootLevel1ORIGEM_LANCAMENTO: TdxfmGridColumn
                     FieldName = 'ORIGEM_LANCAMENTO'
@@ -1404,15 +1488,15 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             ExplicitSize.cy = 8.000000000000000000
             object lytCadastro: TLayout
               Align = Client
-              Size.Width = 990.000000000000000000
-              Size.Height = 515.000000000000000000
+              Size.Width = 1099.000000000000000000
+              Size.Height = 603.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
               object lytRow_001: TLayout
                 Align = Top
                 Margins.Top = 5.000000000000000000
                 Position.Y = 5.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
@@ -1452,7 +1536,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                 object lbSTATUS: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 736.000000000000000000
+                  Position.X = 845.000000000000000000
                   Size.Width = 125.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
@@ -1470,7 +1554,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Position.X = 861.000000000000000000
+                  Position.X = 970.000000000000000000
                   Position.Y = 2.000000000000000000
                   Size.Width = 127.000000000000000000
                   Size.Height = 31.000000000000000000
@@ -1481,7 +1565,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                 object lbDATA: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 505.000000000000000000
+                  Position.X = 614.000000000000000000
                   Size.Width = 125.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
@@ -1500,7 +1584,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Center
-                  Position.X = 632.000000000000000000
+                  Position.X = 741.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -1516,7 +1600,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_002: TLayout
                 Align = Top
                 Position.Y = 40.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 2
@@ -1543,7 +1627,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 846.000000000000000000
+                  Size.Width = 955.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Descri'#231#227'o do Lan'#231'amento'
@@ -1554,7 +1638,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_003: TLayout
                 Align = Top
                 Position.Y = 75.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 12
@@ -1582,7 +1666,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 771.000000000000000000
+                  Size.Width = 880.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Descri'#231#227'o'
@@ -1617,34 +1701,34 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          035049444154785EEDDB4F4814611806F0F7FBC65D773194482F2A516189465D
-                          92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BB4830775D775BE2F57DFA04342BAB3F20C3CBFCBBCDF
-                          0BBB2CBC33B33B3BF308111111115580D16DAC74779F395CCC17079DF83EE3C2
-                          166F8B8DA5BE718945B1F6933576E4505DCDF0E8E8DCCAF60B62245603E9EA6A
-                          3FBA5970B7BCFCBA2A7224A9ED7F2A14259F4AB807C9B4BD333EBEF043DBF062
-                          33904CA67DB050708FAB1392D2D67F726B81B1972667179E6B035AA05B68998E
-                          B6EBE2FDFDAA40AAB4B50726E1452E3735377CCFE596DF691316FC11D2D9D13A
-                          E0C53CD565399CD8A07766E6C36B5D43821E482673F678A1B091DDFB696A572B
-                          C954EAE4C4C4FB255DC3B1BA85E43737EE46388C92BA8D42E1B6D690608F90CE
-                          CED36D3E0CB3BA8C54BAA6A6616C6C6E599750708F10E706B48A5C7E75FD8296
-                          706007E2BD3FAF65E4BC77157BEF72E10E44C2662DA3E7FD29ADE0C00EC48869
-                          D0327A568E690507F857D6E6D6F55C6578C9EFE302F360000F24F9538BC86DFF
-                          09090A76204EE49B969133D67ED5120EEC40AC98575A46CE8B7DA9251CDC8154
-                          99675A462E4854EEBDCB053B90A9A9EC97AD5DF9892E23E41E4D4ECE57EC7458
-                          2EE02FF5AD3D39696E946E34E932021BAB695375531790A00752DA93ABABED15
-                          5D96CB9920D93F369BADD8AFB728C0DFA0CAE596B2CD4DF5A5A3A477A7B34FDE
-                          5E9B999DAFC029305AB1B863985B5C7ED3DC58FF5164A54F24B5C7CFECD64C60
-                          2F6E0D63481BD0A04F597F9B7EBB3024B6A1D53879B8B4B4BEA9ED5DE977CFBD
-                          EAB46D999E9E7FB1D3C517ABA74EFEE8E939579F5F5BEDF75E06421F9E084CD8
-                          E825F4264CE724709FC5DAE1DADA9A91383E0644444444444474D0627961C87C
-                          0808E64380301F0284F91020CC8700613E040CF32140980F41C37C0816E643C0
-                          301F0286F91038CC8780613E040AF32160980F01C37C0818E64300311F0286F9
-                          1040CC8700623E0410F321C0980F2122222222228A4E2C2F0C990F01C17C0810
-                          E64380301F0284F91020CC8780613E0408F32168980FC1C27C0818E643C0301F
-                          0287F91030CC8740613E040CF32160980F01C37C0820E643C0301F0288F91040
-                          CC8700623E0418F32144444444B41722BF01212F4D2D51CF95BC000000004945
-                          4E44AE426082}
+                          034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
+                          D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
+                          2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
+                          BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
+                          7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
+                          87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
+                          0C249B3DD95F2CBA47A984A4B5F59FDC4A60ECC5F1E9B967DA8016E8165AB6AD
+                          F59A787FAF2A902A6DED824978914B8D4DF5DFF2F9C5B7DA84057F84B4B7B5F4
+                          79314F74590E2736E89E9A7AFF4AD790A00792CD9E395A2CAEE5767F9ADAD152
+                          329D3E3E36F66E41D770AC6E21F98DB53B110EA3A476AD58BCA53524D823A4BD
+                          FD54AB0FC39C2E2395A9AEAE1F199959D42514DC23C4B93EAD2257585E3DAF25
+                          1CD88178EFCF691939EF5DC5DEBB5CB80391B049CBE8797F422B38B0033162EA
+                          B58C9E95235AC101FE95B5B1793D57195E0A7BB8C0DC1FC00349FED022725B7F
+                          4282821D8813F9AA65E48CB55FB484033B102BE6A59691F3625F680907772055
+                          E6A996910B12957BEF72C10E646222F77973577EACCB08B987E3E3B3153B1D96
+                          0BF84B7D734F4E9AEBA51B4DBA8CC0DA72C654DDD00524E88194F6E454CA5ED6
+                          65B99C0992BD23D3B98AFD7A8B02FC0DAA7C7E21D7D458573A4ABAB73B7BE4ED
+                          D5A9E9D90A9C02A3158B3B86F9F9C5D74D0D751F44967A44D2BBFCCC6EC504F6
+                          C2E63006B4010DFA94F5B7C937730362EB5B8C93073F175637B4BD23FDEEB99B
+                          CAD8E6C9C9D9E7DB5D7CB17AEAE48FAEAEB3758595E55EEFA52FF4E1B1C0840D
+                          5E426FC24C5E02F749AC1DACA9A91E8AE36340444444444444FB2D961786CC87
+                          80603E0408F32140980F01C27C0810E643C0301F0284F91034CC8760613E040C
+                          F32160980F81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F
+                          01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
+                          3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
+                          70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
+                          7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
+                          44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -1659,7 +1743,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_004: TLayout
                 Align = Top
                 Position.Y = 110.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 11
@@ -1687,7 +1771,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 771.000000000000000000
+                  Size.Width = 880.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Descri'#231#227'o'
@@ -1723,34 +1807,34 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          035049444154785EEDDB4F4814611806F0F7FBC65D773194482F2A516189465D
-                          92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BB4830775D775BE2F57DFA04342BAB3F20C3CBFCBBCDF
-                          0BBB2CBC33B33B3BF308111111115580D16DAC74779F395CCC17079DF83EE3C2
-                          166F8B8DA5BE718945B1F6933576E4505DCDF0E8E8DCCAF60B62245603E9EA6A
-                          3FBA5970B7BCFCBA2A7224A9ED7F2A14259F4AB807C9B4BD333EBEF043DBF062
-                          33904CA67DB050708FAB1392D2D67F726B81B1972667179E6B035AA05B68998E
-                          B6EBE2FDFDAA40AAB4B50726E1452E3735377CCFE596DF691316FC11D2D9D13A
-                          E0C53CD565399CD8A07766E6C36B5D43821E482673F678A1B091DDFB696A572B
-                          C954EAE4C4C4FB255DC3B1BA85E43737EE46388C92BA8D42E1B6D690608F90CE
-                          CED36D3E0CB3BA8C54BAA6A6616C6C6E599750708F10E706B48A5C7E75FD8296
-                          706007E2BD3FAF65E4BC77157BEF72E10E44C2662DA3E7FD29ADE0C00EC48869
-                          D0327A568E690507F857D6E6D6F55C6578C9EFE302F360000F24F9538BC86DFF
-                          09090A76204EE49B969133D67ED5120EEC40AC98575A46CE8B7DA9251CDC8154
-                          99675A462E4854EEBDCB053B90A9A9EC97AD5DF9892E23E41E4D4ECE57EC7458
-                          2EE02FF5AD3D39696E946E34E932021BAB695375531790A00752DA93ABABED15
-                          5D96CB9920D93F369BADD8AFB728C0DFA0CAE596B2CD4DF5A5A3A477A7B34FDE
-                          5E9B999DAFC029305AB1B863985B5C7ED3DC58FF5164A54F24B5C7CFECD64C60
-                          2F6E0D63481BD0A04F597F9B7EBB3024B6A1D53879B8B4B4BEA9ED5DE977CFBD
-                          EAB46D999E9E7FB1D3C517ABA74EFEE8E939579F5F5BEDF75E06421F9E084CD8
-                          E825F4264CE724709FC5DAE1DADA9A91383E0644444444444474D0627961C87C
-                          0808E64380301F0284F91020CC8700613E040CF32140980F41C37C0816E643C0
-                          301F0286F91038CC8780613E040AF32160980F01C37C0818E64300311F0286F9
-                          1040CC8700623E0410F321C0980F2122222222228A4E2C2F0C990F01C17C0810
-                          E64380301F0284F91020CC8780613E0408F32168980FC1C27C0818E643C0301F
-                          0287F91030CC8740613E040CF32160980F01C37C0820E643C0301F0288F91040
-                          CC8700623E0418F32144444444B41722BF01212F4D2D51CF95BC000000004945
-                          4E44AE426082}
+                          034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
+                          D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
+                          2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
+                          BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
+                          7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
+                          87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
+                          0C249B3DD95F2CBA47A984A4B5F59FDC4A60ECC5F1E9B967DA8016E8165AB6AD
+                          F59A787FAF2A902A6DED824978914B8D4DF5DFF2F9C5B7DA84057F84B4B7B5F4
+                          79314F74590E2736E89E9A7AFF4AD790A00792CD9E395A2CAEE5767F9ADAD152
+                          329D3E3E36F66E41D770AC6E21F98DB53B110EA3A476AD58BCA53524D823A4BD
+                          FD54AB0FC39C2E2395A9AEAE1F199959D42514DC23C4B93EAD2257585E3DAF25
+                          1CD88178EFCF691939EF5DC5DEBB5CB80391B049CBE8797F422B38B0033162EA
+                          B58C9E95235AC101FE95B5B1793D57195E0A7BB8C0DC1FC00349FED022725B7F
+                          4282821D8813F9AA65E48CB55FB484033B102BE6A59691F3625F680907772055
+                          E6A996910B12957BEF72C10E646222F77973577EACCB08B987E3E3B3153B1D96
+                          0BF84B7D734F4E9AEBA51B4DBA8CC0DA72C654DDD00524E88194F6E454CA5ED6
+                          65B99C0992BD23D3B98AFD7A8B02FC0DAA7C7E21D7D458573A4ABAB73B7BE4ED
+                          D5A9E9D90A9C02A3158B3B86F9F9C5D74D0D751F44967A44D2BBFCCC6EC504F6
+                          C2E63006B4010DFA94F5B7C937730362EB5B8C93073F175637B4BD23FDEEB99B
+                          CAD8E6C9C9D9E7DB5D7CB17AEAE48FAEAEB3758595E55EEFA52FF4E1B1C0840D
+                          5E426FC24C5E02F749AC1DACA9A91E8AE36340444444444444FB2D961786CC87
+                          80603E0408F32140980F01C27C0810E643C0301F0284F91034CC8760613E040C
+                          F32160980F81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F
+                          01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
+                          3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
+                          70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
+                          7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
+                          44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -1765,7 +1849,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_005: TLayout
                 Align = Top
                 Position.Y = 145.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 10
@@ -1793,7 +1877,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 771.000000000000000000
+                  Size.Width = 880.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Descri'#231#227'o'
@@ -1829,34 +1913,34 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          035049444154785EEDDB4F4814611806F0F7FBC65D773194482F2A516189465D
-                          92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BB4830775D775BE2F57DFA04342BAB3F20C3CBFCBBCDF
-                          0BBB2CBC33B33B3BF308111111115580D16DAC74779F395CCC17079DF83EE3C2
-                          166F8B8DA5BE718945B1F6933576E4505DCDF0E8E8DCCAF60B62245603E9EA6A
-                          3FBA5970B7BCFCBA2A7224A9ED7F2A14259F4AB807C9B4BD333EBEF043DBF062
-                          33904CA67DB050708FAB1392D2D67F726B81B1972667179E6B035AA05B68998E
-                          B6EBE2FDFDAA40AAB4B50726E1452E3735377CCFE596DF691316FC11D2D9D13A
-                          E0C53CD565399CD8A07766E6C36B5D43821E482673F678A1B091DDFB696A572B
-                          C954EAE4C4C4FB255DC3B1BA85E43737EE46388C92BA8D42E1B6D690608F90CE
-                          CED36D3E0CB3BA8C54BAA6A6616C6C6E599750708F10E706B48A5C7E75FD8296
-                          706007E2BD3FAF65E4BC77157BEF72E10E44C2662DA3E7FD29ADE0C00EC48869
-                          D0327A568E690507F857D6E6D6F55C6578C9EFE302F360000F24F9538BC86DFF
-                          09090A76204EE49B969133D67ED5120EEC40AC98575A46CE8B7DA9251CDC8154
-                          99675A462E4854EEBDCB053B90A9A9EC97AD5DF9892E23E41E4D4ECE57EC7458
-                          2EE02FF5AD3D39696E946E34E932021BAB695375531790A00752DA93ABABED15
-                          5D96CB9920D93F369BADD8AFB728C0DFA0CAE596B2CD4DF5A5A3A477A7B34FDE
-                          5E9B999DAFC029305AB1B863985B5C7ED3DC58FF5164A54F24B5C7CFECD64C60
-                          2F6E0D63481BD0A04F597F9B7EBB3024B6A1D53879B8B4B4BEA9ED5DE977CFBD
-                          EAB46D999E9E7FB1D3C517ABA74EFEE8E939579F5F5BEDF75E06421F9E084CD8
-                          E825F4264CE724709FC5DAE1DADA9A91383E0644444444444474D0627961C87C
-                          0808E64380301F0284F91020CC8700613E040CF32140980F41C37C0816E643C0
-                          301F0286F91038CC8780613E040AF32160980F01C37C0818E64300311F0286F9
-                          1040CC8700623E0410F321C0980F2122222222228A4E2C2F0C990F01C17C0810
-                          E64380301F0284F91020CC8780613E0408F32168980FC1C27C0818E643C0301F
-                          0287F91030CC8740613E040CF32160980F01C37C0820E643C0301F0288F91040
-                          CC8700623E0418F32144444444B41722BF01212F4D2D51CF95BC000000004945
-                          4E44AE426082}
+                          034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
+                          D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
+                          2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
+                          BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
+                          7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
+                          87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
+                          0C249B3DD95F2CBA47A984A4B5F59FDC4A60ECC5F1E9B967DA8016E8165AB6AD
+                          F59A787FAF2A902A6DED824978914B8D4DF5DFF2F9C5B7DA84057F84B4B7B5F4
+                          79314F74590E2736E89E9A7AFF4AD790A00792CD9E395A2CAEE5767F9ADAD152
+                          329D3E3E36F66E41D770AC6E21F98DB53B110EA3A476AD58BCA53524D823A4BD
+                          FD54AB0FC39C2E2395A9AEAE1F199959D42514DC23C4B93EAD2257585E3DAF25
+                          1CD88178EFCF691939EF5DC5DEBB5CB80391B049CBE8797F422B38B0033162EA
+                          B58C9E95235AC101FE95B5B1793D57195E0A7BB8C0DC1FC00349FED022725B7F
+                          4282821D8813F9AA65E48CB55FB484033B102BE6A59691F3625F680907772055
+                          E6A996910B12957BEF72C10E646222F77973577EACCB08B987E3E3B3153B1D96
+                          0BF84B7D734F4E9AEBA51B4DBA8CC0DA72C654DDD00524E88194F6E454CA5ED6
+                          65B99C0992BD23D3B98AFD7A8B02FC0DAA7C7E21D7D458573A4ABAB73B7BE4ED
+                          D5A9E9D90A9C02A3158B3B86F9F9C5D74D0D751F44967A44D2BBFCCC6EC504F6
+                          C2E63006B4010DFA94F5B7C937730362EB5B8C93073F175637B4BD23FDEEB99B
+                          CAD8E6C9C9D9E7DB5D7CB17AEAE48FAEAEB3758595E55EEFA52FF4E1B1C0840D
+                          5E426FC24C5E02F749AC1DACA9A91E8AE36340444444444444FB2D961786CC87
+                          80603E0408F32140980F01C27C0810E643C0301F0284F91034CC8760613E040C
+                          F32160980F81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F
+                          01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
+                          3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
+                          70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
+                          7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
+                          44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -1871,7 +1955,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_006: TLayout
                 Align = Top
                 Position.Y = 180.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 9
@@ -1899,7 +1983,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 509.000000000000000000
+                  Size.Width = 618.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Descri'#231#227'o'
@@ -1935,34 +2019,34 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          035049444154785EEDDB4F4814611806F0F7FBC65D773194482F2A516189465D
-                          92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BB4830775D775BE2F57DFA04342BAB3F20C3CBFCBBCDF
-                          0BBB2CBC33B33B3BF308111111115580D16DAC74779F395CCC17079DF83EE3C2
-                          166F8B8DA5BE718945B1F6933576E4505DCDF0E8E8DCCAF60B62245603E9EA6A
-                          3FBA5970B7BCFCBA2A7224A9ED7F2A14259F4AB807C9B4BD333EBEF043DBF062
-                          33904CA67DB050708FAB1392D2D67F726B81B1972667179E6B035AA05B68998E
-                          B6EBE2FDFDAA40AAB4B50726E1452E3735377CCFE596DF691316FC11D2D9D13A
-                          E0C53CD565399CD8A07766E6C36B5D43821E482673F678A1B091DDFB696A572B
-                          C954EAE4C4C4FB255DC3B1BA85E43737EE46388C92BA8D42E1B6D690608F90CE
-                          CED36D3E0CB3BA8C54BAA6A6616C6C6E599750708F10E706B48A5C7E75FD8296
-                          706007E2BD3FAF65E4BC77157BEF72E10E44C2662DA3E7FD29ADE0C00EC48869
-                          D0327A568E690507F857D6E6D6F55C6578C9EFE302F360000F24F9538BC86DFF
-                          09090A76204EE49B969133D67ED5120EEC40AC98575A46CE8B7DA9251CDC8154
-                          99675A462E4854EEBDCB053B90A9A9EC97AD5DF9892E23E41E4D4ECE57EC7458
-                          2EE02FF5AD3D39696E946E34E932021BAB695375531790A00752DA93ABABED15
-                          5D96CB9920D93F369BADD8AFB728C0DFA0CAE596B2CD4DF5A5A3A477A7B34FDE
-                          5E9B999DAFC029305AB1B863985B5C7ED3DC58FF5164A54F24B5C7CFECD64C60
-                          2F6E0D63481BD0A04F597F9B7EBB3024B6A1D53879B8B4B4BEA9ED5DE977CFBD
-                          EAB46D999E9E7FB1D3C517ABA74EFEE8E939579F5F5BEDF75E06421F9E084CD8
-                          E825F4264CE724709FC5DAE1DADA9A91383E0644444444444474D0627961C87C
-                          0808E64380301F0284F91020CC8700613E040CF32140980F41C37C0816E643C0
-                          301F0286F91038CC8780613E040AF32160980F01C37C0818E64300311F0286F9
-                          1040CC8700623E0410F321C0980F2122222222228A4E2C2F0C990F01C17C0810
-                          E64380301F0284F91020CC8780613E0408F32168980FC1C27C0818E643C0301F
-                          0287F91030CC8740613E040CF32160980F01C37C0820E643C0301F0288F91040
-                          CC8700623E0418F32144444444B41722BF01212F4D2D51CF95BC000000004945
-                          4E44AE426082}
+                          034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
+                          D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
+                          2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
+                          BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
+                          7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
+                          87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
+                          0C249B3DD95F2CBA47A984A4B5F59FDC4A60ECC5F1E9B967DA8016E8165AB6AD
+                          F59A787FAF2A902A6DED824978914B8D4DF5DFF2F9C5B7DA84057F84B4B7B5F4
+                          79314F74590E2736E89E9A7AFF4AD790A00792CD9E395A2CAEE5767F9ADAD152
+                          329D3E3E36F66E41D770AC6E21F98DB53B110EA3A476AD58BCA53524D823A4BD
+                          FD54AB0FC39C2E2395A9AEAE1F199959D42514DC23C4B93EAD2257585E3DAF25
+                          1CD88178EFCF691939EF5DC5DEBB5CB80391B049CBE8797F422B38B0033162EA
+                          B58C9E95235AC101FE95B5B1793D57195E0A7BB8C0DC1FC00349FED022725B7F
+                          4282821D8813F9AA65E48CB55FB484033B102BE6A59691F3625F680907772055
+                          E6A996910B12957BEF72C10E646222F77973577EACCB08B987E3E3B3153B1D96
+                          0BF84B7D734F4E9AEBA51B4DBA8CC0DA72C654DDD00524E88194F6E454CA5ED6
+                          65B99C0992BD23D3B98AFD7A8B02FC0DAA7C7E21D7D458573A4ABAB73B7BE4ED
+                          D5A9E9D90A9C02A3158B3B86F9F9C5D74D0D751F44967A44D2BBFCCC6EC504F6
+                          C2E63006B4010DFA94F5B7C937730362EB5B8C93073F175637B4BD23FDEEB99B
+                          CAD8E6C9C9D9E7DB5D7CB17AEAE48FAEAEB3758595E55EEFA52FF4E1B1C0840D
+                          5E426FC24C5E02F749AC1DACA9A91E8AE36340444444444444FB2D961786CC87
+                          80603E0408F32140980F01C27C0810E643C0301F0284F91034CC8760613E040C
+                          F32160980F81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F
+                          01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
+                          3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
+                          70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
+                          7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
+                          44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -1982,7 +2066,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Trailing
-                  Position.X = 861.000000000000000000
+                  Position.X = 970.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -2003,7 +2087,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   ReadOnly = True
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 730.000000000000000000
+                  Position.X = 839.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -2020,7 +2104,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_007: TLayout
                 Align = Top
                 Position.Y = 215.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 8
@@ -2129,7 +2213,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                 object lbVLR_HORA: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 772.000000000000000000
+                  Position.X = 881.000000000000000000
                   Size.Width = 87.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
@@ -2148,7 +2232,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Trailing
-                  Position.X = 861.000000000000000000
+                  Position.X = 970.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -2164,7 +2248,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_008: TLayout
                 Align = Top
                 Position.Y = 250.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 7
@@ -2269,7 +2353,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                 object lbTOTAL: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 780.000000000000000000
+                  Position.X = 889.000000000000000000
                   Size.Width = 79.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
@@ -2288,7 +2372,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Trailing
-                  Position.X = 861.000000000000000000
+                  Position.X = 970.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -2304,7 +2388,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_009: TLayout
                 Align = Top
                 Position.Y = 285.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 1
@@ -2331,7 +2415,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 846.000000000000000000
+                  Size.Width = 955.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Observa'#231#227'o'
@@ -2342,7 +2426,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
               object lytRow_010: TLayout
                 Align = Top
                 Position.Y = 320.000000000000000000
-                Size.Width = 990.000000000000000000
+                Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 6
@@ -2382,7 +2466,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                 object lbVLR_PAGO: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 780.000000000000000000
+                  Position.X = 889.000000000000000000
                   Size.Width = 79.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
@@ -2401,7 +2485,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Trailing
-                  Position.X = 861.000000000000000000
+                  Position.X = 970.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
@@ -2759,52 +2843,52 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                       PNG = {
                         89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                         54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                        05A349444154785EEDDC4D6EDB461407F019518EBB702CDDA0BA417D047B59A0
-                        169D658136924F50679955DD13D43E81E5B4409636E500EDCEEE099C9CA0CD0D
-                        FCB18A22713A8F7C03288AA8992187E4C87CBF8D3D1490C07A9ABF1EC9273142
-                        082184104208218410420821841042AAC4F12729E8FC6A7FC0623684DF458B5F
-                        76B6F8F98BBDE82E79D00215A4A08BEBB0FBF0105F33CE77F0504A88F7DBDBAD
-                        3DDBA2B4F027C9E9EE519C7C550C208F258F59A28214F0C755B82B9FC0012EBF
-                        B2EAB12C54909C20AA62313DC3A53354909C1E1E67C78C053D5C2E2562F6117F
-                        354605C901A24A3E75BFE032538B7359343BD465594ABAAAC7E9AD6E77C431FB
-                        E7F0602C0B6787768825D9E21E69A34AC4F7DF6CF2E49CC456803F89813FDF85
-                        3B82B1B7B8CCC459EBF54F3F447FE3D20AED100BB359ACEDAA20AA0661647DFE
-                        A150410C9D47FBC74B4F00E714892A8522CB401551A5D00E315045542954100D
-                        93A8021B6D2EBBAFE2A8202BBCFD2BEC313ED59E00CA378FDF6454BDC7552154
-                        9015261388AA8D2E2E971231FB3008AFACCFC8B35041329C47E1918C2AED9976
-                        BB5DACAB5A440559228DAAC9AFB8CCE630AA142AC812754495420559601A5541
-                        E0A6AB5A4405990357728DA28AC5A73FEF4737B8708A0A32E7FE5E9844D5C7ED
-                        E781F3A852A820E8CD383CE02D7680CB4C32AA8679C67B4C514124882AC126DA
-                        CB236546954205917C882AA5F105F125AA944617C434AA62D90D971D554AA30B
-                        928EF268A24AC4F7DDE7E59C732CD3D882988FF204954495D2C882984E1DCAA8
-                        8A5EF6A34B5C56A29105319A3A4CA3CAE9955C138D2B88AF51A534AA203E4795
-                        D2A882984E1DD611554A630A02A33C8C73ED955CCE82E33AA24A694C41AA1CE5
-                        2922F7F43B7CC85108DE93FFC2DD669B473F7E1FFD870F7907477956EE0E88AA
-                        CD67C14EDD7F877541E08D71D9871C056747C3FDF1292EBD0151358BC52D2EB3
-                        09FEAAEEDD01AC234B16E362B118800B76321AF7B5B150B575892AC5AA20E934
-                        46F6FD66B9DD86321EAE6117E1A15A553520ED925541A653B6B2654CC88241A4
-                        25C5AB91E9D42167FCC4A7F73FAB826C6D31B31924F9AA9C7C9EDC26AD664DEA
-                        1CE529C2AA20D09FC3BD015C6A6C7467F1E41A6E00E181CAD43575E882F59B3A
-                        DC1B8037415C6A6C740513176FA2B0B23FBCCEA94317729F879C8DFB23594DE3
-                        6F2A108C8D86FDF1212E4B034D856E7740540D0FC6B5C5E92AD63B4439EC8F87
-                        D0BBE3520B3AB0D165FFA2CC0E6C9DA34AC95D1000BD3B17FC105A473CB4120C
-                        134007564651927F738DA34A295410F0328C46ED20D8352D0A7460F0C17BD71D
-                        98E9288F6F5DD5A2C20501F08A4B8A22B3190F69043DE8C0D29B45C5D98CF2E0
-                        AFDECAFDA6BE0CC4867CA5DEC827E73B3CA4059107BB0C97D6E0FF7C789CFCAB
-                        DB1D8CC5A783FEBBCAA647F272B24314384F81EEC5FC5C45C6081767A371FF77
-                        5C5AF369EAD005A70551920E4CBE2271A925B7E9519E0B93BE4D1DBAE034B216
-                        C10921EC005CEA597C4F611A55FA6FE55997A8524AD9210ABC37B438DFB3EAC0
-                        645B6CD281997E81D8BA449552EA0E51E0099ECE66379CB73A7848E3F35DD07A
-                        B69775BE00DD592CC4352E33C18BA1AA995C574ADD210A3CB19DEDA067DE16C3
-                        854971BBEC1A184495E928CFBA150354521000EF0B9D0EDF85270A0F69251DD8
-                        55FF8B7B1A3E4F1DBA5049642DCA7B61D234AA38E32FEA1A742BAA968280F442
-                        A0303FFF10E286F158EE8CD5BB0376A06CBB2BBF07E34A6591B5C8F6C2647A15
-                        F7E94695525B4180F585498DBA06A45DAA2DB2E6C15DBE4F9FC4A5CD35B04570
-                        1733CFD7B2FAA6D61DA2C0D4077460E66DF1976087F934CA5384173B649E6D07
-                        96F064EAD005EF0A024C667195A712558A1791B508EEEA410786CB4C4F29AA14
-                        2F0B024C2E4CC267397C9EBACFC3CBC89A975C989C261DD8B778280137C1D2FB
-                        2E4F8BF70551E0CC3EE622B92CDFE67CB48E170E092184104208218410420821
-                        A4248CFD0FB5DABBFD2EAD594E0000000049454E44AE426082}
+                        05A349444154785EEDDC4D6EDB461407F01951ADB2702CDDA0BA417D047B59A0
+                        169D658136924F5077D955DD13D43E81E5B4409636E500ED4EEE099C9CA0CD0D
+                        FCB1915D89D379E41B406144CD0C3F47E6FB6DECA18004D6D3FCF5483E891142
+                        082184104208218410420821841052258E3F494EE757FB4316B211FC2E5AFCB2
+                        BBC5CF5FED05B7D18316A820395D4CFDDEFD7D38659CEFE0A19810EFB7B75B7B
+                        B64569E14F92D1ED8338F9AC18401E8B1EB34405C9E1F72B7F573E81435C7E66
+                        DD6369A82019415485627E86CBC2504132BA7F581C33E6F571B99208D947FCD5
+                        18152403882AF9D4FD88CB542DCE65D1EC50976529EAAA1EE637BADD1186ECEF
+                        C383892C9C1DDA2196648B7BA48D2A11DEBDE8F0E89CC496873F89813FDEF93B
+                        82B1B7B84CC559EBE7EFBF0DFEC2A515DA2116168B50DB5541540DFDC0FAFC43
+                        A182183A0FF68F579E002EC913550A4596812AA24AA11D62A08AA852A8201A26
+                        5105BE6873D97DE5470559E3ED9F7E9FF127ED09A07CF3F85546D57B5CE54205
+                        59E3E909A2AAD3C3E54A22641F86FE95F519791A2A488AF3C03F9251A53DD36E
+                        B7F3755549549015E2A89AFD82CB74054695420559A18EA852A82009A651E579
+                        C57455495490257025D728AA5878FAC37E708D8B42514196DCDD0993A8FAB8FD
+                        D22B3CAA142A087A33F10F788B1DE032958CAA5196F11E53541009A24AB099F6
+                        F2489951A550412417A24A697C415C892AA5D105318DAA5076C3654795D2E882
+                        C4A33C9AA812E15DEF6539E71CAB34B620E6A33C5E2551A534B220A6538732AA
+                        82D783E01297956864418CA60EE3A82AF44AAE89C615C4D5A8521A551097A34A
+                        6954414CA70EEB882AA5310581511EC6B9F64A2E67DE711D51A534A620558EF2
+                        E49179FA1D3EE42804EFCB7FE1B6D3E6C177DF04FFE243CEC1519EB5BB03A2AA
+                        F3A5B753F7DF615D1078635CF52147C1D9D1687F728A4B6740542D427183CB74
+                        82FF54F7EE00D691258B71912C06E0829D8C27036D2C546D53A24AB12A483C8D
+                        917EBF596EB7918C8729EC223C54ABAA06A48B645590F99CAD6D1923B2601069
+                        51F16A643A75C8193F71E9FDCFAA205B5BCC6C0649BE2A9FFE9BDD44AD664DEA
+                        1CE5C9C3AA20D09FC3BD015C6A747A8B7036851B4078A032754D1D16C1FA4D1D
+                        EE0DC09B202E353A3DC1C4C59BC0AFEC0FAF73EAB00899CF43CE2683B1ACA6F1
+                        371508C6C6A3C1E41097A581A642B73B20AA460793DAE2741DEB1DA21C0E2623
+                        E8DD71A9051DD8F87270516607B6C951A5642E0880DE9D0B7E08AD231E5A0B86
+                        09A0032BA328D1BFB9C151A5E42A0878ED07E3B6E7ED9A16053A30F8E07DD11D
+                        98E9288F6B5D5552EE820078C5454591D98C8734BC3E7460F1CDA2FC6C4679F0
+                        5767657E535F056243BE52AFE593F3351ED282C8835D864B6BF07FDE3FCCFED1
+                        ED0EC6C2D3E1E05D65D3235915B24314384F81EEC5FC5C45C6081767E3C9E037
+                        5C5A7369EAB008851644893A30F98AC4A596DCA647592E4CBA3675588442232B
+                        094E086107E052CFE27B0AE3A8D27F2BCFA6449552CA0E51E0BDA1C5F99E5507
+                        26DB62930ECCF40BC43625AA94527788024FF07CB1B8E6BCD5C5431A8FB75EEB
+                        C55EDAF9027467A110535CA68217435533B94529758728F0C476B7BDBE795B0C
+                        1726C5CDAA6B601055A6A33C9B560C50494100BC2F74BB7C179E283CA4157560
+                        57834FEE69B83C7558844A222B29EB8549D3A8E28CBFAA6BD02DAF5A0A02E20B
+                        81C2FCFC43886BC643B933D6EF0ED881B2EDAEFC1E4C512A8BAC24DB0B93F155
+                        DCE71B554A6D0501D6172635EA1A902E526D91B50CEEF23D3E8A4B9B6B604970
+                        1733CBD7B2BAA6D61DA2C0D4077460E66DF1A76087B934CA9387133B64996D07
+                        167164EAB008CE150498CCE22ACF25AA1427222B09EEEA410786CB54CF29AA14
+                        270B024C2E4CC267395C9EBACFC2C9C85A165D989C471DD85778280237C1E2FB
+                        2ECF8BF30551E0CC3EE422BA2CDFE67CBC89170E092184104208218410420821
+                        A4248CFD0F6DA4BBFD541AF0C00000000049454E44AE426082}
                     end>
                   Align = Client
                   HitTest = False
@@ -2836,57 +2920,57 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                       PNG = {
                         89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                         54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                        064949444154785EED9DDB6B1C551CC7CF999DD94D6AAD1714041F8A4F2A2214
-                        41B4556B5B1AAB98ECD65A5FDA5C447CD127FD0BFC13EA93BE883497FA209A76
-                        372B0A95985451449082084A1E4A457D51EBBDCDEECCCE38DFED6F20899964CE
-                        5CCFD9391F08B3FBCD3273CE7CE637E7EC6433CB341A8D46A3D168341A8D46A3
-                        D168349AB271F693C6CDF4B074A4D977839689986E365EF9E38AB732FB61FD6E
-                        8A4A03FA8CBE631F509488C4424EB7EAAF31EE9D322C769B73957D562629E82B
-                        FA8CBE631FF4F74542382D63E137E094BF827547866BB35FCD1DECD189A75ADF
-                        533490AC93B1068FB1D79FAFB75EA5A7C2C41632DDAABFE12F5EBAFE6C3D832E
-                        254CC61ADE9CAAB75EA6C742080BF13C8F4F2F8CBDC599F102459B32A852DE69
-                        3E7B5FC7B197B690D1C763EEDB53630B2F72CEFDA2898EB09099E6F1BBBA4EF7
-                        A265B15D1485E379572AA67160FCE9E6379428CDDC078DFB7B8EBBC438BF95A2
-                        506C9BFD5535AB7B261BEF5DA22812C2833A3650B32A073DCFFD93A270FC8677
-                        56BD651C5594284BBF32FCBE4491817D837D242A03C41E43665BCF3CD0F3EC45
-                        CE8D9B280AC5B1D9EFC3A6F5D889C6FBDF52A4149071CDB13F352D760B45A140
-                        46855B8726EA67BFA64888D8424019A4E4290324120206594ADE3240E2378668
-                        001A12654C41C7D0C1B976630F45D28236E62D0324AE9000914AC10C64A8C61F
-                        1F1F6D5EA4482A2063B5E32D479949A62903A426040C829422658054850095A5
-                        142D03A42E04A8284506192095CBEF1B4143D160349CA250B003B0237C890F52
-                        943BD8B60C3240261512205229AEE7FC63F21A3AFA1545B900198ED75934B8B9
-                        93A250B296013215026496229B0C90B91020A3141965805C840099A4C82A0364
-                        32A86F063A848EA1831485821D851D36D36EECA32835B04E596580DC840074CC
-                        A8184750011485821DD675BB1FA72905EBC23AA3C8401BF3960172150226475B
-                        5F562AE6E128522C660DA7252590817552144A5F86DFC6BC6580DCC6908DCCB4
-                        EB0FF57A4EA4A3D566F6B5AA513D3C39DAFC9C2221E2C8C0814351AE142604E4
-                        21452519A05021204B29AAC900B98F211B8933A6CC2E340E50140A5EA39A0C50
-                        78850488548A67B34EA5CA9F9C186B2E51B40EC8E875BD8FB8C56A148522930C
-                        208D10908614956500A984802452549701A4130244A40083F38358AA2E034829
-                        044CB78EEEB56DF7BC65B11B280AA7C756FBCB0A1BEA2FB7C0B6D9BF96658C4C
-                        D5CF7D419154482B048856CA76C85C1901520B016949514106905E08482A4515
-                        1940092120AE1495640065840048F13A6CD17FCBBE83A2ADB1D9555E63875491
-                        010ABF74228A6B3A2E3DDC1691D7CA823E6549861ED425437A21496504E8696F
-                        0AA42523400529D20AE9CFA85CFB3C63D68D14852370E9C49F7AFDCD0D6B4456
-                        29520A11AD8C41BAB828DDB45744062EBF43062EBFE30797E291D1AF43C1BAB1
-                        0D6C8B226990AA42443EDD98C61FA88AF820DC764823240D19012A4B9142489A
-                        3202549552F8182222031F038A2203888C29D836DA80B6505418855688A88C38
-                        1F9453AD520AAB903C6480A052B00E8A4291A1520AA990BC64AC45E4538C4556
-                        4AEE428A9011A082945C8588DC6FEAFABB69EB485A320244A4F85672BFDF576E
-                        42446564F92F6D324BC945884C3202649592B910196504C82825532132CB0890
-                        4D4A66EF434464E07E2745C80098346026870382A270FCBEA04FE81B25A99349
-                        8588CA90E1E633FE743CF2FFAE675929A90B515146800C52521572A675EC1EC7
-                        752EF827C2DB290A4536190142525CF68B6998FB4FD6E7BFA32431A909190419
-                        01454A4965501791813B93CA2C036072814946A481DEEF33FA8E7D4049221257
-                        88A80C956E135B44A5241232C83202F29612FB9455061920387D61DCA3289C14
-                        4E5FB12AA42C32D6227293CC2495222CA48C3202F290227CCA722DC7F30C7F73
-                        DB802F74192419003343CC10A39DBEFC5771D6A367911116826FCCB10C731F73
-                        D84F14FD8FE0DB750649464014298EC37E606CE7DE9363F32B144526F62C6BAE
-                        7D6CB7E338CBDC60BB29EA53962F050B3B7DF925716968C83F189F68FD4C9110
-                        B16759E3A3F39759A5FA88E7B2CB14954606D8B4527A6CC5AC551E8E2B03247E
-                        63787AE1F89DACD7BDE0F5D8AEB2C8584B5029A6D5FB910F5BFBA746CEFD46BF
-                        2A8E77DBCFDD31DD3E7A2F3D2D1D9072A67D62DBEF19D168341A8D46A3D16834
-                        1A8D46A3D1680607C6FE033D1EE1DC545E5B920000000049454E44AE426082}
+                        064A49444154785EED9DDB6B1C551CC7CFCCCEEC6EDA522F28083E149F544428
+                        8268ABD6B6B45631D9ADB5BEB4B988F8A24FFA17F827D4277D11692EF54134ED
+                        6E56142A31A9A288200511943C948AFAA2F5866D32D9D919E7BBFD1D48622699
+                        33D77376CE07CAEC7E1366CF399FF9CD393BDDCC328D46A3D168341A8D46A3D1
+                        68341A8DA66C9CFFAC792B3D2C1D69F6DDA46D22265BCDD7FEBAE62F4D7FDCB8
+                        97A2D2803EA3EF18038A129158C8D976E30D66F867CC2ABBC3BDCEBE289314F4
+                        157D46DF3106FDB1488841DB58040D3813EC60DD91E1ADB2DFAD9DECF1B167DA
+                        3F523490AC93B1069FB1375F6CB45FA7A7C2C41632D96EBC156C5EB9F96C3D83
+                        2E254CC61ADE9E68B45FA5C742080BF17DDF989C1B79C760E64B146DCAA04A79
+                        AFF5FC034EB7BBB0858C3E3EF3DE9D18997BD9308CA068A2232C64AA75F29E15
+                        77F572CD66BB290AC7F7FFA858E6C1D1675BDF51A234331F351FECB9DE02338C
+                        DB290AC5E9B27FEA5675EF78F3832B1445427852C70B0CD99543BEEFFD4D5138
+                        41C39D657F11471525CAD2AF8CA02F5164606C3046A23240EC3964BAFDDC433D
+                        BF3B6F18E62D1485E2AEB23F876CFB8953CD0FBFA748292063B9DBFDDCAAB2DB
+                        280A05322A867D78AC71FE5B8A84882D0494414A9E324022216090A5E42D0324
+                        7E638806A02151E614740C1D9CE934F752242D6863DE3240E20AE188540A5620
+                        3B6AC693A3C3ADCB14490564DC70FCC5282BC9346580D48480419052A40C90AA
+                        10A0B294A26580D4850015A5C82003A472F97D2368281A8C8653140A06000311
+                        487C98A2DCC16BCB20036452211C914AF17CF75FCBA8A1A3DF50940B90E1FACE
+                        BC6958BB280A256B19205321406629B2C900990B01324A915106C8450890498A
+                        AC32402693FA66A043E8183A48512818280CD854A7B99FA2D4C03E6595017213
+                        02D031B3621E430550140A06CCF1563E4D530AF6857D46918136E62D03E42A04
+                        8C0FB7BFAE54AC2351A454596D282D295C06F64951287D19411BF39601729B43
+                        3632D5693CD2EBB9918ED655E62CD7CCFA91F1E1D69714091147060E1C8A72A5
+                        3021200F292AC900850A01594A514D06C87D0ED9489C39657AAE7990A250F03B
+                        AAC90085570847A4527C873995BAF1F4D8486B81A27540466FC5FFC4A8B11A45
+                        A1C82403482304A421456519402A21208914D56500E984001129C0348C43D8AA
+                        2E034829044CB68FEF73BADEC59ACD7652144E8FADF4B71556EF6FB7C0E9B2EB
+                        35DB3C3AD1B8F015455221AD10205A29DB21736570A41602D292A2820C20BD10
+                        90548A2A32801242405C292AC900CA080190E22FB3F9601DB583A2AD71D80D63
+                        881D56450628FCD289285ED5F5E8E1B688FCAE2CE8539664E8495D32A4179254
+                        06472F7B53202D191C15A4483BA9F757549E7331920C5C3AE1974FB600FBC23E
+                        B16F8AA443CA0A11AD8C41BAB8285D8588C8C0E577C8C0E577FCC3A57864F4E3
+                        50B06FBC868C95225585887CBA318DFFA02AE28370DB218D9034647054962285
+                        90346570549552F81C2222031F038A220388CC29786DB4016DA1A8300AAD1051
+                        19713E28A75AA514562179C800BC52B00F8A4291A1520AA990BC64AC45E4538C
+                        45564AEE428A90C151414AAE4244EE3775F3DDB47D2C2D191C11298195DCEFF7
+                        959B10511959FE499BCC52721122930C8EAC52321722A30C8E8C52321522B30C
+                        8E6C52327B1F222203F73B294206C0A2012B391C10148513F4057D42DF28499D
+                        4C2A4454860C379F0996E391FF763DCB4A495D888A323832484955C8B9F689FB
+                        5CCFBD149C08EFA42814D9647084A478EC37CBB40E9C6ECCFE40496252133208
+                        3238454A4965521791813B93CA2C036071814546A4893EE833FA8E31A0241189
+                        2B4454864AB7892DA25212091964199CBCA5C43E65954106E0A72FCC7B148593
+                        C2E92B56859445C65A446E9299A4528485945106270F29C2A72CCF767DDF0C5E
+                        6E1BF0852E8324036065881562B4D357B71B1CEE3D7A16196121F8C61CDBB4F6
+                        3397FD42D1FFE0DFAE3348323851A4B82EFB89B15DFB4E8FCC2E511499D8ABAC
+                        99CE893DAEEB2E1A26DB43519FB27C2958D8E92B28892BF57A70303ED5FE9522
+                        2162AFB2468767AFB24AF531DF6357292A8D0CB069A5F4D89255AB3C1A570648
+                        FCC6F0ECDCC9BB596FF592EFB2DD6591B1165E2955BBF7B331641F98387AE11A
+                        FDA838DEEFBC70D764E7F8FDF4B47440CAB9CEA96DBF6744A3D168341A8D46A3
+                        D168341A8D46A3191C18FB0F3893E4FFAD86E0BE0000000049454E44AE426082}
                     end>
                   Align = Client
                   HitTest = False
@@ -2935,7 +3019,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                       54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
                       034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
                       D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
-                      2BA94BAB7D1C0A5A8BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
+                      2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
                       BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
                       7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
                       87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
@@ -2959,7 +3043,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                       01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
                       3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
                       70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
-                      7C0820E64380311F4244444444BB21F21B67474D2A73702B910000000049454E
+                      7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
                       44AE426082}
                   end>
                 Align = Right
@@ -2996,70 +3080,71 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
         PNG = {
           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-          07E649444154785EEDDD6D6C5B671507F0739E6B27A4A9BA8E8CC2AA891624D6
-          38690BA27E69D695088D367D59B7555B296BBF944A4C083184F6614814542A26
-          8600A91F40208DD72175A28ADA491B55A2053665ED1AFBDAD1A0C912972111C1
-          5E5AD6AA55D7972DB19FC373AF4F0B0E71EEB5BDD8D7CDF97DF1738E5BB7F2FF
-          BEF9F1BDD720841042082184103586FC589558ACB30748F7205282342C358F4B
-          CC4B2FE0A76F527455139E55086F11A0AD2CEA4BA5B203FC64C5AA0A2416EBD8
-          658238685EC4042000F4DB08F8682A73FA0837CA565120EBD7B7DFFEDE357C1A
-          8136704BFC2F84E75B16B4EE1D1C1C3EC71DDFCA0E241E8F3C405AFFC62C09B7
-          724BCC40139D5556E861DB7EED256EF95256206BA39DDB34E49FE35278D3A0AC
-          2F94138AEF40BABA22CB7253F95104B5905BC20FADCF63B8A933951A3DCB9D59
-          297EF494CF51AF845101A5DA203FF97BAE3CF90A24115BB10708625C8A3211A8
-          8D8944640B97B3F21508E5E1491E8A0A514EFF8887B3F20C241EEFFC3C28FC18
-          97A252889D774557ADE0AA24CF40CC21EE361E8A2AE571F25E1E96E4190822DD
-          CD43512DC2F53C2AC97B1F42F4511E892A69804FF2B0243F3BF5DBF95154C97C
-          E8FB380F4BF21108867920AA770B3F96E4670D11352481048C0412301248C048
-          20012381048C0412301248C048201E08E8020F6B42029905019C0A37B52D2384
-          DF726BCE49202568823716A0EA3979F2E4BBE974762F227ECD4434C54FCF1909
-          64467435140E6F194C8F9DE106A4D2E3BFD000492EE78C04F2FF345AF8403239
-          32C2B52B1E8DFC5081F7F719D59240A6319BA6AF4F3F47D73D6516E85B5CCE29
-          09A4D84F9D4D138F5D77C5DABB90F2BFE372CE49208C0007366FDDF94D2E5D89
-          C48AE55344C76AF99D90046298C3DBF1C5B786B71F3870C0ECB70BE2F1F8A27C
-          0E5EA8F539CC1288A633A8C21B07064E5DE10EECD8B1C382DCC5E714E2A7B855
-          33F33A10ADE11A86C33DB63DF206B75C131323BF04A5BAB9ACA9F91C08852DF8
-          622A357A8A6B5722D6FE18127C99CB9A9BC781E0E343E9EC1FB9702512ED1B88
-          E0C75CD6C5BC0CC4999BB233E33FE1D295487446284FCF9A615DDF93F91788D6
-          83CB97AFFA0A57AEEEEE35B7E573F917CC5AD3CAADBA9957813887B7105A7C5F
-          6F6F6F9E5BB069D3A6E66B97AFF429843BB85557F3299073CEE1AD6DDB97B876
-          9DFFF7C4214088725977F508E41D0BB1DB2CAD459377738D30B479FAE16D3CDA
-          FE042A7890CB40A87520EF58E1D0E786D2E32F879B3EBCCED4AF14DA730B811E
-          4AA747335CBA0A1386B0AF5005474D0341CBEA1E1A1ACD3A63E78B1F3B93BD9B
-          34CCF155BDB86FFA85FC8509437D88CB40A9692094CBEFDBBF7F7FD1BFB965DB
-          CEEDA4F10F5C7ED09E3187B73FE0B1EBBF1386C154DB4D16C2EEFE63878F3EF2
-          C89A1BB3A7CE849E3D3CB60B41FF8C5B1F0CD2439FF96CEB1EAE5CF59A302C47
-          ADF721CEA1E7FD7F19BEDCE71C6E72CBF952885299BF3D6A86DF2E74AAA3895E
-          6F6A69DEFAD453C337BE03AFE78461396A1E880BF19E73E7FE31B061C3EAA20F
-          62669FF2A4F93CE02CD526B7CA38A7ED5821D878E2C448D1E93BF59C302C477D
-          02319CEFA72F5D981CECEEFEF4626EB992E9ECD308F090796B2B38C383A6C288
-          5B53A9D313DC702562916FD473C2B01C750BC461568335572EBFF74A57D7EAA2
-          DB3BA532D9A3A0423DE64FDCF88EC20F426BCFC97476884B5761C2900E721978
-          750DC461B6E91D539393C975EB3A8AAEBF736ED862815A6FDEE68BDCF2F2443A
-          3DF60C8F5D4199302C4720FEA366BFF189C9F7F550221129DAE10E65C65FB5C2
-          E12EB39B7E9B5B33329F658E98FDCF77B9740569C2B01C815972CC7E63294DE5
-          4D282B5773CBE57C906C8670C2ECACFFCEAD620499B625CB7773E50ADA846139
-          82B52A2BD5969FCA1D8FC7DBD772C7753CF3DABF1621AE35C7B3AF72CB450413
-          2D0B5B37F7F7F7BFCF2D57D0260CCB11B86DAB52B048E7E0C5AE58E41E6EB9FE
-          9CCE9EBFA5ADD93973D09DFFD21A2EA9106E9C7E1BBD78B47D7FD0260CCB11C8
-          9D9D09A5254FF4A744B4E33E6EB99C334378FEEB880AA9EDA9D4F8EBFC942B11
-          8DEC340FDF2B548DC9F38E726689ABF8435AB5B4A69C0A59BB6C7BAC975B25C5
-          622BA348B913667863062088CC0235EB7B1EC835E43AA5306452391C8F46F672
-          6B46F1F8AA3B4C187D6618E830FC087420CC2C51F46BB3A6169DE6799D33FD42
-          7ACA1CDEC26D854E636B8440AE3B6842F93E8F5DCE54FEC50B53CF9AC422DC6A
-          788D1488E33B26949F1391BB1DEE3B76F8E0CD7633E740EFD44B22380416BE64
-          3E97FC8A3B0DA3A177EA2521EC6EC430FC68CC406E621248C04820012381048C
-          0412301248C04820012381048C672044F02E0F4595FCBC979E8120C15B3C14D5
-          4228BA1C6226DE9B2C24CF1711FE20C03F7958928F40F0388F44D5F0651E94E4
-          BDC9B2A0E8D2615139150A3DCFC3923CA7DF1DB1E89D13086A1997A202CE19F9
-          99E1D377725992F726CBB0D07A9C87A24261858FF17056BED610472CDA7EDCFC
-          61F9B59D4A10F4DBC3D9CD5CCDCAD71AE2B042CD5F32AFECF7C467C19C9F60C5
-          50A8E84AAED9F80E2499FCEB9B0AAD87B914FEE82685DBFDFECAA7C377208E64
-          7AACDFFC8D7B6B7D73E146E4AC19CEEFE04EBF5EC54B5981386C3B7BEC432DD8
-          E9DC128F5B623AC4A3AD0B17AE2CF797A21DBE77EA33591BEBD8AD493B57277D
-          A4D099DF9C9B2F2B0BBEEA2CB4DC2A5B55815C178B75F620E5B79A575B431A96
-          22D212F3D20BF8E99B145D058D67B4A2372DC424A1EAB7EDB117F94921841042
-          082184681000FF0113C98941AB59C73C0000000049454E44AE426082}
+          07F449444154785EEDDD7F6C13E71907F0E7BD7B6D37A4A57450B6A26AB04A1D
+          71026C1A3E9B94B268EA20FC286D514B59E11F86B46A9AD669EA1F9D343631B4
+          6A9DB649FCB16993BA9F9D44351441A5B62851B3B64AA1C43E3BEA46D2C41D93
+          166DFD012B08442934F1DDFBEE7DCF0F6CCEE2DCD96EEC33793EFFE4791E435A
+          FCF5F9CEAFCF6720841042082184903A63F8B32696D5D10D5274332653AE8025
+          26138B018C7978F3754A5C768471861BF0AE04661BA6ECCD64F2FD7863D56A0A
+          C4B2DA774A290E18002A0002E0BCC7C07C2C937BEB300E2A565520EBD6B5DDF6
+          D115F60C03B91E47E47F3178A1655EEB9E8181A1B33809ACE24092C9F8034238
+          BF33C0BC0547641A8E2BCEF048E411DB7EF3551C055251206B121D5B05B8CF63
+          4BFC0930CC2F57124AE0403A3BE34B9D42618401BF11472408C739C762377464
+          322367703223B53F0EC675640F855105CE17823BF947EC7C050A24652DDF0D12
+          2C6C498524181B52A9F8666C6714281059104F6149AA240BEE4FB09C916F20C9
+          64C797809B9FC29654CB303AEE4AAC5C8E5D59BE814821B662496AE4B2C97BB1
+          2CCB3710C6E4DD58925A49B60EABB2FCF721527C122B5223017007966505D8A9
+          CBDBB02035522FFA3E8D6559010231235890DADD8C3FCB0A1008A9270A246428
+          9090A14042860209190A2464289090A140428602F121C03D8F655D5020331000
+          27A3D15B974A06BFC7D1ACA340CA7004BCDDCA8CEE13274E7C90CDE6F730C6BE
+          01E016F0E65943814C4B5C8E46239B07B2A3A7710099ECD8AF0418696C670D05
+          F2FF04338D07D2E9E161EC3DC944FCC706F8BF9F512B0A640AF5D4F4CDA9E7E8
+          EA536601E477B09D551448A99FEBA726AC3D77596D9D4C16FE80EDACA3409004
+          D6BF69CB8E6F63EB49A5962F9B94EED17ABE27448128EAF0766CC12D916DFBF7
+          EF57655132999CEF38E2A57A9FC34C8138EE69C3886CE8EF3FF9214E60FBF6ED
+          2638179E379979278EEA664E07E2387085C562DDB63DFC368E3CE3E3C3BF06C3
+          E8C2B6AEE672203216818733999193D87B5256DBE34CC257B1ADBB391C087B62
+          309B7F111B4F2AD5B65E4AF829B60D312703D16B53766EEC67D87A52A98EB874
+          DDE754D9D0FB64EE0522C4C0B2652BBF869DA7AB6BF5A242C17D491DDEB6E2A8
+          61E65420FAF016F882FB7A7A7A5C1CC1C68D1B63572E7DD8CB0DB81D470D3597
+          0239AB0F6F6DDBBE88BDE7DCBFC70F028304B60DD78840DE3719EB9200258B77
+          B34D32BE69EAE16D32D1F62433E0416C43A1DE81BC6F46F81707B363AF45A29F
+          58ABFAD78BE3D9C5403E94CD8EE4B0F514170C616FB10B8FBA06C24CB36B7070
+          24AF6BFDC68F9DCBDF2D05CCF2A77AD9DEA91FE42F2E188A83D8864A5D03918E
+          BB77DFBE7D25FFCDCD5B776C9382FD09DB8FDBB3EAF0F647587BFEBB60184EF5
+          7DCA62B0ABEFE8A1238F3EBAFADAEAA95ED0B38746773210BFC0D1C7438AC1CF
+          7FA17537769E462D1856A2DEFB10503BF3FBFF3274A9571F6EE248BF292433B9
+          BF3DA6CAEF1627B571A57B2ADA12DBF2F4D343D7DE036FE4826125EA1E8887B1
+          7BCE9EFD47FFFAF5AB4A5E88A97DCA530603FDA856B955479FB6C3B9B1E1F8F1
+          E192D3771AB9605889C604A2E8F7A72F9E9F1CE8EAFADC021C79D2D9FC330CE0
+          A1EACEF0700B51666EC964DE1AC7812765C5BFD5C805C34A342C104D6D06AB2F
+          5DFAE8F5CECE55259777CAE4F247C08876AB3BF8DA7B14414816D97D229B1FC4
+          D6535C309407B00DBD8606A2A91789ED131393E9B56BDB4B3E7FA72FD862025F
+          A7EEE60B38F2F364363BFA2CD69EB02C18562214FFA3DC80CF4C4E88C1542A5E
+          B2C31DCC8DBD6146229D00CE7B389A967A2D7358ED7FBE8FAD274C0B869508CD
+          2347ED3796C889820A65C52A1C79F40BC918C45212C4DF71544A426EE1E265BB
+          B0F3846DC1B012E1DA94395F5898708E25936D6B70E239967BF35FF399B1461D
+          CFBE81238F2B61BCE5C6D64D7D7D7D1338F2846DC1B012A17B6EE51CE63B93F0
+          4AA715BF07479E97B3F973372F8AE93307BDF52FC7818B9CB30D532FA3974CB4
+          ED0BDB82612542B9B353A1B4B852FE399568BF0F471E7D6608AE7F1DE651635B
+          2633760A6FF2A412F11DEAC70F8A5D73F2BDA29C7AC455FD22AD568EE33A3C1A
+          D969DBA33D382ACBB2562498748EABF2DA0A4018A907D48CF77928B790AB3837
+          390871289988EFC1D1B492C995B7AB307A5519EA3082087520483DA2E46FD596
+          5A729AE7557AF94588823ABC8545C549736B8640AE3AA042F921D61EBD947FE1
+          7CE139F58F88E3A8E9355320DAF75428BF94527ACFC3BD470F1DB8DE2EE61CEA
+          9D7A59120E82C95E05217F8393A6D1D43BF5B218EC6AC6308268CE40AE631448
+          C85020214381840C0512321448C85020214381848C6F20AE0B1F60496A14E4BE
+          F40DC40478174B52236642C9C721A6E3FF946548DF5F42825177F63FB12CCB3F
+          10C68E61456AC65EC3A22CDF40D46656F2D161523D83F317B02CCB77F95DB312
+          778E333097624BAAA0CFC81F1A3AF5596CCBF27FCA524CC69FC09254296A988F
+          6339A3405B886625DA8EA93F4CDFB6530D097DF6507E1376330AB48568268F7D
+          45FDE6A0273E13A4BF8295715EF249AE99040E249DFEEB3B06331FC19604236E
+          E0FA84BE60DFF2A9050E444B6747FBD4DFB8B7DE17176E467ACBD0DF833BF5F3
+          2A7E2A0A44B3EDFCD19616B3435F120F47642AC68EDC34FFA615957E53B41678
+          A73E9D3556FB2E2185FE74D2ADC5C9DCA62FBECC397C5D3F687154B19A02B9CA
+          B23ABA9974B7A8DFB6DA15B0C46462B1DAF8E6E1CDD72971191CE3B4E0F21D93
+          B1B464469F6D8FBE823712420821841042489300F80F8A4B8D514F4F61950000
+          000049454E44AE426082}
       end>
     Position.X = 801.000000000000000000
     Position.Y = 152.000000000000000000
@@ -3073,35 +3158,35 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
         PNG = {
           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-          037349444154785EEDDDB153134114C7F17D9BE8D899C64A67D446A38D7120E8
-          584949C77F00F94FF29F10FE02FD0FB47284C0181A0D3662416791B46AF6792F
-          B71967F4927D9730CC83FB7D1AEE8EB160BFEEED868275000000000000978CE2
-          D795BC6A3F6D4D1CEF04E61631371C512B7EEB7A631E30D1C8130D6A8EF63FF4
-          3F0FE27796B6529097EDE6CE24B82E917B101F551AB33BAB79D7FDD81FEEC747
-          A52D154466C4EF30D9ABCC4C282B9B39755FEB2C33634A07D9D878B2ED42D8CB
-          FE69233E82423C72DE770E0FBFBC8D0F544A05C963F09B780B0AD99ABA79707C
-          FA3EDE26A9834C5F533C79879951168FEA54DBD4BEBE7CFC9A345D33106309D4
-          C8C74E4715E445FBF12E16F0156463371D4305D52BABBDD6FCA6D8DA8E995CEF
-          86F3BD8BD88F5F05F21AFFE5C22EB193C1BE9D3F2D265BE2FEF1F061BC9D2B19
-          245F3BC2A7785B28B03BB9E9FD6E5542FC4BC6E867083D4FEE597C54A84EFE79
-          6A8C92AF2CF91F102FE719573986909F5DC620BB1CE74F8A29C6321D842661E1
-          DA21AFA92AC798913190B188B785526329D28B3AD1C277A3AC19F1B2F2926391
-          184BA109B2B02A66C75FC9B150EC5455DB5EB83C08620C82188320C620883108
-          620C82188320C620883108620C82188320C620883108620C82188320C6208831
-          08620C82188320C620883108620C82188320C620883108620C82188320C62088
-          3108620C82188320C620883108620C82188320C620883108620C82188320C620
-          883108620C82188320C620883108620C82188320C620883108620C82188320C6
-          20883108620C82188320C6208831C92072F241BC2C242703C4CBCA4B8D456A2C
-          453288E7308A9785347FF1BF2A5263911A4B910CC235BFF0EF9913F30E66493E
-          3B642CE26DA1D4588A6490F4E907F9194B558E223FBBE68C2ECD4912BA238FD6
-          1F9D91F3F7E3ED1C3C22F2BD8B3A82F42A901072E42CB3BCAA16C76017BEF78F
-          BE264F4455059103AD98497DD218FC8F883B07FDD38B9921627DAD39489DB104
-          C5647775743C54BDD2D59F4334672C41A1E9195DF13A491D64BA2E78C216B7A4
-          6CE7B55D664DADC5AF2AE7E73F8677EFDD39C956A8ADECF656FE14E6186731B6
-          CA9C832BD43364464E3FAE937FADF9D4595532363246656308F5A25E44765F81
-          B99BDE1257836C6D3D5157B39B9A67A52033B21F9F1E413A09AD40BE5195DD98
-          CC04F975887C02AFD291B30000000000709D38F707243D20F16B176CE0000000
-          0049454E44AE426082}
+          037949444154785EEDDDC14E13411CC7F199D912BDD98B274DD48311BD58538B
+          C6931CB9F106C09BF44D284FA06FA02723D4C672518807F1C0CD437B34B833EE
+          BF1D62A2DBCE7F5B427EB0BFCFA5BB4B0861BECCEE9443C71011111111115D32
+          1B5F97F2AAF3A4959BB0E54368591F9AC6D956FCD2F5E6C330383B72D60E3363
+          F73EF4BF0CE35716B65490979DD5AD336FBA9935F7E3A55ACB83395971A6FBB1
+          7FB4172F55B650109911BFF37CB73633A1AA62E634B26C6791195339C8DADAE3
+          4DE3FD6EF1ADCD78894A8591716EE7E0E0EBDB7841A55290698CF0269E92820D
+          617D7F70FC3E9E26A9834C6E53217FC799515518356CB6AEBD7DB9F89A347966
+          30C6026C733A763AAA202F3A8FB6F9005F42317693315450DDB2DAEDD5EF8AA5
+          ED3858D35B31AE7711EBF1AB406EE367C66FDB6064B06F4DAF969325F16070F4
+          209ECE940C327D76F8CFF1B454F1C30E6F38B75D9710FF9231FAE57DAFF8A37D
+          1A2F956A58F72C3546C95B96FC05C4C359C6758E21E4779731280EC7D32BE514
+          63990E62733FF7D921B7A93AC73827632063114F4BA5C652281EEA76EEBD519E
+          19F1B0F6D263317F2C453A486275C5D9F157722C142B55D5B2972E0F83806110
+          300C028641C03008180601C3206018040C83806110300C028641C03008180601
+          C3206018040C83806110300C028641C03008180601C3206018040C8380611030
+          0C028641C03008180601C3206018040C83806110300C028641C03008180601C3
+          206018040C83806110300C028641C03008180601C3206018040C83806110300C
+          028641C03008180601C3206018044C3288EC7C100F4BC9CE00F1B0F65263911A
+          4B910C92053F8A87A5349FF85F17A9B1488DA5480609999BFB79E636842DCE92
+          E9EC90B188A7A55263299241149FF83FD963A9CE51E477D7ECD1A5D94942B5E5
+          51E7F9C3136BB27BF1748630B2D6F52E6A0BD2AB4042C896B321C8AD6A7E8C60
+          F21FFD4FDF923BA2AA82C886562158F54E63F43F6BC3CE7EFFF862668868B757
+          87A93D96A89CACAE068323D52D5DFD3E44B3C712959AECD1158F93D44126CF05
+          67B9C4ADA858796D5679A666F155E5F4F4E7D19DBBB70F8B27D446717A737A95
+          6618173136AAEC832BD433E49CEC7EDCB0EEB5E65D675DC9D8C818558D21D40F
+          F532B2FAF2C177D34BE27A90A5ADB3AEAB594DCDB2549073B21E9F6C419AFB56
+          6E5DB32EAB319909F2EF1079075EA72D678988888888E83A31E60FEC6720F167
+          EB020A0000000049454E44AE426082}
       end>
     Position.X = 859.000000000000000000
     Position.Y = 152.000000000000000000
@@ -3139,8 +3224,10 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
       #9'LEFT JOIN CLIENTE CL ON CL.ID = L.ID_PESSOA '
       #9'LEFT JOIN FORNECEDOR F ON F.ID = L.ID_PESSOA '
       #9'JOIN USUARIO U ON U.ID = L.ID_USUARIO '
+      'WHERE NOT L.ID IS NULL'
       'ORDER BY'
       #9'L.ID_EMPRESA '
+      #9',C.TIPO'
       #9',L.DT_VENCIMENTO;'
       '')
     Left = 336
@@ -3185,6 +3272,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
       FieldName = 'VALOR'
       Origin = 'VALOR'
       Required = True
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
@@ -3196,6 +3284,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
       FieldName = 'DESCONTO'
       Origin = 'DESCONTO'
       Required = True
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
@@ -3203,6 +3292,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
       FieldName = 'JUROS'
       Origin = 'JUROS'
       Required = True
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end
@@ -3210,6 +3300,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
       FieldName = 'VALOR_PAGO'
       Origin = 'VALOR_PAGO'
       Required = True
+      DisplayFormat = 'R$ #,##0.00'
       Precision = 18
       Size = 2
     end

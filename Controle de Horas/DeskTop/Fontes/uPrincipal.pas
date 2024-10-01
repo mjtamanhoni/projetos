@@ -86,6 +86,10 @@ type
     rctServPrestados: TRectangle;
     imgServPrestados: TImage;
     lbServPrestados: TLabel;
+    lbiLancamentos: TListBoxItem;
+    rctLancamentos: TRectangle;
+    imgLancamentos: TImage;
+    lbLancamentos: TLabel;
     procedure imgLogClick(Sender: TObject);
     procedure rctConfigClick(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -100,6 +104,7 @@ type
     procedure rctEmpresaClick(Sender: TObject);
     procedure rctFornecedorClick(Sender: TObject);
     procedure rctServPrestadosClick(Sender: TObject);
+    procedure rctLancamentosClick(Sender: TObject);
   private
     FDm_Global :TDM_Global;
     procedure AbreForm(AForm:TFormClass);
@@ -131,7 +136,8 @@ uses
   ,uCad.Contas
   ,uCad.Empresa
   ,uCad.Fornecedor
-  ,uMov.ServicosPrestados;
+  ,uMov.ServicosPrestados
+  ,uLanc_Financeiros;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -226,7 +232,7 @@ begin
   exCadastro.IsExpanded := False;
   exMovimento.IsExpanded := False;
   exCadastro.Height := 400;
-  exMovimento.Height := 100;
+  exMovimento.Height := 150;
 end;
 
 procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);
@@ -297,6 +303,16 @@ begin
   frmCad_Fornecedor.Height := Self.Height;
   frmCad_Fornecedor.Width := Self.Width;
   frmCad_Fornecedor.Show;
+end;
+
+procedure TfrmPrincipal.rctLancamentosClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmLanc_Financeiros,frmLanc_Financeiros);
+  frmLanc_Financeiros.Parent := Self;
+  frmLanc_Financeiros.Height := Self.Height;
+  frmLanc_Financeiros.Width := Self.Width;
+  frmLanc_Financeiros.Show;
 end;
 
 procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);

@@ -10,6 +10,9 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object rctTampa: TRectangle
     Align = Contents
@@ -146,6 +149,7 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
             Size.Width = 48.000000000000000000
             Size.Height = 31.000000000000000000
             Size.PlatformDefault = False
+            OnClick = imgFecharClick
           end
         end
         object ShadowEffect4: TShadowEffect
@@ -220,13 +224,12 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
                     Text = 'Tipo'
                     TabOrder = 0
                   end
-                  object edFiltro_Tipo: TComboBox
+                  object cbFiltro_Tipo: TComboBox
                     Align = Client
                     Items.Strings = (
                       'TODOS'
                       'CLIENTE'
                       'FORNECEDOR')
-                    ItemIndex = 0
                     Margins.Left = 2.000000000000000000
                     Margins.Top = 2.000000000000000000
                     Margins.Right = 2.000000000000000000
@@ -236,6 +239,7 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
                     Size.PlatformDefault = False
                     StyleLookup = 'ComboBox1Style_Adapta'
                     TabOrder = 5
+                    OnChange = cbFiltro_TipoChange
                   end
                 end
               end
@@ -255,6 +259,7 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
                   XRadius = 4.500000000000000000
                   YRadius = 4.500000000000000000
                   object edFiltro_Pessoa: TEdit
+                    Tag = 1
                     Touch.InteractiveGestures = [LongTap, DoubleTap]
                     Align = Client
                     StyleLookup = 'Editstyle_Adapta'
@@ -271,9 +276,9 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
                     TextPrompt = 'Descri'#231#227'o'
                     StyledSettings = [Family, FontColor]
                     CharCase = ecUpperCase
+                    OnChange = cbFiltro_TipoChange
                   end
                   object edFiltro_Pessoa_ID: TEdit
-                    Tag = 2
                     Touch.InteractiveGestures = [LongTap, DoubleTap]
                     Align = Left
                     StyleLookup = 'Editstyle_Adapta'
@@ -293,6 +298,7 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
                     TextPrompt = 'C'#243'digo'
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
+                    OnChange = cbFiltro_TipoChange
                   end
                   object lytFiltro_Pessoa_Tit: TLabel
                     Align = Top
