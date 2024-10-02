@@ -14,8 +14,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
   OnClose = FormClose
   DesignerMasterStyle = 0
   object OpenDialog: TOpenDialog
-    Left = 189
-    Top = 328
+    Left = 157
+    Top = 432
   end
   object imgEsconteSenha: TImage
     MultiResBitmap = <
@@ -124,6 +124,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgIncluir: TImage
               MultiResBitmap = <
                 item
@@ -164,6 +165,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgEditar: TImage
               MultiResBitmap = <
                 item
@@ -226,6 +228,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgSalvar: TImage
               MultiResBitmap = <
                 item
@@ -307,6 +310,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgCancelar: TImage
               MultiResBitmap = <
                 item
@@ -390,6 +394,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imgExcluir: TImage
               MultiResBitmap = <
                 item
@@ -428,6 +433,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             Stroke.Kind = None
             XRadius = 5.000000000000000000
             YRadius = 5.000000000000000000
+            OnClick = rctCancelarClick
             object imPagamento: TImage
               MultiResBitmap = <
                 item
@@ -436,34 +442,34 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   PNG = {
                     89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                     54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                    034F49444154785EEDDB4F4814611806F0F7FBC6DD753194482F2A516189465D
+                    035049444154785EEDDB4F4814611806F0F7FBC65D7731B4402F2A516189455D
                     92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                    FC97D4A5D5FE1C0A5A0BF4A2A1EEAAF37DB9FA061D12D29D9567E0F95DE6FD5E
-                    D865E19D99DDD9994788888888A80C8C6E63A5B3F3CCE18DFC46BF13DF635CD8
-                    E4ED467DB16F5C625EACFD648D1D3A545335383C3CB3B4FD821889D5403A3A5A
-                    8F6E16DC2D2FCB5745AA93DAFEA7C286E42B13EE41326DEF8C8ECEFDD036BCD8
-                    0C249369ED2F14DCE354422AB5F59FDC6A60ECA5F1E9B9E7DA8016E8165AA6AD
-                    E5BA787FBF22900A6DED81497891CB0D8D75DF73B9C577DA84057F84B4B735F7
-                    79314F75590A2736E89E9AFAF05AD790A00792C99C3D5E28AC67F77E9ADAD552
-                    B2B2F2E4D8D8FB055DC3B1BA85E437D7EF46388CA29AF542E1B6D690608F90F6
-                    F6D32D3E0CB3BA8C54BAAAAA6E646466519750708F10E7FAB48A5C7E65ED8296
-                    706007E2BD3FAF65E4BC77657BEF52E10E44C2462DA3E7FD29ADE0C00EC488A9
-                    D3327A568E690507F857D6E6D6F55C7978C9EFE302F360000F24F9538BC86DFF
-                    09090A76204EE49B969133D67ED5120EEC40AC98575A46CE8B7DA9251CDC8154
-                    98675A462E4894EFBD4B053B908989EC97AD5DF9892E23E41E8D8FCF96ED7458
-                    2AE02FF5AD3D39696E146F34E93202EB2B695371531790A00752DC9353297B45
-                    97A5722648F68E4C67CBF6EB2D0AF037A872B9856C63436DF128E9DEE9EC93B7
-                    D7A6A667CB700A8C562CEE18E6E617DF34D6D77E14F9D52392DAE36776AB26B0
-                    17B78631A00D68D0A7ACBF4DBE9D1B107BA4D93879B8BCBCB6A9ED5DE977CFBD
-                    54DA364D4ECEBED8E9E28BD553277F74759DABCDAFAEF47A2F7DA10F4F0426AC
-                    F7127A13A67312B8CF62ED607575D5501C1F032222222222223A68B1BC30643E
-                    0404F32140980F01C27C0810E64380301F0286F91020CC87A0613E040BF32160
-                    980F01C37C081CE643C0301F0285F91030CC8780613E040CF32180980F01C37C
-                    0820E64300311F0288F91060CC871011111111114527961786CC8780603E0408
-                    F32140980F01C27C0810E643C0301F0284F91034CC8760613E040CF32160980F
-                    81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F01C47C0820
-                    E64300311F028CF91022222222DA0B91DF968F4D5482D413A20000000049454E
-                    44AE426082}
+                    FC97D4A5D5FE1C0A5A0BF4A007757775BE2F57DFA04342BAB3F20C3CBFCBBCDF
+                    0BBB2CBC33B33B3BF308111111115580D16DAC74759D3DB291DF1870E27B8D0B
+                    5BBCDD682CF58D4B2C88B59FADB1C387EA6A8646466657B65F1023B11A4867E7
+                    E9A39B0577DBCBF23591C3496DFF536143F2A9847B984CDBBB6363F33FB50D2F
+                    3603C9644E0F140AEE49754252DAFA4F6E2D30F6F2C4CCFC0B6D400B740B2DD3
+                    DE7643BC7F50154895B6F6C024BCC895A6E6861FB9DCD27B6DC2823F423ADA5B
+                    FBBD9867BA2C87131BF44C4F7F7CA36B48D003C964CE1D2F148AD9BD9FA676B5
+                    924CA54E8E8F7F58D4351CAB5B487EB3782FC26194D4150B853B5A43823D423A
+                    3ACEB4F930CCEA3252E99A9A86D1D1D9255D42C13D429CEBD72A72F9D5F58B5A
+                    C2811D88F7FE829691F3DE55ECBDCB853B10099BB58C9EF7A7B482033B1023A6
+                    41CBE85939A6151CE05F599B5BD77395E125BF8F0BCC83013C90E42F2D22B7FD
+                    272428D8813891EF5A46CE58FB4D4B38B003B1625E6B19392FF6959670700752
+                    659E6B19B92051B9F72E17EC402627B35FB776E5A7BA8C907B3C313157B1D361
+                    B980BFD4B7F6E4A4B959BAD1A4CB081457D3A6EA962E20410FA4B4275757DBAB
+                    BA2C973341B26F74265BB15F6F5180BF4195CB2D669B9BEA4B4749CF4E679FBC
+                    BD3E3D3357815360B46271C730B7B0F4B6B9B1FE93C84AAF486A8F9FD9AD99C0
+                    5EDA1AC6A036A0419FB2FE36F56E7E506C43AB71F26879797D53DBBBD2EF9EFB
+                    D569DB323535F772A78B2F564F9DFCD1DD7DBE3EBFB6DAE7BDF4873E3C1198B0
+                    D14BE84D98CE49E0BE88B543B5B535C3717C0C888888888888E8A0C5F2C290F9
+                    1010CC8700613E0408F32140980F01C27C0818E64380301F8286F9102CCC8780
+                    613E040CF32170980F01C37C0814E643C0301F0286F91030CC8700623E040CF3
+                    2180980F01C47C0820E64380311F424444444444149D585E18321F0282F91020
+                    CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030CC8780613E
+                    040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E0410F32180
+                    980F01C47C0830E64388888888682F447E0364274D4B6B4748F2000000004945
+                    4E44AE426082}
                 end>
               Align = Client
               HitTest = False
@@ -690,7 +696,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
           Size.Width = 1099.000000000000000000
           Size.Height = 603.000000000000000000
           Size.PlatformDefault = False
-          TabIndex = 0
+          TabIndex = 1
           TabOrder = 2
           TabPosition = None
           Sizes = (
@@ -702,7 +708,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             CustomIcon = <
               item
               end>
-            IsSelected = True
+            IsSelected = False
             Size.Width = 8.000000000000000000
             Size.Height = 8.000000000000000000
             Size.PlatformDefault = False
@@ -780,6 +786,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
                     OnChange = edFIltro_Dt_IChange
+                    OnTyping = edFIltro_Dt_ITyping
+                    OnKeyDown = edFIltro_Dt_IKeyDown
                   end
                   object edFIltro_Dt_F: TEdit
                     Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -803,6 +811,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
                     OnChange = edFIltro_Dt_FChange
+                    OnTyping = edFIltro_Dt_FTyping
+                    OnKeyDown = edFIltro_Dt_FKeyDown
                   end
                   object cbFiltro_Tipo_Periodo: TComboBox
                     Align = Left
@@ -822,6 +832,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     StyleLookup = 'ComboBox1Style_Adapta'
                     TabOrder = 5
                     OnChange = cbFiltro_Tipo_PeriodoChange
+                    OnKeyDown = cbFiltro_Tipo_PeriodoKeyDown
                   end
                 end
               end
@@ -873,6 +884,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
                     OnChange = edFiltro_Empresa_IDChange
+                    OnKeyDown = edFiltro_Empresa_IDKeyDown
+                    OnExit = edFiltro_Empresa_IDExit
                     object imgFiltro_Empresa: TImage
                       MultiResBitmap = <
                         item
@@ -997,6 +1010,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     StyledSettings = [Family, FontColor]
                     CharCase = ecLowerCase
                     OnChange = edFiltro_Cliente_IDChange
+                    OnKeyDown = edFiltro_Cliente_IDKeyDown
+                    OnExit = edFiltro_Cliente_IDExit
                     object imgFiltro_Cliente: TImage
                       MultiResBitmap = <
                         item
@@ -1083,71 +1098,71 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          07F449444154785EEDDD7F6C13E71907F0E7BD7B6D37A4A57450B6A26AB04A1D
-                          71026C1A3E9B94B268EA20FC286D514B59E11F86B46A9AD669EA1F9D343631B4
-                          6A9DB649FCB16993BA9F9D44351441A5B62851B3B64AA1C43E3BEA46D2C41D93
-                          166DFD012B08442934F1DDFBEE7DCF0F6CCEE2DCD96EEC33793EFFE4791E435A
-                          FCF5F9CEAFCF6720841042082184903A63F8B32696D5D10D5274332653AE8025
-                          26138B018C7978F3754A5C768471861BF0AE04661BA6ECCD64F2FD7863D56A0A
-                          C4B2DA774A290E18002A0002E0BCC7C07C2C937BEB300E2A565520EBD6B5DDF6
-                          D115F60C03B91E47E47F3178A1655EEB9E8181A1B33809ACE24092C9F8034238
-                          BF33C0BC0547641A8E2BCEF048E411DB7EF3551C055251206B121D5B05B8CF63
-                          4BFC0930CC2F57124AE0403A3BE34B9D42618401BF11472408C739C762377464
-                          322367703223B53F0EC675640F855105CE17823BF947EC7C050A24652DDF0D12
-                          2C6C498524181B52A9F8666C6714281059104F6149AA240BEE4FB09C916F20C9
-                          64C797809B9FC29654CB303AEE4AAC5C8E5D59BE814821B662496AE4B2C97BB1
-                          2CCB3710C6E4DD58925A49B60EABB2FCF721527C122B5223017007966505D8A9
-                          CBDBB02035522FFA3E8D6559010231235890DADD8C3FCB0A1008A9270A246428
-                          9090A14042860209190A2464289090A140428602F121C03D8F655D5020331000
-                          27A3D15B974A06BFC7D1ACA340CA7004BCDDCA8CEE13274E7C90CDE6F730C6BE
-                          01E016F0E65943814C4B5C8E46239B07B2A3A7710099ECD8AF0418696C670D05
-                          F2FF04338D07D2E9E161EC3DC944FCC706F8BF9F512B0A640AF5D4F4CDA9E7E8
-                          EA536601E477B09D551448A99FEBA726AC3D77596D9D4C16FE80EDACA3409004
-                          D6BF69CB8E6F63EB49A5962F9B94EED17ABE27448128EAF0766CC12D916DFBF7
-                          EF57655132999CEF38E2A57A9FC34C8138EE69C3886CE8EF3FF9214E60FBF6ED
-                          2638179E379979278EEA664E07E2387085C562DDB63DFC368E3CE3E3C3BF06C3
-                          E8C2B6AEE672203216818733999193D87B5256DBE34CC257B1ADBB391C087B62
-                          309B7F111B4F2AD5B65E4AF829B60D312703D16B53766EEC67D87A52A98EB874
-                          DDE754D9D0FB64EE0522C4C0B2652BBF869DA7AB6BF5A242C17D491DDEB6E2A8
-                          61E65420FAF016F882FB7A7A7A5C1CC1C68D1B63572E7DD8CB0DB81D470D3597
-                          0239AB0F6F6DDBBE88BDE7DCBFC70F028304B60DD78840DE3719EB9200258B77
-                          B34D32BE69EAE16D32D1F62433E0416C43A1DE81BC6F46F81707B363AF45A29F
-                          58ABFAD78BE3D9C5403E94CD8EE4B0F514170C616FB10B8FBA06C24CB36B7070
-                          24AF6BFDC68F9DCBDF2D05CCF2A77AD9DEA91FE42F2E188A83D8864A5D03918E
-                          BB77DFBE7D25FFCDCD5B776C9382FD09DB8FDBB3EAF0F647587BFEBB60184EF5
-                          7DCA62B0ABEFE8A1238F3EBAFADAEAA95ED0B38746773210BFC0D1C7438AC1CF
-                          7FA17537769E462D1856A2DEFB10503BF3FBFF3274A9571F6EE248BF292433B9
-                          BF3DA6CAEF1627B571A57B2ADA12DBF2F4D343D7DE036FE4826125EA1E8887B1
-                          7BCE9EFD47FFFAF5AB4A5E88A97DCA530603FDA856B955479FB6C3B9B1E1F8F1
-                          E192D3771AB9605889C604A2E8F7A72F9E9F1CE8EAFADC021C79D2D9FC330CE0
-                          A1EACEF0700B51666EC964DE1AC7812765C5BFD5C805C34A342C104D6D06AB2F
-                          5DFAE8F5CECE55259777CAE4F247C08876AB3BF8DA7B14414816D97D229B1FC4
-                          D6535C309407B00DBD8606A2A91789ED131393E9B56BDB4B3E7FA72FD862025F
-                          A7EEE60B38F2F364363BFA2CD69EB02C18562214FFA3DC80CF4C4E88C1542A5E
-                          B2C31DCC8DBD6146229D00CE7B389A967A2D7358ED7FBE8FAD274C0B869508CD
-                          2347ED3796C889820A65C52A1C79F40BC918C45212C4DF71544A426EE1E265BB
-                          B0F3846DC1B012E1DA94395F5898708E25936D6B70E239967BF35FF399B1461D
-                          CFBE81238F2B61BCE5C6D64D7D7D7D1338F2846DC1B012A17B6EE51CE63B93F0
-                          4AA715BF07479E97B3F973372F8AE93307BDF52FC7818B9CB30D532FA3974CB4
-                          ED0BDB82612542B9B353A1B4B852FE399568BF0F471E7D6608AE7F1DE651635B
-                          2633760A6FF2A412F11DEAC70F8A5D73F2BDA29C7AC455FD22AD568EE33A3C1A
-                          D969DBA33D382ACBB2562498748EABF2DA0A4018A907D48CF77928B790AB3837
-                          390871289988EFC1D1B492C995B7AB307A5519EA3082087520483DA2E46FD596
-                          5A729AE7557AF94588823ABC8545C549736B8640AE3AA042F921D61EBD947FE1
-                          7CE139F58F88E3A8E9355320DAF75428BF94527ACFC3BD470F1DB8DE2EE61CEA
-                          9D7A59120E82C95E05217F8393A6D1D43BF5B218EC6AC6308268CE40AE631448
-                          C85020214381840C0512321448C85020214381848C6F20AE0B1F60496A14E4BE
-                          F40DC40478174B52236642C9C721A6E3FF946548DF5F42825177F63FB12CCB3F
-                          10C68E61456AC65EC3A22CDF40D46656F2D161523D83F317B02CCB77F95DB312
-                          778E333097624BAAA0CFC81F1A3AF5596CCBF27FCA524CC69FC09254296A988F
-                          6339A3405B886625DA8EA93F4CDFB6530D097DF6507E1376330AB48568268F7D
-                          45FDE6A0273E13A4BF8295715EF249AE99040E249DFEEB3B06331FC19604236E
-                          E0FA84BE60DFF2A9050E444B6747FBD4DFB8B7DE17176E467ACBD0DF833BF5F3
-                          2A7E2A0A44B3EDFCD19616B3435F120F47642AC68EDC34FFA615957E53B41678
-                          A73E9D3556FB2E2185FE74D2ADC5C9DCA62FBECC397C5D3F687154B19A02B9CA
-                          B23ABA9974B7A8DFB6DA15B0C46462B1DAF8E6E1CDD72971191CE3B4E0F21D93
-                          B1B464469F6D8FBE823712420821841042489300F80F8A4B8D514F4F61950000
-                          000049454E44AE426082}
+                          07FA49444154785EEDDD7F6C13E71907F0E7BD3B9F63D2A57450B6A26AD04A1D
+                          7102AC1AB68F94B268EA20FC285DD1CA58E11F86B46AAAD669EA1F9D343631B4
+                          6A9DB649FCB16993BA9F9D44551441A5762851D31F4AA1C43E3BEA46D2C41D93
+                          166DFD012B08442921B6EF7DF7BEE707366771EE6C37F6993C9F7FF23C8F212D
+                          FEFA7CE7D7E73310420821841042489D31FC599378BCB30704EF614C580E87A5
+                          3AE34B00B40578F30D8A5F2970EDACA1C17B0298ADE9A22F95CA0EE08D55AB29
+                          9078BC639710FCA00620032000F9F719188FA5326F1FC141C5AA0A64FDFAF6DB
+                          AE4EB26718880D3822FF8BC18B9105AD7B070787CFE1C4B78A034924A20F725E
+                          F8BD06FA2D382233C83BFC6C28147AD8B6DF7A0D47BE5414C8DA58E7360ECE0B
+                          D8126F1C34FD4B9584E23B90AEAEE8B2427E6A948179138E881FB9DC791659D0
+                          994A8D9EC5C9ACE4FED81FA7207A298C2A98E62270727FC2CE93AF40ACF88A3D
+                          20208E2DA990006DA36545B7603B2B5F81881C7F0A4B522591777E8AE5AC3C03
+                          49243ABF0821FDD3D8926A695AE73DB1552BB02BCB3310C1F9362C498D1C96BB
+                          1FCBB23C03614CDC8B25A99560EBB12ACB7B1F22F8A7B02235E200776259968F
+                          9DBA731B16A446F245DF67B02CCB4720A11016A47637E3CFB27C0442EA890209
+                          180A2460289080A14002860209180A2460289080A1403C70702E60591714C82C
+                          38C029D3BC759960F0071CCD390AA48C0287775A99D673F2E4C90FD3E9EC5EC6
+                          D8A300F93CDE3C67289019F12BA619DA32981E3B830348A5C77FCDC148623B67
+                          2890FFC799AE3D984C8E8C60EF4AC4A23FD1C0FBFD8C5A5120D3C8A7A66F4D3F
+                          47579D320B20BE8BED9CA2404AFD423D3561EDBA27DEDEC5C4D41FB19D731408
+                          12C006366FDDF91D6C5D96B562794E38C7EAF99E100522C9C3DBF185B784B61F
+                          38704096458944A2AD50E02FD5FB1C660A24EF9CD1B4D0C68181531FE10476EC
+                          D8A143E1E20B3AD3EFC251DDCCEB40723998642DE11EDB1E790747AE898991DF
+                          80A675635B57F339101109C35753A9D153D8BBAC78FBE34CC0D7B1ADBB791C08
+                          7B62289DFD33362ECB6ADF2004FC0CDB86989781A8B5293B33FE736C5D96D519
+                          154EFE795936F43E997F81703EB87CF9AA6F60E7EAEE5EB3389F775E9287B7AD
+                          386A987915883ABC0563E103BDBDBD0E8E60D3A64DE1C9CB1FF5191ADC8EA386
+                          9A4F819C5387B7B66D5FC2DE75FEDF138780410CDB866B44201FE88C750B8092
+                          C5BBB92698B179FAE16D22D6FE24D3E02BD80642BD03F9400F195F184A8FBF1E
+                          323FB94EF66F14C7738B8178289D1ECD60EB2A2E18C2BE62171C750D84E97AF7
+                          D0D06856D5EA8D1F3B93BD577098E34FF5B27DD33FC85F5C30E487B00D94BA06
+                          220ACEBEFDFBF797FC37B76CDBB95D70F61CB61FB767E5E1ED8FB176FD77C130
+                          98EAFB94C56077FFB1C3471F7964CDF5D553B5A0670F8FED62C07F89A38F87E0
+                          43777FBE750F76AE462D1856A2DEFB10903BF32FFF65F8729F3ADCC4917A5348
+                          A4327F7B4C96DF2B4E6AE308E7B419096F7DFAE9E1EBEF813772C1B012750FC4
+                          C5D87DE7CEFD6360C386D5252FC4E43EE5298D817A54CBDCAAA34EDB310C6DE3
+                          89132325A7EF3472C1B0128D094452EF4F5FBA901BECEEFEDC421CB992E9EC33
+                          0CE0A1EACEF0C8E74DA66F4DA5DE9EC081CB8A47BFDDC805C34A342C10456E06
+                          6B2E5FBEFA4657D7EA92CB3BA532D9A3A0B5F4C83BF8FA7B147E0816DE73329D
+                          1DC2D6555C301407B10DBC8606A2C817891D5353B9E4BA751D259FBF53176CD1
+                          C15C2FEFE68B38F2F2643A3DF62CD6AEA02C18562210FFA3860677E4A6F89065
+                          454B76B84399F137F550A84B6E29EFE36846F2B5CC11B9FFF901B6AE202D1856
+                          22308F1CB9DF582A26A764282B57E3C8A55E4886A1C512C0FF8EA35202328B96
+                          2CDF8D9D2B680B869508D6A66C9A8BA6260BC71389F6B538711DCFBCF5AF36A6
+                          AD95C7B36FE2C8E5089888DCD4BAB9BFBF7F0A47AEA02D18562270CFADA6096D
+                          B9ABF06A573C7A1F8E5CAFA4B3E76F5E1C56670EBAEB5FB91C5C320CB671FA65
+                          F412B1F6FD415B30AC4420777632948823C4CB56ACE3011CB9D49921B8FE75C4
+                          6CD1B6A752E3A7F12697158BEE943F7E58EC9A93E715E5E423AEEA1769B5CAE5
+                          F205B325BCCBB6C77A7154563CBE32C644E1842CAFAF0004917C40CD7A9F0772
+                          0BB9C6344306707E38118BEEC5D18C128955B7CB30FA6419E830FC087420483E
+                          A2C4EFE4965A729AE7356AF985F3BC3CBC85C5C549736B8640AE392843F911D6
+                          2EB5947FF142FE79F98F88E2A8E9355320CAF76528BF1242B8CFC37DC70E1FBC
+                          D12EE61CE89D7A59020E81CE5E032E7E8B93A6D1D43BF5B218EC6EC630FC68CE
+                          406E601448C05020014381040C0512301448C05020014381048C672079073EC4
+                          92D4C8CF7DE9194808E03D2C498D741D4A3E0E3113EFA72C4D78FE12E28FBCB3
+                          FF896559DE8130761C2B5233F63A16657906C27428F9E830A99E66182F625996
+                          E7F2BB128FDD35C1405F862DA9823A237F78F8F467B12DCBFB294BD299F10496
+                          A44AA6A63F8EE5AC7C6D214A3CD67E5CFE61FAB69D6A08E8B787B39BB19B95AF
+                          2D44D18DF0D7E46FF67BE23341EA2B589961947C926B36BE034926FFFAAEC6F4
+                          87B125FEF088A14EE8F3F72D9F8AEF4094647AAC5FFE8DFBEB7D71E166A4B60C
+                          F53DB8D33FAFE2A5A24014DBCE1E8B44F44E75493C1C91E9183BDAD6F6899595
+                          7E53B4E27BA73E93B5F18EDD5C70F5E9A45B8B93F94D5D7CD930E09BEA418BA3
+                          8AD514C835F178670F13CE56F9DBD6381C96EA8C2F911BDF02BCF906C5AF4041
+                          3BC30DF1AECE585230ADDFB6C75EC51B09218410420821A44900FC07B4D28D5D
+                          017E0B250000000049454E44AE426082}
                       end>
                     Align = Left
                     Anchors = []
@@ -1285,6 +1300,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     StyleLookup = 'ComboBox1Style_Adapta'
                     TabOrder = 5
                     OnChange = cbFiltro_Tipo_DCChange
+                    OnKeyDown = cbFiltro_Tipo_DCKeyDown
                   end
                 end
               end
@@ -1314,14 +1330,24 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   OptionsData.DeletingConfirmation = False
                   OptionsData.Editing = False
                   OptionsData.Inserting = False
-                  object dxfmGrid1RootLevel1TIPO_CONTA_DESC: TdxfmGridColumn
-                    FieldName = 'TIPO_CONTA_DESC'
+                  object dxfmGrid1RootLevel1EMPRESA: TdxfmGridColumn
+                    FieldName = 'EMPRESA'
                     GroupIndex = 0
-                    HeaderText = 'D/C'
+                    HeaderText = 'Empresa'
                     Kind = Text
                     Options.Editing = False
                     SortOrder = Ascending
                     SortIndex = 0
+                    Width = 250.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1TIPO_CONTA_DESC: TdxfmGridColumn
+                    FieldName = 'TIPO_CONTA_DESC'
+                    GroupIndex = 1
+                    HeaderText = 'D/C'
+                    Kind = Text
+                    Options.Editing = False
+                    SortOrder = Ascending
+                    SortIndex = 1
                     Width = 200.000000000000000000
                   end
                   object dxfmGrid1RootLevel1STATUS_DESC: TdxfmGridColumn
@@ -1367,7 +1393,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Visible = False
                   end
                   object dxfmGrid1RootLevel1DT_VENCIMENTO: TdxfmGridColumn
-                    FieldName = 'Vencimento'
+                    FieldName = 'DT_VENCIMENTO'
+                    HeaderText = 'Vencimento'
                     Kind = DateTime
                     Options.Editing = False
                     Width = 100.000000000000000000
@@ -1441,13 +1468,6 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Options.Editing = False
                     Width = 500.000000000000000000
                   end
-                  object dxfmGrid1RootLevel1EMPRESA: TdxfmGridColumn
-                    FieldName = 'EMPRESA'
-                    HeaderText = 'Empresa'
-                    Kind = Text
-                    Options.Editing = False
-                    Width = 250.000000000000000000
-                  end
                   object dxfmGrid1RootLevel1CONTA: TdxfmGridColumn
                     FieldName = 'CONTA'
                     HeaderText = 'Conta'
@@ -1477,7 +1497,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
             CustomIcon = <
               item
               end>
-            IsSelected = False
+            IsSelected = True
             Size.Width = 8.000000000000000000
             Size.Height = 8.000000000000000000
             Size.PlatformDefault = False
@@ -1561,6 +1581,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Size.PlatformDefault = False
                   StyleLookup = 'ComboBox1Style_Adapta'
                   TabOrder = 5
+                  OnKeyDown = edSTATUSKeyDown
                 end
                 object lbDATA: TLabel
                   Align = Right
@@ -1595,6 +1616,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Size.PlatformDefault = False
                   TextPrompt = '00/00/0000'
                   StyledSettings = [Family, FontColor]
+                  OnTyping = edDATATyping
+                  OnKeyDown = edDATAKeyDown
                 end
               end
               object lytRow_002: TLayout
@@ -1603,45 +1626,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                 Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 2
-                object lbDESCRICAO: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 140.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Descri'#231#227'o:'
-                  TabOrder = 1
-                end
-                object edDESCRICAO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 955.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Descri'#231#227'o do Lan'#231'amento'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                end
-              end
-              object lytRow_003: TLayout
-                Align = Top
-                Position.Y = 75.000000000000000000
-                Size.Width = 1099.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 12
+                TabOrder = 9
                 object lbID_EMPRESA: TLabel
                   Align = Left
                   StyledSettings = [Family]
@@ -1693,6 +1678,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextPrompt = 'C'#243'digo'
                   StyledSettings = [Family, FontColor]
                   CharCase = ecLowerCase
+                  OnKeyDown = edID_EMPRESAKeyDown
+                  OnExit = edID_EMPRESAExit
                   object imgID_EMPRESA: TImage
                     MultiResBitmap = <
                       item
@@ -1737,17 +1724,18 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Size.Width = 15.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
+                    OnClick = imgID_EMPRESAClick
                   end
                 end
               end
-              object lytRow_004: TLayout
+              object lytRow_003: TLayout
                 Align = Top
-                Position.Y = 110.000000000000000000
+                Position.Y = 75.000000000000000000
                 Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 11
-                object lbID_PRESTADOR_SERVICO: TLabel
+                TabOrder = 8
+                object lbID_CONTA: TLabel
                   Align = Left
                   StyledSettings = [Family]
                   Size.Width = 140.000000000000000000
@@ -1756,14 +1744,14 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Prestador de Servi'#231'o:'
-                  TabOrder = 2
+                  Text = 'Conta:'
+                  TabOrder = 3
                 end
-                object edID_PRESTADOR_SERVICO_Desc: TEdit
+                object edID_CONTA_Desc: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Client
                   StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
+                  TabOrder = 1
                   ReadOnly = True
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
@@ -1771,19 +1759,19 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 880.000000000000000000
+                  Size.Width = 731.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   TextPrompt = 'Descri'#231#227'o'
                   StyledSettings = [Family, FontColor]
                   CharCase = ecUpperCase
                 end
-                object edID_PRESTADOR_SERVICO: TEdit
+                object edID_CONTA: TEdit
                   Tag = 1
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Left
                   StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
+                  TabOrder = 2
                   FilterChar = '0123456789'
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
@@ -1799,7 +1787,9 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextPrompt = 'C'#243'digo'
                   StyledSettings = [Family, FontColor]
                   CharCase = ecLowerCase
-                  object imgID_PRESTADOR_SERVICO: TImage
+                  OnKeyDown = edID_CONTAKeyDown
+                  OnExit = edID_CONTAExit
+                  object imgID_CONTA: TImage
                     MultiResBitmap = <
                       item
                         Width = 100
@@ -1843,17 +1833,39 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Size.Width = 15.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
+                    OnClick = imgID_CONTAClick
                   end
                 end
+                object edConta_Tipo: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Right
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 0
+                  ReadOnly = True
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Position.X = 952.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Right = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 145.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Tipo da Conta'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecUpperCase
+                end
               end
-              object lytRow_005: TLayout
+              object lytRow_004: TLayout
                 Align = Top
-                Position.Y = 145.000000000000000000
+                Position.Y = 110.000000000000000000
                 Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 10
-                object lbID_CLIENTE: TLabel
+                TabOrder = 7
+                object lbID_PESSOA: TLabel
                   Align = Left
                   StyledSettings = [Family]
                   Size.Width = 140.000000000000000000
@@ -1862,10 +1874,10 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Cliente:'
+                  Text = 'Pessoa:'
                   TabOrder = 2
                 end
-                object edID_CLIENTE_Desc: TEdit
+                object edID_PESSOA_Desc: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Client
                   StyleLookup = 'Editstyle_Adapta'
@@ -1884,7 +1896,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   StyledSettings = [Family, FontColor]
                   CharCase = ecUpperCase
                 end
-                object edID_CLIENTE: TEdit
+                object edID_PESSOA: TEdit
                   Tag = 2
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Left
@@ -1905,7 +1917,9 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextPrompt = 'C'#243'digo'
                   StyledSettings = [Family, FontColor]
                   CharCase = ecLowerCase
-                  object imgID_CLIENTE: TImage
+                  OnKeyDown = edID_PESSOAKeyDown
+                  OnExit = edID_PESSOAExit
+                  object imgID_PESSOA: TImage
                     MultiResBitmap = <
                       item
                         Width = 100
@@ -1949,120 +1963,35 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                     Size.Width = 15.000000000000000000
                     Size.Height = 31.000000000000000000
                     Size.PlatformDefault = False
+                    OnClick = imgID_PESSOAClick
                   end
                 end
               end
-              object lytRow_006: TLayout
+              object lytRow_005: TLayout
                 Align = Top
-                Position.Y = 180.000000000000000000
+                Position.Y = 145.000000000000000000
                 Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 9
-                object lbID_TABELA: TLabel
-                  Align = Left
+                TabOrder = 6
+                object lbVALOR: TLabel
+                  Align = Right
                   StyledSettings = [Family]
+                  Position.X = 828.000000000000000000
                   Size.Width = 140.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Tab. Pre'#231'o:'
-                  TabOrder = 4
-                end
-                object edID_TABELA_Desc: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  ReadOnly = True
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 618.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Descri'#231#227'o'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                end
-                object edID_TABELA: TEdit
-                  Tag = 3
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
+                  Text = 'Valor:'
                   TabOrder = 2
-                  FilterChar = '0123456789'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 142.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 71.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'C'#243'digo'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecLowerCase
-                  object imgID_TABELA: TImage
-                    MultiResBitmap = <
-                      item
-                        Width = 100
-                        Height = 100
-                        PNG = {
-                          89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                          54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          034F49444154785EEDDB4D4814611807F0E77DC7FDC25022BDA8448525167549
-                          D68382170F5DC24424E81074EC1E119D3A75E9D8B108EA24198410D54108D1F0
-                          2BA94BAB7D1C0A5A2BB4830775579DF7CDD527E89090EEACFC07FEBFCB3CEF03
-                          BB2C3C33B33B3BF31722222222AA00A3DB58E9EC3C7D70BDB0DEEFC4F7181736
-                          7BBBDE50EA1B9798176B3F5A63870ED4560F0E0FCF2C6DBD20466235908E8E93
-                          87378AEEA6975F57440E25B5FD4FC57529A413EE7E32636F8F8ECE7DD736BCD8
-                          0C249B3DD95F2CBA47A984A4B5F59FDC4A60ECC5F1E9B967DA8016E8165AB6AD
-                          F59A787FAF2A902A6DED824978914B8D4DF5DFF2F9C5B7DA84057F84B4B7B5F4
-                          79314F74590E2736E89E9A7AFF4AD790A00792CD9E395A2CAEE5767F9ADAD152
-                          329D3E3E36F66E41D770AC6E21F98DB53B110EA3A476AD58BCA53524D823A4BD
-                          FD54AB0FC39C2E2395A9AEAE1F199959D42514DC23C4B93EAD2257585E3DAF25
-                          1CD88178EFCF691939EF5DC5DEBB5CB80391B049CBE8797F422B38B0033162EA
-                          B58C9E95235AC101FE95B5B1793D57195E0A7BB8C0DC1FC00349FED022725B7F
-                          4282821D8813F9AA65E48CB55FB484033B102BE6A59691F3625F680907772055
-                          E6A996910B12957BEF72C10E646222F77973577EACCB08B987E3E3B3153B1D96
-                          0BF84B7D734F4E9AEBA51B4DBA8CC0DA72C654DDD00524E88194F6E454CA5ED6
-                          65B99C0992BD23D3B98AFD7A8B02FC0DAA7C7E21D7D458573A4ABAB73B7BE4ED
-                          D5A9E9D90A9C02A3158B3B86F9F9C5D74D0D751F44967A44D2BBFCCC6EC504F6
-                          C2E63006B4010DFA94F5B7C937730362EB5B8C93073F175637B4BD23FDEEB99B
-                          CAD8E6C9C9D9E7DB5D7CB17AEAE48FAEAEB3758595E55EEFA52FF4E1B1C0840D
-                          5E426FC24C5E02F749AC1DACA9A91E8AE36340444444444444FB2D961786CC87
-                          80603E0408F32140980F01C27C0810E643C0301F0284F91034CC8760613E040C
-                          F32160980F81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F
-                          01C47C0820E64300311F028CF9102222222222A2E8C4F2C290F91010CC870061
-                          3E0408F32140980F01C27C0818E64380301F8286F9102CCC8780613E040CF321
-                          70980F01C37C0814E643C0301F0286F91030CC8700623E040CF32180980F01C4
-                          7C0820E64380311F4244444444BB21F21BAD5F4D27E275AC2D0000000049454E
-                          44AE426082}
-                      end>
-                    Align = Right
-                    Cursor = crHandPoint
-                    Opacity = 0.500000000000000000
-                    Position.X = 56.000000000000000000
-                    Size.Width = 15.000000000000000000
-                    Size.Height = 31.000000000000000000
-                    Size.PlatformDefault = False
-                  end
                 end
-                object edID_TABELA_Valor: TEdit
+                object edVALOR: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Right
                   StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 3
-                  ReadOnly = True
+                  TabOrder = 1
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Trailing
@@ -2077,317 +2006,49 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Size.PlatformDefault = False
                   TextPrompt = 'R$ 0,00'
                   StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
+                  OnChange = edVALORChange
+                  OnTyping = edVALORTyping
+                  OnKeyDown = edVALORKeyDown
                 end
-                object edID_TABELA_Tipo: TEdit
+                object lbDT_VENCIMENTO: TLabel
+                  Align = Left
+                  StyledSettings = [Family]
+                  Size.Width = 140.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Vencimento:'
+                  TabOrder = 3
+                end
+                object edDT_VENCIMENTO: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
+                  Align = Left
                   StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
-                  ReadOnly = True
+                  TabOrder = 0
+                  FilterChar = '0123456789/'
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 839.000000000000000000
+                  TextSettings.HorzAlign = Center
+                  Position.X = 142.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 127.000000000000000000
+                  Size.Width = 102.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
-                  TextPrompt = 'Tipo'
+                  TextPrompt = '00/00/0000'
                   StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
+                  OnTyping = edDT_VENCIMENTOTyping
+                  OnKeyDown = edDT_VENCIMENTOKeyDown
                 end
               end
               object lytRow_007: TLayout
                 Align = Top
                 Position.Y = 215.000000000000000000
-                Size.Width = 1099.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 8
-                object lbHR_INICIO: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 140.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Hr. In'#237'cio:'
-                  TabOrder = 7
-                end
-                object edHR_INICIO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 6
-                  FilterChar = '0123456789:'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Center
-                  Position.X = 142.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 71.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = '00:00:00'
-                  StyledSettings = [Family, FontColor]
-                end
-                object edHR_FIM: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 4
-                  FilterChar = '0123456789:'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Center
-                  Position.X = 285.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 71.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = '00:00:00'
-                  StyledSettings = [Family, FontColor]
-                end
-                object lbHR_FIM: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Position.X = 215.000000000000000000
-                  Size.Width = 68.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Hr. Fim:'
-                  TabOrder = 5
-                end
-                object edHR_TOTAL: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
-                  ReadOnly = True
-                  FilterChar = '0123456789:'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Center
-                  Position.X = 452.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 84.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = '000:00:00'
-                  StyledSettings = [Family, FontColor]
-                end
-                object lbHR_TOTAL: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Position.X = 358.000000000000000000
-                  Size.Width = 92.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Total Horas:'
-                  TabOrder = 3
-                end
-                object lbVLR_HORA: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 881.000000000000000000
-                  Size.Width = 87.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Valor Hora:'
-                  TabOrder = 2
-                end
-                object edVLR_HORA: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  ReadOnly = True
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Trailing
-                  Position.X = 970.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 127.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'R$ 0,00'
-                  StyledSettings = [Family, FontColor]
-                end
-              end
-              object lytRow_008: TLayout
-                Align = Top
-                Position.Y = 250.000000000000000000
-                Size.Width = 1099.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 7
-                object lbSUB_TOTAL: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 140.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Sub-Total'
-                  TabOrder = 7
-                end
-                object edSUB_TOTAL: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 3
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Trailing
-                  Position.X = 142.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 127.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'R$ 0,00'
-                  StyledSettings = [Family, FontColor]
-                end
-                object lbDESCONTO: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Position.X = 271.000000000000000000
-                  Size.Width = 79.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Desconto:'
-                  TabOrder = 6
-                end
-                object edDESCONTO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 2
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Trailing
-                  Position.X = 352.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 100.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'R$ 0,00'
-                  StyledSettings = [Family, FontColor]
-                end
-                object lbACRESCIMO: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Position.X = 454.000000000000000000
-                  Size.Width = 79.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Acr'#233'scimo:'
-                  TabOrder = 4
-                end
-                object edACRESCIMO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Trailing
-                  Position.X = 535.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 100.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'R$ 0,00'
-                  StyledSettings = [Family, FontColor]
-                end
-                object lbTOTAL: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 889.000000000000000000
-                  Size.Width = 79.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Total:'
-                  TabOrder = 5
-                end
-                object edTOTAL: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
-                  ReadOnly = True
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  TextSettings.HorzAlign = Trailing
-                  Position.X = 970.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 127.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'R$ 0,00'
-                  StyledSettings = [Family, FontColor]
-                end
-              end
-              object lytRow_009: TLayout
-                Align = Top
-                Position.Y = 285.000000000000000000
                 Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
@@ -2423,14 +2084,14 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   CharCase = ecUpperCase
                 end
               end
-              object lytRow_010: TLayout
+              object lytRow_006: TLayout
                 Align = Top
-                Position.Y = 320.000000000000000000
+                Position.Y = 180.000000000000000000
                 Size.Width = 1099.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 6
-                object lbDT_PAGO: TLabel
+                TabOrder = 5
+                object lbDT_PAGAMENTO: TLabel
                   Align = Left
                   StyledSettings = [Family]
                   Size.Width = 140.000000000000000000
@@ -2440,14 +2101,13 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
                   Text = 'Dt. Pagamento:'
-                  TabOrder = 3
+                  TabOrder = 6
                 end
-                object edDT_PAGO: TEdit
+                object edDT_PAGAMENTO: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Left
                   StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
-                  ReadOnly = True
+                  TabOrder = 2
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Center
@@ -2462,8 +2122,10 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Size.PlatformDefault = False
                   TextPrompt = '00/00/0000'
                   StyledSettings = [Family, FontColor]
+                  OnTyping = edDT_PAGAMENTOTyping
+                  OnKeyDown = edDT_PAGAMENTOKeyDown
                 end
-                object lbVLR_PAGO: TLabel
+                object lbVALOR_PAGO: TLabel
                   Align = Right
                   StyledSettings = [Family]
                   Position.X = 889.000000000000000000
@@ -2473,15 +2135,14 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Total:'
-                  TabOrder = 2
+                  Text = 'Valor Pago:'
+                  TabOrder = 4
                 end
-                object edVLR_PAGO: TEdit
+                object edVALOR_PAGO: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Right
                   StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  ReadOnly = True
+                  TabOrder = 1
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
                   TextSettings.HorzAlign = Trailing
@@ -2496,6 +2157,80 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                   Size.PlatformDefault = False
                   TextPrompt = 'R$ 0,00'
                   StyledSettings = [Family, FontColor]
+                  OnTyping = edVALOR_PAGOTyping
+                  OnKeyDown = edVALOR_PAGOKeyDown
+                end
+                object lbDESCONTO: TLabel
+                  Align = Left
+                  StyledSettings = [Family]
+                  Position.X = 246.000000000000000000
+                  Size.Width = 79.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Desconto:'
+                  TabOrder = 9
+                end
+                object edDESCONTO: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Left
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 3
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  TextSettings.HorzAlign = Trailing
+                  Position.X = 327.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Right = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'R$ 0,00'
+                  StyledSettings = [Family, FontColor]
+                  OnChange = edDESCONTOChange
+                  OnTyping = edDESCONTOTyping
+                  OnKeyDown = edDESCONTOKeyDown
+                end
+                object lbJUROS: TLabel
+                  Align = Left
+                  StyledSettings = [Family]
+                  Position.X = 429.000000000000000000
+                  Size.Width = 79.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Juros:'
+                  TabOrder = 5
+                end
+                object edJUROS: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Left
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 0
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  TextSettings.HorzAlign = Trailing
+                  Position.X = 510.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Right = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'R$ 0,00'
+                  StyledSettings = [Family, FontColor]
+                  OnChange = edJUROSChange
+                  OnTyping = edJUROSTyping
+                  OnKeyDown = edJUROSKeyDown
                 end
               end
             end
@@ -2920,57 +2655,57 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
                       PNG = {
                         89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                         54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                        064A49444154785EED9DDB6B1C551CC7CFCCCEEC6EDA522F28083E149F544428
-                        8268ABD6B6B45631D9ADB5BEB4B988F8A24FFA17F827D4277D11692EF54134ED
-                        6E56142A31A9A288200511943C948AFAA2F5866D32D9D919E7BBFD1D48622699
-                        33D77376CE07CAEC7E1366CF399FF9CD393BDDCC328D46A3D168341A8D46A3D1
-                        68341A8DA66C9CFFAC792B3D2C1D69F6DDA46D22265BCDD7FEBAE62F4D7FDCB8
-                        97A2D2803EA3EF18038A129158C8D976E30D66F867CC2ABBC3BDCEBE289314F4
-                        157D46DF3106FDB1488841DB58040D3813EC60DD91E1ADB2DFAD9DECF1B167DA
-                        3F523490AC93B1069FB1375F6CB45FA7A7C2C41632D96EBC156C5EB9F96C3D83
-                        2E254CC61ADE9E68B45FA5C742080BF17DDF989C1B79C760E64B146DCAA04A79
-                        AFF5FC034EB7BBB0858C3E3EF3DE9D18997BD9308CA068A2232C64AA75F29E15
-                        77F572CD66BB290AC7F7FFA858E6C1D1675BDF51A234331F351FECB9DE02338C
-                        DB290AC5E9B27FEA5675EF78F3832B1445427852C70B0CD99543BEEFFD4D5138
-                        41C39D657F11471525CAD2AF8CA02F5164606C3046A23240EC3964BAFDDC433D
-                        BF3B6F18E62D1485E2AEB23F876CFB8953CD0FBFA748292063B9DBFDDCAAB2DB
-                        280A05322A867D78AC71FE5B8A84882D0494414A9E324022216090A5E42D0324
-                        7E638806A02151E614740C1D9CE934F752242D6863DE3240E20AE188540A5620
-                        3B6AC693A3C3ADCB14490564DC70FCC5282BC9346580D48480419052A40C90AA
-                        10A0B294A26580D4850015A5C82003A472F97D2368281A8C8653140A06000311
-                        487C98A2DCC16BCB20036452211C914AF17CF75FCBA8A1A3DF50940B90E1FACE
-                        BC6958BB280A256B19205321406629B2C900990B01324A915106C8450890498A
-                        AC32402693FA66A043E8183A48512818280CD854A7B99FA2D4C03E6595017213
-                        02D031B3621E430550140A06CCF1563E4D530AF6857D46918136E62D03E42A04
-                        8C0FB7BFAE54AC2351A454596D282D295C06F64951287D19411BF39601729B43
-                        3632D5693CD2EBB9918ED655E62CD7CCFA91F1E1D69714091147060E1C8A72A5
-                        3021200F292AC900850A01594A514D06C87D0ED9489C39657AAE7990A250F03B
-                        AAC90085570847A4527C873995BAF1F4D8486B81A27540466FC5FFC4A8B11A45
-                        A1C82403482304A421456519402A21208914D56500E984001129C0348C43D8AA
-                        2E034829044CB68FEF73BADEC59ACD7652144E8FADF4B71556EF6FB7C0E9B2EB
-                        35DB3C3AD1B8F015455221AD10205A29DB21736570A41602D292A2820C20BD10
-                        90548A2A32801242405C292AC900CA080190E22FB3F9601DB583A2AD71D80D63
-                        881D56450628FCD289285ED5F5E8E1B688FCAE2CE8539664E8495D32A4179254
-                        06472F7B53202D191C15A4483BA9F757549E7331920C5C3AE1974FB600FBC23E
-                        B16F8AA443CA0A11AD8C41BAB8285D8588C8C0E577C8C0E577FCC3A57864F4E3
-                        50B06FBC868C95225585887CBA318DFFA02AE28370DB218D9034647054962285
-                        90346570549552F81C2222031F038A220388CC29786DB4016DA1A8300AAD1051
-                        19713E28A75AA514562179C800BC52B00F8A4291A1520AA990BC64AC45E4538C
-                        45564AEE428A90C151414AAE4244EE3775F3DDB47D2C2D191C11298195DCEFF7
-                        959B10511959FE499BCC52721122930C8EAC52321722A30C8E8C52321522B30C
-                        8E6C52327B1F222203F73B294206C0A2012B391C10148513F4057D42DF28499D
-                        4C2A4454860C379F0996E391FF763DCB4A495D888A323832484955C8B9F689FB
-                        5CCFBD149C08EFA42814D9647084A478EC37CBB40E9C6ECCFE40496252133208
-                        3238454A4965521791813B93CA2C036071814546A4893EE833FA8E31A0241189
-                        2B4454864AB7892DA25212091964199CBCA5C43E65954106E0A72FCC7B148593
-                        C2E92B56859445C65A446E9299A4528485945106270F29C2A72CCF767DDF0C5E
-                        6E1BF0852E8324036065881562B4D357B71B1CEE3D7A16196121F8C61CDBB4F6
-                        3397FD42D1FFE0DFAE3348323851A4B82EFB89B15DFB4E8FCC2E511499D8ABAC
-                        99CE893DAEEB2E1A26DB43519FB27C2958D8E92B28892BF57A70303ED5FE9522
-                        2162AFB2468767AFB24AF531DF6357292A8D0CB069A5F4D89255AB3C1A570648
-                        FCC6F0ECDCC9BB596FF592EFB2DD6591B1165E2955BBF7B331641F98387AE11A
-                        FDA838DEEFBC70D764E7F8FDF4B47440CAB9CEA96DBF6744A3D168341A8D46A3
-                        D168341A8D46A3191C18FB0F3893E4FFAD86E0BE0000000049454E44AE426082}
+                        064A49444154785EED9DDB6B1C551CC7CFCCEEEC2529F58282E043F149458422
+                        88B66A6D4B6B1593DD5AEB4B9B8B882FFAA47F817F427DD21791E6521F44D3EE
+                        6645A112932A8A08521041C943A9A82F5A6F986C363B3BE37CB7BF0349CC2473
+                        E67ACECEF94099DD6FC2EC39E733BF3967A79B59A6D168341A8D46A3D168341A
+                        8D46A3D1E48D8B9FD56FA587B923CEBE9BB48DC454A3FEDA5F37DCE5998F6BF7
+                        52941BD067F41D63405124220B39DFACBDC10CF79C596277D82BEC8B3C49415F
+                        D167F41D63D01F8B8818B40D85D78073DE0E361D19CE3AFBBD38CC1E1F7FA6F9
+                        234503C926191B70197BF3C55AF3757A2A4C682153CDDA5BDEE6959BCF3633E8
+                        52FC646CE0EDC95AF3557A2C84B010D7758DA9F9D1770C66BE44D1B60CAA94F7
+                        1ACF3FD0E976177790D1C765CEBB93A3F32F1B86E1154D7084854C374EDFB366
+                        AF5F2D5B6C2F45FEB8EE1F85A27978ECD9C6779428CDEC47F5077BB6B3C80CE3
+                        768A7CE974D93F956269FF44FD836B1405427852C70B54ADC211D775FEA6C81F
+                        AFE19DB6BB84A38A1265E95786D797203230361823511920F41C32D37CEEA19E
+                        DB5D300CF3168A7CB1D7D99F55CB7AE24CFDC3EF29520AC86877BB9F174BEC36
+                        8A7C818C82611D1DAF5DFC962221420B01799092A60C10490818642969CB0091
+                        DF18A20168489039051D4307675BF5FD14490BDA98B60C10B9423822958215C8
+                        50D978726CA4719522A9808CD58EBB14642519A70C109B10300852B294016215
+                        02549692B50C10BB10A0A214196480582EBF6F050D4583D1708A7CC10060203C
+                        890F53943A786D196480442A842352298E6BFF5B34CAE8E83714A50264D86E67
+                        C1348A7B28F2256919205121406629B2C900890B01324A91510648450890498A
+                        AC32402293FA76A043E8183A48912F18280CD874AB7E90A2D8C03E6595015213
+                        02D031B3609E400550E40B06ACE3B43F8D530AF6857D06918136A62D03A42A04
+                        4C8C34BF2E148AC7824829B14A352E295C06F649912F7D195E1BD39601529B43
+                        B632DDAA3DD2EBD9818ED675B6D62E9BD56313238D2F2912228C0C1C3814A54A
+                        6642401A525492013215029294A29A0C90FA1CB2953073CACC7CFD3045BEE077
+                        54930132AF108E48A5B86DD6290C194F8F8F361629DA0464F456DD4F8C2A2B53
+                        E48B4C32803442401C52549601A41202A248515D06904E081091024CC33882AD
+                        EA32809442C054F3E48176D7B95CB5D83045FEF4D85A7F5B6095FE7607DA5DB6
+                        52B5CCE393B54B5F512415D20A01A295B21B325706476A21202E292AC800D20B
+                        0151A5A822032821048495A2920CA08C100029EE0A5B60553644D1CEB4D9AA31
+                        CC8EAA2203647EE94414A7623BF47057447E5716F4294B32F4A42E19D20B892A
+                        83A397BD3110970C8E0A52A49DD4FB2B2AA77D39900C5C3AE1974F7600FBC23E
+                        B16F8AA443CA0A11AD8C41BAB8285D8588C8C0E577C8C0E577FCC3A57864F463
+                        5FB06FBC868C95225585887CBA318EFFA0CAE28370BB218D9038647054962285
+                        90386570549592F91C2222031F030A220388CC29786DB4016DA1283332AD1051
+                        19613E28A75AA564562169C800BC52B00F8A7C91A15232A990B4646C44E4538C
+                        59564AEA42B290C151414AAA4244EE3775F3DDB475222E191C11299E95D4EFF7
+                        959A10511949FE499BCC52521122930C8EAC52121722A30C8E8C52121522B30C
+                        8E6C52127B1F222203F73BC94206C0A2012B391C1014F9E3F5057D42DF28899D
+                        442A4454860C379FF196E381FF763DC94A895D888A323832488955C885E6A9FB
+                        6CC7BEE29D08EFA4C817D9647084A438ECB7A2593C74B636F7032591894DC820
+                        C8E064292596495D4406EE4C2AB30C80C505161981267AAFCFE83BC680924844
+                        AE1051192ADD26368B4A892464906570D29612FA94950719809FBE30EF51E44F
+                        0CA7AF50159217191B11B94966944A11169247199C34A4089FB21CCB765DD37B
+                        B95DC017BA0C920C8095215688C14E5FDDAE77B8F7E859608485E01B732CB378
+                        90D9EC178AFE07FF769D4192C10922C5B6D94F8CED397076746E99A2C0845E65
+                        CDB64EEDB36D7BC930D93E8AFAE4E54BC1FC4E5F5E495CAB54BC83F1A9E6AF14
+                        09117A95353632779D154A8FB90EBB4E516E64806D2BA5C7968BE5C2A3616580
+                        C86F0CCFCF9FBE9BF5D6AFB836DB9B17191BE19552B27A3F1B55EBD0E4F14B37
+                        E847D9F17EEB85BBA65A27EFA7A7B903522EB4CEECFA3D231A8D46A3D168341A
+                        8D46A3D168341ACDE0C0D87FA680E4FE590DD1710000000049454E44AE426082}
                     end>
                   Align = Client
                   HitTest = False
@@ -3080,71 +2815,71 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
         PNG = {
           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-          07F449444154785EEDDD7F6C13E71907F0E7BD7B6D37A4A57450B6A26AB04A1D
-          71026C1A3E9B94B268EA20FC286D514B59E11F86B46A9AD669EA1F9D343631B4
-          6A9DB649FCB16993BA9F9D44351441A5B62851B3B64AA1C43E3BEA46D2C41D93
-          166DFD012B08442934F1DDFBEE7DCF0F6CCEE2DCD96EEC33793EFFE4791E435A
-          FCF5F9CEAFCF6720841042082184903A63F8B32696D5D10D5274332653AE8025
-          26138B018C7978F3754A5C768471861BF0AE04661BA6ECCD64F2FD7863D56A0A
-          C4B2DA774A290E18002A0002E0BCC7C07C2C937BEB300E2A565520EBD6B5DDF6
-          D115F60C03B91E47E47F3178A1655EEB9E8181A1B33809ACE24092C9F8034238
-          BF33C0BC0547641A8E2BCEF048E411DB7EF3551C055251206B121D5B05B8CF63
-          4BFC0930CC2F57124AE0403A3BE34B9D42618401BF11472408C739C762377464
-          322367703223B53F0EC675640F855105CE17823BF947EC7C050A24652DDF0D12
-          2C6C498524181B52A9F8666C6714281059104F6149AA240BEE4FB09C916F20C9
-          64C797809B9FC29654CB303AEE4AAC5C8E5D59BE814821B662496AE4B2C97BB1
-          2CCB3710C6E4DD58925A49B60EABB2FCF721527C122B5223017007966505D8A9
-          CBDBB02035522FFA3E8D6559010231235890DADD8C3FCB0A1008A9270A246428
-          9090A14042860209190A2464289090A140428602F121C03D8F655D5020331000
-          27A3D15B974A06BFC7D1ACA340CA7004BCDDCA8CEE13274E7C90CDE6F730C6BE
-          01E016F0E65943814C4B5C8E46239B07B2A3A7710099ECD8AF0418696C670D05
-          F2FF04338D07D2E9E161EC3DC944FCC706F8BF9F512B0A640AF5D4F4CDA9E7E8
-          EA536601E477B09D551448A99FEBA726AC3D77596D9D4C16FE80EDACA3409004
-          D6BF69CB8E6F63EB49A5962F9B94EED17ABE27448128EAF0766CC12D916DFBF7
-          EF57655132999CEF38E2A57A9FC34C8138EE69C3886CE8EF3FF9214E60FBF6ED
-          2638179E379979278EEA664E07E2387085C562DDB63DFC368E3CE3E3C3BF06C3
-          E8C2B6AEE672203216818733999193D87B5256DBE34CC257B1ADBB391C087B62
-          309B7F111B4F2AD5B65E4AF829B60D312703D16B53766EEC67D87A52A98EB874
-          DDE754D9D0FB64EE0522C4C0B2652BBF869DA7AB6BF5A242C17D491DDEB6E2A8
-          61E65420FAF016F882FB7A7A7A5C1CC1C68D1B63572E7DD8CB0DB81D470D3597
-          0239AB0F6F6DDBBE88BDE7DCBFC70F028304B60DD78840DE3719EB9200258B77
-          B34D32BE69EAE16D32D1F62433E0416C43A1DE81BC6F46F81707B363AF45A29F
-          58ABFAD78BE3D9C5403E94CD8EE4B0F514170C616FB10B8FBA06C24CB36B7070
-          24AF6BFDC68F9DCBDF2D05CCF2A77AD9DEA91FE42F2E188A83D8864A5D03918E
-          BB77DFBE7D25FFCDCD5B776C9382FD09DB8FDBB3EAF0F647587BFEBB60184EF5
-          7DCA62B0ABEFE8A1238F3EBAFADAEAA95ED0B38746773210BFC0D1C7438AC1CF
-          7FA17537769E462D1856A2DEFB10503BF3FBFF3274A9571F6EE248BF292433B9
-          BF3DA6CAEF1627B571A57B2ADA12DBF2F4D343D7DE036FE4826125EA1E8887B1
-          7BCE9EFD47FFFAF5AB4A5E88A97DCA530603FDA856B955479FB6C3B9B1E1F8F1
-          E192D3771AB9605889C604A2E8F7A72F9E9F1CE8EAFADC021C79D2D9FC330CE0
-          A1EACEF0700B51666EC964DE1AC7812765C5BFD5C805C34A342C104D6D06AB2F
-          5DFAE8F5CECE55259777CAE4F247C08876AB3BF8DA7B14414816D97D229B1FC4
-          D6535C309407B00DBD8606A2A91789ED131393E9B56BDB4B3E7FA72FD862025F
-          A7EEE60B38F2F364363BFA2CD69EB02C18562214FFA3DC80CF4C4E88C1542A5E
-          B2C31DCC8DBD6146229D00CE7B389A967A2D7358ED7FBE8FAD274C0B869508CD
-          2347ED3796C889820A65C52A1C79F40BC918C45212C4DF71544A426EE1E265BB
-          B0F3846DC1B012E1DA94395F5898708E25936D6B70E239967BF35FF399B1461D
-          CFBE81238F2B61BCE5C6D64D7D7D7D1338F2846DC1B012A17B6EE51CE63B93F0
-          4AA715BF07479E97B3F973372F8AE93307BDF52FC7818B9CB30D532FA3974CB4
-          ED0BDB82612542B9B353A1B4B852FE399568BF0F471E7D6608AE7F1DE651635B
-          2633760A6FF2A412F11DEAC70F8A5D73F2BDA29C7AC455FD22AD568EE33A3C1A
-          D969DBA33D382ACBB2562498748EABF2DA0A4018A907D48CF77928B790AB3837
-          390871289988EFC1D1B492C995B7AB307A5519EA3082087520483DA2E46FD596
-          5A729AE7557AF94588823ABC8545C549736B8640AE3AA042F921D61EBD947FE1
-          7CE139F58F88E3A8E9355320DAF75428BF94527ACFC3BD470F1DB8DE2EE61CEA
-          9D7A59120E82C95E05217F8393A6D1D43BF5B218EC6AC6308268CE40AE631448
-          C85020214381840C0512321448C85020214381848C6F20AE0B1F60496A14E4BE
-          F40DC40478174B52236642C9C721A6E3FF946548DF5F42825177F63FB12CCB3F
-          10C68E61456AC65EC3A22CDF40D46656F2D161523D83F317B02CCB77F95DB312
-          778E333097624BAAA0CFC81F1A3AF5596CCBF27FCA524CC69FC09254296A988F
-          6339A3405B886625DA8EA93F4CDFB6530D097DF6507E1376330AB48568268F7D
-          45FDE6A0273E13A4BF8295715EF249AE99040E249DFEEB3B06331FC19604236E
-          E0FA84BE60DFF2A9050E444B6747FBD4DFB8B7DE17176E467ACBD0DF833BF5F3
-          2A7E2A0A44B3EDFCD19616B3435F120F47642AC68EDC34FFA615957E53B41678
-          A73E9D3556FB2E2185FE74D2ADC5C9DCA62FBECC397C5D3F687154B19A02B9CA
-          B23ABA9974B7A8DFB6DA15B0C46462B1DAF8E6E1CDD72971191CE3B4E0F21D93
-          B1B464469F6D8FBE823712420821841042489300F80F8A4B8D514F4F61950000
-          000049454E44AE426082}
+          07FA49444154785EEDDD7F6C13E71907F0E7BD3B9F63D2A57450B6A26AD04A1D
+          7102AC1AB68F94B268EA20FC285DD1CA58E11F86B46AAAD669EA1F9D343631B4
+          6A9DB649FCB16993BA9F9D44551441A5762851D31F4AA1C43E3BEA46D2C41D93
+          166DFD012B08442921B6EF7DF7BEE707366771EE6C37F6993C9F7FF23C8F212D
+          FEFA7CE7D7E73310420821841042489D31FC599378BCB30704EF614C580E87A5
+          3AE34B00B40578F30D8A5F2970EDACA1C17B0298ADE9A22F95CA0EE08D55AB29
+          9078BC639710FCA00620032000F9F719188FA5326F1FC141C5AA0A64FDFAF6DB
+          AE4EB26718880D3822FF8BC18B9105AD7B070787CFE1C4B78A034924A20F725E
+          F8BD06FA2D382233C83BFC6C28147AD8B6DF7A0D47BE5414C8DA58E7360ECE0B
+          D8126F1C34FD4B9584E23B90AEAEE8B2427E6A948179138E881FB9DC791659D0
+          994A8D9EC5C9ACE4FED81FA7207A298C2A98E62270727FC2CE93AF40ACF88A3D
+          20208E2DA990006DA36545B7603B2B5F81881C7F0A4B522591777E8AE5AC3C03
+          49243ABF0821FDD3D8926A695AE73DB1552BB02BCB3310C1F9362C498D1C96BB
+          1FCBB23C03614CDC8B25A99560EBB12ACB7B1F22F8A7B02235E200776259968F
+          9DBA731B16A446F245DF67B02CCB4720A11016A47637E3CFB27C0442EA890209
+          180A2460289080A14002860209180A2460289080A1403C70702E60591714C82C
+          38C029D3BC759960F0071CCD390AA48C0287775A99D673F2E4C90FD3E9EC5EC6
+          D8A300F93CDE3C67289019F12BA619DA32981E3B830348A5C77FCDC148623B67
+          2890FFC799AE3D984C8E8C60EF4AC4A23FD1C0FBFD8C5A5120D3C8A7A66F4D3F
+          47579D320B20BE8BED9CA2404AFD423D3561EDBA27DEDEC5C4D41FB19D731408
+          12C006366FDDF91D6C5D96B562794E38C7EAF99E100522C9C3DBF185B784B61F
+          38704096458944A2AD50E02FD5FB1C660A24EF9CD1B4D0C68181531FE10476EC
+          D8A143E1E20B3AD3EFC251DDCCEB40723998642DE11EDB1E790747AE898991DF
+          80A675635B57F339101109C35753A9D153D8BBAC78FBE34CC0D7B1ADBB791C08
+          7B62289DFD33362ECB6ADF2004FC0CDB86989781A8B5293B33FE736C5D96D519
+          154EFE795936F43E997F81703EB87CF9AA6F60E7EAEE5EB3389F775E9287B7AD
+          386A987915883ABC0563E103BDBDBD0E8E60D3A64DE1C9CB1FF5191ADC8EA386
+          9A4F819C5387B7B66D5FC2DE75FEDF138780410CDB866B44201FE88C750B8092
+          C5BBB92698B179FAE16D22D6FE24D3E02BD80642BD03F9400F195F184A8FBF1E
+          323FB94EF66F14C7738B8178289D1ECD60EB2A2E18C2BE62171C750D84E97AF7
+          D0D06856D5EA8D1F3B93BD577098E34FF5B27DD33FC85F5C30E487B00D94BA06
+          220ACEBEFDFBF797FC37B76CDBB95D70F61CB61FB767E5E1ED8FB176FD77C130
+          98EAFB94C56077FFB1C3471F7964CDF5D553B5A0670F8FED62C07F89A38F87E0
+          43777FBE750F76AE462D1856A2DEFB10903BF32FFF65F8729F3ADCC4917A5348
+          A4327F7B4C96DF2B4E6AE308E7B419096F7DFAE9E1EBEF813772C1B012750FC4
+          C5D87DE7CEFD6360C386D5252FC4E43EE5298D817A54CBDCAAA34EDB310C6DE3
+          89132325A7EF3472C1B0128D094452EF4F5FBA901BECEEFEDC421CB992E9EC33
+          0CE0A1EACEF0C8E74DA66F4DA5DE9EC081CB8A47BFDDC805C34A342C10456E06
+          6B2E5FBEFA4657D7EA92CB3BA532D9A3A0B5F4C83BF8FA7B147E0816DE73329D
+          1DC2D6555C301407B10DBC8606A2C817891D5353B9E4BA751D259FBF53176CD1
+          C15C2FEFE68B38F2F2643A3DF62CD6AEA02C18562210FFA3860677E4A6F89065
+          454B76B84399F137F550A84B6E29EFE36846F2B5CC11B9FFF901B6AE202D1856
+          22308F1CB9DF582A26A764282B57E3C8A55E4886A1C512C0FF8EA35202328B96
+          2CDF8D9D2B680B869508D6A66C9A8BA6260BC71389F6B538711DCFBCF5AF36A6
+          AD95C7B36FE2C8E5089888DCD4BAB9BFBF7F0A47AEA02D18562270CFADA6096D
+          B9ABF06A573C7A1F8E5CAFA4B3E76F5E1C56670EBAEB5FB91C5C320CB671FA65
+          F412B1F6FD415B30AC4420777632948823C4CB56ACE3011CB9D49921B8FE75C4
+          6CD1B6A752E3A7F12697158BEE943F7E58EC9A93E715E5E423AEEA1769B5CAE5
+          F205B325BCCBB6C77A7154563CBE32C644E1842CAFAF0004917C40CD7A9F0772
+          0BB9C6344306707E38118BEEC5D18C128955B7CB30FA6419E830FC087420483E
+          A2C4EFE4965A729AE7356AF985F3BC3CBC85C5C549736B8640AE392843F911D6
+          2EB5947FF142FE79F98F88E2A8E9355320CAF76528BF1242B8CFC37DC70E1FBC
+          D12EE61CE89D7A59020E81CE5E032E7E8B93A6D1D43BF5B218EC6EC630FC68CE
+          406E601448C05020014381040C0512301448C05020014381048C672079073EC4
+          92D4C8CF7DE9194808E03D2C498D741D4A3E0E3113EFA72C4D78FE12E28FBCB3
+          FF896559DE8130761C2B5233F63A16657906C27428F9E830A99E66182F625996
+          E7F2BB128FDD35C1405F862DA9823A237F78F8F467B12DCBFB294BD299F10496
+          A44AA6A63F8EE5AC7C6D214A3CD67E5CFE61FAB69D6A08E8B787B39BB19B95AF
+          2D44D18DF0D7E46FF67BE23341EA2B589961947C926B36BE034926FFFAAEC6F4
+          87B125FEF088A14EE8F3F72D9F8AEF4094647AAC5FFE8DFBEB7D71E166A4B60C
+          F53DB8D33FAFE2A5A24014DBCE1E8B44F44E75493C1C91E9183BDAD6F6899595
+          7E53B4E27BA73E93B5F18EDD5C70F5E9A45B8B93F94D5D7CD930E09BEA418BA3
+          8AD514C835F178670F13CE56F9DBD6381C96EA8C2F911BDF02BCF906C5AF4041
+          3BC30DF1AECE585230ADDFB6C75EC51B09218410420821A44900FC07B4D28D5D
+          017E0B250000000049454E44AE426082}
       end>
     Position.X = 801.000000000000000000
     Position.Y = 152.000000000000000000
@@ -3194,8 +2929,8 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
   end
   object DSRegistros: TDataSource
     DataSet = FDQRegistros
-    Left = 288
-    Top = 360
+    Left = 240
+    Top = 432
   end
   object FDQRegistros: TFDQuery
     Connection = DM_Global.FDC_Firebird
@@ -3231,7 +2966,7 @@ object frmLanc_Financeiros: TfrmLanc_Financeiros
       #9',L.DT_VENCIMENTO;'
       '')
     Left = 336
-    Top = 360
+    Top = 440
     object FDQRegistrosID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'

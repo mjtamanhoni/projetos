@@ -40,6 +40,7 @@ type
       procedure Listar_Fornecedor(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
       procedure Listar_TabelaPrecos(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
       procedure Listar_PrestadorServico(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_Contas(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
     {$EndRegion 'Listar Dados'}
 
   end;
@@ -183,6 +184,31 @@ begin
       FDQuery.Active := True;
     except on E: Exception do
       raise Exception.Create('Listar Cliente: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TDM_Global.Listar_Contas(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  C.* ');
+      FDQuery.Sql.Add('FROM CONTA C ');
+      FDQuery.Sql.Add('WHERE NOT C.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND C.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND C.DESCRICAO LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  C.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Conta: ' + E.Message);
     end;
   finally
   end;

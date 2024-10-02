@@ -25,6 +25,8 @@ uses
   FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls;
 
 type
+  TTab_Status = (dsInsert,dsEdit);
+
   TfrmLanc_Financeiros = class(TForm)
     OpenDialog: TOpenDialog;
     DSRegistros: TDataSource;
@@ -93,56 +95,31 @@ type
     lbDATA: TLabel;
     edDATA: TEdit;
     lytRow_002: TLayout;
-    lbDESCRICAO: TLabel;
-    edDESCRICAO: TEdit;
-    lytRow_003: TLayout;
     lbID_EMPRESA: TLabel;
     edID_EMPRESA_Desc: TEdit;
     edID_EMPRESA: TEdit;
     imgID_EMPRESA: TImage;
+    lytRow_003: TLayout;
+    lbID_CONTA: TLabel;
+    edID_CONTA_Desc: TEdit;
+    edID_CONTA: TEdit;
+    imgID_CONTA: TImage;
     lytRow_004: TLayout;
-    lbID_PRESTADOR_SERVICO: TLabel;
-    edID_PRESTADOR_SERVICO_Desc: TEdit;
-    edID_PRESTADOR_SERVICO: TEdit;
-    imgID_PRESTADOR_SERVICO: TImage;
+    lbID_PESSOA: TLabel;
+    edID_PESSOA_Desc: TEdit;
+    edID_PESSOA: TEdit;
+    imgID_PESSOA: TImage;
     lytRow_005: TLayout;
-    lbID_CLIENTE: TLabel;
-    edID_CLIENTE_Desc: TEdit;
-    edID_CLIENTE: TEdit;
-    imgID_CLIENTE: TImage;
-    lytRow_006: TLayout;
-    lbID_TABELA: TLabel;
-    edID_TABELA_Desc: TEdit;
-    edID_TABELA: TEdit;
-    imgID_TABELA: TImage;
-    edID_TABELA_Valor: TEdit;
-    edID_TABELA_Tipo: TEdit;
+    lbVALOR: TLabel;
+    edVALOR: TEdit;
     lytRow_007: TLayout;
-    lbHR_INICIO: TLabel;
-    edHR_INICIO: TEdit;
-    edHR_FIM: TEdit;
-    lbHR_FIM: TLabel;
-    edHR_TOTAL: TEdit;
-    lbHR_TOTAL: TLabel;
-    lbVLR_HORA: TLabel;
-    edVLR_HORA: TEdit;
-    lytRow_008: TLayout;
-    lbSUB_TOTAL: TLabel;
-    edSUB_TOTAL: TEdit;
-    lbDESCONTO: TLabel;
-    edDESCONTO: TEdit;
-    lbACRESCIMO: TLabel;
-    edACRESCIMO: TEdit;
-    lbTOTAL: TLabel;
-    edTOTAL: TEdit;
-    lytRow_009: TLayout;
     lbOBSERVACAO: TLabel;
     edOBSERVACAO: TEdit;
-    lytRow_010: TLayout;
-    lbDT_PAGO: TLabel;
-    edDT_PAGO: TEdit;
-    lbVLR_PAGO: TLabel;
-    edVLR_PAGO: TEdit;
+    lytRow_006: TLayout;
+    lbDT_PAGAMENTO: TLabel;
+    edDT_PAGAMENTO: TEdit;
+    lbVALOR_PAGO: TLabel;
+    edVALOR_PAGO: TEdit;
     rctMenu_Tampa: TRectangle;
     rctMenu: TRectangle;
     lytMenu_Titulo: TLayout;
@@ -240,6 +217,13 @@ type
     rctFiltro_Tipo_DC: TRectangle;
     lbFIltro_Tipo_DC: TLabel;
     cbFiltro_Tipo_DC: TComboBox;
+    lbDESCONTO: TLabel;
+    edDESCONTO: TEdit;
+    lbJUROS: TLabel;
+    edJUROS: TEdit;
+    lbDT_VENCIMENTO: TLabel;
+    edDT_VENCIMENTO: TEdit;
+    edConta_Tipo: TEdit;
     procedure imgFiltro_ClienteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -253,17 +237,68 @@ type
     procedure edFIltro_Dt_IChange(Sender: TObject);
     procedure edFIltro_Dt_FChange(Sender: TObject);
     procedure edFiltro_Empresa_IDChange(Sender: TObject);
+    procedure edFIltro_Dt_ITyping(Sender: TObject);
+    procedure edFIltro_Dt_FTyping(Sender: TObject);
+    procedure cbFiltro_Tipo_DCKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure cbFiltro_Tipo_PeriodoKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edFIltro_Dt_IKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edFiltro_Empresa_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edFIltro_Dt_FKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edFiltro_Empresa_IDExit(Sender: TObject);
+    procedure edFiltro_Cliente_IDExit(Sender: TObject);
+    procedure edFiltro_Cliente_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure rctCancelarClick(Sender: TObject);
+    procedure edDATATyping(Sender: TObject);
+    procedure edDT_VENCIMENTOTyping(Sender: TObject);
+    procedure edDT_PAGAMENTOTyping(Sender: TObject);
+    procedure edVALORTyping(Sender: TObject);
+    procedure edVALORChange(Sender: TObject);
+    procedure edDESCONTOChange(Sender: TObject);
+    procedure edJUROSChange(Sender: TObject);
+    procedure imgID_EMPRESAClick(Sender: TObject);
+    procedure edID_EMPRESAExit(Sender: TObject);
+    procedure imgID_PESSOAClick(Sender: TObject);
+    procedure imgID_CONTAClick(Sender: TObject);
+    procedure edID_PESSOAExit(Sender: TObject);
+    procedure edID_CONTAExit(Sender: TObject);
+    procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edSTATUSKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edID_CONTAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edID_PESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edDT_VENCIMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edVALORKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edDT_PAGAMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edDESCONTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edJUROSKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edVALOR_PAGOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edDESCONTOTyping(Sender: TObject);
+    procedure edJUROSTyping(Sender: TObject);
+    procedure edVALOR_PAGOTyping(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
     FEnder :String;
     FDm_Global :TDM_Global;
+    FTab_Status :TTab_Status;
 
     procedure Sel_Pessoa(ATipo:String; Aid:Integer; ANome:String; ADocumento:String);
     procedure Sel_Empresa(Aid: Integer; ANome: String);
     procedure Configura_Botoes;
     procedure Selecionar_Registros;
-    { Private declarations }
+
+    procedure Cancelar;
+    procedure Editar;
+    procedure Excluir(Sender:TObject);
+    procedure Incluir;
+    procedure Salvar;
+    procedure Menu(Sender: TOBject);
+    procedure Sel_Conta(Aid: Integer; ADescricao: String; ATipo: Integer);
+    procedure Limpar_Campos;
+    
   public
     { Public declarations }
   end;
@@ -277,7 +312,64 @@ implementation
 
 uses
   uPesq_Pessoas
-  ,uCad.Empresa;
+  ,uCad.Cliente
+  ,uCad.Empresa, uCad.Contas;
+
+procedure TfrmLanc_Financeiros.edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_EMPRESA.SetFocus;
+end;
+
+procedure TfrmLanc_Financeiros.edDATATyping(Sender: TObject);
+begin
+  Formatar(edDATA,Dt);
+end;
+
+procedure TfrmLanc_Financeiros.edDESCONTOChange(Sender: TObject);
+begin
+  edDESCONTO.TagFloat := StrToFloatDef(Trim(StringReplace(edDESCONTO.Text,'R$','',[rfReplaceAll])),0);
+end;
+
+procedure TfrmLanc_Financeiros.edDESCONTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edJUROS.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edDESCONTOTyping(Sender: TObject);
+begin
+  Formatar(edDESCONTO,Money);
+end;
+
+procedure TfrmLanc_Financeiros.edDT_PAGAMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edDESCONTO.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edDT_PAGAMENTOTyping(Sender: TObject);
+begin
+  Formatar(edDT_PAGAMENTO,Dt);
+end;
+
+procedure TfrmLanc_Financeiros.edDT_VENCIMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edVALOR.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edDT_VENCIMENTOTyping(Sender: TObject);
+begin
+  Formatar(edDT_VENCIMENTO,Dt);
+end;
 
 procedure TfrmLanc_Financeiros.edFiltro_Cliente_IDChange(Sender: TObject);
 begin
@@ -290,9 +382,60 @@ begin
   Selecionar_Registros;
 end;
 
+procedure TfrmLanc_Financeiros.edFiltro_Cliente_IDExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      edFiltro_Cliente.Text := '';
+
+      if Trim(edFiltro_Cliente_ID.Text) = '' then
+        Exit;
+
+      
+      case cbFiltro_Tipo_DC.ItemIndex of
+        1:FDm_Global.Listar_Cliente(edFiltro_Cliente_ID.Text.ToInteger,'',FQuery);
+        2:FDm_Global.Listar_Fornecedor(edFiltro_Cliente_ID.Text.ToInteger,'',FQuery);
+      end;
+
+      if not FQuery.IsEmpty then
+        edFiltro_Cliente.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.edFiltro_Cliente_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    cbFiltro_Tipo_DC.SetFocus;
+end;
+
 procedure TfrmLanc_Financeiros.edFIltro_Dt_FChange(Sender: TObject);
 begin
   Selecionar_Registros;
+end;
+
+procedure TfrmLanc_Financeiros.edFIltro_Dt_FKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFiltro_Empresa_ID.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edFIltro_Dt_FTyping(Sender: TObject);
+begin
+  Formatar(edFIltro_Dt_F,Dt);
 end;
 
 procedure TfrmLanc_Financeiros.edFIltro_Dt_IChange(Sender: TObject);
@@ -300,9 +443,275 @@ begin
   Selecionar_Registros;
 end;
 
+procedure TfrmLanc_Financeiros.edFIltro_Dt_IKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFIltro_Dt_F.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edFIltro_Dt_ITyping(Sender: TObject);
+begin
+  Formatar(edFIltro_Dt_I,Dt);
+end;
+
 procedure TfrmLanc_Financeiros.edFiltro_Empresa_IDChange(Sender: TObject);
 begin
   Selecionar_Registros;
+end;
+
+procedure TfrmLanc_Financeiros.edFiltro_Empresa_IDExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      edFiltro_Empresa.Text := '';           
+      if Trim(edFiltro_Empresa_ID.Text) = '' then
+        Exit;
+              
+      FDm_Global.Listar_Empresa(edFiltro_Empresa_ID.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edFiltro_Empresa.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.edFiltro_Empresa_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFiltro_Cliente_ID.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edID_CONTAExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      if Trim(edID_CONTA.Text) = '' then
+        Exit;
+
+      FDm_Global.Listar_Contas(edID_CONTA.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+      begin
+        edID_CONTA_Desc.Text := FQuery.FieldByName('DESCRICAO').AsString;
+        edConta_Tipo.Tag := FQuery.FieldByName('TIPO').AsInteger;
+        case FQuery.FieldByName('TIPO').AsInteger of
+          0:edConta_Tipo.Text := 'RECEBER';
+          1:edConta_Tipo.Text := 'PAGAR';
+        end;
+      end;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.edID_CONTAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_PESSOA.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edID_EMPRESAExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      if Trim(edID_EMPRESA.Text) = '' then
+        Exit;
+
+      FDm_Global.Listar_Empresa(edID_EMPRESA.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edID_EMPRESA_Desc.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_CONTA.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edID_PESSOAExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      edFiltro_Cliente.Text := '';
+
+      if Trim(edFiltro_Cliente_ID.Text) = '' then
+        Exit;
+
+
+      case edConta_Tipo.Tag of
+        1:FDm_Global.Listar_Cliente(edFiltro_Cliente_ID.Text.ToInteger,'',FQuery);
+        2:FDm_Global.Listar_Fornecedor(edFiltro_Cliente_ID.Text.ToInteger,'',FQuery);
+      end;
+
+      if not FQuery.IsEmpty then
+        edFiltro_Cliente.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.edID_PESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edDT_VENCIMENTO.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.Editar;
+begin
+  try
+    try
+      if FDQRegistros.IsEmpty then
+        raise Exception.Create('Não há registros para ser Editado');
+
+{
+	 NUMERIC(15,2) DEFAULT 0 NOT NULL,
+	DT_PAGAMENTO DATE,
+	DESCONTO NUMERIC(15,2) DEFAULT 0 NOT NULL,
+	JUROS NUMERIC(15,2) DEFAULT 0 NOT NULL,
+	VALOR_PAGO NUMERIC(15,2) DEFAULT 0 NOT NULL,
+	ORIGEM_LANCAMENTO VARCHAR(100) NOT NULL,
+	ID_ORIGEM_LANCAMENTO INTEGER DEFAULT 0 NOT NULL,
+	ID_USUARIO INTEGER NOT NULL,
+	DT_CADASTRO DATE DEFAULT CURRENT_DATE NOT NULL,
+	HR_CADASTRO TIME DEFAULT CURRENT_TIME NOT NULL,
+	OBSERVACAO VARCHAR(5000),
+}
+      edID.Text := FDQRegistros.FieldByName('ID').AsInteger.ToString;
+      edDATA.Text := FDQRegistros.FieldByName('DT_EMISSAO').AsString;
+      edSTATUS.ItemIndex := FDQRegistros.FieldByName('STATUS').AsInteger;
+      edID_EMPRESA.Text := FDQRegistros.FieldByName('ID_EMPRESA').AsString;
+      edID_CONTA.Text := FDQRegistros.FieldByName('ID_CONTA').AsString;
+      edID_PESSOA.Text := FDQRegistros.FieldByName('ID_PESSOA').AsString;
+      edDT_VENCIMENTO.Text := FDQRegistros.FieldByName('DT_VENCIMENTO').AsString;
+      edVALOR.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR').AsFloat);
+      edVALOR.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
+
+
+
+      FTab_Status := TTab_Status.dsEdit;
+
+      tcPrincipal.GotoVisibleTab(1);
+      if edDATA.CanFocus then
+        edDATA.SetFocus;
+    except on E: Exception do
+      raise Exception.Create('Editar: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.edJUROSChange(Sender: TObject);
+begin
+  edJUROS.TagFloat := StrToFloatDef(Trim(StringReplace(edJUROS.Text,'R$','',[rfReplaceAll])),0);
+end;
+
+procedure TfrmLanc_Financeiros.edJUROSKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edVALOR_PAGO.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edJUROSTyping(Sender: TObject);
+begin
+  Formatar(edJUROS,Money);
+end;
+
+procedure TfrmLanc_Financeiros.edSTATUSKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_EMPRESA.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edVALORChange(Sender: TObject);
+begin
+  edVALOR.TagFloat := StrToFloatDef(Trim(StringReplace(edVALOR.Text,'R$','',[rfReplaceAll])),0);
+end;
+
+procedure TfrmLanc_Financeiros.edVALORKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edDT_PAGAMENTO.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edVALORTyping(Sender: TObject);
+begin
+  Formatar(edVALOR,Money)
+end;
+
+procedure TfrmLanc_Financeiros.edVALOR_PAGOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edOBSERVACAO.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edVALOR_PAGOTyping(Sender: TObject);
+begin
+  Formatar(edVALOR_PAGO,Money);
+end;
+
+procedure TfrmLanc_Financeiros.Excluir(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmLanc_Financeiros.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -350,6 +759,11 @@ begin
   finally
     FreeAndNil(FQuery);
   end;
+end;
+
+procedure TfrmLanc_Financeiros.Salvar;
+begin
+
 end;
 
 procedure TfrmLanc_Financeiros.Selecionar_Registros;
@@ -491,14 +905,44 @@ begin
   end;
 end;
 
+procedure TfrmLanc_Financeiros.Cancelar;
+begin
+  try
+    try
+      tcPrincipal.GotoVisibleTab(0);
+    except on E: Exception do
+      raise Exception.Create('Cancelar: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
 procedure TfrmLanc_Financeiros.cbFiltro_Tipo_DCChange(Sender: TObject);
 begin
+  edFiltro_Cliente_ID.Text := '';
+  edFiltro_Cliente.Text := '';
+  
   Selecionar_Registros;
+end;
+
+procedure TfrmLanc_Financeiros.cbFiltro_Tipo_DCKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    cbFiltro_Tipo_Periodo.SetFocus;
 end;
 
 procedure TfrmLanc_Financeiros.cbFiltro_Tipo_PeriodoChange(Sender: TObject);
 begin
   Selecionar_Registros;
+end;
+
+procedure TfrmLanc_Financeiros.cbFiltro_Tipo_PeriodoKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFIltro_Dt_I.SetFocus;
+
 end;
 
 procedure TfrmLanc_Financeiros.Configura_Botoes;
@@ -536,7 +980,8 @@ begin
   if NOT Assigned(frmPesq_Pessoas) then
     Application.CreateForm(TfrmPesq_Pessoas,frmPesq_Pessoas);
 
-  frmPesq_Pessoas.TipoFiltro := 0;
+  frmPesq_Pessoas.TipoFiltro := cbFiltro_Tipo_DC.ItemIndex;
+
   frmPesq_Pessoas.ExecuteOnClose := Sel_Pessoa;
   frmPesq_Pessoas.Height := frmPrincipal.Height;
   frmPesq_Pessoas.Width := frmPrincipal.Width;
@@ -581,6 +1026,126 @@ begin
   Selecionar_Registros;
 end;
 
+procedure TfrmLanc_Financeiros.imgID_CONTAClick(Sender: TObject);
+begin
+//Aid:Integer; ADescricao:String; ATipo:Integer
+  if NOT Assigned(frmCad_Contas) then
+    Application.CreateForm(TfrmCad_Contas, frmCad_Contas);
+
+  frmCad_Contas.Pesquisa := True;
+  frmCad_Contas.ExecuteOnClose := Sel_Conta;
+  frmCad_Contas.Height := frmPrincipal.Height;
+  frmCad_Contas.Width := frmPrincipal.Width;
+
+  frmCad_Contas.Show;
+end;
+
+procedure TfrmLanc_Financeiros.Sel_Conta(Aid:Integer; ADescricao:String; ATipo:Integer);
+begin
+  edID_CONTA.Text := Aid.ToString;
+  edID_CONTA_Desc.Text := ADescricao;
+  edConta_Tipo.Tag := ATipo;
+
+  case ATipo of
+    0:edConta_Tipo.Text := 'RECEBER';
+    1:edConta_Tipo.Text := 'PAGAR';
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.imgID_EMPRESAClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Empresa) then
+    Application.CreateForm(TfrmCad_Empresa, frmCad_Empresa);
+
+  frmCad_Empresa.Pesquisa := True;
+  frmCad_Empresa.ExecuteOnClose := Sel_Empresa;
+  frmCad_Empresa.Height := frmPrincipal.Height;
+  frmCad_Empresa.Width := frmPrincipal.Width;
+
+  frmCad_Empresa.Show;
+end;
+
+procedure TfrmLanc_Financeiros.imgID_PESSOAClick(Sender: TObject);
+begin
+  if NOT Assigned(frmPesq_Pessoas) then
+    Application.CreateForm(TfrmPesq_Pessoas,frmPesq_Pessoas);
+
+  frmPesq_Pessoas.TipoFiltro := (edConta_Tipo.Tag + 1);
+
+  frmPesq_Pessoas.ExecuteOnClose := Sel_Pessoa;
+  frmPesq_Pessoas.Height := frmPrincipal.Height;
+  frmPesq_Pessoas.Width := frmPrincipal.Width;
+
+  frmPesq_Pessoas.Show;
+end;
+
+procedure TfrmLanc_Financeiros.Incluir;
+begin
+  try
+    try
+      FTab_Status := TTab_Status.dsInsert;
+      Limpar_Campos;
+
+      edDATA.Text := DateToStr(Date);
+      edSTATUS.ItemIndex := 0;
+
+      tcPrincipal.GotoVisibleTab(1);
+      if edDATA.CanFocus then
+        edDATA.SetFocus;
+    except on E: Exception do
+      raise Exception.Create('Incluir: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TfrmLanc_Financeiros.Limpar_Campos;
+begin
+  edID.Text := '';
+  edDATA.Text := '';
+  edSTATUS.ItemIndex := -1;
+  edID_EMPRESA.Text := '';
+  edID_EMPRESA_Desc.Text := '';
+  edID_CONTA.Text := '';
+  edID_CONTA_Desc.Text := '';
+  edConta_Tipo.Tag := -1;
+  edConta_Tipo.Text := '';
+  edID_PESSOA.Text := '';
+  edID_PESSOA_Desc.Text := '';
+  edDT_VENCIMENTO.Text := '';
+  edVALOR.Text := '';
+  edDT_PAGAMENTO.Text := '';
+  edDESCONTO.Text := '';
+  edJUROS.Text := '';
+  edVALOR_PAGO.Text := '';
+  edOBSERVACAO.Text := '';
+end;
+
+procedure TfrmLanc_Financeiros.Menu(Sender: TOBject);
+begin
+
+end;
+
+procedure TfrmLanc_Financeiros.rctCancelarClick(Sender: TObject);
+begin
+  try
+    try
+      case TRectangle(Sender).Tag of
+        0:Incluir;
+        1:Editar;
+        2:Salvar;
+        3:Cancelar;
+        4:FFancyDialog.Show(TIconDialog.Question,'Excluir','Deseja Excluir o registro selecionado?','Sim',Excluir,'Não') ;
+        5:Menu(Sender);
+      end;
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
+    end;
+  finally
+    Configura_Botoes;
+  end;
+end;
+
 procedure TfrmLanc_Financeiros.Sel_Pessoa(ATipo:String; Aid:Integer; ANome:String; ADocumento:String);
 begin
   lbFiltroPessoa.Text := ATipo;
@@ -589,8 +1154,8 @@ begin
   else if ATipo = 'Fornecedor' then
     lbFiltroPessoa.Tag := 1;
 
-  edFiltro_Cliente_ID.Text := Aid.ToString;
-  edFiltro_Cliente.Text := ANome;
+  edID_PESSOA.Text := Aid.ToString;
+  edID_PESSOA_Desc.Text := ANome;
 end;
 
 end.
