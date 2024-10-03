@@ -291,14 +291,15 @@ type
     procedure Selecionar_Registros;
 
     procedure Cancelar;
-    procedure Editar;
+    procedure Editar(Sender :TObject);
     procedure Excluir(Sender:TObject);
     procedure Incluir;
     procedure Salvar;
     procedure Menu(Sender: TOBject);
     procedure Sel_Conta(Aid: Integer; ADescricao: String; ATipo: Integer);
     procedure Limpar_Campos;
-    
+    procedure Editando_Lancamento(Sender :TOBject);
+
   public
     { Public declarations }
   end;
@@ -608,43 +609,19 @@ begin
 
 end;
 
-procedure TfrmLanc_Financeiros.Editar;
+procedure TfrmLanc_Financeiros.Editar(Sender :TObject);
 begin
   try
     try
       if FDQRegistros.IsEmpty then
         raise Exception.Create('Não há registros para ser Editado');
 
-{
-	 NUMERIC(15,2) DEFAULT 0 NOT NULL,
-	DT_PAGAMENTO DATE,
-	DESCONTO NUMERIC(15,2) DEFAULT 0 NOT NULL,
-	JUROS NUMERIC(15,2) DEFAULT 0 NOT NULL,
-	VALOR_PAGO NUMERIC(15,2) DEFAULT 0 NOT NULL,
-	ORIGEM_LANCAMENTO VARCHAR(100) NOT NULL,
-	ID_ORIGEM_LANCAMENTO INTEGER DEFAULT 0 NOT NULL,
-	ID_USUARIO INTEGER NOT NULL,
-	DT_CADASTRO DATE DEFAULT CURRENT_DATE NOT NULL,
-	HR_CADASTRO TIME DEFAULT CURRENT_TIME NOT NULL,
-	OBSERVACAO VARCHAR(5000),
-}
-      edID.Text := FDQRegistros.FieldByName('ID').AsInteger.ToString;
-      edDATA.Text := FDQRegistros.FieldByName('DT_EMISSAO').AsString;
-      edSTATUS.ItemIndex := FDQRegistros.FieldByName('STATUS').AsInteger;
-      edID_EMPRESA.Text := FDQRegistros.FieldByName('ID_EMPRESA').AsString;
-      edID_CONTA.Text := FDQRegistros.FieldByName('ID_CONTA').AsString;
-      edID_PESSOA.Text := FDQRegistros.FieldByName('ID_PESSOA').AsString;
-      edDT_VENCIMENTO.Text := FDQRegistros.FieldByName('DT_VENCIMENTO').AsString;
-      edVALOR.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR').AsFloat);
-      edVALOR.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
-
-
-
-      FTab_Status := TTab_Status.dsEdit;
-
-      tcPrincipal.GotoVisibleTab(1);
-      if edDATA.CanFocus then
-        edDATA.SetFocus;
+      if FDQRegistros.FieldByName('ORIGEM_LANCAMENTO').AsString = 'PROPRIO' then
+      begin
+        FFancyDialog.Show(TIconDialog.Question,'Atenção','Não será possível EDITAR o registro, pois não é de lançamento PRÓPRIO','SIM',Editando_Lancamento,'NÃO');
+      end
+      else
+        Editando_Lancamento(Sender);
     except on E: Exception do
       raise Exception.Create('Editar: ' + E.Message);
     end;
@@ -710,8 +687,51 @@ begin
 end;
 
 procedure TfrmLanc_Financeiros.Excluir(Sender: TObject);
+var
+  FQuery :TFDQuery;
 begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
 
+      FDm_Global.FDC_Firebird.StartTransaction;
+
+      if FDQRegistros.IsEmpty then
+        raise Exception.Create('Não há registros para ser Excluído');
+
+      {$Region 'Verifica se o Lançamento pode ser excluído'}
+        FQuery.Active := False;
+        FQuery.SQL.Clear;
+        FQuery.SQL.Add('SELECT * FROM LANCAMENTOS WHERE ID = :ID AND ORIGEM_LANCAMENTO <> ''PROPRIO'' ');
+        FQuery.ParamByName('ID').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
+        FQuery.Active := True;
+        if not FQuery.IsEmpty then
+          raise Exception.Create('Lançamento não tem origem PRÓPRIO. Não erá possível excluir.');
+      {$Region 'Verifica se o Lançamento pode ser excluído'}
+
+
+      FQuery.Active := False;
+      FQuery.SQL.Clear;
+      FQuery.SQL.Add('DELETE FROM LANCAMENTOS WHERE ID = :ID AND ORIGEM_LANCAMENTO = ''PROPRIO'' ');
+      FQuery.ParamByName('ID').AsInteger := FDQRegistros.FieldByName('ID').AsInteger;
+      FQuery.ExecSQL;
+
+      //PROPRIO
+
+      FDm_Global.FDC_Firebird.Commit;
+
+    except on E: Exception do
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Excluir: ' + E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(FQuery);
+    tcPrincipal.GotoVisibleTab(0);
+    Selecionar_Registros;
+  end;
 end;
 
 procedure TfrmLanc_Financeiros.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -762,8 +782,116 @@ begin
 end;
 
 procedure TfrmLanc_Financeiros.Salvar;
+var
+  FQuery :TFDQuery;
+  FId :Integer;
 begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+      FDm_Global.FDC_Firebird.StartTransaction;
 
+
+      FId := 0;
+
+      FQuery.Active := False;
+      FQuery.Sql.Clear;
+      case FTab_Status of
+        dsInsert :begin
+          FQuery.Active := False;
+          FQuery.SQL.Clear;
+          FQuery.SQL.Add('SELECT GEN_ID(GEN_LANCAMENTOS_ID,1) AS SEQ FROM RDB$DATABASE;');
+          FQuery.Active := True;
+          if not FQuery.IsEmpty then
+            FId := FQuery.FieldByName('SEQ').AsInteger;
+
+          FQuery.Active := False;
+          FQuery.Sql.Clear;
+          FQuery.Sql.Add('INSERT INTO LANCAMENTOS( ');
+          FQuery.Sql.Add('  ID ');
+          FQuery.Sql.Add('  ,ID_EMPRESA ');
+          FQuery.Sql.Add('  ,DT_EMISSAO ');
+          FQuery.Sql.Add('  ,ID_CONTA ');
+          FQuery.Sql.Add('  ,ID_PESSOA ');
+          FQuery.Sql.Add('  ,STATUS ');
+          FQuery.Sql.Add('  ,DT_VENCIMENTO ');
+          FQuery.Sql.Add('  ,VALOR ');
+          FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
+          FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
+          FQuery.Sql.Add('  ,ID_USUARIO ');
+          FQuery.Sql.Add('  ,OBSERVACAO ');
+          FQuery.Sql.Add('  ,DT_CADASTRO ');
+          FQuery.Sql.Add('  ,HR_CADASTRO ');
+          FQuery.Sql.Add(') VALUES( ');
+          FQuery.Sql.Add('  :ID ');
+          FQuery.Sql.Add('  ,:ID_EMPRESA ');
+          FQuery.Sql.Add('  ,:DT_EMISSAO ');
+          FQuery.Sql.Add('  ,:ID_CONTA ');
+          FQuery.Sql.Add('  ,:ID_PESSOA ');
+          FQuery.Sql.Add('  ,:STATUS ');
+          FQuery.Sql.Add('  ,:DT_VENCIMENTO ');
+          FQuery.Sql.Add('  ,:VALOR ');
+          FQuery.Sql.Add('  ,:ORIGEM_LANCAMENTO ');
+          FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
+          FQuery.Sql.Add('  ,:ID_USUARIO ');
+          FQuery.Sql.Add('  ,:OBSERVACAO ');
+          FQuery.Sql.Add('  ,:DT_CADASTRO ');
+          FQuery.Sql.Add('  ,:HR_CADASTRO ');
+          FQuery.Sql.Add('); ');
+          FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
+          FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
+          FQuery.ParamByName('ID_USUARIO').AsInteger := frmPrincipal.FUser_Id;
+        end;
+        dsEdit :begin
+          FId := StrToIntDef(edID.Text,0);
+          FQuery.Sql.Add('UPDATE LANCAMENTOS SET ');
+          FQuery.Sql.Add('  ID_EMPRESA = :ID_EMPRESA ');
+          FQuery.Sql.Add('  ,DT_EMISSAO = :DT_EMISSAO ');
+          FQuery.Sql.Add('  ,ID_CONTA = :ID_CONTA ');
+          FQuery.Sql.Add('  ,ID_PESSOA = :ID_PESSOA ');
+          FQuery.Sql.Add('  ,STATUS = :STATUS ');
+          FQuery.Sql.Add('  ,DT_VENCIMENTO = :DT_VENCIMENTO ');
+          FQuery.Sql.Add('  ,VALOR = :VALOR ');
+          FQuery.Sql.Add('  ,DT_PAGAMENTO = :DT_PAGAMENTO ');
+          FQuery.Sql.Add('  ,DESCONTO = :DESCONTO ');
+          FQuery.Sql.Add('  ,JUROS = :JUROS ');
+          FQuery.Sql.Add('  ,VALOR_PAGO = :VALOR_PAGO ');
+          FQuery.Sql.Add('  ,OBSERVACAO = :OBSERVACAO ');
+          FQuery.Sql.Add('WHERE ID = :ID; ');
+          FQuery.ParamByName('ID').AsInteger := FId;
+          FId := StrToIntDef(edID.Text,0);
+        end;
+      end;
+      FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edID_EMPRESA.Text,0);;
+      FQuery.ParamByName('DT_EMISSAO').AsDate := StrToDateDef(edDATA.Text,Date);
+      FQuery.ParamByName('ID_CONTA').AsInteger := StrToIntDef(edID_CONTA.Text,0);
+      FQuery.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edID_PESSOA.Text,0);;
+      FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
+      FQuery.ParamByName('DT_VENCIMENTO').AsDate := StrToDateDef(edDT_VENCIMENTO.Text,Date); //Calcular
+      FQuery.ParamByName('VALOR').AsFloat := edVALOR.TagFloat;
+      FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'PROPRIO';
+      FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := FId;
+      FQuery.ParamByName('OBSERVACAO').AsString := edOBSERVACAO.Text;
+      FQuery.ParamByName('DT_PAGAMENTO').AsDate := StrToDateDef(edDT_PAGAMENTO.Text,Date); //Calcular
+      FQuery.ParamByName('DESCONTO').AsFloat := edDESCONTO.TagFloat;
+      FQuery.ParamByName('JUROS').AsFloat := edJUROS.TagFloat;
+      FQuery.ParamByName('VALOR_PAGO').AsFloat := edVALOR_PAGO.TagFloat;
+      FQuery.ExecSQL;
+
+      FDm_Global.FDC_Firebird.Commit;
+
+    except on E: Exception do
+      begin
+        FDm_Global.FDC_Firebird.Rollback;
+        raise Exception.Create('Salvar: ' + E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(FQuery);
+    tcPrincipal.GotoVisibleTab(0);
+    Selecionar_Registros;
+  end;
 end;
 
 procedure TfrmLanc_Financeiros.Selecionar_Registros;
@@ -1121,6 +1249,31 @@ begin
   edOBSERVACAO.Text := '';
 end;
 
+procedure TfrmLanc_Financeiros.Editando_Lancamento(Sender :TOBject);
+begin
+  edID.Text := FDQRegistros.FieldByName('ID').AsInteger.ToString;
+  edDATA.Text := FDQRegistros.FieldByName('DT_EMISSAO').AsString;
+  edSTATUS.ItemIndex := FDQRegistros.FieldByName('STATUS').AsInteger;
+  edID_EMPRESA.Text := FDQRegistros.FieldByName('ID_EMPRESA').AsString;
+  edID_CONTA.Text := FDQRegistros.FieldByName('ID_CONTA').AsString;
+  edID_PESSOA.Text := FDQRegistros.FieldByName('ID_PESSOA').AsString;
+  edDT_VENCIMENTO.Text := FDQRegistros.FieldByName('DT_VENCIMENTO').AsString;
+  edVALOR.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR').AsFloat);
+  edVALOR.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
+  edDT_PAGAMENTO.Text := FDQRegistros.FieldByName('DT_PAGAMENTO').AsString;
+  edDESCONTO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('DESCONTO').AsFloat);
+  edDESCONTO.TagFloat := FDQRegistros.FieldByName('DESCONTO').AsFloat;
+  edJUROS.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('JUROS').AsFloat);
+  edJUROS.TagFloat := FDQRegistros.FieldByName('JUROS').AsFloat;
+  edVALOR_PAGO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR_PAGO').AsFloat);
+  edVALOR_PAGO.TagFloat := FDQRegistros.FieldByName('VALOR_PAGO').AsFloat;
+  edOBSERVACAO.Text := FDQRegistros.FieldByName('OBSERVACAO').AsString;
+  FTab_Status := TTab_Status.dsEdit;
+  tcPrincipal.GotoVisibleTab(1);
+  if edDATA.CanFocus then
+    edDATA.SetFocus;
+end;
+
 procedure TfrmLanc_Financeiros.Menu(Sender: TOBject);
 begin
 
@@ -1132,7 +1285,7 @@ begin
     try
       case TRectangle(Sender).Tag of
         0:Incluir;
-        1:Editar;
+        1:Editar(Sender);
         2:Salvar;
         3:Cancelar;
         4:FFancyDialog.Show(TIconDialog.Question,'Excluir','Deseja Excluir o registro selecionado?','Sim',Excluir,'Não') ;
