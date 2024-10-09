@@ -1,7 +1,7 @@
-object frmCad_Empresa: TfrmCad_Empresa
+object frmCondicao_Pagamento: TfrmCondicao_Pagamento
   Left = 0
   Top = 0
-  Caption = 'Cadastro de Empresa'
+  Caption = 'Cadastro de Condi'#231#227'o de Pagamento'
   ClientHeight = 600
   ClientWidth = 1000
   Position = ScreenCenter
@@ -174,36 +174,36 @@ object frmCad_Empresa: TfrmCad_Empresa
                   PNG = {
                     89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                     54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                    039549444154785EEDDA3F4C13611806F0EF8EA2E5CF6420919685AD45E302F4
+                    039349444154785EEDDA3F4C13611806F0EF8EA2E5CF6424919685AD45E302F4
                     50819A6834D1C1C1C1CDCDD1CD18B7AE1A4727271756066324112511834A313A
-                    9840D59838F127869868A057DAD2F3FBE88B218648AFBDFBEE7B93E79734C7F7
-                    0277CD3DBD2BA18F0000000000000000000000000000000000000000003F9C91
-                    D45DF5A0256B6DB4652B339CBE2D37F7E5E34232D1BBB5B2BAF176F71B4CB10E
-                    445E1537E5E6617DB5EB627FB2675586F291D6ECB00DC4194E5FF784782CBFB4
-                    EA93BFAEF4277ABFC8509668CD8A4D5B561C277DF9D7EFE2A4FCF2A0E76FABEF
-                    A99FA1352BFFBEBA8CA74E74A9E44D1D6D17711A1D68BB224AF1B8752D9F2F4C
-                    D3880556819C1E494F14CBDEF3C3C2D8A342E93C625D7AF7BEF09A46C6631388
-                    E3A4866A3BEE2B4B7474D3A8219E7037EDB68E73F9FCE70F34321A8BF710C739
-                    912E972B337EC350D4EFA8DF55FBA091D18CBF42D489F4764AB342B4F7D1A849
-                    9535AB2D7E3E9F5F2AD0C048460792C99C1A10B5AD37AD87B1A7B226ECAEB38B
-                    8B9FBED3C038C6DEB2C6C7537DD56A39802B63BFF6DD7DAA7DD3C0384606A24E
-                    98EB8AD9982D06681418B54FB56F534331EE96353A3A78AC5AADCDCB574AA86F
-                    C235210AB1983DB6B0B0FC93464630EA0AC96607BBBD6A6D26EC3014750C752C
-                    754C1A19C19840B2D96CDCDDDC79E6093144A3D0A963A963AA63D328724604A2
-                    4E48716B7D4A58D6048DF491C754C7362594C8DF43E48988C913F2C41256A4FF
-                    0CF48437DDD975FCEADCDC5C95469188F40AC9E572B65B5C9F8C3A0C453D07F5
-                    5CD473A2512422FD3CC4DDFCF1486E6ED45726B04E7EFBBA9C5859DB784A03ED
-                    220BC419493D909B5BF595412C31D49FECE95E59DD784113AD220924339CBE27
-                    3777EA2B239D49267A3B64282F69AD8DF640A81D92ABAF8C3626AF946D19CA3C
-                    ADB5D01AC8BE860817DA9B2CDA0239A021C285D6268B9640FED310E1425B9325
-                    F4BFB90F698870A1ADC912EA2BB6D18608173A9A2CA105E2B721C245D84D9650
-                    0269B621C245984D96C0EFEBAD3444B808B3C912E815125C43848BE09B2C8105
-                    127C43848B609B2C81DCB2C2698870116C93A5E540C26C8870116493A5A55B96
-                    AE8608174134599ABE42743644B850E7A2D5264B538144D110E1A2D5268BEF40
-                    226D8870D14293C5D77B88290D112E9A69B2347C8598D410E1A299264BC39F87
-                    98D710E1C25F93A5A1408C6D8870E1A3C97268200C1A225C44D6640100000000
-                    0000000000000000000000000000000000000892107F0065318219B5AB32D100
-                    00000049454E44AE426082}
+                    9840D59838F127A63A415BDAD2F3FBE88B218648AF77F7DDF726CF2F698EEF05
+                    EE9A7B7A57421F0100000000000000000000000000000000000000005E38A3A9
+                    7BEA414BD63A68CB5666247D476E1EC8C7C564A26F6B75ADF86EF71B4CB10E44
+                    5E15B7E4E65173B5EBD240F2F89A0CE513ADD9611B883392BEE10AF1447E6935
+                    277F5D1D48F47D95A12CD39A159BB6AC384EFA4AF157694A7E79D0F3B7D5F7D4
+                    CFD09A957F5F5DC65327BA5271A78F768A388D0EB45D139578DCBA9ECF176668
+                    C402AB40CE8CA6274B55F7C56161EC51A1741FB12EBFFF50784323E3B109C471
+                    52C38D9DF26B4B74F5D2A825AE286FDA1D5DE7F3F92F1F69643416EF218E7332
+                    5DADD666BD86A1A8DF51BFABF64123A3197F85A813E9EE54E684E8ECA7519B6A
+                    EB5647FC423EBF5CA081918C0E2493393D281A5B6FFD87B1A7B62EEC9E734B4B
+                    9F7FD0C038C6DEB2262652FDF57A35802B63BFCEDD7DAA7DD3C0384606A24E58
+                    B92CE662B618A45160D43ED5BE4D0DC5B85BD6D8D8D0B17ABDB1205F29A1BE09
+                    378428C462F6F8E2E2CA6F1A19C1A82B249B1DEA75EB8DD9B0C350D431D4B1D4
+                    316964046302C966B3F1F2E6CE735788611A854E1D4B1D531D9B469133221075
+                    424A5B1BD3C2B22669A48F3CA63AB629A144FE1E224F444C9E90A796B022FD67
+                    A02BDC99EE9E13D7E6E7E7EB348A44A457482E97B3CBA58DA9A8C350D47350CF
+                    453D271A4522D2CF43CA9B3F1FCBCDCDE6CA04D6A9EFDF5612ABEBC56734D02E
+                    B2409CD1D443B9B9DD5C19C412C303C9E3BDAB6BC59734D12A92403223E9FB72
+                    73B7B932D2D964A2AF4B86F28AD6DA680F84DA21B9E6CA68E3F24AD996A12CD0
+                    5A0BAD81EC6B8870A1BDC9A22D90031A225C686DB26809E43F0D112EB4355942
+                    FF9BFB90860817DA9A2CA1BE625B6D8870A1A3C9125A205E1B225C84DD640925
+                    90761B225C84D96409FCBEEEA721C245984D9640AF90E01A225C04DF64092C90
+                    E01B225C04DB6409E496154E43848B609B2CBE0309B321C245904D165FB72C5D
+                    0D112E8268B2B47D85E86C8870A1CE85DF264B5B8144D110E1C26F93C5732091
+                    3644B8F0D164F1F41E624A43848B769A2C2D5F21263544B868A7C9D2F2E721E6
+                    3544B8F0D664692910631B225C7868B21C1A0883860817913559000000000000
+                    00000000000000000000000000000000008224C41F12D381F1E0F96D3A000000
+                    0049454E44AE426082}
                 end>
               Align = Client
               HitTest = False
@@ -435,7 +435,7 @@ object frmCad_Empresa: TfrmCad_Empresa
             TextSettings.Font.StyleExt = {00070000000000000004000000}
             TextSettings.FontColor = xFFA1B24E
             TextSettings.HorzAlign = Center
-            Text = 'CADASTRO DE EMPRESAS'
+            Text = 'CADASTRO DE CONDI'#199#195'O DE PAGAMENTO'
             TabOrder = 0
             object ShadowEffect3: TShadowEffect
               Distance = 3.000000000000000000
@@ -552,32 +552,32 @@ object frmCad_Empresa: TfrmCad_Empresa
                       PNG = {
                         89504E470D0A1A0A0000000D49484452000000320000003208060000001E3F88
                         B1000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                        0322494441546843ED98DF4B145114C7EF9DC9B535039116AC358CC058563052
+                        0321494441546843ED98DF4B145114C7CF9DC9B535831017AC358CC058563052
                         9B9642B7202A411F24A440FAF10FF4DAAB0F3DF510F4D05BBD15D54BE0838644
-                        161AFD98715709D2DD452224D6342CD872D7729D7BBB77F7484CEEE8CE3A8ED7
-                        980F0CF79CEF7D98F39D39F7CE0FE4221818C61C4AD3A10F48921A20151B9D8E
-                        6BE38926C89004639EED628223E32310AD466909507E402A2C85EA34DE11A0B5
-                        A5613F84C261569BC1884ED17B3EFE46FAB35028589D130582D794A14B433C66
-                        8B3B9A130183910A2C772294FDC2C200D1C960474773457E66EBE1B564B3E485
-                        8CE57A5EA307C95D3095C360E45564E233963DE1AC9EFD8E283A3A379B1E0887
-                        C33B607ACBE8EE0E7A782D324687796DBC465E2B4CE758B546543536E5F1784F
-                        51B4B8C06EDFC9CCCFB9C79452C336ED24BDBDBDD2F4A7E527BC1696A6786DBC
-                        C6FCEC5F4C0B5494400811C2FA5112A4BD4806CB529BAAC60D6B638582BB1647
-                        D3E2EF583FB6B38BB004D216925AE2B59899E0981AE1BC1D8D8D60B9AA6B2183
-                        74901C879F9BD7C06B01A920328CA62493F35307EB7C09169E6787D36B859497
-                        E11E7534D607B929EB1AE12467E6276AFD7B6658C8B66727C157B448EC21246B
-                        5294110E3333E6DFE74BB3F04C5ED96428BAA645E3F7205B97A28D70989937B5
-                        FEEA7276A55A41DA24F00D66E226244561C9082739F36DC8BFD7E767ABA51924
-                        5BC188DCD12289EB90164D498B973F208F29814788E20B20D90226F4BE3A96B8
-                        0CA925D6DC7ECDC018D3BA038D3D14D1A7206D188268DFB9CE8B5721B5CC86B6
-                        53FE0E34FD511F40123E0D526910FADCBBBBA67D7878781914CB6CF8B9C05E2A
-                        77A6D35F5F4A888640B206A523DECA9AB3CCC42F504AC296075C381CAC4CA7C9
-                        6BD6A78D2015053B79D457B3ABADBF3F9A01C9E5BFC196D65AC1EA8F0B2D12B7
-                        EDFC256DBF22E21A110DD78868B84644C335221AAE11D1708D88866B4434EC35
-                        42D120448E63AB112D1A6FC7085F42597D1624C7B0BDB5D448EC81B7AAAC1E63
-                        7C3B955A2CF9F78E556CFDD4FD1745090611257759CB1D07C9C0B6F9D4D5B4C9
-                        496D347EC289767364D772A2DD36B5B50A916B379DDC62E10FB639D8FA13DC45
-                        1C10FA0381EC0AA198D4653F0000000049454E44AE426082}
+                        161AFDD8715709D2DD452224D634D6A072D7729DB9DDBB7B24267774771DC76B
+                        CC078639E77B1FE67C77CF3DF3031C0483E0398BD274E803485203A662A3D171
+                        753CDE84194878CEB15D4C70647204A3D5282D3ECA0F4C85255F9DC67F04696D
+                        69D88FA17098D56630A25178CFCFBF417B1608F8ABB2A240F09AD2746988C76C
+                        7347B22262305241E44E80CC1716FA744D1FECE868AEC8AD6C3DBC964C467F21
+                        13B99ED7E802B90B97B2188CBC0A4F7C26B22B98D132DF80C2D1B9D9D4403018
+                        DC81CB5B4677B7DFC56B91091CE6B5F11A79ADB89C65D51E0985A2532E97FB14
+                        85C505F6F79D4CFF9C7B4C29358C693BE9EDED95A63F2D3FE1B5B0F43BAF8DD7
+                        985BFD8B69818AE20B80AEB37E9404692F3D4D64A92D148A19F6C60A79A71647
+                        5563EF583FB603CC2FA1B485CC2FF15ACC4C704C8D70DE8E4647885CDDB59006
+                        0D25DBE1D7E635F05A50CA8B8C67531289E4D4C13A4F9C85E7D961F75ED1CBCB
+                        484F6834DA87B929EB1AE124669213B5DEEA1916B2F16C27E48A1A8E3EC4644D
+                        0A32C26166C6BCFB3C29169EC9299B0C856B6A24760FB37529D80887997953EB
+                        AD2A67BF542B4A9B04B9C14CDCC4A4208A32C249CCCC0F79F77ABC6CB734A364
+                        2904F43B6A387E1DD3822969F3F21BE431C5F70828B9809225109DDE0F8DC52F
+                        635A146B8E5F330821B4EE40630F05FA14A50DA303ED3BD779F12AA645B3A171
+                        CA9F81A63F6A032091D32895864E9FBB77D7B40F0F0F2FA352341BBE2FB087CA
+                        9DA9D4D79712D0004AC541E988BBB2E62C33F10B9592B0E406170CFA2B5329FD
+                        35EBD346940A825D3CE2A9D9D5D6DF1F49A3E4F0DF60496BAD50EC870B351CB3
+                        ECFA258D5F11718C88866344341C23A2E118110DC78868384644C331221AD61A
+                        A1308891ED586A448DC4DA09904B90D16651B20DCB5B2B148E3E70EF29AB2784
+                        DC4E26174BFEBC532C96BEEAFE8BA2F8FD40F5BBACE58EA36460DBBCEAAAEAE4
+                        A43A1A3B6147BBD932B5EC68B74D6DAD7C64DB4DD36FB1F0071B0E967E047710
+                        07803F2D5C0A8D3363AA5E0000000049454E44AE426082}
                     end>
                   Align = Right
                   Cursor = crHandPoint
@@ -613,6 +613,7 @@ object frmCad_Empresa: TfrmCad_Empresa
                   DataController.DataSource = DSRegistros
                   DataController.KeyFieldNames = 'ID'
                   AppearanceClassName = 'TdxfmGridTableAppearance'
+                  Appearance.ColumnAutoWidth = True
                   OptionsData.Appending = False
                   OptionsData.Deleting = False
                   OptionsData.DeletingConfirmation = False
@@ -621,81 +622,51 @@ object frmCad_Empresa: TfrmCad_Empresa
                   object dxfmGrid1RootLevel1ID: TdxfmGridColumn
                     FieldName = 'ID'
                     HeaderText = 'Id'
-                    Width = 65.000000000000000000
+                    Kind = Integer
+                    Options.Editing = False
+                    Width = 55.000000000000000000
                   end
-                  object dxfmGrid1RootLevel1NOME: TdxfmGridColumn
-                    FieldName = 'NOME'
-                    HeaderText = 'Nome'
+                  object dxfmGrid1RootLevel1DESCRICAO: TdxfmGridColumn
+                    FieldName = 'DESCRICAO'
+                    HeaderText = 'Descri'#231#227'o'
+                    Kind = Text
+                    Options.Editing = False
                     Width = 300.000000000000000000
                   end
-                  object dxfmGrid1RootLevel1PESSOA: TdxfmGridColumn
-                    FieldName = 'PESSOA'
-                    HeaderText = 'Pessoa'
-                    Width = 110.000000000000000000
+                  object dxfmGrid1RootLevel1PARCELAS: TdxfmGridColumn
+                    FieldName = 'PARCELAS'
+                    HeaderText = 'Parcelas'
+                    Kind = Integer
+                    Options.Editing = False
+                    Width = 55.000000000000000000
+                  end
+                  object dxfmGrid1RootLevel1TIPO_INTERVALO: TdxfmGridColumn
+                    FieldName = 'TIPO_INTERVALO'
+                    Options.Editing = False
                     Visible = False
                   end
-                  object dxfmGrid1RootLevel1PESSOA_DESC: TdxfmGridColumn
-                    FieldName = 'PESSOA_DESC'
-                    HeaderText = 'Pessoa'
+                  object dxfmGrid1RootLevel1TIPO_INTERVALO_DESC: TdxfmGridColumn
+                    FieldName = 'TIPO_INTERVALO_DESC'
+                    HeaderText = 'Tipo Intervalo'
+                    Options.Editing = False
                     Width = 100.000000000000000000
                   end
-                  object dxfmGrid1RootLevel1DOCUMENTO: TdxfmGridColumn
-                    FieldName = 'DOCUMENTO'
-                    HeaderText = 'Documento'
-                    Width = 200.000000000000000000
+                  object dxfmGrid1RootLevel1INTEVALOR: TdxfmGridColumn
+                    FieldName = 'INTEVALOR'
+                    HeaderText = 'Intervalo'
+                    Kind = Integer
+                    Options.Editing = False
+                    Width = 55.000000000000000000
                   end
-                  object dxfmGrid1RootLevel1INSC_EST: TdxfmGridColumn
-                    FieldName = 'INSC_EST'
-                    HeaderText = 'Insc. Estadual'
-                    Width = 150.000000000000000000
+                  object dxfmGrid1RootLevel1DT_CADASTRO: TdxfmGridColumn
+                    FieldName = 'DT_CADASTRO'
+                    Options.Editing = False
+                    Visible = False
                   end
-                  object dxfmGrid1RootLevel1CEP: TdxfmGridColumn
-                    FieldName = 'CEP'
-                    Width = 100.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1ENDERECO: TdxfmGridColumn
-                    FieldName = 'ENDERECO'
-                    HeaderText = 'Endere'#231'o'
-                    Width = 300.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1COMPLEMENTO: TdxfmGridColumn
-                    FieldName = 'COMPLEMENTO'
-                    HeaderText = 'Complemento'
-                    Width = 300.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1NUMERO: TdxfmGridColumn
-                    FieldName = 'NUMERO'
-                    HeaderText = 'Nr.'
-                    Width = 70.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1BAIRRO: TdxfmGridColumn
-                    FieldName = 'BAIRRO'
-                    HeaderText = 'Bairro'
-                    Width = 250.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1CIDADE: TdxfmGridColumn
-                    FieldName = 'CIDADE'
-                    HeaderText = 'Cidade'
-                    Width = 250.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1UF: TdxfmGridColumn
-                    FieldName = 'UF'
-                    Width = 50.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1TELEFONE: TdxfmGridColumn
-                    FieldName = 'TELEFONE'
-                    HeaderText = 'Telefone'
-                    Width = 200.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1CELULAR: TdxfmGridColumn
-                    FieldName = 'CELULAR'
-                    HeaderText = 'Celular'
-                    Width = 200.000000000000000000
-                  end
-                  object dxfmGrid1RootLevel1EMAIL: TdxfmGridColumn
-                    FieldName = 'EMAIL'
-                    HeaderText = 'E-mail'
-                    Width = 300.000000000000000000
+                  object dxfmGrid1RootLevel1HR_CADASTRO: TdxfmGridColumn
+                    FieldName = 'HR_CADASTRO'
+                    Options.Editing = False
+                    Visible = False
                   end
                 end
               end
@@ -738,7 +709,7 @@ object frmCad_Empresa: TfrmCad_Empresa
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
                   Text = 'Id:'
-                  TabOrder = 6
+                  TabOrder = 7
                 end
                 object edID: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -762,105 +733,107 @@ object frmCad_Empresa: TfrmCad_Empresa
                   StyledSettings = [Family, FontColor]
                   CharCase = ecUpperCase
                 end
-                object lbPESSOA: TLabel
+                object lbTIPO_INTERVALO: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 203.000000000000000000
+                  Position.X = 589.000000000000000000
                   Size.Width = 125.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Tipo de Pessoa:'
+                  Text = 'Tipo do Intervalo:'
                   TabOrder = 5
                 end
-                object edPESSOA: TComboBox
+                object cbTIPO_INTERVALO: TComboBox
                   Align = Right
                   Items.Strings = (
-                    'F'#205'SICA'
-                    'JUR'#205'DICA')
+                    'DIAS'
+                    'MESES')
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Position.X = 328.000000000000000000
+                  Position.X = 714.000000000000000000
                   Position.Y = 2.000000000000000000
                   Size.Width = 127.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
                   StyleLookup = 'ComboBox1Style_Adapta'
-                  TabOrder = 7
-                  OnKeyDown = edPESSOAKeyDown
-                end
-                object lbDOCUMENTO: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 457.000000000000000000
-                  Size.Width = 87.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Documento:'
-                  TabOrder = 4
-                end
-                object edDOCUMENTO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
                   TabOrder = 2
-                  FilterChar = './-0123456789'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 546.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 180.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'CNPJ/CPF'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecLowerCase
-                  OnTyping = edDOCUMENTOTyping
-                  OnKeyDown = edDOCUMENTOKeyDown
+                  OnChange = cbTIPO_INTERVALOChange
+                  OnKeyDown = cbTIPO_INTERVALOKeyDown
                 end
-                object lbINSC_EST: TLabel
+                object lbPARCELAS: TLabel
                   Align = Right
                   StyledSettings = [Family]
-                  Position.X = 728.000000000000000000
-                  Size.Width = 101.000000000000000000
+                  Position.X = 406.000000000000000000
+                  Size.Width = 110.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Inscr. Estadual:'
-                  TabOrder = 3
+                  Text = 'Parcelas:'
+                  TabOrder = 6
                 end
-                object edINSC_EST: TEdit
+                object edPARCELAS: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Right
                   StyleLookup = 'Editstyle_Adapta'
                   TabOrder = 1
+                  FilterChar = '0123456789'
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 831.000000000000000000
+                  TextSettings.HorzAlign = Trailing
+                  Position.X = 518.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Margins.Left = 2.000000000000000000
+                  Margins.Top = 2.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Size.Width = 71.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextPrompt = 'Parcelas'
+                  StyledSettings = [Family, FontColor]
+                  CharCase = ecUpperCase
+                  OnKeyDown = edPARCELASKeyDown
+                end
+                object edINTEVALOR: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  Align = Right
+                  StyleLookup = 'Editstyle_Adapta'
+                  TabOrder = 3
+                  FilterChar = '0123456789'
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  TextSettings.HorzAlign = Trailing
+                  Position.X = 917.000000000000000000
                   Position.Y = 2.000000000000000000
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 157.000000000000000000
+                  Size.Width = 71.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
-                  TextPrompt = 'Inscri'#231#227'o'
+                  TextPrompt = 'Intervalo'
                   StyledSettings = [Family, FontColor]
                   CharCase = ecUpperCase
-                  OnKeyDown = edINSC_ESTKeyDown
+                  OnKeyDown = edINTEVALORKeyDown
+                end
+                object lbINTEVALOR: TLabel
+                  Align = Right
+                  StyledSettings = [Family]
+                  Position.X = 843.000000000000000000
+                  Size.Width = 72.000000000000000000
+                  Size.Height = 35.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 14.000000000000000000
+                  TextSettings.FontColor = xFF656565
+                  TextSettings.HorzAlign = Trailing
+                  Text = 'Intervalo:'
+                  TabOrder = 4
                 end
               end
               object lytRow_002: TLayout
@@ -869,8 +842,8 @@ object frmCad_Empresa: TfrmCad_Empresa
                 Size.Width = 990.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
-                TabOrder = 4
-                object lbNOME: TLabel
+                TabOrder = 1
+                object lbDESCRICAO: TLabel
                   Align = Left
                   StyledSettings = [Family]
                   Size.Width = 110.000000000000000000
@@ -879,10 +852,10 @@ object frmCad_Empresa: TfrmCad_Empresa
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Nome:'
+                  Text = 'Descri'#231#227'o:'
                   TabOrder = 1
                 end
-                object edNOME: TEdit
+                object edDESCRICAO: TEdit
                   Touch.InteractiveGestures = [LongTap, DoubleTap]
                   Align = Client
                   StyleLookup = 'Editstyle_Adapta'
@@ -899,373 +872,6 @@ object frmCad_Empresa: TfrmCad_Empresa
                   TextPrompt = 'Nome do usu'#225'iro'
                   StyledSettings = [Family, FontColor]
                   CharCase = ecUpperCase
-                  OnKeyDown = edNOMEKeyDown
-                end
-              end
-              object lytRow_006: TLayout
-                Align = Top
-                Position.Y = 180.000000000000000000
-                Size.Width = 990.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 5
-                object lbEMAIL: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 110.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'E-Mail:'
-                  TabOrder = 4
-                end
-                object edEMAIL: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 490.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'E-Mail do usu'#225'rio'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecLowerCase
-                  OnKeyDown = edEMAILKeyDown
-                end
-                object lbCELULAR: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 797.000000000000000000
-                  Size.Width = 62.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Celular:'
-                  TabOrder = 5
-                end
-                object edCELULAR: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 2
-                  FilterChar = '()-0123456789'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 861.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 127.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = '(00) 00000-0000'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecLowerCase
-                  OnTyping = edCELULARTyping
-                end
-                object edTELEFONE: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
-                  FilterChar = '()-0123456789'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 668.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 127.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = '(00) 00000-0000'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecLowerCase
-                  OnTyping = edTELEFONETyping
-                  OnKeyDown = edTELEFONEKeyDown
-                end
-                object lbTELEFONE: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 604.000000000000000000
-                  Size.Width = 62.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Telefone:'
-                  TabOrder = 3
-                end
-              end
-              object lytRow_003: TLayout
-                Align = Top
-                Position.Y = 75.000000000000000000
-                Size.Width = 990.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 1
-                object lbCEP: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 110.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'CEP:'
-                  TabOrder = 5
-                end
-                object edCEP: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 4
-                  FilterChar = '0123456789-'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 112.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 100.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'CEP'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnTyping = edCEPTyping
-                  OnKeyDown = edCEPKeyDown
-                end
-                object edENDERECO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 2
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 608.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Endere'#231'o'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edENDERECOKeyDown
-                end
-                object lbENDERECO: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Position.X = 214.000000000000000000
-                  Size.Width = 70.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Endere'#231'o:'
-                  TabOrder = 3
-                end
-                object edNUMERO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  FilterChar = '0123456789'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 938.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 50.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Nr'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edNUMEROKeyDown
-                end
-                object lbNUMERO: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 896.000000000000000000
-                  Size.Width = 40.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Nr.:'
-                  TabOrder = 1
-                end
-              end
-              object lytRow_004: TLayout
-                Align = Top
-                Position.Y = 110.000000000000000000
-                Size.Width = 990.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 3
-                object lbCOMPLEMENTO: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 110.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Complemento:'
-                  TabOrder = 1
-                end
-                object edCOMPLEMENTO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 876.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Complemento do Endere'#231'o'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edCOMPLEMENTOKeyDown
-                end
-              end
-              object lytRow_005: TLayout
-                Align = Top
-                Position.Y = 145.000000000000000000
-                Size.Width = 990.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 2
-                object lbBAIRRO: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 110.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Bairro:'
-                  TabOrder = 5
-                end
-                object edBAIRRO: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 4
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 112.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 360.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Bairro'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edBAIRROKeyDown
-                end
-                object edCIDADE: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 2
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 354.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Cidade'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edCIDADEKeyDown
-                end
-                object lbCIDADE: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Position.X = 474.000000000000000000
-                  Size.Width = 64.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Cidade:'
-                  TabOrder = 3
-                end
-                object edUF: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 938.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 50.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'UF'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edUFKeyDown
-                end
-                object lbUF: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 896.000000000000000000
-                  Size.Width = 40.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'UF:'
-                  TabOrder = 1
                 end
               end
             end
@@ -1278,14 +884,15 @@ object frmCad_Empresa: TfrmCad_Empresa
     Connection = DM_Global.FDC_Firebird
     SQL.Strings = (
       'SELECT '
-      #9'E.*'
-      #9',CASE E.PESSOA '
-      #9#9'WHEN 0 THEN '#39'F'#205'SICA'#39
-      #9#9'WHEN 1 THEN '#39'JUR'#205'DICA'#39
-      #9'END PESSOA_DESC'
-      'FROM EMPRESA E'
+      #9'CP.*'
+      #9',CASE CP.TIPO_INTERVALO'
+      #9#9'WHEN 0 THEN '#39'DIAS'#39
+      #9#9'WHEN 1 THEN '#39'MESES'#39
+      #9'END TIPO_INTERVALO_DESC'
+      'FROM CONDICAO_PAGAMENTO CP'
+      'WHERE NOT CP.ID IS NULL '
       'ORDER BY '
-      #9'E.ID;'
+      #9'CP.ID;'
       '')
     Left = 288
     Top = 312
@@ -1295,89 +902,45 @@ object frmCad_Empresa: TfrmCad_Empresa
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object FDQRegistrosNOME: TStringField
-      FieldName = 'NOME'
-      Origin = 'NOME'
+    object FDQRegistrosDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
       Required = True
-      Size = 100
+      Size = 255
     end
-    object FDQRegistrosPESSOA: TIntegerField
-      FieldName = 'PESSOA'
-      Origin = 'PESSOA'
+    object FDQRegistrosPARCELAS: TIntegerField
+      FieldName = 'PARCELAS'
+      Origin = 'PARCELAS'
       Required = True
     end
-    object FDQRegistrosDOCUMENTO: TStringField
-      FieldName = 'DOCUMENTO'
-      Origin = 'DOCUMENTO'
+    object FDQRegistrosTIPO_INTERVALO: TIntegerField
+      FieldName = 'TIPO_INTERVALO'
+      Origin = 'TIPO_INTERVALO'
+      Required = True
     end
-    object FDQRegistrosINSC_EST: TStringField
-      FieldName = 'INSC_EST'
-      Origin = 'INSC_EST'
-    end
-    object FDQRegistrosCEP: TStringField
-      FieldName = 'CEP'
-      Origin = 'CEP'
-      Size = 10
-    end
-    object FDQRegistrosENDERECO: TStringField
-      FieldName = 'ENDERECO'
-      Origin = 'ENDERECO'
-      Size = 255
-    end
-    object FDQRegistrosCOMPLEMENTO: TStringField
-      FieldName = 'COMPLEMENTO'
-      Origin = 'COMPLEMENTO'
-      Size = 255
-    end
-    object FDQRegistrosNUMERO: TStringField
-      FieldName = 'NUMERO'
-      Origin = 'NUMERO'
-      Size = 10
-    end
-    object FDQRegistrosBAIRRO: TStringField
-      FieldName = 'BAIRRO'
-      Origin = 'BAIRRO'
-      Size = 100
-    end
-    object FDQRegistrosCIDADE: TStringField
-      FieldName = 'CIDADE'
-      Origin = 'CIDADE'
-      Size = 100
-    end
-    object FDQRegistrosUF: TStringField
-      FieldName = 'UF'
-      Origin = 'UF'
-      Size = 2
-    end
-    object FDQRegistrosTELEFONE: TStringField
-      FieldName = 'TELEFONE'
-      Origin = 'TELEFONE'
-    end
-    object FDQRegistrosCELULAR: TStringField
-      FieldName = 'CELULAR'
-      Origin = 'CELULAR'
-    end
-    object FDQRegistrosEMAIL: TStringField
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      Size = 255
+    object FDQRegistrosINTEVALOR: TIntegerField
+      FieldName = 'INTEVALOR'
+      Origin = 'INTEVALOR'
+      Required = True
     end
     object FDQRegistrosDT_CADASTRO: TDateField
       FieldName = 'DT_CADASTRO'
       Origin = 'DT_CADASTRO'
+      Required = True
     end
     object FDQRegistrosHR_CADASTRO: TTimeField
       FieldName = 'HR_CADASTRO'
       Origin = 'HR_CADASTRO'
+      Required = True
     end
-    object FDQRegistrosPESSOA_DESC: TStringField
+    object FDQRegistrosTIPO_INTERVALO_DESC: TStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PESSOA_DESC'
-      Origin = 'PESSOA_DESC'
+      FieldName = 'TIPO_INTERVALO_DESC'
+      Origin = 'TIPO_INTERVALO_DESC'
       ProviderFlags = []
       ReadOnly = True
       FixedChar = True
-      Size = 8
+      Size = 5
     end
   end
   object DSRegistros: TDataSource

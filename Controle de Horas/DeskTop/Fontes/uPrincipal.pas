@@ -90,6 +90,14 @@ type
     rctLancamentos: TRectangle;
     imgLancamentos: TImage;
     lbLancamentos: TLabel;
+    lbiFormaPagto: TListBoxItem;
+    rctFormaPagto: TRectangle;
+    imgFormaPagto: TImage;
+    lbFormaPagto: TLabel;
+    lbiCondPagto: TListBoxItem;
+    rctCondPagto: TRectangle;
+    imgCondPagto: TImage;
+    lbCondPagto: TLabel;
     procedure imgLogClick(Sender: TObject);
     procedure rctConfigClick(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -105,6 +113,8 @@ type
     procedure rctFornecedorClick(Sender: TObject);
     procedure rctServPrestadosClick(Sender: TObject);
     procedure rctLancamentosClick(Sender: TObject);
+    procedure rctFormaPagtoClick(Sender: TObject);
+    procedure rctCondPagtoClick(Sender: TObject);
   private
     FDm_Global :TDM_Global;
     procedure AbreForm(AForm:TFormClass);
@@ -137,7 +147,9 @@ uses
   ,uCad.Empresa
   ,uCad.Fornecedor
   ,uMov.ServicosPrestados
-  ,uLanc_Financeiros;
+  ,uLanc_Financeiros
+  ,uCad.FormaPagamento
+  ,uCad.CondicaoPagamento;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -149,9 +161,9 @@ end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
-  FDm_Global := TDM_Global.Create(Nil);
-  exCadastro.Height := 400;
+  exCadastro.Height := 500;
   exMovimento.Height := 100;
+  FDm_Global := TDM_Global.Create(Nil);
 end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);
@@ -265,6 +277,16 @@ begin
   frmCad_Cliente.Show;
 end;
 
+procedure TfrmPrincipal.rctCondPagtoClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCondicao_Pagamento,frmCondicao_Pagamento);
+  frmCondicao_Pagamento.Parent := Self;
+  frmCondicao_Pagamento.Height := Self.Height;
+  frmCondicao_Pagamento.Width := Self.Width;
+  frmCondicao_Pagamento.Show;
+end;
+
 procedure TfrmPrincipal.rctConfigClick(Sender: TObject);
 begin
   Config_Menu;
@@ -293,6 +315,16 @@ begin
   frmCad_Empresa.Height := Self.Height;
   frmCad_Empresa.Width := Self.Width;
   frmCad_Empresa.Show;
+end;
+
+procedure TfrmPrincipal.rctFormaPagtoClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmFormaPagamento,frmFormaPagamento);
+  frmFormaPagamento.Parent := Self;
+  frmFormaPagamento.Height := Self.Height;
+  frmFormaPagamento.Width := Self.Width;
+  frmFormaPagamento.Show;
 end;
 
 procedure TfrmPrincipal.rctFornecedorClick(Sender: TObject);

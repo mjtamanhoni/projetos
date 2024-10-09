@@ -278,6 +278,7 @@ type
     procedure edDESCONTOTyping(Sender: TObject);
     procedure edJUROSTyping(Sender: TObject);
     procedure edVALOR_PAGOTyping(Sender: TObject);
+    procedure edVALOR_PAGOChange(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -330,7 +331,7 @@ end;
 
 procedure TfrmLanc_Financeiros.edDESCONTOChange(Sender: TObject);
 begin
-  edDESCONTO.TagFloat := StrToFloatDef(Trim(StringReplace(edDESCONTO.Text,'R$','',[rfReplaceAll])),0);
+  edDESCONTO.TagFloat := StrToFloatDef(Trim(StringReplace(StringReplace(edDESCONTO.Text,'R$','',[rfReplaceAll]),'.','',[rfReplaceAll])),0);
 end;
 
 procedure TfrmLanc_Financeiros.edDESCONTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -631,7 +632,7 @@ end;
 
 procedure TfrmLanc_Financeiros.edJUROSChange(Sender: TObject);
 begin
-  edJUROS.TagFloat := StrToFloatDef(Trim(StringReplace(edJUROS.Text,'R$','',[rfReplaceAll])),0);
+  edJUROS.TagFloat := StrToFloatDef(Trim(StringReplace(StringReplace(edJUROS.Text,'R$','',[rfReplaceAll]),'.','',[rfReplaceAll])),0);
 end;
 
 procedure TfrmLanc_Financeiros.edJUROSKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -657,7 +658,7 @@ end;
 
 procedure TfrmLanc_Financeiros.edVALORChange(Sender: TObject);
 begin
-  edVALOR.TagFloat := StrToFloatDef(Trim(StringReplace(edVALOR.Text,'R$','',[rfReplaceAll])),0);
+  edVALOR.TagFloat := StrToFloatDef(Trim(StringReplace(StringReplace(edVALOR.Text,'R$','',[rfReplaceAll]),'.','',[rfReplaceAll])),0);
 end;
 
 procedure TfrmLanc_Financeiros.edVALORKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -671,6 +672,11 @@ end;
 procedure TfrmLanc_Financeiros.edVALORTyping(Sender: TObject);
 begin
   Formatar(edVALOR,Money)
+end;
+
+procedure TfrmLanc_Financeiros.edVALOR_PAGOChange(Sender: TObject);
+begin
+  edVALOR_PAGO.TagFloat := StrToFloatDef(Trim(StringReplace(StringReplace(edVALOR_PAGO.Text,'R$','',[rfReplaceAll]),'.','',[rfReplaceAll])),0);
 end;
 
 procedure TfrmLanc_Financeiros.edVALOR_PAGOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -819,6 +825,10 @@ begin
           FQuery.Sql.Add('  ,VALOR ');
           FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
           FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
+          FQuery.Sql.Add('  ,DT_PAGAMENTO ');
+          FQuery.Sql.Add('  ,DESCONTO ');
+          FQuery.Sql.Add('  ,JUROS ');
+          FQuery.Sql.Add('  ,VALOR_PAGO ');
           FQuery.Sql.Add('  ,ID_USUARIO ');
           FQuery.Sql.Add('  ,OBSERVACAO ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
@@ -834,6 +844,10 @@ begin
           FQuery.Sql.Add('  ,:VALOR ');
           FQuery.Sql.Add('  ,:ORIGEM_LANCAMENTO ');
           FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
+          FQuery.Sql.Add('  ,:DT_PAGAMENTO ');
+          FQuery.Sql.Add('  ,:DESCONTO ');
+          FQuery.Sql.Add('  ,:JUROS ');
+          FQuery.Sql.Add('  ,:VALOR_PAGO ');
           FQuery.Sql.Add('  ,:ID_USUARIO ');
           FQuery.Sql.Add('  ,:OBSERVACAO ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
@@ -842,6 +856,8 @@ begin
           FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
           FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
           FQuery.ParamByName('ID_USUARIO').AsInteger := frmPrincipal.FUser_Id;
+          FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'PROPRIO';
+          FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := FId;
         end;
         dsEdit :begin
           FId := StrToIntDef(edID.Text,0);
@@ -870,8 +886,6 @@ begin
       FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
       FQuery.ParamByName('DT_VENCIMENTO').AsDate := StrToDateDef(edDT_VENCIMENTO.Text,Date); //Calcular
       FQuery.ParamByName('VALOR').AsFloat := edVALOR.TagFloat;
-      FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'PROPRIO';
-      FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := FId;
       FQuery.ParamByName('OBSERVACAO').AsString := edOBSERVACAO.Text;
       FQuery.ParamByName('DT_PAGAMENTO').AsDate := StrToDateDef(edDT_PAGAMENTO.Text,Date); //Calcular
       FQuery.ParamByName('DESCONTO').AsFloat := edDESCONTO.TagFloat;

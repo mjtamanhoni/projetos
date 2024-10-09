@@ -338,6 +338,14 @@
             <Form>frmPesq_Pessoas</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uCad.FormaPagamento.pas">
+            <Form>frmFormaPagamento</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.CondicaoPagamento.pas">
+            <Form>frmCondicao_Pagamento</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
