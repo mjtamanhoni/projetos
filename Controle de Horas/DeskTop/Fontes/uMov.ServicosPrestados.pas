@@ -22,7 +22,7 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.ListBox, FMX.dxGrid, FMX.dxControlUtils, FMX.dxControls,
   FMX.dxCustomization, FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls,
-  FMX.Layouts, FMX.Ani, FMX.Calendar, RLPreviewForm;
+  FMX.Layouts, FMX.Ani, FMX.Calendar, RLPreviewForm, FMX.frxClass, FMX.frxDBSet, FMX.frxDesgn;
 
 type
   TTab_Status = (dsInsert,dsEdit);
@@ -280,6 +280,29 @@ type
     lytMenu_FecharMes_DtLanc: TLayout;
     edMenu_FecharMes_DtLanc: TEdit;
     lbMenu_FecharMes_DtLanc: TLabel;
+    frxReport: TfrxReport;
+    frxDBDataset: TfrxDBDataset;
+    rctPrinter: TRectangle;
+    imgPrinter: TImage;
+    rctImprimir_Tampa: TRectangle;
+    rctImprimir: TRectangle;
+    ShadowEffect6: TShadowEffect;
+    rctImp_Header: TRectangle;
+    lbImp_Titulo: TLabel;
+    lytImp_NomeRel: TLayout;
+    lbImp_NomeRel: TLabel;
+    lytImp_Opcoes: TLayout;
+    gplImpressao: TGridPanelLayout;
+    rctImp_Imprimir: TRectangle;
+    imgImp_Imprimir: TImage;
+    rctImp_Visualizar: TRectangle;
+    imgImp_Visualizar: TImage;
+    lytImp_Relacao: TLayout;
+    lbImp_Relacao: TLabel;
+    cmbImp_Relacao: TComboBox;
+    rctImp_Editar: TRectangle;
+    imgImp_Editar: TImage;
+    imgImp_Fechar: TImage;
     procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -352,6 +375,9 @@ type
     procedure edMenu_FecharMes_DataKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
     procedure edMenu_FecharMes_DtLancTyping(Sender: TObject);
+    procedure imgImp_FecharClick(Sender: TObject);
+    procedure cmbImp_RelacaoChange(Sender: TObject);
+    procedure rctImp_EditarClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -410,6 +436,10 @@ type
     procedure CancelaFechamento(Sender: TOBject);
     procedure ConfirmaFechamento(Sender: TOBject);
     procedure TThreadEnd_ConfirmaFechamento(Sender: TOBject);
+    procedure Imprimir_Relatorios;
+    procedure Print_Editar;
+    procedure Print_Imprimir;
+    procedure Print_Visualizar;
   public
     ExecuteOnClose :TExecuteOnClose;
 
@@ -437,6 +467,13 @@ begin
       raise Exception.Create('Cancelar: ' + E.Message);
     end;
   finally
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.cmbImp_RelacaoChange(Sender: TObject);
+begin
+  case cmbImp_Relacao.ItemIndex of
+    0:lbImp_NomeRel.Text := 'Horas_Trabalhadas.fr3';
   end;
 end;
 
@@ -1394,6 +1431,11 @@ begin
   frmCad_TabPrecos.Show;
 end;
 
+procedure TfrmMov_ServicosPrestados.imgImp_FecharClick(Sender: TObject);
+begin
+  rctImprimir_Tampa.Visible := False;
+end;
+
 procedure TfrmMov_ServicosPrestados.imgMenuFecharClick(Sender: TObject);
 begin
   rctMenu_Tampa.Visible := False;
@@ -1906,6 +1948,7 @@ begin
         3:Cancelar;
         4:FFancyDialog.Show(TIconDialog.Question,'Excluir','Deseja Excluir o registro selecionado?','Sim',Excluir,'Não') ;
         5:Menu(Sender);
+        6:Imprimir_Relatorios;
       end;
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
@@ -1913,6 +1956,82 @@ begin
   finally
     Configura_Botoes;
   end;
+end;
+
+procedure TfrmMov_ServicosPrestados.rctImp_EditarClick(Sender: TObject);
+begin
+  try
+    case TRectangle(Sender).Tag of
+      0:Print_Imprimir;
+      1:Print_Visualizar;
+      2:Print_Editar;
+    end;
+  except on E: Exception do
+    FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'Ok');
+  end;
+
+end;
+
+procedure TfrmMov_ServicosPrestados.Print_Imprimir;
+begin
+  try
+    FDQRegistros.DisableControls;
+    if not FDQRegistros.IsEmpty then
+    begin
+      frxReport.LoadFromFile(System.SysUtils.GetCurrentDir + '\Relatorios\Horas_Trabalhadas.fr3');
+      if frxReport.PrepareReport then
+        frxReport.Print;
+    end;
+    FDQRegistros.First;
+    FDQRegistros.EnableControls;
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.Print_Visualizar;
+begin
+  try
+    FDQRegistros.DisableControls;
+    if not FDQRegistros.IsEmpty then
+    begin
+      frxReport.LoadFromFile(System.SysUtils.GetCurrentDir + '\Relatorios\Horas_Trabalhadas.fr3');
+      if frxReport.PrepareReport then
+        frxReport.ShowPreparedReport;
+    end;
+    FDQRegistros.First;
+    FDQRegistros.EnableControls;
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.Print_Editar;
+begin
+  try
+    FDQRegistros.DisableControls;
+    if not FDQRegistros.IsEmpty then
+    begin
+      frxReport.LoadFromFile(System.SysUtils.GetCurrentDir + '\Relatorios\Horas_Trabalhadas.fr3');
+      //if frxReport.PrepareReport then
+        frxReport.DesignReport;
+    end;
+    FDQRegistros.First;
+    FDQRegistros.EnableControls;
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
+end;
+
+procedure TfrmMov_ServicosPrestados.Imprimir_Relatorios;
+begin
+  rctImprimir_Tampa.Visible := True;
+  {
+  try
+  except on E: Exception do
+    FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'Ok');
+  end;
+  }
 end;
 
 procedure TfrmMov_ServicosPrestados.rctMenu_BaixarHorasClick(Sender: TObject);

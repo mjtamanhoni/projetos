@@ -22,7 +22,8 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.Objects,
   FMX.dxGrid, FMX.Layouts, FMX.Ani, FMX.ListBox, FMX.dxControlUtils, FMX.dxControls, FMX.dxCustomization,
-  FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Calendar;
+  FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Calendar, FMX.frxClass,
+  FMX.frxDBSet;
 
 type
   TTab_Status = (dsInsert,dsEdit);
@@ -257,6 +258,10 @@ type
     FDQRegistrosPESSOA: TStringField;
     FDQRegistrosSTATUS_DESC: TStringField;
     FDQRegistrosUSUARIO: TStringField;
+    rctPrinter: TRectangle;
+    imgPrinter: TImage;
+    frxReport: TfrxReport;
+    frxDBDataset: TfrxDBDataset;
     procedure imgFiltro_ClienteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
