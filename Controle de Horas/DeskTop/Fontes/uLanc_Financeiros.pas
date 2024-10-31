@@ -1361,9 +1361,9 @@ begin
           FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
           if Trim(edDT_PAGAMENTO.Text) <> '' then
             FQuery.Sql.Add('  ,DT_PAGAMENTO ');
-          FQuery.Sql.Add('  ,DESCONTO ');
-          FQuery.Sql.Add('  ,JUROS ');
-          FQuery.Sql.Add('  ,VALOR_PAGO ');
+          FQuery.Sql.Add('  ,DESCONTO_BAIXA ');
+          FQuery.Sql.Add('  ,JUROS_BAIXA ');
+          FQuery.Sql.Add('  ,VALOR_BAIXA ');
           FQuery.Sql.Add('  ,ID_USUARIO ');
           FQuery.Sql.Add('  ,OBSERVACAO ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
@@ -1383,9 +1383,9 @@ begin
           FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
           if Trim(edDT_PAGAMENTO.Text) <> '' then
             FQuery.Sql.Add('  ,:DT_PAGAMENTO ');
-          FQuery.Sql.Add('  ,:DESCONTO ');
-          FQuery.Sql.Add('  ,:JUROS ');
-          FQuery.Sql.Add('  ,:VALOR_PAGO ');
+          FQuery.Sql.Add('  ,:DESCONTO_BAIXA ');
+          FQuery.Sql.Add('  ,:JUROS_BAIXA ');
+          FQuery.Sql.Add('  ,:VALOR_BAIXA ');
           FQuery.Sql.Add('  ,:ID_USUARIO ');
           FQuery.Sql.Add('  ,:OBSERVACAO ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
@@ -1411,9 +1411,9 @@ begin
           FQuery.Sql.Add('  ,VALOR = :VALOR ');
           if Trim(edDT_PAGAMENTO.Text) <> '' then
             FQuery.Sql.Add('  ,DT_PAGAMENTO = :DT_PAGAMENTO ');
-          FQuery.Sql.Add('  ,DESCONTO = :DESCONTO ');
-          FQuery.Sql.Add('  ,JUROS = :JUROS ');
-          FQuery.Sql.Add('  ,VALOR_PAGO = :VALOR_PAGO ');
+          FQuery.Sql.Add('  ,DESCONTO_BAIXA = :DESCONTO_BAIXA ');
+          FQuery.Sql.Add('  ,JUROS_BAIXA = :JUROS_BAIXA ');
+          FQuery.Sql.Add('  ,VALOR_BAIXA = :VALOR_BAIXA ');
           FQuery.Sql.Add('  ,OBSERVACAO = :OBSERVACAO ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := FId;
@@ -1438,9 +1438,9 @@ begin
       begin
         FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
       end;
-      FQuery.ParamByName('DESCONTO').AsFloat := edDESCONTO.TagFloat;
-      FQuery.ParamByName('JUROS').AsFloat := edJUROS.TagFloat;
-      FQuery.ParamByName('VALOR_PAGO').AsFloat := edVALOR_PAGO.TagFloat;
+      FQuery.ParamByName('DESCONTO_BAIXA').AsFloat := edDESCONTO.TagFloat;
+      FQuery.ParamByName('JUROS_BAIXA').AsFloat := edJUROS.TagFloat;
+      FQuery.ParamByName('VALOR_BAIXA').AsFloat := edVALOR_PAGO.TagFloat;
       FQuery.ExecSQL;
 
       FDm_Global.FDC_Firebird.Commit;

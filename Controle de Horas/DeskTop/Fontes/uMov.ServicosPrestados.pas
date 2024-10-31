@@ -22,7 +22,7 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.ListBox, FMX.dxGrid, FMX.dxControlUtils, FMX.dxControls,
   FMX.dxCustomization, FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls,
-  FMX.Layouts, FMX.Ani, FMX.Calendar;
+  FMX.Layouts, FMX.Ani, FMX.Calendar, RLPreviewForm;
 
 type
   TTab_Status = (dsInsert,dsEdit);
@@ -319,8 +319,6 @@ type
     procedure imgFiltro_ClienteClick(Sender: TObject);
     procedure edFIltro_Dt_ITyping(Sender: TObject);
     procedure edFIltro_Dt_FTyping(Sender: TObject);
-    procedure edFIltro_Dt_IExit(Sender: TObject);
-    procedure edFIltro_Dt_FExit(Sender: TObject);
     procedure edFIltro_Dt_IKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edFIltro_Dt_FKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edFiltro_Empresa_IDKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -556,6 +554,7 @@ begin
   if Key = vkReturn then
   begin
     Nome_Cliente;
+    Selecionar_Registros;
     edFIltro_Dt_I.SetFocus;
   end;
 end;
@@ -592,6 +591,7 @@ begin
   if Key = vkReturn then
   begin
     Nome_Empresa;
+    Selecionar_Registros;
     edFiltro_Prestador_ID.SetFocus;
   end;
 end;
@@ -630,6 +630,7 @@ begin
   if Key = vkReturn then
   begin
     Nome_Prestador;
+    Selecionar_Registros;
     edFiltro_Cliente_ID.SetFocus;
   end;
 end;
@@ -937,16 +938,14 @@ begin
 
 end;
 
-procedure TfrmMov_ServicosPrestados.edFIltro_Dt_FExit(Sender: TObject);
-begin
-  Selecionar_Registros;
-end;
-
 procedure TfrmMov_ServicosPrestados.edFIltro_Dt_FKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
+  begin
+    Selecionar_Registros;
     edFiltro_Empresa_ID.SetFocus;
+  end;
 end;
 
 procedure TfrmMov_ServicosPrestados.edFIltro_Dt_FTyping(Sender: TObject);
@@ -954,16 +953,14 @@ begin
   Formatar(edFIltro_Dt_F,Dt);
 end;
 
-procedure TfrmMov_ServicosPrestados.edFIltro_Dt_IExit(Sender: TObject);
-begin
-  Selecionar_Registros;
-end;
-
 procedure TfrmMov_ServicosPrestados.edFIltro_Dt_IKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
+  begin
+    Selecionar_Registros;
     edFIltro_Dt_F.SetFocus;
+  end;
 end;
 
 procedure TfrmMov_ServicosPrestados.edFIltro_Dt_ITyping(Sender: TObject);
@@ -2229,7 +2226,7 @@ begin
         ,StrToIntDef(edID_EMPRESA.Text,0)
         ,StrToDateDef(edDATA.Text,Date)
         ,StrToIntDef(edID_CLIENTE.Text,0)
-        ,Date
+        ,StrToDateDef(edDATA.Text,Date)
         ,edTOTAL.TagFloat
         ,FId
         ,edOBSERVACAO.Text);
@@ -2470,6 +2467,7 @@ begin
       FFancyDialog.Show(TIconDialog.Error,'Erro','Selecionar. ' + E.Message,'Ok');
     end;
   finally
+    Configura_Botoes;
     FreeAndNil(FDQ_Total);
   end;
 end;
