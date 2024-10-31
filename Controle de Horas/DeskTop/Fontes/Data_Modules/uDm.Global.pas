@@ -41,6 +41,8 @@ type
       procedure Listar_TabelaPrecos(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
       procedure Listar_PrestadorServico(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
       procedure Listar_Contas(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_FormaPagto(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
+      procedure Listar_CondPagto(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
     {$EndRegion 'Listar Dados'}
 
   end;
@@ -189,6 +191,31 @@ begin
   end;
 end;
 
+procedure TDM_Global.Listar_CondPagto(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  CP.* ');
+      FDQuery.Sql.Add('FROM CONDICAO_PAGAMENTO CP ');
+      FDQuery.Sql.Add('WHERE NOT CP.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND CP.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND CP.DESCRICAO LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  CP.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Condições de Pagamento: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
 procedure TDM_Global.Listar_Contas(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
 begin
   try
@@ -234,6 +261,31 @@ begin
       FDQuery.Active := True;
     except on E: Exception do
       raise Exception.Create('Listar Empresa: ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+procedure TDM_Global.Listar_FormaPagto(ACodigo: Integer; ANome: String; out FDQuery: TFDQuery);
+begin
+  try
+    try
+      FDQuery.Connection := FDC_Firebird;
+      FDQuery.Active := False;
+      FDQuery.Sql.Clear;
+      FDQuery.Sql.Add('SELECT ');
+      FDQuery.Sql.Add('  FP.* ');
+      FDQuery.Sql.Add('FROM FORMA_PAGAMENTO FP ');
+      FDQuery.Sql.Add('WHERE NOT FP.ID IS NULL ');
+      if ACodigo > 0 then
+        FDQuery.Sql.Add('  AND FP.ID = ' + ACodigo.ToString);
+      if Trim(ANome) <> '' then
+        FDQuery.Sql.Add('  AND FP.DESCRICAO LIKE ' + QuotedStr('%' + ANome + '%'));
+      FDQuery.Sql.Add('ORDER BY ');
+      FDQuery.Sql.Add('  FP.ID; ');
+      FDQuery.Active := True;
+    except on E: Exception do
+      raise Exception.Create('Listar Formas de Pagamento: ' + E.Message);
     end;
   finally
   end;

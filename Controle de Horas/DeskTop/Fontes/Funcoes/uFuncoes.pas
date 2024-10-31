@@ -25,6 +25,7 @@ type
   public
     class function Datas(AData_1:TDate; AData_2:TDate=0; ADias:Integer=0; AMes:Integer=0; AAno:Integer=0): TDatas;
     class function ApenasNumeros(const Texto: string): string;
+    class function PreencheVariavel(sTexto,sPreencher,sPosicao:String;iQtd:Integer):String;
   end;
 
 implementation
@@ -93,6 +94,31 @@ begin
     end;
   finally
 
+  end;
+end;
+
+class function TFuncoes.PreencheVariavel(sTexto, sPreencher, sPosicao: String; iQtd: Integer): String;
+var
+  i:Integer;
+begin
+  Result := '';
+  Result := sTexto;
+  if (iQtd - Length(sTexto)) < 1 then
+    Exit;
+
+  for i := 1 to (iQtd - Length(sTexto)) do
+  begin
+    if sPosicao = 'D' then //Direita
+      Result := Result + sPreencher
+    else if sPosicao = 'E' then //Esquerda
+      Result := sPreencher + Result
+    else if sPosicao = 'C' then //Centro
+    begin
+      if (i MOD 2) = 0 then
+        Result := sPreencher + Result
+      else
+        Result := Result + sPreencher;
+    end;
   end;
 end;
 

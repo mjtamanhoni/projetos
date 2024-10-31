@@ -22,7 +22,7 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.Objects,
   FMX.dxGrid, FMX.Layouts, FMX.Ani, FMX.ListBox, FMX.dxControlUtils, FMX.dxControls, FMX.dxCustomization,
-  FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls;
+  FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Calendar;
 
 type
   TTab_Status = (dsInsert,dsEdit);
@@ -126,59 +126,27 @@ type
     lbMenu_Titulo: TLabel;
     imgMenuFechar: TImage;
     faMenu: TFloatAnimation;
-    rctMenu_BaixarHoras: TRectangle;
-    lbMenu_BaixarHoras: TLabel;
+    rctMenu_BaixarLancto: TRectangle;
+    lbMenu_BaixarLancto: TLabel;
     rctFecharMes: TRectangle;
     lbFecharMes: TLabel;
-    rctMenuBaixar_Horas: TRectangle;
-    rctBH_Detail: TRectangle;
+    rctMenuBaixar_Lancto: TRectangle;
+    rctBL_Detail: TRectangle;
     ShadowEffect1: TShadowEffect;
-    rctBH_Header: TRectangle;
-    lbBH_Titulo: TLabel;
-    lytBH_ValorPago: TLayout;
-    edBH_ValorPago: TEdit;
-    lytBH_Data: TLayout;
-    edBH_Data: TEdit;
-    lytBH_TotalHoras: TLayout;
-    lbBH_TotalHoras: TLabel;
-    lytBH_Footer: TLayout;
+    rctBL_Header: TRectangle;
+    lbBL_Titulo: TLabel;
+    lytBL_ValorLancamento: TLayout;
+    lytBL_Data: TLayout;
+    edBL_Data: TEdit;
+    lytBL_Footer: TLayout;
     gplBH_Footer: TGridPanelLayout;
     rctBH_Confirmar: TRectangle;
     imgBH_Confirmar: TImage;
     rctBH_Cancelar: TRectangle;
     imgBH_Cancelar: TImage;
-    lytBH_Cliente: TLayout;
-    edBH_Cliente: TEdit;
-    imgBH_Cliente: TImage;
-    lbBH_Cliente: TLabel;
     rctTot_Saldo: TRectangle;
     lbTot_Saldo_Tit: TLabel;
     lbTot_Saldo: TLabel;
-    FDQRegistrosID: TIntegerField;
-    FDQRegistrosID_EMPRESA: TIntegerField;
-    FDQRegistrosDT_EMISSAO: TDateField;
-    FDQRegistrosID_CONTA: TIntegerField;
-    FDQRegistrosID_PESSOA: TIntegerField;
-    FDQRegistrosSTATUS: TIntegerField;
-    FDQRegistrosDT_VENCIMENTO: TDateField;
-    FDQRegistrosVALOR: TFMTBCDField;
-    FDQRegistrosDT_PAGAMENTO: TDateField;
-    FDQRegistrosDESCONTO: TFMTBCDField;
-    FDQRegistrosJUROS: TFMTBCDField;
-    FDQRegistrosVALOR_PAGO: TFMTBCDField;
-    FDQRegistrosORIGEM_LANCAMENTO: TStringField;
-    FDQRegistrosID_ORIGEM_LANCAMENTO: TIntegerField;
-    FDQRegistrosID_USUARIO: TIntegerField;
-    FDQRegistrosDT_CADASTRO: TDateField;
-    FDQRegistrosHR_CADASTRO: TTimeField;
-    FDQRegistrosOBSERVACAO: TStringField;
-    FDQRegistrosEMPRESA: TStringField;
-    FDQRegistrosCONTA: TStringField;
-    FDQRegistrosTIPO_CONTA: TIntegerField;
-    FDQRegistrosTIPO_CONTA_DESC: TStringField;
-    FDQRegistrosPESSOA: TStringField;
-    FDQRegistrosSTATUS_DESC: TStringField;
-    FDQRegistrosUSUARIO: TStringField;
     dxfmGrid1RootLevel1ID: TdxfmGridColumn;
     dxfmGrid1RootLevel1ID_EMPRESA: TdxfmGridColumn;
     dxfmGrid1RootLevel1DT_EMISSAO: TdxfmGridColumn;
@@ -224,6 +192,71 @@ type
     lbDT_VENCIMENTO: TLabel;
     edDT_VENCIMENTO: TEdit;
     edConta_Tipo: TEdit;
+    lbFORMA_CONDICAO_PAGAMENTO: TLabel;
+    edFORMA_CONDICAO_PAGAMENTO: TEdit;
+    imgFORMA_CONDICAO_PAGAMENTO: TImage;
+    edID_FORMA_PAGAMENTO: TEdit;
+    edCONDICAO_PAGAMENTO: TEdit;
+    edID_CONDICAO_PAGAMENTO: TEdit;
+    imgFIltro_Dt_I: TImage;
+    imgFIltro_Dt_F: TImage;
+    rctCalendario_Tampa: TRectangle;
+    rctCalendario: TRectangle;
+    ShadowEffect2: TShadowEffect;
+    lytCalendario_Header: TLayout;
+    lytCalendario_Detail: TLayout;
+    Calendar: TCalendar;
+    rctCalendario_Header: TRectangle;
+    lbCalendario_Titulo: TLabel;
+    imgCalendario_Cancelar: TImage;
+    lytCalendario_Footer: TLayout;
+    rctCalendario_Footer: TRectangle;
+    rctCalendario_Detail: TRectangle;
+    imgBL_Data: TImage;
+    lbBL_Data: TLabel;
+    lbBL_ValorLancamento_Tit: TLabel;
+    lytBL_Desconto: TLayout;
+    edBL_DescontoP: TEdit;
+    lbBL_Desconto: TLabel;
+    edBL_Desconto: TEdit;
+    lbBL_ValorLancamento: TLabel;
+    lytBL_Juros: TLayout;
+    lbBL_Juros: TLabel;
+    edBL_JurosP: TEdit;
+    edBL_Juros: TEdit;
+    lytBL_ValorBaixa: TLayout;
+    lbBL_ValorBaixa: TLabel;
+    edBL_ValorBaixa: TEdit;
+    rctBL_Footer: TRectangle;
+    FDQRegistrosID: TIntegerField;
+    FDQRegistrosID_EMPRESA: TIntegerField;
+    FDQRegistrosDT_EMISSAO: TDateField;
+    FDQRegistrosID_CONTA: TIntegerField;
+    FDQRegistrosID_PESSOA: TIntegerField;
+    FDQRegistrosSTATUS: TIntegerField;
+    FDQRegistrosFORMA_PAGTO_ID: TIntegerField;
+    FDQRegistrosCOND_PAGTO_ID: TIntegerField;
+    FDQRegistrosDT_VENCIMENTO: TDateField;
+    FDQRegistrosVALOR: TFMTBCDField;
+    FDQRegistrosORIGEM_LANCAMENTO: TStringField;
+    FDQRegistrosID_ORIGEM_LANCAMENTO: TIntegerField;
+    FDQRegistrosDT_BAIXA: TDateField;
+    FDQRegistrosHR_BAIXA: TTimeField;
+    FDQRegistrosID_USUARIO_BAIXA: TIntegerField;
+    FDQRegistrosDESCONTO_BAIXA: TFMTBCDField;
+    FDQRegistrosJUROS_BAIXA: TFMTBCDField;
+    FDQRegistrosVALOR_BAIXA: TFMTBCDField;
+    FDQRegistrosID_USUARIO: TIntegerField;
+    FDQRegistrosDT_CADASTRO: TDateField;
+    FDQRegistrosHR_CADASTRO: TTimeField;
+    FDQRegistrosOBSERVACAO: TStringField;
+    FDQRegistrosEMPRESA: TStringField;
+    FDQRegistrosCONTA: TStringField;
+    FDQRegistrosTIPO_CONTA: TIntegerField;
+    FDQRegistrosTIPO_CONTA_DESC: TStringField;
+    FDQRegistrosPESSOA: TStringField;
+    FDQRegistrosSTATUS_DESC: TStringField;
+    FDQRegistrosUSUARIO: TStringField;
     procedure imgFiltro_ClienteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -279,15 +312,59 @@ type
     procedure edJUROSTyping(Sender: TObject);
     procedure edVALOR_PAGOTyping(Sender: TObject);
     procedure edVALOR_PAGOChange(Sender: TObject);
+    procedure edFORMA_CONDICAO_PAGAMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure imgFORMA_CONDICAO_PAGAMENTOClick(Sender: TObject);
+    procedure imgFIltro_Dt_IClick(Sender: TObject);
+    procedure imgCalendario_CancelarClick(Sender: TObject);
+    procedure CalendarDateSelected(Sender: TObject);
+    procedure imgMenuFecharClick(Sender: TObject);
+    procedure rctFecharMesClick(Sender: TObject);
+    procedure rctMenu_BaixarLanctoClick(Sender: TObject);
+    procedure edBL_DataTyping(Sender: TObject);
+    procedure edBL_DataKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edBL_DescontoPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edBL_DescontoKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edBL_JurosPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edBL_JurosKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edBL_DescontoPTyping(Sender: TObject);
+    procedure edBL_JurosPTyping(Sender: TObject);
+    procedure edBL_DescontoTyping(Sender: TObject);
+    procedure edBL_JurosTyping(Sender: TObject);
+    procedure edBL_ValorBaixaTyping(Sender: TObject);
+    procedure rctBH_CancelarClick(Sender: TObject);
+    procedure rctBH_ConfirmarClick(Sender: TObject);
+    procedure edBL_DescontoPChange(Sender: TObject);
+    procedure edBL_DescontoPEnter(Sender: TObject);
+    procedure edBL_DescontoPExit(Sender: TObject);
+    procedure edBL_DescontoEnter(Sender: TObject);
+    procedure edBL_DescontoExit(Sender: TObject);
+    procedure edBL_JurosPExit(Sender: TObject);
+    procedure edBL_JurosPEnter(Sender: TObject);
+    procedure edBL_JurosEnter(Sender: TObject);
+    procedure edBL_JurosExit(Sender: TObject);
+    procedure edBL_ValorBaixaExit(Sender: TObject);
+    procedure edBL_ValorBaixaEnter(Sender: TObject);
+    procedure edBL_DescontoChange(Sender: TObject);
+    procedure edBL_JurosPChange(Sender: TObject);
+    procedure edBL_JurosChange(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
     FEnder :String;
     FDm_Global :TDM_Global;
     FTab_Status :TTab_Status;
+    FDataRetorno :Integer;
+
+    FHabilita_Desc_P :Boolean;
+    FHabilita_Desc_V :Boolean;
+    FHabilita_Acre_P :Boolean;
+    FHabilita_Acre_V :Boolean;
+    FHabilita_Total :Boolean;
 
     procedure Sel_Pessoa(ATipo:String; Aid:Integer; ANome:String; ADocumento:String);
     procedure Sel_Empresa(Aid: Integer; ANome: String);
+    procedure Sel_FormaCondicao(AId,AId_Forma,AId_Condicao:Integer; ADesc_Forma,ADesc_Condicao:String);
     procedure Configura_Botoes;
     procedure Selecionar_Registros;
 
@@ -300,9 +377,10 @@ type
     procedure Sel_Conta(Aid: Integer; ADescricao: String; ATipo: Integer);
     procedure Limpar_Campos;
     procedure Editando_Lancamento(Sender :TOBject);
-
-  public
-    { Public declarations }
+    procedure Baixar_Lancamento(Sender: TOBject);
+    procedure TThreadEnd_Baixar_Lancamento(Sender: TOBject);
+    procedure Calcula_Totais(ATag:Integer);
+    procedure TThreadEnd_Calcula_Totais(Sender: TObject);
   end;
 
 var
@@ -315,7 +393,453 @@ implementation
 uses
   uPesq_Pessoas
   ,uCad.Cliente
-  ,uCad.Empresa, uCad.Contas;
+  ,uCad.Empresa
+  ,uCad.Contas
+  ,uPesq_FormaCond_Pagto;
+
+procedure TfrmLanc_Financeiros.edBL_DataKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edBL_DescontoP.SetFocus;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DataTyping(Sender: TObject);
+begin
+  Formatar(edBL_Data,Dt);
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoChange(Sender: TObject);
+var
+  t :TThread;
+begin
+
+  if not FHabilita_Desc_V then
+    Exit;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FValor_Lanc :Double;
+    FDesc_P :Double;
+    FDesc_V :Double;
+    FAcre_V :Double;
+  begin
+    FValor_Lanc := 0;
+    FDesc_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FValor_Lanc := lbBL_ValorLancamento.TagFloat;
+
+    FDesc_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FDesc_V := StrToFloatDef(Trim(StringReplace(edBL_Desconto.Text,'R$','',[rfReplaceAll])),0);
+    FAcre_V := StrToFloatDef(Trim(StringReplace(edBL_Juros.Text,'R$','',[rfReplaceAll])),0);
+
+    FDesc_P := ((FDesc_V * 100) / FValor_Lanc);
+    edBL_DescontoP.TagFloat := FDesc_P;
+    edBL_ValorBaixa.TagFloat := ((FValor_Lanc + FAcre_V) - FDesc_V);
+
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      edBL_DescontoP.Text := FormatFloat('#,##0.00%', FDesc_P);
+      edBL_ValorBaixa.Text := FormatFloat('R$ #,##0.00', edBL_ValorBaixa.TagFloat);
+    end);
+  end);
+
+  t.OnTerminate := TThreadEnd_Calcula_Totais;
+  t.Start;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoEnter(Sender: TObject);
+begin
+  FHabilita_Desc_V := True;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoExit(Sender: TObject);
+begin
+  FHabilita_Desc_V := False;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edBL_JurosP.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.Calcula_Totais(ATag:Integer);
+var
+  t :TThread;
+begin
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FValor_Lanc :Double;
+    FDesc_P :Double;
+    FDesc_V :Double;
+    FAcre_P :Double;
+    FAcre_V :Double;
+    FTotal :Double;
+
+  begin
+    FValor_Lanc := 0;
+    FDesc_P := 0;
+    FDesc_V := 0;
+    FAcre_P := 0;
+    FAcre_V := 0;
+    FTotal := 0;
+
+    lbBL_ValorLancamento.TagFloat := StrToFloatDef(Trim(StringReplace(lbBL_ValorLancamento.Text,'R$','',[rfReplaceAll])),0);
+    edBL_DescontoP.TagFloat := StrToFloatDef(Trim(StringReplace(edBL_DescontoP.Text,'%','',[rfReplaceAll])),0);
+    edBL_Desconto.TagFloat := StrToFloatDef(Trim(StringReplace(edBL_Desconto.Text,'R$','',[rfReplaceAll])),0);
+    edBL_JurosP.TagFloat := StrToFloatDef(Trim(StringReplace(edBL_JurosP.Text,'%','',[rfReplaceAll])),0);
+    edBL_Juros.TagFloat := StrToFloatDef(Trim(StringReplace(edBL_Juros.Text,'R$','',[rfReplaceAll])),0);
+    edBL_ValorBaixa.TagFloat := StrToFloatDef(Trim(StringReplace(edBL_ValorBaixa.Text,'R$','',[rfReplaceAll])),0);
+
+    FValor_Lanc := lbBL_ValorLancamento.TagFloat;
+    FDesc_P := edBL_DescontoP.TagFloat;
+    FDesc_V := edBL_Desconto.TagFloat;
+    FAcre_P := edBL_JurosP.TagFloat;
+    FAcre_V := edBL_Juros.TagFloat;
+    FTotal := edBL_ValorBaixa.TagFloat;
+
+    if edBL_DescontoP.TagFloat = 0 then
+      edBL_DescontoP.Text := '';
+    if edBL_Desconto.TagFloat = 0 then
+      edBL_Desconto.Text := '';
+    if edBL_JurosP.TagFloat = 0 then
+      edBL_JurosP.Text := '';
+    if edBL_Juros.TagFloat = 0 then
+      edBL_Juros.Text := '';
+
+
+    case ATag of
+      0:begin
+        //Percentual de Desconto
+        FDesc_V := (FValor_Lanc * (FDesc_P / 100));
+        edBL_Desconto.TagFloat := FDesc_V;
+        TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          edBL_Desconto.Text := FormatFloat('R$ #,##0.00', FDesc_V);
+        end);
+      end;
+      1:begin
+        //Valor do Desconto
+        FDesc_P := ((FDesc_V * 100) / FValor_Lanc);
+        edBL_DescontoP.TagFloat := FDesc_P;
+        TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          edBL_DescontoP.Text := FormatFloat('#,##0.00%',FDesc_P);
+        end);
+      end;
+      2:begin
+        //Percentual do Acrescimo
+        FAcre_V := (FValor_Lanc * (FAcre_P / 100));
+        edBL_Juros.TagFloat := FAcre_V;
+        TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          edBL_Juros.Text := FormatFloat('R$ #,##0.00', FAcre_V);
+        end);
+      end;
+      3:begin
+        //Valor do Acrescimo
+        FAcre_P := ((FAcre_V * 100) / FValor_Lanc);
+        edBL_JurosP.TagFloat := FAcre_P;
+        TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          edBL_JurosP.Text := FormatFloat('#,##0.00%',FAcre_P);
+        end);
+      end;
+      4:begin
+        //Valor total
+        if FTotal > FValor_Lanc then
+        begin
+          //Calcula acrescimo
+          edBL_Juros.TagFloat := (FTotal - FValor_Lanc);
+          TThread.Synchronize(TThread.CurrentThread,
+          procedure
+          begin
+            edBL_Juros.Text := FormatFloat('R$ #,##0.00', edBL_Juros.TagFloat);
+          end);
+          FAcre_P := ((edBL_Juros.TagFloat * 100) / FValor_Lanc);
+          edBL_JurosP.TagFloat := FAcre_P;
+          TThread.Synchronize(TThread.CurrentThread,
+          procedure
+          begin
+            edBL_JurosP.Text := FormatFloat('#,##0.00%',FAcre_P);
+          end);
+        end
+        else if FTotal < FValor_Lanc then
+        begin
+          //Calcula desconto
+          edBL_Desconto.TagFloat := (FValor_Lanc - FTotal);
+          TThread.Synchronize(TThread.CurrentThread,
+          procedure
+          begin
+            edBL_Desconto.Text := FormatFloat('R$ #,##0.00', edBL_Desconto.TagFloat);
+          end);
+          FDesc_P := ((FDesc_V * 100) / edBL_Desconto.TagFloat);
+          edBL_DescontoP.TagFloat := FDesc_P;
+          TThread.Synchronize(TThread.CurrentThread,
+          procedure
+          begin
+            edBL_DescontoP.Text := FormatFloat('#,##0.00%',FDesc_P);
+          end);
+        end;
+      end;
+    end;
+  end);
+
+  t.OnTerminate := TThreadEnd_Calcula_Totais;
+  t.Start;
+
+end;
+
+procedure TfrmLanc_Financeiros.TThreadEnd_Calcula_Totais(Sender :TObject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'Calculo',Exception(TThread(Sender).FatalException).Message)
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoPChange(Sender: TObject);
+var
+  t :TThread;
+begin
+
+  if not FHabilita_Desc_P then
+    Exit;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FValor_Lanc :Double;
+    FDesc_P :Double;
+    FDesc_V :Double;
+    FAcre_V :Double;
+  begin
+    FValor_Lanc := 0;
+    FDesc_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FValor_Lanc := lbBL_ValorLancamento.TagFloat;
+
+    FDesc_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FDesc_P := StrToFloatDef(Trim(StringReplace(edBL_DescontoP.Text,'%','',[rfReplaceAll])),0);
+    FAcre_V := StrToFloatDef(Trim(StringReplace(edBL_Juros.Text,'R$','',[rfReplaceAll])),0);
+
+    FDesc_V := (FValor_Lanc * (FDesc_P / 100));
+    edBL_Desconto.TagFloat := FDesc_V;
+    edBL_ValorBaixa.TagFloat := ((FValor_Lanc + FAcre_V) - FDesc_V);
+
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      edBL_Desconto.Text := FormatFloat('R$ #,##0.00', FDesc_V);
+      edBL_ValorBaixa.Text := FormatFloat('R$ #,##0.00', edBL_ValorBaixa.TagFloat);
+    end);
+  end);
+
+  t.OnTerminate := TThreadEnd_Calcula_Totais;
+  t.Start;
+
+end;
+
+
+procedure TfrmLanc_Financeiros.edBL_DescontoPEnter(Sender: TObject);
+begin
+  FHabilita_Desc_P := True;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoPExit(Sender: TObject);
+begin
+  FHabilita_Desc_P := False;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edBL_Desconto.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoPTyping(Sender: TObject);
+begin
+  Formatar(edBL_DescontoP,Percentual);
+end;
+
+procedure TfrmLanc_Financeiros.edBL_DescontoTyping(Sender: TObject);
+begin
+  Formatar(edBL_Desconto,Money);
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosChange(Sender: TObject);
+var
+  t :TThread;
+begin
+
+  if not FHabilita_Acre_V then
+    Exit;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FValor_Lanc :Double;
+    FAcre_P :Double;
+    FDesc_V :Double;
+    FAcre_V :Double;
+  begin
+    FValor_Lanc := 0;
+    FAcre_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FValor_Lanc := lbBL_ValorLancamento.TagFloat;
+
+    FAcre_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FDesc_V := StrToFloatDef(Trim(StringReplace(edBL_Desconto.Text,'R$','',[rfReplaceAll])),0);
+    FAcre_V := StrToFloatDef(Trim(StringReplace(edBL_Juros.Text,'R$','',[rfReplaceAll])),0);
+
+    FAcre_P := ((FAcre_V * 100) / FValor_Lanc);
+    edBL_JurosP.TagFloat := FAcre_P;
+    edBL_ValorBaixa.TagFloat := ((FValor_Lanc + FAcre_V) - FDesc_V);
+
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      edBL_JurosP.Text := FormatFloat('#,##0.00%', FAcre_P);
+      edBL_ValorBaixa.Text := FormatFloat('R$ #,##0.00', edBL_ValorBaixa.TagFloat);
+    end);
+  end);
+
+  t.OnTerminate := TThreadEnd_Calcula_Totais;
+  t.Start;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosEnter(Sender: TObject);
+begin
+  FHabilita_Acre_V := True;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosExit(Sender: TObject);
+begin
+  FHabilita_Acre_V := False;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edBL_ValorBaixa.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosPChange(Sender: TObject);
+var
+  t :TThread;
+begin
+
+  if not FHabilita_Acre_P then
+    Exit;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FValor_Lanc :Double;
+    FAcre_P :Double;
+    FDesc_V :Double;
+    FAcre_V :Double;
+  begin
+    FValor_Lanc := 0;
+    FAcre_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FValor_Lanc := lbBL_ValorLancamento.TagFloat;
+
+    FAcre_P := 0;
+    FDesc_V := 0;
+    FAcre_V := 0;
+
+    FAcre_P := StrToFloatDef(Trim(StringReplace(edBL_JurosP.Text,'%','',[rfReplaceAll])),0);
+    FDesc_V := StrToFloatDef(Trim(StringReplace(edBL_Desconto.Text,'R$','',[rfReplaceAll])),0);
+
+    FAcre_V := (FValor_Lanc * (FAcre_P / 100));
+    edBL_Juros.TagFloat := FAcre_V;
+    edBL_ValorBaixa.TagFloat := ((FValor_Lanc + FAcre_V) - FDesc_V);
+
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      edBL_Juros.Text := FormatFloat('R$ #,##0.00', FAcre_V);
+      edBL_ValorBaixa.Text := FormatFloat('R$ #,##0.00', edBL_ValorBaixa.TagFloat);
+    end);
+  end);
+
+  t.OnTerminate := TThreadEnd_Calcula_Totais;
+  t.Start;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosPEnter(Sender: TObject);
+begin
+  FHabilita_Acre_P := True;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosPExit(Sender: TObject);
+begin
+  FHabilita_Acre_P := False;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edBL_Juros.SetFocus;
+
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosPTyping(Sender: TObject);
+begin
+  Formatar(edBL_JurosP,Percentual);
+end;
+
+procedure TfrmLanc_Financeiros.edBL_JurosTyping(Sender: TObject);
+begin
+  Formatar(edBL_Juros,Money);
+end;
+
+procedure TfrmLanc_Financeiros.edBL_ValorBaixaEnter(Sender: TObject);
+begin
+  FHabilita_Total := True;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_ValorBaixaExit(Sender: TObject);
+begin
+  FHabilita_Total := False;
+end;
+
+procedure TfrmLanc_Financeiros.edBL_ValorBaixaTyping(Sender: TObject);
+begin
+  Formatar(edBL_ValorBaixa,Money);
+end;
 
 procedure TfrmLanc_Financeiros.edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
@@ -498,6 +1022,14 @@ begin
 
 end;
 
+procedure TfrmLanc_Financeiros.edFORMA_CONDICAO_PAGAMENTOKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edDT_VENCIMENTO.SetFocus;
+
+end;
+
 procedure TfrmLanc_Financeiros.edID_CONTAExit(Sender: TObject);
 var
   FQuery :TFDQuery;
@@ -606,7 +1138,7 @@ procedure TfrmLanc_Financeiros.edID_PESSOAKeyDown(Sender: TObject; var Key: Word
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edDT_VENCIMENTO.SetFocus;
+    edFORMA_CONDICAO_PAGAMENTO.SetFocus;
 
 end;
 
@@ -821,11 +1353,14 @@ begin
           FQuery.Sql.Add('  ,ID_CONTA ');
           FQuery.Sql.Add('  ,ID_PESSOA ');
           FQuery.Sql.Add('  ,STATUS ');
+          FQuery.Sql.Add('  ,FORMA_PAGTO_ID ');
+          FQuery.Sql.Add('  ,COND_PAGTO_ID ');
           FQuery.Sql.Add('  ,DT_VENCIMENTO ');
           FQuery.Sql.Add('  ,VALOR ');
           FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
           FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
-          FQuery.Sql.Add('  ,DT_PAGAMENTO ');
+          if Trim(edDT_PAGAMENTO.Text) <> '' then
+            FQuery.Sql.Add('  ,DT_PAGAMENTO ');
           FQuery.Sql.Add('  ,DESCONTO ');
           FQuery.Sql.Add('  ,JUROS ');
           FQuery.Sql.Add('  ,VALOR_PAGO ');
@@ -840,11 +1375,14 @@ begin
           FQuery.Sql.Add('  ,:ID_CONTA ');
           FQuery.Sql.Add('  ,:ID_PESSOA ');
           FQuery.Sql.Add('  ,:STATUS ');
+          FQuery.Sql.Add('  ,:FORMA_PAGTO_ID ');
+          FQuery.Sql.Add('  ,:COND_PAGTO_ID ');
           FQuery.Sql.Add('  ,:DT_VENCIMENTO ');
           FQuery.Sql.Add('  ,:VALOR ');
           FQuery.Sql.Add('  ,:ORIGEM_LANCAMENTO ');
           FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
-          FQuery.Sql.Add('  ,:DT_PAGAMENTO ');
+          if Trim(edDT_PAGAMENTO.Text) <> '' then
+            FQuery.Sql.Add('  ,:DT_PAGAMENTO ');
           FQuery.Sql.Add('  ,:DESCONTO ');
           FQuery.Sql.Add('  ,:JUROS ');
           FQuery.Sql.Add('  ,:VALOR_PAGO ');
@@ -867,9 +1405,12 @@ begin
           FQuery.Sql.Add('  ,ID_CONTA = :ID_CONTA ');
           FQuery.Sql.Add('  ,ID_PESSOA = :ID_PESSOA ');
           FQuery.Sql.Add('  ,STATUS = :STATUS ');
+          FQuery.Sql.Add('  ,FORMA_PAGTO_ID = :FORMA_PAGTO_ID ');
+          FQuery.Sql.Add('  ,COND_PAGTO_ID = :COND_PAGTO_ID ');
           FQuery.Sql.Add('  ,DT_VENCIMENTO = :DT_VENCIMENTO ');
           FQuery.Sql.Add('  ,VALOR = :VALOR ');
-          FQuery.Sql.Add('  ,DT_PAGAMENTO = :DT_PAGAMENTO ');
+          if Trim(edDT_PAGAMENTO.Text) <> '' then
+            FQuery.Sql.Add('  ,DT_PAGAMENTO = :DT_PAGAMENTO ');
           FQuery.Sql.Add('  ,DESCONTO = :DESCONTO ');
           FQuery.Sql.Add('  ,JUROS = :JUROS ');
           FQuery.Sql.Add('  ,VALOR_PAGO = :VALOR_PAGO ');
@@ -879,15 +1420,24 @@ begin
           FId := StrToIntDef(edID.Text,0);
         end;
       end;
-      FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edID_EMPRESA.Text,0);;
+      FQuery.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edID_EMPRESA.Text,0);
       FQuery.ParamByName('DT_EMISSAO').AsDate := StrToDateDef(edDATA.Text,Date);
       FQuery.ParamByName('ID_CONTA').AsInteger := StrToIntDef(edID_CONTA.Text,0);
-      FQuery.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edID_PESSOA.Text,0);;
-      FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
+      FQuery.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edID_PESSOA.Text,0);
+      FQuery.ParamByName('FORMA_PAGTO_ID').AsInteger := StrToIntDef(edFORMA_CONDICAO_PAGAMENTO.Text,0);
+      FQuery.ParamByName('COND_PAGTO_ID').AsInteger := StrToIntDef(edID_CONDICAO_PAGAMENTO.Text,0);
       FQuery.ParamByName('DT_VENCIMENTO').AsDate := StrToDateDef(edDT_VENCIMENTO.Text,Date); //Calcular
       FQuery.ParamByName('VALOR').AsFloat := edVALOR.TagFloat;
       FQuery.ParamByName('OBSERVACAO').AsString := edOBSERVACAO.Text;
-      FQuery.ParamByName('DT_PAGAMENTO').AsDate := StrToDateDef(edDT_PAGAMENTO.Text,Date); //Calcular
+      if Trim(edDT_PAGAMENTO.Text) <> '' then
+      begin
+        FQuery.ParamByName('DT_PAGAMENTO').AsDate := StrToDateDef(edDT_PAGAMENTO.Text,Date); //Calcular
+        FQuery.ParamByName('STATUS').AsInteger := 1;  //0-Aberto, 1-pago
+      end
+      else
+      begin
+        FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
+      end;
       FQuery.ParamByName('DESCONTO').AsFloat := edDESCONTO.TagFloat;
       FQuery.ParamByName('JUROS').AsFloat := edJUROS.TagFloat;
       FQuery.ParamByName('VALOR_PAGO').AsFloat := edVALOR_PAGO.TagFloat;
@@ -962,10 +1512,10 @@ begin
         1:FDQRegistros.SQL.Add('  AND C.TIPO = 0');
         2:FDQRegistros.SQL.Add('  AND C.TIPO = 1');
       end;
-      if imgFiltro_Aberto.Tag = 0 then
-        FDQRegistros.SQL.Add('  AND L.STATUS <> 0');
-      if imgFiltro_Pago.Tag = 0 then
-        FDQRegistros.SQL.Add('  AND L.STATUS <> 1');
+      if ((imgFiltro_Aberto.Tag = 1) and (imgFiltro_Pago.Tag = 0)) then
+        FDQRegistros.SQL.Add('  AND L.STATUS = 0')
+      else if ((imgFiltro_Aberto.Tag = 0) and (imgFiltro_Pago.Tag = 1)) then
+        FDQRegistros.SQL.Add('  AND L.STATUS = 1');
       FDQRegistros.SQL.Add('ORDER BY ');
       FDQRegistros.SQL.Add('  L.ID_EMPRESA ');
       FDQRegistros.SQL.Add('  ,C.TIPO ');
@@ -977,74 +1527,81 @@ begin
       FDQRegistros.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
       FDQRegistros.Active := True;
 
-      (*
+
       {$Region 'Totalizando'}
+        lbTot_Receber.Text := 'R$ 0,00';
+        lbTot_Pagar.Text := 'R$ 0,00';
+        lbTot_Saldo.Text := 'R$ 0,00';
+
         FDQ_Total.Active := False;
         FDQ_Total.Sql.Clear;
         FDQ_Total.Sql.Add('SELECT ');
-        FDQ_Total.Sql.Add('  LPAD(DATEDIFF(HOUR,CAST(CURRENT_DATE AS TIMESTAMP),D.DH),3,''0'') || '':'' || ');
-        FDQ_Total.Sql.Add('  LPAD(EXTRACT(MINUTE FROM D.DH),2,''0'') || '':'' || ');
-        FDQ_Total.Sql.Add('  LPAD(CAST(EXTRACT(SECOND FROM D.DH) AS INTEGER),2,''0'') AS HORA');
-        FDQ_Total.Sql.Add('  ,D.TOTAL ');
-        FDQ_Total.Sql.Add('FROM ( ');
-        FDQ_Total.Sql.Add('  SELECT ');
-        FDQ_Total.Sql.Add('    DATEADD(HOUR,C.HORA,C.DM) AS DH ');
-        FDQ_Total.Sql.Add('    ,C.TOTAL ');
-        FDQ_Total.Sql.Add('  FROM ( ');
-        FDQ_Total.Sql.Add('    SELECT ');
-        FDQ_Total.Sql.Add('      B.HORA ');
-        FDQ_Total.Sql.Add('      ,DATEADD(MINUTE,B.MINUTO,B.DS) DM ');
-        FDQ_Total.Sql.Add('      ,B.TOTAL ');
-        FDQ_Total.Sql.Add('    FROM ( ');
-        FDQ_Total.Sql.Add('      SELECT ');
-        FDQ_Total.Sql.Add('        A.HORA ');
-        FDQ_Total.Sql.Add('        ,A.MINUTO ');
-        FDQ_Total.Sql.Add('        ,DATEADD(SECOND, A.SEGUNDO, CAST(CURRENT_DATE AS TIMESTAMP)) AS DS ');
-        FDQ_Total.Sql.Add('        ,A.TOTAL ');
-        FDQ_Total.Sql.Add('      FROM ( ');
-        FDQ_Total.Sql.Add('        SELECT ');
-				FDQ_Total.Sql.Add('	      	 SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
-				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 2) ');
-				FDQ_Total.Sql.Add('	      		        WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3) ');
-				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS HORA ');
-				FDQ_Total.Sql.Add('	      	 ,SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
-				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 4 FOR 2) ');
-				FDQ_Total.Sql.Add('	      		        WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 5 FOR 2) ');
-				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS MINUTO ');
-				FDQ_Total.Sql.Add('	      	 ,SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
-				FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 7 FOR 2) ');
-				FDQ_Total.Sql.Add('	      		        WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 8 FOR 2) ');
-				FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS SEGUNDO ');
-        FDQ_Total.Sql.Add('          ,SUM(SP.TOTAL) AS TOTAL ');
-        FDQ_Total.Sql.Add('        FROM SERVICOS_PRESTADOS SP ');
-        FDQ_Total.SQL.Add('        WHERE NOT SP.ID IS NULL ');
-        FDQ_Total.SQL.Add('          AND SP.DATA BETWEEN :DATA_I AND :DATA_F ');
+        FDQ_Total.Sql.Add('  SUM(R.RECEBER) AS RECEBER ');
+        FDQ_Total.Sql.Add('  ,SUM(P.PAGAR) AS PAGAR ');
+        FDQ_Total.Sql.Add('  ,SUM(R.RECEBER - P.PAGAR) AS SALDO ');
+        FDQ_Total.Sql.Add('FROM LANCAMENTOS L ');
+        FDQ_Total.Sql.Add('  JOIN (SELECT ');
+        FDQ_Total.Sql.Add('          L.ID ');
+        FDQ_Total.Sql.Add('          ,CASE WHEN C.TIPO = 0 THEN L.VALOR ELSE 0 END RECEBER ');
+        FDQ_Total.Sql.Add('        FROM LANCAMENTOS L ');
+        FDQ_Total.Sql.Add('          JOIN CONTA C ON C.ID = L.ID_CONTA) R ON R.ID = L.ID ');
+        FDQ_Total.Sql.Add('  JOIN (SELECT ');
+        FDQ_Total.Sql.Add('          L.ID ');
+        FDQ_Total.Sql.Add('          ,CASE WHEN C.TIPO = 1 THEN L.VALOR ELSE 0 END PAGAR ');
+        FDQ_Total.Sql.Add('        FROM LANCAMENTOS L ');
+        FDQ_Total.Sql.Add('          JOIN CONTA C ON C.ID = L.ID_CONTA) P ON P.ID = L.ID ');
+        FDQ_Total.Sql.Add('WHERE NOT L.ID IS NULL ');
+        case cbFiltro_Tipo_Periodo.ItemIndex of
+          0:FDQ_Total.SQL.Add('  AND L.DT_EMISSAO BETWEEN :DATA_I AND :DATA_F ');
+          1:FDQ_Total.SQL.Add('  AND L.DT_VENCIMENTO BETWEEN :DATA_I AND :DATA_F ');
+        end;
         if Trim(edFiltro_Empresa_ID.Text) <> '' then
         begin
-          FDQ_Total.SQL.Add('          AND SP.ID_EMPRESA = :ID_EMPRESA');
+          FDQ_Total.SQL.Add('  AND L.ID_EMPRESA = :ID_EMPRESA');
           FDQ_Total.ParamByName('ID_EMPRESA').AsInteger := StrToIntDef(edFiltro_Empresa_ID.Text,0);
         end;
         if Trim(edFiltro_Cliente_ID.Text) <> '' then
         begin
-          FDQ_Total.SQL.Add('          AND SP.ID_CLIENTE = :ID_CLIENTE');
-          FDQ_Total.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
+          FDQ_Total.SQL.Add('  AND L.ID_PESSOA = :ID_PESSOA');
+          FDQ_Total.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
         end;
-        FDQ_Total.SQL.Add(') A) B) C) D; ');
+        case cbFiltro_Tipo_DC.ItemIndex of
+          1:FDQ_Total.SQL.Add('  AND C.TIPO = 0');
+          2:FDQ_Total.SQL.Add('  AND C.TIPO = 1');
+        end;
+        if ((imgFiltro_Aberto.Tag = 1) and (imgFiltro_Pago.Tag = 0)) then
+          FDQ_Total.SQL.Add('  AND L.STATUS = 0')
+        else if ((imgFiltro_Aberto.Tag = 0) and (imgFiltro_Pago.Tag = 1)) then
+          FDQ_Total.SQL.Add('  AND L.STATUS = 1');
         FDQ_Total.ParamByName('DATA_I').AsDate := StrToDateDef(edFIltro_Dt_I.Text,Date);
         FDQ_Total.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
         FDQ_Total.Active := True;
         if not FDQ_Total.IsEmpty then
         begin
-          //
+          lbTot_Receber.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('RECEBER').AsFloat);
+          lbTot_Pagar.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('PAGAR').AsFloat);
+          lbTot_Saldo.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('SALDO').AsFloat);
         end;
       {$EndRegion 'Totalizando'}
-      *)
+
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro','Selecionar. ' + E.Message,'Ok');
     end;
   finally
     FreeAndNil(FDQ_Total);
   end;
+end;
+
+procedure TfrmLanc_Financeiros.CalendarDateSelected(Sender: TObject);
+begin
+  case FDataRetorno of
+    0:edFIltro_Dt_I.Text := DateToStr(Calendar.Date);
+    1:edFIltro_Dt_F.Text := DateToStr(Calendar.Date);
+    2:edBL_Data.Text := DateToStr(Calendar.Date);
+  end;
+
+  rctCalendario_Tampa.Visible := False;
+
 end;
 
 procedure TfrmLanc_Financeiros.Cancelar;
@@ -1097,6 +1654,11 @@ begin
   imgFechar.Enabled := (tcPrincipal.ActiveTab = tiLista);
 end;
 
+procedure TfrmLanc_Financeiros.imgCalendario_CancelarClick(Sender: TObject);
+begin
+  rctCalendario_Tampa.Visible := False;
+end;
+
 procedure TfrmLanc_Financeiros.imgFecharClick(Sender: TObject);
 begin
   Close
@@ -1132,6 +1694,14 @@ begin
 
 end;
 
+procedure TfrmLanc_Financeiros.imgFIltro_Dt_IClick(Sender: TObject);
+begin
+  rctCalendario_Tampa.Align := TAlignLayout.Contents;
+  FDataRetorno := TImage(Sender).Tag;
+  Calendar.Date := Date;
+  rctCalendario_Tampa.Visible := True;
+end;
+
 procedure TfrmLanc_Financeiros.imgFiltro_EmpresaClick(Sender: TObject);
 begin
   if NOT Assigned(frmCad_Empresa) then
@@ -1148,9 +1718,18 @@ end;
 procedure TfrmLanc_Financeiros.Sel_Empresa(Aid: Integer; ANome: String);
 begin
   edID_EMPRESA_Desc.Text := ANome;
+  edID_EMPRESA.Text := Aid.ToString;
 
-  if edFiltro_Empresa_ID.CanFocus then
-    edFiltro_Empresa_ID.SetFocus;
+  if edID_EMPRESA.CanFocus then
+    edID_EMPRESA.SetFocus;
+end;
+
+procedure TfrmLanc_Financeiros.Sel_FormaCondicao(AId, AId_Forma, AId_Condicao: Integer; ADesc_Forma, ADesc_Condicao: String);
+begin
+  edFORMA_CONDICAO_PAGAMENTO.Text := AId_Forma.ToString;
+  edID_CONDICAO_PAGAMENTO.Text := AId_Condicao.ToString;
+  edID_FORMA_PAGAMENTO.Text := ADesc_Forma;
+  edCONDICAO_PAGAMENTO.Text := ADesc_Condicao;
 end;
 
 procedure TfrmLanc_Financeiros.imgFiltro_PagoClick(Sender: TObject);
@@ -1166,6 +1745,18 @@ begin
     end;
   end;
   Selecionar_Registros;
+end;
+
+procedure TfrmLanc_Financeiros.imgFORMA_CONDICAO_PAGAMENTOClick(Sender: TObject);
+begin
+  if NOT Assigned(frmPesq_FormaCond_Pagto) then
+    Application.CreateForm(TfrmPesq_FormaCond_Pagto,frmPesq_FormaCond_Pagto);
+
+  frmPesq_FormaCond_Pagto.ExecuteOnClose := Sel_FormaCondicao;
+  frmPesq_FormaCond_Pagto.Height := frmPrincipal.Height;
+  frmPesq_FormaCond_Pagto.Width := frmPrincipal.Width;
+
+  frmPesq_FormaCond_Pagto.Show;
 end;
 
 procedure TfrmLanc_Financeiros.imgID_CONTAClick(Sender: TObject);
@@ -1192,6 +1783,9 @@ begin
     0:edConta_Tipo.Text := 'RECEBER';
     1:edConta_Tipo.Text := 'PAGAR';
   end;
+
+  if edID_CONTA.CanFocus then
+    edID_CONTA.SetFocus;
 end;
 
 procedure TfrmLanc_Financeiros.imgID_EMPRESAClick(Sender: TObject);
@@ -1219,6 +1813,11 @@ begin
   frmPesq_Pessoas.Width := frmPrincipal.Width;
 
   frmPesq_Pessoas.Show;
+end;
+
+procedure TfrmLanc_Financeiros.imgMenuFecharClick(Sender: TObject);
+begin
+  rctMenu_Tampa.Visible := False;
 end;
 
 procedure TfrmLanc_Financeiros.Incluir;
@@ -1264,33 +1863,69 @@ begin
 end;
 
 procedure TfrmLanc_Financeiros.Editando_Lancamento(Sender :TOBject);
+var
+  FQuery :TFDQuery;
 begin
-  edID.Text := FDQRegistros.FieldByName('ID').AsInteger.ToString;
-  edDATA.Text := FDQRegistros.FieldByName('DT_EMISSAO').AsString;
-  edSTATUS.ItemIndex := FDQRegistros.FieldByName('STATUS').AsInteger;
-  edID_EMPRESA.Text := FDQRegistros.FieldByName('ID_EMPRESA').AsString;
-  edID_CONTA.Text := FDQRegistros.FieldByName('ID_CONTA').AsString;
-  edID_PESSOA.Text := FDQRegistros.FieldByName('ID_PESSOA').AsString;
-  edDT_VENCIMENTO.Text := FDQRegistros.FieldByName('DT_VENCIMENTO').AsString;
-  edVALOR.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR').AsFloat);
-  edVALOR.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
-  edDT_PAGAMENTO.Text := FDQRegistros.FieldByName('DT_PAGAMENTO').AsString;
-  edDESCONTO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('DESCONTO').AsFloat);
-  edDESCONTO.TagFloat := FDQRegistros.FieldByName('DESCONTO').AsFloat;
-  edJUROS.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('JUROS').AsFloat);
-  edJUROS.TagFloat := FDQRegistros.FieldByName('JUROS').AsFloat;
-  edVALOR_PAGO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR_PAGO').AsFloat);
-  edVALOR_PAGO.TagFloat := FDQRegistros.FieldByName('VALOR_PAGO').AsFloat;
-  edOBSERVACAO.Text := FDQRegistros.FieldByName('OBSERVACAO').AsString;
-  FTab_Status := TTab_Status.dsEdit;
-  tcPrincipal.GotoVisibleTab(1);
-  if edDATA.CanFocus then
-    edDATA.SetFocus;
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      edID.Text := FDQRegistros.FieldByName('ID').AsInteger.ToString;
+      edDATA.Text := FDQRegistros.FieldByName('DT_EMISSAO').AsString;
+      edSTATUS.ItemIndex := FDQRegistros.FieldByName('STATUS').AsInteger;
+      edID_EMPRESA.Text := FDQRegistros.FieldByName('ID_EMPRESA').AsString;
+      edID_CONTA.Text := FDQRegistros.FieldByName('ID_CONTA').AsString;
+      edID_PESSOA.Text := FDQRegistros.FieldByName('ID_PESSOA').AsString;
+      edFORMA_CONDICAO_PAGAMENTO.Text := FDQRegistros.FieldByName('FORMA_PAGTO_ID').AsString;
+      edID_CONDICAO_PAGAMENTO.Text := FDQRegistros.FieldByName('COND_PAGTO_ID').AsString;
+
+      FDm_Global.Listar_FormaPagto(StrToIntDef(edFORMA_CONDICAO_PAGAMENTO.Text,0),'',FQuery);
+        edID_FORMA_PAGAMENTO.Text := FQuery.FieldByName('DESCRICAO').AsString;
+
+      FDm_Global.Listar_FormaPagto(StrToIntDef(edID_CONDICAO_PAGAMENTO.Text,0),'',FQuery);
+        edCONDICAO_PAGAMENTO.Text := FQuery.FieldByName('DESCRICAO').AsString;
+
+      edDT_VENCIMENTO.Text := FDQRegistros.FieldByName('DT_VENCIMENTO').AsString;
+      edVALOR.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR').AsFloat);
+      edVALOR.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
+      edDT_PAGAMENTO.Text := FDQRegistros.FieldByName('DT_PAGAMENTO').AsString;
+      edDESCONTO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('DESCONTO').AsFloat);
+      edDESCONTO.TagFloat := FDQRegistros.FieldByName('DESCONTO').AsFloat;
+      edJUROS.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('JUROS').AsFloat);
+      edJUROS.TagFloat := FDQRegistros.FieldByName('JUROS').AsFloat;
+      edVALOR_PAGO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR_PAGO').AsFloat);
+      edVALOR_PAGO.TagFloat := FDQRegistros.FieldByName('VALOR_PAGO').AsFloat;
+      edOBSERVACAO.Text := FDQRegistros.FieldByName('OBSERVACAO').AsString;
+      FTab_Status := TTab_Status.dsEdit;
+      tcPrincipal.GotoVisibleTab(1);
+      if edDATA.CanFocus then
+        edDATA.SetFocus;
+    except on E: Exception do
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
 end;
 
 procedure TfrmLanc_Financeiros.Menu(Sender: TOBject);
 begin
+  rctMenu.Width := 0;
+  rctMenu_Tampa.Align := TAlignLayout.Contents;
+  rctMenu_Tampa.Visible := True;
+  faMenu.StartValue := 0;
+  faMenu.StopValue := 240;
+  faMenu.Start;
+end;
 
+procedure TfrmLanc_Financeiros.rctBH_CancelarClick(Sender: TObject);
+begin
+  rctMenuBaixar_Lancto.Visible := False;
+end;
+
+procedure TfrmLanc_Financeiros.rctBH_ConfirmarClick(Sender: TObject);
+begin
+  FFancyDialog.Show(TIconDialog.Question,'Atenção','Baixar o lançamento selecionado?','SIM',Baixar_Lancamento,'NÃO');
 end;
 
 procedure TfrmLanc_Financeiros.rctCancelarClick(Sender: TObject);
@@ -1313,6 +1948,95 @@ begin
   end;
 end;
 
+procedure TfrmLanc_Financeiros.rctFecharMesClick(Sender: TObject);
+begin
+  case TRectangle(Sender).Tag of
+    0:FFancyDialog.Show(TIconDialog.Question,'','Baixar lançamentos?','SIM',Baixar_Lancamento,'NÃO');
+    //1:FFancyDialog.Show(TIconDialog.Question,'','Deseja fechar o mês atual?','SIM',FecharMes,'NÃO');
+  end;
+  rctMenu_Tampa.Visible := False;
+
+end;
+
+procedure TfrmLanc_Financeiros.rctMenu_BaixarLanctoClick(Sender: TObject);
+begin
+
+  if FDQRegistrosORIGEM_LANCAMENTO.AsString = 'SERVICOS_PRESTADOS' then
+  begin
+    FFancyDialog.Show(TIconDialog.Warning,'Atenção','Lançamentos provenientes de Serviços Pretados, deverão serem baixados pela tela de origem do Lançamento.','OK');
+    rctMenu_Tampa.Visible := False;
+    Exit;
+  end;
+
+  lbBL_ValorLancamento.Text := FormatFloat('R$ #,##0.00', FDQRegistrosVALOR.AsFloat);
+  lbBL_ValorLancamento.TagFloat := FDQRegistrosVALOR.AsFloat;
+  edBL_ValorBaixa.Text := FormatFloat('R$ #,##0.00', FDQRegistrosVALOR.AsFloat);
+  edBL_ValorBaixa.TagFloat := FDQRegistrosVALOR.AsFloat;
+
+  rctMenuBaixar_Lancto.Visible := True;
+  if edBL_Data.CanFocus then
+    edBL_Data.SetFocus;
+
+  rctMenu_Tampa.Visible := False;
+end;
+
+procedure TfrmLanc_Financeiros.Baixar_Lancamento(Sender:TOBject);
+var
+  t :TThread;
+begin
+  {Por enquanto vai baixar lançamento por lançamento, depois tera baixa por lote}
+
+  TLoading.Show(frmLanc_Financeiros,'Baixando Lançamentos');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FQuery :TFDQuery;
+  begin
+    FQuery := TFDQuery.Create(Nil);
+    FQuery.Connection := FDm_Global.FDC_Firebird;
+    FQuery.Active := False;
+    FQuery.Sql.Clear;
+    FQuery.Sql.Add('UPDATE LANCAMENTOS SET ');
+    FQuery.Sql.Add('  STATUS = :STATUS ');
+    FQuery.Sql.Add('  ,DT_BAIXA = :DT_BAIXA ');
+    FQuery.Sql.Add('  ,HR_BAIXA = :HR_BAIXA ');
+    FQuery.Sql.Add('  ,ID_USUARIO_BAIXA = :ID_USUARIO_BAIXA ');
+    FQuery.Sql.Add('  ,DESCONTO_BAIXA = :DESCONTO_BAIXA ');
+    FQuery.Sql.Add('  ,JUROS_BAIXA = :JUROS_BAIXA ');
+    FQuery.Sql.Add('  ,VALOR_BAIXA = :VALOR_BAIXA ');
+    FQuery.Sql.Add('WHERE ID = :ID; ');
+    FQuery.ParamByName('ID').AsInteger := FDQRegistrosID.AsInteger; //Baixado
+    FQuery.ParamByName('STATUS').AsInteger := 1; //Baixado
+    FQuery.ParamByName('DT_BAIXA').AsDate := StrToDateDef(edBL_Data.Text,Date);
+    FQuery.ParamByName('HR_BAIXA').AsTime := Time;
+    FQuery.ParamByName('ID_USUARIO_BAIXA').AsInteger := frmPrincipal.FUser_Id;
+    FQuery.ParamByName('DESCONTO_BAIXA').AsFloat := edBL_Desconto.TagFloat;
+    FQuery.ParamByName('JUROS_BAIXA').AsFloat := edBL_Juros.TagFloat;
+    FQuery.ParamByName('VALOR_BAIXA').AsFloat := edBL_ValorBaixa.TagFloat;
+    FQuery.ExecSQL;
+
+    FreeAndNil(FQuery);
+  end);
+
+  t.OnTerminate := TThreadEnd_Baixar_Lancamento;
+  t.Start;
+
+end;
+
+procedure TfrmLanc_Financeiros.TThreadEnd_Baixar_Lancamento(Sender :TOBject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'Baixa',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    Selecionar_Registros;
+    rctMenuBaixar_Lancto.Visible := False;
+  end;
+end;
+
 procedure TfrmLanc_Financeiros.Sel_Pessoa(ATipo:String; Aid:Integer; ANome:String; ADocumento:String);
 begin
   lbFiltroPessoa.Text := ATipo;
@@ -1323,6 +2047,10 @@ begin
 
   edID_PESSOA.Text := Aid.ToString;
   edID_PESSOA_Desc.Text := ANome;
+
+  if edID_PESSOA.CanFocus then
+    edID_PESSOA.SetFocus;
+
 end;
 
 end.

@@ -108,7 +108,7 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
             TextSettings.Font.StyleExt = {00070000000000000004000000}
             TextSettings.FontColor = xFFA1B24E
             TextSettings.HorzAlign = Center
-            Text = 'SERVI'#199'OS PRESTADOS'
+            Text = 'PESQUISA DE PESSOAS (CLIENTE E FORNECEDOR)'
             TabOrder = 0
             object ShadowEffect3: TShadowEffect
               Distance = 3.000000000000000000

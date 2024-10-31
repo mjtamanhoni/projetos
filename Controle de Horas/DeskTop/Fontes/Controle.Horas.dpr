@@ -23,7 +23,8 @@ uses
   uLanc_Financeiros in 'uLanc_Financeiros.pas' {frmLanc_Financeiros},
   uPesq_Pessoas in 'uPesq_Pessoas.pas' {frmPesq_Pessoas},
   uCad.FormaPagamento in 'uCad.FormaPagamento.pas' {frmFormaPagamento},
-  uCad.CondicaoPagamento in 'uCad.CondicaoPagamento.pas' {frmCondicao_Pagamento};
+  uCad.CondicaoPagamento in 'uCad.CondicaoPagamento.pas' {frmCondicao_Pagamento},
+  uPesq_FormaCond_Pagto in 'uPesq_FormaCond_Pagto.pas' {frmPesq_FormaCond_Pagto};
 
 {$R *.res}
 

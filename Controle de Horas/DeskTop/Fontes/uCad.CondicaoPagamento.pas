@@ -55,11 +55,11 @@ type
     lytPesquisa: TLayout;
     edPesquisar: TEdit;
     imgPesquisar: TImage;
-    Layout2: TLayout;
+    lytLista: TLayout;
     dxfmGrid1: TdxfmGrid;
     dxfmGrid1RootLevel1: TdxfmGridRootLevel;
     tiCadastro: TTabItem;
-    lytConfig: TLayout;
+    lytCadastro: TLayout;
     lytRow_001: TLayout;
     lbID: TLabel;
     edID: TEdit;

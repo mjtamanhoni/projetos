@@ -346,6 +346,10 @@
             <Form>frmCondicao_Pagamento</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="uPesq_FormaCond_Pagto.pas">
+            <Form>frmPesq_FormaCond_Pagto</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
