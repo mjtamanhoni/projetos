@@ -146,6 +146,13 @@ type
     edID_TAB_PRECO_Valor: TEdit;
     edID_TAB_PRECO_Tipo: TEdit;
     imgID_TAB_PRECO: TImage;
+    lytRow_008: TLayout;
+    lbID_FORNECEDOR: TLabel;
+    edID_FORNECEDOR_Desc: TEdit;
+    edID_FORNECEDOR: TEdit;
+    imgID_PESSOA: TImage;
+    FDQRegistrosID_FORNECEDOR: TIntegerField;
+    FDQRegistrosFORNECEDOR: TStringField;
     procedure edPESSOAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDOCUMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -168,6 +175,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
     procedure imgID_TAB_PRECOClick(Sender: TObject);
+    procedure imgID_PESSOAClick(Sender: TObject);
+    procedure edID_FORNECEDORExit(Sender: TObject);
+    procedure edCELULARKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edID_TAB_PRECOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -186,6 +197,7 @@ type
     procedure Limpar_Campos;
     procedure Sel_TabPreco(Aid: Integer; ADescricao: String; ATipo: Integer; AValor: Double);
     procedure SetPesquisa(const Value: Boolean);
+    procedure Sel_Pessoa(ATipo: String; Aid: Integer; ANome, ADocumento: String);
   public
     ExecuteOnClose :TExecuteOnClose;
     property Pesquisa:Boolean read FPesquisa write SetPesquisa;
@@ -197,6 +209,9 @@ var
 implementation
 
 {$R *.fmx}
+
+uses
+  uPesq_Pessoas;
 
 procedure TfrmCad_Cliente.Cancelar;
 begin
@@ -225,6 +240,14 @@ procedure TfrmCad_Cliente.edBAIRROKeyDown(Sender: TObject; var Key: Word; var Ke
 begin
   if Key = vkReturn then
     edCIDADE.SetFocus;
+end;
+
+procedure TfrmCad_Cliente.edCELULARKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_TAB_PRECO.SetFocus;
+
 end;
 
 procedure TfrmCad_Cliente.edCELULARTyping(Sender: TObject);
@@ -286,6 +309,36 @@ begin
     edNUMERO.SetFocus;
 end;
 
+procedure TfrmCad_Cliente.edID_FORNECEDORExit(Sender: TObject);
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FDm_Global.FDC_Firebird;
+
+      FDm_Global.Listar_Fornecedor(edID_FORNECEDOR.Text.ToInteger,'',FQuery);
+
+      if not FQuery.IsEmpty then
+        edID_FORNECEDOR_Desc.Text := FQuery.FieldByName('NOME').AsString;
+
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');
+    end;
+  finally
+    FreeAndNil(FQuery);
+  end;
+end;
+
+procedure TfrmCad_Cliente.edID_TAB_PRECOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_FORNECEDOR.SetFocus;
+
+end;
+
 procedure TfrmCad_Cliente.edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
@@ -319,6 +372,8 @@ begin
       edID_TAB_PRECO_Desc.Text := FDQRegistros.FieldByName('DESCRICAO').AsString;
       edID_TAB_PRECO_Tipo.Text := FDQRegistros.FieldByName('TIPO_DESC').AsString;
       edID_TAB_PRECO_Valor.Text := FormatFLoat('R$ #,##0.00',FDQRegistros.FieldByName('VALOR').AsFloat);
+      edID_FORNECEDOR.Text := IntToStr(FDQRegistros.FieldByName('ID_FORNECEDOR').AsInteger);
+      edID_FORNECEDOR_Desc.Text := FDQRegistros.FieldByName('FORNECEDOR').AsString;
 
       FTab_Status := TTab_Status.dsEdit;
 
@@ -445,6 +500,30 @@ begin
   Close;
 end;
 
+procedure TfrmCad_Cliente.imgID_PESSOAClick(Sender: TObject);
+begin
+  if NOT Assigned(frmPesq_Pessoas) then
+    Application.CreateForm(TfrmPesq_Pessoas,frmPesq_Pessoas);
+
+  frmPesq_Pessoas.TipoFiltro := 2; //Fornecedor
+
+  frmPesq_Pessoas.ExecuteOnClose := Sel_Pessoa;
+  frmPesq_Pessoas.Height := frmPrincipal.Height;
+  frmPesq_Pessoas.Width := frmPrincipal.Width;
+
+  frmPesq_Pessoas.Show;
+end;
+
+procedure TfrmCad_Cliente.Sel_Pessoa(ATipo:String; Aid:Integer; ANome:String; ADocumento:String);
+begin
+  edID_FORNECEDOR.Text := Aid.ToString;
+  edID_FORNECEDOR_Desc.Text := ANome;
+
+  if edID_FORNECEDOR.CanFocus then
+    edID_FORNECEDOR.SetFocus;
+
+end;
+
 procedure TfrmCad_Cliente.imgID_TAB_PRECOClick(Sender: TObject);
 begin
   if NOT Assigned(frmCad_TabPrecos) then
@@ -510,6 +589,8 @@ begin
   edID_TAB_PRECO_Desc.Text := '';
   edID_TAB_PRECO_Tipo.Text := '';
   edID_TAB_PRECO_Valor.Text := '';
+  edID_FORNECEDOR_Desc.Text := '';
+  edID_FORNECEDOR.Text := '';
 end;
 
 procedure TfrmCad_Cliente.rctCancelarClick(Sender: TObject);
@@ -564,6 +645,7 @@ begin
           FQuery.Sql.Add('  ,ID_TAB_PRECO ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
           FQuery.Sql.Add('  ,HR_CADASTRO ');
+          FQuery.Sql.Add('  ,ID_FORNECEDOR ');
           FQuery.Sql.Add(') VALUES( ');
           FQuery.Sql.Add('  :NOME ');
           FQuery.Sql.Add('  ,:PESSOA ');
@@ -582,6 +664,7 @@ begin
           FQuery.Sql.Add('  ,:ID_TAB_PRECO ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
           FQuery.Sql.Add('  ,:HR_CADASTRO ');
+          FQuery.Sql.Add('  ,:ID_FORNECEDOR ');
           FQuery.Sql.Add('); ');
           FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
           FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
@@ -603,6 +686,7 @@ begin
           FQuery.Sql.Add('  ,CELULAR = :CELULAR ');
           FQuery.Sql.Add('  ,EMAIL = :EMAIL ');
           FQuery.Sql.Add('  ,ID_TAB_PRECO = :ID_TAB_PRECO ');
+          FQuery.Sql.Add('  ,ID_FORNECEDOR = :ID_FORNECEDOR ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := StrToIntDef(edID.Text,0);
         end;
@@ -622,6 +706,7 @@ begin
       FQuery.ParamByName('CELULAR').AsString := edCELULAR.Text;
       FQuery.ParamByName('EMAIL').AsString := edEMAIL.Text;
       FQuery.ParamByName('ID_TAB_PRECO').AsInteger := StrToIntDef(edID_TAB_PRECO.Text,0);
+      FQuery.ParamByName('ID_FORNECEDOR').AsInteger := StrToIntDef(edID_FORNECEDOR.Text,0);
       FQuery.ExecSQL;
 
       FDm_Global.FDC_Firebird.Commit;
@@ -656,8 +741,10 @@ begin
       FDQRegistros.SQL.Add('    WHEN 1 THEN ''FIXO'' ');
       FDQRegistros.SQL.Add('  END TIPO_DESC ');
       FDQRegistros.SQL.Add('  ,TP.VALOR ');
+	    FDQRegistros.SQL.Add('  ,F.NOME AS FORNECEDOR ');
       FDQRegistros.SQL.Add('FROM CLIENTE C ');
       FDQRegistros.SQL.Add('  LEFT JOIN TABELA_PRECO TP ON TP.ID = C.ID_TAB_PRECO ');
+      FDQRegistros.SQL.Add('  LEFT JOIN FORNECEDOR F ON F.ID = C.ID_FORNECEDOR ');
       FDQRegistros.SQL.Add('ORDER BY ');
       FDQRegistros.SQL.Add('  C.ID; ');
       FDQRegistros.Active := True;

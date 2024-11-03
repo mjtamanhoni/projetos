@@ -156,10 +156,6 @@ type
     dxfmGrid1RootLevel1STATUS: TdxfmGridColumn;
     dxfmGrid1RootLevel1DT_VENCIMENTO: TdxfmGridColumn;
     dxfmGrid1RootLevel1VALOR: TdxfmGridColumn;
-    dxfmGrid1RootLevel1DT_PAGAMENTO: TdxfmGridColumn;
-    dxfmGrid1RootLevel1DESCONTO: TdxfmGridColumn;
-    dxfmGrid1RootLevel1JUROS: TdxfmGridColumn;
-    dxfmGrid1RootLevel1VALOR_PAGO: TdxfmGridColumn;
     dxfmGrid1RootLevel1ORIGEM_LANCAMENTO: TdxfmGridColumn;
     dxfmGrid1RootLevel1ID_ORIGEM_LANCAMENTO: TdxfmGridColumn;
     dxfmGrid1RootLevel1ID_USUARIO: TdxfmGridColumn;
@@ -262,6 +258,14 @@ type
     imgPrinter: TImage;
     frxReport: TfrxReport;
     frxDBDataset: TfrxDBDataset;
+    dxfmGrid1RootLevel1FORMA_PAGTO_ID: TdxfmGridColumn;
+    dxfmGrid1RootLevel1COND_PAGTO_ID: TdxfmGridColumn;
+    dxfmGrid1RootLevel1DT_BAIXA: TdxfmGridColumn;
+    dxfmGrid1RootLevel1HR_BAIXA: TdxfmGridColumn;
+    dxfmGrid1RootLevel1ID_USUARIO_BAIXA: TdxfmGridColumn;
+    dxfmGrid1RootLevel1DESCONTO_BAIXA: TdxfmGridColumn;
+    dxfmGrid1RootLevel1JUROS_BAIXA: TdxfmGridColumn;
+    dxfmGrid1RootLevel1VALOR_BAIXA: TdxfmGridColumn;
     procedure imgFiltro_ClienteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -1117,19 +1121,19 @@ begin
       FQuery := TFDQuery.Create(Nil);
       FQuery.Connection := FDm_Global.FDC_Firebird;
 
-      edFiltro_Cliente.Text := '';
+      edID_PESSOA_Desc.Text := '';
 
-      if Trim(edFiltro_Cliente_ID.Text) = '' then
+      if Trim(edID_PESSOA.Text) = '' then
         Exit;
 
 
       case edConta_Tipo.Tag of
-        1:FDm_Global.Listar_Cliente(edFiltro_Cliente_ID.Text.ToInteger,'',FQuery);
-        2:FDm_Global.Listar_Fornecedor(edFiltro_Cliente_ID.Text.ToInteger,'',FQuery);
+        1:FDm_Global.Listar_Cliente(edID_PESSOA.Text.ToInteger,'',FQuery);
+        2:FDm_Global.Listar_Fornecedor(edID_PESSOA.Text.ToInteger,'',FQuery);
       end;
 
       if not FQuery.IsEmpty then
-        edFiltro_Cliente.Text := FQuery.FieldByName('NOME').AsString;
+        edID_PESSOA_Desc.Text := FQuery.FieldByName('NOME').AsString;
 
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'OK');

@@ -8,7 +8,7 @@ uses
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Comp.UI,
   FireDAC.Phys.IBBase, System.ImageList, FMX.ImgList, FireDAC.FMXUI.Wait,
-  IniFiles;
+  IniFiles, FMX.frxClass, FMX.frxDBSet;
 
 type
   TDM_Global = class(TDataModule)
@@ -23,6 +23,19 @@ type
     FDQ_Sequencia: TFDQuery;
     imRegistros: TImageList;
     FDQ_DadosUsuarios: TFDQuery;
+    FDMT_Relatorios: TFDMemTable;
+    FDMT_RelatoriosDATA_I: TStringField;
+    FDMT_RelatoriosDATA_F: TStringField;
+    FDMT_RelatoriosEMPRESA_I: TStringField;
+    FDMT_RelatoriosEMPRESA_F: TStringField;
+    FDMT_RelatoriosPRESTADOR_I: TStringField;
+    FDMT_RelatoriosPRESTADOR_F: TStringField;
+    FDMT_RelatoriosCLIENTE_I: TStringField;
+    FDMT_RelatoriosCLIENTE_F: TStringField;
+    FDMT_RelatoriosFORNECEDOR_I: TStringField;
+    FDMT_RelatoriosFORNECEDOR_F: TStringField;
+    frxDBD_Relaorio: TfrxDBDataset;
+    DSRelatorios: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -45,6 +58,16 @@ type
       procedure Listar_CondPagto(ACodigo:Integer; ANome:String; out FDQuery:TFDQuery);
     {$EndRegion 'Listar Dados'}
 
+  end;
+
+  TDM_Cliente = class(TObject)
+  private
+    FConexao :TFDConnection;
+  public
+    constructor Create(AConnexao:TFDConnection);
+    destructor Destroy; override;
+
+    function Listagem(AId:Integer=0;ANome:String=''):TFDQuery;
   end;
 
 var
@@ -420,6 +443,62 @@ begin
     end;
   finally
     FreeAndNil(FDQuery);
+  end;
+end;
+
+{ TDM_Cliente }
+
+constructor TDM_Cliente.Create(AConnexao: TFDConnection);
+begin
+  FConexao := AConnexao;
+end;
+
+destructor TDM_Cliente.Destroy;
+begin
+
+  inherited Destroy;
+end;
+
+function TDM_Cliente.Listagem(AId: Integer; ANome: String): TFDQuery;
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      Result := TFDQuery.Create(Nil);
+      Result.Connection := FConexao;
+
+      Result.Active := False;
+      Result.Sql.Clear;
+      Result.Sql.Add('SELECT ');
+      Result.Sql.Add('  C.* ');
+      Result.Sql.Add('  ,CASE C.PESSOA ');
+      Result.Sql.Add('    WHEN 0 THEN ''FÍSICA'' ');
+      Result.Sql.Add('    WHEN 1 THEN ''JURÍDICA'' ');
+      Result.Sql.Add('  END PESSOA_DESC ');
+      Result.Sql.Add('  ,TP.DESCRICAO ');
+      Result.Sql.Add('  ,CASE TP.TIPO ');
+      Result.Sql.Add('    WHEN 0 THEN ''HORA'' ');
+      Result.Sql.Add('    WHEN 1 THEN ''FIXO'' ');
+      Result.Sql.Add('  END TIPO_DESC ');
+      Result.Sql.Add('  ,TP.VALOR ');
+      Result.Sql.Add('  ,F.NOME AS FORNECEDOR ');
+      Result.Sql.Add('FROM CLIENTE C ');
+      Result.Sql.Add('  LEFT JOIN TABELA_PRECO TP ON TP.ID = C.ID_TAB_PRECO ');
+      Result.Sql.Add('  LEFT JOIN FORNECEDOR F ON F.ID = C.ID_FORNECEDOR ');
+      Result.Sql.Add('WHERE NOT C.ID IS NULL ');
+      if AId > 0 then
+        Result.Sql.Add('  AND C.ID = ' + AId.ToString);
+      if Trim(ANome) <> '' then
+        Result.Sql.Add('  AND C.NOME LIKE ' + QuotedStr('%'+ANome+'%'));
+      Result.Sql.Add('ORDER BY ');
+      Result.Sql.Add('  C.ID; ');
+      Result.Active := True;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
   end;
 end;
 

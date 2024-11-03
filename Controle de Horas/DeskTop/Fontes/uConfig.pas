@@ -82,6 +82,11 @@ type
     lbTotalHoraBase: TLabel;
     edTotalHorasBase: TEdit;
     imgFinanceiro: TImage;
+    lytRow_004: TLayout;
+    lbHorasRecebidas: TLabel;
+    edHorasRecebidas_Desc: TEdit;
+    edHorasRecebidas: TEdit;
+    imgHorasRecebidas: TImage;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -99,6 +104,7 @@ type
     procedure imgID_ApontHorasClick(Sender: TObject);
     procedure imgHrExced_MesAntClick(Sender: TObject);
     procedure imgedHorasPagasClick(Sender: TObject);
+    procedure imgHorasRecebidasClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -109,6 +115,7 @@ type
     procedure Sel_ApontHoras(Aid:Integer; ADescricao:String; ATipo:Integer);
     procedure Sel_HorasExcedida(Aid:Integer; ADescricao:String; ATipo:Integer);
     procedure Sel_HorasPagas(Aid:Integer; ADescricao:String; ATipo:Integer);
+    procedure Sel_HorasRecebidas(Aid: Integer; ADescricao: String; ATipo: Integer);
   public
     { Public declarations }
   end;
@@ -216,6 +223,8 @@ begin
         edHrExced_MesAnt_DEsc.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.EXCED.DESC','');
         ededHorasPagas.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.PAGAS','');
         edHorasPagas_Desc.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.PAGAS.DESC','');
+        edHorasRecebidas.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.RECEBIDAS','');
+        edHorasRecebidas_Desc.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.RECEBIDAS.DESC','');
       {$EndRegion 'Plano de Contas - Lançamentos'}
 
       {$Region 'Financeiro'}
@@ -292,6 +301,8 @@ begin
         FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.EXCED.DESC',edHrExced_MesAnt_DEsc.Text);
         FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.PAGAS',ededHorasPagas.Text);
         FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.PAGAS.DESC',edHorasPagas_Desc.Text);
+        FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.RECEBIDAS',edHorasRecebidas.Text);
+        FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.RECEBIDAS.DESC',edHorasRecebidas_Desc.Text);
       {$EndRegion 'Plano de Contas - Lançamentos'}
 
       {$Region 'Financeiro'}
@@ -306,6 +317,20 @@ begin
   end;
 end;
 
+
+procedure TfrmConfig.imgHorasRecebidasClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Contas) then
+    Application.CreateForm(TfrmCad_Contas, frmCad_Contas);
+
+  frmCad_Contas.Pesquisa := True;
+  frmCad_Contas.ExecuteOnClose := Sel_HorasRecebidas;
+  frmCad_Contas.Parent := frmPrincipal;
+  frmCad_Contas.Height := frmPrincipal.Height;
+  frmCad_Contas.Width := frmPrincipal.Width;
+
+  frmCad_Contas.Show;
+end;
 
 procedure TfrmConfig.imgHrExced_MesAntClick(Sender: TObject);
 begin
@@ -356,6 +381,12 @@ procedure TfrmConfig.Sel_HorasPagas(Aid: Integer; ADescricao: String; ATipo: Int
 begin
   ededHorasPagas.Text := Aid.ToString;
   edHorasPagas_Desc.Text := ADescricao;
+end;
+
+procedure TfrmConfig.Sel_HorasRecebidas(Aid: Integer; ADescricao: String; ATipo: Integer);
+begin
+  edHorasRecebidas.Text := Aid.ToString;
+  edHorasRecebidas_Desc.Text := ADescricao;
 end;
 
 procedure TfrmConfig.sbBDF_BibliotecaClick(Sender: TObject);
