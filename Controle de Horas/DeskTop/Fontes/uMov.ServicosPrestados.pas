@@ -181,11 +181,11 @@ type
     edVLR_PAGO: TEdit;
     rctPagamento: TRectangle;
     imPagamento: TImage;
-    rctTotaisHoras: TRectangle;
-    lbTotalHoras_Tit: TLabel;
-    lbTotalHoras: TLabel;
-    lbTotalReceber_Tit: TLabel;
-    lbTotalReceber: TLabel;
+    rctTotais_Receber: TRectangle;
+    lbTotal_Receber_Hora_Tit: TLabel;
+    lbTotal_Receber_Hora: TLabel;
+    lbTotal_Recebido_Tit: TLabel;
+    lbTotal_Recebido_Hora: TLabel;
     lytFiltro_Periodo: TLayout;
     lytFiltro_Empresa: TLayout;
     lytFiltro_Prestador: TLayout;
@@ -305,14 +305,14 @@ type
     frxDBD_Relaorio: TfrxDBDataset;
     rctTotais: TRectangle;
     rctTotalValores: TRectangle;
-    lbTotalHoras_Recebidas_Tit: TLabel;
-    lbTotalHoras_Recebidas: TLabel;
-    lytTotalHoras_Tit: TLayout;
-    lbTotal_Horas_Tit: TLabel;
-    lytTotalValores_Tit: TLayout;
-    lbTotalValores_Tit: TLabel;
-    lbTotalRecebido_Tit: TLabel;
-    lbTotalRecebido: TLabel;
+    lbTotal_Receber_Valor_Tit: TLabel;
+    lbTotal_Receber_Valor: TLabel;
+    lytTotalReceber_Tit: TLayout;
+    lbTotalReceber_Titulo: TLabel;
+    lytTotal_Recebido_Tit: TLayout;
+    lbTotal_Recebido_Titutlo: TLabel;
+    lbTotal_Recebido_Valor_Tit: TLabel;
+    lbTotal_Recebido_Valor: TLabel;
     FDQRegistrosID_CONTA: TIntegerField;
     FDQRegistrosCONTA: TStringField;
     FDQRegistrosTIPO: TIntegerField;
@@ -327,6 +327,24 @@ type
     edID_CONTA: TEdit;
     imgID_CONTA: TImage;
     edConta_Tipo: TEdit;
+    lytFiltro_TipoConta: TLayout;
+    rctFiltro_TipoCompra: TRectangle;
+    imgFiltro_Credito: TImage;
+    lbFiltro_Credito: TLabel;
+    imgFiltro_Debito: TImage;
+    lbFiltro_Debito: TLabel;
+    lbFiltro_TipoConta: TLabel;
+    imgChecked: TImage;
+    imgUnChecked: TImage;
+    GridPanelLayout1: TGridPanelLayout;
+    rctTotalSaldo: TRectangle;
+    lbTotalSaldo_Hora_Tit: TLabel;
+    lbTotalSaldo_Hora: TLabel;
+    lytTotalSaldo: TLayout;
+    lbTotalSaldo_Tit: TLabel;
+    lbTotalSaldo_Valor: TLabel;
+    lbTotalSaldo_Valor_Tit: TLabel;
+    FDQRegistrosSEGUNDOS: TLargeintField;
     procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -405,6 +423,8 @@ type
     procedure edID_CONTAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure imgID_CONTAClick(Sender: TObject);
     procedure edID_CONTAExit(Sender: TObject);
+    procedure imgFiltro_CreditoClick(Sender: TObject);
+    procedure imgFiltro_DebitoClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -1390,6 +1410,37 @@ end;
 procedure TfrmMov_ServicosPrestados.imgFecharClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmMov_ServicosPrestados.imgFiltro_CreditoClick(Sender: TObject);
+begin
+  case imgFiltro_Credito.Tag of
+    0:begin
+      imgFiltro_Credito.Tag := 1;
+      imgFiltro_Credito.Bitmap := imgChecked.Bitmap;
+    end;
+    1:begin
+      imgFiltro_Credito.Tag := 0;
+      imgFiltro_Credito.Bitmap := imgUnChecked.Bitmap;
+    end;
+  end;
+  Selecionar_Registros;
+end;
+
+procedure TfrmMov_ServicosPrestados.imgFiltro_DebitoClick(Sender: TObject);
+begin
+  case imgFiltro_Debito.Tag of
+    0:begin
+      imgFiltro_Debito.Tag := 1;
+      imgFiltro_Debito.Bitmap := imgChecked.Bitmap;
+    end;
+    1:begin
+      imgFiltro_Debito.Tag := 0;
+      imgFiltro_Debito.Bitmap := imgUnChecked.Bitmap;
+    end;
+  end;
+  Selecionar_Registros;
+
 end;
 
 procedure TfrmMov_ServicosPrestados.imgFiltro_ClienteClick(Sender: TObject);
@@ -2576,17 +2627,21 @@ end;
 procedure TfrmMov_ServicosPrestados.Selecionar_Registros;
 var
   FDQ_Total :TFDQuery;
-
+  FSegundos_C,FHor_C,FMin_C,FSeg_C :Integer;
+  FSegundos_D,FHor_D,FMin_D,FSeg_D :Integer;
+  FSegundos,FHor,FMin,FSeg :Integer;
 begin
   try
     try
       FDQ_Total := TFDQuery.Create(Nil);
       FDQ_Total.Connection := FDm_Global.FDC_Firebird;
 
-      lbTotalHoras.Text := '000:00:00';
-      lbTotalReceber.Text := 'R$ 0,00';
-      lbTotalHoras_Recebidas.Text := '000:00:00';
-      lbTotalRecebido.Text := 'R$ 0,00';
+      lbTotal_Receber_Hora.Text := '000:00:00';
+      lbTotal_Receber_Valor.Text := 'R$ 0,00';
+      lbTotal_Recebido_Hora.Text := '000:00:00';
+      lbTotal_Recebido_Valor.Text := 'R$ 0,00';
+      lbTotalSaldo_Hora.Text := '000:00:00';
+      lbTotalSaldo_Valor.Text := 'R$ 0,00';
 
       FDQRegistros.Active := False;
       FDQRegistros.SQL.Clear;
@@ -2611,6 +2666,18 @@ begin
       FDQRegistros.SQL.Add('    WHEN 1 THEN ''FIXO'' ');
       FDQRegistros.SQL.Add('  END TABELA_TIPO ');
       FDQRegistros.SQL.Add('  ,TP.VALOR ');
+      FDQRegistros.SQL.Add('  ,((CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
+      FDQRegistros.SQL.Add('    WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3) ');
+      FDQRegistros.SQL.Add('    WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 2) ');
+      FDQRegistros.SQL.Add('   END AS INTEGER) * 3600) ');
+      FDQRegistros.SQL.Add('   + (CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
+      FDQRegistros.SQL.Add('    WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 5 FOR 2) ');
+      FDQRegistros.SQL.Add('    WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 4 FOR 2) ');
+      FDQRegistros.SQL.Add('   END AS INTEGER) * 60) ');
+      FDQRegistros.SQL.Add('   + CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
+      FDQRegistros.SQL.Add('    WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 8 FOR 2) ');
+      FDQRegistros.SQL.Add('    WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 7 FOR 2) ');
+      FDQRegistros.SQL.Add('   END AS INTEGER)) AS SEGUNDOS ');
       FDQRegistros.SQL.Add('FROM SERVICOS_PRESTADOS SP ');
       FDQRegistros.SQL.Add('  JOIN EMPRESA E ON E.ID = SP.ID_EMPRESA ');
       FDQRegistros.SQL.Add('  JOIN PRESTADOR_SERVICO PS ON PS.ID = SP.ID_PRESTADOR_SERVICO ');
@@ -2634,8 +2701,16 @@ begin
         FDQRegistros.SQL.Add('  AND SP.ID_CLIENTE = :ID_CLIENTE');
         FDQRegistros.ParamByName('ID_CLIENTE').AsInteger := StrToIntDef(edFiltro_Cliente_ID.Text,0);
       end;
+      if ((imgFiltro_Credito.Tag = 1) and (imgFiltro_Debito.Tag = 0)) then
+        FDQRegistros.SQL.Add('  AND CT.TIPO = 0')
+      else if ((imgFiltro_Credito.Tag = 0) and (imgFiltro_Debito.Tag = 1)) then
+        FDQRegistros.SQL.Add('  AND CT.TIPO = 1');
       FDQRegistros.SQL.Add('ORDER BY ');
-      FDQRegistros.SQL.Add('  SP.DATA; ');
+      FDQRegistros.SQL.Add('  E.NOME ');
+      FDQRegistros.SQL.Add('  ,PS.NOME ');
+      FDQRegistros.SQL.Add('  ,C.NOME ');
+      FDQRegistros.SQL.Add('  ,CT.DESCRICAO ');
+      FDQRegistros.SQL.Add('  ,SP.DATA ');
       FDQRegistros.ParamByName('DATA_I').AsDate := StrToDateDef(edFIltro_Dt_I.Text,Date);
       FDQRegistros.ParamByName('DATA_F').AsDate := StrToDateDef(edFIltro_Dt_F.Text,Date);
       FDQRegistros.Active := True;
@@ -2644,32 +2719,36 @@ begin
         FDQ_Total.Active := False;
         FDQ_Total.Sql.Clear;
         FDQ_Total.Sql.Add('SELECT ');
-        FDQ_Total.Sql.Add('  D.STATUS ');
+        FDQ_Total.Sql.Add('  D.TIPO ');
+        FDQ_Total.Sql.Add('  ,CASE D.TIPO ');
+        FDQ_Total.Sql.Add('    WHEN 0 THEN ''CRÉDITO'' ');
+        FDQ_Total.Sql.Add('    WHEN 1 THEN ''DÉBITO'' ');
+        FDQ_Total.Sql.Add('  END TIPO_CONTA ');
         FDQ_Total.Sql.Add('  ,LPAD(DATEDIFF(HOUR,CAST(CURRENT_DATE AS TIMESTAMP),D.DH),3,''0'') || '':'' || ');
         FDQ_Total.Sql.Add('   LPAD(EXTRACT(MINUTE FROM D.DH),2,''0'') || '':'' || ');
         FDQ_Total.Sql.Add('   LPAD(CAST(EXTRACT(SECOND FROM D.DH) AS INTEGER),2,''0'') AS HORA');
         FDQ_Total.Sql.Add('  ,D.TOTAL ');
         FDQ_Total.Sql.Add('FROM ( ');
         FDQ_Total.Sql.Add('  SELECT ');
-        FDQ_Total.Sql.Add('    C.STATUS ');
+        FDQ_Total.Sql.Add('    C.TIPO ');
         FDQ_Total.Sql.Add('    ,DATEADD(HOUR,C.HORA,C.DM) AS DH ');
         FDQ_Total.Sql.Add('    ,C.TOTAL ');
         FDQ_Total.Sql.Add('  FROM ( ');
         FDQ_Total.Sql.Add('    SELECT ');
-        FDQ_Total.Sql.Add('      B.STATUS ');
+        FDQ_Total.Sql.Add('      B.TIPO ');
         FDQ_Total.Sql.Add('      ,B.HORA ');
         FDQ_Total.Sql.Add('      ,DATEADD(MINUTE,B.MINUTO,B.DS) DM ');
         FDQ_Total.Sql.Add('      ,B.TOTAL ');
         FDQ_Total.Sql.Add('    FROM ( ');
         FDQ_Total.Sql.Add('      SELECT ');
-        FDQ_Total.Sql.Add('        A.STATUS ');
+        FDQ_Total.Sql.Add('        A.TIPO ');
         FDQ_Total.Sql.Add('        ,A.HORA ');
         FDQ_Total.Sql.Add('        ,A.MINUTO ');
         FDQ_Total.Sql.Add('        ,DATEADD(SECOND, A.SEGUNDO, CAST(CURRENT_DATE AS TIMESTAMP)) AS DS ');
         FDQ_Total.Sql.Add('        ,A.TOTAL ');
         FDQ_Total.Sql.Add('      FROM ( ');
         FDQ_Total.Sql.Add('        SELECT ');
-        FDQ_Total.Sql.Add('	      	 SP.STATUS ');
+        FDQ_Total.Sql.Add('	      	 C.TIPO ');
         FDQ_Total.Sql.Add('	      	 ,SUM(CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) ');
         FDQ_Total.Sql.Add('	      	  	      WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 2) ');
         FDQ_Total.Sql.Add('	      		        WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3) ');
@@ -2684,6 +2763,7 @@ begin
         FDQ_Total.Sql.Add('	      	       END AS INTEGER)) AS SEGUNDO ');
         FDQ_Total.Sql.Add('          ,SUM(SP.TOTAL) AS TOTAL ');
         FDQ_Total.Sql.Add('        FROM SERVICOS_PRESTADOS SP ');
+				FDQ_Total.Sql.Add('          JOIN CONTA C ON C.ID = SP.ID_CONTA ');
         FDQ_Total.SQL.Add('        WHERE NOT SP.ID IS NULL ');
         FDQ_Total.SQL.Add('          AND SP.DATA BETWEEN :DATA_I AND :DATA_F ');
         if Trim(edFiltro_Empresa_ID.Text) <> '' then
@@ -2711,21 +2791,73 @@ begin
 
           while not FDQ_Total.Eof do
           begin
-            case FDQ_Total.FieldByName('STATUS').AsInteger of
+            case FDQ_Total.FieldByName('TIPO').AsInteger of
               0:begin
-                //A Receber
-                lbTotalHoras.Text := FDQ_Total.FieldByName('HORA').AsString;
-                lbTotalReceber.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('TOTAL').AsFloat);
+                //Créditos
+                lbTotal_Receber_Hora.Text := FDQ_Total.FieldByName('HORA').AsString;
+                lbTotal_Receber_Valor.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('TOTAL').AsFloat);
+                lbTotal_Receber_Valor.TagFloat := FDQ_Total.FieldByName('TOTAL').AsFloat;
               end;
               1:begin
-                //Recebidos
-                lbTotalHoras_Recebidas.Text := FDQ_Total.FieldByName('HORA').AsString;
-                lbTotalRecebido.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('TOTAL').AsFloat);
+                //Débitos
+                lbTotal_Recebido_Hora.Text := FDQ_Total.FieldByName('HORA').AsString;
+                lbTotal_Recebido_Valor.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('TOTAL').AsFloat);
+                lbTotal_Recebido_Valor.TagFloat := FDQ_Total.FieldByName('TOTAL').AsFloat;
               end;
             end;
             FDQ_Total.Next;
           end;
         end;
+
+        {$Region 'Calculando Saldo'}
+          lbTotalSaldo_Valor.TagFloat := (lbTotal_Receber_Valor.TagFloat - lbTotal_Recebido_Valor.TagFloat);
+          lbTotalSaldo_Valor.Text := FormatFloat('R$ #,##0.00',lbTotalSaldo_Valor.TagFloat);
+
+          FHor_C := 0;
+          FMin_C := 0;
+          FSeg_C := 0;
+          FHor_D := 0;
+          FMin_D := 0;
+          FSeg_D := 0;
+          FSegundos_C := 0;
+          FSegundos_D := 0;
+          FSegundos := 0;
+
+          case Length(lbTotal_Receber_Hora.Text) of
+            8:begin
+              FHor_C := StrToIntDef(Copy(lbTotal_Receber_Hora.Text,1,2),0);
+              FMin_C := StrToIntDef(Copy(lbTotal_Receber_Hora.Text,4,2),0);
+              FSeg_C := StrToIntDef(Copy(lbTotal_Receber_Hora.Text,7,2),0);
+            end;
+            9:begin
+              FHor_C := StrToIntDef(Copy(lbTotal_Receber_Hora.Text,1,3),0);
+              FMin_C := StrToIntDef(Copy(lbTotal_Receber_Hora.Text,5,2),0);
+              FSeg_C := StrToIntDef(Copy(lbTotal_Receber_Hora.Text,8,2),0);
+            end;
+          end;
+          FSegundos_C := ((FHor_C * 3600) + (FMin_C * 60) + FSeg_C);
+
+          case Length(lbTotal_Recebido_Hora.Text) of
+            8:begin
+              FHor_D := StrToIntDef(Copy(lbTotal_Recebido_Hora.Text,1,2),0);
+              FMin_D := StrToIntDef(Copy(lbTotal_Recebido_Hora.Text,4,2),0);
+              FSeg_D := StrToIntDef(Copy(lbTotal_Recebido_Hora.Text,7,2),0);
+            end;
+            9:begin
+              FHor_D := StrToIntDef(Copy(lbTotal_Recebido_Hora.Text,1,3),0);
+              FMin_D := StrToIntDef(Copy(lbTotal_Recebido_Hora.Text,5,2),0);
+              FSeg_D := StrToIntDef(Copy(lbTotal_Recebido_Hora.Text,8,2),0);
+            end;
+          end;
+          FSegundos_D := ((FHor_D * 3600) + (FMin_D * 60) + FSeg_D);
+          FSegundos := (FSegundos_C - FSegundos_D);
+          FHor := (FSegundos div 3600);
+          FMin := ((FSegundos mod 3600) div 60);
+          FSeg := (FSegundos mod 60);
+          lbTotalSaldo_Hora.Text := Format('%.3d:%.2d:%.2d',[FHor,FMin,FSeg]);
+
+        {$EndRegion 'Calculando Saldo'}
+
       {$EndRegion 'Totalizando'}
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
