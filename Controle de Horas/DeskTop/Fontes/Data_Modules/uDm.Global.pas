@@ -36,6 +36,9 @@ type
     FDMT_RelatoriosFORNECEDOR_F: TStringField;
     frxDBD_Relaorio: TfrxDBDataset;
     DSRelatorios: TDataSource;
+    FDMT_RelatoriosTIPO_PERIODO: TStringField;
+    FDMT_RelatoriosD_C: TStringField;
+    FDMT_RelatoriosSTATUS: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

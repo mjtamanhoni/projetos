@@ -50,12 +50,6 @@ type
     imgExcluir: TImage;
     rctPagamento: TRectangle;
     imPagamento: TImage;
-    rctTot_Receber: TRectangle;
-    lbTot_Receber_Tit: TLabel;
-    lbTot_Receber: TLabel;
-    rctTot_Pagar: TRectangle;
-    lbTot_Pagar_Tit: TLabel;
-    lbTot_Pagar: TLabel;
     rctHeader: TRectangle;
     lbTitle: TLabel;
     ShadowEffect3: TShadowEffect;
@@ -145,9 +139,6 @@ type
     imgBH_Confirmar: TImage;
     rctBH_Cancelar: TRectangle;
     imgBH_Cancelar: TImage;
-    rctTot_Saldo: TRectangle;
-    lbTot_Saldo_Tit: TLabel;
-    lbTot_Saldo: TLabel;
     dxfmGrid1RootLevel1ID: TdxfmGridColumn;
     dxfmGrid1RootLevel1ID_EMPRESA: TdxfmGridColumn;
     dxfmGrid1RootLevel1DT_EMISSAO: TdxfmGridColumn;
@@ -257,7 +248,7 @@ type
     rctPrinter: TRectangle;
     imgPrinter: TImage;
     frxReport: TfrxReport;
-    frxDBDataset: TfrxDBDataset;
+    frxDBD_Registros: TfrxDBDataset;
     dxfmGrid1RootLevel1FORMA_PAGTO_ID: TdxfmGridColumn;
     dxfmGrid1RootLevel1COND_PAGTO_ID: TdxfmGridColumn;
     dxfmGrid1RootLevel1DT_BAIXA: TdxfmGridColumn;
@@ -266,6 +257,56 @@ type
     dxfmGrid1RootLevel1DESCONTO_BAIXA: TdxfmGridColumn;
     dxfmGrid1RootLevel1JUROS_BAIXA: TdxfmGridColumn;
     dxfmGrid1RootLevel1VALOR_BAIXA: TdxfmGridColumn;
+    rctTotais: TRectangle;
+    gplTotais: TGridPanelLayout;
+    rctTotais_Credito: TRectangle;
+    lytTotais_Credito_Tit: TLayout;
+    lbTotais_Credito_Tit: TLabel;
+    rctTotal_Debito: TRectangle;
+    lytTotal_Debito_Tit: TLayout;
+    lbTotal_Debito_Tit: TLabel;
+    rctTotal_Saldo: TRectangle;
+    lytTotal_Saldo_Tit: TLayout;
+    lbTotal_Saldo_Tit: TLabel;
+    gplTotais_Credito: TGridPanelLayout;
+    gplTotal_Debito: TGridPanelLayout;
+    gplTotal_Saldo: TGridPanelLayout;
+    lbTotais_Credito_A_Tit: TLabel;
+    lbTotal_Debito_A_Tit: TLabel;
+    lbTotais_Credito_P_Tit: TLabel;
+    lbTotais_Credito_S_Tit: TLabel;
+    lbTotais_Credito_A: TLabel;
+    lbTotais_Credito_P: TLabel;
+    lbTotais_Credito_S: TLabel;
+    lbTotal_Debito_P_Tit: TLabel;
+    lbTotal_Debito_S_Tit: TLabel;
+    lbTotal_Debito_A: TLabel;
+    lbTotal_Debito_P: TLabel;
+    lbTotal_Debito_S: TLabel;
+    lbTotal_Saldo_A: TLabel;
+    rctTotais_Creditos_Tit: TRectangle;
+    rctTotal_Debito_Tit: TRectangle;
+    rctTotal_Saldo_Tit: TRectangle;
+    rctImprimir_Tampa: TRectangle;
+    rctImprimir: TRectangle;
+    ShadowEffect6: TShadowEffect;
+    rctImp_Header: TRectangle;
+    lbImp_Titulo: TLabel;
+    imgImp_Fechar: TImage;
+    lytImp_NomeRel: TLayout;
+    lbImp_NomeRel: TLabel;
+    lytImp_Opcoes: TLayout;
+    gplImpressao: TGridPanelLayout;
+    rctImp_Imprimir: TRectangle;
+    imgImp_Imprimir: TImage;
+    rctImp_Visualizar: TRectangle;
+    imgImp_Visualizar: TImage;
+    rctImp_Editar: TRectangle;
+    imgImp_Editar: TImage;
+    lytImp_Relacao: TLayout;
+    lbImp_Relacao: TLabel;
+    cmbImp_Relacao: TComboBox;
+    frxDBD_Relaorio: TfrxDBDataset;
     procedure imgFiltro_ClienteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -357,6 +398,8 @@ type
     procedure edBL_DescontoChange(Sender: TObject);
     procedure edBL_JurosPChange(Sender: TObject);
     procedure edBL_JurosChange(Sender: TObject);
+    procedure rctImp_EditarClick(Sender: TObject);
+    procedure imgImp_FecharClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -390,6 +433,7 @@ type
     procedure TThreadEnd_Baixar_Lancamento(Sender: TOBject);
     procedure Calcula_Totais(ATag:Integer);
     procedure TThreadEnd_Calcula_Totais(Sender: TObject);
+    procedure Imprimir_Relatorios;
   end;
 
 var
@@ -1538,25 +1582,34 @@ begin
 
 
       {$Region 'Totalizando'}
-        lbTot_Receber.Text := 'R$ 0,00';
-        lbTot_Pagar.Text := 'R$ 0,00';
-        lbTot_Saldo.Text := 'R$ 0,00';
+        lbTotais_Credito_A.Text := 'R$ 0,00';
+        lbTotais_Credito_P.Text := 'R$ 0,00';
+        lbTotais_Credito_S.Text := 'R$ 0,00';
+        lbTotal_Debito_A.Text := 'R$ 0,00';
+        lbTotal_Debito_P.Text := 'R$ 0,00';
+        lbTotal_Debito_S.Text := 'R$ 0,00';
+        lbTotal_Saldo_A.Text := 'R$ 0,00';
 
         FDQ_Total.Active := False;
         FDQ_Total.Sql.Clear;
         FDQ_Total.Sql.Add('SELECT ');
-        FDQ_Total.Sql.Add('  SUM(R.RECEBER) AS RECEBER ');
-        FDQ_Total.Sql.Add('  ,SUM(P.PAGAR) AS PAGAR ');
-        FDQ_Total.Sql.Add('  ,SUM(R.RECEBER - P.PAGAR) AS SALDO ');
+        FDQ_Total.Sql.Add('  SUM(R.CREDITO_ABERTO) AS CREDITO_ABERTO ');
+        FDQ_Total.Sql.Add('  ,SUM(R.CREDITO_FECHADO) AS CREDITO_FECHADO ');
+        FDQ_Total.Sql.Add('  ,CASE WHEN SUM(R.CREDITO_ABERTO) - SUM(R.CREDITO_FECHADO) < 0 THEN 0 ELSE SUM(R.CREDITO_ABERTO) - SUM(R.CREDITO_FECHADO) END CREDITO_SALDO ');
+        FDQ_Total.Sql.Add('  ,SUM(P.DEBITO_ABERTO) AS DEBITO_ABERTO ');
+        FDQ_Total.Sql.Add('  ,SUM(P.DEBITO_FECHADO) AS DEBITO_FECHADO ');
+        FDQ_Total.Sql.Add('  ,CASE WHEN SUM(P.DEBITO_ABERTO) - SUM(P.DEBITO_FECHADO) < 0 THEN 0 ELSE SUM(P.DEBITO_ABERTO) - SUM(P.DEBITO_FECHADO) END DEBITO_SALDO ');
         FDQ_Total.Sql.Add('FROM LANCAMENTOS L ');
         FDQ_Total.Sql.Add('  JOIN (SELECT ');
         FDQ_Total.Sql.Add('          L.ID ');
-        FDQ_Total.Sql.Add('          ,CASE WHEN C.TIPO = 0 THEN L.VALOR ELSE 0 END RECEBER ');
+        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 0 THEN CASE WHEN C.TIPO = 0 THEN L.VALOR ELSE 0 END END CREDITO_ABERTO ');
+        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 1 THEN CASE WHEN C.TIPO = 0 THEN L.VALOR ELSE 0 END END CREDITO_FECHADO ');
         FDQ_Total.Sql.Add('        FROM LANCAMENTOS L ');
         FDQ_Total.Sql.Add('          JOIN CONTA C ON C.ID = L.ID_CONTA) R ON R.ID = L.ID ');
         FDQ_Total.Sql.Add('  JOIN (SELECT ');
         FDQ_Total.Sql.Add('          L.ID ');
-        FDQ_Total.Sql.Add('          ,CASE WHEN C.TIPO = 1 THEN L.VALOR ELSE 0 END PAGAR ');
+        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 0 THEN CASE WHEN C.TIPO = 1 THEN L.VALOR ELSE 0 END END DEBITO_ABERTO ');
+        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 1 THEN CASE WHEN C.TIPO = 1 THEN L.VALOR ELSE 0 END END DEBITO_FECHADO ');
         FDQ_Total.Sql.Add('        FROM LANCAMENTOS L ');
         FDQ_Total.Sql.Add('          JOIN CONTA C ON C.ID = L.ID_CONTA) P ON P.ID = L.ID ');
         FDQ_Total.Sql.Add('WHERE NOT L.ID IS NULL ');
@@ -1587,9 +1640,14 @@ begin
         FDQ_Total.Active := True;
         if not FDQ_Total.IsEmpty then
         begin
-          lbTot_Receber.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('RECEBER').AsFloat);
-          lbTot_Pagar.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('PAGAR').AsFloat);
-          lbTot_Saldo.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('SALDO').AsFloat);
+          //lbTot_Receber.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('RECEBER').AsFloat);
+          lbTotais_Credito_A.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO_ABERTO').AsFloat);
+          lbTotais_Credito_P.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO_FECHADO').AsFloat);
+          lbTotais_Credito_S.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO_SALDO').AsFloat);
+          lbTotal_Debito_A.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO_ABERTO').AsFloat);
+          lbTotal_Debito_P.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO_FECHADO').AsFloat);
+          lbTotal_Debito_S.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO_SALDO').AsFloat);
+          lbTotal_Saldo_A.Text := FormatFloat('R$ #,##0.00',(FDQ_Total.FieldByName('CREDITO_SALDO').AsFloat - FDQ_Total.FieldByName('DEBITO_SALDO').AsFloat));
         end;
       {$EndRegion 'Totalizando'}
 
@@ -1824,6 +1882,11 @@ begin
   frmPesq_Pessoas.Show;
 end;
 
+procedure TfrmLanc_Financeiros.imgImp_FecharClick(Sender: TObject);
+begin
+  rctImprimir_Tampa.Visible := False;
+end;
+
 procedure TfrmLanc_Financeiros.imgMenuFecharClick(Sender: TObject);
 begin
   rctMenu_Tampa.Visible := False;
@@ -1948,6 +2011,7 @@ begin
         3:Cancelar;
         4:FFancyDialog.Show(TIconDialog.Question,'Excluir','Deseja Excluir o registro selecionado?','Sim',Excluir,'Não') ;
         5:Menu(Sender);
+        6:Imprimir_Relatorios;
       end;
     except on E: Exception do
       FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
@@ -1957,6 +2021,11 @@ begin
   end;
 end;
 
+procedure TfrmLanc_Financeiros.Imprimir_Relatorios;
+begin
+  rctImprimir_Tampa.Visible := True;
+end;
+
 procedure TfrmLanc_Financeiros.rctFecharMesClick(Sender: TObject);
 begin
   case TRectangle(Sender).Tag of
@@ -1964,6 +2033,62 @@ begin
     //1:FFancyDialog.Show(TIconDialog.Question,'','Deseja fechar o mês atual?','SIM',FecharMes,'NÃO');
   end;
   rctMenu_Tampa.Visible := False;
+
+end;
+
+procedure TfrmLanc_Financeiros.rctImp_EditarClick(Sender: TObject);
+begin
+  try
+    frxReport.LoadFromFile(System.SysUtils.GetCurrentDir + '\Relatorios\Lanc_Financeiros.fr3');
+
+    if TRectangle(Sender).Tag = 2 then
+    begin
+      frxReport.DesignReport;
+    end
+    else
+    begin
+      FDQRegistros.DisableControls;
+
+      {$Region 'Configurando filtros do relatório'}
+        FDm_Global.FDMT_Relatorios.Active := False;
+        FDm_Global.FDMT_Relatorios.Active := True;
+        FDm_Global.FDMT_Relatorios.Insert;
+        FDm_Global.FDMT_RelatoriosTIPO_PERIODO.AsString := cbFiltro_Tipo_Periodo.Selected.Text;
+        FDm_Global.FDMT_RelatoriosDATA_I.AsString := edFIltro_Dt_I.Text;
+        FDm_Global.FDMT_RelatoriosDATA_F.AsString := edFIltro_Dt_F.Text;
+        FDm_Global.FDMT_RelatoriosEMPRESA_I.AsString := edFiltro_Empresa_ID.Text + '-' + edFiltro_Empresa.Text;
+        FDm_Global.FDMT_RelatoriosCLIENTE_I.AsString := edFiltro_Cliente_ID.Text + '-' + edFiltro_Cliente.Text;
+        FDm_Global.FDMT_RelatoriosD_C.AsString := cbFiltro_Tipo_DC.Selected.Text;
+        if ((imgFiltro_Aberto.Tag = 1) and (imgFiltro_Pago.Tag = 1)) then
+          FDm_Global.FDMT_RelatoriosSTATUS.AsString := 'Crédito/Débito'
+        else if ((imgFiltro_Aberto.Tag = 1) and (imgFiltro_Pago.Tag = 0)) then
+          FDm_Global.FDMT_RelatoriosSTATUS.AsString := 'Crédito'
+        else if ((imgFiltro_Aberto.Tag = 0) and (imgFiltro_Pago.Tag = 1)) then
+          FDm_Global.FDMT_RelatoriosSTATUS.AsString := 'Débito'
+        else
+          FDm_Global.FDMT_RelatoriosSTATUS.AsString := 'Crédito/Débito';
+        FDm_Global.FDMT_Relatorios.Post;
+
+        frxDBD_Relaorio.DataSet := FDm_Global.FDMT_Relatorios;
+      {$EndRegion 'Configurando filtros do relatório'}
+
+      if not FDQRegistros.IsEmpty then
+      begin
+        if frxReport.PrepareReport then
+        begin
+          case TRectangle(Sender).Tag of
+            0:frxReport.Print;
+            1:frxReport.ShowPreparedReport;
+            //2:frxReport.DesignReport;
+          end;
+        end;
+      end;
+      FDQRegistros.First;
+      FDQRegistros.EnableControls;
+    end;
+  except on E: Exception do
+    FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
+  end;
 
 end;
 

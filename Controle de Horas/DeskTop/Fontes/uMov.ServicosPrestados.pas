@@ -302,7 +302,6 @@ type
     rctImp_Editar: TRectangle;
     imgImp_Editar: TImage;
     imgImp_Fechar: TImage;
-    frxDBD_Relaorio: TfrxDBDataset;
     rctTotais: TRectangle;
     rctTotalValores: TRectangle;
     lbTotal_Receber_Valor_Tit: TLabel;
@@ -345,6 +344,10 @@ type
     lbTotalSaldo_Valor: TLabel;
     lbTotalSaldo_Valor_Tit: TLabel;
     FDQRegistrosSEGUNDOS: TLargeintField;
+    rctTotais_Creditos_Tit: TRectangle;
+    rctTotal_Recebido_Tit: TRectangle;
+    rctTotalSaldo_Tit: TRectangle;
+    frxDBD_Relaorio: TfrxDBDataset;
     procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -2115,36 +2118,45 @@ end;
 procedure TfrmMov_ServicosPrestados.rctImp_EditarClick(Sender: TObject);
 begin
   try
-    FDQRegistros.DisableControls;
+    frxReport.LoadFromFile(System.SysUtils.GetCurrentDir + '\Relatorios\Horas_Trabalhadas.fr3');
 
-    {$Region 'Configurando filtros do relatório'}
-      FDm_Global.FDMT_Relatorios.Active := False;
-      FDm_Global.FDMT_Relatorios.Active := True;
-      FDm_Global.FDMT_Relatorios.Insert;
-      FDm_Global.FDMT_RelatoriosDATA_I.AsString := edFIltro_Dt_I.Text;
-      FDm_Global.FDMT_RelatoriosDATA_F.AsString := edFIltro_Dt_F.Text;
-      FDm_Global.FDMT_RelatoriosEMPRESA_I.AsString := edFiltro_Empresa_ID.Text + '-' + edFiltro_Empresa.Text;
-      FDm_Global.FDMT_RelatoriosPRESTADOR_I.AsString := edFiltro_Prestador_ID.Text + '-' + edFiltro_Prestador.Text;
-      FDm_Global.FDMT_RelatoriosCLIENTE_I.AsString := edFiltro_Cliente_ID.Text + '-' + edFiltro_Cliente.Text;
-      FDm_Global.FDMT_Relatorios.Post;
-
-      frxDBD_Relaorio.DataSet := FDm_Global.FDMT_Relatorios;
-    {$EndRegion 'Configurando filtros do relatório'}
-
-    if not FDQRegistros.IsEmpty then
+    if TRectangle(Sender).Tag = 2 then
     begin
-      frxReport.LoadFromFile(System.SysUtils.GetCurrentDir + '\Relatorios\Horas_Trabalhadas.fr3');
-      if frxReport.PrepareReport then
+      frxReport.DesignReport;
+    end
+    else
+    begin
+      FDQRegistros.DisableControls;
+
+      {$Region 'Configurando filtros do relatório'}
+        FDm_Global.FDMT_Relatorios.Active := False;
+        FDm_Global.FDMT_Relatorios.Active := True;
+        FDm_Global.FDMT_Relatorios.Insert;
+        FDm_Global.FDMT_RelatoriosDATA_I.AsString := edFIltro_Dt_I.Text;
+        FDm_Global.FDMT_RelatoriosDATA_F.AsString := edFIltro_Dt_F.Text;
+        FDm_Global.FDMT_RelatoriosEMPRESA_I.AsString := edFiltro_Empresa_ID.Text + '-' + edFiltro_Empresa.Text;
+        FDm_Global.FDMT_RelatoriosPRESTADOR_I.AsString := edFiltro_Prestador_ID.Text + '-' + edFiltro_Prestador.Text;
+        FDm_Global.FDMT_RelatoriosCLIENTE_I.AsString := edFiltro_Cliente_ID.Text + '-' + edFiltro_Cliente.Text;
+        FDm_Global.FDMT_Relatorios.Post;
+
+        frxDBD_Relaorio.DataSet := FDm_Global.FDMT_Relatorios;
+      {$EndRegion 'Configurando filtros do relatório'}
+
+      if not FDQRegistros.IsEmpty then
       begin
-        case TRectangle(Sender).Tag of
-          0:frxReport.Print;
-          1:frxReport.ShowPreparedReport;
-          2:frxReport.DesignReport;
+
+        if frxReport.PrepareReport then
+        begin
+          case TRectangle(Sender).Tag of
+            0:frxReport.Print;
+            1:frxReport.ShowPreparedReport;
+            //2:frxReport.DesignReport;
+          end;
         end;
       end;
+      FDQRegistros.First;
+      FDQRegistros.EnableControls;
     end;
-    FDQRegistros.First;
-    FDQRegistros.EnableControls;
   except on E: Exception do
     FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message);
   end;
