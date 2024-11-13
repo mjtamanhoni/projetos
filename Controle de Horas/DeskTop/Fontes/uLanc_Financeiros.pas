@@ -1589,6 +1589,7 @@ begin
       FDQRegistros.SQL.Add('ORDER BY ');
       FDQRegistros.SQL.Add('  L.ID_EMPRESA ');
       FDQRegistros.SQL.Add('  ,C.TIPO ');
+      FDQRegistros.SQL.Add('  ,L.ID_CONTA ');
       case cbFiltro_Tipo_Periodo .ItemIndex of
         0:FDQRegistros.SQL.Add('  ,L.DT_EMISSAO; ');
         1:FDQRegistros.SQL.Add('  ,L.DT_VENCIMENTO; ');
