@@ -283,7 +283,6 @@ type
     lbTotal_Debito_A: TLabel;
     lbTotal_Debito_P: TLabel;
     lbTotal_Debito_S: TLabel;
-    lbTotal_Saldo_A: TLabel;
     rctTotais_Creditos_Tit: TRectangle;
     rctTotal_Debito_Tit: TRectangle;
     rctTotal_Saldo_Tit: TRectangle;
@@ -307,6 +306,10 @@ type
     lbImp_Relacao: TLabel;
     cmbImp_Relacao: TComboBox;
     frxDBD_Relaorio: TfrxDBDataset;
+    lbTotal_Saldo_A: TLabel;
+    lbTotalSaldo_Saldo: TLabel;
+    lbTotalSaldo_Saldo_Tit: TLabel;
+    lbTotalSaldo_Total_Tit: TLabel;
     procedure imgFiltro_ClienteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
@@ -1413,10 +1416,14 @@ begin
           FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
           FQuery.Sql.Add('  ,ID_ORIGEM_LANCAMENTO ');
           if Trim(edDT_PAGAMENTO.Text) <> '' then
-            FQuery.Sql.Add('  ,DT_PAGAMENTO ');
-          FQuery.Sql.Add('  ,DESCONTO_BAIXA ');
-          FQuery.Sql.Add('  ,JUROS_BAIXA ');
-          FQuery.Sql.Add('  ,VALOR_BAIXA ');
+          begin
+            FQuery.Sql.Add('  ,DT_BAIXA ');
+            FQuery.Sql.Add('  ,HR_BAIXA ');
+            FQuery.Sql.Add('  ,ID_USUARIO_BAIXA ');
+            FQuery.Sql.Add('  ,DESCONTO_BAIXA ');
+            FQuery.Sql.Add('  ,JUROS_BAIXA ');
+            FQuery.Sql.Add('  ,VALOR_BAIXA ');
+          end;
           FQuery.Sql.Add('  ,ID_USUARIO ');
           FQuery.Sql.Add('  ,OBSERVACAO ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
@@ -1435,10 +1442,14 @@ begin
           FQuery.Sql.Add('  ,:ORIGEM_LANCAMENTO ');
           FQuery.Sql.Add('  ,:ID_ORIGEM_LANCAMENTO ');
           if Trim(edDT_PAGAMENTO.Text) <> '' then
-            FQuery.Sql.Add('  ,:DT_PAGAMENTO ');
-          FQuery.Sql.Add('  ,:DESCONTO_BAIXA ');
-          FQuery.Sql.Add('  ,:JUROS_BAIXA ');
-          FQuery.Sql.Add('  ,:VALOR_BAIXA ');
+          begin
+            FQuery.Sql.Add('  ,:DT_BAIXA ');
+            FQuery.Sql.Add('  ,:HR_BAIXA ');
+            FQuery.Sql.Add('  ,:ID_USUARIO_BAIXA ');
+            FQuery.Sql.Add('  ,:DESCONTO_BAIXA ');
+            FQuery.Sql.Add('  ,:JUROS_BAIXA ');
+            FQuery.Sql.Add('  ,:VALOR_BAIXA ');
+          end;
           FQuery.Sql.Add('  ,:ID_USUARIO ');
           FQuery.Sql.Add('  ,:OBSERVACAO ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
@@ -1463,10 +1474,14 @@ begin
           FQuery.Sql.Add('  ,DT_VENCIMENTO = :DT_VENCIMENTO ');
           FQuery.Sql.Add('  ,VALOR = :VALOR ');
           if Trim(edDT_PAGAMENTO.Text) <> '' then
-            FQuery.Sql.Add('  ,DT_PAGAMENTO = :DT_PAGAMENTO ');
-          FQuery.Sql.Add('  ,DESCONTO_BAIXA = :DESCONTO_BAIXA ');
-          FQuery.Sql.Add('  ,JUROS_BAIXA = :JUROS_BAIXA ');
-          FQuery.Sql.Add('  ,VALOR_BAIXA = :VALOR_BAIXA ');
+          begin
+            FQuery.Sql.Add('  ,DT_BAIXA = :DT_BAIXA ');
+            FQuery.Sql.Add('  ,HR_BAIXA = :HR_BAIXA ');
+            FQuery.Sql.Add('  ,ID_USUARIO_BAIXA = :ID_USUARIO_BAIXA ');
+            FQuery.Sql.Add('  ,DESCONTO_BAIXA = :DESCONTO_BAIXA ');
+            FQuery.Sql.Add('  ,JUROS_BAIXA = :JUROS_BAIXA ');
+            FQuery.Sql.Add('  ,VALOR_BAIXA = :VALOR_BAIXA ');
+          end;
           FQuery.Sql.Add('  ,OBSERVACAO = :OBSERVACAO ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := FId;
@@ -1479,21 +1494,23 @@ begin
       FQuery.ParamByName('ID_PESSOA').AsInteger := StrToIntDef(edID_PESSOA.Text,0);
       FQuery.ParamByName('FORMA_PAGTO_ID').AsInteger := StrToIntDef(edFORMA_CONDICAO_PAGAMENTO.Text,0);
       FQuery.ParamByName('COND_PAGTO_ID').AsInteger := StrToIntDef(edID_CONDICAO_PAGAMENTO.Text,0);
-      FQuery.ParamByName('DT_VENCIMENTO').AsDate := StrToDateDef(edDT_VENCIMENTO.Text,Date); //Calcular
+      FQuery.ParamByName('DT_VENCIMENTO').AsDate := StrToDateDef(edDT_VENCIMENTO.Text,Date);
       FQuery.ParamByName('VALOR').AsFloat := edVALOR.TagFloat;
       FQuery.ParamByName('OBSERVACAO').AsString := edOBSERVACAO.Text;
       if Trim(edDT_PAGAMENTO.Text) <> '' then
       begin
-        FQuery.ParamByName('DT_PAGAMENTO').AsDate := StrToDateDef(edDT_PAGAMENTO.Text,Date); //Calcular
+        FQuery.ParamByName('DT_BAIXA').AsDate := StrToDateDef(edDT_PAGAMENTO.Text,Date);
+        FQuery.ParamByName('HR_BAIXA').AsTime := Time;
+        FQuery.ParamByName('ID_USUARIO_BAIXA').AsInteger := frmPrincipal.FUser_Id;
+        FQuery.ParamByName('DESCONTO_BAIXA').AsFloat := edDESCONTO.TagFloat;
+        FQuery.ParamByName('JUROS_BAIXA').AsFloat := edJUROS.TagFloat;
+        FQuery.ParamByName('VALOR_BAIXA').AsFloat := edVALOR_PAGO.TagFloat;
         FQuery.ParamByName('STATUS').AsInteger := 1;  //0-Aberto, 1-pago
       end
       else
       begin
         FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
       end;
-      FQuery.ParamByName('DESCONTO_BAIXA').AsFloat := edDESCONTO.TagFloat;
-      FQuery.ParamByName('JUROS_BAIXA').AsFloat := edJUROS.TagFloat;
-      FQuery.ParamByName('VALOR_BAIXA').AsFloat := edVALOR_PAGO.TagFloat;
       FQuery.ExecSQL;
 
       FDm_Global.FDC_Firebird.Commit;
@@ -1589,29 +1606,39 @@ begin
         lbTotal_Debito_P.Text := 'R$ 0,00';
         lbTotal_Debito_S.Text := 'R$ 0,00';
         lbTotal_Saldo_A.Text := 'R$ 0,00';
+        lbTotalSaldo_Saldo.Text := 'R$ 0,00';
+
+        lbTotais_Credito_A.TagFloat := 0;
+        lbTotais_Credito_P.TagFloat := 0;
+        lbTotais_Credito_S.TagFloat := 0;
+        lbTotal_Debito_A.TagFloat := 0;
+        lbTotal_Debito_P.TagFloat := 0;
+        lbTotal_Debito_S.TagFloat := 0;
+        lbTotal_Saldo_A.TagFloat := 0;
+        lbTotalSaldo_Saldo.TagFloat := 0;
 
         FDQ_Total.Active := False;
         FDQ_Total.Sql.Clear;
         FDQ_Total.Sql.Add('SELECT ');
-        FDQ_Total.Sql.Add('  SUM(R.CREDITO_ABERTO) AS CREDITO_ABERTO ');
-        FDQ_Total.Sql.Add('  ,SUM(R.CREDITO_FECHADO) AS CREDITO_FECHADO ');
-        FDQ_Total.Sql.Add('  ,CASE WHEN SUM(R.CREDITO_ABERTO) - SUM(R.CREDITO_FECHADO) < 0 THEN 0 ELSE SUM(R.CREDITO_ABERTO) - SUM(R.CREDITO_FECHADO) END CREDITO_SALDO ');
-        FDQ_Total.Sql.Add('  ,SUM(P.DEBITO_ABERTO) AS DEBITO_ABERTO ');
-        FDQ_Total.Sql.Add('  ,SUM(P.DEBITO_FECHADO) AS DEBITO_FECHADO ');
-        FDQ_Total.Sql.Add('  ,CASE WHEN SUM(P.DEBITO_ABERTO) - SUM(P.DEBITO_FECHADO) < 0 THEN 0 ELSE SUM(P.DEBITO_ABERTO) - SUM(P.DEBITO_FECHADO) END DEBITO_SALDO ');
+        FDQ_Total.Sql.Add('  SUM(COALESCE(R.CREDITO,0)) AS CREDITO ');
+        FDQ_Total.Sql.Add('  ,SUM(COALESCE(R.CREDITO_PAGO,0)) AS CREDITO_PAGO ');
+        FDQ_Total.Sql.Add('  ,SUM(COALESCE(D.DEBITO,0)) AS DEBITO ');
+        FDQ_Total.Sql.Add('  ,SUM(COALESCE(D.DEBITO_PAGO,0)) AS DEBITO_PAGO ');
         FDQ_Total.Sql.Add('FROM LANCAMENTOS L ');
-        FDQ_Total.Sql.Add('  JOIN (SELECT ');
-        FDQ_Total.Sql.Add('          L.ID ');
-        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 0 THEN CASE WHEN C.TIPO = 0 THEN L.VALOR ELSE 0 END END CREDITO_ABERTO ');
-        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 1 THEN CASE WHEN C.TIPO = 0 THEN L.VALOR ELSE 0 END END CREDITO_FECHADO ');
-        FDQ_Total.Sql.Add('        FROM LANCAMENTOS L ');
-        FDQ_Total.Sql.Add('          JOIN CONTA C ON C.ID = L.ID_CONTA) R ON R.ID = L.ID ');
-        FDQ_Total.Sql.Add('  JOIN (SELECT ');
-        FDQ_Total.Sql.Add('          L.ID ');
-        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 0 THEN CASE WHEN C.TIPO = 1 THEN L.VALOR ELSE 0 END END DEBITO_ABERTO ');
-        FDQ_Total.Sql.Add('          ,CASE WHEN L.STATUS = 1 THEN CASE WHEN C.TIPO = 1 THEN L.VALOR ELSE 0 END END DEBITO_FECHADO ');
-        FDQ_Total.Sql.Add('        FROM LANCAMENTOS L ');
-        FDQ_Total.Sql.Add('          JOIN CONTA C ON C.ID = L.ID_CONTA) P ON P.ID = L.ID ');
+        FDQ_Total.Sql.Add('  LEFT JOIN (SELECT ');
+        FDQ_Total.Sql.Add('               L.ID ');
+        FDQ_Total.Sql.Add('               ,L.VALOR AS CREDITO ');
+        FDQ_Total.Sql.Add('               ,CASE WHEN L.STATUS = 1 THEN L.VALOR ELSE 0 END CREDITO_PAGO ');
+        FDQ_Total.Sql.Add('             FROM LANCAMENTOS L ');
+        FDQ_Total.Sql.Add('               JOIN CONTA C ON C.ID = L.ID_CONTA ');
+        FDQ_Total.Sql.Add('             WHERE C.TIPO = 0) R ON R.ID = L.ID ');
+        FDQ_Total.Sql.Add('  LEFT JOIN (SELECT ');
+        FDQ_Total.Sql.Add('               L.ID ');
+        FDQ_Total.Sql.Add('               ,L.VALOR AS DEBITO ');
+        FDQ_Total.Sql.Add('               ,CASE WHEN L.STATUS = 1 THEN L.VALOR ELSE 0 END DEBITO_PAGO ');
+        FDQ_Total.Sql.Add('             FROM LANCAMENTOS L ');
+        FDQ_Total.Sql.Add('               JOIN CONTA C ON C.ID = L.ID_CONTA ');
+        FDQ_Total.Sql.Add('             WHERE C.TIPO = 1) D ON D.ID = L.ID ');
         FDQ_Total.Sql.Add('WHERE NOT L.ID IS NULL ');
         case cbFiltro_Tipo_Periodo.ItemIndex of
           0:FDQ_Total.SQL.Add('  AND L.DT_EMISSAO BETWEEN :DATA_I AND :DATA_F ');
@@ -1641,13 +1668,26 @@ begin
         if not FDQ_Total.IsEmpty then
         begin
           //lbTot_Receber.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('RECEBER').AsFloat);
-          lbTotais_Credito_A.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO_ABERTO').AsFloat);
-          lbTotais_Credito_P.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO_FECHADO').AsFloat);
-          lbTotais_Credito_S.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO_SALDO').AsFloat);
-          lbTotal_Debito_A.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO_ABERTO').AsFloat);
-          lbTotal_Debito_P.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO_FECHADO').AsFloat);
-          lbTotal_Debito_S.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO_SALDO').AsFloat);
-          lbTotal_Saldo_A.Text := FormatFloat('R$ #,##0.00',(FDQ_Total.FieldByName('CREDITO_SALDO').AsFloat - FDQ_Total.FieldByName('DEBITO_SALDO').AsFloat));
+          lbTotais_Credito_A.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO').AsFloat);
+          lbTotais_Credito_A.TagFloat := FDQ_Total.FieldByName('CREDITO').AsFloat;
+          lbTotais_Credito_P.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('CREDITO_PAGO').AsFloat);
+          lbTotais_Credito_P.TagFloat := FDQ_Total.FieldByName('CREDITO_PAGO').AsFloat;
+          lbTotais_Credito_S.Text := FormatFloat('R$ #,##0.00',(lbTotais_Credito_A.TagFloat - lbTotais_Credito_P.TagFloat));
+          lbTotais_Credito_S.TagFloat := (lbTotais_Credito_A.TagFloat - lbTotais_Credito_P.TagFloat);
+
+          lbTotal_Debito_A.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO').AsFloat);
+          lbTotal_Debito_A.TagFloat := FDQ_Total.FieldByName('DEBITO').AsFloat;
+          lbTotal_Debito_P.Text := FormatFloat('R$ #,##0.00',FDQ_Total.FieldByName('DEBITO_PAGO').AsFloat);
+          lbTotal_Debito_P.TagFloat := FDQ_Total.FieldByName('DEBITO_PAGO').AsFloat;
+          lbTotal_Debito_S.Text := FormatFloat('R$ #,##0.00',lbTotal_Debito_A.TagFloat - lbTotal_Debito_P.TagFloat);
+          lbTotal_Debito_S.TagFloat := (lbTotal_Debito_A.TagFloat - lbTotal_Debito_P.TagFloat);
+
+          lbTotalSaldo_Saldo.Text := FormatFloat('R$ #,##0.00',(lbTotais_Credito_S.TagFloat - lbTotal_Debito_S.TagFloat));
+          lbTotalSaldo_Saldo.TagFloat := (lbTotais_Credito_S.TagFloat - lbTotal_Debito_S.TagFloat);
+
+          lbTotal_Saldo_A.Text := FormatFloat('R$ #,##0.00',(lbTotais_Credito_A.TagFloat - lbTotal_Debito_A.TagFloat));
+          lbTotal_Saldo_A.TagFloat := (lbTotais_Credito_A.TagFloat - lbTotal_Debito_A.TagFloat);
+
         end;
       {$EndRegion 'Totalizando'}
 
@@ -1961,13 +2001,13 @@ begin
       edDT_VENCIMENTO.Text := FDQRegistros.FieldByName('DT_VENCIMENTO').AsString;
       edVALOR.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR').AsFloat);
       edVALOR.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
-      edDT_PAGAMENTO.Text := FDQRegistros.FieldByName('DT_PAGAMENTO').AsString;
-      edDESCONTO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('DESCONTO').AsFloat);
-      edDESCONTO.TagFloat := FDQRegistros.FieldByName('DESCONTO').AsFloat;
-      edJUROS.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('JUROS').AsFloat);
-      edJUROS.TagFloat := FDQRegistros.FieldByName('JUROS').AsFloat;
-      edVALOR_PAGO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR_PAGO').AsFloat);
-      edVALOR_PAGO.TagFloat := FDQRegistros.FieldByName('VALOR_PAGO').AsFloat;
+      edDT_PAGAMENTO.Text := FDQRegistros.FieldByName('DT_BAIXA').AsString;
+      edDESCONTO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('DESCONTO_BAIXA').AsFloat);
+      edDESCONTO.TagFloat := FDQRegistros.FieldByName('DESCONTO_BAIXA').AsFloat;
+      edJUROS.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('JUROS_BAIXA').AsFloat);
+      edJUROS.TagFloat := FDQRegistros.FieldByName('JUROS_BAIXA').AsFloat;
+      edVALOR_PAGO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VALOR_BAIXA').AsFloat);
+      edVALOR_PAGO.TagFloat := FDQRegistros.FieldByName('VALOR_BAIXA').AsFloat;
       edOBSERVACAO.Text := FDQRegistros.FieldByName('OBSERVACAO').AsString;
       FTab_Status := TTab_Status.dsEdit;
       tcPrincipal.GotoVisibleTab(1);
