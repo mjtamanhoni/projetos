@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions/>
+  <Transactions>
+    <Transaction>2024/11/14 08:17:39.823,C:\Developer\Controle de Horas\Controle.De.Horas.groupproj=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\ProjectGroup1.groupproj</Transaction>
+  </Transactions>
   <Default.Personality>
     <Projects ActiveProject="C:\Developer\Controle de Horas\DeskTop\Fontes\Controle.Horas.dproj"/>
   </Default.Personality>

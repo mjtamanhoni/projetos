@@ -1962,16 +1962,21 @@ begin
   edID_EMPRESA_Desc.Text := '';
   edID_CONTA.Text := '';
   edID_CONTA_Desc.Text := '';
+  edConta_Tipo.Text := '';
   edConta_Tipo.Tag := -1;
   edConta_Tipo.Text := '';
   edID_PESSOA.Text := '';
   edID_PESSOA_Desc.Text := '';
   edDT_VENCIMENTO.Text := '';
   edVALOR.Text := '';
+  edVALOR.TagFloat := 0;
   edDT_PAGAMENTO.Text := '';
   edDESCONTO.Text := '';
+  edDESCONTO.TagFloat := 0;
   edJUROS.Text := '';
+  edJUROS.TagFloat := 0;
   edVALOR_PAGO.Text := '';
+  edVALOR_PAGO.TagFloat := 0;
   edOBSERVACAO.Text := '';
 end;
 

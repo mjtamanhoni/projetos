@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{A95C0077-D7A5-4686-AAEB-015FF0370A00}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\DeskTop\Fontes\Controle.Horas.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\App\Fontes\Controle.Horas.App.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Controle_Horas">
+        <MSBuild Projects="..\DeskTop\Fontes\Controle.Horas.dproj"/>
+    </Target>
+    <Target Name="Controle_Horas:Clean">
+        <MSBuild Projects="..\DeskTop\Fontes\Controle.Horas.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Controle_Horas:Make">
+        <MSBuild Projects="..\DeskTop\Fontes\Controle.Horas.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Controle_Horas_App">
+        <MSBuild Projects="..\App\Fontes\Controle.Horas.App.dproj"/>
+    </Target>
+    <Target Name="Controle_Horas_App:Clean">
+        <MSBuild Projects="..\App\Fontes\Controle.Horas.App.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Controle_Horas_App:Make">
+        <MSBuild Projects="..\App\Fontes\Controle.Horas.App.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Controle_Horas;Controle_Horas_App"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Controle_Horas:Clean;Controle_Horas_App:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Controle_Horas:Make;Controle_Horas_App:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

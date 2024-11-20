@@ -16,7 +16,9 @@ uses
 
   IniFiles,
   uPrincipal,
-  uDm.Global, System.Actions, FMX.ActnList, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  uDm.Global,
+
+  System.Actions, FMX.ActnList, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Fmx.Bind.Navigator, Data.Bind.Components,
   Data.Bind.DBScope;

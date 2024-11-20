@@ -1122,9 +1122,16 @@ begin
       edDESCRICAO.Text := FDQRegistros.FieldByName('DESCRICAO').AsString;
       edSTATUS.ItemIndex := FDQRegistros.FieldByName('STATUS').AsInteger;
       edID_EMPRESA.Text := FDQRegistros.FieldByName('ID_EMPRESA').AsString;
+      edID_EMPRESA_Desc.Text := FDQRegistros.FieldByName('EMPRESA').AsString;
       edID_PRESTADOR_SERVICO.Text := FDQRegistros.FieldByName('ID_PRESTADOR_SERVICO').AsString;
+      edID_PRESTADOR_SERVICO_Desc.Text := FDQRegistros.FieldByName('PRESTAOR_SERVICO').AsString;
       edID_CLIENTE.Text := FDQRegistros.FieldByName('ID_CLIENTE').AsString;
+      edID_CLIENTE_Desc.Text := FDQRegistros.FieldByName('CLIENTE').AsString;
       edID_TABELA.Text := FDQRegistros.FieldByName('ID_TABELA').AsString;
+      edID_TABELA_Desc.Text := FDQRegistros.FieldByName('TABELA').AsString;
+      edID_TABELA_Tipo.Text := FDQRegistros.FieldByName('TABELA_TIPO').AsString;
+      edID_TABELA_Valor.Text := FormatFloat('R$ #,##0.00',FDQRegistros.FieldByName('VALOR').AsFloat);
+      edID_TABELA_Valor.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
       edDATA.Text := FDQRegistros.FieldByName('DATA').AsString;
       edHR_INICIO.Text := FDQRegistros.FieldByName('HR_INICIO').AsString;
       edHR_FIM.Text := FDQRegistros.FieldByName('HR_FIM').AsString;
@@ -1143,6 +1150,9 @@ begin
       edDT_PAGO.Text := FDQRegistros.FieldByName('DT_PAGO').AsString;
       edVLR_PAGO.Text := FormatFloat('R$ #,##0.00', FDQRegistros.FieldByName('VLR_PAGO').AsFloat);
       edVLR_PAGO.TagFloat := FDQRegistros.FieldByName('VLR_PAGO').AsFloat;
+      edID_CONTA.Text := FDQRegistros.FieldByName('ID_CONTA').AsString;
+      edID_CONTA_Desc.Text := FDQRegistros.FieldByName('CONTA').AsString;
+      edConta_Tipo.Text := FDQRegistros.FieldByName('TIPO_CONTA').AsString;
 
       FTab_Status := TTab_Status.dsEdit;
 
@@ -1703,17 +1713,26 @@ begin
   edID_TABELA_Desc.Text := '';
   edID_TABELA_Tipo.Text := '';
   edID_TABELA_Valor.Text := '';
+  edID_CONTA.Text := '';
+  edID_CONTA_Desc.Text := '';
+  edConta_Tipo.Text := '';
   edHR_INICIO.Text := '';
   edHR_FIM.Text := '';
   edHR_TOTAL.Text := '';
   edVLR_HORA.Text := '';
+  edVLR_HORA.TagFloat := 0;
   edSUB_TOTAL.Text := '';
+  edSUB_TOTAL.TagFloat := 0;
   edDESCONTO.Text := '';
+  edDESCONTO.TagFloat := 0;
   edACRESCIMO.Text := '';
+  edACRESCIMO.TagFloat := 0;
   edTOTAL.Text := '';
+  edTOTAL.TagFloat := 0;
   edOBSERVACAO.Text := '';
   edDT_PAGO.Text := '';
   edVLR_PAGO.Text := '';
+  edVLR_PAGO.TagFloat := 0;
 end;
 
 procedure TfrmMov_ServicosPrestados.rctBH_CancelarClick(Sender: TObject);

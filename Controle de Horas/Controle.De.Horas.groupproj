@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{0FBDA3EE-3347-432B-8024-1AF7A54F959E}</ProjectGuid>
+        <ProjectGuid>{A41EF01F-BC5A-47AE-9426-3E26CA773F4E}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
         <Projects Include="DeskTop\Fontes\Controle.Horas.dproj">

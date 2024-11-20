@@ -4,57 +4,42 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-
-  uFuncoes,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects, FMX.Effects, FMX.Edit,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts,
 
   {$Region '99 Coders'}
     uFancyDialog,
+    uFormat,
     uLoading,
   {$EndRegion '99 Coders'}
 
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TabControl, FMX.Layouts, FMX.Objects, FMX.Effects,
-  FMX.Controls.Presentation, FMX.Edit, FMX.Ani, FMX.StdCtrls;
+  uPrincipal;
 
 type
   TfrmLogin = class(TForm)
-    lytPrincipal: TLayout;
-    tcLogin: TTabControl;
-    tiUserSenha: TTabItem;
-    tiPIN: TTabItem;
-    tiBio: TTabItem;
-    lytLog: TLayout;
-    lytFooter: TLayout;
+    lytDetail: TLayout;
     lytLogin: TLayout;
-    rctLog: TRectangle;
+    lbPIN: TLabel;
+    edPIN: TEdit;
+    OpenDialog: TOpenDialog;
+    rctFooter: TRectangle;
+    ShadowEffect2: TShadowEffect;
+    rctVersao: TRectangle;
+    lbVersaoPrincipal: TLabel;
+    rctHeader: TRectangle;
     ShadowEffect1: TShadowEffect;
+    lytTitulo: TLayout;
+    lbTitle: TLabel;
+    ShadowEffect3: TShadowEffect;
+    imgFechar: TImage;
     imgLog: TImage;
-    lytUser: TLayout;
-    lytSenha: TLayout;
-    lytUserSenha_Confir: TLayout;
     StyleBook_Principal: TStyleBook;
-    edEmail_User: TEdit;
-    lbEmail_User: TLabel;
-    faEmail: TFloatAnimation;
-    edSenha: TEdit;
-    lbSenha: TLabel;
-    faSenha: TFloatAnimation;
-    rctConfirmar: TRectangle;
-    rctCancelar: TRectangle;
-    lbCancelar: TLabel;
-    lbConfirmar: TLabel;
-    lbCadastrar: TLabel;
-    imgVerSenha: TImage;
-    imgVer: TImage;
-    imgNVer: TImage;
-    procedure edEmail_UserKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
-    procedure edEmail_UserTyping(Sender: TObject);
-    procedure edSenhaTyping(Sender: TObject);
-    procedure imgVerSenhaClick(Sender: TObject);
-    procedure lbCadastrarClick(Sender: TObject);
-    procedure rctCancelarClick(Sender: TObject);
+    procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure edPINChangeTracking(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
-    FMensagem :TFancyDialog;
+    FFancyDialog :TFancyDialog;
   public
     { Public declarations }
   end;
@@ -66,66 +51,52 @@ implementation
 
 {$R *.fmx}
 
-uses uUsuario;
-
-procedure TfrmLogin.edEmail_UserKeyDown(Sender: TObject; var Key: Word; var KeyChar: WideChar; Shift: TShiftState);
+procedure TfrmLogin.edPINChangeTracking(Sender: TObject);
 begin
-  if Key = vkReturn then
-    TFuncoes.PularCampo(edSenha);
-end;
+  try
+    try
+      if Length(edPin.Text) = 4 then
+      begin
+        //if FDm_Global.Valida_Pin(edPin.Text) then
+        //begin
+          if NOT Assigned(frmPrincipal) then
+            Application.CreateForm(TfrmPrincipal,frmPrincipal);
+          //frmPrincipal.FUser_PIN := edPIN.Text;
+          Application.MainForm := frmPrincipal;
+          frmPrincipal.Show;
+          Close;
+        //end
+        //else
+        //  raise Exception.Create('PIN Inválido');
+      end;
+    except on E: Exception do
+      FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'Ok');
+    end;
+  finally
+  end;
 
-procedure TfrmLogin.edEmail_UserTyping(Sender: TObject);
-begin
-  TFuncoes.ExibeLabel(edEmail_User,lbEmail_User,faEmail,10,-20);
-end;
-
-procedure TfrmLogin.edSenhaTyping(Sender: TObject);
-begin
-  TFuncoes.ExibeLabel(edSenha,lbSenha,faSenha,10,-20);
 end;
 
 procedure TfrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  {$IFDEF MSWINDOWS}
+    FreeAndNil(FFancyDialog);
+  {$ELSE}
+    FFancyDialog.DisposeOf;
+  {$ENDIF}
+
   Action := TCloseAction.caFree;
   frmLogin := Nil;
 end;
 
-procedure TfrmLogin.imgVerSenhaClick(Sender: TObject);
+procedure TfrmLogin.FormCreate(Sender: TObject);
 begin
-  case imgVerSenha.Tag of
-    0:begin
-      imgVerSenha.Bitmap := imgNVer.Bitmap;
-      edSenha.Password := False;
-      imgVerSenha.Tag := 1;
-    end;
-    1:begin
-      imgVerSenha.Bitmap := imgVer.Bitmap;
-      edSenha.Password := True;
-      imgVerSenha.Tag := 0;
-    end;
-  end;
+  FFancyDialog := TFancyDialog.Create(frmLogin);
 end;
 
-procedure TfrmLogin.lbCadastrarClick(Sender: TObject);
-begin
-  if not Assigned(frmUsuario) then
-    Application.CreateForm(TfrmUsuario,frmUsuario);
-  frmUsuario.Show;
-end;
-
-procedure TfrmLogin.rctCancelarClick(Sender: TObject);
+procedure TfrmLogin.imgFecharClick(Sender: TObject);
 begin
   Close;
 end;
 
 end.
-
-
-
-
-{
-CORES DO APP
-  Verde Escuro: #FF363428
-  Verde Claro: #FFA1B24E
-  Componentes: #FFD9D7CA
-}

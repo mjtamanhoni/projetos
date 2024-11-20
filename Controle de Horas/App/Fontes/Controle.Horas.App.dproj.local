@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/05/01 08:16:52.000.021,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/01 08:30:42.000.931,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/02 08:17:55.000.753,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/02 09:41:27.000.133,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/05/21 17:17:51.000.733,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/07/22 09:51:00.000.601,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/09/04 08:43:13.000.071,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/11/14 09:39:47.000.995,=C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas</Transaction>
+    <Transaction>2024/11/14 09:43:39.000.338,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.pas=C:\Developer\Controle de Horas\App\Fontes\uLogin.pas</Transaction>
+    <Transaction>2024/11/14 09:43:39.000.338,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Unit3.fmx=C:\Developer\Controle de Horas\App\Fontes\uLogin.fmx</Transaction>
+    <Transaction>2024/11/14 09:43:50.000.186,C:\Desenvolvimento\Projetos\AdaptaPortaria\Projetos Conesoft\Project3.dproj=C:\Developer\Controle de Horas\App\Fontes\Controle.Horas.App.dproj</Transaction>
+    <Transaction>2024/11/18 13:14:22.000.634,=C:\Developer\Classes\99 Coders\Versao 11\Android.KeyguardManager.pas</Transaction>
+    <Transaction>2024/11/18 13:14:22.000.763,=C:\Developer\Classes\99 Coders\Versao 11\Androidapi.JNI.PowerManager.pas</Transaction>
+    <Transaction>2024/11/18 13:14:22.000.996,=C:\Developer\Classes\99 Coders\Versao 11\u99Permissions.pas</Transaction>
+    <Transaction>2024/11/18 13:14:22.000.886,=C:\Developer\Classes\99 Coders\Versao 11\DW.Androidapi.JNI.KeyguardManager.pas</Transaction>
+    <Transaction>2024/11/18 13:14:24.000.156,=C:\Developer\Classes\99 Coders\Versao 11\uCombobox.pas</Transaction>
+    <Transaction>2024/11/18 13:14:24.000.395,=C:\Developer\Classes\99 Coders\Versao 11\uFormat.pas</Transaction>
+    <Transaction>2024/11/18 13:14:24.000.716,=C:\Developer\Classes\99 Coders\Versao 11\uSuperChart.pas</Transaction>
+    <Transaction>2024/11/18 13:14:24.000.262,=C:\Developer\Classes\99 Coders\Versao 11\uFancyDialog.pas</Transaction>
+    <Transaction>2024/11/18 13:14:24.000.609,=C:\Developer\Classes\99 Coders\Versao 11\uOpenViewUrl.pas</Transaction>
+    <Transaction>2024/11/18 13:14:24.000.501,=C:\Developer\Classes\99 Coders\Versao 11\uLoading.pas</Transaction>
+    <Transaction>2024/11/18 13:14:24.000.053,=C:\Developer\Classes\99 Coders\Versao 11\uActionSheet.pas</Transaction>
+    <Transaction>2024/11/18 13:15:21.000.075,=C:\Developer\Controle de Horas\DeskTop\Fontes\Funcoes\uFuncoes.pas</Transaction>
+    <Transaction>2024/11/18 13:35:07.000.121,=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/18 13:35:50.000.604,C:\Developer\Controle de Horas\App\Fontes\uPrincipal.fmx=C:\Developer\Controle de Horas\App\Fontes\Unit1.fmx</Transaction>
+    <Transaction>2024/11/18 13:35:50.000.604,C:\Developer\Controle de Horas\App\Fontes\uPrincipal.pas=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 07:36:41.197,=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 07:38:18.348,C:\Developer\Controle de Horas\App\Fontes\uCad.Usuario.pas=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 07:38:18.348,C:\Developer\Controle de Horas\App\Fontes\uCad.Usuario.fmx=C:\Developer\Controle de Horas\App\Fontes\Unit1.fmx</Transaction>
+    <Transaction>2024/11/20 08:42:58.802,=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 08:44:14.071,C:\Developer\Controle de Horas\App\Fontes\uMov.ServicosPrestados.fmx=C:\Developer\Controle de Horas\App\Fontes\Unit1.fmx</Transaction>
+    <Transaction>2024/11/20 08:44:14.071,C:\Developer\Controle de Horas\App\Fontes\uMov.ServicosPrestados.pas=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 10:04:46.685,=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 10:05:44.894,C:\Developer\Controle de Horas\App\Fontes\DataModulo\uDM.Global.pas=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 10:05:44.894,C:\Developer\Controle de Horas\App\Fontes\DataModulo\uDM.Global.dfm=C:\Developer\Controle de Horas\App\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2024/11/20 14:22:33.081,=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+    <Transaction>2024/11/20 14:23:17.419,C:\Developer\Controle de Horas\App\Fontes\Units\uModelo.Dados.pas=C:\Developer\Controle de Horas\App\Fontes\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
