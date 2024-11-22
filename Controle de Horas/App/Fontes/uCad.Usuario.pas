@@ -107,6 +107,7 @@ type
     FEnder :String;
     FDm_Global :TDM_Global;
     FTab_Status :TTab_Status;
+
     procedure Configura_Botoes;
     procedure Selecionar_Registros;
     procedure Cancelar(Sender: TOBject);

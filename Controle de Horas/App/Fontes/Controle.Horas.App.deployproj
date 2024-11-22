@@ -204,6 +204,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="..\DataBase\ControleHoras.s3db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Controle.Horas.App\assets\internal\</RemoteDir>
+            <RemoteName>ControleHoras.s3db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="..\DataBase\ControleHoras.s3db" Condition="'$(Config)'=='Release'">
             <RemoteDir>Controle.Horas.App\assets\internal\</RemoteDir>
             <RemoteName>ControleHoras.s3db</RemoteName>
@@ -218,15 +227,6 @@
             <RemoteName>AndroidManifest.xml</RemoteName>
             <DeployClass>ProjectAndroidManifest</DeployClass>
             <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="..\DataBase\ControleHoras.s3db" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>Controle.Horas.App\assets\internal\</RemoteDir>
-            <RemoteName>ControleHoras.s3db</RemoteName>
-            <DeployClass>File</DeployClass>
-            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -352,6 +352,16 @@
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Win64\Release\Controle.Horas.App.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Controle.Horas.App\</RemoteDir>
+            <RemoteName>Controle_Horas_App.exe</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
         </DeployFile>
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Linux64'"/>

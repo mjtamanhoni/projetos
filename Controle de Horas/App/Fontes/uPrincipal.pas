@@ -149,6 +149,7 @@ type
     procedure imgLogClick(Sender: TObject);
     procedure rctCadUsuarioClick(Sender: TObject);
     procedure rctEstruturaClick(Sender: TObject);
+    procedure rctEmpresaClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FDm_Global :TDM_Global;
@@ -171,6 +172,7 @@ implementation
 
 uses
   uCad.Usuario
+  ,uCad.Empresa
   ,uModelo.Dados;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -217,10 +219,14 @@ procedure TfrmPrincipal.rctCadUsuarioClick(Sender: TObject);
 begin
   Config_Menu;
   Application.CreateForm(TfrmCad_Usuario,frmCad_Usuario);
-  frmCad_Usuario.Parent := Self;
-  frmCad_Usuario.Height := Self.Height;
-  frmCad_Usuario.Width := Self.Width;
   frmCad_Usuario.Show;
+end;
+
+procedure TfrmPrincipal.rctEmpresaClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Empresa,frmCad_Empresa);
+  frmCad_Empresa.Show;
 end;
 
 procedure TfrmPrincipal.rctEstruturaClick(Sender: TObject);

@@ -20,7 +20,8 @@ uses
   uCad.Usuario in 'uCad.Usuario.pas' {frmCad_Usuario},
   uMov.ServicosPrestados in 'uMov.ServicosPrestados.pas' {frmMov_ServicosPrestados},
   uDM.Global in 'DataModulo\uDM.Global.pas' {DM_Global: TDataModule},
-  uModelo.Dados in 'Units\uModelo.Dados.pas';
+  uModelo.Dados in 'Units\uModelo.Dados.pas',
+  uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa};
 
 {$R *.res}
 
