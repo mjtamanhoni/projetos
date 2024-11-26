@@ -90,6 +90,8 @@ type
     imgSenha: TImage;
     imgExibir: TImage;
     imgEsconder: TImage;
+    Image1: TImage;
+    Image2: TImage;
     procedure imgVoltarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -101,6 +103,7 @@ type
     procedure edCELULARTyping(Sender: TObject);
     procedure imgAcao_01Click(Sender: TObject);
     procedure imgSenhaClick(Sender: TObject);
+    procedure edID_EMPRESAClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -114,6 +117,7 @@ type
     procedure LimparCampos;
     procedure Salvar;
     procedure TTHreadEnd_Salvar(Sender: TOBject);
+    procedure Sel_Empresa(Aid:Integer; ANome:String);
 
   public
     { Public declarations }
@@ -126,6 +130,8 @@ implementation
 
 {$R *.fmx}
 
+uses uCad.Empresa;
+
 procedure TfrmCad_Usuario.edCELULARTyping(Sender: TObject);
 begin
   Formatar(edCELULAR,Celular);
@@ -137,6 +143,22 @@ begin
   if Key = vkReturn then
     edCELULAR.SetFocus;
 
+end;
+
+procedure TfrmCad_Usuario.edID_EMPRESAClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_Empresa) then
+    Application.CreateForm(TfrmCad_Empresa,frmCad_Empresa);
+
+  frmCad_Empresa.Pesquisa := True;
+  frmCad_Empresa.ExecuteOnClose := Sel_Empresa;
+  frmCad_Empresa.Show;
+end;
+
+procedure TfrmCad_Usuario.Sel_Empresa(Aid:Integer; ANome:String);
+begin
+  edID_EMPRESA.Tag := Aid;
+  edID_EMPRESA.Text := ANome;
 end;
 
 procedure TfrmCad_Usuario.edLOGINKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -281,6 +303,7 @@ begin
       FQuery.Sql.Add('  ,HR_CADASTRO ');
       FQuery.Sql.Add('  ,SINCRONIZADO ');
       FQuery.Sql.Add('  ,ID_PRINCIPAL ');
+      FQuery.Sql.Add('  ,EXCLUIDO ');
       FQuery.Sql.Add(') VALUES( ');
       FQuery.Sql.Add('  :NOME ');
       FQuery.Sql.Add('  ,:LOGIN ');
@@ -295,11 +318,13 @@ begin
       FQuery.Sql.Add('  ,:HR_CADASTRO ');
       FQuery.Sql.Add('  ,:SINCRONIZADO ');
       FQuery.Sql.Add('  ,:ID_PRINCIPAL ');
+      FQuery.Sql.Add('  ,:EXCLUIDO ');
       FQuery.Sql.Add('); ');
       FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
       FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
       FQuery.ParamByName('SINCRONIZADO').AsInteger := 0;
       FQuery.ParamByName('ID_PRINCIPAL').AsInteger := 0;
+      FQuery.ParamByName('EXCLUIDO').AsInteger := 0;
     end
     else if FTab_Status = dsEdit then
     begin

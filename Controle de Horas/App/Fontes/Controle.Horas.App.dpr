@@ -21,7 +21,9 @@ uses
   uMov.ServicosPrestados in 'uMov.ServicosPrestados.pas' {frmMov_ServicosPrestados},
   uDM.Global in 'DataModulo\uDM.Global.pas' {DM_Global: TDataModule},
   uModelo.Dados in 'Units\uModelo.Dados.pas',
-  uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa};
+  uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa},
+  uACBr in '..\..\Global\uACBr.pas',
+  uFrame.Empresa in 'Frame\uFrame.Empresa.pas' {Frame_Empresa: TFrame};
 
 {$R *.res}
 

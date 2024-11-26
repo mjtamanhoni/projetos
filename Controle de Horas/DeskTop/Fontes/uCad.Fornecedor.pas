@@ -12,6 +12,8 @@ uses
     uLoading,
   {$EndRegion '99 Coders'}
 
+  uACBr,
+
   IniFiles,
   uPrincipal,
   uDm.Global, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
@@ -149,6 +151,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure imgFecharClick(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
+    procedure edDOCUMENTOExit(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -156,6 +159,7 @@ type
     FDm_Global :TDM_Global;
     FTab_Status :TTab_Status;
     FPesquisa: Boolean;
+    FACBr_Validador :TACBr_Validador;
 
     procedure Cancelar;
     procedure Editar;
@@ -240,6 +244,25 @@ procedure TfrmCad_Fornecedor.edCOMPLEMENTOKeyDown(Sender: TObject; var Key: Word
 begin
   if Key = vkReturn then
     edBAIRRO.SetFocus;
+
+end;
+
+procedure TfrmCad_Fornecedor.edDOCUMENTOExit(Sender: TObject);
+begin
+  try
+    case edPESSOA.ItemIndex of
+      0:begin
+        if not FACBr_Validador.Validar(docCPF,edDOCUMENTO.Text) then
+          edDOCUMENTO.SetFocus;
+      end;
+      1:begin
+        if not FACBr_Validador.Validar(docCNPJ,edDOCUMENTO.Text) then
+          edDOCUMENTO.SetFocus;
+      end;
+    end;
+  except on E: Exception do
+    FFancyDialog.Show(TIconDialog.Error,'Erro',e.Message,'Ok');
+  end;
 
 end;
 
@@ -401,6 +424,7 @@ begin
   FreeAndNil(FFancyDialog);
   FreeAndNil(FIniFile);
   FreeAndNil(FDm_Global);
+  FreeAndNil(FACBr_Validador);
 
   Action := TCloseAction.caFree;
   frmCad_Fornecedor := Nil;
@@ -412,6 +436,8 @@ begin
   FEnder := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
   FIniFile := TIniFile.Create(FEnder);
+
+  FACBr_Validador := TACBr_Validador.Create(FEnder);
 
   tcPrincipal.ActiveTab := tiLista;
 

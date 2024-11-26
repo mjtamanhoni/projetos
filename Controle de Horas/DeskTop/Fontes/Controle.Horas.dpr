@@ -24,7 +24,8 @@ uses
   uPesq_Pessoas in 'uPesq_Pessoas.pas' {frmPesq_Pessoas},
   uCad.FormaPagamento in 'uCad.FormaPagamento.pas' {frmFormaPagamento},
   uCad.CondicaoPagamento in 'uCad.CondicaoPagamento.pas' {frmCondicao_Pagamento},
-  uPesq_FormaCond_Pagto in 'uPesq_FormaCond_Pagto.pas' {frmPesq_FormaCond_Pagto};
+  uPesq_FormaCond_Pagto in 'uPesq_FormaCond_Pagto.pas' {frmPesq_FormaCond_Pagto},
+  uACBr in '..\..\Global\uACBr.pas';
 
 {$R *.res}
 

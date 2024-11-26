@@ -11,17 +11,26 @@ uses
     uFormat,
     uLoading,
     uCombobox,
+    uActionSheet,
   {$EndRegion '99 Coders'}
 
   IniFiles,
   uPrincipal,
   uDm.Global,
+  uACBr,
+
+  {$Region 'Frames'}
+    uFrame.Empresa,
+  {$EndRegion 'Frames'}
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListView.Types, FMX.ListView.Appearances,
-  FMX.ListView.Adapters.Base, FMX.Effects, FMX.Objects, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit,
-  FMX.ListView, FMX.TabControl, FMX.Layouts;
+  FMX.ListView.Adapters.Base, FMX.Effects, FMX.Objects, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit,FMX.ListBox,
+  FMX.ListView, FMX.TabControl, FMX.Layouts, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
+  TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
   TTab_Status = (dsInsert,dsEdit,dsLista);
 
   TfrmCad_Empresa = class(TForm)
@@ -38,7 +47,6 @@ type
     tcPrincipal: TTabControl;
     tiLista: TTabItem;
     lytLista: TLayout;
-    lvLista: TListView;
     lytFiltro: TLayout;
     edFiltro: TEdit;
     imgFiltrar: TImage;
@@ -126,6 +134,7 @@ type
     imgRetornar_002: TImage;
     imgPESSOA: TImage;
     Image1: TImage;
+    lbRegistros: TListBox;
     procedure imgVoltarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -153,6 +162,9 @@ type
     procedure edCELULARKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edPESSOAClick(Sender: TObject);
     procedure edUFClick(Sender: TObject);
+    procedure edDOCUMENTOExit(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -161,13 +173,18 @@ type
     FTab_Status :TTab_Status;
     cComboPessoa :TCustomCombo;
     cComboUF :TCustomCombo;
+    FMenu_Frame :TActionSheet;
 
-    procedure Configura_Botoes;
-    procedure Selecionar_Registros;
+    FId :Integer;
+    FNome :String;
+
+    FACBr_Validador :TACBr_Validador;
+    FPesquisa: Boolean;
+
     procedure LimparCampos;
     procedure Salvar;
+    procedure TTHreadEnd_Salvar(Sender: TOBject);
     procedure Cancelar(Sender: TOBject);
-    procedure CriandoCombos;
 
     {$IFDEF MSWINDOWS}
       procedure ItemClick_Pessoa(Sender: TObject);
@@ -177,9 +194,23 @@ type
       procedure ItemClick_Pessoa(Sender: TObject; const Point: TPointF);
     {$ENDIF}
 
+    procedure Listar_Registros(APesquisa:String);
+
+    procedure CriandoCombos;
+    procedure TThreadEnd_Listar_Registros(Sender: TObject);
+    procedure AddRegistros_LB(AId,ASincronizado,AExcluido:Integer; ANome,ADocumento,ACeluar:String);
+    procedure Abre_Menu_Registros(Sender :TOBject);
+    procedure CriandoMenus;
+    procedure Editar(Sender: TOBject);
+    procedure Excluir(Sender: TObject);
+    procedure TThreadEnd_Editar(Sender: TOBject);
+    procedure Excluir_Registro(Sender: TObject);
+    procedure TThreadEnd_ExcluirRegistro(Sender: TOBject);
+    procedure SetPesquisa(const Value: Boolean);
 
   public
-    { Public declarations }
+    ExecuteOnClose :TExecuteOnClose;
+    property Pesquisa:Boolean read FPesquisa write SetPesquisa;
   end;
 
 var
@@ -237,6 +268,24 @@ begin
   if Key = vkReturn then
     edBAIRRO.SetFocus;
 
+end;
+
+procedure TfrmCad_Empresa.edDOCUMENTOExit(Sender: TObject);
+begin
+  try
+    case edPESSOA.Tag of
+      0:begin
+        if not FACBr_Validador.Validar(docCPF,edDOCUMENTO.Text) then
+          edDOCUMENTO.SetFocus;
+      end;
+      1:begin
+        if not FACBr_Validador.Validar(docCNPJ,edDOCUMENTO.Text) then
+          edDOCUMENTO.SetFocus;
+      end;
+    end;
+  except on E: Exception do
+    FFancyDialog.Show(TIconDialog.Error,'Erro',e.Message,'Ok');
+  end;
 end;
 
 procedure TfrmCad_Empresa.edDOCUMENTOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
@@ -336,11 +385,15 @@ begin
     FreeAndNil(FIniFile);
     FreeAndNil(FDm_Global);
     FreeAndNil(cComboPessoa);
+    FreeAndNil(FACBr_Validador);
+    FreeAndNil(FMenu_Frame);
   {$ELSE}
     FFancyDialog.DisposeOf;
     FIniFile.DisposeOf;
     FDm_Global.DisposeOf;
     cComboPessoa.DisposeOf;
+    FACBr_Validador.DisposeOf;
+    FMenu_Frame.DisposeOf;
   {$ENDIF}
 
   Action := TCloseAction.caFree;
@@ -349,6 +402,8 @@ end;
 
 procedure TfrmCad_Empresa.FormCreate(Sender: TObject);
 begin
+  tcCampos.Margins.Bottom := 0;
+
   FEnder  := '';
   {$IFDEF MSWINDOWS}
     FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
@@ -357,8 +412,11 @@ begin
   {$ENDIF}
   FIniFile := TIniFile.Create(FEnder);
 
+  FACBr_Validador := TACBr_Validador.Create(FEnder);
+
   FFancyDialog := TFancyDialog.Create(frmCad_Empresa);
   CriandoCombos;
+  CriandoMenus;
 
   tcPrincipal.ActiveTab := tiLista;
   tcCampos.ActiveTab := tiCampos_001;
@@ -367,8 +425,150 @@ begin
 
   FTab_Status := dsLista;
 
-  Selecionar_Registros;
-  Configura_Botoes;
+  Pesquisa := False;
+
+end;
+
+procedure TfrmCad_Empresa.CriandoMenus;
+begin
+  FMenu_Frame := TActionSheet.Create(frmCad_Empresa);
+
+  FMenu_Frame.TitleFontSize := 12;
+  FMenu_Frame.TitleMenuText := 'O que deseja fazer?';
+  FMenu_Frame.TitleFontColor := $FFA3A3A3;
+
+  FMenu_Frame.CancelMenuText := 'Cancelar';
+  FMenu_Frame.CancelFontSize := 15;
+  FMenu_Frame.CancelFontColor := $FFD63422;
+
+  FMenu_Frame.AddItem('','Editar Rebistro',Editar,$FFD63422,16);
+  FMenu_Frame.AddItem('','Excluir Registro',Excluir,$FFD63422,16);
+end;
+
+procedure TfrmCad_Empresa.Editar(Sender :TOBject);
+var
+  t :TThread;
+begin
+  FMenu_Frame.HideMenu;
+  TLoading.Show(frmCad_Empresa,'Editando o Registro');
+  LimparCampos;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FQuery :TFDQuery;
+  begin
+    FQuery := TFDQuery.Create(Nil);
+    FQuery.Connection := FDm_Global.FDC_SQLite;
+    FQuery.Active := False;
+    FQuery.Sql.Clear;
+    FQuery.Sql.Add('SELECT  ');
+    FQuery.Sql.Add('  E.*  ');
+    FQuery.Sql.Add('FROM EMPRESA E ');
+    FQuery.Sql.Add('WHERE E.ID = :ID ');
+    FQuery.ParamByName('ID').AsInteger := FId;
+    FQuery.Active := True;
+    if not FQuery.IsEmpty then
+    begin
+      FQuery.First;
+      TThread.Synchronize(TThread.CurrentThread,
+      procedure
+      begin
+        edID.Tag := FQuery.FieldByName('ID').AsInteger;
+        edID.Text := FQuery.FieldByName('ID').AsString;
+        edPESSOA.Tag := FQuery.FieldByName('PESSOA').AsInteger;
+        case edPESSOA.Tag of
+          0: edPESSOA.Text := 'FÍSICA';
+          1: edPESSOA.Text := 'JURÍDICA';
+        end;
+        edNOME.Text := FQuery.FieldByName('NOME').AsString;
+        edDOCUMENTO.Text := FQuery.FieldByName('DOCUMENTO').AsString;
+        edINSC_EST.Text := FQuery.FieldByName('INSC_EST').AsString;
+        edCEP.Text := FQuery.FieldByName('CEP').AsString;
+        edENDERECO.Text := FQuery.FieldByName('ENDERECO').AsString;
+        edNUMERO.Text := FQuery.FieldByName('NUMERO').AsString;
+        edCOMPLEMENTO.Text := FQuery.FieldByName('COMPLEMENTO').AsString;
+        edBAIRRO.Text := FQuery.FieldByName('BAIRRO').AsString;
+        edCIDADE.Text := FQuery.FieldByName('CIDADE').AsString;
+        edUF.Text := FQuery.FieldByName('UF').AsString;
+        edTELEFONE.Text := FQuery.FieldByName('TELEFONE').AsString;
+        edCELULAR.Text := FQuery.FieldByName('CELULAR').AsString;
+        edEMAIL.Text := FQuery.FieldByName('EMAIL').AsString;
+      end);
+    end;
+
+    {$IFDEF MSWINDWOS}
+      FreeAndNil(FQuery);
+    {$ELSE}
+      FQuery.DisposeOf;
+    {$ENDIF}
+
+
+  end);
+
+  t.OnTerminate := TThreadEnd_Editar;
+  t.Start;
+
+end;
+
+procedure TfrmCad_Empresa.TThreadEnd_Editar(Sender :TOBject);
+begin
+  TLoading.Hide;
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FTab_Status := dsEdit;
+    imgAcao_01.Tag := 1;
+    imgAcao_01.Bitmap := imgSalvar.Bitmap;
+    tcPrincipal.GotoVisibleTab(1);
+  end;
+end;
+
+procedure TfrmCad_Empresa.Excluir(Sender :TObject);
+begin
+  //FFancyDialog.Show(TIconDialog.Info,'Atenção',FId.ToString + ' - ' + FNome,'Ok');
+  FMenu_Frame.HideMenu;
+  FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja excluir o registro?','Sim',Excluir_Registro,'Não');
+end;
+
+procedure TfrmCad_Empresa.Excluir_Registro(Sender :TObject);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmCad_Empresa,'Excluindo registro');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FQuery :TFDQuery;
+  begin
+    FQuery := TFDQuery.Create(Nil);
+    FQuery.Connection := FDm_Global.FDC_SQLite;
+    FQuery.Active := False;
+    FQuery.Sql.Clear;
+    FQuery.Sql.Add('DELETE FROM EMPRESA WHERE ID = :ID ');
+    FQuery.ParamByName('ID').AsInteger := FId;
+    FQuery.ExecSQL;;
+  end);
+
+  t.OnTerminate := TThreadEnd_ExcluirRegistro;
+  t.Start;
+
+end;
+
+procedure TfrmCad_Empresa.TThreadEnd_ExcluirRegistro(Sender :TOBject);
+begin
+  TLoading.Hide;
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message)
+  else
+    Listar_Registros(edFiltro.Text);
+end;
+
+procedure TfrmCad_Empresa.FormShow(Sender: TObject);
+begin
+  Listar_Registros(edFiltro.Text);
 end;
 
 procedure TfrmCad_Empresa.CriandoCombos;
@@ -443,16 +643,6 @@ begin
 
 end;
 
-procedure TfrmCad_Empresa.Selecionar_Registros;
-begin
-
-end;
-
-procedure TfrmCad_Empresa.Configura_Botoes;
-begin
-
-end;
-
 procedure TfrmCad_Empresa.imgAcao_01Click(Sender: TObject);
 begin
   case imgAcao_01.Tag of
@@ -470,13 +660,286 @@ begin
 end;
 
 procedure TfrmCad_Empresa.Salvar;
+var
+  t :TThread;
 begin
+  TLoading.Show(frmCad_Empresa,'Salvando alterações');
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FQuery :TFDQuery;
+  begin
+    FQuery := TFDQuery.Create(Nil);
+    FQuery.Connection := FDm_Global.FDC_SQLite;
+    FQuery.Active := False;
+    FQuery.Sql.Clear;
+
+    if FTab_Status = dsInsert then
+    begin
+      FQuery.Sql.Add('INSERT INTO EMPRESA( ');
+      FQuery.Sql.Add('  NOME ');
+      FQuery.Sql.Add('  ,PESSOA ');
+      FQuery.Sql.Add('  ,DOCUMENTO ');
+      FQuery.Sql.Add('  ,INSC_EST ');
+      FQuery.Sql.Add('  ,CEP ');
+      FQuery.Sql.Add('  ,ENDERECO ');
+      FQuery.Sql.Add('  ,COMPLEMENTO ');
+      FQuery.Sql.Add('  ,NUMERO ');
+      FQuery.Sql.Add('  ,BAIRRO ');
+      FQuery.Sql.Add('  ,CIDADE ');
+      FQuery.Sql.Add('  ,UF ');
+      FQuery.Sql.Add('  ,TELEFONE ');
+      FQuery.Sql.Add('  ,CELULAR ');
+      FQuery.Sql.Add('  ,EMAIL ');
+      FQuery.Sql.Add('  ,DT_CADASTRO ');
+      FQuery.Sql.Add('  ,HR_CADASTRO ');
+      FQuery.Sql.Add('  ,SINCRONIZADO ');
+      FQuery.Sql.Add('  ,ID_PRINCIPAL ');
+      FQuery.Sql.Add('  ,EXCLUIDO ');
+      FQuery.Sql.Add(') VALUES( ');
+      FQuery.Sql.Add('  :NOME ');
+      FQuery.Sql.Add('  ,:PESSOA ');
+      FQuery.Sql.Add('  ,:DOCUMENTO ');
+      FQuery.Sql.Add('  ,:INSC_EST ');
+      FQuery.Sql.Add('  ,:CEP ');
+      FQuery.Sql.Add('  ,:ENDERECO ');
+      FQuery.Sql.Add('  ,:COMPLEMENTO ');
+      FQuery.Sql.Add('  ,:NUMERO ');
+      FQuery.Sql.Add('  ,:BAIRRO ');
+      FQuery.Sql.Add('  ,:CIDADE ');
+      FQuery.Sql.Add('  ,:UF ');
+      FQuery.Sql.Add('  ,:TELEFONE ');
+      FQuery.Sql.Add('  ,:CELULAR ');
+      FQuery.Sql.Add('  ,:EMAIL ');
+      FQuery.Sql.Add('  ,:DT_CADASTRO ');
+      FQuery.Sql.Add('  ,:HR_CADASTRO ');
+      FQuery.Sql.Add('  ,:SINCRONIZADO ');
+      FQuery.Sql.Add('  ,:ID_PRINCIPAL ');
+      FQuery.Sql.Add('  ,:EXCLUIDO ');
+      FQuery.Sql.Add('); ');
+      FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
+      FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
+      FQuery.ParamByName('SINCRONIZADO').AsInteger := 0;
+      FQuery.ParamByName('ID_PRINCIPAL').AsInteger := 0;
+      FQuery.ParamByName('EXCLUIDO').AsInteger := 0;
+    end
+    else if FTab_Status = dsEdit then
+    begin
+      FQuery.Sql.Add('UPDATE EMPRESA SET ');
+      FQuery.Sql.Add('  NOME = :NOME ');
+      FQuery.Sql.Add('  ,PESSOA = :PESSOA ');
+      FQuery.Sql.Add('  ,DOCUMENTO = :DOCUMENTO ');
+      FQuery.Sql.Add('  ,INSC_EST = :INSC_EST ');
+      FQuery.Sql.Add('  ,CEP = :CEP ');
+      FQuery.Sql.Add('  ,ENDERECO = :ENDERECO ');
+      FQuery.Sql.Add('  ,COMPLEMENTO = :COMPLEMENTO ');
+      FQuery.Sql.Add('  ,NUMERO = :NUMERO ');
+      FQuery.Sql.Add('  ,BAIRRO = :BAIRRO ');
+      FQuery.Sql.Add('  ,CIDADE = :CIDADE ');
+      FQuery.Sql.Add('  ,UF = :UF ');
+      FQuery.Sql.Add('  ,TELEFONE = :TELEFONE ');
+      FQuery.Sql.Add('  ,CELULAR = :CELULAR ');
+      FQuery.Sql.Add('  ,EMAIL = :EMAIL ');
+      FQuery.Sql.Add('WHERE ID = :ID ');
+      FQuery.ParamByName('ID').AsInteger := edID.Tag;
+    end;
+    FQuery.ParamByName('NOME').AsString := edNOME.Text;
+    FQuery.ParamByName('PESSOA').AsInteger := edPESSOA.Tag;
+    FQuery.ParamByName('DOCUMENTO').AsString := edDOCUMENTO.Text;
+    FQuery.ParamByName('INSC_EST').AsString := edINSC_EST.Text;
+    FQuery.ParamByName('CEP').AsString := edCEP.Text;
+    FQuery.ParamByName('ENDERECO').AsString := edENDERECO.Text;
+    FQuery.ParamByName('COMPLEMENTO').AsString := edCOMPLEMENTO.Text;
+    FQuery.ParamByName('NUMERO').AsString := edNUMERO.Text;
+    FQuery.ParamByName('BAIRRO').AsString := edBAIRRO.Text;
+    FQuery.ParamByName('CIDADE').AsString := edCIDADE.Text;
+    FQuery.ParamByName('UF').AsString := edUF.Text;
+    FQuery.ParamByName('TELEFONE').AsString := edTELEFONE.Text;
+    FQuery.ParamByName('CELULAR').AsString := edCELULAR.Text;
+    FQuery.ParamByName('EMAIL').AsString := edEMAIL.Text;
+    FQuery.ExecSQL;
+
+    {$IFDEF MSWINDOWS}
+      FreeAndNil(FQuery);
+    {$ELSE}
+      FQuery.DisposeOf;
+    {$ENDIF}
+
+  end);
+
+  t.OnTerminate := TTHreadEnd_Salvar;
+  t.Start;
+end;
+
+procedure TfrmCad_Empresa.SetPesquisa(const Value: Boolean);
+begin
+  FPesquisa := Value;
+end;
+
+procedure TfrmCad_Empresa.TTHreadEnd_Salvar(Sender :TOBject);
+begin
+  TLoading.Hide;
+
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'Salvar',Exception(TThread(Sender).FatalException).Message)
+  else
+  begin
+    FTab_Status := dsLista;
+    imgAcao_01.Tag := 0;
+    imgAcao_01.Bitmap := imgNovo.Bitmap;
+    tcPrincipal.GotoVisibleTab(0);
+    Listar_Registros(edFiltro.Text);
+  end;
 
 end;
 
 procedure TfrmCad_Empresa.LimparCampos;
 begin
+  edID.Text := '';
+  edID.Tag := 0;
+  edPESSOA.Text := '';
+  edPESSOA.Tag := 0;
+  edNOME.Text := '';
+  edDOCUMENTO.Text := '';
+  edINSC_EST.Text := '';
+  edCEP.Text := '';
+  edENDERECO.Text := '';
+  edNUMERO.Text := '';
+  edCOMPLEMENTO.Text := '';
+  edBAIRRO.Text := '';
+  edCIDADE.Text := '';
+  edUF.Text := '';
+  edUF.TagString := '';
+  edTELEFONE.Text := '';
+  edCELULAR.Text := '';
+  edEMAIL.Text := '';
+end;
 
+procedure TfrmCad_Empresa.Listar_Registros(APesquisa: String);
+var
+  t :TThread;
+begin
+  TLoading.Show(frmCad_Empresa,'Listando Registros');
+  lbRegistros.Clear;
+  lbRegistros.BeginUpdate;
+
+  t := TThread.CreateAnonymousThread(
+  procedure
+  var
+    FQuery :TFDQuery;
+  begin
+    FQuery := TFDQuery.Create(Nil);
+    FQuery.Connection := FDm_Global.FDC_SQLite;
+    FQuery.Active := False;
+    FQuery.Sql.Clear;
+    FQuery.Sql.Add('SELECT  ');
+    FQuery.Sql.Add('  E.*  ');
+    FQuery.Sql.Add('FROM EMPRESA E ');
+    FQuery.Sql.Add('WHERE NOT E.ID IS NULL ');
+    if Trim(APesquisa) <> '' then
+    begin
+      FQuery.Sql.Add('  AND E.NOME = :NOME');
+      FQuery.ParamByName('NOME').AsString := '%' + APesquisa + '%';
+    end;
+    FQuery.Active := True;
+    if not FQuery.IsEmpty then
+    begin
+      FQuery.First;
+      while not FQuery.Eof do
+      begin
+        TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          AddRegistros_LB(
+            FQuery.FieldByName('ID').AsInteger
+            ,FQuery.FieldByName('SINCRONIZADO').AsInteger
+            ,FQuery.FieldByName('EXCLUIDO').AsInteger
+            ,FQuery.FieldByName('NOME').AsString
+            ,FQuery.FieldByName('DOCUMENTO').AsString
+            ,FQuery.FieldByName('CELULAR').AsString
+          );
+        end);
+
+        FQuery.Next;
+      end;
+    end;
+
+    TThread.Synchronize(TThread.CurrentThread,
+    procedure
+    begin
+      lbRegistros.EndUpdate;
+    end);
+
+    if Assigned(FQuery) then
+      FreeAndNil(FQuery);
+    
+  end);
+
+  t.OnTerminate := TThreadEnd_Listar_Registros;
+  t.Start;
+
+end;
+
+procedure TfrmCad_Empresa.Abre_Menu_Registros(Sender: TOBject);
+var
+  FFrame :TFrame_Empresa;
+  FRctMenu :TRectangle;
+  
+begin
+  FRctMenu := TRectangle(Sender);
+  FFrame := FRctMenu.Parent as TFrame_Empresa;
+
+  FId := FFrame.lbNome.Tag;
+  FNome := FFrame.lbNome.Text;
+
+  FMenu_Frame.ShowMenu;
+
+end;
+
+procedure TfrmCad_Empresa.AddRegistros_LB(AId,ASincronizado,AExcluido:Integer; ANome,ADocumento,ACeluar:String);
+var
+  FItem :TListBoxItem;
+  FFrame :TFrame_Empresa;
+
+begin
+  try
+    FItem := TListBoxItem.Create(Nil);
+    FItem.Text := '';
+    FItem.Height := 50;
+    FItem.Tag := AId;
+    FItem.TagString := ANome;
+    FItem.Selectable := True;
+
+    FFrame := TFrame_Empresa.Create(FItem);
+    FFrame.Parent := FItem;
+    FFrame.Align := TAlignLayout.Client;
+    FFrame.lbNome.Text := ANome;
+    FFrame.lbNome.Tag := AId;
+    FFrame.lbDocumento.Text := ADocumento;
+    FFrame.lbCelular.Text := ACeluar;
+    case ASincronizado of
+      0:FFrame.imgSincronizado.Opacity := 0.5;  
+      1:FFrame.imgSincronizado.Opacity := 1;
+    end;
+    case AExcluido of
+      0:FFrame.imgExcluído.Opacity := 0.5;  
+      1:FFrame.imgExcluído.Opacity := 1;  
+    end;
+    FFrame.rctMenu.OnClick := Abre_Menu_Registros;
+    
+    lbRegistros.AddObject(FItem);
+
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
+end;
+
+procedure TfrmCad_Empresa.TThreadEnd_Listar_Registros(Sender :TObject);
+begin
+  TLoading.Hide;
+  if Assigned(TThread(Sender).FatalException) then
+    FFancyDialog.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message);
 end;
 
 procedure TfrmCad_Empresa.imgAvancar_001Click(Sender: TObject);
@@ -502,7 +965,11 @@ end;
 procedure TfrmCad_Empresa.imgVoltarClick(Sender: TObject);
 begin
   case tcPrincipal.TabIndex of
-    0:Close;
+    0:begin
+      if FPesquisa then
+        ExecuteOnClose(FId,FNome);
+      Close;
+    end;
     1:FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja cancelar as alterações realizadas','Sim',Cancelar,'Não');
   end;
 end;
@@ -513,6 +980,16 @@ begin
   cComboPessoa.HideMenu;
   edPessoa.Text := cComboPessoa.DescrItem;
   edPessoa.Tag := StrToIntDef(cComboPessoa.CodItem,0);
+  case edPessoa.Tag of
+    0:begin
+      lbDOCUMENTO.Text := 'CPF';
+      lbINSC_EST.Text := 'Identidade';
+    end;
+    1:begin
+      lbDOCUMENTO.Text := 'CNPJ';
+      lbINSC_EST.Text := 'Insc. Estadual';
+    end;
+  end;
 end;
 {$ELSE}
 procedure TfrmCad_Empresa.ItemClick_Pessoa(Sender: TObject; const Point: TPointF);
@@ -520,6 +997,16 @@ begin
   cComboPessoa.HideMenu;
   edPessoa.Text := cComboPessoa.DescrItem;
   edPessoa.Tag := StrToIntDef(cComboPessoa.CodItem,0);
+  case edPessoa.Tag of
+    0:begin
+      lbDOCUMENTO.Text := 'CPF';
+      lbINSC_EST.Text := 'Identidade';
+    end;
+    1:begin
+      lbDOCUMENTO.Text := 'CNPJ';
+      lbINSC_EST.Text := 'Insc. Estadual';
+    end;
+  end;
 end;
 {$ENDIF}
 
@@ -537,8 +1024,18 @@ begin
 end;
 {$ENDIF}
 
+procedure TfrmCad_Empresa.lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
+begin
+  FId := Item.Tag;
+  FNome := Item.TagString;
+end;
+
 procedure TfrmCad_Empresa.Cancelar(Sender :TOBject);
 begin
+  FTab_Status := dsLista;
+  LimparCampos;
+  imgAcao_01.Tag := 0;
+  imgAcao_01.Bitmap := imgNovo.Bitmap;
   tcPrincipal.GotoVisibleTab(0);
 end;
 

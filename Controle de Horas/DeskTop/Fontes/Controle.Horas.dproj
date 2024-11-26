@@ -350,6 +350,7 @@
             <Form>frmPesq_FormaCond_Pagto</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="..\..\Global\uACBr.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

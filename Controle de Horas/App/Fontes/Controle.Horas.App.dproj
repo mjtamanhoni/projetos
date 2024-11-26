@@ -332,6 +332,12 @@
             <Form>frmCad_Empresa</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="..\..\Global\uACBr.pas"/>
+        <DCCReference Include="Frame\uFrame.Empresa.pas">
+            <Form>Frame_Empresa</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

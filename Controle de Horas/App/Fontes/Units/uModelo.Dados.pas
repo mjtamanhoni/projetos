@@ -12,6 +12,8 @@ uses
   ,DataSet.Serialize;
 
 type
+  TTipo = (tfInteger,tfString,tfNumero,tfData,tfHora);
+
   TEstrutura = class
   private
     FConexao: TFDConnection;
@@ -20,7 +22,7 @@ type
     function Tabela_Existe(const ATabela:String):Boolean;
     function Campo_Existe(const ATabela,ACampo:String):Boolean;
 
-    procedure Criar_Campo(const ATabela,ACampo:String);
+    procedure Criar_Campo(const ATabela,ACampo:String; ATipo:TTipo; ATamanho:Integer=0; ADecimal:Integer=0);
 
   public
     constructor Create(AConnexao: TFDConnection;AEnder:String);
@@ -82,7 +84,11 @@ begin
   try
     try
       if not Campo_Existe('CLIENTE','ID_PRINCIPAL') then
-        Criar_Campo('CLIENTE','ID_PRINCIPAL');
+        Criar_Campo('CLIENTE','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('CLIENTE','EXCLUIDO') then
+        Criar_Campo('CLIENTE','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -96,7 +102,11 @@ begin
   try
     try
       if not Campo_Existe('CLIENTE_TABELA','ID_PRINCIPAL') then
-        Criar_Campo('CLIENTE_TABELA','ID_PRINCIPAL');
+        Criar_Campo('CLIENTE_TABELA','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('CLIENTE_TABELA','EXCLUIDO') then
+        Criar_Campo('CLIENTE_TABELA','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -110,7 +120,11 @@ begin
   try
     try
       if not Campo_Existe('CONDICAO_PAGAMENTO','ID_PRINCIPAL') then
-        Criar_Campo('CONDICAO_PAGAMENTO','ID_PRINCIPAL');
+        Criar_Campo('CONDICAO_PAGAMENTO','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('CONDICAO_PAGAMENTO','EXCLUIDO') then
+        Criar_Campo('CONDICAO_PAGAMENTO','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -124,7 +138,11 @@ begin
   try
     try
       if not Campo_Existe('CONTA','ID_PRINCIPAL') then
-        Criar_Campo('CONTA','ID_PRINCIPAL');
+        Criar_Campo('CONTA','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('CONTA','EXCLUIDO') then
+        Criar_Campo('CONTA','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -142,7 +160,7 @@ begin
 
 end;
 
-procedure TEstrutura.Criar_Campo(const ATabela, ACampo: String);
+procedure TEstrutura.Criar_Campo(const ATabela,ACampo:String; ATipo:TTipo; ATamanho:Integer=0; ADecimal:Integer=0);
 var
   FDQ_Select :TFDQuery;
 begin
@@ -154,7 +172,13 @@ begin
 
       FDQ_Select.Active := False;
       FDQ_Select.Sql.Clear;
-      FDQ_Select.Sql.Add('ALTER TABLE '+ATabela+' ADD '+ACampo+';');
+      case ATipo of
+        tfInteger: FDQ_Select.Sql.Add('ALTER TABLE '+ATabela+' ADD '+ACampo+' INTEGER;');
+        tfString: FDQ_Select.Sql.Add('ALTER TABLE '+ATabela+' ADD '+ACampo+' VARCHAR('+ATamanho.ToString+');');
+        tfNumero: FDQ_Select.Sql.Add('ALTER TABLE '+ATabela+' ADD '+ACampo+' NUMERIC('+ATamanho.ToString + ','+ADecimal.ToString+');');
+        tfData: FDQ_Select.Sql.Add('ALTER TABLE '+ATabela+' ADD '+ACampo+' DATE;');
+        tfHora: FDQ_Select.Sql.Add('ALTER TABLE '+ATabela+' ADD '+ACampo+' TIME;');
+      end;
       FDQ_Select.ExecSQL;
 
     except on E: Exception do
@@ -174,7 +198,11 @@ begin
   try
     try
       if not Campo_Existe('EMPRESA','ID_PRINCIPAL') then
-        Criar_Campo('EMPRESA','ID_PRINCIPAL');
+        Criar_Campo('EMPRESA','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('EMPRESA','EXCLUIDO') then
+        Criar_Campo('EMPRESA','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -188,7 +216,11 @@ begin
   try
     try
       if not Campo_Existe('FORMA_CONDICAO_PAGAMENTO','ID_PRINCIPAL') then
-        Criar_Campo('FORMA_CONDICAO_PAGAMENTO','ID_PRINCIPAL');
+        Criar_Campo('FORMA_CONDICAO_PAGAMENTO','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('FORMA_CONDICAO_PAGAMENTO','EXCLUIDO') then
+        Criar_Campo('FORMA_CONDICAO_PAGAMENTO','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -202,7 +234,11 @@ begin
   try
     try
       if not Campo_Existe('FORMA_PAGAMENTO','ID_PRINCIPAL') then
-        Criar_Campo('FORMA_PAGAMENTO','ID_PRINCIPAL');
+        Criar_Campo('FORMA_PAGAMENTO','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('FORMA_PAGAMENTO','EXCLUIDO') then
+        Criar_Campo('FORMA_PAGAMENTO','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -216,7 +252,11 @@ begin
   try
     try
       if not Campo_Existe('FORNECEDOR','ID_PRINCIPAL') then
-        Criar_Campo('FORNECEDOR','ID_PRINCIPAL');
+        Criar_Campo('FORNECEDOR','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('FORNECEDOR','EXCLUIDO') then
+        Criar_Campo('FORNECEDOR','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -230,7 +270,11 @@ begin
   try
     try
       if not Campo_Existe('LANCAMENTOS','ID_PRINCIPAL') then
-        Criar_Campo('LANCAMENTOS','ID_PRINCIPAL');
+        Criar_Campo('LANCAMENTOS','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('LANCAMENTOS','EXCLUIDO') then
+        Criar_Campo('LANCAMENTOS','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -244,7 +288,11 @@ begin
   try
     try
       if not Campo_Existe('PRESTADOR_SERVICO','ID_PRINCIPAL') then
-        Criar_Campo('PRESTADOR_SERVICO','ID_PRINCIPAL');
+        Criar_Campo('PRESTADOR_SERVICO','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('PRESTADOR_SERVICO','EXCLUIDO') then
+        Criar_Campo('PRESTADOR_SERVICO','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -258,7 +306,11 @@ begin
   try
     try
       if not Campo_Existe('SERVICOS_PRESTADOS','ID_PRINCIPAL') then
-        Criar_Campo('SERVICOS_PRESTADOS','ID_PRINCIPAL');
+        Criar_Campo('SERVICOS_PRESTADOS','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('SERVICOS_PRESTADOS','EXCLUIDO') then
+        Criar_Campo('SERVICOS_PRESTADOS','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -301,7 +353,11 @@ begin
   try
     try
       if not Campo_Existe('TABELA_PRECO','ID_PRINCIPAL') then
-        Criar_Campo('TABELA_PRECO','ID_PRINCIPAL');
+        Criar_Campo('TABELA_PRECO','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('TABELA_PRECO','EXCLUIDO') then
+        Criar_Campo('TABELA_PRECO','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
@@ -315,7 +371,11 @@ begin
   try
     try
       if not Campo_Existe('USUARIO','ID_PRINCIPAL') then
-        Criar_Campo('USUARIO','ID_PRINCIPAL');
+        Criar_Campo('USUARIO','ID_PRINCIPAL',tfInteger);
+
+      //EXCLUIDO = 0-NÃO, 1-SIM (Vai informar ao Servidor que esse registro tem que ser excluído)
+      if not Campo_Existe('USUARIO','EXCLUIDO') then
+        Criar_Campo('USUARIO','EXCLUIDO',tfInteger);
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
