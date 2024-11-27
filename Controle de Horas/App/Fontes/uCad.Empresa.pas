@@ -49,7 +49,6 @@ type
     lytLista: TLayout;
     lytFiltro: TLayout;
     edFiltro: TEdit;
-    imgFiltrar: TImage;
     imgLimpar: TImage;
     tiCampos: TTabItem;
     lytCampos: TLayout;
@@ -165,6 +164,8 @@ type
     procedure edDOCUMENTOExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
+    procedure imgLimparClick(Sender: TObject);
+    procedure edFiltroKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -312,6 +313,13 @@ begin
 
 end;
 
+procedure TfrmCad_Empresa.edFiltroKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    Listar_Registros(edFiltro.Text);
+end;
+
 procedure TfrmCad_Empresa.edINSC_ESTKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
@@ -439,10 +447,10 @@ begin
 
   FMenu_Frame.CancelMenuText := 'Cancelar';
   FMenu_Frame.CancelFontSize := 15;
-  FMenu_Frame.CancelFontColor := $FFD63422;
+  FMenu_Frame.CancelFontColor := $FF363428;
 
-  FMenu_Frame.AddItem('','Editar Rebistro',Editar,$FFD63422,16);
-  FMenu_Frame.AddItem('','Excluir Registro',Excluir,$FFD63422,16);
+  FMenu_Frame.AddItem('','Editar Rebistro',Editar,$FF363428,16);
+  FMenu_Frame.AddItem('','Excluir Registro',Excluir,$FF363428,16);
 end;
 
 procedure TfrmCad_Empresa.Editar(Sender :TOBject);
@@ -521,6 +529,7 @@ begin
     FTab_Status := dsEdit;
     imgAcao_01.Tag := 1;
     imgAcao_01.Bitmap := imgSalvar.Bitmap;
+    tcCampos.TabIndex := 0;
     tcPrincipal.GotoVisibleTab(1);
   end;
 end;
@@ -547,7 +556,7 @@ begin
     FQuery.Connection := FDm_Global.FDC_SQLite;
     FQuery.Active := False;
     FQuery.Sql.Clear;
-    FQuery.Sql.Add('DELETE FROM EMPRESA WHERE ID = :ID ');
+    FQuery.Sql.Add('UPDATE EMPRESA SET EXCLUIDO = 1 WHERE ID = :ID ');
     FQuery.ParamByName('ID').AsInteger := FId;
     FQuery.ExecSQL;;
   end);
@@ -651,6 +660,7 @@ begin
       LimparCampos;
       imgAcao_01.Tag := 1;
       imgAcao_01.Bitmap := imgSalvar.Bitmap;
+      tcCampos.TabIndex := 0;
       tcPrincipal.GotoVisibleTab(1);
       if edNOME.CanFocus then
         edNOME.SetFocus;
@@ -839,7 +849,7 @@ begin
     FQuery.Sql.Add('WHERE NOT E.ID IS NULL ');
     if Trim(APesquisa) <> '' then
     begin
-      FQuery.Sql.Add('  AND E.NOME = :NOME');
+      FQuery.Sql.Add('  AND E.NOME LIKE :NOME');
       FQuery.ParamByName('NOME').AsString := '%' + APesquisa + '%';
     end;
     FQuery.Active := True;
@@ -919,11 +929,11 @@ begin
     FFrame.lbDocumento.Text := ADocumento;
     FFrame.lbCelular.Text := ACeluar;
     case ASincronizado of
-      0:FFrame.imgSincronizado.Opacity := 0.5;  
+      0:FFrame.imgSincronizado.Opacity := 0.3;
       1:FFrame.imgSincronizado.Opacity := 1;
     end;
     case AExcluido of
-      0:FFrame.imgExcluído.Opacity := 0.5;  
+      0:FFrame.imgExcluído.Opacity := 0.3;
       1:FFrame.imgExcluído.Opacity := 1;  
     end;
     FFrame.rctMenu.OnClick := Abre_Menu_Registros;
@@ -950,6 +960,12 @@ end;
 procedure TfrmCad_Empresa.imgAvancar_002Click(Sender: TObject);
 begin
   tcCampos.GotoVisibleTab(2);
+end;
+
+procedure TfrmCad_Empresa.imgLimparClick(Sender: TObject);
+begin
+  edFiltro.Text := '';
+  Listar_Registros(edFiltro.Text);
 end;
 
 procedure TfrmCad_Empresa.imgRetornar_001Click(Sender: TObject);

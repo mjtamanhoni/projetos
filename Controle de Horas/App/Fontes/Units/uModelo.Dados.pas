@@ -43,6 +43,36 @@ type
 
   end;
 
+  TUsuario = class
+  private
+    FConexao: TFDConnection;
+    FEnder :String;
+  public
+    constructor Create(AConnexao: TFDConnection;AEnder:String);
+
+    function Lista_Registros(AId: Integer=0; ANome:String=''; ALogin: String=''): TFDQuery;
+  end;
+
+  TEmpresa = class
+  private
+    FConexao: TFDConnection;
+    FEnder :String;
+  public
+    constructor Create(AConnexao: TFDConnection;AEnder:String);
+
+    function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
+  end;
+
+  TPrestServicos = class
+  private
+    FConexao: TFDConnection;
+    FEnder :String;
+  public
+    constructor Create(AConnexao: TFDConnection;AEnder:String);
+
+    function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
+  end;
+
 implementation
 
 { TEstrutura }
@@ -379,6 +409,117 @@ begin
 
     except on E: Exception do
       raise Exception.Create('Atualiza estrutura. ' + E.Message);
+    end;
+  finally
+  end;
+end;
+
+{ TUsuario }
+
+constructor TUsuario.Create(AConnexao: TFDConnection; AEnder: String);
+begin
+  FConexao := AConnexao;
+
+  FEnder := '';
+  FEnder := AEnder;
+end;
+
+function TUsuario.Lista_Registros(AId: Integer=0; ANome:String=''; ALogin: String=''): TFDQuery;
+var
+  FQuery :TFDQuery;
+begin
+  try
+    try
+      FQuery := TFDQuery.Create(Nil);
+      FQuery.Connection := FConexao;
+
+      FQuery.Active := False;
+      FQuery.Sql.Clear;
+      FQuery.Sql.Add('SELECT U.* FROM USUARIO U');
+      FQuery.Sql.Add('WHERE NOT U.ID IS NULL');
+      if AId > 0 then
+        FQuery.Sql.Add('  AND U.ID = ' + AId.ToString);
+      if Trim(ANome) <> '' then
+        FQuery.Sql.Add('  AND U.NOME LIKE ' + QuotedStr('%'+ANome+'%'));
+      if Trim(ALogin) <> '' then
+        FQuery.Sql.Add('  AND U.LOGIN = ' + QuotedStr(ALogin));
+      FQuery.Active := True;
+      Result := FQuery;
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+      FreeAndNil(FQuery);
+    {$ELSE}
+      FQuery.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+{ TEmpresa }
+
+constructor TEmpresa.Create(AConnexao: TFDConnection; AEnder: String);
+begin
+  FConexao := AConnexao;
+
+  FEnder := '';
+  FEnder := AEnder;
+end;
+
+function TEmpresa.Lista_Registros(AId: Integer; ANome: String): TFDQuery;
+begin
+  try
+    try
+      Result := TFDQuery.Create(Nil);
+      Result.Connection := FConexao;
+
+      Result.Active := False;
+      Result.Sql.Clear;
+      Result.Sql.Add('SELECT E.* FROM EMPRESA E');
+      Result.Sql.Add('WHERE NOT E.ID IS NULL');
+      if AId > 0 then
+        Result.Sql.Add('  AND E.ID = ' + AId.ToString);
+      if Trim(ANome) <> '' then
+        Result.Sql.Add('  AND E.NOME LIKE ' + QuotedStr('%'+ANome+'%'));
+      Result.Active := True;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+  end;
+end;
+
+{ TPrestServicos }
+
+constructor TPrestServicos.Create(AConnexao: TFDConnection; AEnder: String);
+begin
+  FConexao := AConnexao;
+
+  FEnder := '';
+  FEnder := AEnder;
+end;
+
+function TPrestServicos.Lista_Registros(AId: Integer; ANome: String): TFDQuery;
+begin
+  try
+    try
+      Result := TFDQuery.Create(Nil);
+      Result.Connection := FConexao;
+
+      Result.Active := False;
+      Result.Sql.Clear;
+      Result.Sql.Add('SELECT A.* FROM PRESTADOR_SERVICO A');
+      Result.Sql.Add('WHERE NOT A.ID IS NULL');
+      if AId > 0 then
+        Result.Sql.Add('  AND A.ID = ' + AId.ToString);
+      if Trim(ANome) <> '' then
+        Result.Sql.Add('  AND A.NOME LIKE ' + QuotedStr('%'+ANome+'%'));
+      Result.Active := True;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
     end;
   finally
   end;

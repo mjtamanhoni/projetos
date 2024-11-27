@@ -23,7 +23,10 @@ uses
   uModelo.Dados in 'Units\uModelo.Dados.pas',
   uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa},
   uACBr in '..\..\Global\uACBr.pas',
-  uFrame.Empresa in 'Frame\uFrame.Empresa.pas' {Frame_Empresa: TFrame};
+  uFrame.Empresa in 'Frame\uFrame.Empresa.pas' {Frame_Empresa: TFrame},
+  uFrame.PrestServico in 'Frame\uFrame.PrestServico.pas' {Frame_PrestServico: TFrame},
+  uCad.PrestadorServicos in 'uCad.PrestadorServicos.pas' {frmCad_PrestadorServicos},
+  uFrame.Usuario in 'Frame\uFrame.Usuario.pas' {Frame_Usuario: TFrame};
 
 {$R *.res}
 

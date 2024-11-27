@@ -150,6 +150,11 @@ type
     procedure rctCadUsuarioClick(Sender: TObject);
     procedure rctEstruturaClick(Sender: TObject);
     procedure rctEmpresaClick(Sender: TObject);
+    procedure exArquivoExpandedChanged(Sender: TObject);
+    procedure exCadastroExpandedChanged(Sender: TObject);
+    procedure exMovimentoExpandedChanged(Sender: TObject);
+    procedure rctPrestServiceClick(Sender: TObject);
+    procedure mtvMenuHidden(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FDm_Global :TDM_Global;
@@ -173,7 +178,25 @@ implementation
 uses
   uCad.Usuario
   ,uCad.Empresa
+  ,uCad.PrestadorServicos
   ,uModelo.Dados;
+
+procedure TfrmPrincipal.exArquivoExpandedChanged(Sender: TObject);
+begin
+  exArquivo.Height := 200;
+end;
+
+procedure TfrmPrincipal.exCadastroExpandedChanged(Sender: TObject);
+begin
+  //exCadastro.Size.Height := 400;
+  exCadastro.Height := 400;
+end;
+
+procedure TfrmPrincipal.exMovimentoExpandedChanged(Sender: TObject);
+begin
+  //exMovimento.Size.Height := 150;
+  exMovimento.Height := 150;
+end;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -211,8 +234,17 @@ end;
 
 procedure TfrmPrincipal.imgLogClick(Sender: TObject);
 begin
+  exArquivo.IsExpanded := False;
   exCadastro.IsExpanded := False;
+  exMovimento.IsExpanded := False;
   mtvMenu.ShowMaster;
+end;
+
+procedure TfrmPrincipal.mtvMenuHidden(Sender: TObject);
+begin
+  exArquivo.Height := 200;
+  exCadastro.Height := 400;
+  exMovimento.Height := 150;
 end;
 
 procedure TfrmPrincipal.rctCadUsuarioClick(Sender: TObject);
@@ -356,6 +388,15 @@ begin
   tcDashBoard.ActiveTab.Index := TRectangle(Sender).Tag;
 end;
 
+procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);
+begin
+  Config_Menu;
+  if frmCad_PrestadorServicos = Nil then
+    Application.CreateForm(TfrmCad_PrestadorServicos,frmCad_PrestadorServicos);
+  frmCad_PrestadorServicos.Show;
+
+end;
+
 procedure TfrmPrincipal.Totalizar;
 var
   t :TThread;
@@ -406,9 +447,9 @@ begin
     procedure
     begin
       // Barras
-      FChart.BarColor := $FFFFFFFF;
+      FChart.BarColor := $FFA1B24E;
       FChart.ShowBackground := True;
-      FChart.BackgroundColor := $FF4679EE;
+      FChart.BackgroundColor := $FF363428;
       FChart.RoundedBotton := false;
       FChart.RoundedTop := true;
       //FChart.LineColor := $FFFFD270;
@@ -460,10 +501,13 @@ end;
 procedure TfrmPrincipal.Config_Menu;
 begin
   mtvMenu.HideMaster;
+  exArquivo.IsExpanded := False;
   exCadastro.IsExpanded := False;
   exMovimento.IsExpanded := False;
-  exCadastro.Height := 400;
-  exMovimento.Height := 150;
+  //exArquivo.Size.Height := 150;
+  //exCadastro.Size.Height := 400;
+  //exCadastro.Height := 400;
+  //exMovimento.Size.Height := 150;
 end;
 
 end.
