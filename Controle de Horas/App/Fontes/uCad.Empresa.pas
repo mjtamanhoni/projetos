@@ -536,7 +536,6 @@ end;
 
 procedure TfrmCad_Empresa.Excluir(Sender :TObject);
 begin
-  //FFancyDialog.Show(TIconDialog.Info,'Atenção',FId.ToString + ' - ' + FNome,'Ok');
   FMenu_Frame.HideMenu;
   FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja excluir o registro?','Sim',Excluir_Registro,'Não');
 end;

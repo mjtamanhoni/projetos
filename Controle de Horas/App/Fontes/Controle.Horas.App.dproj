@@ -314,7 +314,6 @@
         <DCCReference Include="..\..\..\Classes\99 Coders\Versao 11\uLoading.pas"/>
         <DCCReference Include="..\..\..\Classes\99 Coders\Versao 11\uOpenViewUrl.pas"/>
         <DCCReference Include="..\..\..\Classes\99 Coders\Versao 11\uSuperChart.pas"/>
-        <DCCReference Include="..\..\DeskTop\Fontes\Funcoes\uFuncoes.pas"/>
         <DCCReference Include="uPrincipal.pas">
             <Form>frmPrincipal</Form>
             <FormType>fmx</FormType>
@@ -357,6 +356,20 @@
             <FormType>fmx</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
+        <DCCReference Include="uCad.Fornecedor.pas">
+            <Form>frmCad_Fornecedor</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.TabelaPreco.pas">
+            <Form>frmCad_TabelaPreco</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Frame\uFrame.TabelaPreco.pas">
+            <Form>Frame_TabelaPreco</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\..\DeskTop\Fontes\Funcoes\uFuncoes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

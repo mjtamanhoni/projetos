@@ -155,6 +155,8 @@ type
     procedure exMovimentoExpandedChanged(Sender: TObject);
     procedure rctPrestServiceClick(Sender: TObject);
     procedure mtvMenuHidden(Sender: TObject);
+    procedure rctFornecedorClick(Sender: TObject);
+    procedure rctTabPrecosClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FDm_Global :TDM_Global;
@@ -179,7 +181,9 @@ uses
   uCad.Usuario
   ,uCad.Empresa
   ,uCad.PrestadorServicos
-  ,uModelo.Dados;
+  ,uModelo.Dados
+  ,uCad.Fornecedor
+  ,uCad.TabelaPreco;
 
 procedure TfrmPrincipal.exArquivoExpandedChanged(Sender: TObject);
 begin
@@ -375,6 +379,13 @@ begin
 
 end;
 
+procedure TfrmPrincipal.rctFornecedorClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Fornecedor,frmCad_Fornecedor);
+  frmCad_Fornecedor.Show;
+end;
+
 procedure TfrmPrincipal.TThreadEnd_Estrutura(Sender :TObject);
 begin
   TLoading.Hide;
@@ -395,6 +406,13 @@ begin
     Application.CreateForm(TfrmCad_PrestadorServicos,frmCad_PrestadorServicos);
   frmCad_PrestadorServicos.Show;
 
+end;
+
+procedure TfrmPrincipal.rctTabPrecosClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCad_TabelaPreco,frmCad_TabelaPreco);
+  frmCad_TabelaPreco.Show;
 end;
 
 procedure TfrmPrincipal.Totalizar;
