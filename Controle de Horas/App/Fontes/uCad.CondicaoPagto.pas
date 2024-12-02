@@ -1,4 +1,4 @@
-unit uCad.TabelaPreco;
+unit uCad.CondicaoPagto;
 
 interface
 
@@ -21,7 +21,7 @@ uses
   uFuncoes,
 
   {$Region 'Frames'}
-    uFrame.TabelaPreco,
+    uFrame.CondicaoPagto,
   {$EndRegion 'Frames'}
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListView.Types, FMX.ListView.Appearances,
@@ -31,10 +31,10 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
+  TExecuteOnClose = procedure(AId,ATipoIntervalo,AIntervalo,AParcelas:Integer; ANome:String) of Object;
   TTab_Status = (dsInsert,dsEdit,dsLista);
 
-  TfrmCad_TabelaPreco = class(TForm)
+  TfrmCad_CondicaoPagto = class(TForm)
     imgCancelar: TImage;
     imgChecked: TImage;
     imgEditar: TImage;
@@ -59,14 +59,16 @@ type
     lytID: TLayout;
     lbID: TLabel;
     edID: TEdit;
+    lytTIPO_INTERVALO: TLayout;
+    lbTIPO_INTERVALO: TLabel;
+    edTIPO_INTERVALO: TEdit;
+    imgTIPO_INTERVALO: TImage;
+    lytINTEVALOR: TLayout;
+    lbINTEVALOR: TLabel;
     lytRow_002: TLayout;
     lytDESCRICAO: TLayout;
     lbDESCRICAO: TLabel;
     edDESCRICAO: TEdit;
-    lytRow_003: TLayout;
-    lytVALOR: TLayout;
-    lbVALOR: TLabel;
-    edVALOR: TEdit;
     lytFooter: TLayout;
     rctFooter: TRectangle;
     imgAcao_01: TImage;
@@ -75,23 +77,25 @@ type
     lbTitle: TLabel;
     ShadowEffect3: TShadowEffect;
     imgVoltar: TImage;
-    lytTIPO: TLayout;
-    lbTIPO: TLabel;
-    edTIPO: TEdit;
-    imgPESSOA: TImage;
-    procedure edTIPOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-    procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-    procedure edFiltroKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-    procedure FormCreate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    lytRow_003: TLayout;
+    lytPARCELAS: TLayout;
+    lbPARCELAS: TLabel;
+    edPARCELAS: TEdit;
+    edINTEVALOR: TEdit;
     procedure imgVoltarClick(Sender: TObject);
-    procedure edTIPOClick(Sender: TObject);
     procedure imgAcao_01Click(Sender: TObject);
-    procedure lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
+    procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edPARCELASKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edTIPO_INTERVALOClick(Sender: TObject);
+    procedure edTIPO_INTERVALOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edFiltroKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure imgLimparClick(Sender: TObject);
-    procedure edVALORTyping(Sender: TObject);
-    procedure edVALORChange(Sender: TObject);
+    procedure lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure edPARCELASChange(Sender: TObject);
+    procedure edINTEVALORChange(Sender: TObject);
   private
     FPesquisa: Boolean;
 
@@ -106,8 +110,9 @@ type
 
     FId :Integer;
     FDescricao :String;
-    FValor :Double;
-    FTipo :Integer;
+    FTipoIntervalo :Integer;
+    FParcelas :Integer;
+    FIntervalo :Integer;
 
     FACBr_Validador :TACBr_Validador;
 
@@ -126,7 +131,7 @@ type
 
     procedure CriandoCombos;
     procedure TThreadEnd_Listar_Registros(Sender: TObject);
-    procedure AddRegistros_LB(AId,ASincronizado,AExcluido,ATipo:Integer; ADescricao,ATipo_Desc:String;AValor:Double);
+    procedure AddRegistros_LB(AId, ASincronizado, AExcluido, ATipoIntervalo, AParcelas, AIntervalo: Integer; ADescricao, ATipoIntervalo_Desc: String);
     procedure Abre_Menu_Registros(Sender :TOBject);
     procedure CriandoMenus;
     procedure Editar(Sender: TOBject);
@@ -141,59 +146,38 @@ type
   end;
 
 var
-  frmCad_TabelaPreco: TfrmCad_TabelaPreco;
+  frmCad_CondicaoPagto: TfrmCad_CondicaoPagto;
 
 implementation
 
 {$R *.fmx}
 
-{ TfrmCad_TabelaPrec}
+{ TfrmCad_CondicaoPagto }
 
-
-{$IFDEF MSWINDOWS}
-procedure TfrmCad_TabelaPreco.ItemClick_Tipo(Sender: TObject);
-begin
-  cComboTipo.HideMenu;
-  edTIPO.Tag := StrToInt(cComboTipo.CodItem);
-  edTIPO.Text := cComboTipo.DescrItem;
-end;
-{$ELSE}
-procedure TfrmCad_TabelaPreco.ItemClick_Tipo(Sender: TObject; const Point: TPointF);
-begin
-  cComboTipo.HideMenu;
-  edTIPO.Tag := StrToInt(cComboTipo.CodItem);
-  edTIPO.Text := cComboTipo.DescrItem;
-end;
-{$ENDIF}
-
-procedure TfrmCad_TabelaPreco.lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
-begin
-  FId := Item.Tag;
-  FDescricao := Item.TagString;
-  FValor := Item.TagFloat;
-end;
-
-procedure TfrmCad_TabelaPreco.Abre_Menu_Registros(Sender: TOBject);
+procedure TfrmCad_CondicaoPagto.Abre_Menu_Registros(Sender: TOBject);
 var
-  FFrame :TFrame_TabelaPreco;
+  FFrame :TFrame_CondicaoPagto;
   FRctMenu :TRectangle;
 
 begin
   FRctMenu := TRectangle(Sender);
-  FFrame := FRctMenu.Parent as TFrame_TabelaPreco;
+  FFrame := FRctMenu.Parent as TFrame_CondicaoPagto;
 
   FId := FFrame.lbDescricao.Tag;
   FDescricao := FFrame.lbDescricao.Text;
-  FValor := FFrame.lbValor.TagFloat;
-  FTipo := FFrame.lbTipo.Tag;
+  FTipoIntervalo := FFrame.lbTipoIntervalo.Tag;
+  FParcelas := FFrame.lbParcelas.Tag;
+  FIntervalo := FFrame.lbIntervalo.Tag;
 
   FMenu_Frame.ShowMenu;
 end;
 
-procedure TfrmCad_TabelaPreco.AddRegistros_LB(AId,ASincronizado,AExcluido,ATipo:Integer; ADescricao,ATipo_Desc:String;AValor:Double);
+procedure TfrmCad_CondicaoPagto.AddRegistros_LB(
+  AId, ASincronizado, AExcluido, ATipoIntervalo, AParcelas, AIntervalo: Integer;
+  ADescricao, ATipoIntervalo_Desc: String);
 var
   FItem :TListBoxItem;
-  FFrame :TFrame_TabelaPreco;
+  FFrame :TFrame_CondicaoPagto;
 
 begin
   try
@@ -202,18 +186,19 @@ begin
     FItem.Height := 50;
     FItem.Tag := AId;
     FItem.TagString := ADescricao;
-    FItem.TagFloat := AValor;
     FItem.Selectable := True;
 
-    FFrame := TFrame_TabelaPreco.Create(FItem);
+    FFrame := TFrame_CondicaoPagto.Create(FItem);
     FFrame.Parent := FItem;
     FFrame.Align := TAlignLayout.Client;
     FFrame.lbDescricao.Text := ADescricao;
     FFrame.lbDescricao.Tag := AId;
-    FFrame.lbTipo.Text := ATipo_Desc;
-    FFrame.lbTipo.Tag := ATipo;
-    FFrame.lbValor.Text := FormatFloat('#,##0.00',AValor);
-    FFrame.lbValor.TagFloat := AValor;
+    FFrame.lbTipoIntervalo.Tag := ATipoIntervalo;
+    FFrame.lbTipoIntervalo.Text := 'Em: ' + ATipoIntervalo_Desc;
+    FFrame.lbIntervalo.Tag := AIntervalo;
+    FFrame.lbIntervalo.Text := 'Intervalo: ' + AIntervalo.ToString;
+    FFrame.lbParcelas.Tag := AParcelas;
+    FFrame.lbParcelas.Text := 'Parcelas: ' + AParcelas.ToString;
     case ASincronizado of
       0:FFrame.imgSincronizado.Opacity := 0.3;
       1:FFrame.imgSincronizado.Opacity := 1;
@@ -231,7 +216,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_TabelaPreco.Cancelar(Sender: TOBject);
+procedure TfrmCad_CondicaoPagto.Cancelar(Sender: TOBject);
 begin
   FTab_Status := dsLista;
   LimparCampos;
@@ -240,17 +225,17 @@ begin
   tcPrincipal.GotoVisibleTab(0);
 end;
 
-procedure TfrmCad_TabelaPreco.CriandoCombos;
+procedure TfrmCad_CondicaoPagto.CriandoCombos;
 begin
 
-  cComboTipo := TCustomCombo.Create(frmCad_TabelaPreco);
+  cComboTipo := TCustomCombo.Create(frmCad_CondicaoPagto);
 
   {$Region 'Combo Tipo'}
     cComboTipo.ItemBackgroundColor := $FF363428;
     cComboTipo.ItemFontSize := 15;
     cComboTipo.ItemFontColor := $FFA1B24E;
 
-    cComboTipo.TitleMenuText := 'Escolha o tipo da Tabela';
+    cComboTipo.TitleMenuText := 'Escolha o Tipo do Intervalo';
     cComboTipo.TitleFontSize := 17;
     cComboTipo.TitleFontColor := $FF363428;
 
@@ -261,15 +246,15 @@ begin
     cComboTipo.BackgroundColor := $FFF2F2F8;
     cComboTipo.OnClick := ItemClick_Tipo;
 
-    cComboTipo.AddItem('0', 'HORA');
-    cComboTipo.AddItem('1', 'FIXO');
+    cComboTipo.AddItem('0', 'DIAS');
+    cComboTipo.AddItem('1', 'MESES');
   {$EndRegion 'Combo Tipo'}
 
 end;
 
-procedure TfrmCad_TabelaPreco.CriandoMenus;
+procedure TfrmCad_CondicaoPagto.CriandoMenus;
 begin
-  FMenu_Frame := TActionSheet.Create(frmCad_TabelaPreco);
+  FMenu_Frame := TActionSheet.Create(frmCad_CondicaoPagto);
 
   FMenu_Frame.TitleFontSize := 12;
   FMenu_Frame.TitleMenuText := 'O que deseja fazer?';
@@ -281,29 +266,33 @@ begin
 
   FMenu_Frame.AddItem('','Editar Rebistro',Editar,$FF363428,16);
   FMenu_Frame.AddItem('','Excluir Registro',Excluir,$FF363428,16);
-
 end;
 
-procedure TfrmCad_TabelaPreco.edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_CondicaoPagto.edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edVALOR.SetFocus;
+    edPARCELAS.SetFocus;
 end;
 
-procedure TfrmCad_TabelaPreco.edFiltroKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_CondicaoPagto.edFiltroKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
     Listar_Registros(edFiltro.Text);
 end;
 
-procedure TfrmCad_TabelaPreco.Editar(Sender: TOBject);
+procedure TfrmCad_CondicaoPagto.edINTEVALORChange(Sender: TObject);
+begin
+  edINTEVALOR.Tag := StrToIntDef(edINTEVALOR.Text,0);
+end;
+
+procedure TfrmCad_CondicaoPagto.Editar(Sender: TOBject);
 var
   t :TThread;
 begin
   FMenu_Frame.HideMenu;
-  TLoading.Show(frmCad_TabelaPreco,'Editando o Registro');
+  TLoading.Show(frmCad_CondicaoPagto,'Editando o Registro');
   LimparCampos;
 
   t := TThread.CreateAnonymousThread(
@@ -317,11 +306,11 @@ begin
     FQuery.Sql.Clear;
     FQuery.Sql.Add('SELECT  ');
     FQuery.Sql.Add('  T.*  ');
-    FQuery.Sql.Add('  ,CASE T.TIPO ');
-    FQuery.Sql.Add('    WHEN 0 THEN ''HORA'' ');
-    FQuery.Sql.Add('    WHEN 1 THEN ''FIXO'' ');
-    FQuery.Sql.Add('  END TIPO_DESC ');
-    FQuery.Sql.Add('FROM TABELA_PRECO T ');
+    FQuery.Sql.Add('  ,CASE T.TIPO_INTERVALO ');
+    FQuery.Sql.Add('    WHEN 0 THEN ''DIAS'' ');
+    FQuery.Sql.Add('    WHEN 1 THEN ''MESES'' ');
+    FQuery.Sql.Add('  END TIPO_INTERVALO_DESC ');
+    FQuery.Sql.Add('FROM CONDICAO_PAGAMENTO T ');
     FQuery.Sql.Add('WHERE T.ID = :ID ');
     FQuery.ParamByName('ID').AsInteger := FId;
     FQuery.Active := True;
@@ -333,14 +322,16 @@ begin
       begin
         edID.Tag := FQuery.FieldByName('ID').AsInteger;
         edID.Text := FQuery.FieldByName('ID').AsString;
-        edTIPO.Tag := FQuery.FieldByName('TIPO').AsInteger;
-        case edTIPO.Tag of
-          0: edTIPO.Text := 'HORA';
-          1: edTIPO.Text := 'FIXO';
+        edTIPO_INTERVALO.Tag := FQuery.FieldByName('TIPO_INTERVALO').AsInteger;
+        case edTIPO_INTERVALO.Tag of
+          0: edTIPO_INTERVALO.Text := 'DIAS';
+          1: edTIPO_INTERVALO.Text := 'MESES';
         end;
         edDESCRICAO.Text := FQuery.FieldByName('DESCRICAO').AsString;
-        edVALOR.TagFloat := FQuery.FieldByName('VALOR').AsFloat;
-        edVALOR.Text := FormatFloat(',##0.00',FQuery.FieldByName('VALOR').AsFloat);
+        edINTEVALOR.Tag := FQuery.FieldByName('INTEVALOR').AsInteger;
+        edINTEVALOR.Text := FQuery.FieldByName('INTEVALOR').AsString;
+        edPARCELAS.Tag := FQuery.FieldByName('PARCELAS').AsInteger;
+        edPARCELAS.Text := FQuery.FieldByName('PARCELAS').AsString;
       end);
     end;
 
@@ -357,39 +348,42 @@ begin
   t.Start;
 end;
 
-procedure TfrmCad_TabelaPreco.edTIPOClick(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.edPARCELASChange(Sender: TObject);
+begin
+  edPARCELAS.Tag := StrToIntDef(edPARCELAS.Text,0);
+end;
+
+procedure TfrmCad_CondicaoPagto.edPARCELASKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edTIPO_INTERVALO.SetFocus;
+end;
+
+procedure TfrmCad_CondicaoPagto.edTIPO_INTERVALOClick(Sender: TObject);
 begin
   cComboTipo.ShowMenu;
 end;
 
-procedure TfrmCad_TabelaPreco.edTIPOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+procedure TfrmCad_CondicaoPagto.edTIPO_INTERVALOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edDESCRICAO.SetFocus;
+    edINTEVALOR.SetFocus;
 end;
 
-procedure TfrmCad_TabelaPreco.edVALORChange(Sender: TObject);
-begin
-  edVALOR.TagFloat := TFuncoes.RetornaValor_TextMoney(edVALOR.Text,2);
-end;
-
-procedure TfrmCad_TabelaPreco.edVALORTyping(Sender: TObject);
-begin
-  Formatar(edVALOR,Valor);
-end;
-
-procedure TfrmCad_TabelaPreco.Excluir(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.Excluir(Sender: TObject);
 begin
   FMenu_Frame.HideMenu;
   FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja excluir o registro?','Sim',Excluir_Registro,'Não');
+
 end;
 
-procedure TfrmCad_TabelaPreco.Excluir_Registro(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.Excluir_Registro(Sender: TObject);
 var
   t :TThread;
 begin
-  TLoading.Show(frmCad_TabelaPreco,'Excluindo registro');
+  TLoading.Show(frmCad_CondicaoPagto,'Excluindo registro');
 
   t := TThread.CreateAnonymousThread(
   procedure
@@ -400,7 +394,7 @@ begin
     FQuery.Connection := FDm_Global.FDC_SQLite;
     FQuery.Active := False;
     FQuery.Sql.Clear;
-    FQuery.Sql.Add('UPDATE TABELA_PRECO SET EXCLUIDO = 1 WHERE ID = :ID ');
+    FQuery.Sql.Add('UPDATE CONDICAO_PAGAMENTO SET EXCLUIDO = 1 WHERE ID = :ID ');
     FQuery.ParamByName('ID').AsInteger := FId;
     FQuery.ExecSQL;;
   end);
@@ -409,7 +403,7 @@ begin
   t.Start;
 end;
 
-procedure TfrmCad_TabelaPreco.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCad_CondicaoPagto.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   {$IFDEF MSWINDOWS}
     FreeAndNil(FFancyDialog);
@@ -428,10 +422,11 @@ begin
   {$ENDIF}
 
   Action := TCloseAction.caFree;
-  frmCad_TabelaPreco := Nil;
+  frmCad_CondicaoPagto := Nil;
+
 end;
 
-procedure TfrmCad_TabelaPreco.FormCreate(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.FormCreate(Sender: TObject);
 begin
 
   FEnder  := '';
@@ -444,7 +439,7 @@ begin
 
   FACBr_Validador := TACBr_Validador.Create(FEnder);
 
-  FFancyDialog := TFancyDialog.Create(frmCad_TabelaPreco);
+  FFancyDialog := TFancyDialog.Create(frmCad_CondicaoPagto);
   CriandoCombos;
   CriandoMenus;
 
@@ -455,14 +450,15 @@ begin
   FTab_Status := dsLista;
 
   Pesquisa := False;
+
 end;
 
-procedure TfrmCad_TabelaPreco.FormShow(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.FormShow(Sender: TObject);
 begin
   Listar_Registros(edFiltro.Text);
 end;
 
-procedure TfrmCad_TabelaPreco.imgAcao_01Click(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.imgAcao_01Click(Sender: TObject);
 begin
   case imgAcao_01.Tag of
     0:begin
@@ -478,39 +474,64 @@ begin
   end;
 end;
 
-procedure TfrmCad_TabelaPreco.imgLimparClick(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.imgLimparClick(Sender: TObject);
 begin
   edFiltro.Text := '';
+  Listar_Registros(edFiltro.Text)
 end;
 
-procedure TfrmCad_TabelaPreco.imgVoltarClick(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.imgVoltarClick(Sender: TObject);
 begin
   case tcPrincipal.TabIndex of
     0:begin
       if FPesquisa then
-        ExecuteOnClose(FId,FDescricao);
+        ExecuteOnClose(FId,FTipoIntervalo,FIntervalo,FParcelas,FDescricao);
       Close;
     end;
     1:FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja cancelar as alterações realizadas','Sim',Cancelar,'Não');
   end;
 end;
 
-procedure TfrmCad_TabelaPreco.LimparCampos;
+{$IFDEF MSWINDOWS}
+procedure TfrmCad_CondicaoPagto.ItemClick_Tipo(Sender: TObject);
+begin
+  cComboTipo.HideMenu;
+  edTIPO_INTERVALO.Tag := StrToInt(cComboTipo.CodItem);
+  edTIPO_INTERVALO.Text := cComboTipo.DescrItem;
+end;
+{$ELSE}
+procedure TfrmCad_CondicaoPagto.ItemClick_Tipo(Sender: TObject; const Point: TPointF);
+begin
+  cComboTipo.HideMenu;
+  edTIPO_INTERVALO.Tag := StrToInt(cComboTipo.CodItem);
+  edTIPO_INTERVALO.Text := cComboTipo.DescrItem;
+end;
+{$ENDIF}
+
+procedure TfrmCad_CondicaoPagto.lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
+begin
+  FId := Item.Tag;
+  FDescricao := Item.TagString;
+end;
+
+procedure TfrmCad_CondicaoPagto.LimparCampos;
 begin
   edID.Text := '';
   edID.Tag := 0;
-  edTIPO.Text := '';
-  edTIPO.Tag := 0;
+  edTIPO_INTERVALO.Text := '';
+  edTIPO_INTERVALO.Tag := 0;
   edDESCRICAO.Text := '';
-  edVALOR.Text := '';
-  edVALOR.TagFloat := 0;
+  edPARCELAS.Text := '';
+  edPARCELAS.Tag := 0;
+  edINTEVALOR.Tag := 0;
+  edINTEVALOR.Text := '';
 end;
 
-procedure TfrmCad_TabelaPreco.Listar_Registros(APesquisa: String);
+procedure TfrmCad_CondicaoPagto.Listar_Registros(APesquisa: String);
 var
   t :TThread;
 begin
-  TLoading.Show(frmCad_TabelaPreco,'Listando Registros');
+  TLoading.Show(frmCad_CondicaoPagto,'Listando Registros');
   lbRegistros.Clear;
   lbRegistros.BeginUpdate;
 
@@ -525,11 +546,11 @@ begin
     FQuery.Sql.Clear;
     FQuery.Sql.Add('SELECT  ');
     FQuery.Sql.Add('  T.*  ');
-    FQuery.Sql.Add('  ,CASE T.TIPO ');
-    FQuery.Sql.Add('    WHEN 0 THEN ''HORA'' ');
-    FQuery.Sql.Add('    WHEN 1 THEN ''FIXO'' ');
-    FQuery.Sql.Add('  END TIPO_DESC ');
-    FQuery.Sql.Add('FROM TABELA_PRECO T ');
+    FQuery.Sql.Add('  ,CASE T.TIPO_INTERVALO ');
+    FQuery.Sql.Add('    WHEN 0 THEN ''DIAS'' ');
+    FQuery.Sql.Add('    WHEN 1 THEN ''MESES'' ');
+    FQuery.Sql.Add('  END TIPO_INTERVALO_DESC ');
+    FQuery.Sql.Add('FROM CONDICAO_PAGAMENTO T ');
     FQuery.Sql.Add('WHERE NOT T.ID IS NULL ');
     if Trim(APesquisa) <> '' then
     begin
@@ -549,10 +570,11 @@ begin
             FQuery.FieldByName('ID').AsInteger
             ,FQuery.FieldByName('SINCRONIZADO').AsInteger
             ,FQuery.FieldByName('EXCLUIDO').AsInteger
-            ,FQuery.FieldByName('TIPO').AsInteger
+            ,FQuery.FieldByName('TIPO_INTERVALO').AsInteger
+            ,FQuery.FieldByName('PARCELAS').AsInteger
+            ,FQuery.FieldByName('INTEVALOR').AsInteger
             ,FQuery.FieldByName('DESCRICAO').AsString
-            ,FQuery.FieldByName('TIPO_DESC').AsString
-            ,FQuery.FieldByName('VALOR').AsFloat
+            ,FQuery.FieldByName('TIPO_INTERVALO_DESC').AsString
           );
         end);
         FQuery.Next;
@@ -574,11 +596,11 @@ begin
   t.Start;
 end;
 
-procedure TfrmCad_TabelaPreco.Salvar;
+procedure TfrmCad_CondicaoPagto.Salvar;
 var
   t :TThread;
 begin
-  TLoading.Show(frmCad_TabelaPreco,'Salvando alterações');
+  TLoading.Show(frmCad_CondicaoPagto,'Salvando alterações');
 
   t := TThread.CreateAnonymousThread(
   procedure
@@ -592,10 +614,11 @@ begin
 
     if FTab_Status = dsInsert then
     begin
-      FQuery.Sql.Add('INSERT INTO TABELA_PRECO( ');
+      FQuery.Sql.Add('INSERT INTO CONDICAO_PAGAMENTO( ');
       FQuery.Sql.Add('  DESCRICAO ');
-      FQuery.Sql.Add('  ,TIPO ');
-      FQuery.Sql.Add('  ,VALOR ');
+      FQuery.Sql.Add('  ,PARCELAS ');
+      FQuery.Sql.Add('  ,TIPO_INTERVALO ');
+      FQuery.Sql.Add('  ,INTEVALOR ');
       FQuery.Sql.Add('  ,DT_CADASTRO ');
       FQuery.Sql.Add('  ,HR_CADASTRO ');
       FQuery.Sql.Add('  ,SINCRONIZADO ');
@@ -603,8 +626,9 @@ begin
       FQuery.Sql.Add('  ,EXCLUIDO ');
       FQuery.Sql.Add(') VALUES( ');
       FQuery.Sql.Add('  :DESCRICAO ');
-      FQuery.Sql.Add('  ,:TIPO ');
-      FQuery.Sql.Add('  ,:VALOR ');
+      FQuery.Sql.Add('  ,:PARCELAS ');
+      FQuery.Sql.Add('  ,:TIPO_INTERVALO ');
+      FQuery.Sql.Add('  ,:INTEVALOR ');
       FQuery.Sql.Add('  ,:DT_CADASTRO ');
       FQuery.Sql.Add('  ,:HR_CADASTRO ');
       FQuery.Sql.Add('  ,:SINCRONIZADO ');
@@ -619,16 +643,18 @@ begin
     end
     else if FTab_Status = dsEdit then
     begin
-      FQuery.Sql.Add('UPDATE TABELA_PRECO SET ');
+      FQuery.Sql.Add('UPDATE CONDICAO_PAGAMENTO SET ');
       FQuery.Sql.Add('  DESCRICAO = :DESCRICAO ');
-      FQuery.Sql.Add('  ,TIPO = :TIPO ');
-      FQuery.Sql.Add('  ,VALOR = :VALOR ');
+      FQuery.Sql.Add('  ,PARCELAS = :PARCELAS');
+      FQuery.Sql.Add('  ,TIPO_INTERVALO = :TIPO_INTERVALO');
+      FQuery.Sql.Add('  ,INTEVALOR = :INTEVALOR');
       FQuery.Sql.Add('WHERE ID = :ID ');
       FQuery.ParamByName('ID').AsInteger := edID.Tag;
     end;
     FQuery.ParamByName('DESCRICAO').AsString := edDESCRICAO.Text;
-    FQuery.ParamByName('TIPO').AsInteger := edTIPO.Tag;
-    FQuery.ParamByName('VALOR').AsFloat := edVALOR.TagFloat;
+    FQuery.ParamByName('PARCELAS').AsInteger := edPARCELAS.Tag;
+    FQuery.ParamByName('TIPO_INTERVALO').AsInteger := edTIPO_INTERVALO.Tag;
+    FQuery.ParamByName('INTEVALOR').AsInteger := edINTEVALOR.Tag;
     FQuery.ExecSQL;
 
     {$IFDEF MSWINDOWS}
@@ -643,12 +669,12 @@ begin
   t.Start;
 end;
 
-procedure TfrmCad_TabelaPreco.SetPesquisa(const Value: Boolean);
+procedure TfrmCad_CondicaoPagto.SetPesquisa(const Value: Boolean);
 begin
   FPesquisa := Value;
 end;
 
-procedure TfrmCad_TabelaPreco.TThreadEnd_Editar(Sender: TOBject);
+procedure TfrmCad_CondicaoPagto.TThreadEnd_Editar(Sender: TOBject);
 begin
   TLoading.Hide;
   if Assigned(TThread(Sender).FatalException) then
@@ -662,7 +688,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_TabelaPreco.TThreadEnd_ExcluirRegistro(Sender: TOBject);
+procedure TfrmCad_CondicaoPagto.TThreadEnd_ExcluirRegistro(Sender: TOBject);
 begin
   TLoading.Hide;
   if Assigned(TThread(Sender).FatalException) then
@@ -671,14 +697,15 @@ begin
     Listar_Registros(edFiltro.Text);
 end;
 
-procedure TfrmCad_TabelaPreco.TThreadEnd_Listar_Registros(Sender: TObject);
+procedure TfrmCad_CondicaoPagto.TThreadEnd_Listar_Registros(Sender: TObject);
 begin
   TLoading.Hide;
   if Assigned(TThread(Sender).FatalException) then
     FFancyDialog.Show(TIconDialog.Error,'Erro',Exception(TThread(Sender).FatalException).Message);
+
 end;
 
-procedure TfrmCad_TabelaPreco.TTHreadEnd_Salvar(Sender: TOBject);
+procedure TfrmCad_CondicaoPagto.TTHreadEnd_Salvar(Sender: TOBject);
 begin
   TLoading.Hide;
 
@@ -692,6 +719,7 @@ begin
     tcPrincipal.GotoVisibleTab(0);
     Listar_Registros(edFiltro.Text);
   end;
+
 end;
 
 end.

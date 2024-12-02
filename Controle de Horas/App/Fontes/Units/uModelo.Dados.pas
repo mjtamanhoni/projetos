@@ -73,6 +73,26 @@ type
     function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
   end;
 
+  TFornecedor = class
+  private
+    FConexao: TFDConnection;
+    FEnder :String;
+  public
+    constructor Create(AConnexao: TFDConnection;AEnder:String);
+
+    function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
+  end;
+
+  TTab_Preco = class
+  private
+    FConexao: TFDConnection;
+    FEnder :String;
+  public
+    constructor Create(AConnexao: TFDConnection;AEnder:String);
+
+    function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
+  end;
+
 implementation
 
 { TEstrutura }
@@ -516,6 +536,75 @@ begin
         Result.Sql.Add('  AND A.ID = ' + AId.ToString);
       if Trim(ANome) <> '' then
         Result.Sql.Add('  AND A.NOME LIKE ' + QuotedStr('%'+ANome+'%'));
+      Result.Active := True;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+  end;
+end;
+
+{ TFornecedor }
+
+constructor TFornecedor.Create(AConnexao: TFDConnection; AEnder: String);
+begin
+  FConexao := AConnexao;
+
+  FEnder := '';
+  FEnder := AEnder;
+end;
+
+function TFornecedor.Lista_Registros(AId: Integer; ANome: String): TFDQuery;
+begin
+  try
+    try
+      Result := TFDQuery.Create(Nil);
+      Result.Connection := FConexao;
+
+      Result.Active := False;
+      Result.Sql.Clear;
+      Result.Sql.Add('SELECT A.* FROM FORNECEDOR A');
+      Result.Sql.Add('WHERE NOT A.ID IS NULL');
+      if AId > 0 then
+        Result.Sql.Add('  AND A.ID = ' + AId.ToString);
+      if Trim(ANome) <> '' then
+        Result.Sql.Add('  AND A.NOME LIKE ' + QuotedStr('%'+ANome+'%'));
+      Result.Active := True;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+  end;
+
+end;
+
+{ TTab_Preco }
+
+constructor TTab_Preco.Create(AConnexao: TFDConnection; AEnder: String);
+begin
+  FConexao := AConnexao;
+
+  FEnder := '';
+  FEnder := AEnder;
+end;
+
+function TTab_Preco.Lista_Registros(AId: Integer; ANome: String): TFDQuery;
+begin
+  try
+    try
+      Result := TFDQuery.Create(Nil);
+      Result.Connection := FConexao;
+
+      Result.Active := False;
+      Result.Sql.Clear;
+      Result.Sql.Add('SELECT A.* FROM TABELA_PRECO A');
+      Result.Sql.Add('WHERE NOT A.ID IS NULL');
+      if AId > 0 then
+        Result.Sql.Add('  AND A.ID = ' + AId.ToString);
+      if Trim(ANome) <> '' then
+        Result.Sql.Add('  AND A.DESCRICAO LIKE ' + QuotedStr('%'+ANome+'%'));
       Result.Active := True;
 
     except on E: Exception do

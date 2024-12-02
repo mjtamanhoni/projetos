@@ -1,7 +1,7 @@
-object frmCad_Empresa: TfrmCad_Empresa
+object frmCad_Cliente: TfrmCad_Cliente
   Left = 0
   Top = 0
-  Caption = 'Cadastro de Empresa'
+  Caption = 'Cadastro de Clientes'
   ClientHeight = 680
   ClientWidth = 380
   Position = ScreenCenter
@@ -558,7 +558,7 @@ object frmCad_Empresa: TfrmCad_Empresa
     Size.Width = 380.000000000000000000
     Size.Height = 580.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 2
+    TabOrder = 4
     object tcPrincipal: TTabControl
       Align = Client
       Margins.Left = 3.000000000000000000
@@ -638,7 +638,6 @@ object frmCad_Empresa: TfrmCad_Empresa
             TextPrompt = 'Informe o conte'#250'do da pesquisa'
             StyledSettings = [Family, Style, FontColor]
             CharCase = ecUpperCase
-            OnKeyDown = edFiltroKeyDown
             object imgLimpar: TImage
               MultiResBitmap = <
                 item
@@ -710,7 +709,6 @@ object frmCad_Empresa: TfrmCad_Empresa
               Size.Width = 30.000000000000000000
               Size.Height = 30.000000000000000000
               Size.PlatformDefault = False
-              OnClick = imgLimparClick
             end
           end
         end
@@ -1089,12 +1087,214 @@ object frmCad_Empresa: TfrmCad_Empresa
                           499224FDF794FA016F93E91E7442C9670000000049454E44AE426082}
                       end>
                     Align = Right
-                    Cursor = crHelp
+                    Cursor = crHandPoint
                     Position.X = 318.000000000000000000
                     Size.Width = 50.000000000000000000
                     Size.Height = 35.000000000000000000
                     Size.PlatformDefault = False
                     OnClick = imgAvancar_001Click
+                  end
+                end
+                object lytRow_012: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 171.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 6
+                  object lytID_FORNECEDOR: TLayout
+                    Align = Client
+                    Size.Width = 368.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbID_FORNECEDOR: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Fornecedor padr'#227'o do Usu'#225'rio (Clique para selecionar):'
+                      TabOrder = 1
+                    end
+                    object edID_FORNECEDOR: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TabStop = False
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'FORNECEDOR'
+                      StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edID_FORNECEDORKeyDown
+                      OnClick = edID_FORNECEDORClick
+                      object imgID_FORNECEDOR: TImage
+                        MultiResBitmap = <
+                          item
+                            Width = 100
+                            Height = 100
+                            PNG = {
+                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                              03BE49444154785EEDDD3F4B9B5114C7F17B134D6A23A5166A37A18390484917
+                              4D142D1954101C5CDCC417A0AF405F81BE027D01E2E6E22008EA10AA68129786
+                              620487825B2D5429A636D1E4F6B94F0E14F1EFD09BE79C7BCF67D1E72CFEF912
+                              1CFC898231C618638C31C61863EC9F546F6201DE659E10BC0D909A4BF5C69794
+                              52120E4E4310C43793EE4DAC70143C418490624A47C964322D7071129E209A17
+                              E54FF9FBDAD8D858B471700FAE201E25C4C4CF1FDF36464793313839055D109F
+                              94C3E7E7D7DB2E46C119C41312AA5F47C9643EBE869313D006D1749472B9921D
+                              184876C2C97AA88368DE2798AC56AF7607077BBAE06435F441B4B00C775F576E
+                              3EBB108544908650978E924E27BAE160254241B45057ADA676D3E90F49385887
+                              5810FF13EE54B5EB6C2A15EF879355C8056990AF45BDBA6D6314A241B4484C47
+                              19E84B0CC3C10A84836891584DA98D542A310107F28807F1452F7FFD5EEBEFEB
+                              998267D26C0822DADBDB5AEAAABE6243142B8200A9A3A4FB1233F04C924D4134
+                              A9945A4AF7C5E7E0991CDB82F894120B54C713560669A0399EB038888FDC78C2
+                              F620FEEFE9298D27EC0FA2111A4FB811C443653CE14C101F81F1845B413CD8C7
+                              13CE05D1308F279C0CA2795F38CAF184B341348CE309A78334E01A4F70101F9E
+                              F1040701DE3702C5788283DC12FC788283DC11EC788283DC2BB8F10407795820
+                              E3090EF28820C6131CE4694D1D4F7090E769DA78828320C3419E474929677385
+                              E345783686833C4D8564683A57282DC3B3511CE411979757373AC641E168154E
+                              C671908755DA5FBD9C6C660C8D83DCAB5A0E4B399ECF97D6E1D0341CE48E6A59
+                              842223FB85D20E1C9A8A83DCA22E748C7CFEF8000E4DC741405D8833196ECD04
+                              1943E320BEFA69382C8772B9AF453804868378315AA32D9F72B9D2091C02E574
+                              909AAA9DE8187B7B47A7700A9CB341BC9F19C548A46D08530CCDC92075210F62
+                              B168667FBF780627349C0BA2637474B48E64B35F2EE0848A5B4194DAD131B6B6
+                              8A65B8A0E34C1029C4FA9BB7EFC731C7D0DC08A2C4EA8BD8BBC9CDCDCD0A5CD0
+                              0AFC8F2153BD7105EF9AE1C5C81D96A6A594663FCE7F62FB2B6499520CCDE220
+                              72317F783C4B298666651029C57CFEB0340F8FA4D816A4696304536C0AD2D431
+                              8229560409628C608A0D4102192398423C4870630453080709768C600AD120C1
+                              8F114C211704CB18C1146241F08C114C211404D718C1141241308E114C411F04
+                              EB18C114D441308F114C411B04FB18C1149C41088C114C411784CA18C1145C41
+                              088D114CC133722036463005CB2B84DC18C15A54FF8B01638C31C618A34388BF
+                              8E1B962BB62212C20000000049454E44AE426082}
+                          end>
+                        Align = Right
+                        Cursor = crHandPoint
+                        HitTest = False
+                        Opacity = 0.500000000000000000
+                        Margins.Left = 3.000000000000000000
+                        Margins.Top = 3.000000000000000000
+                        Margins.Right = 3.000000000000000000
+                        Margins.Bottom = 3.000000000000000000
+                        Position.X = 336.000000000000000000
+                        Position.Y = 3.000000000000000000
+                        Size.Width = 29.000000000000000000
+                        Size.Height = 29.000000000000000000
+                        Size.PlatformDefault = False
+                      end
+                    end
+                  end
+                end
+                object lytRow_013: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 228.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                  object lytID_TAB_PRECO: TLayout
+                    Align = Client
+                    Size.Width = 368.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbID_TAB_PRECO: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Tabela de Pre'#231'o padr'#227'o do Usu'#225'rio (Clique para selecionar):'
+                      TabOrder = 1
+                    end
+                    object edID_TAB_PRECO: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TabStop = False
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'TABELA DE PRE'#199'O'
+                      StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edID_TAB_PRECOKeyDown
+                      OnClick = edID_TAB_PRECOClick
+                      object imgID_TAB_PRECO: TImage
+                        MultiResBitmap = <
+                          item
+                            Width = 100
+                            Height = 100
+                            PNG = {
+                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                              03BE49444154785EEDDD3F4B9B5114C7F17B134D6A83B4166A37A18390484917
+                              4D142D1954101C5CDCC417A0AF405F81BE027D01E2E6E22008EA10AA68129786
+                              620487825B2D548BA436D1E4F6B94F0E14F1EFD09BE79C7BCF67D1E72CFEF912
+                              1CFC898231C618638C31C61863EC9F546F6201DE659E10BC0D909A4BF5C69794
+                              52120E4E4310C43793EE4DAC70143C418490624A47C964322D7071129E209A17
+                              E54FF9FBDAD8D858B471700FAE201E25C4C4CF1FDF36464793313839055D109F
+                              94C3E7E7D7DB2E46C119C41312AA5F47C9643EBE869313D006D1749472B9921D
+                              184876C2C97AA88368DE2798AC56AF7607077BBAE06435F441B4B00C775F576E
+                              3EBB108544908650978E924E27BAE160254241B45057ADA676D3E90F49385887
+                              5810FF13EE54B5EB6C2A15EF879355C8056990AF45BDBA6D6314A241B4484C47
+                              19E84B0CC3C10A84836891584DA98D542A310107F28807F1452F7FFD5EEBEFEB
+                              998267D26C0822DADBDB5AEAAABE6243142B8200A9A3A4FB1233F04C924D4134
+                              A9945A4AF7C5E7E0991CDB82F894120B54C713560669A0399EB038888FDC78C2
+                              F620FEEFE9298D27EC0FA2111A4FB811C443653CE14C101F81F1845B413CD8C7
+                              13CE05D1308F279C0CA2795F38CAF184B341348CE309A78334E01A4F70101F9E
+                              F1040701DE3702C5788283DC12FC788283DC11EC788283DC2BB8F10407795820
+                              E3090EF28820C6131CE4694D1D4F7090E769DA78828320C3419E474929677385
+                              E345783686833C4D8564683A57282DC3B3511CE411979757373AC641E168154E
+                              C671908755DA5FBD9C6C660C8D83DCAB5A0E4B399ECF97D6E1D0341CE48E6A59
+                              842223FB85D20E1C9A8A83DCA22E748C7CFEF8000E4DC741405D8833196ECD04
+                              1943E320BEFA69382C8772B9AF453804868378315AA32D9F72B9D2091C02E574
+                              909AAA9DE8187B7B47A7700A9CB341BC9F19C548A46D08530CCDC92075210F62
+                              B168667FBF780627349C0BA2637474B48E64B35F2EE0848A5B4194DAD131B6B6
+                              8A65B8A0E34C1029C4FA9BB7EFC731C7D0DC08A2C4EA8BD8BBC9CDCDCD0A5CD0
+                              0AFC8F2153BD7105EF9AE1C5C81D96A6A594663FCE7F62FB2B6499520CCDE220
+                              72317F783C4B298666651029C57CFEB0340F8FA4D816A4696304536C0AD2D431
+                              8229560409628C608A0D4102192398423C4870630453080709768C600AD120C1
+                              8F114C211704CB18C1146241F08C114C211404D718C1141241308E114C411F04
+                              EB18C114D441308F114C411B04FB18C1149C41088C114C411784CA18C1145C41
+                              088D114CC133722036463005CB2B84DC18C15A54FF8B01638C31C618A34388BF
+                              8193962BFC48B3FA0000000049454E44AE426082}
+                          end>
+                        Align = Right
+                        Cursor = crHandPoint
+                        HitTest = False
+                        Opacity = 0.500000000000000000
+                        Margins.Left = 3.000000000000000000
+                        Margins.Top = 3.000000000000000000
+                        Margins.Right = 3.000000000000000000
+                        Margins.Bottom = 3.000000000000000000
+                        Position.X = 336.000000000000000000
+                        Position.Y = 3.000000000000000000
+                        Size.Width = 29.000000000000000000
+                        Size.Height = 29.000000000000000000
+                        Size.PlatformDefault = False
+                      end
+                    end
                   end
                 end
               end
@@ -1968,7 +2168,7 @@ object frmCad_Empresa: TfrmCad_Empresa
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = xFFA1B24E
         TextSettings.HorzAlign = Center
-        Text = 'EMPRESAS'
+        Text = 'CLIENTES'
         TabOrder = 0
         object ShadowEffect3: TShadowEffect
           Distance = 3.000000000000000000

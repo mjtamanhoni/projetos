@@ -370,6 +370,42 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="..\..\DeskTop\Fontes\Funcoes\uFuncoes.pas"/>
+        <DCCReference Include="uCad.Cliente.pas">
+            <Form>frmCad_Cliente</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Conta.pas">
+            <Form>frmCad_Contas</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Frame\uFrame.Conta.pas">
+            <Form>Frame_Conta</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="uCad.CondicaoPagto.pas">
+            <Form>frmCad_CondicaoPagto</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Frame\uFrame.CondicaoPagto.pas">
+            <Form>Frame_CondicaoPagto</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="uCad.FormaPagto.pas">
+            <Form>frmCad_FormaPagto</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Frame\uFrame.FormaPagto.pas">
+            <Form>Frame_FormaPagto</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frame\uFrame.CondFormaPagto.pas">
+            <Form>Frame_CondFormaPagto</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

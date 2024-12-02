@@ -157,6 +157,9 @@ type
     procedure mtvMenuHidden(Sender: TObject);
     procedure rctFornecedorClick(Sender: TObject);
     procedure rctTabPrecosClick(Sender: TObject);
+    procedure rctClienteClick(Sender: TObject);
+    procedure rctContasClick(Sender: TObject);
+    procedure rctCondPagtoClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FDm_Global :TDM_Global;
@@ -183,7 +186,10 @@ uses
   ,uCad.PrestadorServicos
   ,uModelo.Dados
   ,uCad.Fornecedor
-  ,uCad.TabelaPreco;
+  ,uCad.TabelaPreco
+  ,uCad.Cliente
+  ,uCad.Conta
+  ,uCad.CondicaoPagto;
 
 procedure TfrmPrincipal.exArquivoExpandedChanged(Sender: TObject);
 begin
@@ -256,6 +262,29 @@ begin
   Config_Menu;
   Application.CreateForm(TfrmCad_Usuario,frmCad_Usuario);
   frmCad_Usuario.Show;
+end;
+
+procedure TfrmPrincipal.rctClienteClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Cliente,frmCad_Cliente);
+  frmCad_Cliente.Show;
+end;
+
+procedure TfrmPrincipal.rctCondPagtoClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCad_CondicaoPagto,frmCad_CondicaoPagto);
+  frmCad_CondicaoPagto.Show;
+
+end;
+
+procedure TfrmPrincipal.rctContasClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCad_Contas,frmCad_Contas);
+  frmCad_Contas.Show;
+
 end;
 
 procedure TfrmPrincipal.rctEmpresaClick(Sender: TObject);

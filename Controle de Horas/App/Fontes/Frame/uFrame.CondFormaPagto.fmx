@@ -1,0 +1,53 @@
+object Frame_CondFormaPagto: TFrame_CondFormaPagto
+  Size.Width = 380.000000000000000000
+  Size.Height = 30.000000000000000000
+  Size.PlatformDefault = False
+  object rctPrincipal: TRectangle
+    Align = Client
+    Fill.Kind = None
+    HitTest = False
+    Sides = [Bottom]
+    Size.Width = 380.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = xFF363428
+    object lytInformacoes: TLayout
+      Align = Client
+      Size.Width = 380.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object lytRow_001: TLayout
+        Align = Client
+        Size.Width = 380.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object lbNome: TLabel
+          Align = Client
+          StyledSettings = [Family, FontColor]
+          Margins.Left = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Size.Width = 238.000000000000000000
+          Size.Height = 30.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 15.000000000000000000
+          TextSettings.Font.StyleExt = {00060000000000000004000000}
+          Text = 'NOME'
+          TabOrder = 0
+        end
+        object lbInfPagto: TLabel
+          Align = Right
+          Margins.Right = 5.000000000000000000
+          Position.X = 248.000000000000000000
+          Size.Width = 127.000000000000000000
+          Size.Height = 30.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.HorzAlign = Trailing
+          Text = 'P: 2 - TI: Meses - I: 30'
+          TabOrder = 1
+        end
+      end
+    end
+  end
+end

@@ -29,7 +29,15 @@ uses
   uCad.Fornecedor in 'uCad.Fornecedor.pas' {frmCad_Fornecedor},
   uCad.TabelaPreco in 'uCad.TabelaPreco.pas' {frmCad_TabelaPreco},
   uFrame.TabelaPreco in 'Frame\uFrame.TabelaPreco.pas' {Frame_TabelaPreco: TFrame},
-  uFuncoes in '..\..\DeskTop\Fontes\Funcoes\uFuncoes.pas';
+  uFuncoes in '..\..\DeskTop\Fontes\Funcoes\uFuncoes.pas',
+  uCad.Cliente in 'uCad.Cliente.pas' {frmCad_Cliente},
+  uCad.Conta in 'uCad.Conta.pas' {frmCad_Contas},
+  uFrame.Conta in 'Frame\uFrame.Conta.pas' {Frame_Conta: TFrame},
+  uCad.CondicaoPagto in 'uCad.CondicaoPagto.pas' {frmCad_CondicaoPagto},
+  uFrame.CondicaoPagto in 'Frame\uFrame.CondicaoPagto.pas' {Frame_CondicaoPagto: TFrame},
+  uCad.FormaPagto in 'uCad.FormaPagto.pas' {frmCad_FormaPagto},
+  uFrame.FormaPagto in 'Frame\uFrame.FormaPagto.pas' {Frame_FormaPagto: TFrame},
+  uFrame.CondFormaPagto in 'Frame\uFrame.CondFormaPagto.pas' {Frame_CondFormaPagto: TFrame};
 
 {$R *.res}
 
