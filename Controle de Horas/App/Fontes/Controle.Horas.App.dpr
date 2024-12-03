@@ -37,7 +37,9 @@ uses
   uFrame.CondicaoPagto in 'Frame\uFrame.CondicaoPagto.pas' {Frame_CondicaoPagto: TFrame},
   uCad.FormaPagto in 'uCad.FormaPagto.pas' {frmCad_FormaPagto},
   uFrame.FormaPagto in 'Frame\uFrame.FormaPagto.pas' {Frame_FormaPagto: TFrame},
-  uFrame.CondFormaPagto in 'Frame\uFrame.CondFormaPagto.pas' {Frame_CondFormaPagto: TFrame};
+  uFrame.CondFormaPagto in 'Frame\uFrame.CondFormaPagto.pas' {Frame_CondFormaPagto: TFrame},
+  uFrame.SPData in 'Frame\uFrame.SPData.pas' {Frame_SP_Data: TFrame},
+  uFrame.SPDados in 'Frame\uFrame.SPDados.pas' {Frame_SP_Dados: TFrame};
 
 {$R *.res}
 

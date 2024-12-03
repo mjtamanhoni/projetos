@@ -1,0 +1,131 @@
+object Frame_SP_Dados: TFrame_SP_Dados
+  HitTest = False
+  Size.Width = 380.000000000000000000
+  Size.Height = 30.000000000000000000
+  Size.PlatformDefault = False
+  object rctPrincipal: TRectangle
+    Align = Client
+    Fill.Kind = None
+    HitTest = False
+    Sides = []
+    Size.Width = 380.000000000000000000
+    Size.Height = 30.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = xFF363428
+    object lbHR_INICIO: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Size.Width = 55.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = '00:00:00'
+      TabOrder = 8
+    end
+    object lbTOTAL: TLabel
+      Align = Client
+      StyledSettings = [Family, FontColor]
+      Margins.Left = 5.000000000000000000
+      Size.Width = 90.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 14.000000000000000000
+      TextSettings.Font.StyleExt = {00060000000000000004000000}
+      TextSettings.HorzAlign = Center
+      Text = 'R$ 2.250,00'
+      TabOrder = 7
+    end
+    object lbIgualValor: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 5.000000000000000000
+      Position.X = 275.000000000000000000
+      Size.Width = 10.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = '='
+      TabOrder = 6
+    end
+    object lbVLR_HORA: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 5.000000000000000000
+      Position.X = 215.000000000000000000
+      Size.Width = 55.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = 'R$ 32,90'
+      TabOrder = 5
+    end
+    object lbMultiplicador: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 5.000000000000000000
+      Position.X = 200.000000000000000000
+      Size.Width = 10.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = '*'
+      TabOrder = 4
+    end
+    object lbHR_TOTAL: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 5.000000000000000000
+      Position.X = 145.000000000000000000
+      Size.Width = 50.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = '00:00:00'
+      TabOrder = 3
+    end
+    object lbIgual: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 5.000000000000000000
+      Position.X = 130.000000000000000000
+      Size.Width = 10.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = '='
+      TabOrder = 2
+    end
+    object lbHR_FIM: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 5.000000000000000000
+      Position.X = 75.000000000000000000
+      Size.Width = 50.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = '00:00:00'
+      TabOrder = 1
+    end
+    object lbA: TLabel
+      Align = Left
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Left = 5.000000000000000000
+      Position.X = 60.000000000000000000
+      Size.Width = 10.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      TextSettings.HorzAlign = Center
+      Text = 'A'
+      TabOrder = 0
+    end
+  end
+end

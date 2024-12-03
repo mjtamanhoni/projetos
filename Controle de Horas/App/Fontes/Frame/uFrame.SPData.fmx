@@ -1,0 +1,29 @@
+object Frame_SP_Data: TFrame_SP_Data
+  HitTest = False
+  Size.Width = 380.000000000000000000
+  Size.Height = 25.000000000000000000
+  Size.PlatformDefault = False
+  object rctData: TRectangle
+    Align = Client
+    Corners = [TopLeft, TopRight]
+    Fill.Color = xFFC5C2B0
+    Size.Width = 380.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    XRadius = 10.000000000000000000
+    YRadius = 10.000000000000000000
+    object lbData: TLabel
+      Align = Client
+      StyledSettings = [Family, FontColor]
+      Margins.Left = 5.000000000000000000
+      Size.Width = 375.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Font.StyleExt = {00060000000000000004000000}
+      Text = '04/12/2024'
+      TabOrder = 0
+    end
+  end
+end

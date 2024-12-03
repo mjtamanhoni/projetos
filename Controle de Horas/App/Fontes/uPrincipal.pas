@@ -160,6 +160,7 @@ type
     procedure rctClienteClick(Sender: TObject);
     procedure rctContasClick(Sender: TObject);
     procedure rctCondPagtoClick(Sender: TObject);
+    procedure rctFormaPagtoClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FDm_Global :TDM_Global;
@@ -189,7 +190,8 @@ uses
   ,uCad.TabelaPreco
   ,uCad.Cliente
   ,uCad.Conta
-  ,uCad.CondicaoPagto;
+  ,uCad.CondicaoPagto
+  ,uCad.FormaPagto;
 
 procedure TfrmPrincipal.exArquivoExpandedChanged(Sender: TObject);
 begin
@@ -406,6 +408,13 @@ begin
   t.OnTerminate := TThreadEnd_Estrutura;
   t.Start;
 
+end;
+
+procedure TfrmPrincipal.rctFormaPagtoClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmCad_FormaPagto,frmCad_FormaPagto);
+  frmCad_FormaPagto.Show;
 end;
 
 procedure TfrmPrincipal.rctFornecedorClick(Sender: TObject);

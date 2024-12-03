@@ -17,7 +17,9 @@ type
     imgExcluído: TImage;
     lytInformacoes: TLayout;
     lytRow_001: TLayout;
-    lbNome: TLabel;
+    lbDescricao: TLabel;
+    lytRow_002: TLayout;
+    lbClassificacao: TLabel;
   private
     { Private declarations }
   public

@@ -1,4 +1,5 @@
 object Frame_CondFormaPagto: TFrame_CondFormaPagto
+  HitTest = False
   Size.Width = 380.000000000000000000
   Size.Height = 30.000000000000000000
   Size.PlatformDefault = False
@@ -33,16 +34,18 @@ object Frame_CondFormaPagto: TFrame_CondFormaPagto
           Size.PlatformDefault = False
           TextSettings.Font.Size = 15.000000000000000000
           TextSettings.Font.StyleExt = {00060000000000000004000000}
-          Text = 'NOME'
+          Text = 'DESCRI'#199#195'O'
           TabOrder = 0
         end
         object lbInfPagto: TLabel
           Align = Right
+          StyledSettings = [Family, Style, FontColor]
           Margins.Right = 5.000000000000000000
           Position.X = 248.000000000000000000
           Size.Width = 127.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
+          TextSettings.Font.Size = 13.000000000000000000
           TextSettings.HorzAlign = Trailing
           Text = 'P: 2 - TI: Meses - I: 30'
           TabOrder = 1
