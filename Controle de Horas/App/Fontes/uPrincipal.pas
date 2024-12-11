@@ -161,6 +161,7 @@ type
     procedure rctContasClick(Sender: TObject);
     procedure rctCondPagtoClick(Sender: TObject);
     procedure rctFormaPagtoClick(Sender: TObject);
+    procedure rctServPrestadosClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FDm_Global :TDM_Global;
@@ -171,7 +172,8 @@ type
     procedure Config_Menu;
     procedure TThreadEnd_Estrutura(Sender: TObject);
   public
-    { Public declarations }
+    FUser_Id :Integer;
+    FUser_PIN :String;
   end;
 
 var
@@ -191,7 +193,8 @@ uses
   ,uCad.Cliente
   ,uCad.Conta
   ,uCad.CondicaoPagto
-  ,uCad.FormaPagto;
+  ,uCad.FormaPagto
+  ,uMov.ServicosPrestados;
 
 procedure TfrmPrincipal.exArquivoExpandedChanged(Sender: TObject);
 begin
@@ -444,6 +447,13 @@ begin
     Application.CreateForm(TfrmCad_PrestadorServicos,frmCad_PrestadorServicos);
   frmCad_PrestadorServicos.Show;
 
+end;
+
+procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmMov_ServicosPrestados,frmMov_ServicosPrestados);
+  frmMov_ServicosPrestados.Show;
 end;
 
 procedure TfrmPrincipal.rctTabPrecosClick(Sender: TObject);

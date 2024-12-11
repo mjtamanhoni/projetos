@@ -31,7 +31,7 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
+  TExecuteOnClose = procedure(Aid:Integer; ANome:String; AValor:Double) of Object;
   TTab_Status = (dsInsert,dsEdit,dsLista);
 
   TfrmCad_TabelaPreco = class(TForm)
@@ -488,7 +488,7 @@ begin
   case tcPrincipal.TabIndex of
     0:begin
       if FPesquisa then
-        ExecuteOnClose(FId,FDescricao);
+        ExecuteOnClose(FId,FDescricao,FValor);
       Close;
     end;
     1:FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja cancelar as alterações realizadas','Sim',Cancelar,'Não');

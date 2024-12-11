@@ -198,7 +198,7 @@ type
     FPesquisa: Boolean;
 
     procedure Sel_Fornecedor(Aid:Integer; ANome:String);
-    procedure Sel_TabPrecos(Aid:Integer; ANome:String);
+    procedure Sel_TabPrecos(Aid:Integer; ANome:String; AValor:Double);
 
     procedure LimparCampos;
     procedure Salvar;
@@ -1098,7 +1098,7 @@ begin
   edID_FORNECEDOR.Text := ANome;
 end;
 
-procedure TfrmCad_Cliente.Sel_TabPrecos(Aid: Integer; ANome: String);
+procedure TfrmCad_Cliente.Sel_TabPrecos(Aid: Integer; ANome: String; AValor:Double);
 begin
   edID_TAB_PRECO.Tag := Aid;
   edID_TAB_PRECO.Text := ANome;

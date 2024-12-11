@@ -61,7 +61,8 @@ begin
         //begin
           if NOT Assigned(frmPrincipal) then
             Application.CreateForm(TfrmPrincipal,frmPrincipal);
-          //frmPrincipal.FUser_PIN := edPIN.Text;
+          frmPrincipal.FUser_PIN := edPIN.Text;
+          frmPrincipal.FUser_Id := 1; //Pegar o Código do Login...
           Application.MainForm := frmPrincipal;
           frmPrincipal.Show;
           Close;
