@@ -1,7 +1,7 @@
-object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
+object frmMov_Financeiro: TfrmMov_Financeiro
   Left = 0
   Top = 0
-  Caption = 'Servi'#231'os Prestados'
+  Caption = 'Movimento Financeiro'
   ClientHeight = 680
   ClientWidth = 380
   Position = ScreenCenter
@@ -558,7 +558,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
     Size.Width = 380.000000000000000000
     Size.Height = 580.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 11
+    TabOrder = 12
     object tcPrincipal: TTabControl
       Align = Client
       Margins.Left = 3.000000000000000000
@@ -608,7 +608,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             DefaultItemStyles.ItemStyle = ''
             DefaultItemStyles.GroupHeaderStyle = ''
             DefaultItemStyles.GroupFooterStyle = ''
-            OnItemClick = lbRegistrosItemClick
             Viewport.Width = 368.000000000000000000
             Viewport.Height = 528.000000000000000000
           end
@@ -638,7 +637,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             TextPrompt = 'Informe o conte'#250'do da pesquisa'
             StyledSettings = [Family, Style, FontColor]
             CharCase = ecUpperCase
-            OnKeyDown = edFiltroKeyDown
             object imgLimpar: TImage
               MultiResBitmap = <
                 item
@@ -710,7 +708,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
               Size.Width = 30.000000000000000000
               Size.Height = 30.000000000000000000
               Size.PlatformDefault = False
-              OnClick = imgLimparClick
             end
           end
         end
@@ -741,12 +738,10 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Size.Height = 564.000000000000000000
             Size.PlatformDefault = False
             TabHeight = 49.000000000000000000
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 0
             TabPosition = None
             Sizes = (
-              374s
-              564s
               374s
               564s
               374s
@@ -755,7 +750,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
               CustomIcon = <
                 item
                 end>
-              IsSelected = True
+              IsSelected = False
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
@@ -779,7 +774,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 0
+                  TabOrder = 3
                   object lytID: TLayout
                     Align = Left
                     Size.Width = 88.000000000000000000
@@ -847,7 +842,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                       Size.PlatformDefault = False
                       TextPrompt = 'INATIVO'
                       StyledSettings = [Family, Style, FontColor]
-                      OnClick = edSTATUSClick
                       object imgSTATUS: TImage
                         MultiResBitmap = <
                           item
@@ -935,8 +929,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                       Size.PlatformDefault = False
                       TextPrompt = '00/00/0000'
                       StyledSettings = [Family, Style, FontColor]
-                      OnTyping = edDATATyping
-                      OnKeyDown = edDATAKeyDown
                       object imgDATA: TImage
                         MultiResBitmap = <
                           item
@@ -983,50 +975,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                     end
                   end
                 end
-                object lytRow_C01_002: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 57.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 1
-                  object lytDESCRICAO: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbDESCRICAO: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Nome:'
-                      TabOrder = 1
-                    end
-                    object edDESCRICAO: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      ReturnKeyType = Next
-                      TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'DESCRI'#199#195'O'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecUpperCase
-                    end
-                  end
-                end
                 object lytRow_Navegar_01: TLayout
                   Align = Bottom
                   Margins.Left = 3.000000000000000000
@@ -1038,7 +986,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.Width = 368.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 2
+                  TabOrder = 6
                   object imgAvancar_001: TImage
                     MultiResBitmap = <
                       item
@@ -1089,13 +1037,547 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                     OnClick = imgAvancar_001Click
                   end
                 end
+                object lytRow_C01_002: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 57.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  object lytID_EMPRESA: TLayout
+                    Align = Client
+                    Size.Width = 368.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbID_EMPRESA: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Empresa (Clique para selecionar):'
+                      TabOrder = 1
+                    end
+                    object edID_EMPRESA: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'EMPRESA'
+                      StyledSettings = [Family, Style, FontColor]
+                      object imgID_EMPRESA: TImage
+                        MultiResBitmap = <
+                          item
+                            Width = 100
+                            Height = 100
+                            PNG = {
+                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
+                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
+                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
+                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
+                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
+                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
+                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
+                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
+                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
+                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
+                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
+                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
+                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
+                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
+                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
+                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
+                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
+                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
+                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
+                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
+                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
+                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
+                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
+                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
+                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
+                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
+                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
+                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
+                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
+                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
+                              962BA75495A40000000049454E44AE426082}
+                          end>
+                        Align = Right
+                        Cursor = crHandPoint
+                        HitTest = False
+                        Opacity = 0.500000000000000000
+                        Margins.Left = 3.000000000000000000
+                        Margins.Top = 3.000000000000000000
+                        Margins.Right = 3.000000000000000000
+                        Margins.Bottom = 3.000000000000000000
+                        Position.X = 336.000000000000000000
+                        Position.Y = 3.000000000000000000
+                        Size.Width = 29.000000000000000000
+                        Size.Height = 29.000000000000000000
+                        Size.PlatformDefault = False
+                      end
+                    end
+                  end
+                end
+                object lytRow_C01_003: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 114.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object lytID_CONTA: TLayout
+                    Align = Client
+                    Size.Width = 368.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbID_CONTA: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Conta (Clique para selecionar):'
+                      TabOrder = 1
+                    end
+                    object edID_CONTA: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'CONTA'
+                      StyledSettings = [Family, Style, FontColor]
+                      object imgID_CONTA: TImage
+                        MultiResBitmap = <
+                          item
+                            Width = 100
+                            Height = 100
+                            PNG = {
+                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
+                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
+                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
+                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
+                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
+                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
+                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
+                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
+                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
+                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
+                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
+                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
+                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
+                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
+                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
+                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
+                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
+                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
+                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
+                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
+                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
+                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
+                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
+                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
+                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
+                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
+                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
+                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
+                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
+                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
+                              962BA75495A40000000049454E44AE426082}
+                          end>
+                        Align = Right
+                        Cursor = crHandPoint
+                        HitTest = False
+                        Opacity = 0.500000000000000000
+                        Margins.Left = 3.000000000000000000
+                        Margins.Top = 3.000000000000000000
+                        Margins.Right = 3.000000000000000000
+                        Margins.Bottom = 3.000000000000000000
+                        Position.X = 336.000000000000000000
+                        Position.Y = 3.000000000000000000
+                        Size.Width = 29.000000000000000000
+                        Size.Height = 29.000000000000000000
+                        Size.PlatformDefault = False
+                      end
+                    end
+                  end
+                end
+                object lytRow_C01_004: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 171.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                  object lytID_PESSOA: TLayout
+                    Align = Client
+                    Size.Width = 368.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbID_PESSOA: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Pessoa -Cliente/Fornecedor (Clique para selecionar):'
+                      TabOrder = 1
+                    end
+                    object edID_PESSOA: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'CLIENTE/FORNECEDOR'
+                      StyledSettings = [Family, Style, FontColor]
+                      object imgID_PESSOA: TImage
+                        MultiResBitmap = <
+                          item
+                            Width = 100
+                            Height = 100
+                            PNG = {
+                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
+                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
+                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
+                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
+                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
+                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
+                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
+                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
+                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
+                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
+                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
+                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
+                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
+                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
+                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
+                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
+                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
+                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
+                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
+                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
+                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
+                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
+                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
+                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
+                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
+                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
+                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
+                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
+                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
+                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
+                              962BA75495A40000000049454E44AE426082}
+                          end>
+                        Align = Right
+                        Cursor = crHandPoint
+                        HitTest = False
+                        Opacity = 0.500000000000000000
+                        Margins.Left = 3.000000000000000000
+                        Margins.Top = 3.000000000000000000
+                        Margins.Right = 3.000000000000000000
+                        Margins.Bottom = 3.000000000000000000
+                        Position.X = 336.000000000000000000
+                        Position.Y = 3.000000000000000000
+                        Size.Width = 29.000000000000000000
+                        Size.Height = 29.000000000000000000
+                        Size.PlatformDefault = False
+                      end
+                    end
+                  end
+                end
+                object lytRow_C01_005: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 228.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                  object lytFormaCond_Pagto: TLayout
+                    Align = Client
+                    Size.Width = 368.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbFormaCond_Pagto: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Forma/Condi'#231#227'o de Pagamento (Clique para selecionar):'
+                      TabOrder = 2
+                    end
+                    object edFORMA_PAGTO_ID: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 1
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 201.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'FORMA PAGTO'
+                      StyledSettings = [Family, Style, FontColor]
+                      object imgFORMA_PAGTO_ID: TImage
+                        MultiResBitmap = <
+                          item
+                            Width = 100
+                            Height = 100
+                            PNG = {
+                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
+                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
+                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
+                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
+                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
+                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
+                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
+                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
+                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
+                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
+                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
+                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
+                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
+                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
+                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
+                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
+                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
+                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
+                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
+                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
+                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
+                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
+                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
+                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
+                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
+                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
+                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
+                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
+                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
+                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
+                              962BA75495A40000000049454E44AE426082}
+                          end>
+                        Align = Right
+                        Cursor = crHandPoint
+                        HitTest = False
+                        Opacity = 0.500000000000000000
+                        Margins.Left = 3.000000000000000000
+                        Margins.Top = 3.000000000000000000
+                        Margins.Right = 3.000000000000000000
+                        Margins.Bottom = 3.000000000000000000
+                        Position.X = 169.000000000000000000
+                        Position.Y = 3.000000000000000000
+                        Size.Width = 29.000000000000000000
+                        Size.Height = 29.000000000000000000
+                        Size.PlatformDefault = False
+                      end
+                    end
+                    object edCOND_PAGTO_ID: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Right
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Position.X = 203.000000000000000000
+                      Position.Y = 20.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Size.Width = 165.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'COND. PAGTO'
+                      StyledSettings = [Family, Style, FontColor]
+                    end
+                  end
+                end
+                object lytRow_C01_006: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 285.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                  object lytVALOR: TLayout
+                    Align = Right
+                    Position.X = 253.000000000000000000
+                    Size.Width = 115.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 1
+                    object lbVALOR: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 115.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Valor:'
+                      TabOrder = 1
+                    end
+                    object edVALOR: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      KeyboardType = PhonePad
+                      ReturnKeyType = Next
+                      FilterChar = 'R$0123456789.,'
+                      TextSettings.Font.Size = 18.000000000000000000
+                      TextSettings.HorzAlign = Trailing
+                      Size.Width = 115.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'R$ 0,00'
+                      StyledSettings = [Family, Style, FontColor]
+                      CharCase = ecLowerCase
+                    end
+                  end
+                  object lytDT_VENCIMENTO: TLayout
+                    Align = Left
+                    Size.Width = 145.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbDT_VENCIMENTO: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 145.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Data do Vencimento:'
+                      TabOrder = 0
+                    end
+                    object edDT_VENCIMENTO: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 1
+                      Cursor = crHandPoint
+                      ReturnKeyType = Next
+                      ReadOnly = True
+                      FilterChar = '0123456789/'
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 145.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = '00/00/0000'
+                      StyledSettings = [Family, Style, FontColor]
+                      object imgDT_VENCIMENTO: TImage
+                        Tag = 1
+                        MultiResBitmap = <
+                          item
+                            Width = 100
+                            Height = 100
+                            PNG = {
+                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
+                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                              026449444154785EEDDB4D6ED3400040E1996653944D8E5056B06B17882EC311
+                              B802378093C011B8023768974195801D5D9123248B8A2211063B0C95D2719B52
+                              DBF50B7ADFA271DDB871E7C93F63A931F4E0F8F8C9C16A15DEA6148F46311CE4
+                              D56BAB14E631A6CFE3F1FEABD3D32F8BBC1A65C8FDEF3CC8747A38F97E71F9AD
+                              FAD593BCEA0669F168BCFF981665E8FDDFCBAF9DB9BCF8F17EFB1F538B933FEF
+                              65197AFF3B0F92429AE6C5AD7EA67098173186DEFFCE4F59CF9F3D4D7971EDE3
+                              D9D78DCFD8F6F3A10DBDFF9D1F216AC720300681693CFFFDBD0FAF6ABDB8DB1D
+                              C7CDB69D83E9BADFFFB4F815C2C96814DECC66E7F3BCF24A7184D431D22A7CDA
+                              0BF165DB186A1227F5D8D6635C8F755E79A53C65ADE23B433C846A8CD763BDA9
+                              08F22FF7E16AA769AC1B2EEA1E1D0FA71CEB86201A9241600C0253CC43766D9E
+                              B0EBAECF733C42600C0263101883C01804C62030068131088C412449FA4FF8B4
+                              77603EED8533088C41600C0263101883C01804C62030068131088C41607A7F96
+                              75D7FF52BDFEB9BBB25D5B3ECB8233088C41600C0263101883C01804C6203006
+                              812966A75DCF44753B67EA70068131084CEFD7905D796A7BDFEDDAF21A026710
+                              1883C01804C62030068131088C41600C0253CC4EBB9E89EA76CED4E10C026310
+                              98DEAF21BBF2D4F6BEDBB5E53504CE2030068131088C41600C0263101883C018
+                              04A6989D763D13D5ED9CA9C31904C62030068131088C41600C0263101883C018
+                              04C620304D4196F955FD2BC6BA08124338C98BEA59D3589747C828BDAEBE7A94
+                              F46F99C77A431164363B9FC7513AAAEA7DA8BE354CF796F5D8D6635C8F755E27
+                              49524B21FC066564DEE53DF7B9180000000049454E44AE426082}
+                          end>
+                        Align = Right
+                        Cursor = crHandPoint
+                        Opacity = 0.500000000000000000
+                        Margins.Left = 3.000000000000000000
+                        Margins.Top = 3.000000000000000000
+                        Margins.Right = 3.000000000000000000
+                        Margins.Bottom = 3.000000000000000000
+                        Position.X = 113.000000000000000000
+                        Position.Y = 3.000000000000000000
+                        Size.Width = 29.000000000000000000
+                        Size.Height = 29.000000000000000000
+                        Size.PlatformDefault = False
+                      end
+                    end
+                  end
+                end
               end
             end
             object tiCampos_002: TTabItem
               CustomIcon = <
                 item
                 end>
-              IsSelected = False
+              IsSelected = True
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
@@ -1121,56 +1603,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.Width = 368.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 5
-                  object imgAvancar_002: TImage
-                    MultiResBitmap = <
-                      item
-                        Width = 100
-                        Height = 100
-                        PNG = {
-                          89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                          54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          03E649444154785EEDDDBD6FD34018C7F1736C13E54520218AD8181828B45D0A
-                          6D12A452AA2216E6FE0D4CB0F1073022B1F197309702854214DA05D4023313B4
-                          8801B5346F76F08F1CE2A589DB015FEEB9E7F92EBEBB56AAE48FECC496932A49
-                          922449922429833CBD3552AD76E16CD489EE2995BB994C7BC91F7FA5FCE056A3
-                          B1F9B9FF1B9231904A65E242BBDD5C0BFDF0A45EEAD7893EA97CB8F8FAF5BB77
-                          7A857539BDCDBC5E1CDD3F808142FF8C8AE3D5D9D98B17F50AEB8C81ECEEA9EB
-                          7A38A85309CA331C457ACE366320E5A22AE8E1B0C67A51B4CA1DC5DC294B79CB
-                          7A98D64F945A6D725CCFD9650C2408FD3BC966A73F4B6D2CEA749F733D528C81
-                          D4EB9B1FFC30B89A0C8F84C2F548317A1D82B093710424C3B1FE4A6A3B4004A6
-                          9E3B9F71102428C31B09081294C18D0C0409CAC1460A8204E5EF460E8204E577
-                          C6DEF6A6859D8B9DDC893A5FF5525A3FAF5380A8E74E650508024A3E5FBCC61D
-                          C58A53D69F55AB5353ADD6F76703EF0C1FCCB9D397752088338A9520882B8AB5
-                          2088238AD520881B8AF52088130A0910C405850C08E280420A04B98E420E04B9
-                          8C421204B98A421604B988421A04B986421E040125EE765E24C313FD95D4AC46
-                          71020455ABE3D371573D4986A4519C01412EA0380582A8A338078228A3380982
-                          A8A2380B8228A2380D82A8A1380F8228A1B000415450D880200A28AC4090ED28
-                          EC40D0CCCCE4E566B3BB52C8ABE37A6968B152DB61786CAA5E7FBBAD9732CD9A
-                          47494DB6BEBEB951CEFBD7F75BEA9B5E1A5AB2834EC7ADD6033DCD3C9620A8BE
-                          B1B55E2AA9859EDADFD54B43EB286F410F338F2DC8AF3C5588F4706841DCEBE9
-                          61E6B105A95D9E98D9DB534F93E1E12FEEBEB7A24799C712A45219BF14A968F9
-                          A82FEA8572E9AE9E669EAFB76CC2DBDE5E74F4B7BD4118CCAFADBDF9A8E79927
-                          1786C3930BC32C935B2716450503390F420903390D420D03390B421103390942
-                          150339074219033905421D033903E2020672E2D649FF61EB78351992C640E46F
-                          2EFEFA384232248F81489FB2E4033B16E522062209E22A062207E232062205E2
-                          3A062203C201039100E18281AC07E18481AC06E18681AC05E18881AC04E18A81
-                          AC03E18C81AC02E18E81AC01C1B754379BFB2F3963202B40E4CBF87F377210C1
-                          F8BB918208C6C146062218831B0988600CCF388860A4671444300ECF18C8952B
-                          13E7DAEDE8554EA9D37A29AD2F2A979BE7F83FD68D3D06D46D460F8F88812363
-                          8EEB3FBC3702B2B4B4E4EF36D50D3D4D8BE569EACF8C1D21E5E2A14F49B2C740
-                          C65E43662F9D7FAC3C6F514FFF4D3074C68E102F086E0FFA6E914E147FF67C7F
-                          5E30FA19036934B6DE178BC19CEAA90DBD84C3F351A1509AC6CFF49224499224
-                          499224FDF794FA016F93E91E7442C9670000000049454E44AE426082}
-                      end>
-                    Align = Right
-                    Cursor = crHandPoint
-                    Position.X = 318.000000000000000000
-                    Size.Width = 50.000000000000000000
-                    Size.Height = 35.000000000000000000
-                    Size.PlatformDefault = False
-                    OnClick = imgAvancar_002Click
-                  end
+                  TabOrder = 0
                   object imgRetornar_001: TImage
                     MultiResBitmap = <
                       item
@@ -1230,989 +1663,14 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 0
-                  object lytID_EMPRESA: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbID_EMPRESA: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Empresa (Clique para selecionar):'
-                      TabOrder = 1
-                    end
-                    object edID_EMPRESA: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      Cursor = crHandPoint
-                      ReadOnly = True
-                      TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'EMPRESA'
-                      StyledSettings = [Family, Style, FontColor]
-                      OnKeyDown = edID_EMPRESAKeyDown
-                      OnClick = edID_EMPRESAClick
-                      object imgID_EMPRESA: TImage
-                        MultiResBitmap = <
-                          item
-                            Width = 100
-                            Height = 100
-                            PNG = {
-                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
-                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
-                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
-                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
-                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
-                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
-                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
-                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
-                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
-                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
-                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
-                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
-                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
-                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
-                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
-                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
-                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
-                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
-                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
-                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
-                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
-                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
-                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
-                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
-                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
-                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
-                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
-                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
-                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
-                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
-                              962BA75495A40000000049454E44AE426082}
-                          end>
-                        Align = Right
-                        Cursor = crHandPoint
-                        HitTest = False
-                        Opacity = 0.500000000000000000
-                        Margins.Left = 3.000000000000000000
-                        Margins.Top = 3.000000000000000000
-                        Margins.Right = 3.000000000000000000
-                        Margins.Bottom = 3.000000000000000000
-                        Position.X = 336.000000000000000000
-                        Position.Y = 3.000000000000000000
-                        Size.Width = 29.000000000000000000
-                        Size.Height = 29.000000000000000000
-                        Size.PlatformDefault = False
-                      end
-                    end
-                  end
-                end
-                object lytRow_C02_002: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 57.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 1
-                  object lytID_CONTA: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbID_CONTA: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Conta (Clique para selecionar):'
-                      TabOrder = 1
-                    end
-                    object edID_CONTA: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      Cursor = crHandPoint
-                      ReadOnly = True
-                      TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'CONTA'
-                      StyledSettings = [Family, Style, FontColor]
-                      OnKeyDown = edID_CONTAKeyDown
-                      OnClick = edID_CONTAClick
-                      object imgID_CONTA: TImage
-                        MultiResBitmap = <
-                          item
-                            Width = 100
-                            Height = 100
-                            PNG = {
-                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
-                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
-                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
-                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
-                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
-                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
-                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
-                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
-                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
-                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
-                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
-                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
-                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
-                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
-                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
-                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
-                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
-                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
-                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
-                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
-                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
-                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
-                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
-                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
-                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
-                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
-                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
-                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
-                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
-                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
-                              962BA75495A40000000049454E44AE426082}
-                          end>
-                        Align = Right
-                        Cursor = crHandPoint
-                        HitTest = False
-                        Opacity = 0.500000000000000000
-                        Margins.Left = 3.000000000000000000
-                        Margins.Top = 3.000000000000000000
-                        Margins.Right = 3.000000000000000000
-                        Margins.Bottom = 3.000000000000000000
-                        Position.X = 336.000000000000000000
-                        Position.Y = 3.000000000000000000
-                        Size.Width = 29.000000000000000000
-                        Size.Height = 29.000000000000000000
-                        Size.PlatformDefault = False
-                      end
-                    end
-                  end
-                end
-                object lytRow_C02_003: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 114.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 2
-                  object lytID_PRESTADOR_SERVICO: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbID_PRESTADOR_SERVICO: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Prestador de Servi'#231'os (Clique para selecionar):'
-                      TabOrder = 1
-                    end
-                    object edID_PRESTADOR_SERVICO: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      Cursor = crHandPoint
-                      ReadOnly = True
-                      TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'PRESTADOR DE SERVI'#199'O'
-                      StyledSettings = [Family, Style, FontColor]
-                      OnKeyDown = edID_PRESTADOR_SERVICOKeyDown
-                      OnClick = edID_PRESTADOR_SERVICOClick
-                      object imgID_PRESTADOR_SERVICO: TImage
-                        MultiResBitmap = <
-                          item
-                            Width = 100
-                            Height = 100
-                            PNG = {
-                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
-                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
-                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
-                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
-                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
-                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
-                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
-                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
-                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
-                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
-                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
-                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
-                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
-                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
-                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
-                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
-                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
-                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
-                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
-                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
-                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
-                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
-                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
-                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
-                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
-                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
-                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
-                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
-                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
-                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
-                              962BA75495A40000000049454E44AE426082}
-                          end>
-                        Align = Right
-                        Cursor = crHandPoint
-                        HitTest = False
-                        Opacity = 0.500000000000000000
-                        Margins.Left = 3.000000000000000000
-                        Margins.Top = 3.000000000000000000
-                        Margins.Right = 3.000000000000000000
-                        Margins.Bottom = 3.000000000000000000
-                        Position.X = 336.000000000000000000
-                        Position.Y = 3.000000000000000000
-                        Size.Width = 29.000000000000000000
-                        Size.Height = 29.000000000000000000
-                        Size.PlatformDefault = False
-                      end
-                    end
-                  end
-                end
-                object lytRow_C02_004: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 171.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 3
-                  object lytID_CLIENTE: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbID_CLIENTE: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Cliente (Clique para selecionar):'
-                      TabOrder = 1
-                    end
-                    object edID_CLIENTE: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      Cursor = crHandPoint
-                      ReadOnly = True
-                      TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'CLIENTE'
-                      StyledSettings = [Family, Style, FontColor]
-                      OnKeyDown = edID_CLIENTEKeyDown
-                      OnClick = edID_CLIENTEClick
-                      object imgID_CLIENTE: TImage
-                        MultiResBitmap = <
-                          item
-                            Width = 100
-                            Height = 100
-                            PNG = {
-                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
-                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
-                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
-                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
-                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
-                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
-                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
-                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
-                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
-                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
-                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
-                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
-                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
-                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
-                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
-                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
-                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
-                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
-                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
-                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
-                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
-                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
-                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
-                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
-                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
-                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
-                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
-                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
-                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
-                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
-                              962BA75495A40000000049454E44AE426082}
-                          end>
-                        Align = Right
-                        Cursor = crHandPoint
-                        HitTest = False
-                        Opacity = 0.500000000000000000
-                        Margins.Left = 3.000000000000000000
-                        Margins.Top = 3.000000000000000000
-                        Margins.Right = 3.000000000000000000
-                        Margins.Bottom = 3.000000000000000000
-                        Position.X = 336.000000000000000000
-                        Position.Y = 3.000000000000000000
-                        Size.Width = 29.000000000000000000
-                        Size.Height = 29.000000000000000000
-                        Size.PlatformDefault = False
-                      end
-                    end
-                  end
-                end
-                object lytRow_C02_005: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 228.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
                   TabOrder = 4
-                  object lytID_TABELA: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbID_TABELA: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Tabela de Pre'#231'o: (Clique para selecionar):'
-                      TabOrder = 1
-                    end
-                    object edID_TABELA: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      Cursor = crHandPoint
-                      ReadOnly = True
-                      TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'TABELA DE PRE'#199'O'
-                      StyledSettings = [Family, Style, FontColor]
-                      OnClick = edID_TABELAClick
-                      object imgID_TABELA: TImage
-                        MultiResBitmap = <
-                          item
-                            Width = 100
-                            Height = 100
-                            PNG = {
-                              89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                              54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                              03BC49444154785EEDDD3F4B9B5114C7F17B138DB559B4A06E42072191922E26
-                              51B4645041707071135F80BE027D05FA0AF405889B8B83206807A9A2495C1A8A
-                              111C0A6E2A5497D4269ADC3EF7C98122FE1D7A9FE79C7BCF67D1E72CFEF9121C
-                              FC898231C618638C31C61863EC9FCC407209DE659E08BC0D915AC80C24569452
-                              120E4E4310C437971D48AE71143C418490624647C9E5722D7071129E209A17E5
-                              4FE562636262A2AD79700FAE201E25C4D4AFAB9F5BE3E3A9389C9C822E884FCA
-                              D1EBEBBB5D17A3E00CE2890835A8A3E4729F3BE0E404B441341DA552A9EE0D0D
-                              A5BAE1643DD44134EF134CD56AB7FBC3C3FDBD70B21AFA205A5446FBEEAAF7DF
-                              5C8842224853A45747C966937D70B012A1205AA4B75E57FBD9ECA7141CAC432C
-                              88FF0977ABFADD5E269318849355C80569921DA251DBB5310AD1205A2CAEA30C
-                              A593A370B002E1205A2C5E576A2B93494EC1813CE2417C6D1717BF3706D3FD33
-                              F04C9A0D41444F577B4B4335D66C886245102075946C3A3907CF24D91444934A
-                              A9956C3AB100CFE4D816C4A79458A23A9EB0324813CDF184C5417CE4C613B607
-                              F17F4F4F693C617F108DD078C28D201E2AE3096782F8088C27DC0AE2C13E9E70
-                              2E8886793CE16410CDFBC2518E279C0DA2611C4F381DA409D7788283F8F08C27
-                              3808F0BE1128C6131CE481F0C7131CE49170C7131CE449E18D2738C8F342194F
-                              70901784319EE020AF0B743CC141DE26B0F10407418683BC8D9252CEE78BA7CB
-                              F06C0C07799D8AC8C86CBE585E8567A338C80B2EAE6EEF758CA3E2C93A9C8CE3
-                              20CFABF6F4BC9F0E3286C6419E54AB44A59C2C14CA9B70080C0779A4561191D8
-                              D861B1FC150E81E2200FA81B1DA350383D8243E0380868087129A3ADB9306368
-                              1CC4D7388F46E5483EFFA30487D070102F466B5BCB977CBE7C068750391DA4AE
-                              EA673AC6C1C1C9399C42E76C10EF674629166B1FC1144373324843C8A378BC2D
-                              777858BA84131ACE05D1313A3B5BC7F6F6BEDFC00915B78228F555C7D8D92955
-                              E0828E3341A4109B1FBA3E4E628EA1B9114489F577F19EE9EDEDED2A5CD00AFD
-                              8F2133030905EF9AE1C5C81F9767A594663FCE7F62FB2B6495520CCDE22072B9
-                              707C3A4F298666651029C562E1B8BC088FA4D81624B0318229360509748C608A
-                              1541C218239862439050C608A6100F12DE18C114C241C21D2398423448F86304
-                              53C805C13246308558103C6304530805C13546308544108C630453D007C13A46
-                              30057510CC630453D006C13E463005671002630453D005A13246300557104263
-                              0453F08C1C888D114CC1F20A213746B016D5FF62C018638C31C6E810E22F10CB
-                              962BA75495A40000000049454E44AE426082}
-                          end>
-                        Align = Right
-                        Cursor = crHandPoint
-                        HitTest = False
-                        Opacity = 0.500000000000000000
-                        Margins.Left = 3.000000000000000000
-                        Margins.Top = 3.000000000000000000
-                        Margins.Right = 3.000000000000000000
-                        Margins.Bottom = 3.000000000000000000
-                        Position.X = 336.000000000000000000
-                        Position.Y = 3.000000000000000000
-                        Size.Width = 29.000000000000000000
-                        Size.Height = 29.000000000000000000
-                        Size.PlatformDefault = False
-                      end
-                    end
-                  end
-                end
-              end
-            end
-            object tiCampos_003: TTabItem
-              CustomIcon = <
-                item
-                end>
-              IsSelected = False
-              Size.Width = 8.000000000000000000
-              Size.Height = 8.000000000000000000
-              Size.PlatformDefault = False
-              StyleLookup = ''
-              TabOrder = 0
-              Text = 'tiCampos_003'
-              ExplicitSize.cx = 8.000000000000000000
-              ExplicitSize.cy = 8.000000000000000000
-              object lytCampos_003: TLayout
-                Align = Client
-                Size.Width = 374.000000000000000000
-                Size.Height = 564.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 0
-                object lytRow_C03_001: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 0
-                  object lytHR_INICIO: TLayout
-                    Align = Left
-                    Size.Width = 110.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbHR_INICIO: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 110.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'In'#237'cio:'
-                      TabOrder = 1
-                    end
-                    object edHR_INICIO: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = '0123456789:'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Center
-                      Size.Width = 110.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = '00:00:00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecUpperCase
-                      OnChange = edHR_INICIOChange
-                      OnTyping = edHR_INICIOTyping
-                      OnKeyDown = edHR_INICIOKeyDown
-                    end
-                  end
-                  object lytHR_TOTAL: TLayout
-                    Align = Right
-                    Margins.Left = 2.000000000000000000
-                    Position.X = 258.000000000000000000
-                    Size.Width = 110.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 2
-                    object lbHR_TOTAL: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 110.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Total de Horas:'
-                      TabOrder = 1
-                    end
-                    object edHR_TOTAL: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      TabStop = False
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = '0123456789:'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Center
-                      Size.Width = 110.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = '000:00:00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecLowerCase
-                      OnChange = edHR_TOTALChange
-                      OnTyping = edHR_TOTALTyping
-                      OnKeyDown = edHR_TOTALKeyDown
-                    end
-                  end
-                  object lytHR_FIM: TLayout
-                    Align = Center
-                    Size.Width = 110.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 1
-                    object lbHR_FIM: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Margins.Left = 5.000000000000000000
-                      Position.X = 5.000000000000000000
-                      Size.Width = 105.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Fim:'
-                      TabOrder = 1
-                    end
-                    object edHR_FIM: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = '0123456789:'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Center
-                      Size.Width = 110.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = '00:00:00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecUpperCase
-                      OnChange = edHR_INICIOChange
-                      OnTyping = edHR_FIMTyping
-                      OnKeyDown = edHR_FIMKeyDown
-                      OnExit = edHR_FIMExit
-                    end
-                  end
-                end
-                object lytRow_C03_002: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 57.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 1
-                  object lytDESCONTO: TLayout
-                    Align = Center
-                    Size.Width = 115.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbDESCONTO: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Margins.Left = 5.000000000000000000
-                      Position.X = 5.000000000000000000
-                      Size.Width = 110.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Desconto:'
-                      TabOrder = 1
-                    end
-                    object edDESCONTO: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = 'R$0123456789.,'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Trailing
-                      Size.Width = 115.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'R$ 0,00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecUpperCase
-                      OnChange = edSUB_TOTALChange
-                      OnTyping = edDESCONTOTyping
-                      OnKeyDown = edDESCONTOKeyDown
-                    end
-                  end
-                  object lytSUB_TOTAL: TLayout
-                    Align = Left
-                    Size.Width = 115.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 1
-                    object lbSUB_TOTAL: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 115.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Sub-Total:'
-                      TabOrder = 1
-                    end
-                    object edSUB_TOTAL: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = 'R$0123456789.,'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Trailing
-                      Size.Width = 115.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'R$ 0,00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecUpperCase
-                      OnChange = edSUB_TOTALChange
-                      OnTyping = edSUB_TOTALTyping
-                      OnKeyDown = edSUB_TOTALKeyDown
-                    end
-                  end
-                  object lytACRESCIMO: TLayout
-                    Align = Right
-                    Margins.Left = 2.000000000000000000
-                    Position.X = 253.000000000000000000
-                    Size.Width = 115.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 2
-                    object lbACRESCIMO: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 115.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Acr'#233'scimo:'
-                      TabOrder = 1
-                    end
-                    object edACRESCIMO: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = 'R$0123456789.,'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Trailing
-                      Size.Width = 115.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'R$ 0,00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecLowerCase
-                      OnChange = edSUB_TOTALChange
-                      OnTyping = edACRESCIMOTyping
-                      OnKeyDown = edACRESCIMOKeyDown
-                    end
-                  end
-                end
-                object lytRow_Navegar_03: TLayout
-                  Align = Bottom
-                  Margins.Left = 3.000000000000000000
-                  Margins.Top = 5.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 15.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 514.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 5
-                  object imgRetornar_002: TImage
-                    MultiResBitmap = <
-                      item
-                        Width = 100
-                        Height = 100
-                        PNG = {
-                          89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
-                          54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          03FE49444154785EEDDDCF6E135714C7F13B638FC62615D93441ED13843F59D0
-                          B4D80902FA07A9F4592A55E201FA08201EA02FD15DA5A88510506C122141C044
-                          6AC5820DA5918A40A56918CF0CF7279F144589630FD28CEF3DE77C373EF72A2B
-                          7F3213C71A8F8DA6699AA6699A5642013D6AB6A5A5B39FF6FFDBF9C98466C92E
-                          93CCE43F379BC18FABAB5BCF073F517E0A429D3B77EA5492F47F8B6AE109DAA2
-                          92E7511CB7EFDEED3DA38D520BE95174C03059B6721003459FF477B36BB4283D
-                          F120ADD6E99316E3961D3F1EEC1CEC6D6ABEA5B1F4448300234FD3153BCE0C76
-                          0EAFDF37398DA527166471F1CCDC3818A81967B7692C3D91203832D2A48F2779
-                          24866D3BACD7AFD25C7AE2408A1C19B6ED5A54BFD8E9F4FEA075E9897AD90B8C
-                          22470630D6D61E6DD1BA92C480F880814480F88281D883F884815883F88681D8
-                          82F8888158BEEC2D8291A4C9DFAE602076204531E2F8D897AE602056A7AC0FC1
-                          E874363769CB89D88070C0402C40B86020EF41386120AF41B861206F41386220
-                          2F41B86220EF40386320AF40B863206F402460202F40A46020E741246120A741
-                          A4612067418A60D85E85F5E882EF18A8468F4E551CC37CDDE9F41ED0DAEB9C3B
-                          423E0C63EB3EADBDCF2910E918C81910C518E4048862BC6FE2208AB1BF898228
-                          C6C12606A21887371110C5185EE5208A7174958228C6E82A0369B5CE9C48D3FE
-                          C3D09859DA1ADACEAE79DD68D4BF595F7FB4415B62AAEC52D22C496F8C8BF151
-                          5CBB2C110355061284F977340E2D373BFF4C4D99AFD6361EAFD396B82ABCD83A
-                          1FF959EFC034531AC5562148B04CC3514DBF79636E2E7E7EFA0B5A8BAB329066
-                          10FE9019F3172D87D68CCDF1D4A4CBADD6DC026D89AA329095F5DE9F5154BF64
-                          C7EDC1CE914DE7A9F9B5DD9EFB8CD662D27F0C1D4BDF3A71AC8980204539BC89
-                          81204539D8444190A2EC6FE2204851DEE70408529441CE802045710C04494771
-                          0E0449467112041547E171B17585EFF6160BF71FC14D61EC38D67B5FBBBBFFDE
-                          6AB7E7E769ED6DCE1E217B153952F4033B152509C50B102405C51B102401C52B
-                          10C41DC53B10C419C54B10C415C55B10C411C56B10C40DC57B10C409850508E2
-                          82C2060471406105827C476107828AA2341ACDF3AEDCDD9A25082A826273E666
-                          FC6C41908F28AC41906F28EC41904F282240902F286240900F28A24090EB28E2
-                          40D0DED775DB71E83744EF858FE1354CB4786763F3296D959AB3970195D9BD7B
-                          BD9EFDCDBF60C7919718D927683631C9755A969E481084D3104E47761C89921B
-                          7385C6D2130B82C64579B1BD53CBF3BC92D3BB6810340ECAECCCB19B411054F2
-                          25F7E2411050825AED5292662F68EBFF3293BE0C6BE67B5A969E8250DDEEE327
-                          71DC5CB07F307EA12D3BE6DD288A97BADD27BFD396A6699AA6699AE661C6BC03
-                          F37E585B422E60EF0000000049454E44AE426082}
-                      end>
-                    Align = Left
-                    Cursor = crHandPoint
-                    Size.Width = 50.000000000000000000
-                    Size.Height = 35.000000000000000000
-                    Size.PlatformDefault = False
-                    OnClick = imgRetornar_002Click
-                  end
-                end
-                object lytRow_C03_003: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 114.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 2
-                  object lytTOTAL: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbTOTAL: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Total:'
-                      TabOrder = 1
-                    end
-                    object edTOTAL: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      TabStop = False
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      ReadOnly = True
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Center
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'R$ 0,00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecUpperCase
-                    end
-                  end
-                end
-                object lytRow_C03_004: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 171.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 3
-                  object lytOBSERVACAO: TLayout
-                    Align = Client
-                    Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object lbOBSERVACAO: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Observa'#231#227'o:'
-                      TabOrder = 1
-                    end
-                    object edOBSERVACAO: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = '()0123456789-'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'OBSERVA'#199#195'O'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecUpperCase
-                      OnKeyDown = edOBSERVACAOKeyDown
-                    end
-                  end
-                end
-                object lytRow_C03_005: TLayout
-                  Align = Top
-                  Margins.Left = 3.000000000000000000
-                  Margins.Right = 3.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Position.X = 3.000000000000000000
-                  Position.Y = 228.000000000000000000
-                  Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
-                  Size.PlatformDefault = False
-                  TabOrder = 4
-                  object lytVLR_PAGO: TLayout
-                    Align = Right
-                    Position.X = 253.000000000000000000
-                    Size.Width = 115.000000000000000000
-                    Size.Height = 55.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 1
-                    object lbVLR_PAGO: TLabel
-                      Align = Top
-                      StyledSettings = [Family, Style]
-                      Size.Width = 115.000000000000000000
-                      Size.Height = 20.000000000000000000
-                      Size.PlatformDefault = False
-                      TextSettings.Font.Size = 13.000000000000000000
-                      TextSettings.FontColor = xFF787878
-                      Text = 'Valor Pago:'
-                      TabOrder = 1
-                    end
-                    object edVLR_PAGO: TEdit
-                      Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Client
-                      StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
-                      KeyboardType = PhonePad
-                      ReturnKeyType = Next
-                      FilterChar = 'R$0123456789.,'
-                      TextSettings.Font.Size = 18.000000000000000000
-                      TextSettings.HorzAlign = Trailing
-                      Size.Width = 115.000000000000000000
-                      Size.Height = 35.000000000000000000
-                      Size.PlatformDefault = False
-                      TextPrompt = 'R$ 0,00'
-                      StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecLowerCase
-                      OnTyping = edVLR_PAGOTyping
-                    end
-                  end
-                  object lytDT_PAGO: TLayout
+                  object lytDT_BAIXA: TLayout
                     Align = Left
                     Size.Width = 145.000000000000000000
                     Size.Height = 55.000000000000000000
                     Size.PlatformDefault = False
                     TabOrder = 0
-                    object lbDT_PAGO: TLabel
+                    object lbDT_BAIXA: TLabel
                       Align = Top
                       StyledSettings = [Family, Style]
                       Size.Width = 145.000000000000000000
@@ -2223,7 +1681,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                       Text = 'Data do Pagamento:'
                       TabOrder = 0
                     end
-                    object edDT_PAGO: TEdit
+                    object edDT_BAIXA: TEdit
                       Touch.InteractiveGestures = [LongTap, DoubleTap]
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
@@ -2238,10 +1696,8 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                       Size.PlatformDefault = False
                       TextPrompt = '00/00/0000'
                       StyledSettings = [Family, Style, FontColor]
-                      OnTyping = edDT_PAGOTyping
-                      OnKeyDown = edDT_PAGOKeyDown
-                      object imgDT_PAGO: TImage
-                        Tag = 1
+                      object imgDT_BAIXA: TImage
+                        Tag = 2
                         MultiResBitmap = <
                           item
                             Width = 100
@@ -2282,8 +1738,174 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                         Size.Width = 29.000000000000000000
                         Size.Height = 29.000000000000000000
                         Size.PlatformDefault = False
-                        OnClick = imgDT_PAGOClick
                       end
+                    end
+                  end
+                end
+                object lytRow_C02_002: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 57.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  object lytDESCONTO_BAIXA: TLayout
+                    Align = Left
+                    Size.Width = 115.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbDESCONTO_BAIXA: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Margins.Left = 5.000000000000000000
+                      Position.X = 5.000000000000000000
+                      Size.Width = 110.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Desconto:'
+                      TabOrder = 1
+                    end
+                    object edDESCONTO_BAIXA: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      KeyboardType = PhonePad
+                      ReturnKeyType = Next
+                      FilterChar = 'R$0123456789.,'
+                      TextSettings.Font.Size = 18.000000000000000000
+                      TextSettings.HorzAlign = Trailing
+                      Size.Width = 115.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'R$ 0,00'
+                      StyledSettings = [Family, Style, FontColor]
+                      CharCase = ecUpperCase
+                    end
+                  end
+                  object lytJUROS_BAIXA: TLayout
+                    Align = Center
+                    Margins.Left = 2.000000000000000000
+                    Size.Width = 115.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 2
+                    object lbJUROS_BAIXA: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 115.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Acr'#233'scimo:'
+                      TabOrder = 1
+                    end
+                    object edJUROS_BAIXA: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      KeyboardType = PhonePad
+                      ReturnKeyType = Next
+                      FilterChar = 'R$0123456789.,'
+                      TextSettings.Font.Size = 18.000000000000000000
+                      TextSettings.HorzAlign = Trailing
+                      Size.Width = 115.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'R$ 0,00'
+                      StyledSettings = [Family, Style, FontColor]
+                      CharCase = ecLowerCase
+                    end
+                  end
+                  object lytVALOR_BAIXA: TLayout
+                    Align = Right
+                    Position.X = 253.000000000000000000
+                    Size.Width = 115.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 1
+                    object lbVALOR_BAIXA: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 115.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Valor Pago:'
+                      TabOrder = 1
+                    end
+                    object edVALOR_BAIXA: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      KeyboardType = PhonePad
+                      ReturnKeyType = Next
+                      FilterChar = 'R$0123456789.,'
+                      TextSettings.Font.Size = 18.000000000000000000
+                      TextSettings.HorzAlign = Trailing
+                      Size.Width = 115.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'R$ 0,00'
+                      StyledSettings = [Family, Style, FontColor]
+                      CharCase = ecLowerCase
+                    end
+                  end
+                end
+                object lytRow_C02_003: TLayout
+                  Align = Top
+                  Margins.Left = 3.000000000000000000
+                  Margins.Right = 3.000000000000000000
+                  Margins.Bottom = 2.000000000000000000
+                  Position.X = 3.000000000000000000
+                  Position.Y = 114.000000000000000000
+                  Size.Width = 368.000000000000000000
+                  Size.Height = 55.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                  object lytOBSERVACAO: TLayout
+                    Align = Client
+                    Size.Width = 368.000000000000000000
+                    Size.Height = 55.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbOBSERVACAO: TLabel
+                      Align = Top
+                      StyledSettings = [Family, Style]
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 20.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 13.000000000000000000
+                      TextSettings.FontColor = xFF787878
+                      Text = 'Observa'#231#227'o:'
+                      TabOrder = 1
+                    end
+                    object edOBSERVACAO: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      KeyboardType = PhonePad
+                      ReturnKeyType = Next
+                      FilterChar = '()0123456789-'
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Size.Width = 368.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'OBSERVA'#199#195'O'
+                      StyledSettings = [Family, Style, FontColor]
+                      CharCase = ecUpperCase
                     end
                   end
                 end
@@ -2336,7 +1958,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
         Size.Width = 44.000000000000000000
         Size.Height = 44.000000000000000000
         Size.PlatformDefault = False
-        OnClick = imgAcao_01Click
       end
     end
   end
@@ -2363,7 +1984,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = xFFA1B24E
         TextSettings.HorzAlign = Center
-        Text = 'SERVI'#199'OS PRESTADOS'
+        Text = 'LAN'#199'AMENTOS FINANCEIROS'
         TabOrder = 0
         object ShadowEffect3: TShadowEffect
           Distance = 3.000000000000000000
@@ -2381,35 +2002,35 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             PNG = {
               89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
               54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-              037F49444154785EEDDCCF4E135114C7F17BDB524A10ABD118172EB47163E20B
-              6820BA314163A71835D108D8E88E95BE892BD9422B51128DB643849D0B5E0350
-              A3261AD4A45503C132578EDC09F2676C6B62E7DE737F9F4D670EECBE9C6906A6
-              08000000000000000000000000E0E5F9ABC2017D68A4847E75C26475A87FF9AB
-              7A5B9AF1AEEB91719C09423102B536DBDD25F62F2E88E992EFDDD25F328A1341
-              C2180999DA47E7B99C908B8BA23CE97B777E7F8341A47E656B678C9DA45463A3
-              797F5C9FC68EF586348B4194920F272B857BFA34766C378462FCF819CCF57689
-              5E3D8AD6101FB247C4A9A1FEEA373D890DCB0D0937A395188152EFD33DB2DF84
-              1884DD86B472990A518C4C3A3170F362E58D1EC58E5510DB6310364138C4202C
-              82708941AC0FC22906B13A08B718C4DA201C63102B83708D41AC0BC23906B12A
-              08F718C49A202EC4205604712506313E483B31C4BAF898CEC833B6C62046FFB6
-              B7DD18B24759BB19216337E45F628C0EFA0B7A622D2383B81A831817C4E518C4
-              A820AEC720C604418C4D4604418C2DB107418CED620D8218BBC5160431F616CB
-              9D7AD92F0CD0436CADC450427C12E9C4391762908E6FC8468CF3AB6AE5655A64
-              7AF4289A439B11EA689052E5CA85A0BEEECBACE8D6A3688158961975D6A518A4
-              B397AC6423F93D5B6BED87406DEC87833A7EC92ACDE407EB41BDD227B2693D8A
-              864B5667204AB458821044D95B6C4108A2EC166B108228DBC51E8420CA162382
-              1044D9644C104251D697A59F3824527A148D6914A39E3A19BDECCFA50E8BABC1
-              17D1D0A368497154ADC8F9D25CFEA49EB060D48684CABEE7353E8B672E6E8A91
-              4188AB518C0D425C8C627410D26E143C4AFA9F8DE4ABD576DEE857D782F9C7B3
-              85E37A621DE33724D4CEA6D8FC04BCF11B120A3765492C35FD3B4942CA63B66E
-              8A35410845392173373847B1E692F5A709DFBBF65A2D3DC9895C528F22D976F9
-              B23208E11AC5DA20846314AB83106E51AC0F4238456111847089C22608E11085
-              5510425164509B1632DBF41ECBC42856DD18B6A298AF3E9589ECA850B5408F22
-              9978F3C86E43421395A1612983B23E6DA2F12E913A787AE4D2545D0F62C36E43
-              42C5C28B47528AE1563645A9AE29136210B61B12A27FBAAF825A29EA3D4509F1
-              A0E855EFEBD3D8B10F42FE1265FCB6571DD3C746702208D9238A713188334148
-              1845C9BE89A23773578F214EF4F9467D080000000000000000000000001D27C4
-              2FCCBFC84C925866C40000000049454E44AE426082}
+              038149444154785EEDDC4D4F135114C6F17B87522088D5688C0B174ABA31F10B
+              6820BA314163A71835D10895E88E957E1357B28556A2241A6D87083B177C0B05
+              5FA2261AD4A45503C132578EDC09F232D29AD8B9F7DCE7B7E9CC81DD9F33CDC0
+              1401000000000000000000000000BC3C799EDFA70F8DE4E957274C5406FB16BF
+              AAB7C569FF8A1E19C799201423542B331DED62EFC20B31550CFCEBFA4B467122
+              4814C393A93D74DE9B1572E1A5284D04FECDDFDF6010A95FD9DA1A632B29D568
+              21178CE9D3C4B1DE90DD6210A5E4BD8972FEB63E4D1CDB0DA1183F7E86B3DDED
+              A25B8FE2D5C587CC21717CB0AFF24D4F12C37243A2CD682446A8D4FB7497EC33
+              210661B7218D5CA62214A333EDF55F3B577EA347896315C4F618844D100E3108
+              8B205C6210EB83708A41AC0EC22D06B13608C718C4CA205C6310EB82708E41AC
+              0AC23D06B126880B318815415C89418C0FD24C0CB12A3EA63BE5495B6310A37F
+              DBDB6C0CD9A5ACDD8C88B11BF22F310A03C1BC9E58CBC820AEC620C605713906
+              312A88EB3188314110639D1141106343E2411063B3448320C6768905418C9D25
+              72A75E0AF2FDF4105B233194109F44DA3BED420CD2F20D598B7166592D3D4B8B
+              CE2E3D8AE7D066445A1AA458BE7836ACAD0632233AF4285E281665A73AE5520C
+              D2DA4B565BBDED7BA6DAD80F815ADB0F07B5FC92559CCE0DD4C25AB94764D27A
+              140F97ACD640947889042188B2B3C4821044D92ED1200451364B3C0841940D46
+              042188B2CE982084A2AC2ECAC03B20527A148F6914A39E3A295C08665307C5A5
+              F08BA8EB51BC3671582DC9B9E26C2EAB272C18B5219152E0FBF5CFE2B18B9B62
+              6410E26A1463831017A3181D84341B058F92FE67C3B94AA59937FAE59570EEC1
+              4CFEA89E58C7F80D8934B329363F016FFC8644A24D7925E677FD3B8927E5115B
+              37C59A2084A21C93D9AB9CA35873C9FAD378E05F7EADE61FF68A6C9B1EC5B2ED
+              F2656510C2358AB54108C728560721DCA2581F84708AC22208E112854D10C221
+              0AAB2084A2C8B03A256466D77B2C13A3587563D888915CE591F43205A1AAA11E
+              C532F1E691DD8644C6CB83435286257DBA8BFA3B2FB5FFC4F0F9C99A1E2486DD
+              864446F24FEF4B29861AD914A5DA274D8841D86E4884FEE9BE0AABC5B8F71425
+              C4DD11BF72479F268E7D10F297286337FCCAA83E36821341C80E518C8B419C09
+              42A2284AF68C8FF8D3B7F41892449F6FD487000000000000000000000000D072
+              42FC026472C848A3549C050000000049454E44AE426082}
           end>
         Align = Left
         Cursor = crHandPoint
@@ -2552,7 +2173,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Size.Width = 25.000000000000000000
             Size.Height = 21.000000000000000000
             Size.PlatformDefault = False
-            OnClick = imgCalendario_CancelarClick
           end
         end
       end
@@ -2583,7 +2203,6 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             Size.PlatformDefault = False
             TabOrder = 0
             TodayDefault = True
-            OnDateSelected = CalendarDateSelected
           end
         end
       end

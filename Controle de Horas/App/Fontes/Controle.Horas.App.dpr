@@ -40,7 +40,8 @@ uses
   uFrame.CondFormaPagto in 'Frame\uFrame.CondFormaPagto.pas' {Frame_CondFormaPagto: TFrame},
   uFrame.SPData in 'Frame\uFrame.SPData.pas' {Frame_SP_Data: TFrame},
   uFrame.SPDados in 'Frame\uFrame.SPDados.pas' {Frame_SP_Dados: TFrame},
-  uFrame.SPTotais in 'Frame\uFrame.SPTotais.pas' {Frame_SPTotal: TFrame};
+  uFrame.SPTotais in 'Frame\uFrame.SPTotais.pas' {Frame_SPTotal: TFrame},
+  uMov.Financeiro in 'uMov.Financeiro.pas' {frmMov_Financeiro};
 
 {$R *.res}
 

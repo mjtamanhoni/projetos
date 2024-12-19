@@ -226,6 +226,7 @@ type
     cComboStatus :TCustomCombo;
     FMenu_Frame :TActionSheet;
     FValor_Hora :Double;
+    FEdidanto :Boolean;
 
     FId :Integer;
     FDescricao :String;
@@ -233,32 +234,30 @@ type
     FACBr_Validador :TACBr_Validador;
     FPesquisa: Boolean;
 
-    procedure LimparCampos;
-    procedure Salvar;
-    procedure TTHreadEnd_Salvar(Sender: TOBject);
-    procedure Cancelar(Sender: TOBject);
-
     {$IFDEF MSWINDOWS}
       procedure ItemClick_Status(Sender: TObject);
     {$ELSE}
       procedure ItemClick_Status(Sender: TObject; const Point: TPointF);
     {$ENDIF}
 
-    procedure Listar_Registros(APesquisa:String);
-
+    procedure LimparCampos;
+    procedure Salvar;
+    procedure TTHreadEnd_Salvar(Sender: TOBject);
+    procedure Cancelar(Sender: TOBject);
     procedure CriandoCombos;
-    procedure TThreadEnd_Listar_Registros(Sender: TObject);
+    procedure Listar_Registros(APesquisa:String);
     procedure AddRegistros_LB(
       AId,ASincronizado,AExcluido,AStatus:Integer;
       ACliente,AConta,AHora_I,AHora_F,AHora_T,ADescricao:String;
       AValor,ATotal:Double);
+    procedure TThreadEnd_Listar_Registros(Sender: TObject);
     procedure AddRegistros_LB_Header(AData:TDate);
     procedure AddRegistros_LB_Footer(ATotal:Double);
     procedure Abre_Menu_Registros(Sender :TOBject);
     procedure CriandoMenus;
     procedure Editar(Sender: TOBject);
-    procedure Excluir(Sender: TObject);
     procedure TThreadEnd_Editar(Sender: TOBject);
+    procedure Excluir(Sender: TObject);
     procedure Excluir_Registro(Sender: TObject);
     procedure TThreadEnd_ExcluirRegistro(Sender: TOBject);
     procedure SetPesquisa(const Value: Boolean);
@@ -532,6 +531,9 @@ var
 
 begin
 
+  if FEdidanto then
+    Exit;
+
   t := TThread.CreateAnonymousThread(
   procedure
   var
@@ -554,7 +556,7 @@ begin
       begin
         FHora_Resultado := (StrToTimeDef(edHR_FIM.Text,Time) - StrToTimeDef(edHR_INICIO.Text,Time));
         edHR_TOTAL.Text := TimeToStr(FHora_Resultado);
-        FTotal_Receber := ((FHora_Resultado * 24) * FValor_Hora);
+        FTotal_Receber := ((FHora_Resultado * 24) * edID_TABELA.TagFloat);
         edSUB_TOTAL.Text := FormatFloat('R$ #,##0.00',FTotal_Receber);
         edSUB_TOTAL.TagFloat := FTotal_Receber;
         edSUB_TOTALChange(Sender);
@@ -606,9 +608,9 @@ begin
     FMinuto := StrToIntDef(Copy(edHR_TOTAL.Text,5,2),0);
     FSegundo := StrToIntDef(Copy(edHR_TOTAL.Text,8,2),0);
 
-    FVlr_Hr := (FHora * FValor_Hora);
-    FVlr_Mn := (FMinuto * (FValor_Hora / 60));
-    FVlr_Sg := (FSegundo * (FValor_Hora / 3600));;
+    FVlr_Hr := (FHora * edID_TABELA.TagFloat);
+    FVlr_Mn := (FMinuto * (edID_TABELA.TagFloat / 60));
+    FVlr_Sg := (FSegundo * (edID_TABELA.TagFloat / 3600));;
 
     FTotal_Receber := (FVlr_Hr + FVlr_Mn + FVlr_Sg);
     edSUB_TOTAL.Text := FormatFloat('R$ #,##0.00',FTotal_Receber);
@@ -739,7 +741,8 @@ end;
 procedure TfrmMov_ServicosPrestados.Sel_TabPreco(Aid: Integer; ANome: String; AValor:Double);
 begin
   edID_TABELA.Tag := Aid;
-  edID_TABELA.Text := ANome;
+  edID_TABELA.Text := ANome + ' - ' + FormatFloat('R$ #,##0.00',AValor);
+  edID_TABELA.TagFloat := AValor;
   FValor_Hora := AValor;
 end;
 
@@ -750,6 +753,7 @@ begin
   FMenu_Frame.HideMenu;
   TLoading.Show(frmMov_ServicosPrestados,'Editando o Registro');
   LimparCampos;
+  FEdidanto := True;
 
   t := TThread.CreateAnonymousThread(
   procedure
@@ -807,8 +811,8 @@ begin
         edID_CLIENTE.Text := FQuery.FieldByName('CLIENTE').AsString;
         edID_TABELA.Tag := FQuery.FieldByName('ID_TABELA').AsInteger;
         edID_TABELA.Text := FQuery.FieldByName('TAB_PRECO').AsString + ' - ' +
-                            FormatFloat('$$ #,##0.00',FQuery.FieldByName('VALOR').AsFloat) + ' - ' +
-                            'Tipo: ' + FQuery.FieldByName('TIPO_TABELA').AsString;
+                            FormatFloat('R$ #,##0.00',FQuery.FieldByName('VALOR').AsFloat);
+        edID_TABELA.TagFloat := FQuery.FieldByName('VLR_HORA').AsFloat;
         edHR_INICIO.Text := FormatDateTime('HH:NN:SS', FQuery.FieldByName('HR_INICIO').AsDateTime);
         edHR_FIM.Text := FormatDateTime('HH:NN:SS', FQuery.FieldByName('HR_FIM').AsDateTime);
         edHR_TOTAL.Text := FormatDateTime('HH:NN:SS', FQuery.FieldByName('HR_TOTAL').AsDateTime);
@@ -821,7 +825,8 @@ begin
         edTOTAL.TagFloat := FQuery.FieldByName('TOTAL').AsFloat;
         edTOTAL.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('TOTAL').AsFloat);
         edOBSERVACAO.Text := FQuery.FieldByName('OBSERVACAO').AsString;
-        edDT_PAGO.Text := FormatDateTime('DD/MM/YYYY', FQuery.FieldByName('DT_PAGO').AsDateTime);
+        if not FQuery.FieldByName('DT_PAGO').IsNull then
+          edDT_PAGO.Text := FormatDateTime('DD/MM/YYYY', FQuery.FieldByName('DT_PAGO').AsDateTime);
         edVLR_PAGO.TagFloat := FQuery.FieldByName('VLR_PAGO').AsFloat;
         edVLR_PAGO.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('VLR_PAGO').AsFloat);
       end);
@@ -858,6 +863,9 @@ var
   t :TThread;
 
 begin
+
+  if FEdidanto then
+    Exit;
 
   t := TThread.CreateAnonymousThread(
   procedure
@@ -998,6 +1006,7 @@ begin
   FTab_Status := dsLista;
 
   Pesquisa := False;
+  FEdidanto := False;
 end;
 
 procedure TfrmMov_ServicosPrestados.FormShow(Sender: TObject);
@@ -1024,6 +1033,7 @@ begin
       tcPrincipal.GotoVisibleTab(1);
       if edDATA.CanFocus then
         edDATA.SetFocus;
+      FEdidanto := False;
     end;
     1:Salvar;
   end;
@@ -1413,6 +1423,7 @@ begin
     imgAcao_01.Bitmap := imgSalvar.Bitmap;
     tcCampos.TabIndex := 0;
     tcPrincipal.GotoVisibleTab(1);
+    FEdidanto := False;
   end;
 
 end;

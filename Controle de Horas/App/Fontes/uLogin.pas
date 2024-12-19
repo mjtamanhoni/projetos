@@ -19,7 +19,6 @@ type
   TfrmLogin = class(TForm)
     lytDetail: TLayout;
     lytLogin: TLayout;
-    lbPIN: TLabel;
     edPIN: TEdit;
     OpenDialog: TOpenDialog;
     rctFooter: TRectangle;
