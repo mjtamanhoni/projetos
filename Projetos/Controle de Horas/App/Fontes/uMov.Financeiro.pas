@@ -425,6 +425,7 @@ procedure TfrmMov_Financeiro.Listar_Registros(APesquisa: String);
 var
   t :TThread;
 begin
+
   TLoading.Show(frmMov_Financeiro,'Listando Registros');
   lbRegistros.Clear;
   lbRegistros.BeginUpdate;
