@@ -1,113 +1,79 @@
-Classes/99 Coders/
-Classes/Horse/
-Global/__history/
-*.FDB
-*.sql
-Lanchonete/DeskTop/Fonte/__history/
-Lanchonete/DeskTop/Fonte/Android/Debug/
+Classes/99 Coders/Lista Alta Performance/MobileVertScollBox/Frames/__history/
+Teste/ListView/__history/
 *.png
-*.ico
-Lanchonete/DeskTop/Fonte/Win64/Debug/
-Lanchonete/DeskTop/Fonte/Win64/Release/
-*.jpeg
-*.Json
-Lanchonete/Servidor/Fontes/__history/
-Lanchonete/Servidor/Fontes/Modelo de Dados/__history/
-Lanchonete/Servidor/Fontes/Rotas/__history/
-Lanchonete/Servidor/Fontes/Units/__history/
-Lanchonete/Servidor/Fontes/Win64/Debug/
-Lanchonete/Servidor/Fontes/Win64/Release/
-Teste/__history/
-Teste/Android64/Debug/
-Lanchonete/DeskTop/Fonte/Android64/Debug/
-Lanchonete/DeskTop/Fonte/Win32/Debug/uFancyDialog.dcu
-Lanchonete/DeskTop/Fonte/Win32/Debug/
-Teste/
-Lanchonete/DeskTop/Fonte/__recovery/
-*.dll
-*.txt
-*.zip
-Controle de Horas/Servidor/Fontes/__history/
-Lanchonete/Servidor/Fontes/__recovery/
 *.exe
-Controle de Horas/App/Fontes/__history/
-Controle de Horas/App/Fontes/Android64/Release/Adapta.Funcoes.dcu
-Controle de Horas/App/Fontes/Android64/Release/Adapta.Funcoes.o
-Controle de Horas/App/Fontes/Android64/Release/Android.KeyguardManager.dcu
-Controle de Horas/App/Fontes/Android64/Release/Controle_Horas.App.classes/
-Controle de Horas/App/Fontes/Android64/Release/Android.KeyguardManager.o
-Controle de Horas/App/Fontes/Android64/Release/Androidapi.JNI.PowerManager.dcu
-Controle de Horas/App/Fontes/Android64/Release/Androidapi.JNI.PowerManager.o
-Controle de Horas/App/Fontes/Android64/Release/
-Controle de Horas/App/Fontes/Win64/
-Controle de Horas/Servidor/Fontes/Modelo de Dados/__history/
-Controle de Horas/Servidor/Fontes/Rotas/__history/uRota.CLIENTE.pas.~1~
-Controle de Horas/Servidor/Fontes/Rotas/__history/
-Controle de Horas/Servidor/Fontes/Win64/Debug/CONFIG_HORAS_TRAB.ini
-Controle de Horas/Servidor/Fontes/Win64/Debug/Controle_Horas.Servidor.rsm
-Controle de Horas/Servidor/Fontes/Win64/Debug/DataSet.Serialize.Config.dcu
-Controle de Horas/Servidor/Fontes/Win64/Debug/
-Controle de Horas/Servidor/Fontes/Win64/Release/
-*.docx
-*.pdf
-Sped/Contribuicoes/DeskTop/Fontes/__history/
-Sped/Contribuicoes/DeskTop/Fontes/Win32/Release/
-Sped/Contribuicoes/DeskTop/Fontes/Win64/Debug/CONFIG_SCONT.ini
+Teste/Android64/Debug/
+Sped/Contribuicoes/DeskTop/Fontes/Win64/Debug/uFormat.dcu
+Teste/__history/
+Teste/ListView/Win64/Debug/
+Sped/Contribuicoes/DeskTop/Fontes/Win64/Release/
 Sped/Contribuicoes/DeskTop/Fontes/Win64/Debug/
-*.ini
-*.dcu
-*.S3DB
-Controle de Horas/App/Fontes/Modelo de Dados/__history/
-Android64/Release/
-Android/Release/
-Controle de Horas/App/Fontes/Android/Debug/
-Controle de Horas/App/Fontes/Android/Release/
-Controle de Horas/App/Fontes/Android64/Debug/
-Controle de Horas/App/Fontes_/__history/
-Controle de Horas/App/Fontes_/Android/Release/
-Controle de Horas/App/Fontes_/Android64/Debug/
-Controle de Horas/App/Fontes_/Android64/Release/
-Controle de Horas/App/Fontes_/Modelo de Dados/__history/
-Global/Versao 12/__history/
+Sped/Contribuicoes/DeskTop/Fontes/Win32/Release/
+Sped/Contribuicoes/DeskTop/Fontes/__history/
 *.rar
-Controle de Horas/App/Fontes_/
-Controle de Horas/App/Fontes__/
-Controle Financeiro/Servidor/Fontes/__history/
-Controle Financeiro/Servidor/Fontes/Modelo de Dados/__history/
-Controle Financeiro/Servidor/Fontes/Rotas/__history/
-Controle Financeiro/Servidor/Fontes/Win64/Debug/
-Controle Financeiro/App/Fontes/__history/
-Controle Financeiro/App/Fontes/Android/Release/
-Controle Financeiro/App/Fontes/Android64/Release/
-Controle Financeiro/App/Fontes/Win64/Debug/
-Controle Financeiro/App/Fontes/Modelo de Dados/__history/
-Projetos/Controle de Horas/App/Fontes/__history/
-Projetos/Controle de Horas/App/Fontes/Android/Release/
-Projetos/Controle de Horas/App/Fontes/Android64/Debug/
-Projetos/Controle de Horas/App/Fontes/Android64/Release/
-Projetos/Controle de Horas/App/Fontes/Modelo de Dados/__history/
-Projetos/Controle Financeiro/App/Fontes/__history/
-Projetos/Controle Financeiro/App/Fontes/Android/Release/
-Projetos/Controle Financeiro/App/Fontes/Android64/Release/
-Projetos/Controle Financeiro/App/Fontes/Modelo de Dados/__history/
-Projetos/Servidor/Fontes/__history/
-Projetos/Servidor/Fontes/Modelo de Dados/__history/
+*.FDB
+*.txt
+*.pdf
+*.docx
 Projetos/Servidor/Fontes/Rotas/__history/
-*.rsm
-Projetos/GestaoHoras/Fontes/__history/
-Projetos/GestaoHoras/Fontes/Android/Release/
-Projetos/GestaoHoras/Fontes/Android64/Release/
+Projetos/Servidor/Fontes/Modelo de Dados/__history/
+*.o
+Projetos/Servidor/Fontes/__history/
 Projetos/GestaoHoras/Fontes/Modelo de Dados/__history/
+*.so
+Projetos/GestaoHoras/Fontes/Android64/Release/
 Projetos/GestaoHoras/Fontes/Android64/Debug/
-Projetos/Servidor/Fontes/Android64/Release/
+Projetos/GestaoHoras/Fontes/Android/Release/
+Projetos/GestaoHoras/Fontes/__history/
+Lanchonete/Servidor/Fontes/Win64/Release/
+Lanchonete/Servidor/Fontes/Win64/Debug/
+Lanchonete/Servidor/Fontes/Units/__history/
+*.ico
+Lanchonete/Servidor/Fontes/Rotas/__history/
+Lanchonete/Servidor/Fontes/Modelo de Dados/__history/
+Lanchonete/Servidor/Fontes/__history/
+*.jpeg
+Lanchonete/Servidor/Arquivos/
+Lanchonete/DeskTop/Fonte/Win64/Release/
+Lanchonete/
+Global/
+*.SQL
 *.jpg
 EMail/Fontes/__history/
-*.xml
-Controle de Horas/DeskTop/Fontes/__history/
-Controle de Horas/DeskTop/Fontes/Data_Modules/__history/
+*.ini
+*.zip
+*.dll
+*.S3DB
+Controle Financeiro/App/Fontes/Win64/Release/
+Controle Financeiro/App/Fontes/Win64/Debug/
+Controle Financeiro/App/Fontes/Win32/Debug/
+Controle Financeiro/App/Fontes/Modelo de Dados/__history/
+Controle Financeiro/App/Fontes/Android64/Release/
+Controle Financeiro/App/Fontes/Android/Release/
+Controle Financeiro/App/Fontes/__history/
+Controle de Horas/DeskTop/Fontes/Win64/Release/
+Controle de Horas/DeskTop/Fontes/Win32/Release/
+Controle de Horas/DeskTop/Fontes/Win32/Debug/
 Controle de Horas/DeskTop/Fontes/Funcoes/__history/
-Controle de Horas/DeskTop/Fontes/__recovery/
+Controle de Horas/DeskTop/Fontes/Data_Modules/__history/
+Controle de Horas/DeskTop/Fontes/__history/
+Controle de Horas/App/Fontes/Win64/Release/
+Android/Release/
+Android64/Release/
+Classes/99 Coders/
+Classes/Horse/
+Controle de Horas/App/Fontes/__history/
+Controle de Horas/App/Fontes/Android64/Debug/
+Controle de Horas/App/Fontes/Android64/Release/
 Controle de Horas/App/Fontes/DataModulo/__history/
-Controle de Horas/App/Fontes/Units/__history/
 Controle de Horas/App/Fontes/Frame/__history/
-Controle de Horas/Global/__history/
+Controle de Horas/App/Fontes/Units/__history/
+Controle de Horas/App/Fontes/Win64/Debug/
+EMail/Fontes/35150905481336000137550010000111291000111298-nfe.xml
+EMail/
+Teste/
+Win64/
+Projetos/Classes/
+Projetos/README.md
+Projetos/Project1.identcache
+Projetos/Project1.res
