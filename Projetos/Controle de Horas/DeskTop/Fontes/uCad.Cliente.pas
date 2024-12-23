@@ -488,10 +488,6 @@ begin
   FreeAndNil(FFancyDialog);
   FreeAndNil(FIniFile);
   FreeAndNil(FDm_Global);
-
-
-  //FreeAndNil(FACBr_Validador);
-
   Action := TCloseAction.caFree;
   frmCad_Cliente := Nil;
 end;
