@@ -211,12 +211,17 @@ implementation
 
 {$R *.fmx}
 
+uses
+uMov.ServicosPrestados;
+
 {$IFDEF MSWINDOWS}
 procedure ItemClick_Status(Sender: TObject);
 begin
+
   cComboStatus.HideMenu;
   edSTATUS.Text := cComboStatus.DescrItem;
   edSTATUS.Tag := StrToIntDef(cComboStatus.CodItem,0);
+
 end
 {$ELSE}
 procedure TfrmMov_Financeiro.ItemClick_Status(Sender: TObject; const Point: TPointF);
