@@ -22,7 +22,7 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FMX.ListBox, FMX.dxGrid, FMX.dxControlUtils, FMX.dxControls,
   FMX.dxCustomization, FMX.Edit, FMX.TabControl, FMX.Effects, FMX.Controls.Presentation, FMX.StdCtrls,
-  FMX.Layouts, FMX.Ani, FMX.Calendar, RLPreviewForm, FMX.frxClass, FMX.frxDBSet, FMX.frxDesgn;
+  FMX.Layouts, FMX.Ani, FMX.Calendar, FMX.frxClass, FMX.frxDBSet, FMX.frxDesgn;
 
 type
   TTab_Status = (dsInsert,dsEdit);

@@ -425,6 +425,11 @@
             <Form>frmMov_Financeiro</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Frame\uFrame.LancFinanceiro.pas">
+            <Form>Frame_LancFinanceiro</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

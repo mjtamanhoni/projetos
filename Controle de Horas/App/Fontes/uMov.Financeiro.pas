@@ -262,7 +262,7 @@ begin
 
   cComboStatus := TCustomCombo.Create(frmMov_Financeiro);
 
-  {$Region 'Combo Pessoa'}
+  {$Region 'Combo Status'}
     cComboStatus.ItemBackgroundColor := $FF363428;
     cComboStatus.ItemFontSize := 15;
     cComboStatus.ItemFontColor := $FFA1B24E;
@@ -280,7 +280,7 @@ begin
 
     cComboStatus.AddItem('0', 'INATIVO');
     cComboStatus.AddItem('1', 'ATIVO');
-  {$EndRegion 'Combo Pessoa'}
+  {$EndRegion 'Combo Status'}
 end;
 
 procedure TfrmMov_Financeiro.CriandoMenus;
