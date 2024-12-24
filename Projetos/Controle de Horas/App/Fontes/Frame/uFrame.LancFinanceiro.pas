@@ -22,14 +22,19 @@ type
     lytRow_002: TLayout;
     lbPessoa: TLabel;
     lytRow_003: TLayout;
-    lbDt: TLabel;
-    lbDtLancamento: TLabel;
-    lbValor: TLabel;
+    lbDT_VENCIMENTO: TLabel;
+    lbDT_EMISSAO: TLabel;
+    lbVALOR: TLabel;
+    GridPanelLayout1: TGridPanelLayout;
+    lbDT_EMISSAO_Tit: TLabel;
+    lbDT_VENCIMENTO_Tit: TLabel;
+    lbVALOR_Tit: TLabel;
     lytRow_004: TLayout;
-    lbVLR_HORA: TLabel;
-    lbTOTAL: TLabel;
-    lbVlr_Hora_TIT: TLabel;
-    lbTotalRec: TLabel;
+    GridPanelLayout2: TGridPanelLayout;
+    lbDT_BAIXA_Tit: TLabel;
+    lbVALOR_BAIXA_Tit: TLabel;
+    lbDT_BAIXA: TLabel;
+    lbVALOR_BAIXA: TLabel;
   private
     { Private declarations }
   public

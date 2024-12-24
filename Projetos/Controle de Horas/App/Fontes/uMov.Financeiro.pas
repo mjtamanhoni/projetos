@@ -21,9 +21,7 @@ uses
   uFuncoes,
 
   {$Region 'Frames'}
-    uFrame.SPData,
-    uFrame.SPDados,
-    uFrame.SPTotais,
+    uFrame.LancFinanceiro,
   {$EndRegion 'Frames'}
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListView.Types, FMX.ListView.Appearances,
@@ -212,17 +210,15 @@ implementation
 {$R *.fmx}
 
 uses
-uMov.ServicosPrestados;
+  uMov.ServicosPrestados;
 
 {$IFDEF MSWINDOWS}
-procedure ItemClick_Status(Sender: TObject);
+procedure TfrmMov_Financeiro.ItemClick_Status(Sender: TObject);
 begin
-
   cComboStatus.HideMenu;
   edSTATUS.Text := cComboStatus.DescrItem;
   edSTATUS.Tag := StrToIntDef(cComboStatus.CodItem,0);
-
-end
+end;
 {$ELSE}
 procedure TfrmMov_Financeiro.ItemClick_Status(Sender: TObject; const Point: TPointF);
 begin
@@ -613,7 +609,7 @@ begin
       FQuery.ParamByName('ID_USUARIO').AsInteger := frmPrincipal.FUser_Id;
       FQuery.ParamByName('EXCLUIDO').AsInteger := 0;
       FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'PROPRIO';
-      FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsString := FId;
+      FQuery.ParamByName('ID_ORIGEM_LANCAMENTO').AsInteger := FId;
     end
     else if FTab_Status = dsEdit then
     begin
