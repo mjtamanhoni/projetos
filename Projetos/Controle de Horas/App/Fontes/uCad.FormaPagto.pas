@@ -19,6 +19,7 @@ uses
   uDm.Global,
   uACBr,
   uFuncoes,
+  uModelo.Dados,
 
   {$Region 'Frames'}
     uFrame.FormaPagto,
@@ -32,7 +33,7 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TExecuteOnClose = procedure(AId:Integer; ADescricao,AClassificacao:String) of Object;
+  TExecuteOnClose = procedure(AId,ACondicao_ID:Integer; ADescricao,AClassificacao, ACondicao:String) of Object;
   TTab_Status = (dsInsert,dsEdit,dsLista);
 
   TfrmCad_FormaPagto = class(TForm)
@@ -111,6 +112,9 @@ type
     FId :Integer;
     FDescricao :String;
     FClassificacao :String;
+    FCondicaoID :Integer;
+    FCondicao :String;
+    FFormaCond_Pagto :TFormaCond_Pagto;
 
     FId_Condicao :Integer;
     FDescricao_Condicao :String;
@@ -132,7 +136,7 @@ type
 
     procedure CriandoCombos;
     procedure TThreadEnd_Listar_Registros(Sender: TObject);
-    procedure AddRegistros_LB(AId, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao,ACondicao: String);
+    procedure AddRegistros_LB(AId, ACondicaoID, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao,ACondicao: String);
     procedure Abre_Menu_Registros(Sender :TOBject);
     procedure CriandoMenus;
     procedure Editar(Sender: TOBject);
@@ -174,14 +178,22 @@ begin
   FRctMenu := TRectangle(Sender);
   FFrame := FRctMenu.Parent as TFrame_FormaPagto;
 
+  FId := 0;
+  FDescricao := '';
+  FClassificacao := '';
+  FCondicaoID := 0;
+  FCondicao := '';
+
   FId := FFrame.lbDescricao.Tag;
   FDescricao := FFrame.lbDescricao.Text;
   FClassificacao := FFrame.lbClassificacao.Text;
+  FCondicaoID := FFrame.lbCondicao.Tag;
+  FCondicao := FFrame.lbCondicao.Text;
 
   FMenu_Frame.ShowMenu;
 end;
 
-procedure TfrmCad_FormaPagto.AddRegistros_LB(AId, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao,ACondicao: String);
+procedure TfrmCad_FormaPagto.AddRegistros_LB(AId, ACondicaoID, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao,ACondicao: String);
 var
   FItem :TListBoxItem;
   FFrame :TFrame_FormaPagto;
@@ -192,6 +204,7 @@ begin
     FItem.Text := '';
     FItem.Height := 50;
     FItem.Tag := AId;
+    FItem.TagFloat := ACondicaoID;
     FItem.TagString := ADescricao;
     FItem.Selectable := True;
 
@@ -202,6 +215,7 @@ begin
     FFrame.lbDescricao.Tag := AId;
     FFrame.lbClassificacao.Text := AClassificacao;
     FFrame.lbCondicao.Text := ACondicao;
+    FFrame.lbCondicao.Tag := ACondicaoID;
     case ASincronizado of
       0:FFrame.imgSincronizado.Opacity := 0.3;
       1:FFrame.imgSincronizado.Opacity := 1;
@@ -411,6 +425,7 @@ begin
   tcPrincipal.ActiveTab := tiLista;
 
   FDm_Global := TDM_Global.Create(Nil);
+  FFormaCond_Pagto := TFormaCond_Pagto.Create(FDm_Global.FDC_SQLite,FEnder);
 
   FTab_Status := dsLista;
 
@@ -685,7 +700,7 @@ begin
   case tcPrincipal.TabIndex of
     0:begin
       if FPesquisa then
-        ExecuteOnClose(FId,FDescricao,FClassificacao);
+        ExecuteOnClose(FId,FCondicaoID,FDescricao,FClassificacao,FCondicao);
       Close;
     end;
     1:FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja cancelar as alterações realizadas','Sim',Cancelar,'Não');
@@ -755,6 +770,7 @@ begin
         begin
           AddRegistros_LB(
             FQuery.FieldByName('ID').AsInteger
+            ,FQuery.FieldByName('ID_CONDICAO_PAGAMENTO').AsInteger
             ,FQuery.FieldByName('SINCRONIZADO').AsInteger
             ,FQuery.FieldByName('EXCLUIDO').AsInteger
             ,FQuery.FieldByName('DESCRICAO').AsString
@@ -911,8 +927,34 @@ end;
 
 procedure TfrmCad_FormaPagto.lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
 begin
-  FId := Item.Tag;
-  FDescricao := Item.TagString;
+  try
+    FId := 0;
+    FDescricao := '';
+    FClassificacao := '';
+    FCondicaoID := 0;
+    FCondicao := '';
+
+    FId := Item.Tag;
+    FCondicaoID := Trunc(Item.TagFloat);
+    FDescricao := Item.TagString;
+
+    with FFormaCond_Pagto.Lista_Registros(FId,FCondicaoID) do
+    begin
+      if not IsEmpty then
+      begin
+        FClassificacao := FieldByName('CLASSIFICACAO').AsString;
+        FCondicaoID := FCondicaoID;
+        FCondicao := FieldByName('COND_PAGAMENTO').AsString;
+        {$IFDEF MSWINDOWS}
+          Free;
+        {$ELSE}
+          DisposeOf;
+        {$ENDIF}
+      end;
+    end;
+  except on E: Exception do
+    FFancyDialog.Show(TIconDialog.Error,'Erro',E.Message,'Ok');
+  end;
 end;
 
 end.

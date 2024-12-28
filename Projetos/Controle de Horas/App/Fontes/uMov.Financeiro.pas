@@ -23,6 +23,7 @@ uses
   {$Region 'Frames'}
     uFrame.LancFinanceiro,
     uFrame.LancFinanceiro_H,
+    uFrame.LancFinanceiro_F,
   {$EndRegion 'Frames'}
 
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListView.Types, FMX.ListView.Appearances,
@@ -148,13 +149,47 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure imgVoltarClick(Sender: TObject);
     procedure imgRetornar_001Click(Sender: TObject);
     procedure imgAvancar_001Click(Sender: TObject);
     procedure imgDATAClick(Sender: TObject);
     procedure edID_EMPRESAClick(Sender: TObject);
     procedure edID_CONTAClick(Sender: TObject);
     procedure edID_PESSOAClick(Sender: TObject);
+    procedure edFORMA_PAGTO_IDClick(Sender: TObject);
+    procedure edVALORTyping(Sender: TObject);
+    procedure edDESCONTO_BAIXATyping(Sender: TObject);
+    procedure edJUROS_BAIXATyping(Sender: TObject);
+    procedure edVALOR_BAIXATyping(Sender: TObject);
+    procedure edDT_BAIXATyping(Sender: TObject);
+    procedure edDATATyping(Sender: TObject);
+    procedure edDATAKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edSTATUSKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edID_EMPRESAKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edID_CONTAKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edID_PESSOAKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edFORMA_PAGTO_IDKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edDT_VENCIMENTOKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edVALORKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edDT_BAIXAKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edDESCONTO_BAIXAKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edJUROS_BAIXAKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure edVALOR_BAIXAKeyDown(Sender: TObject; var Key: Word;
+      var KeyChar: Char; Shift: TShiftState);
+    procedure imgAcao_01Click(Sender: TObject);
+    procedure imgCalendario_CancelarClick(Sender: TObject);
+    procedure CalendarDateSelected(Sender: TObject);
+    procedure imgVoltarClick(Sender: TObject);
   private
     FDataRetorno :Integer;
     FFancyDialog :TFancyDialog;
@@ -186,7 +221,7 @@ type
     procedure CriandoCombos;
     procedure Listar_Registros(APesquisa:String);
     procedure AddRegistros_LB(
-      AId,ASincronizado,AExcluido,AStatus:Integer;
+      AId,AContaID,APessoaID,ASincronizado,AExcluido,AStatus:Integer;
       APessoa,AConta,AConta_Tipo,AEmissao,AVencimento,APagamento:String;
       AValor,AValor_Pagto:Double);
     procedure TThreadEnd_Listar_Registros(Sender: TObject);
@@ -202,8 +237,10 @@ type
 
     procedure SetPesquisa(const Value: Boolean);
     procedure Sel_Empresa(Aid: Integer; ANome: String);
-    procedure Sel_Conta(Aid,ATipo: Integer; ANome: String);
+    procedure Sel_Conta(Aid,ATipo: Integer; ANome,ATipoDesc: String);
     procedure Sel_Pessoa(Aid: Integer; ANome: String);
+    procedure Sel_FormaCond(AId, ACondicao_ID: Integer; ADescricao,
+      AClassificacao, ACondicao: String);
 
   public
     ExecuteOnClose :TExecuteOnClose;
@@ -222,7 +259,8 @@ uses
   ,uCad.Conta
   ,uCad.Empresa
   ,uCad.Cliente
-  ,uCad.Fornecedor;
+  ,uCad.Fornecedor
+  ,uCad.FormaPagto;
 
 {$IFDEF MSWINDOWS}
 procedure TfrmMov_Financeiro.ItemClick_Status(Sender: TObject);
@@ -256,16 +294,77 @@ begin
 end;
 
 procedure TfrmMov_Financeiro.AddRegistros_LB(
-  AId,ASincronizado,AExcluido,AStatus:Integer;
-  APessoa,AConta,AConta_Tipo,AEmissao,AVencimento,APagamento:String;
-  AValor,AValor_Pagto:Double);
-begin
+      AId,AContaID,APessoaID,ASincronizado,AExcluido,AStatus:Integer;
+      APessoa,AConta,AConta_Tipo,AEmissao,AVencimento,APagamento:String;
+      AValor,AValor_Pagto:Double);
+var
+  FItem :TListBoxItem;
+  FFrame :TFrame_LancFinanceiro;
 
+begin
+  try
+    FItem := TListBoxItem.Create(Nil);
+    FItem.Text := '';
+    FItem.Height := 130;
+    FItem.Tag := AId;
+    FItem.Selectable := True;
+
+    FFrame := TFrame_LancFinanceiro.Create(FItem);
+    FFrame.Parent := FItem;
+    FFrame.Align := TAlignLayout.Client;
+    FFrame.lbID.Text := AId.ToString;
+    FFrame.lbID.Tag := AId;
+    FFrame.lbConta.Text := AConta;
+    FFrame.lbConta.Tag := AContaID;
+    FFrame.lbPessoa.Text := APessoa;
+    FFrame.lbPessoa.Tag := APessoaID;
+    FFrame.lbDT_EMISSAO.Text := AEmissao;
+    FFrame.lbDT_VENCIMENTO.Text := AVencimento;
+    FFrame.lbVALOR.Text := FormatFloat('R$ #,##0.00',AValor);
+    FFrame.lbVALOR.TagFloat := AValor;
+    FFrame.lbDT_BAIXA.Text := APagamento;
+    FFrame.lbVALOR_BAIXA.Text := FormatFloat('R$ #,##0.00',AValor_Pagto);
+    FFrame.lbVALOR_BAIXA.TagFloat := AValor_Pagto;
+
+    case ASincronizado of
+      0:FFrame.imgSincronizado.Opacity := 0.3;
+      1:FFrame.imgSincronizado.Opacity := 1;
+    end;
+    case AExcluido of
+      0:FFrame.imgExcluído.Opacity := 0.3;
+      1:FFrame.imgExcluído.Opacity := 1;
+    end;
+    FFrame.rctMenu.OnClick := Abre_Menu_Registros;
+
+    lbRegistros.AddObject(FItem);
+
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
 end;
 
 procedure TfrmMov_Financeiro.AddRegistros_LB_Footer(ATotal: Double);
+var
+  FItem :TListBoxItem;
+  FFrame :TFrame_LancFinanceiro_F;
+
 begin
-  //
+  try
+    FItem := TListBoxItem.Create(Nil);
+    FItem.Text := '';
+    FItem.Height := 30;
+
+    FFrame := TFrame_LancFinanceiro_F.Create(FItem);
+    FFrame.Parent := FItem;
+    FFrame.Align := TAlignLayout.Client;
+    FFrame.lbTotal.Text := FormatFloat('R$ #,##0.00',ATotal);
+    FFrame.lbTotal.TagFloat:= ATotal;
+
+    lbRegistros.AddObject(FItem);
+
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
 end;
 
 procedure TfrmMov_Financeiro.AddRegistros_LB_Header(AConta_ID:Integer;AConta:String);
@@ -277,7 +376,7 @@ begin
   try
     FItem := TListBoxItem.Create(Nil);
     FItem.Text := '';
-    FItem.Height := 25;
+    FItem.Height := 30;
     FItem.Tag := AConta_ID;
     FItem.TagString := AConta;
 
@@ -292,6 +391,18 @@ begin
   except on E: Exception do
     raise Exception.Create(E.Message);
   end;
+end;
+
+procedure TfrmMov_Financeiro.CalendarDateSelected(Sender: TObject);
+begin
+  case FDataRetorno of
+    0:edDATA.Text := DateToStr(Calendar.Date);
+    1:edDT_VENCIMENTO.Text := DateToStr(Calendar.Date);
+    2:edDT_BAIXA.Text := DateToStr(Calendar.Date);
+  end;
+
+  rctCalendario_Tampa.Visible := False;
+
 end;
 
 procedure TfrmMov_Financeiro.Cancelar(Sender: TOBject);
@@ -331,7 +442,7 @@ end;
 
 procedure TfrmMov_Financeiro.CriandoMenus;
 begin
-  FMenu_Frame := TActionSheet.Create(frmMov_ServicosPrestados);
+  FMenu_Frame := TActionSheet.Create(frmMov_Financeiro);
 
   FMenu_Frame.TitleFontSize := 12;
   FMenu_Frame.TitleMenuText := 'O que deseja fazer?';
@@ -345,6 +456,79 @@ begin
   FMenu_Frame.AddItem('','Excluir Registro',Excluir,$FF363428,16);
 end;
 
+procedure TfrmMov_Financeiro.edDATAKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edSTATUS.SetFocus;
+end;
+
+procedure TfrmMov_Financeiro.edDATATyping(Sender: TObject);
+begin
+  Formatar(edDATA,Dt);
+end;
+
+procedure TfrmMov_Financeiro.edDESCONTO_BAIXAKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edJUROS_BAIXA.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.edDESCONTO_BAIXATyping(Sender: TObject);
+begin
+  Formatar(edDESCONTO_BAIXA,Money);
+  edDESCONTO_BAIXA.TagFloat := TFuncoes.RetornaValor_TextMoney(edDESCONTO_BAIXA.Text,2);
+end;
+
+procedure TfrmMov_Financeiro.edDT_BAIXAKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edDESCONTO_BAIXA.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.edDT_BAIXATyping(Sender: TObject);
+begin
+  Formatar(edDT_BAIXA,Dt);
+end;
+
+procedure TfrmMov_Financeiro.edDT_VENCIMENTOKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edVALOR.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.edFORMA_PAGTO_IDClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCad_FormaPagto) then
+    Application.CreateForm(TfrmCad_FormaPagto,frmCad_FormaPagto);
+
+  frmCad_FormaPagto.Pesquisa := True;
+  frmCad_FormaPagto.ExecuteOnClose := Sel_FormaCond;
+  frmCad_FormaPagto.Show;
+end;
+
+procedure TfrmMov_Financeiro.edFORMA_PAGTO_IDKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edDT_VENCIMENTO.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.Sel_FormaCond(AId,ACondicao_ID:Integer; ADescricao,AClassificacao, ACondicao:String);
+begin
+  edFORMA_PAGTO_ID.Tag := AId;
+  edFORMA_PAGTO_ID.Text := ADescricao;
+  edCOND_PAGTO_ID.Tag := ACondicao_ID;
+  edCOND_PAGTO_ID.Text := ACondicao;
+end;
+
 procedure TfrmMov_Financeiro.edID_CONTAClick(Sender: TObject);
 begin
   if NOT Assigned(frmCad_Contas) then
@@ -355,15 +539,20 @@ begin
   frmCad_Contas.Show;
 end;
 
-procedure TfrmMov_Financeiro.Sel_Conta(Aid,ATipo: Integer; ANome: String);
+procedure TfrmMov_Financeiro.edID_CONTAKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_PESSOA.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.Sel_Conta(Aid,ATipo: Integer; ANome,ATipoDesc: String);
 begin
   edID_CONTA.Tag := Aid;
   edID_CONTA.Text := ANome;
   edTIPO_CONTA.Tag := ATipo;
-  case ATipo of
-    0: edTIPO_CONTA.Text := 'CRÉDITO';
-    1: edTIPO_CONTA.Text := 'DÉBITO';
-  end;
+  edTIPO_CONTA.Text := ATipoDesc;
 end;
 
 procedure TfrmMov_Financeiro.edID_EMPRESAClick(Sender: TObject);
@@ -374,6 +563,14 @@ begin
   frmCad_Empresa.Pesquisa := True;
   frmCad_Empresa.ExecuteOnClose := Sel_Empresa;
   frmCad_Empresa.Show;
+end;
+
+procedure TfrmMov_Financeiro.edID_EMPRESAKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_CONTA.SetFocus;
+
 end;
 
 procedure TfrmMov_Financeiro.edID_PESSOAClick(Sender: TObject);
@@ -399,6 +596,14 @@ begin
 
 end;
 
+procedure TfrmMov_Financeiro.edID_PESSOAKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edFORMA_PAGTO_ID.SetFocus;
+
+end;
+
 procedure TfrmMov_Financeiro.Sel_Pessoa(Aid:Integer; ANome:String);
 begin
   edID_PESSOA.Tag := Aid;
@@ -416,7 +621,7 @@ var
   t :TThread;
 begin
   FMenu_Frame.HideMenu;
-  TLoading.Show(frmMov_ServicosPrestados,'Editando o Registro');
+  TLoading.Show(frmMov_Financeiro,'Editando o Registro');
   LimparCampos;
   FEdidanto := True;
 
@@ -514,6 +719,59 @@ begin
   t.Start;
 end;
 
+procedure TfrmMov_Financeiro.edJUROS_BAIXAKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edVALOR_BAIXA.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.edJUROS_BAIXATyping(Sender: TObject);
+begin
+  Formatar(edJUROS_BAIXA,Money);
+  edJUROS_BAIXA.TagFloat := TFuncoes.RetornaValor_TextMoney(edJUROS_BAIXA.Text,2);
+end;
+
+procedure TfrmMov_Financeiro.edSTATUSKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edID_EMPRESA.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.edVALORKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+  begin
+    tcCampos.GotoVisibleTab(1);
+    edDT_BAIXA.SetFocus;
+  end;
+
+end;
+
+procedure TfrmMov_Financeiro.edVALORTyping(Sender: TObject);
+begin
+  Formatar(edVALOR,Money);
+  edVALOR.TagFloat := TFuncoes.RetornaValor_TextMoney(edVALOR.Text,2);
+end;
+
+procedure TfrmMov_Financeiro.edVALOR_BAIXAKeyDown(Sender: TObject;
+  var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edOBSERVACAO.SetFocus;
+
+end;
+
+procedure TfrmMov_Financeiro.edVALOR_BAIXATyping(Sender: TObject);
+begin
+  Formatar(edVALOR_BAIXA,Money);
+  edVALOR_BAIXA.TagFloat := TFuncoes.RetornaValor_TextMoney(edVALOR_BAIXA.Text,2);
+end;
+
 procedure TfrmMov_Financeiro.Excluir(Sender: TObject);
 begin
   FMenu_Frame.HideMenu;
@@ -524,7 +782,7 @@ procedure TfrmMov_Financeiro.Excluir_Registro(Sender: TObject);
 var
   t :TThread;
 begin
-  TLoading.Show(frmMov_ServicosPrestados,'Excluindo registro');
+  TLoading.Show(frmMov_Financeiro,'Excluindo registro');
 
   t := TThread.CreateAnonymousThread(
   procedure
@@ -581,7 +839,7 @@ begin
 
   FACBr_Validador := TACBr_Validador.Create(FEnder);
 
-  FFancyDialog := TFancyDialog.Create(frmMov_ServicosPrestados);
+  FFancyDialog := TFancyDialog.Create(frmMov_Financeiro);
   CriandoCombos;
   CriandoMenus;
 
@@ -602,9 +860,37 @@ begin
   Listar_Registros(edFiltro.Text);
 end;
 
+procedure TfrmMov_Financeiro.imgAcao_01Click(Sender: TObject);
+begin
+  case imgAcao_01.Tag of
+    0:begin
+      FTab_Status := dsInsert;
+      edSTATUS.Tag := 1;
+      edSTATUS.Text := 'ATIVO';
+      LimparCampos;
+      imgAcao_01.Tag := 1;
+      imgAcao_01.Bitmap := imgSalvar.Bitmap;
+      tcCampos.TabIndex := 0;
+      edSTATUS.Tag := 1;
+      edSTATUS.Text := 'ATIVO';
+      edDATA.Text := DateToStr(Date);
+      tcPrincipal.GotoVisibleTab(1);
+      if edDATA.CanFocus then
+        edDATA.SetFocus;
+      FEdidanto := False;
+    end;
+    1:Salvar;
+  end;
+end;
+
 procedure TfrmMov_Financeiro.imgAvancar_001Click(Sender: TObject);
 begin
   tcCampos.GotoVisibleTab(1);
+end;
+
+procedure TfrmMov_Financeiro.imgCalendario_CancelarClick(Sender: TObject);
+begin
+  rctCalendario_Tampa.Visible := False;
 end;
 
 procedure TfrmMov_Financeiro.imgDATAClick(Sender: TObject);
@@ -676,6 +962,7 @@ begin
   var
     FQuery :TFDQuery;
     FQuery_H :TFDQuery;
+    FTotal :Double;
   begin
     FQuery_H := TFDQuery.Create(Nil);
     FQuery_H.Connection := FDm_Global.FDC_SQLite;
@@ -705,7 +992,6 @@ begin
           AddRegistros_LB_Header(FQuery_H.FieldByName('TIPO').AsInteger,FQuery_H.FieldByName('TIPO_DESC').AsString);
         end);
 
-        {
         FQuery := TFDQuery.Create(Nil);
         FQuery.Connection := FDm_Global.FDC_SQLite;
         FQuery.Active := False;
@@ -715,6 +1001,10 @@ begin
         FQuery.Sql.Add('  ,E.NOME AS EMPRESA ');
         FQuery.Sql.Add('  ,C.DESCRICAO AS CONTA ');
         FQuery.Sql.Add('  ,C.TIPO AS TIPO_CONTA ');
+        FQuery.Sql.Add('  ,CASE C.TIPO ');
+        FQuery.Sql.Add('    WHEN 0 THEN ''CRÉDITO'' ');
+        FQuery.Sql.Add('    WHEN 1 THEN ''DÉBITO'' ');
+        FQuery.Sql.Add('  END TIPO_CONTA_DESC ');
         FQuery.Sql.Add('  ,CASE C.TIPO ');
         FQuery.Sql.Add('    WHEN 0 THEN CL.NOME ');
         FQuery.Sql.Add('    WHEN 1 THEN F.NOME ');
@@ -741,11 +1031,13 @@ begin
         FQuery.Sql.Add('  JOIN FORMA_PAGAMENTO FP ON FP.ID = L.FORMA_PAGTO_ID ');
         FQuery.Sql.Add('  JOIN CONDICAO_PAGAMENTO CP ON CP.ID = L.COND_PAGTO_ID ');
         FQuery.Sql.Add('WHERE NOT L.ID IS NULL ');
+        FQuery.Sql.Add('  AND C.TIPO = ' + FQuery_H.FieldByName('TIPO').AsString);
         FQuery.Sql.Add('ORDER BY ');
         FQuery.Sql.Add('  L.ID_EMPRESA; ');
         FQuery.Active := True;
         if not FQuery.IsEmpty then
         begin
+          FTotal := 0;
           FQuery.First;
           while not FQuery.Eof do
           begin
@@ -754,26 +1046,33 @@ begin
             begin
               AddRegistros_LB(
                 FQuery.FieldByName('ID').AsInteger
+                ,FQuery.FieldByName('ID_CONTA').AsInteger
+                ,FQuery.FieldByName('ID_PESSOA').AsInteger
                 ,FQuery.FieldByName('SINCRONIZADO').AsInteger
                 ,FQuery.FieldByName('EXCLUIDO').AsInteger
                 ,FQuery.FieldByName('STATUS').AsInteger
                 ,FQuery.FieldByName('PESSOA').AsString
                 ,FQuery.FieldByName('CONTA').AsString
-                ,FQuery.FieldByName('HR_INICIO').AsString
-                ,FQuery.FieldByName('HR_FIM').AsString
-                ,FQuery.FieldByName('HR_TOTAL').AsString
-                ,FQuery.FieldByName('DESCRICAO').AsString
-                ,FQuery.FieldByName('VLR_HORA').AsFloat
-                ,FQuery.FieldByName('TOTAL').AsFloat
+                ,FQuery.FieldByName('TIPO_CONTA_DESC').AsString
+                ,FQuery.FieldByName('DT_EMISSAO').AsString
+                ,FQuery.FieldByName('DT_VENCIMENTO').AsString
+                ,FQuery.FieldByName('DT_BAIXA').AsString
+                ,FQuery.FieldByName('VALOR').AsFloat
+                ,FQuery.FieldByName('VALOR_BAIXA').AsFloat
               );
             end);
 
+            FTotal := (FTotal + FQuery.FieldByName('VALOR').AsFloat);
             FQuery.Next;
           end;
         end;
-        }
+        TThread.Synchronize(TThread.CurrentThread,
+        procedure
+        begin
+          AddRegistros_LB_Footer(FTotal);
+        end);
+        FQuery_H.Next;
       end;
-      FQuery_H.Next;
     end;
 
     TThread.Synchronize(TThread.CurrentThread,
@@ -807,23 +1106,16 @@ begin
     FQuery.Connection := FDm_Global.FDC_SQLite;
 
     FQuery.Active := False;
-    FQuery.SQL.Clear;
-    FQuery.SQL.Add('SELECT GEN_ID(GEN_LANCAMENTOS_ID,1) AS SEQ FROM RDB$DATABASE;');
-    FQuery.Active := True;
-    if not FQuery.IsEmpty then
-      FId := FQuery.FieldByName('SEQ').AsInteger;
-
-    FQuery.Active := False;
     FQuery.Sql.Clear;
 
     if FTab_Status = dsInsert then
     begin
       FQuery.Sql.Add('INSERT INTO LANCAMENTOS( ');
-      FQuery.Sql.Add('  ID ');
-      FQuery.Sql.Add('  ,ID_EMPRESA ');
+      FQuery.Sql.Add('  ID_EMPRESA ');
       FQuery.Sql.Add('  ,DT_EMISSAO ');
       FQuery.Sql.Add('  ,ID_CONTA ');
       FQuery.Sql.Add('  ,ID_PESSOA ');
+      FQuery.Sql.Add('  ,STATUS ');
       FQuery.Sql.Add('  ,FORMA_PAGTO_ID ');
       FQuery.Sql.Add('  ,COND_PAGTO_ID ');
       FQuery.Sql.Add('  ,DT_VENCIMENTO ');
@@ -847,8 +1139,7 @@ begin
       FQuery.Sql.Add('  ,ID_PRINCIPAL ');
       FQuery.Sql.Add('  ,EXCLUIDO ');
       FQuery.Sql.Add(') VALUES( ');
-      FQuery.Sql.Add('  :ID ');
-      FQuery.Sql.Add('  ,:ID_EMPRESA ');
+      FQuery.Sql.Add('  :ID_EMPRESA ');
       FQuery.Sql.Add('  ,:DT_EMISSAO ');
       FQuery.Sql.Add('  ,:ID_CONTA ');
       FQuery.Sql.Add('  ,:ID_PESSOA ');
@@ -872,9 +1163,9 @@ begin
       FQuery.Sql.Add('  ,:DT_CADASTRO ');
       FQuery.Sql.Add('  ,:HR_CADASTRO ');
       FQuery.Sql.Add('  ,:OBSERVACAO ');
-      FQuery.Sql.Add('  ,SINCRONIZADO ');
-      FQuery.Sql.Add('  ,ID_PRINCIPAL ');
-      FQuery.Sql.Add('  ,EXCLUIDO ');
+      FQuery.Sql.Add('  ,:SINCRONIZADO ');
+      FQuery.Sql.Add('  ,:ID_PRINCIPAL ');
+      FQuery.Sql.Add('  ,:EXCLUIDO ');
       FQuery.Sql.Add('); ');
       FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
       FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
@@ -910,9 +1201,9 @@ begin
       FQuery.Sql.Add('  ,DT_CADASTRO = :DT_CADASTRO ');
       FQuery.Sql.Add('  ,HR_CADASTRO = :HR_CADASTRO ');
       FQuery.Sql.Add('  ,OBSERVACAO = :OBSERVACAO ');
-      FQuery.Sql.Add('  ,SINCRONIZADO = :SINCRONIZADO');
-      FQuery.Sql.Add('  ,ID_PRINCIPAL = :ID_PRINCIPAL');
-      FQuery.Sql.Add('  ,EXCLUIDO = :EXCLUIDO');
+      //FQuery.Sql.Add('  ,SINCRONIZADO = :SINCRONIZADO');
+      //FQuery.Sql.Add('  ,ID_PRINCIPAL = :ID_PRINCIPAL');
+      //FQuery.Sql.Add('  ,EXCLUIDO = :EXCLUIDO');
       FQuery.Sql.Add('WHERE ID = :ID; ');
       FQuery.ParamByName('ID').AsInteger := edID.Tag;
     end;

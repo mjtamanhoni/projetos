@@ -43,7 +43,8 @@ uses
   uFrame.SPTotais in 'Frame\uFrame.SPTotais.pas' {Frame_SPTotal: TFrame},
   uMov.Financeiro in 'uMov.Financeiro.pas' {frmMov_Financeiro},
   uFrame.LancFinanceiro in 'Frame\uFrame.LancFinanceiro.pas' {Frame_LancFinanceiro: TFrame},
-  uFrame.LancFinanceiro_H in 'Frame\uFrame.LancFinanceiro_H.pas' {Frame_LancFinanceiro_H: TFrame};
+  uFrame.LancFinanceiro_H in 'Frame\uFrame.LancFinanceiro_H.pas' {Frame_LancFinanceiro_H: TFrame},
+  uFrame.LancFinanceiro_F in 'Frame\uFrame.LancFinanceiro_F.pas' {Frame_LancFinanceiro_F: TFrame};
 
 {$R *.res}
 

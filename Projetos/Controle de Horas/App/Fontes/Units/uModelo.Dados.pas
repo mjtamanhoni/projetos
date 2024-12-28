@@ -43,6 +43,7 @@ type
 
   end;
 
+  //Usuário
   TUsuario = class
   private
     FConexao: TFDConnection;
@@ -53,6 +54,7 @@ type
     function Lista_Registros(AId: Integer=0; ANome:String=''; ALogin: String=''): TFDQuery;
   end;
 
+  //Empresa
   TEmpresa = class
   private
     FConexao: TFDConnection;
@@ -63,6 +65,7 @@ type
     function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
   end;
 
+  //Prestador de Serviço
   TPrestServicos = class
   private
     FConexao: TFDConnection;
@@ -73,6 +76,7 @@ type
     function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
   end;
 
+  //Fornecedor
   TFornecedor = class
   private
     FConexao: TFDConnection;
@@ -83,6 +87,7 @@ type
     function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
   end;
 
+  //Tabela de Preço
   TTab_Preco = class
   private
     FConexao: TFDConnection;
@@ -91,6 +96,28 @@ type
     constructor Create(AConnexao: TFDConnection;AEnder:String);
 
     function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
+  end;
+
+  //Conta
+  TConta = class
+  private
+    FConexao: TFDConnection;
+    FEnder :String;
+  public
+    constructor Create(AConnexao: TFDConnection;AEnder:String);
+
+    function Lista_Registros(AId: Integer=0; ANome:String=''): TFDQuery;
+  end;
+
+  //Forma/Condição de Pagamento
+  TFormaCond_Pagto = class
+  private
+    FConexao: TFDConnection;
+    FEnder :String;
+  public
+    constructor Create(AConnexao: TFDConnection;AEnder:String);
+
+    function Lista_Registros(AId: Integer=0; ACondicao_ID :Integer=0; ANome:String=''): TFDQuery;
   end;
 
 implementation
@@ -605,6 +632,93 @@ begin
         Result.Sql.Add('  AND A.ID = ' + AId.ToString);
       if Trim(ANome) <> '' then
         Result.Sql.Add('  AND A.DESCRICAO LIKE ' + QuotedStr('%'+ANome+'%'));
+      Result.Active := True;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+  end;
+end;
+
+{ TConta }
+
+constructor TConta.Create(AConnexao: TFDConnection; AEnder: String);
+begin
+  FConexao := AConnexao;
+
+  FEnder := '';
+  FEnder := AEnder;
+end;
+
+function TConta.Lista_Registros(AId: Integer; ANome: String): TFDQuery;
+begin
+  try
+    try
+      Result := TFDQuery.Create(Nil);
+      Result.Connection := FConexao;
+
+      Result.Active := False;
+      Result.Sql.Clear;
+      Result.Sql.Add('SELECT ');
+      Result.Sql.Add('  A.* ');
+      Result.Sql.Add('  ,CASE A.STATUS ');
+      Result.Sql.Add('    WHEN 0 THEN ''INATIVO'' ');
+      Result.Sql.Add('    WHEN 1 THEN ''ATIVO'' ');
+      Result.Sql.Add('  END STATUS_DESC ');
+      Result.Sql.Add('  ,CASE A.TIPO ');
+      Result.Sql.Add('    WHEN 0 THEN ''CREDITO'' ');
+      Result.Sql.Add('    WHEN 1 THEN ''DÉBITO'' ');
+      Result.Sql.Add('  END TIPO_DESC ');
+      Result.Sql.Add('FROM CONTA A ');
+      Result.Sql.Add('WHERE NOT A.ID IS NULL');
+      if AId > 0 then
+        Result.Sql.Add('  AND A.ID = ' + AId.ToString);
+      if Trim(ANome) <> '' then
+        Result.Sql.Add('  AND A.DESCRICAO LIKE ' + QuotedStr('%'+ANome+'%'));
+      Result.Active := True;
+
+    except on E: Exception do
+      raise Exception.Create(E.Message);
+    end;
+  finally
+  end;
+end;
+
+{ TFormaCond_Pagto }
+
+constructor TFormaCond_Pagto.Create(AConnexao: TFDConnection; AEnder: String);
+begin
+  FConexao := AConnexao;
+
+  FEnder := '';
+  FEnder := AEnder;
+end;
+
+function TFormaCond_Pagto.Lista_Registros(AId: Integer=0; ACondicao_ID :Integer=0; ANome:String=''): TFDQuery;
+begin
+  try
+    try
+      Result := TFDQuery.Create(Nil);
+      Result.Connection := FConexao;
+
+      Result.Active := False;
+      Result.Sql.Clear;
+      Result.Sql.Add('SELECT ');
+      Result.Sql.Add('  T.* ');
+      Result.Sql.Add('  ,COALESCE(FCP.ID_CONDICAO_PAGAMENTO,0) AS ID_CONDICAO_PAGAMENTO ');
+      Result.Sql.Add('  ,COALESCE(CP.DESCRICAO,'''') AS COND_PAGAMENTO ');
+      Result.Sql.Add('  ,COALESCE(FCP.ID,0) AS FORMA_COND_PAGTO_ID ');
+      Result.Sql.Add('FROM FORMA_PAGAMENTO T ');
+      Result.Sql.Add('  LEFT JOIN FORMA_CONDICAO_PAGAMENTO FCP ON FCP.ID_FORMA_PAGAMENTO = T.ID ');
+      Result.Sql.Add('  LEFT JOIN CONDICAO_PAGAMENTO CP ON CP.ID = FCP.ID_CONDICAO_PAGAMENTO ');
+      Result.SQL.Add('WHERE NOT T.ID IS NULL');
+      if AId > 0 then
+        Result.Sql.Add('  AND T.ID = ' + AId.ToString);
+      if ACondicao_ID > 0 then
+        Result.Sql.Add('  AND COALESCE(FCP.ID_CONDICAO_PAGAMENTO,0) = ' + ACondicao_ID.ToString);
+      if Trim(ANome) <> '' then
+        Result.Sql.Add('  AND T.DESCRICAO LIKE ' + QuotedStr('%'+ANome+'%'));
       Result.Active := True;
 
     except on E: Exception do

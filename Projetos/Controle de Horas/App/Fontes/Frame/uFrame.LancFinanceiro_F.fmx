@@ -1,28 +1,43 @@
-object Frame_LancFinanceiro_H: TFrame_LancFinanceiro_H
+object Frame_LancFinanceiro_F: TFrame_LancFinanceiro_F
+  Margins.Bottom = 10.000000000000000000
   Size.Width = 380.000000000000000000
   Size.Height = 30.000000000000000000
   Size.PlatformDefault = False
   object rctPrincipal: TRectangle
     Align = Client
     Fill.Color = xFFC8C4AC
-    Sides = [Bottom]
+    Sides = []
     Size.Width = 380.000000000000000000
     Size.Height = 30.000000000000000000
     Size.PlatformDefault = False
     Stroke.Color = xFF363428
-    object lbConta: TLabel
-      Align = Client
+    object lbTotal: TLabel
+      Align = Right
       StyledSettings = [Family]
       Margins.Left = 5.000000000000000000
       Margins.Right = 5.000000000000000000
-      Size.Width = 370.000000000000000000
+      Position.X = 208.000000000000000000
+      Size.Width = 167.000000000000000000
       Size.Height = 30.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 16.000000000000000000
       TextSettings.Font.StyleExt = {00060000000000000004000000}
       TextSettings.FontColor = xFF363428
-      Text = 'Conta'
+      TextSettings.HorzAlign = Trailing
+      Text = 'R$ 0,00'
       TabOrder = 0
+    end
+    object lbTitulo: TLabel
+      Align = Client
+      StyledSettings = [Family, Style, FontColor]
+      Margins.Right = 5.000000000000000000
+      Size.Width = 198.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.HorzAlign = Trailing
+      Text = 'Total:'
+      TabOrder = 1
     end
   end
 end

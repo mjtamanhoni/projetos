@@ -19,6 +19,7 @@ uses
   uDm.Global,
   uACBr,
   uFuncoes,
+  uModelo.Dados,
 
   {$Region 'Frames'}
     uFrame.Conta,
@@ -31,7 +32,7 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TExecuteOnClose = procedure(Aid,ATipo:Integer; ANome:String) of Object;
+  TExecuteOnClose = procedure(Aid,ATipo:Integer; ANome,ATipoDesc:String) of Object;
   TTab_Status = (dsInsert,dsEdit,dsLista);
 
   TfrmCad_Contas = class(TForm)
@@ -103,8 +104,11 @@ type
 
     FId :Integer;
     FDescricao :String;
-    FTipo :Integer;
+    FTipo_Id :Integer;
+    FTipo :String;
     FStatus :Integer;
+
+    FConta :TConta;
 
     FACBr_Validador :TACBr_Validador;
 
@@ -163,7 +167,7 @@ begin
 
   FId := FFrame.lbDescricao.Tag;
   FDescricao := FFrame.lbDescricao.Text;
-  FTipo := FFrame.lbTipo.Tag;
+  FTipo_Id := FFrame.lbTipo.Tag;
   FStatus := FFrame.lbStatus.Tag;
 
   FMenu_Frame.ShowMenu;
@@ -439,6 +443,7 @@ begin
   tcPrincipal.ActiveTab := tiLista;
 
   FDm_Global := TDM_Global.Create(Nil);
+  FConta := TConta.Create(FDm_Global.FDC_SQLite,FEnder);
 
   FTab_Status := dsLista;
 
@@ -478,7 +483,7 @@ begin
   case tcPrincipal.TabIndex of
     0:begin
       if FPesquisa then
-        ExecuteOnClose(FId,FTipo,FDescricao);
+        ExecuteOnClose(FId,FTipo_Id,FDescricao,FTipo);
       Close;
     end;
     1:FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja cancelar as alterações realizadas','Sim',Cancelar,'Não');
@@ -486,18 +491,22 @@ begin
 end;
 
 procedure TfrmCad_Contas.lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
-var
-  FFrame :TFrame_Conta;
-  FRctMenu :TRectangle;
-
 begin
-  FRctMenu := TRectangle(Sender);
-  FFrame := FRctMenu.Parent as TFrame_Conta;
-
   FId := Item.Tag;
   FDescricao := Item.TagString;
-  FTipo := FFrame.lbTipo.Tag;
-
+  with FConta.Lista_Registros(FId) do
+  begin
+    if not IsEmpty then
+    begin
+      FTipo_Id := FieldByName('TIPO').AsInteger;
+      FTipo := FieldByName('TIPO_DESC').AsString;
+      {$IFDEF MSWINDOWS}
+        Free;
+      {$ELSE}
+        DisposeOf;
+      {$ENDIF}
+    end;
+  end;
 end;
 
 {$IFDEF MSWINDOWS}

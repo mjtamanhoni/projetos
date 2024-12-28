@@ -569,7 +569,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
       Size.Height = 574.000000000000000000
       Size.PlatformDefault = False
       TabHeight = 49.000000000000000000
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       TabPosition = None
       Sizes = (
@@ -581,7 +581,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
         CustomIcon = <
           item
           end>
-        IsSelected = False
+        IsSelected = True
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -716,7 +716,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
         CustomIcon = <
           item
           end>
-        IsSelected = True
+        IsSelected = False
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -738,7 +738,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
             Size.Height = 564.000000000000000000
             Size.PlatformDefault = False
             TabHeight = 49.000000000000000000
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 0
             TabPosition = None
             Sizes = (
@@ -750,7 +750,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
               CustomIcon = <
                 item
                 end>
-              IsSelected = True
+              IsSelected = False
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
@@ -774,7 +774,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 3
+                  TabOrder = 0
                   object lytID: TLayout
                     Align = Left
                     Size.Width = 88.000000000000000000
@@ -842,6 +842,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'INATIVO'
                       StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edSTATUSKeyDown
                       object imgSTATUS: TImage
                         MultiResBitmap = <
                           item
@@ -929,6 +930,8 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = '00/00/0000'
                       StyledSettings = [Family, Style, FontColor]
+                      OnTyping = edDATATyping
+                      OnKeyDown = edDATAKeyDown
                       object imgDATA: TImage
                         MultiResBitmap = <
                           item
@@ -1047,7 +1050,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 0
+                  TabOrder = 1
                   object lytID_EMPRESA: TLayout
                     Align = Client
                     Size.Width = 368.000000000000000000
@@ -1078,6 +1081,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'EMPRESA'
                       StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edID_EMPRESAKeyDown
                       OnClick = edID_EMPRESAClick
                       object imgID_EMPRESA: TImage
                         MultiResBitmap = <
@@ -1146,7 +1150,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 1
+                  TabOrder = 2
                   object lytID_CONTA: TLayout
                     Align = Client
                     Size.Width = 368.000000000000000000
@@ -1177,6 +1181,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'CONTA'
                       StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edID_CONTAKeyDown
                       OnClick = edID_CONTAClick
                       object imgID_CONTA: TImage
                         MultiResBitmap = <
@@ -1263,7 +1268,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 5
+                  TabOrder = 3
                   object lytID_PESSOA: TLayout
                     Align = Client
                     Size.Width = 368.000000000000000000
@@ -1294,6 +1299,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'CLIENTE/FORNECEDOR'
                       StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edID_PESSOAKeyDown
                       OnClick = edID_PESSOAClick
                       object imgID_PESSOA: TImage
                         MultiResBitmap = <
@@ -1360,13 +1366,13 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Position.X = 3.000000000000000000
                   Position.Y = 228.000000000000000000
                   Size.Width = 368.000000000000000000
-                  Size.Height = 55.000000000000000000
+                  Size.Height = 92.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 2
+                  TabOrder = 4
                   object lytFormaCond_Pagto: TLayout
                     Align = Client
                     Size.Width = 368.000000000000000000
-                    Size.Height = 55.000000000000000000
+                    Size.Height = 92.000000000000000000
                     Size.PlatformDefault = False
                     TabOrder = 0
                     object lbFormaCond_Pagto: TLabel
@@ -1388,11 +1394,13 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Cursor = crHandPoint
                       ReadOnly = True
                       TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 201.000000000000000000
+                      Size.Width = 368.000000000000000000
                       Size.Height = 35.000000000000000000
                       Size.PlatformDefault = False
                       TextPrompt = 'FORMA PAGTO'
                       StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edFORMA_PAGTO_IDKeyDown
+                      OnClick = edFORMA_PAGTO_IDClick
                       object imgFORMA_PAGTO_ID: TImage
                         MultiResBitmap = <
                           item
@@ -1441,7 +1449,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                         Margins.Top = 3.000000000000000000
                         Margins.Right = 3.000000000000000000
                         Margins.Bottom = 3.000000000000000000
-                        Position.X = 169.000000000000000000
+                        Position.X = 336.000000000000000000
                         Position.Y = 3.000000000000000000
                         Size.Width = 29.000000000000000000
                         Size.Height = 29.000000000000000000
@@ -1450,17 +1458,16 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                     end
                     object edCOND_PAGTO_ID: TEdit
                       Touch.InteractiveGestures = [LongTap, DoubleTap]
-                      Align = Right
+                      Align = Bottom
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 0
                       TabStop = False
                       Cursor = crHandPoint
                       ReadOnly = True
                       TextSettings.Font.Size = 18.000000000000000000
-                      Position.X = 203.000000000000000000
-                      Position.Y = 20.000000000000000000
-                      Margins.Left = 2.000000000000000000
-                      Size.Width = 165.000000000000000000
+                      Position.Y = 57.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Size.Width = 368.000000000000000000
                       Size.Height = 35.000000000000000000
                       Size.PlatformDefault = False
                       TextPrompt = 'COND. PAGTO'
@@ -1474,11 +1481,11 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Margins.Right = 3.000000000000000000
                   Margins.Bottom = 2.000000000000000000
                   Position.X = 3.000000000000000000
-                  Position.Y = 285.000000000000000000
+                  Position.Y = 322.000000000000000000
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 4
+                  TabOrder = 5
                   object lytVALOR: TLayout
                     Align = Right
                     Position.X = 253.000000000000000000
@@ -1502,7 +1509,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 0
-                      KeyboardType = PhonePad
+                      KeyboardType = NumbersAndPunctuation
                       ReturnKeyType = Next
                       FilterChar = 'R$0123456789.,'
                       TextSettings.Font.Size = 18.000000000000000000
@@ -1512,7 +1519,9 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'R$ 0,00'
                       StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecLowerCase
+                      CharCase = ecUpperCase
+                      OnTyping = edVALORTyping
+                      OnKeyDown = edVALORKeyDown
                     end
                   end
                   object lytDT_VENCIMENTO: TLayout
@@ -1533,13 +1542,13 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       TabOrder = 0
                     end
                     object edDT_VENCIMENTO: TEdit
+                      Tag = 1
                       Touch.InteractiveGestures = [LongTap, DoubleTap]
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 1
-                      Cursor = crHandPoint
+                      Cursor = crDefault
                       ReturnKeyType = Next
-                      ReadOnly = True
                       FilterChar = '0123456789/'
                       TextSettings.Font.Size = 18.000000000000000000
                       Size.Width = 145.000000000000000000
@@ -1547,6 +1556,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = '00/00/0000'
                       StyledSettings = [Family, Style, FontColor]
+                      OnKeyDown = edDT_VENCIMENTOKeyDown
                       object imgDT_VENCIMENTO: TImage
                         Tag = 1
                         MultiResBitmap = <
@@ -1589,6 +1599,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                         Size.Width = 29.000000000000000000
                         Size.Height = 29.000000000000000000
                         Size.PlatformDefault = False
+                        OnClick = imgDATAClick
                       end
                     end
                   end
@@ -1599,7 +1610,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
               CustomIcon = <
                 item
                 end>
-              IsSelected = False
+              IsSelected = True
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
@@ -1625,7 +1636,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Size.Width = 368.000000000000000000
                   Size.Height = 35.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 0
+                  TabOrder = 3
                   object imgRetornar_001: TImage
                     MultiResBitmap = <
                       item
@@ -1685,7 +1696,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 4
+                  TabOrder = 0
                   object lytDT_BAIXA: TLayout
                     Align = Left
                     Size.Width = 145.000000000000000000
@@ -1707,8 +1718,8 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Touch.InteractiveGestures = [LongTap, DoubleTap]
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 1
-                      Cursor = crHandPoint
+                      TabOrder = 2
+                      Cursor = crDefault
                       ReturnKeyType = Next
                       ReadOnly = True
                       FilterChar = '0123456789/'
@@ -1718,6 +1729,8 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = '00/00/0000'
                       StyledSettings = [Family, Style, FontColor]
+                      OnTyping = edDT_BAIXATyping
+                      OnKeyDown = edDT_BAIXAKeyDown
                       object imgDT_BAIXA: TImage
                         Tag = 2
                         MultiResBitmap = <
@@ -1760,6 +1773,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                         Size.Width = 29.000000000000000000
                         Size.Height = 29.000000000000000000
                         Size.PlatformDefault = False
+                        OnClick = imgDATAClick
                       end
                     end
                   end
@@ -1799,7 +1813,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 0
-                      KeyboardType = PhonePad
+                      KeyboardType = NumbersAndPunctuation
                       ReturnKeyType = Next
                       FilterChar = 'R$0123456789.,'
                       TextSettings.Font.Size = 18.000000000000000000
@@ -1810,6 +1824,8 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       TextPrompt = 'R$ 0,00'
                       StyledSettings = [Family, Style, FontColor]
                       CharCase = ecUpperCase
+                      OnTyping = edDESCONTO_BAIXATyping
+                      OnKeyDown = edDESCONTO_BAIXAKeyDown
                     end
                   end
                   object lytJUROS_BAIXA: TLayout
@@ -1818,7 +1834,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                     Size.Width = 115.000000000000000000
                     Size.Height = 55.000000000000000000
                     Size.PlatformDefault = False
-                    TabOrder = 2
+                    TabOrder = 1
                     object lbJUROS_BAIXA: TLabel
                       Align = Top
                       StyledSettings = [Family, Style]
@@ -1835,7 +1851,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 0
-                      KeyboardType = PhonePad
+                      KeyboardType = NumbersAndPunctuation
                       ReturnKeyType = Next
                       FilterChar = 'R$0123456789.,'
                       TextSettings.Font.Size = 18.000000000000000000
@@ -1845,7 +1861,9 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'R$ 0,00'
                       StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecLowerCase
+                      CharCase = ecUpperCase
+                      OnTyping = edJUROS_BAIXATyping
+                      OnKeyDown = edJUROS_BAIXAKeyDown
                     end
                   end
                   object lytVALOR_BAIXA: TLayout
@@ -1854,7 +1872,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                     Size.Width = 115.000000000000000000
                     Size.Height = 55.000000000000000000
                     Size.PlatformDefault = False
-                    TabOrder = 1
+                    TabOrder = 2
                     object lbVALOR_BAIXA: TLabel
                       Align = Top
                       StyledSettings = [Family, Style]
@@ -1871,7 +1889,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 0
-                      KeyboardType = PhonePad
+                      KeyboardType = NumbersAndPunctuation
                       ReturnKeyType = Next
                       FilterChar = 'R$0123456789.,'
                       TextSettings.Font.Size = 18.000000000000000000
@@ -1881,7 +1899,9 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'R$ 0,00'
                       StyledSettings = [Family, Style, FontColor]
-                      CharCase = ecLowerCase
+                      CharCase = ecUpperCase
+                      OnTyping = edVALOR_BAIXATyping
+                      OnKeyDown = edVALOR_BAIXAKeyDown
                     end
                   end
                 end
@@ -1895,7 +1915,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                   Size.Width = 368.000000000000000000
                   Size.Height = 55.000000000000000000
                   Size.PlatformDefault = False
-                  TabOrder = 3
+                  TabOrder = 2
                   object lytOBSERVACAO: TLayout
                     Align = Client
                     Size.Width = 368.000000000000000000
@@ -1918,9 +1938,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 0
-                      KeyboardType = PhonePad
                       ReturnKeyType = Next
-                      FilterChar = '()0123456789-'
                       TextSettings.Font.Size = 18.000000000000000000
                       Size.Width = 368.000000000000000000
                       Size.Height = 35.000000000000000000
@@ -1980,6 +1998,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
         Size.Width = 44.000000000000000000
         Size.Height = 44.000000000000000000
         Size.PlatformDefault = False
+        OnClick = imgAcao_01Click
       end
     end
   end
@@ -2024,8 +2043,8 @@ object frmMov_Financeiro: TfrmMov_Financeiro
             PNG = {
               89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
               54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-              038249444154785EEDDCCF4E135114C7F17BDB524A10ABD118172E94B0D1F802
-              1A886E4CD0D829464D34426D74C74ADFC4956CA1489444A3ED1061E78257D01D
+              038249444154785EEDDCCF4E135114C7F17BDB524A10ABD118172E94B031FA02
+              1A886E4CD0D829464D34426D74C74ADFC4956CA1489444A3ED1061E78247D025
               F8276AA2414D5A35102C73E5C89D20C2D8D6C4CEBDE7FE3E9BCE1CD87D39D30C
               4C11000000000000000000000000C0CBE367F93DFAD04809FDEA8489CA50FFD2
               17F5A634E35DD623E338138462046A75B6B343EC5E7C2EA64BBE774D7FC9284E
@@ -2052,7 +2071,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
               761B122AE69FDC93520C37B3294A754C991083B0DD9010FDD37D15544B51EF29
               4A883B45AF725B9FC68E7D10F2972863D7BDCAA83E36821341C80E518C8B419C
               0942C2284AF68C17BD999B7A0C71A2CF37EA4300000000000000000000000068
-              3B217E026775C8426B165E940000000049454E44AE426082}
+              3B217E02E7EEC8415C8D464B0000000049454E44AE426082}
           end>
         Align = Left
         Cursor = crHandPoint
@@ -2195,6 +2214,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
             Size.Width = 25.000000000000000000
             Size.Height = 21.000000000000000000
             Size.PlatformDefault = False
+            OnClick = imgCalendario_CancelarClick
           end
         end
       end
@@ -2215,7 +2235,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
           object Calendar: TCalendar
             Align = Client
             Cursor = crHandPoint
-            Date = 45653.000000000000000000
+            Date = 45654.000000000000000000
             Margins.Left = 2.000000000000000000
             Margins.Top = 2.000000000000000000
             Margins.Right = 2.000000000000000000
@@ -2225,6 +2245,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
             Size.PlatformDefault = False
             TabOrder = 0
             TodayDefault = True
+            OnDateSelected = CalendarDateSelected
           end
         end
       end

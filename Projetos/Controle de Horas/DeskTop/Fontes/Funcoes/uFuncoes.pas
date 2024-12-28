@@ -135,7 +135,7 @@ begin
     FValorT := '';
     FValorD := 0;
 
-    FValorT := StringReplace(StringReplace(StringReplace(ATexto,'R$','',[rfReplaceAll]),'.','',[rfReplaceAll]),',','',[rfReplaceAll]);
+    FValorT := StringReplace(StringReplace(StringReplace(StringReplace(ATexto,'R','',[rfReplaceAll]),'.','',[rfReplaceAll]),',','',[rfReplaceAll]),'$','',[rfReplaceAll]);
     FValorD := StrToFloat(FValorT);
 
     case ADecimal of
