@@ -352,7 +352,7 @@ begin
   try
     FItem := TListBoxItem.Create(Nil);
     FItem.Text := '';
-    FItem.Height := 30;
+    FItem.Height := 40;
 
     FFrame := TFrame_LancFinanceiro_F.Create(FItem);
     FFrame.Parent := FItem;
@@ -668,7 +668,7 @@ begin
     FQuery.Sql.Add('  LEFT JOIN FORNECEDOR F ON F.ID = L.ID_PESSOA ');
     FQuery.Sql.Add('  JOIN FORMA_PAGAMENTO FP ON FP.ID = L.FORMA_PAGTO_ID ');
     FQuery.Sql.Add('  JOIN CONDICAO_PAGAMENTO CP ON CP.ID = L.COND_PAGTO_ID ');
-    FQuery.Sql.Add('WHERE SP.ID = :ID ');
+    FQuery.Sql.Add('WHERE L.ID = :ID ');
     FQuery.ParamByName('ID').AsInteger := FId;
     FQuery.Active := True;
     if not FQuery.IsEmpty then
@@ -679,13 +679,13 @@ begin
       begin
         edID.Tag := FQuery.FieldByName('ID').AsInteger;
         edID.Text := FQuery.FieldByName('ID').AsString;
-        edDATA.Text := FormatDateTime('DD/MM/YYYY', FQuery.FieldByName('DATA').AsDateTime);
+        edDATA.Text := FormatDateTime('DD/MM/YYYY', FQuery.FieldByName('DT_EMISSAO').AsDateTime);
         edSTATUS.Tag := FQuery.FieldByName('STATUS').AsInteger;
-        edSTATUS.Text := FQuery.FieldByName('STATUS_DES').AsString;
+        edSTATUS.Text := FQuery.FieldByName('STATUS_DESC').AsString;
         edID_EMPRESA.Tag := FQuery.FieldByName('ID_EMPRESA').AsInteger;
         edID_EMPRESA.Text := FQuery.FieldByName('EMPRESA').AsString;
         edID_CONTA.Tag := FQuery.FieldByName('ID_CONTA').AsInteger;
-        edID_CONTA.Text := FQuery.FieldByName('CONTA_NOME').AsString;
+        edID_CONTA.Text := FQuery.FieldByName('CONTA').AsString;
         edID_PESSOA.Tag := FQuery.FieldByName('ID_PESSOA').AsInteger;
         edID_PESSOA.Text := FQuery.FieldByName('PESSOA').AsString;
         edFORMA_PAGTO_ID.Tag := FQuery.FieldByName('FORMA_PAGTO_ID').AsInteger;
@@ -695,13 +695,17 @@ begin
         edDT_VENCIMENTO.Text := FormatDateTime('DD/MM/YYYY', FQuery.FieldByName('DT_VENCIMENTO').AsDateTime);
         edVALOR.TagFloat := FQuery.FieldByName('VALOR').AsFloat;
         edVALOR.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('VALOR').AsFloat);
-        edDT_BAIXA.Text := FormatDateTime('DD/MM/YYYY', FQuery.FieldByName('DT_BAIXA').AsDateTime);
-        edDESCONTO_BAIXA.TagFloat := FQuery.FieldByName('DESCONTO_BAIXA').AsFloat;
-        edDESCONTO_BAIXA.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('DESCONTO_BAIXA').AsFloat);
-        edJUROS_BAIXA.TagFloat := FQuery.FieldByName('JUROS_BAIXA').AsFloat;
-        edJUROS_BAIXA.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('JUROS_BAIXA').AsFloat);
-        edVALOR_BAIXA.TagFloat := FQuery.FieldByName('VALOR_BAIXA').AsFloat;
-        edVALOR_BAIXA.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('VALOR_BAIXA').AsFloat);
+        edOBSERVACAO.Text := FQuery.FieldByName('OBSERVACAO').AsString;
+        if NOT FQuery.FieldByName('DT_BAIXA').iSnULL then
+        begin
+          edDT_BAIXA.Text := FormatDateTime('DD/MM/YYYY', FQuery.FieldByName('DT_BAIXA').AsDateTime);
+          edDESCONTO_BAIXA.TagFloat := FQuery.FieldByName('DESCONTO_BAIXA').AsFloat;
+          edDESCONTO_BAIXA.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('DESCONTO_BAIXA').AsFloat);
+          edJUROS_BAIXA.TagFloat := FQuery.FieldByName('JUROS_BAIXA').AsFloat;
+          edJUROS_BAIXA.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('JUROS_BAIXA').AsFloat);
+          edVALOR_BAIXA.TagFloat := FQuery.FieldByName('VALOR_BAIXA').AsFloat;
+          edVALOR_BAIXA.Text := FormatFloat('R$ #,##0.00', FQuery.FieldByName('VALOR_BAIXA').AsFloat);
+        end;
       end);
 
     end;
@@ -711,8 +715,6 @@ begin
     {$ELSE}
       FQuery.DisposeOf;
     {$ENDIF}
-
-
   end);
 
   t.OnTerminate := TThreadEnd_Editar;
@@ -1197,10 +1199,10 @@ begin
         FQuery.Sql.Add('  ,JUROS_BAIXA = :JUROS_BAIXA ');
         FQuery.Sql.Add('  ,VALOR_BAIXA = :VALOR_BAIXA ');
       end;
-      FQuery.Sql.Add('  ,ID_USUARIO = :ID_USUARIO ');
-      FQuery.Sql.Add('  ,DT_CADASTRO = :DT_CADASTRO ');
-      FQuery.Sql.Add('  ,HR_CADASTRO = :HR_CADASTRO ');
       FQuery.Sql.Add('  ,OBSERVACAO = :OBSERVACAO ');
+      //FQuery.Sql.Add('  ,ID_USUARIO = :ID_USUARIO ');
+      //FQuery.Sql.Add('  ,DT_CADASTRO = :DT_CADASTRO ');
+      //FQuery.Sql.Add('  ,HR_CADASTRO = :HR_CADASTRO ');
       //FQuery.Sql.Add('  ,SINCRONIZADO = :SINCRONIZADO');
       //FQuery.Sql.Add('  ,ID_PRINCIPAL = :ID_PRINCIPAL');
       //FQuery.Sql.Add('  ,EXCLUIDO = :EXCLUIDO');

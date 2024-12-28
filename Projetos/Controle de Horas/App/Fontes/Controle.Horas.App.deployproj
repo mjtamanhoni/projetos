@@ -317,6 +317,16 @@
     </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='OSXARM64'"/>
     <ItemGroup Condition="'$(Platform)'=='Win64'">
+        <DeployFile Include="Win64\Debug\Controle.Horas.App.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Controle.Horas.App\</RemoteDir>
+            <RemoteName>Controle_Horas_App.exe</RemoteName>
+            <DeployClass>ProjectOutput</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png" Condition="'$(Config)'=='Release'">
             <RemoteDir>Controle.Horas.App\Assets\</RemoteDir>
             <RemoteName>Logo44x44.png</RemoteName>
