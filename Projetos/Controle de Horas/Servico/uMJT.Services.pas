@@ -3,19 +3,24 @@ unit uMJT.Services;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.SvcMgr, Vcl.Dialogs;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
+
+  uRotas,
+
+  Vcl.Graphics, Vcl.Controls, Vcl.SvcMgr, Vcl.Dialogs;
 
 type
-  TService4 = class(TService)
+  TsrvMJTamanhoni = class(TService)
+    procedure ServiceExecute(Sender: TService);
   private
-    { Private declarations }
+
   public
     function GetServiceController: TServiceController; override;
     { Public declarations }
   end;
 
 var
-  Service4: TService4;
+  srvMJTamanhoni: TsrvMJTamanhoni;
 
 implementation
 
@@ -23,12 +28,23 @@ implementation
 
 procedure ServiceController(CtrlCode: DWord); stdcall;
 begin
-  Service4.Controller(CtrlCode);
+  srvMJTamanhoni.Controller(CtrlCode);
 end;
 
-function TService4.GetServiceController: TServiceController;
+function TsrvMJTamanhoni.GetServiceController: TServiceController;
 begin
   Result := ServiceController;
+end;
+
+procedure TsrvMJTamanhoni.ServiceExecute(Sender: TService);
+begin
+
+
+  //Criar rotina para pegar o Token de acordo com o código do usuário passado.
+  //Criar rotina para gravar um log no computador dos processos realizados pelo serviço.
+
+
+  uRotas.RegistrarRotas;
 end;
 
 end.

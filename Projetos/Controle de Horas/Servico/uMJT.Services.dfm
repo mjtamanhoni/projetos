@@ -1,5 +1,6 @@
-object Service4: TService4
-  DisplayName = 'Service4'
+object srvMJTamanhoni: TsrvMJTamanhoni
+  DisplayName = 'MJTamanhoni'
+  OnExecute = ServiceExecute
   Height = 480
   Width = 640
 end

@@ -11,7 +11,9 @@ uses
   Horse.CORS,
   Horse.JWT,
 
-  uRota.Auth;
+  uRota.Auth,
+  uModelo.Dados.Wnd,
+  uDm.Global.Wnd;
 
 procedure RegistrarRotas;
 
@@ -206,14 +208,55 @@ end;
 
 {$Region 'CLIENTE'}
 procedure Cliente_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FNome :String;
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FCliente :TCliente;
+
+  FJSon_Retorno :TJSONArray;
+
 begin
   try
     try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FCliente := TCliente.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FNome := '';
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId := StrToIntDef(Req.Query['id'],0);
+      FNome := Req.Query['nome'];
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FCliente.JSon_Listagem(FPagina,FPaginas,FId,FNome);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar os Clientes.').Status(401);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
     end;
   finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FCliente);
   end;
 end;
 

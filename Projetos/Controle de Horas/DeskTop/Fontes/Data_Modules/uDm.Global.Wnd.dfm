@@ -1,4 +1,4 @@
-object DataModule1: TDataModule1
+object DM_Global_Wnd: TDM_Global_Wnd
   OnCreate = DataModuleCreate
   Height = 353
   Width = 211

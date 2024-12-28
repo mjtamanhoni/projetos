@@ -13,7 +13,7 @@ uses
   FireDAC.Phys.FB, FireDAC.Comp.UI;
 
 type
-  TDataModule1 = class(TDataModule)
+  TDM_Global_Wnd = class(TDataModule)
     FDConnection: TFDConnection;
     FDTransaction: TFDTransaction;
     FDPhysFBDriverLink: TFDPhysFBDriverLink;
@@ -29,7 +29,7 @@ type
   end;
 
 var
-  DataModule1: TDataModule1;
+  DM_Global_Wnd: TDM_Global_Wnd;
 
 implementation
 
@@ -39,7 +39,7 @@ implementation
 
 { TDataModule1 }
 
-procedure TDataModule1.Conectar_Banco;
+procedure TDM_Global_Wnd.Conectar_Banco;
 var
   IniFile  :TIniFile;
   lEnder   :String;
@@ -144,7 +144,7 @@ begin
   end;
 end;
 
-procedure TDataModule1.DataModuleCreate(Sender: TObject);
+procedure TDM_Global_Wnd.DataModuleCreate(Sender: TObject);
 begin
   Conectar_Banco;
 end;
