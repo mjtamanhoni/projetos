@@ -262,7 +262,7 @@ type
     procedure TThreadEnd_ExcluirRegistro(Sender: TOBject);
     procedure SetPesquisa(const Value: Boolean);
     procedure Sel_Empresa(Aid: Integer; ANome: String);
-    procedure Sel_Conta(Aid: Integer; ANome: String);
+    procedure Sel_Conta(Aid,ATipo: Integer; ANome: String);
     procedure Sel_Prest_Servicos(Aid: Integer; ANome: String);
     procedure Sel_Cliente(Aid: Integer; ANome: String);
     procedure Sel_TabPreco(Aid: Integer; ANome: String; AValor:Double);
@@ -667,7 +667,7 @@ begin
   frmCad_Contas.Show;
 end;
 
-procedure TfrmMov_ServicosPrestados.Sel_Conta(Aid:Integer; ANome:String);
+procedure TfrmMov_ServicosPrestados.Sel_Conta(Aid,ATipo:Integer; ANome:String);
 begin
   edID_CONTA.Tag := Aid;
   edID_CONTA.Text := ANome;

@@ -569,7 +569,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
       Size.Height = 574.000000000000000000
       Size.PlatformDefault = False
       TabHeight = 49.000000000000000000
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       TabPosition = None
       Sizes = (
@@ -581,7 +581,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
         CustomIcon = <
           item
           end>
-        IsSelected = True
+        IsSelected = False
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -716,7 +716,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
         CustomIcon = <
           item
           end>
-        IsSelected = False
+        IsSelected = True
         Size.Width = 8.000000000000000000
         Size.Height = 8.000000000000000000
         Size.PlatformDefault = False
@@ -738,7 +738,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
             Size.Height = 564.000000000000000000
             Size.PlatformDefault = False
             TabHeight = 49.000000000000000000
-            TabIndex = 1
+            TabIndex = 0
             TabOrder = 0
             TabPosition = None
             Sizes = (
@@ -750,7 +750,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
               CustomIcon = <
                 item
                 end>
-              IsSelected = False
+              IsSelected = True
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
@@ -1078,6 +1078,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'EMPRESA'
                       StyledSettings = [Family, Style, FontColor]
+                      OnClick = edID_EMPRESAClick
                       object imgID_EMPRESA: TImage
                         MultiResBitmap = <
                           item
@@ -1161,21 +1162,22 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       TextSettings.Font.Size = 13.000000000000000000
                       TextSettings.FontColor = xFF787878
                       Text = 'Conta (Clique para selecionar):'
-                      TabOrder = 1
+                      TabOrder = 2
                     end
                     object edID_CONTA: TEdit
                       Touch.InteractiveGestures = [LongTap, DoubleTap]
                       Align = Client
                       StyleLookup = 'Editstyle_Adapta'
-                      TabOrder = 0
+                      TabOrder = 1
                       Cursor = crHandPoint
                       ReadOnly = True
                       TextSettings.Font.Size = 18.000000000000000000
-                      Size.Width = 368.000000000000000000
+                      Size.Width = 282.000000000000000000
                       Size.Height = 35.000000000000000000
                       Size.PlatformDefault = False
                       TextPrompt = 'CONTA'
                       StyledSettings = [Family, Style, FontColor]
+                      OnClick = edID_CONTAClick
                       object imgID_CONTA: TImage
                         MultiResBitmap = <
                           item
@@ -1224,12 +1226,30 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                         Margins.Top = 3.000000000000000000
                         Margins.Right = 3.000000000000000000
                         Margins.Bottom = 3.000000000000000000
-                        Position.X = 336.000000000000000000
+                        Position.X = 250.000000000000000000
                         Position.Y = 3.000000000000000000
                         Size.Width = 29.000000000000000000
                         Size.Height = 29.000000000000000000
                         Size.PlatformDefault = False
                       end
+                    end
+                    object edTIPO_CONTA: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Right
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TabStop = False
+                      Cursor = crHandPoint
+                      ReadOnly = True
+                      TextSettings.Font.Size = 18.000000000000000000
+                      Position.X = 284.000000000000000000
+                      Position.Y = 20.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Size.Width = 84.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'TIPO'
+                      StyledSettings = [Family, Style, FontColor]
                     end
                   end
                 end
@@ -1274,6 +1294,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Size.PlatformDefault = False
                       TextPrompt = 'CLIENTE/FORNECEDOR'
                       StyledSettings = [Family, Style, FontColor]
+                      OnClick = edID_PESSOAClick
                       object imgID_PESSOA: TImage
                         MultiResBitmap = <
                           item
@@ -1432,6 +1453,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
                       Align = Right
                       StyleLookup = 'Editstyle_Adapta'
                       TabOrder = 0
+                      TabStop = False
                       Cursor = crHandPoint
                       ReadOnly = True
                       TextSettings.Font.Size = 18.000000000000000000
@@ -1577,7 +1599,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
               CustomIcon = <
                 item
                 end>
-              IsSelected = True
+              IsSelected = False
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
@@ -2002,35 +2024,35 @@ object frmMov_Financeiro: TfrmMov_Financeiro
             PNG = {
               89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
               54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-              038249444154785EEDDCCF4E135114C7F17BDB524A10ABD118172E949018135F
-              4003D18D091A3BC5A88946A88DEE58E99BB8922D14899268B41D22EC5CF010BA
-              00FF444D34A849AB068265AE1CB9134418DB9AD8B9F7DCDF67D39903BB2F679A
-              8129020000000000000000000000007879FC2CBF471F1A29A15F9D305119EA5F
-              FAA2DE9466BCCB7A641C6782508C40ADCE767688DD8BCFC574C9F7AEE92F19C5
-              8920618C844CEDA2F3DEA3422EBE109313BE77E3D7371844EA57B6FE8CF12729
-              D56821E78FE9D3D8B1DE9046318852F2EE44397F4B9FC68EED86508CEF3F82B9
-              EE0ED1AD47D1EAE27DF6803836D45FF9AA27B161B921E16634132350EA5DBA4B
-              F69B1083B0DB90662E53218A91492706AE9E2DBFD6A3D8B10A627B0CC2260887
-              188445102E3188F54138C5205607E11683581B84630C626510AE3188754138C7
-              205605E11E835813C48518C48A20AEC420C60769258658131FD21979C2D618C4
-              E8DFF6B61A4376296B372364EC86FC4B8CC2A0BFA027D6323288AB318871415C
-              8E418C0AE27A0C624C10C4D8604410C4D8147B10C4D82AD62088B15D6C411063
-              67B1DCA94FFAF9017A88AD99184A888F229D38E5420CD2F60D598F717A452D3F
-              4D8B4C971E45736833426D0D522A5F3813D4D67C99159D7A142D104B32A34EBA
-              1483B4F79295AC27BF65ABCDFD10A8F5FD7050DB2F59A599DC602DA8957B4436
-              AD47D170C96A0F4489164B1082283B8B2D084194ED620D421065ABD8831044D9
-              64441082281B8C094228CADA92F413FB444A8FA2318D62D4532785F3FE5C6ABF
-              B8187C16753D8A961407D5B29C2FCDE5FAF48405A3362434E97B5EFD9378E4E2
-              A6181984B81AC5D820C4C528460721AD46C1A3A4FFD948AE5269E58D7E653598
-              BF3F9B3FAC27D6317E4342AD6C8ACD4FC01BBF21A170535E8A85867F27494879
-              C8D64DB12608A1284764DF15CE51ACB964FD6EDCF72EBD520B0F7A455F528F22
-              D976F9B23208E11AC5DA20846314AB83106E51AC0F4238456111847089C22608
-              E110855510425164509D1632DBF01ECBC42856DD1836A398AB3C94896C41A86A
-              A047914CBC7964B721A1F1F2D0B094C1A43E6DA0FE3691DA7B7CE4DC544D0F62
-              C36E4342C5FC937B528AE1663645A98E29136210B61B12A27FBAAF826A29EA3D
-              450971A7E8556EEBD3D8B10F42FE1265ECBA5719D5C746702208D9218A713188
-              3341481845C99EF1A23773538F214EF4F9467D08000000000000000000000000
-              6D27C44FE5ECC845477E79400000000049454E44AE426082}
+              038249444154785EEDDCCF4E135114C7F17BDB524A10ABD118172E94B0D1F802
+              1A886E4CD0D829464D34426D74C74ADFC4956CA1489444A3ED1061E78257D01D
+              F8276AA2414D5A35102C73E5C89D20C2D8D6C4CEBDE7FE3E9BCE1CD87D39D30C
+              4C11000000000000000000000000C0CBE367F93DFAD04809FDEA8489CA50FFD2
+              17F5A634E35DD623E338138462046A75B6B343EC5E7C2EA64BBE774D7FC9284E
+              04096324646A179DF71E1372F185989CF0BD1BBFBEC12052BFB2F5678C3F49A9
+              460B397F4C9FC68EF586348A4194927727CAF95BFA34766C3784627CFF11CC75
+              77886E3D8A5617EFB307C4D1A1FECA573D890DCB0D0937A399188152EFD25DB2
+              DF841884DD863473990A518C4C3A3170F56CF9B51EC58E5510DB6310364138C4
+              202C82708941AC0FC22906B13A08B718C4DA201C63102B83708D41AC0BC23906
+              B12A08F718C49A202EC4205604712506313E482B31C49AF890CEC813B6C62046
+              FFB6B7D518B24B59BB19216337E45F621406FD053DB19691415C8D418C0BE272
+              0C625410D76310638220C606238220C6A6D88320C656B106418CED620B82183B
+              8BE54E7DD2CF0FD0436CCDC450427C14E9C429176290B66FC87A8CD32B6AF969
+              5A64BAF4289A439B116A6B9052F9C299A0B6E6CBACE8D4A3688158921975D2A5
+              18A4BD97AC643DF92D5B6DEE8740ADEF8783DA7EC92ACDE4066B41ADDC23B269
+              3D8A864B567B204AB458821044D9596C4108A26C176B1082285BC51E8420CA26
+              23821044D9604C104251D696A49FD827527A148D6914A39E3A299CF7E752FBC5
+              C5E0B3A8EB51B4A438A896E57C692ED7A7272C18B521A149DFF3EA9FC4231737
+              C5C820C4D528C606212E46313A0869350A1E25FDCF4672954A2B6FF42BABC1FC
+              FDD9FC613DB18EF11B126A65536C7E02DEF80D09859BF2522C34FC3B4942CA43
+              B66E8A354108453922FBAE708E62CD25EB77E3BE77E9955A78D02BFA927A14C9
+              B6CB97954108D728D606211CA3581D84708B627D10C2290A8B20844B14364108
+              8728AC82108A2283EAB490D986F7582646B1EAC6B019C55CE5A14C640B425503
+              3D8A64E2CD23BB0D098D978786A50C26F56903F5B789D4DEE323E7A66A7A101B
+              761B122AE69FDC93520C37B3294A754C991083B0DD9010FDD37D15544B51EF29
+              4A883B45AF725B9FC68E7D10F2972863D7BDCAA83E36821341C80E518C8B419C
+              0942C2284AF68C17BD999B7A0C71A2CF37EA4300000000000000000000000068
+              3B217E026775C8426B165E940000000049454E44AE426082}
           end>
         Align = Left
         Cursor = crHandPoint
@@ -2193,7 +2215,7 @@ object frmMov_Financeiro: TfrmMov_Financeiro
           object Calendar: TCalendar
             Align = Client
             Cursor = crHandPoint
-            Date = 45649.000000000000000000
+            Date = 45653.000000000000000000
             Margins.Left = 2.000000000000000000
             Margins.Top = 2.000000000000000000
             Margins.Right = 2.000000000000000000

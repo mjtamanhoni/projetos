@@ -1,0 +1,28 @@
+object Frame_LancFinanceiro_H: TFrame_LancFinanceiro_H
+  Size.Width = 380.000000000000000000
+  Size.Height = 25.000000000000000000
+  Size.PlatformDefault = False
+  object rctPrincipal: TRectangle
+    Align = Client
+    Fill.Kind = None
+    Sides = [Bottom]
+    Size.Width = 380.000000000000000000
+    Size.Height = 25.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = xFF363428
+    object lbConta: TLabel
+      Align = Client
+      StyledSettings = [Family]
+      Margins.Left = 5.000000000000000000
+      Margins.Right = 5.000000000000000000
+      Size.Width = 370.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Font.StyleExt = {00060000000000000004000000}
+      TextSettings.FontColor = xFF363428
+      Text = 'Conta'
+      TabOrder = 0
+    end
+  end
+end

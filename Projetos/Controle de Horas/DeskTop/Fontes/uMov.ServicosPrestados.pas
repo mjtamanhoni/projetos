@@ -447,6 +447,8 @@ type
     FConta_HorasPagas :Integer;
     FConta_HorasExcedidas :Integer;
     FConta_HorasRecebidas :Integer;
+    FFormaPagto_Id :Integer;
+    FCondPagto_Id :Integer;
 
     procedure Sel_Empresa(Aid: Integer; ANome: String);
     procedure Sel_Empresa_Filtro(Aid: Integer; ANome: String);
@@ -1390,10 +1392,14 @@ begin
     FConta_HorasTrabalhadas := 0;
     FConta_HorasPagas := 0;
     FConta_HorasExcedidas := 0;
+    FFormaPagto_Id := 0;
+    FCondPagto_Id := 0;
     FConta_HorasTrabalhadas := StrToInt(FIniFile.ReadString('PLANO_CONTAS.LANC','APONT.HORAS','0'));
     FConta_HorasPagas := StrToInt(FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.PAGAS','0'));
     FConta_HorasExcedidas := StrToInt(FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.EXCED','0'));
     FConta_HorasRecebidas := StrToInt(FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.RECEBIDAS','0'));
+    FFormaPagto_Id := StrToInt(FIniFile.ReadString('FORMA.COND.LANC','FORMA.ID','0'));
+    FCondPagto_Id := StrToInt(FIniFile.ReadString('FORMA.COND.LANC','COND.ID','0'));
 
     rctMenu.Width := 0;
   finally
@@ -2574,6 +2580,8 @@ begin
       FQuery.Sql.Add('  ,ID_CONTA ');
       FQuery.Sql.Add('  ,ID_PESSOA ');
       FQuery.Sql.Add('  ,STATUS ');
+      FQuery.Sql.Add('  ,FORMA_PAGTO_ID ');
+      FQuery.Sql.Add('  ,COND_PAGTO_ID ');
       FQuery.Sql.Add('  ,DT_VENCIMENTO ');
       FQuery.Sql.Add('  ,VALOR ');
       FQuery.Sql.Add('  ,ORIGEM_LANCAMENTO ');
@@ -2596,6 +2604,8 @@ begin
       FQuery.Sql.Add('  ,:DT_EMISSAO ');
       FQuery.Sql.Add('  ,:ID_CONTA ');
       FQuery.Sql.Add('  ,:ID_PESSOA ');
+      FQuery.Sql.Add('  ,:FORMA_PAGTO_ID ');
+      FQuery.Sql.Add('  ,:COND_PAGTO_ID ');
       FQuery.Sql.Add('  ,:STATUS ');
       FQuery.Sql.Add('  ,:DT_VENCIMENTO ');
       FQuery.Sql.Add('  ,:VALOR ');
@@ -2620,6 +2630,8 @@ begin
       FQuery.ParamByName('ID_CONTA').AsInteger := AID_CONTA;
       FQuery.ParamByName('ID_PESSOA').AsInteger := AID_PESSOA;
       FQuery.ParamByName('STATUS').AsInteger := 0;  //0-Aberto, 1-pago
+      FQuery.ParamByName('FORMA_PAGTO_ID').AsInteger := FFormaPagto_Id;  //0-Aberto, 1-pago
+      FQuery.ParamByName('COND_PAGTO_ID').AsInteger := FCondPagto_Id;  //0-Aberto, 1-pago
       FQuery.ParamByName('DT_VENCIMENTO').AsDate := FData; //Calcular
       FQuery.ParamByName('VALOR').AsFloat := AVALOR;//edTOTAL.TagFloat;
       FQuery.ParamByName('ORIGEM_LANCAMENTO').AsString := 'SERVICOS_PRESTADOS';

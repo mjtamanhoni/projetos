@@ -87,6 +87,22 @@ type
     edHorasRecebidas_Desc: TEdit;
     edHorasRecebidas: TEdit;
     imgHorasRecebidas: TImage;
+    lytRow_000: TLayout;
+    rctRow_000: TRectangle;
+    lbPlanoContas_Tit: TLabel;
+    lytRow_005: TLayout;
+    rctRow_005: TRectangle;
+    lbFormaCond_Pagto_Tit: TLabel;
+    lytRow_006: TLayout;
+    lbFormaPagto: TLabel;
+    edFormaPagto_Desc: TEdit;
+    edFormaPagto_Id: TEdit;
+    imgFormaPagto_Id: TImage;
+    lytRow_007: TLayout;
+    lbCondPagto: TLabel;
+    edCondPagto_Desc: TEdit;
+    edCondPagto_Id: TEdit;
+    imgCondPagto: TImage;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -105,6 +121,8 @@ type
     procedure imgHrExced_MesAntClick(Sender: TObject);
     procedure imgedHorasPagasClick(Sender: TObject);
     procedure imgHorasRecebidasClick(Sender: TObject);
+    procedure imgFormaPagto_IdClick(Sender: TObject);
+    procedure imgCondPagtoClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -116,6 +134,9 @@ type
     procedure Sel_HorasExcedida(Aid:Integer; ADescricao:String; ATipo:Integer);
     procedure Sel_HorasPagas(Aid:Integer; ADescricao:String; ATipo:Integer);
     procedure Sel_HorasRecebidas(Aid: Integer; ADescricao: String; ATipo: Integer);
+    procedure Sel_FormaPagto(Aid: Integer; ANome, AClassificacao: String);
+    procedure Sel_CondPagto(Aid: Integer; ADescricao: String; AParcelas,
+      ATipoIntervalo, AIntervalo: Integer);
   public
     { Public declarations }
   end;
@@ -128,7 +149,9 @@ implementation
 {$R *.fmx}
 
 uses
-  uCad.Contas;
+  uCad.Contas
+  ,uCad.FormaPagamento
+  ,uCad.CondicaoPagamento;
 
 procedure TfrmConfig.dbBDF_BancoClick(Sender: TObject);
 begin
@@ -227,6 +250,13 @@ begin
         edHorasRecebidas_Desc.Text := FIniFile.ReadString('PLANO_CONTAS.LANC','HORAS.RECEBIDAS.DESC','');
       {$EndRegion 'Plano de Contas - Lançamentos'}
 
+      {$Region 'Forma e Condição de Pagamento - Lançamentos'}
+        edFormaPagto_Id.Text := FIniFile.ReadString('FORMA.COND.LANC','FORMA.ID','');
+        edFormaPagto_Desc.Text := FIniFile.ReadString('FORMA.COND.LANC','FORMA.DESC','');
+        edCondPagto_Id.Text := FIniFile.ReadString('FORMA.COND.LANC','COND.ID','');
+        edCondPagto_Desc.Text := FIniFile.ReadString('FORMA.COND.LANC','COND.DESC','');
+      {$EndRegion 'Forma e Condição de Pagamento - Lançamentos'}
+
       {$Region 'Financeiro'}
         edTotalHorasBase.Text := FIniFile.ReadString('FINANCEIRO','TOTAL.HORAS','');
       {$EndRegion 'Financeiro'}
@@ -237,6 +267,27 @@ begin
   finally
 
   end;
+end;
+
+procedure TfrmConfig.imgCondPagtoClick(Sender: TObject);
+begin
+  if NOT Assigned(frmCondicao_Pagamento) then
+    Application.CreateForm(TfrmCondicao_Pagamento, frmCondicao_Pagamento);
+
+  frmCondicao_Pagamento.Pesquisa := True;
+  frmCondicao_Pagamento.ExecuteOnClose := Sel_CondPagto;
+  frmCondicao_Pagamento.Parent := frmPrincipal;
+  frmCondicao_Pagamento.Height := frmPrincipal.Height;
+  frmCondicao_Pagamento.Width := frmPrincipal.Width;
+
+  frmCondicao_Pagamento.Show;
+end;
+
+procedure TfrmConfig.Sel_CondPagto(Aid:Integer; ADescricao:String; AParcelas,ATipoIntervalo,AIntervalo:Integer);
+begin
+  edCondPagto_Id.Tag := Aid;
+  edCondPagto_Id.Text := Aid.ToString;
+  edCondPagto_Desc.Text := ADescricao;
 end;
 
 procedure TfrmConfig.imgConfirmarClick(Sender: TObject);
@@ -255,7 +306,7 @@ begin
       lbSubTit.Text := 'Banco de Dados';
     end;
     1:begin
-      lbSubTit.Text := 'Plano de Contas padrão (Lançamentos)';
+      lbSubTit.Text := 'Padrões para Lançamento Financeiro';
     end;
     2:begin
       lbSubTit.Text := 'Financeiro';
@@ -305,6 +356,13 @@ begin
         FIniFile.WriteString('PLANO_CONTAS.LANC','HORAS.RECEBIDAS.DESC',edHorasRecebidas_Desc.Text);
       {$EndRegion 'Plano de Contas - Lançamentos'}
 
+      {$Region 'Forma e Condição de Pagamento - Lançamentos'}
+        FIniFile.WriteString('FORMA.COND.LANC','FORMA.ID',edFormaPagto_Id.Text);
+        FIniFile.WriteString('FORMA.COND.LANC','FORMA.DESC',edFormaPagto_Desc.Text);
+        FIniFile.WriteString('FORMA.COND.LANC','COND.ID',edCondPagto_Id.Text);
+        FIniFile.WriteString('FORMA.COND.LANC','COND.DESC',edCondPagto_Desc.Text);
+      {$EndRegion 'Forma e Condição de Pagamento - Lançamentos'}
+
       {$Region 'Financeiro'}
         FIniFile.WriteString('FINANCEIRO','TOTAL.HORAS',edTotalHorasBase.Text);
       {$EndRegion 'Financeiro'}
@@ -351,6 +409,21 @@ begin
   Close;
 end;
 
+procedure TfrmConfig.imgFormaPagto_IdClick(Sender: TObject);
+begin
+  if NOT Assigned(frmFormaPagamento) then
+    Application.CreateForm(TfrmFormaPagamento, frmFormaPagamento);
+
+  frmFormaPagamento.Pesquisa := True;
+  frmFormaPagamento.ExecuteOnClose := Sel_FormaPagto;
+  frmFormaPagamento.Parent := frmPrincipal;
+  frmFormaPagamento.Height := frmPrincipal.Height;
+  frmFormaPagamento.Width := frmPrincipal.Width;
+
+  frmFormaPagamento.Show;
+
+end;
+
 procedure TfrmConfig.imgID_ApontHorasClick(Sender: TObject);
 begin
   if NOT Assigned(frmCad_Contas) then
@@ -363,6 +436,13 @@ begin
   frmCad_Contas.Width := frmPrincipal.Width;
 
   frmCad_Contas.Show;
+end;
+
+procedure TfrmConfig.Sel_FormaPagto(Aid:Integer; ANome:String; AClassificacao:String);
+begin
+  edFormaPagto_Id.Tag := Aid;
+  edFormaPagto_Id.Text := AId.ToString;
+  edFormaPagto_Desc.Text := ANome;
 end;
 
 procedure TfrmConfig.Sel_ApontHoras(Aid:Integer; ADescricao:String; ATipo:Integer);

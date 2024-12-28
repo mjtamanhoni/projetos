@@ -42,7 +42,8 @@ uses
   uFrame.SPDados in 'Frame\uFrame.SPDados.pas' {Frame_SP_Dados: TFrame},
   uFrame.SPTotais in 'Frame\uFrame.SPTotais.pas' {Frame_SPTotal: TFrame},
   uMov.Financeiro in 'uMov.Financeiro.pas' {frmMov_Financeiro},
-  uFrame.LancFinanceiro in 'Frame\uFrame.LancFinanceiro.pas' {Frame_LancFinanceiro: TFrame};
+  uFrame.LancFinanceiro in 'Frame\uFrame.LancFinanceiro.pas' {Frame_LancFinanceiro: TFrame},
+  uFrame.LancFinanceiro_H in 'Frame\uFrame.LancFinanceiro_H.pas' {Frame_LancFinanceiro_H: TFrame};
 
 {$R *.res}
 

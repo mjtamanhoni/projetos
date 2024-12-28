@@ -5,8 +5,8 @@ object DM_Global: TDM_Global
   object FDC_SQLite: TFDConnection
     Params.Strings = (
       
-        'Database=C:\Developer\Controle de Horas\App\DataBase\ControleHor' +
-        'as.s3db'
+        'Database=C:\Developer\projetos\Controle de Horas\App\DataBase\Co' +
+        'ntroleHoras.s3db'
       'OpenMode=ReadWrite'
       'LockingMode=Normal'
       'DriverID=SQLite')

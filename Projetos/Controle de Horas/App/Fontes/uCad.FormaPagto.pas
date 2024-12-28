@@ -132,7 +132,7 @@ type
 
     procedure CriandoCombos;
     procedure TThreadEnd_Listar_Registros(Sender: TObject);
-    procedure AddRegistros_LB(AId, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao: String);
+    procedure AddRegistros_LB(AId, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao,ACondicao: String);
     procedure Abre_Menu_Registros(Sender :TOBject);
     procedure CriandoMenus;
     procedure Editar(Sender: TOBject);
@@ -181,7 +181,7 @@ begin
   FMenu_Frame.ShowMenu;
 end;
 
-procedure TfrmCad_FormaPagto.AddRegistros_LB(AId, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao: String);
+procedure TfrmCad_FormaPagto.AddRegistros_LB(AId, ASincronizado, AExcluido: Integer; ADescricao, AClassificacao,ACondicao: String);
 var
   FItem :TListBoxItem;
   FFrame :TFrame_FormaPagto;
@@ -201,6 +201,7 @@ begin
     FFrame.lbDescricao.Text := ADescricao;
     FFrame.lbDescricao.Tag := AId;
     FFrame.lbClassificacao.Text := AClassificacao;
+    FFrame.lbCondicao.Text := ACondicao;
     case ASincronizado of
       0:FFrame.imgSincronizado.Opacity := 0.3;
       1:FFrame.imgSincronizado.Opacity := 1;
@@ -731,8 +732,12 @@ begin
     FQuery.Active := False;
     FQuery.Sql.Clear;
     FQuery.Sql.Add('SELECT  ');
-    FQuery.Sql.Add('  T.*  ');
+    FQuery.Sql.Add('  T.* ');
+    FQuery.Sql.Add('  ,COALESCE(FCP.ID_CONDICAO_PAGAMENTO,0) AS ID_CONDICAO_PAGAMENTO');
+    FQuery.Sql.Add('  ,COALESCE(CP.DESCRICAO,'' '') AS COND_PAGAMENTO');
     FQuery.Sql.Add('FROM FORMA_PAGAMENTO T ');
+    FQuery.Sql.Add('  LEFT JOIN FORMA_CONDICAO_PAGAMENTO FCP ON FCP.ID_FORMA_PAGAMENTO = T.ID ');
+    FQuery.Sql.Add('  LEFT JOIN CONDICAO_PAGAMENTO CP ON CP.ID = FCP.ID_CONDICAO_PAGAMENTO ');
     FQuery.Sql.Add('WHERE NOT T.ID IS NULL ');
     if Trim(APesquisa) <> '' then
     begin
@@ -754,6 +759,7 @@ begin
             ,FQuery.FieldByName('EXCLUIDO').AsInteger
             ,FQuery.FieldByName('DESCRICAO').AsString
             ,FQuery.FieldByName('CLASSIFICACAO').AsString
+            ,FQuery.FieldByName('COND_PAGAMENTO').AsString
           );
         end);
         FQuery.Next;

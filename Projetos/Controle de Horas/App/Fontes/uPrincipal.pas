@@ -162,6 +162,7 @@ type
     procedure rctCondPagtoClick(Sender: TObject);
     procedure rctFormaPagtoClick(Sender: TObject);
     procedure rctServPrestadosClick(Sender: TObject);
+    procedure rctLancamentosClick(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FDm_Global :TDM_Global;
@@ -194,7 +195,8 @@ uses
   ,uCad.Conta
   ,uCad.CondicaoPagto
   ,uCad.FormaPagto
-  ,uMov.ServicosPrestados;
+  ,uMov.ServicosPrestados
+  ,uMov.Financeiro;
 
 procedure TfrmPrincipal.exArquivoExpandedChanged(Sender: TObject);
 begin
@@ -438,6 +440,13 @@ end;
 procedure TfrmPrincipal.rctGCreditoClick(Sender: TObject);
 begin
   tcDashBoard.ActiveTab.Index := TRectangle(Sender).Tag;
+end;
+
+procedure TfrmPrincipal.rctLancamentosClick(Sender: TObject);
+begin
+  Config_Menu;
+  Application.CreateForm(TfrmMov_Financeiro,frmMov_Financeiro);
+  frmMov_Financeiro.Show;
 end;
 
 procedure TfrmPrincipal.rctPrestServiceClick(Sender: TObject);

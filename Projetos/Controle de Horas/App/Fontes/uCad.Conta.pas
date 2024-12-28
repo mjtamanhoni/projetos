@@ -31,7 +31,7 @@ uses
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TExecuteOnClose = procedure(Aid:Integer; ANome:String) of Object;
+  TExecuteOnClose = procedure(Aid,ATipo:Integer; ANome:String) of Object;
   TTab_Status = (dsInsert,dsEdit,dsLista);
 
   TfrmCad_Contas = class(TForm)
@@ -478,7 +478,7 @@ begin
   case tcPrincipal.TabIndex of
     0:begin
       if FPesquisa then
-        ExecuteOnClose(FId,FDescricao);
+        ExecuteOnClose(FId,FTipo,FDescricao);
       Close;
     end;
     1:FFancyDialog.Show(TIconDialog.Question,'Atenção','Deseja cancelar as alterações realizadas','Sim',Cancelar,'Não');
@@ -486,9 +486,17 @@ begin
 end;
 
 procedure TfrmCad_Contas.lbRegistrosItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
+var
+  FFrame :TFrame_Conta;
+  FRctMenu :TRectangle;
+
 begin
+  FRctMenu := TRectangle(Sender);
+  FFrame := FRctMenu.Parent as TFrame_Conta;
+
   FId := Item.Tag;
   FDescricao := Item.TagString;
+  FTipo := FFrame.lbTipo.Tag;
 
 end;
 

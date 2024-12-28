@@ -20,6 +20,7 @@ type
     lbDescricao: TLabel;
     lytRow_002: TLayout;
     lbClassificacao: TLabel;
+    lbCondicao: TLabel;
   private
     { Private declarations }
   public
