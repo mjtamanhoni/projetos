@@ -102,6 +102,7 @@ procedure RegistrarRotas;
 {$EndRegion 'TABELA_PRECO'}
 
 {$Region 'USUARIO'}
+  procedure Login(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
@@ -112,6 +113,15 @@ implementation
 
 procedure RegistrarRotas;
 begin
+
+  {$Region 'USUARIO'}
+    THorse.Post('/usuario/login',Login);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/usuario',Usuario_Select);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/usuario',Usuario_Insert);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/usuario',Usuario_Update);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/usuario',Usuario_Delete);
+  {$EndRegion 'USUARIO'}
+
 
   {$Region 'CLIENTE'}
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/cliente',Cliente_Select);
@@ -197,13 +207,6 @@ begin
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/tabelaPreco',TabelaPreco_Delete);
   {$EndRegion 'TABELA_PRECO'}
 
-  {$Region 'USUARIO'}
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/usuario',Usuario_Select);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/usuario',Usuario_Insert);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/usuario',Usuario_Update);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/usuario',Usuario_Delete);
-  {$EndRegion 'USUARIO'}
-
 end;
 
 {$Region 'CLIENTE'}
@@ -215,7 +218,7 @@ var
   FPaginas :Integer;
 
   FDM_Global_Wnd :TDM_Global_Wnd;
-  FCliente :TCliente;
+  FModeloDados :TCliente;
 
   FJSon_Retorno :TJSONArray;
 
@@ -223,7 +226,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FCliente := TCliente.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
 
       FId := 0;
       FNome := '';
@@ -235,7 +238,7 @@ begin
       FPagina := StrToIntDef(Req.Query['pagina'],0);
       FPaginas := StrToIntDef(Req.Query['paginas'],0);
 
-      FJSon_Retorno := FCliente.JSon_Listagem(FPagina,FPaginas,FId,FNome);
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FNome);
 
       if FJSon_Retorno.Size = 0 then
       begin
@@ -256,7 +259,7 @@ begin
     end;
   finally
     FreeAndNil(FDM_Global_Wnd);
-    FreeAndNil(FCliente);
+    FreeAndNil(FModeloDados);
   end;
 end;
 
@@ -349,14 +352,55 @@ end;
 
 {$Region 'CONDICAO_PAGAMENTO'}
 procedure Condicao_Pagto_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDescricao :String;
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TCondicaoPagto;
+
+  FJSon_Retorno :TJSONArray;
+
 begin
   try
     try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FDescricao := '';
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId := StrToIntDef(Req.Query['id'],0);
+      FDescricao := Req.Query['descricao'];
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FDescricao);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar as Condições de Pagamento.').Status(401);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
     end;
   finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FModeloDados);
   end;
 end;
 
@@ -399,14 +443,55 @@ end;
 
 {$Region 'CONTA'}
 procedure Conta_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDescricao :String;
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TConta;
+
+  FJSon_Retorno :TJSONArray;
+
 begin
   try
     try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FDescricao := '';
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId := StrToIntDef(Req.Query['id'],0);
+      FDescricao := Req.Query['descricao'];
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FDescricao);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar as Contas.').Status(401);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
     end;
   finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FModeloDados);
   end;
 end;
 
@@ -449,14 +534,55 @@ end;
 
 {$Region 'EMPRESA'}
 procedure Empresa_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FNome :String;
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TEmpresa;
+
+  FJSon_Retorno :TJSONArray;
+
 begin
   try
     try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FNome := '';
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId := StrToIntDef(Req.Query['id'],0);
+      FNome := Req.Query['nome'];
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FNome);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar as Empresas.').Status(401);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
     end;
   finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FModeloDados);
   end;
 end;
 
@@ -499,14 +625,58 @@ end;
 
 {$Region 'FORMA_CONDICAO_PAGAMENTO'}
 procedure FormaCondPagto_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FFormaPagto :String;
+  FCondPagto :String;
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaCondPagto;
+
+  FJSon_Retorno :TJSONArray;
+
 begin
   try
     try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FFormaPagto := '';
+      FCondPagto := '';
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId := StrToIntDef(Req.Query['id'],0);
+      FFormaPagto := Req.Query['formaPagto'];
+      FCondPagto := Req.Query['condPagto'];
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FFormaPagto,FCondPagto);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar as Formas/Condições de Pagamento.').Status(401);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
     end;
   finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FModeloDados);
   end;
 end;
 
@@ -549,14 +719,55 @@ end;
 
 {$Region 'FORMA_PAGAMENTO'}
 procedure FormaPagto_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDescricao :String;
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaPagamento;
+
+  FJSon_Retorno :TJSONArray;
+
 begin
   try
     try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FDescricao := '';
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId := StrToIntDef(Req.Query['id'],0);
+      FDescricao := Req.Query['descricao'];
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FDescricao);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar as Formas de Pagamento.').Status(401);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
     end;
   finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FModeloDados);
   end;
 end;
 
@@ -599,14 +810,55 @@ end;
 
 {$Region 'FORNECEDOR'}
 procedure Fornecedor_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FNome :String;
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFornecedor;
+
+  FJSon_Retorno :TJSONArray;
+
 begin
   try
     try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FNome := '';
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId := StrToIntDef(Req.Query['id'],0);
+      FNome := Req.Query['nome'];
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FNome);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar as Fornecedores.').Status(401);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
     end;
   finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FModeloDados);
   end;
 end;
 
@@ -848,6 +1100,60 @@ end;
 {$EndRegion 'TABELA_PRECO'}
 
 {$Region 'USUARIO'}
+procedure Login(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONObject;
+  FJson :TJSONObject;
+
+  FUsuario :String;
+  FSenha :String;
+  FPIN :String;
+
+  FUsuarioID :Integer;
+  FUsuarioNome :String;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FTUsuario :TUsuario;
+
+begin
+  try
+    try
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FTUsuario := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+
+      FUsuario := '';
+      FSenha := '';
+      FPIN := '';
+
+      FBody := Req.Body<TJSONObject>;
+      FUsuario := FBody.GetValue<string>('usuario','');
+      FSenha := FBody.GetValue<string>('senha','');
+      FPin := FBody.GetValue<string>('pin','');
+
+      FJson := FTUsuario.Login(FPin,FUsuario,FSenha);
+      if FJson.Size = 0 then
+      begin
+        Res.Send('Usuário ou senha inválida.').Status(401);
+      end
+      else
+      begin
+        FUsuarioID := 0;
+        FUsuarioID := FJson.GetValue<integer>('id',0);
+        if FUsuarioID = 0 then
+          Res.Send('Usuário ou senha inválida.').Status(401)
+        else
+        begin
+          FJson.AddPair('token',Criar_Token(FUsuarioID));
+          Res.Send<TJSONObject>(FJson).Status(200);
+        end;
+      end;
+    except on E: Exception do
+      Res.Send(E.Message).Status(500);
+    end;
+  finally
+  end;
+end;
+
 procedure Usuario_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 begin
   try
