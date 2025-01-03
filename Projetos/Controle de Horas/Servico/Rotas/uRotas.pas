@@ -600,38 +600,90 @@ begin
 end;
 
 procedure Conta_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TConta;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Contas cadastradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar as Contas.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Conta_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TConta;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Contas alteradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar as Contas.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Conta_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TConta;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Contas excluídas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as Contas.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'CONDICAO_PAGAMENTO'}
