@@ -6,7 +6,8 @@ uses
   uDm.Global.Wnd in '..\DeskTop\Fontes\Data_Modules\uDm.Global.Wnd.pas' {DM_Global_Wnd: TDataModule},
   uModelo.Dados.Wnd in '..\Global\Modelo de Dados\uModelo.Dados.Wnd.pas',
   uRotas in 'Rotas\uRotas.pas',
-  uRota.Auth in 'Rotas\uRota.Auth.pas';
+  uRota.Auth in 'Rotas\uRota.Auth.pas',
+  uFuncoes.Wnd in '..\..\Global\uFuncoes.Wnd.pas';
 
 {$R *.RES}
 

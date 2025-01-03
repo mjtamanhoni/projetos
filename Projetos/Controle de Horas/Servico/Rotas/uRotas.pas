@@ -11,6 +11,7 @@ uses
   Horse.CORS,
   Horse.JWT,
 
+  uFuncoes.Wnd,
   uRota.Auth,
   uModelo.Dados.Wnd,
   uDm.Global.Wnd;
@@ -88,7 +89,7 @@ procedure RegistrarRotas;
 {$EndRegion 'TABELA_PRECO'}
 
 {$Region 'USUARIO'}
-  procedure Login(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Login_Token(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
@@ -115,7 +116,7 @@ procedure RegistrarRotas;
 begin
 
   {$Region 'USUARIO'}
-    THorse.Post('/usuario/login',Login);
+    THorse.Post('/usuario/login',Login_Token);
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/usuario',Usuario_Select);
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/usuario',Usuario_Insert);
     THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/usuario',Usuario_Update);
@@ -137,10 +138,10 @@ begin
   {$EndRegion 'CLIENTE_TABELA'}
 
   {$Region 'CONDICAO_PAGAMENTO'}
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/condicaPagto',Condicao_Pagto_Select);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/condicaPagto',Condicao_Pagto_Insert);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/condicaPagto',Condicao_Pagto_Update);
-    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/condicaPagto',Condicao_Pagto_Delete);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/condicaoPagto',Condicao_Pagto_Select);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/condicaoPagto',Condicao_Pagto_Insert);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/condicaoPagto',Condicao_Pagto_Update);
+    THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/condicaoPagto',Condicao_Pagto_Delete);
   {$EndRegion 'CONDICAO_PAGAMENTO'}
 
   {$Region 'CONTA'}
@@ -265,57 +266,88 @@ end;
 procedure Cliente_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   FBody :TJSONArray;
-  FJson :TJSONObject;
-
-  FUsuarioID :Integer;
-  FUsuarioNome :String;
-
   FDM_Global_Wnd :TDM_Global_Wnd;
   FModeloDados :TCliente;
-
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
       FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
 
       FBody := Req.Body<TJSONArray>;
 
-      FJson := FModeloDados.Json_Inserir(FBody);
-
-      if FJson.Size = 0 then
-        Res.Send('Usuário ou senha inválida.').Status(401)
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Clientes cadastrados com sucesso').Status(200)
       else
-        Res.Send<TJSONObject>(FJson).Status(200);
+        Res.Send('Não foi possível cadatrar os clientes.').Status(401);
 
     except on E: Exception do
       Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Cliente_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TCliente;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Clientes alterados com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar os clientes.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Cliente_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TCliente;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Clientes excluídos com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir os clientes.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'CLIENTE'}
@@ -425,38 +457,90 @@ begin
 end;
 
 procedure Condicao_Pagto_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TCondicaoPagto;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Condições de Pagamentos cadastradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar as Condições de Pagamento.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Condicao_Pagto_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TCondicaoPagto;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Condições de Pagamentos alteradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar as Condições de Pagamento.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Condicao_Pagto_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TCondicaoPagto;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Condições de Pagamentos excluídas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as Condições de Pagamento.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'CONDICAO_PAGAMENTO'}
@@ -1354,7 +1438,7 @@ end;
 {$EndRegion 'TABELA_PRECO'}
 
 {$Region 'USUARIO'}
-procedure Login(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Login_Token(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   FBody :TJSONObject;
   FJson :TJSONObject;
@@ -1416,7 +1500,7 @@ var
   FPaginas :Integer;
 
   FDM_Global_Wnd :TDM_Global_Wnd;
-  FModeloDados :TUsuario;
+  FModeloDados :TCliente;
 
   FJSon_Retorno :TJSONArray;
 
@@ -1424,7 +1508,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
 
       FId := 0;
       FNome := '';
@@ -1462,38 +1546,90 @@ begin
 end;
 
 procedure Usuario_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TUsuario;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Usuários cadastrados com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar os usuários.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Usuario_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TUsuario;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Usuários alterados com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar os usuários.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Usuario_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TUsuario;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Usuários excluídos com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir os usuários.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'TABELA_PRECO'}

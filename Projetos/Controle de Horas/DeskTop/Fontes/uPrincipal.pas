@@ -8,7 +8,7 @@ uses
   FMX.ListBox, FMX.Layouts, FMX.Controls.Presentation, FMX.MultiView, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  uDm.Global;
+  uDm.Global, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo;
 
 type
   TFormClass = class of TForm;

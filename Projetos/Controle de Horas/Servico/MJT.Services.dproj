@@ -168,6 +168,7 @@
         <DCCReference Include="..\Global\Modelo de Dados\uModelo.Dados.Wnd.pas"/>
         <DCCReference Include="Rotas\uRotas.pas"/>
         <DCCReference Include="Rotas\uRota.Auth.pas"/>
+        <DCCReference Include="..\..\Global\uFuncoes.Wnd.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -206,6 +207,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="Win32\Debug\MJT.Services.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>MJT_Services.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Release\MJT.Services.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>MJT_Services.exe</RemoteName>
                         <Overwrite>true</Overwrite>
