@@ -743,38 +743,90 @@ begin
 end;
 
 procedure Empresa_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TEmpresa;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Empresas cadastradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar as empresas.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Empresa_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TEmpresa;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Empresas alteradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar as empresas.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Empresa_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TEmpresa;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Empresas excluídas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as empresas.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'EMPRESA'}
@@ -837,38 +889,90 @@ begin
 end;
 
 procedure FormaCondPagto_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaCondPagto;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Formas/Condições de Pagamentos cadastradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar as formas/condições de pagamentos.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure FormaCondPagto_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaCondPagto;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Formas/Condições de Pagamentos alteradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar as Formas/Condições de Pagamentos.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure FormaCondPagto_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaCondPagto;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Formas/Condições de Pagamentos excluídas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as formas/condições de pagamentos.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'FORMA_CONDICAO_PAGAMENTO'}
@@ -928,38 +1032,90 @@ begin
 end;
 
 procedure FormaPagto_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaPagamento;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Formas de Pagamentos cadastradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar as formas de pagamentos.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure FormaPagto_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaPagamento;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Formas de Pagamentos alteradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar as Formas de Pagamentos.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure FormaPagto_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFormaPagamento;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Formas de Pagamentos excluídas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as formas de pagamentos.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'FORMA_PAGAMENTO'}
@@ -1019,38 +1175,90 @@ begin
 end;
 
 procedure Fornecedor_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFornecedor;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Fornecedores cadastrados com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar os fornecedores.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Fornecedor_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFornecedor;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Fornecedores alterados com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar os fornecedores.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure Fornecedor_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TFornecedor;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Fornecedores excluídos com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as fornecedores.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'FORNECEDOR'}
@@ -1242,38 +1450,90 @@ begin
 end;
 
 procedure PrestadorServico_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TPrestador_Servico;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Prestadores de Serviços cadastrados com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar os prestadores de serviços.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure PrestadorServico_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TPrestador_Servico;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Prestadores de Serviços alterados com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar os prestadores de serviços.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure PrestadorServico_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TPrestador_Servico;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Prestadores de Serciços excluídos com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as prestadores de serviços.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'PRESTADOR_SERVICO'}
@@ -1453,38 +1713,90 @@ begin
 end;
 
 procedure TabelaPreco_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TTabela_Preco;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Tabelas de Preços cadastradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar as tabelas de preços.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure TabelaPreco_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TTabela_Preco;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnection);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Tabelas de Preços alteradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar as tabelas de preços.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure TabelaPreco_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TTabela_Preco;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnection);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Tabelas de Preços excluídas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir as tabelas de preços.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'TABELA_PRECO'}
