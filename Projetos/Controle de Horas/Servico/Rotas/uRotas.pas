@@ -1864,7 +1864,7 @@ var
   FPaginas :Integer;
 
   FDM_Global_Wnd :TDM_Global_Wnd;
-  FModeloDados :TCliente;
+  FModeloDados :TUsuario;
 
   FJSon_Retorno :TJSONArray;
 
@@ -1872,7 +1872,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
 
       FId := 0;
       FNome := '';

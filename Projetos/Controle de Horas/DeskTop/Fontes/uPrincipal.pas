@@ -149,7 +149,7 @@ uses
   ,uMov.ServicosPrestados
   ,uLanc_Financeiros
   ,uCad.FormaPagamento
-  ,uCad.CondicaoPagamento;
+  ,uCad.CondicaoPagamento, uDm.Global.Wnd;
 
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
