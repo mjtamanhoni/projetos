@@ -12,6 +12,9 @@
         <Projects Include="..\Servico\MJT.Services.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\Web\Fontes\ControleHoras\ControleHoras.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
     <Target Name="MJT_Services:Make">
         <MSBuild Projects="..\Servico\MJT.Services.dproj" Targets="Make"/>
     </Target>
+    <Target Name="ControleHoras">
+        <MSBuild Projects="..\Web\Fontes\ControleHoras\ControleHoras.dproj"/>
+    </Target>
+    <Target Name="ControleHoras:Clean">
+        <MSBuild Projects="..\Web\Fontes\ControleHoras\ControleHoras.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ControleHoras:Make">
+        <MSBuild Projects="..\Web\Fontes\ControleHoras\ControleHoras.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Controle_Horas;Controle_Horas_App;MJT_Services"/>
+        <CallTarget Targets="Controle_Horas;Controle_Horas_App;MJT_Services;ControleHoras"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Controle_Horas:Clean;Controle_Horas_App:Clean;MJT_Services:Clean"/>
+        <CallTarget Targets="Controle_Horas:Clean;Controle_Horas_App:Clean;MJT_Services:Clean;ControleHoras:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Controle_Horas:Make;Controle_Horas_App:Make;MJT_Services:Make"/>
+        <CallTarget Targets="Controle_Horas:Make;Controle_Horas_App:Make;MJT_Services:Make;ControleHoras:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

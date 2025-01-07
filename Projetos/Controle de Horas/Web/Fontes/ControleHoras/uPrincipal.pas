@@ -12,7 +12,7 @@ type
     MainMenu1: TMainMenu;
     Module11: TMenuItem;
     AppModule21: TMenuItem;
-    CoreModules1: TMenuItem;
+    Fechar1: TMenuItem;
     Configuraes1: TMenuItem;
     Configuraes2: TMenuItem;
     Usurios1: TMenuItem;
@@ -30,6 +30,8 @@ type
     LanamentosFinanceiros1: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Usurios1Click(Sender: TObject);
+    procedure Fechar1Click(Sender: TObject);
+    procedure Configuraes1Click(Sender: TObject);
   private
 
   public
@@ -45,7 +47,9 @@ Function frmPrincipal: TfrmPrincipal;
 implementation
 
 Uses
-   ControleHorasWebApp, uCad.Usuarios;
+   ControleHorasWebApp
+   ,uCad.Usuarios
+   ,uConfiguracoes;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -55,6 +59,23 @@ end;
 {$R *.dfm}
 
 { TfrmPrincipal }
+
+procedure TfrmPrincipal.Fechar1Click(Sender: TObject);
+begin
+  if frmCad_Usuarios <> Nil then
+    frmCad_Usuarios.Close
+  else if frmConfiguracoes <> Nil then
+    frmConfiguracoes.Close
+  else
+    Close;
+end;
+
+procedure TfrmPrincipal.Configuraes1Click(Sender: TObject);
+begin
+  if frmConfiguracoes = Nil then
+    TfrmConfiguracoes.CreateInstance;
+  frmConfiguracoes.ShowModal;
+end;
 
 procedure TfrmPrincipal.ExportD2Bridge;
 begin
@@ -146,3 +167,12 @@ begin
 end;
 
 end.
+
+
+
+{
+Cores:
+Butão Edit: #A1A29D
+
+
+}

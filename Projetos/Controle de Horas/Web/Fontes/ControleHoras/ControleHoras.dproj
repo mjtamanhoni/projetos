@@ -167,6 +167,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\..\..\..\Classes\99 Coders\Versao 11\uFormat.VCL.pas"/>
+        <DCCReference Include="uConfiguracoes.pas">
+            <Form>frmConfiguracoes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

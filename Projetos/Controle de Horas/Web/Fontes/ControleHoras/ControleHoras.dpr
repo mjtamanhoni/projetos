@@ -19,7 +19,8 @@ uses
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
   uCad.Usuarios in 'uCad.Usuarios.pas' {frmCad_Usuarios},
   uCad.Usuarios.Add in 'uCad.Usuarios.Add.pas' {frmCad_Usuario_ADD},
-  uFormat.VCL in '..\..\..\..\Classes\99 Coders\Versao 11\uFormat.VCL.pas';
+  uFormat.VCL in '..\..\..\..\Classes\99 Coders\Versao 11\uFormat.VCL.pas',
+  uConfiguracoes in 'uConfiguracoes.pas' {frmConfiguracoes};
 
 {$R *.res}
 

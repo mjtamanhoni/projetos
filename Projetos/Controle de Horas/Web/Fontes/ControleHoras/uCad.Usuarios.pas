@@ -301,7 +301,7 @@ end;
 
 procedure TfrmCad_Usuarios.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  frmCad_Usuarios.Free;
+  Action := CaFree;
   //frmCad_Usuarios := Nil;
 end;
 

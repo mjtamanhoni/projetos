@@ -93,6 +93,10 @@ begin
 
       if frmPrincipal = nil then
        TfrmPrincipal.CreateInstance;
+
+      Edit_UserName.Text := '';
+      Edit_Password.Text := '';
+
       frmPrincipal.Show;
 
     end

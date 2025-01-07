@@ -20,6 +20,7 @@ object frmPrincipal: TfrmPrincipal
       OnClick = Module11Click
       object Configuraes1: TMenuItem
         Caption = 'Configura'#231#245'es'
+        OnClick = Configuraes1Click
       end
       object Configuraes2: TMenuItem
         Caption = '-'
@@ -68,8 +69,9 @@ object frmPrincipal: TfrmPrincipal
         Caption = 'Lan'#231'amentos Financeiros'
       end
     end
-    object CoreModules1: TMenuItem
+    object Fechar1: TMenuItem
       Caption = 'Fechar'
+      OnClick = Fechar1Click
     end
   end
 end
