@@ -11,116 +11,18 @@ object frmConfiguracoes: TfrmConfiguracoes
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object pcPrincipal: TPageControl
     Left = 0
-    Top = 0
+    Top = 49
     Width = 892
-    Height = 504
+    Height = 455
     ActivePage = tsPlanoContasPadrao
     Align = alClient
     TabOrder = 0
-    object tsBancoDeDados: TTabSheet
-      Caption = 'Banco de Dados'
-      object lbBD_Servidor: TLabel
-        Left = 22
-        Top = 16
-        Width = 43
-        Height = 15
-        Caption = 'Servidor'
-      end
-      object lbBD_Porta: TLabel
-        Left = 416
-        Top = 21
-        Width = 28
-        Height = 15
-        Caption = 'Porta'
-      end
-      object lbBD_Banco: TLabel
-        Left = 32
-        Top = 45
-        Width = 33
-        Height = 15
-        Caption = 'Banco'
-      end
-      object lbBD_Usuario: TLabel
-        Left = 22
-        Top = 69
-        Width = 40
-        Height = 15
-        Caption = 'Usu'#225'rio'
-      end
-      object lbBD_Senha: TLabel
-        Left = 307
-        Top = 74
-        Width = 32
-        Height = 15
-        Caption = 'Senha'
-      end
-      object lbBD_Biblioteca: TLabel
-        Left = 13
-        Top = 108
-        Width = 52
-        Height = 15
-        Caption = 'Biblioteca'
-      end
-      object edBD_Servidor: TEdit
-        Left = 71
-        Top = 13
-        Width = 213
-        Height = 23
-        TabOrder = 0
-      end
-      object edBD_BancoDados: TButtonedEdit
-        Left = 71
-        Top = 42
-        Width = 487
-        Height = 23
-        Images = ImageList
-        RightButton.ImageIndex = 0
-        RightButton.Visible = True
-        TabOrder = 1
-      end
-      object edBD_Usuario: TEdit
-        Left = 71
-        Top = 71
-        Width = 213
-        Height = 23
-        TabOrder = 2
-      end
-      object edBD_Senha: TEdit
-        Left = 345
-        Top = 71
-        Width = 213
-        Height = 23
-        PasswordChar = '#'
-        TabOrder = 3
-      end
-      object edBD_Biblioteca: TButtonedEdit
-        Left = 71
-        Top = 100
-        Width = 487
-        Height = 23
-        Images = ImageList
-        RightButton.ImageIndex = 0
-        RightButton.Visible = True
-        TabOrder = 4
-      end
-      object edBD_Porta: TButtonedEdit
-        Left = 450
-        Top = 18
-        Width = 108
-        Height = 23
-        Alignment = taCenter
-        Images = ImageList
-        LeftButton.ImageIndex = 2
-        LeftButton.Visible = True
-        RightButton.ImageIndex = 1
-        RightButton.Visible = True
-        TabOrder = 5
-        Text = '1'
-      end
-    end
     object tsPlanoContasPadrao: TTabSheet
       Caption = 'Contas Padr'#227'o'
       ImageIndex = 1
@@ -162,6 +64,7 @@ object frmConfiguracoes: TfrmConfiguracoes
         RightButton.ImageIndex = 0
         RightButton.Visible = True
         TabOrder = 0
+        OnRightButtonClick = edCP_ApontamentoHoras_IDRightButtonClick
       end
       object edCP_ApontamentoHoras: TEdit
         Left = 271
@@ -171,6 +74,7 @@ object frmConfiguracoes: TfrmConfiguracoes
         TabOrder = 1
       end
       object edCP_Horas_Exc_Mes_Ant_ID: TButtonedEdit
+        Tag = 1
         Left = 159
         Top = 39
         Width = 106
@@ -180,6 +84,7 @@ object frmConfiguracoes: TfrmConfiguracoes
         RightButton.ImageIndex = 0
         RightButton.Visible = True
         TabOrder = 2
+        OnRightButtonClick = edCP_ApontamentoHoras_IDRightButtonClick
       end
       object edCP_Horas_Exc_Mes_Ant: TEdit
         Left = 271
@@ -189,6 +94,7 @@ object frmConfiguracoes: TfrmConfiguracoes
         TabOrder = 3
       end
       object edCP_Horas_Pagas_ID: TButtonedEdit
+        Tag = 2
         Left = 159
         Top = 68
         Width = 106
@@ -198,6 +104,7 @@ object frmConfiguracoes: TfrmConfiguracoes
         RightButton.ImageIndex = 0
         RightButton.Visible = True
         TabOrder = 4
+        OnRightButtonClick = edCP_ApontamentoHoras_IDRightButtonClick
       end
       object edCP_Horas_Pagas: TEdit
         Left = 271
@@ -207,6 +114,7 @@ object frmConfiguracoes: TfrmConfiguracoes
         TabOrder = 5
       end
       object edCP_Horas_Recebidas_ID: TButtonedEdit
+        Tag = 3
         Left = 159
         Top = 97
         Width = 106
@@ -216,6 +124,7 @@ object frmConfiguracoes: TfrmConfiguracoes
         RightButton.ImageIndex = 0
         RightButton.Visible = True
         TabOrder = 6
+        OnRightButtonClick = edCP_ApontamentoHoras_IDRightButtonClick
       end
       object edCP_Horas_Recebidas: TEdit
         Left = 271
@@ -231,19 +140,17 @@ object frmConfiguracoes: TfrmConfiguracoes
       object lbFP_Horas: TLabel
         Left = 14
         Top = 11
-        Width = 43
+        Width = 80
         Height = 15
-        Caption = 'Servidor'
+        Caption = 'Horas previstas'
       end
-      object edFP_Horas: TMaskEdit
-        Left = 63
+      object edFP_Horas: TEdit
+        Left = 100
         Top = 8
-        Width = 94
+        Width = 111
         Height = 23
-        EditMask = '####:##:##;1; '
-        MaxLength = 10
+        Alignment = taCenter
         TabOrder = 0
-        Text = '    :  :  '
       end
     end
     object tsServidor: TTabSheet
@@ -269,18 +176,41 @@ object frmConfiguracoes: TfrmConfiguracoes
         Width = 213
         Height = 23
         TabOrder = 0
-        Text = 'edBD_Servidor'
       end
-      object edS_Porta: TSpinEdit
+      object edS_Porta: TEdit
         Left = 490
         Top = 13
-        Width = 76
-        Height = 24
-        MaxValue = 0
-        MinValue = 0
+        Width = 111
+        Height = 23
+        Alignment = taRightJustify
         TabOrder = 1
-        Value = 0
       end
+    end
+  end
+  object pnTools: TPanel
+    Left = 0
+    Top = 0
+    Width = 892
+    Height = 49
+    Align = alTop
+    TabOrder = 1
+    object btConfirmar: TButton
+      Left = 17
+      Top = 10
+      Width = 100
+      Height = 25
+      Caption = 'Confirmar'
+      TabOrder = 0
+      OnClick = btConfirmarClick
+    end
+    object btCancelar: TButton
+      Left = 157
+      Top = 10
+      Width = 100
+      Height = 25
+      Caption = 'Cancelar'
+      TabOrder = 1
+      OnClick = btCancelarClick
     end
   end
   object ImageList: TImageList
@@ -425,5 +355,9 @@ object frmConfiguracoes: TfrmConfiguracoes
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
+  end
+  object OpenDialog: TOpenDialog
+    Left = 600
+    Top = 264
   end
 end

@@ -171,6 +171,30 @@
             <Form>frmConfiguracoes</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uCad.Empresa.pas">
+            <Form>frmCad_Empresa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Empresa.Add.pas">
+            <Form>frmCad_Empresa_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.PrestServico.pas">
+            <Form>frmCad_PrestServico</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.PrestServico.Add.pas">
+            <Form>frmCad_PrestServico_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Cliente.pas">
+            <Form>frmCad_Cliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Cliente.Add.pas">
+            <Form>frmCad_Cliente_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -32,6 +32,9 @@ type
     procedure Usurios1Click(Sender: TObject);
     procedure Fechar1Click(Sender: TObject);
     procedure Configuraes1Click(Sender: TObject);
+    procedure Empresas1Click(Sender: TObject);
+    procedure PrestadordeServio1Click(Sender: TObject);
+    procedure Cliente1Click(Sender: TObject);
   private
 
   public
@@ -49,7 +52,10 @@ implementation
 Uses
    ControleHorasWebApp
    ,uCad.Usuarios
-   ,uConfiguracoes;
+   ,uConfiguracoes
+   ,uCad.Empresa
+   ,uCad.PrestServico
+   ,uCad.Cliente;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -66,8 +72,21 @@ begin
     frmCad_Usuarios.Close
   else if frmConfiguracoes <> Nil then
     frmConfiguracoes.Close
+  else if frmCad_Empresa <> Nil then
+    frmCad_Empresa.Close
+  else if frmCad_PrestServico <> Nil then
+    frmCad_PrestServico.Close
+  else if frmCad_Cliente <> Nil then
+    frmCad_Cliente.Close
   else
     Close;
+end;
+
+procedure TfrmPrincipal.Cliente1Click(Sender: TObject);
+begin
+  if frmCad_Cliente = Nil then
+    TfrmCad_Cliente.CreateInstance;
+  frmCad_Cliente.ShowModal;
 end;
 
 procedure TfrmPrincipal.Configuraes1Click(Sender: TObject);
@@ -75,6 +94,13 @@ begin
   if frmConfiguracoes = Nil then
     TfrmConfiguracoes.CreateInstance;
   frmConfiguracoes.ShowModal;
+end;
+
+procedure TfrmPrincipal.Empresas1Click(Sender: TObject);
+begin
+  if frmCad_Empresa = Nil then
+    TfrmCad_Empresa.CreateInstance;
+  frmCad_Empresa.ShowModal;
 end;
 
 procedure TfrmPrincipal.ExportD2Bridge;
@@ -144,6 +170,13 @@ end;
 procedure TfrmPrincipal.Module11Click(Sender: TObject);
 begin
  frmPrincipal.Show;
+end;
+
+procedure TfrmPrincipal.PrestadordeServio1Click(Sender: TObject);
+begin
+  if frmCad_PrestServico = Nil then
+    TfrmCad_PrestServico.CreateInstance;
+  frmCad_PrestServico.ShowModal;
 end;
 
 procedure TfrmPrincipal.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);

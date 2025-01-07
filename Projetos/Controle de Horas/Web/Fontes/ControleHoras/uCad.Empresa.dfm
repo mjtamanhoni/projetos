@@ -1,15 +1,17 @@
-object frmCad_Usuarios: TfrmCad_Usuarios
+object frmCad_Empresa: TfrmCad_Empresa
   Left = 0
   Top = 0
-  Caption = 'Cadastro de Usu'#225'rios'
-  ClientHeight = 500
-  ClientWidth = 962
+  Caption = 'Empresas'
+  ClientHeight = 592
+  ClientWidth = 958
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  KeyPreview = True
+  Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -17,11 +19,12 @@ object frmCad_Usuarios: TfrmCad_Usuarios
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 962
+    Width = 958
     Height = 49
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 958
+    ExplicitLeft = -4
+    ExplicitWidth = 962
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -41,14 +44,10 @@ object frmCad_Usuarios: TfrmCad_Usuarios
       Top = 14
       Width = 81
       Height = 23
-      ItemIndex = 1
       TabOrder = 0
-      Text = 'NOME'
       Items.Strings = (
         'ID'
-        'NOME'
-        'LOGIN'
-        'E-MAIL')
+        'NOME')
     end
     object edPesquisar: TEdit
       Left = 194
@@ -99,8 +98,8 @@ object frmCad_Usuarios: TfrmCad_Usuarios
   object DBGrid: TDBGrid
     Left = 0
     Top = 49
-    Width = 962
-    Height = 451
+    Width = 958
+    Height = 543
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -127,28 +126,86 @@ object frmCad_Usuarios: TfrmCad_Usuarios
       end
       item
         Expanded = False
-        FieldName = 'LOGIN'
+        FieldName = 'PESSOA_DESC'
+        Title.Alignment = taCenter
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DOCUMENTO'
+        Title.Alignment = taCenter
+        Width = 120
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'INSC_EST'
+        Title.Alignment = taCenter
+        Width = 110
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CEP'
+        Title.Alignment = taCenter
+        Width = 75
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ENDERECO'
+        Title.Alignment = taCenter
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'COMPLEMENTO'
+        Title.Alignment = taCenter
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NUMERO'
+        Title.Alignment = taCenter
+        Width = 75
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'BAIRRO'
         Title.Alignment = taCenter
         Width = 250
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'SENHA'
+        FieldName = 'CIDADE'
         Title.Alignment = taCenter
-        Visible = False
+        Width = 250
+        Visible = True
       end
       item
         Expanded = False
-        FieldName = 'PIN'
+        FieldName = 'UF'
         Title.Alignment = taCenter
-        Visible = False
+        Width = 30
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'TELEFONE'
+        Title.Alignment = taCenter
+        Width = 120
+        Visible = True
       end
       item
         Expanded = False
         FieldName = 'CELULAR'
         Title.Alignment = taCenter
-        Width = 100
+        Width = 120
         Visible = True
       end
       item
@@ -160,19 +217,7 @@ object frmCad_Usuarios: TfrmCad_Usuarios
       end
       item
         Expanded = False
-        FieldName = 'ID_EMPRESA'
-        Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'ID_PRESTADOR_SERVICO'
-        Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'FOTO'
+        FieldName = 'PESSOA'
         Title.Alignment = taCenter
         Visible = False
       end
@@ -187,26 +232,6 @@ object frmCad_Usuarios: TfrmCad_Usuarios
         FieldName = 'HR_CADASTRO'
         Title.Alignment = taCenter
         Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'SINCRONIZADO'
-        Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'EMPRESA'
-        Title.Alignment = taCenter
-        Width = 300
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'PRESTADOR_SERVICO'
-        Title.Alignment = taCenter
-        Width = 250
-        Visible = True
       end>
   end
   object FDMem_Registro: TFDMemTable
@@ -226,67 +251,76 @@ object frmCad_Usuarios: TfrmCad_Usuarios
     object FDMem_RegistroNOME: TStringField
       DisplayLabel = 'Nome'
       FieldName = 'NOME'
+      Size = 255
+    end
+    object FDMem_RegistroPESSOA: TIntegerField
+      DisplayLabel = 'Pessoa'
+      FieldName = 'PESSOA'
+    end
+    object FDMem_RegistroDOCUMENTO: TStringField
+      DisplayLabel = 'Documento'
+      FieldName = 'DOCUMENTO'
+    end
+    object FDMem_RegistroINSC_EST: TStringField
+      DisplayLabel = 'Insc. Estadual'
+      FieldName = 'INSC_EST'
+    end
+    object FDMem_RegistroCEP: TStringField
+      DisplayLabel = 'Cep'
+      FieldName = 'CEP'
+      Size = 10
+    end
+    object FDMem_RegistroENDERECO: TStringField
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'ENDERECO'
+      Size = 255
+    end
+    object FDMem_RegistroCOMPLEMENTO: TStringField
+      DisplayLabel = 'Complemento'
+      FieldName = 'COMPLEMENTO'
+      Size = 255
+    end
+    object FDMem_RegistroNUMERO: TStringField
+      DisplayLabel = 'Nr'
+      FieldName = 'NUMERO'
+      Size = 255
+    end
+    object FDMem_RegistroBAIRRO: TStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAIRRO'
       Size = 100
     end
-    object FDMem_RegistroLOGIN: TStringField
-      DisplayLabel = 'Login'
-      FieldName = 'LOGIN'
-      Size = 50
+    object FDMem_RegistroCIDADE: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CIDADE'
+      Size = 100
     end
-    object FDMem_RegistroSENHA: TStringField
-      DisplayLabel = 'Senha'
-      FieldName = 'SENHA'
-      Size = 50
+    object FDMem_RegistroUF: TStringField
+      FieldName = 'UF'
+      Size = 2
     end
-    object FDMem_RegistroPIN: TStringField
-      FieldName = 'PIN'
-      Size = 4
+    object FDMem_RegistroTELEFONE: TStringField
+      DisplayLabel = 'Telefone'
+      FieldName = 'TELEFONE'
     end
     object FDMem_RegistroCELULAR: TStringField
       DisplayLabel = 'Celular'
       FieldName = 'CELULAR'
-      EditMask = '(##)#####-####'
-      Size = 15
     end
     object FDMem_RegistroEMAIL: TStringField
       DisplayLabel = 'E-Mail'
       FieldName = 'EMAIL'
       Size = 255
     end
-    object FDMem_RegistroID_EMPRESA: TIntegerField
-      DisplayLabel = 'Id Empresa'
-      FieldName = 'ID_EMPRESA'
-    end
-    object FDMem_RegistroID_PRESTADOR_SERVICO: TIntegerField
-      DisplayLabel = 'Id Prestador de Servi'#231'o'
-      FieldName = 'ID_PRESTADOR_SERVICO'
-    end
-    object FDMem_RegistroFOTO: TStringField
-      DisplayLabel = 'Foto'
-      FieldName = 'FOTO'
-      Size = 255
-    end
     object FDMem_RegistroDT_CADASTRO: TDateField
-      DisplayLabel = 'Dt. Cadastro'
       FieldName = 'DT_CADASTRO'
     end
     object FDMem_RegistroHR_CADASTRO: TTimeField
-      DisplayLabel = 'Hr. Cadastro'
       FieldName = 'HR_CADASTRO'
     end
-    object FDMem_RegistroSINCRONIZADO: TIntegerField
-      DisplayLabel = 'Sincronizado'
-      FieldName = 'SINCRONIZADO'
-    end
-    object FDMem_RegistroEMPRESA: TStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Size = 255
-    end
-    object FDMem_RegistroPRESTADOR_SERVICO: TStringField
-      DisplayLabel = 'Prestador de Servi'#231'o'
-      FieldName = 'PRESTADOR_SERVICO'
-      Size = 100
+    object FDMem_RegistroPESSOA_DESC: TStringField
+      DisplayLabel = 'Pessoa'
+      FieldName = 'PESSOA_DESC'
     end
   end
   object dmRegistro: TDataSource

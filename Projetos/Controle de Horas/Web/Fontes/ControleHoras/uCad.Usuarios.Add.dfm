@@ -11,6 +11,8 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
   TextHeight = 15
   object lbID: TLabel
     Left = 67

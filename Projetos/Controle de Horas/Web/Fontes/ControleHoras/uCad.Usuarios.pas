@@ -10,6 +10,7 @@ uses
   System.JSON,
   DataSet.Serialize,
   RESTRequest4D,
+  IniFiles,
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
@@ -53,10 +54,17 @@ type
     procedure btNovoClick(Sender: TObject);
     procedure btEditarClick(Sender: TObject);
     procedure btExcluirClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     FfrmUsuarios_Cad_Add :TfrmCad_Usuario_ADD;
 
+    FEnder :String;
+    FIniFiles :TIniFile;
+    FHost :String;
+    FPorta :String;
+
     procedure Pesquisar;
+    procedure Limpar_Campos;
 
   public
     { Public declarations }
@@ -103,7 +111,7 @@ begin
 
     FfrmUsuarios_Cad_Add.Status_Tabela := 1;
 
-    ShowPopupModal('PopupCadClienteAdd')
+    ShowPopupModal('PopupCadUsuarioAdd');
   end
   else
   begin
@@ -115,14 +123,11 @@ end;
 
 procedure TfrmCad_Usuarios.btExcluirClick(Sender: TObject);
 var
-  FHost :String;
   FResp :IResponse;
 
 begin
   if MessageDlg('Deseja excluir o Usuário selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
   begin
-    FHost := '';
-    FHost := 'http:\\localhost:3000';
     if Trim(FHost) = '' then
       raise Exception.Create('Host não informado');
 
@@ -140,6 +145,11 @@ begin
   end;
 end;
 
+procedure TfrmCad_Usuarios.Limpar_Campos;
+begin
+
+end;
+
 procedure TfrmCad_Usuarios.btNovoClick(Sender: TObject);
 begin
   if IsD2BridgeContext then
@@ -148,7 +158,8 @@ begin
     FfrmUsuarios_Cad_Add.FDMem_Registro.Active := True;
     FfrmUsuarios_Cad_Add.FDMem_Registro.Insert;
     FfrmUsuarios_Cad_Add.Status_Tabela := 0;
-    ShowPopupModal('PopupCadClienteAdd')
+    Limpar_Campos;
+    ShowPopupModal('PopupCadUsuarioAdd')
   end
   else
   begin
@@ -166,9 +177,7 @@ end;
 
 procedure TfrmCad_Usuarios.Pesquisar;
 var
-  FHost :String;
   FResp :IResponse;
-  FJson :TJSONObject;
   FBody :TJSONArray;
   FTipoPesquisa:String;
   x:Integer;
@@ -190,8 +199,6 @@ begin
     end;
 
 
-    FHost := '';
-    FHost := 'http:\\localhost:3000';
     if Trim(FHost) = '' then
       raise Exception.Create('Host não informado');
 
@@ -219,7 +226,7 @@ begin
     if FResp.StatusCode = 200 then
     begin
       if FResp.Content = '' then
-        raise Exception.Create('Não houve retorno no login');
+        raise Exception.Create('Registros não localizados');
 
       FBody := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(FResp.Content),0) as TJSONArray;
 
@@ -245,7 +252,6 @@ begin
       end;
 
     end;
-
 
     except on E: Exception do
       MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
@@ -293,7 +299,7 @@ begin
     end;
 
     //Abrindo formulário popup
-    with Popup('PopupCadClienteAdd','Cadastro de Cliente').Items.Add do
+    with Popup('PopupCadUsuarioAdd','Cadastro de Usuários').Items.Add do
       Nested(FfrmUsuarios_Cad_Add);
   end;
 
@@ -303,6 +309,18 @@ procedure TfrmCad_Usuarios.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := CaFree;
   //frmCad_Usuarios := Nil;
+end;
+
+procedure TfrmCad_Usuarios.FormCreate(Sender: TObject);
+begin
+  inherited;
+  FEnder  := '';
+  FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS_WEB.ini';
+  FIniFiles := TIniFile.Create(FEnder);
+
+  FHost := '';
+  FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
+
 end;
 
 procedure TfrmCad_Usuarios.FormShow(Sender: TObject);

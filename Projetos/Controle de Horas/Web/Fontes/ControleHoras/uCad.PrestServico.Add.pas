@@ -1,4 +1,4 @@
-unit uCad.Usuarios.Add;
+unit uCad.PrestServico.Add;
 
 { Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
 
@@ -15,63 +15,37 @@ uses
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Vcl.Mask, Vcl.ExtCtrls, Vcl.DBCtrls, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
-
-
 type
-  TfrmCad_Usuario_ADD = class(TD2BridgeForm)
+  TfrmCad_PrestServico_Add = class(TD2BridgeForm)
+    lbID: TLabel;
+    edID: TEdit;
+    lbNOME: TLabel;
+    edNome: TEdit;
+    lbCELULAR: TLabel;
+    edCELULAR: TEdit;
+    lbEMAIL: TLabel;
+    edEMAIL: TEdit;
+    btConfirmar: TButton;
+    btCancelar: TButton;
     FDMem_Registro: TFDMemTable;
     FDMem_RegistroID: TIntegerField;
     FDMem_RegistroNOME: TStringField;
-    FDMem_RegistroLOGIN: TStringField;
-    FDMem_RegistroSENHA: TStringField;
-    FDMem_RegistroPIN: TStringField;
     FDMem_RegistroCELULAR: TStringField;
     FDMem_RegistroEMAIL: TStringField;
-    FDMem_RegistroID_EMPRESA: TIntegerField;
-    FDMem_RegistroID_PRESTADOR_SERVICO: TIntegerField;
-    FDMem_RegistroFOTO: TStringField;
     FDMem_RegistroDT_CADASTRO: TDateField;
-    FDMem_RegistroHR_CADASTRO: TTimeField;
-    FDMem_RegistroSINCRONIZADO: TIntegerField;
-    FDMem_RegistroEMPRESA: TStringField;
-    FDMem_RegistroPRESTADOR_SERVICO: TStringField;
-    dmRegistro: TDataSource;
-    lbID: TLabel;
-    edID: TDBEdit;
-    lbNOME: TLabel;
-    edNOME: TDBEdit;
-    lbLOGIN: TLabel;
-    edLOGIN: TDBEdit;
-    lbSENHA: TLabel;
-    edSENHA: TDBEdit;
-    lbPIN: TLabel;
-    edPIN: TDBEdit;
-    lbCELULAR: TLabel;
-    edCELULAR: TDBEdit;
-    lbEMAIL: TLabel;
-    edEMAIL: TDBEdit;
-    lbID_EMPRESA: TLabel;
-    edID_EMPRESA: TDBEdit;
-    lbID_PRESTADOR_SERVICO: TLabel;
-    edID_PRESTADOR_SERVICO: TDBEdit;
-    lbFOTO: TLabel;
-    edFOTO: TDBEdit;
-    lbEMPRESA: TLabel;
-    edEMPRESA: TDBEdit;
-    lbPRESTADOR_SERVICO: TLabel;
-    edPRESTADOR_SERVICO: TDBEdit;
-    btConfirmar: TButton;
-    btCancelar: TButton;
-    procedure btConfirmarClick(Sender: TObject);
+    FDMem_RegistroHF_CADASTRO: TTimeField;
     procedure btCancelarClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btConfirmarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    FStatus_Tabela: Integer;
+
     FEnder :String;
     FIniFiles :TIniFile;
     FHost :String;
     FPorta :String;
+    FStatus_Tabela: Integer;
+
+    procedure Gravando_Registro;
 
   public
     property Status_Tabela :Integer read FStatus_Tabela write FStatus_Tabela;
@@ -83,7 +57,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function frmCad_Usuario_ADD:TfrmCad_Usuario_ADD;
+function frmCad_PrestServico_Add:TfrmCad_PrestServico_Add;
 
 implementation
 
@@ -92,17 +66,17 @@ Uses
 
 {$R *.dfm}
 
-function frmCad_Usuario_ADD:TfrmCad_Usuario_ADD;
+function frmCad_PrestServico_Add:TfrmCad_PrestServico_Add;
 begin
-  result:= TfrmCad_Usuario_ADD(TfrmCad_Usuario_ADD.GetInstance);
+  result:= TfrmCad_PrestServico_Add(TfrmCad_PrestServico_Add.GetInstance);
 end;
 
-procedure TfrmCad_Usuario_ADD.btCancelarClick(Sender: TObject);
+procedure TfrmCad_PrestServico_Add.btCancelarClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TfrmCad_Usuario_ADD.btConfirmarClick(Sender: TObject);
+procedure TfrmCad_PrestServico_Add.btConfirmarClick(Sender: TObject);
 var
   FResp :IResponse;
   FBody :TJSONArray;
@@ -110,17 +84,21 @@ begin
   //Salvando o Usuário...
   try
     try
+
       if Trim(FHost) = '' then
         raise Exception.Create('Host não informado');
 
+      Gravando_Registro;
+
       if FDMem_Registro.IsEmpty then
         raise Exception.Create('Não há registro a ser salvo');
+
 
       FBody := FDMem_Registro.ToJSONArray;
       case FStatus_Tabela of
         0:begin
           FResp := TRequest.New.BaseURL(FHost)
-                   .Resource('usuario')
+                   .Resource('prestadorServico')
                    .TokenBearer(ControleHoras.Usuario_Token)
                    .AddBody(FBody)
                    .Accept('application/json')
@@ -128,7 +106,7 @@ begin
         end;
         1:begin
           FResp := TRequest.New.BaseURL(FHost)
-                   .Resource('usuario')
+                   .Resource('prestadorServico')
                    .TokenBearer(ControleHoras.Usuario_Token)
                    .AddBody(FBody)
                    .Accept('application/json')
@@ -146,14 +124,13 @@ begin
     end;
   finally
   end;
-
 end;
 
-procedure TfrmCad_Usuario_ADD.ExportD2Bridge;
+procedure TfrmCad_PrestServico_Add.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'Usuários - Cadastro';
+  Title:= 'Cadastro de Prestador de Serviços';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
@@ -166,35 +143,12 @@ begin
       with Row.Items.Add do
       begin
         FormGroup(lbID.Caption,CSSClass.Col.colsize2).AddVCLObj(edID);
-      end;
-      with Row.Items.Add do
-      begin
-        FormGroup(lbNOME.Caption,CSSClass.Col.colsize12).AddVCLObj(edNOME);
-      end;
-      with Row.Items.Add do
-      begin
-        FormGroup(lbLOGIN.Caption,CSSClass.Col.colsize5).AddVCLObj(edLOGIN);
-        FormGroup(lbSENHA.Caption,CSSClass.Col.colsize5).AddVCLObj(edSENHA);
-        FormGroup(lbPIN.Caption,CSSClass.Col.colsize2).AddVCLObj(edPIN);
+        FormGroup(lbNOME.Caption,CSSClass.Col.colsize10).AddVCLObj(edNOME);
       end;
       with Row.Items.Add do
       begin
         FormGroup(lbCELULAR.Caption,CSSClass.Col.colsize3).AddVCLObj(edCELULAR);
         FormGroup(lbEMAIL.Caption,CSSClass.Col.colsize9).AddVCLObj(edEMAIL);
-      end;
-      with Row.Items.Add do
-      begin
-        FormGroup(lbID_EMPRESA.Caption,CSSClass.Col.colsize2).AddVCLObj(edID_EMPRESA);
-        FormGroup(lbEMPRESA.Caption,CSSClass.Col.colsize10).AddVCLObj(edEMPRESA);
-      end;
-      with Row.Items.Add do
-      begin
-        FormGroup(lbID_PRESTADOR_SERVICO.Caption,CSSClass.Col.colsize2).AddVCLObj(edID_PRESTADOR_SERVICO);
-        FormGroup(lbPRESTADOR_SERVICO.Caption,CSSClass.Col.colsize10).AddVCLObj(edPRESTADOR_SERVICO);
-      end;
-      with Row.Items.Add do
-      begin
-        FormGroup(lbFOTO.Caption,CSSClass.Col.colsize12).AddVCLObj(edFOTO);
       end;
     end;
 
@@ -207,12 +161,7 @@ begin
 
 end;
 
-procedure TfrmCad_Usuario_ADD.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  //Action := TCloseAction.caFree;
-end;
-
-procedure TfrmCad_Usuario_ADD.FormCreate(Sender: TObject);
+procedure TfrmCad_PrestServico_Add.FormCreate(Sender: TObject);
 begin
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS_WEB.ini';
@@ -222,12 +171,32 @@ begin
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
 end;
 
-procedure TfrmCad_Usuario_ADD.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmCad_PrestServico_Add.Gravando_Registro;
+begin
+  try
+    FDMem_Registro.Active := False;
+    FDMem_Registro.Active := True;
+    FDMem_Registro.Insert;
+    if FStatus_Tabela = 1 then
+      FDMem_RegistroID.AsInteger := StrToIntDef(edID.Text,1);
+      FDMem_RegistroNOME.Text := edNome.Text;
+      FDMem_RegistroCELULAR.AsString := edCELULAR.Text;
+      FDMem_RegistroEMAIL.AsString := edEMAIL.Text;
+      FDMem_RegistroDT_CADASTRO.AsDateTime := Date;
+      FDMem_RegistroHF_CADASTRO.AsDateTime := Time;
+    FDMem_Registro.Post;
+
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
+end;
+
+procedure TfrmCad_PrestServico_Add.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
- //if PrismControl.VCLComponent = edCELULAR then
- // PrismControl.AsEdit.TextMask:= TPrismTextMask.Phone;
+ if PrismControl.VCLComponent = edCELULAR then
+  PrismControl.AsEdit.TextMask:= '''mask'' : ''(99)99999-9999''';
 
  //Change Init Property of Prism Controls
  {
@@ -242,7 +211,7 @@ begin
  }
 end;
 
-procedure TfrmCad_Usuario_ADD.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmCad_PrestServico_Add.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 
