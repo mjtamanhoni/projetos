@@ -26,7 +26,9 @@ uses
   uCad.PrestServico in 'uCad.PrestServico.pas' {frmCad_PrestServico},
   uCad.PrestServico.Add in 'uCad.PrestServico.Add.pas' {frmCad_PrestServico_Add},
   uCad.Cliente in 'uCad.Cliente.pas' {frmCad_Cliente},
-  uCad.Cliente.Add in 'uCad.Cliente.Add.pas' {frmCad_Cliente_Add};
+  uCad.Cliente.Add in 'uCad.Cliente.Add.pas' {frmCad_Cliente_Add},
+  uCad.Fornecedor in 'uCad.Fornecedor.pas' {frmCad_Fornecedor},
+  uCad.Fornecedor.Add in 'uCad.Fornecedor.Add.pas' {frmCad_Fornecedor_Add};
 
 {$R *.res}
 

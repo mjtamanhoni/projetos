@@ -13,7 +13,8 @@ uses
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, Vcl.Mask, Vcl.ExtCtrls, Vcl.DBCtrls, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.DApt.Intf, Vcl.Mask, Vcl.ExtCtrls, Vcl.DBCtrls, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.ImageList,
+  Vcl.ImgList;
 
 type
   TfrmCad_Cliente_Add = class(TD2BridgeForm)
@@ -68,6 +69,15 @@ type
     edEMAIL: TEdit;
     btConfirmar: TButton;
     btCancelar: TButton;
+    ImageList: TImageList;
+    lbID_FORNECEDOR: TLabel;
+    edID_FORNECEDOR: TButtonedEdit;
+    lbID_TAB_PRECO: TLabel;
+    edID_TAB_PRECO: TButtonedEdit;
+    edFORNECEDOR: TEdit;
+    edTAB_PRECO: TEdit;
+    FDMem_RegistroID_FORNECEDOR: TIntegerField;
+    FDMem_RegistroID_TAB_PRECO: TIntegerField;
     procedure btConfirmarClick(Sender: TObject);
     procedure btCancelarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -220,6 +230,16 @@ begin
         FormGroup(lbCELULAR.Caption,CSSClass.Col.colsize3).AddVCLObj(edCELULAR);
         FormGroup(lbEMAIL.Caption,CSSClass.Col.colsize6).AddVCLObj(edEMAIL);
       end;
+      with Row.Items.Add do
+      begin
+        FormGroup(lbID_FORNECEDOR.Caption,CSSClass.Col.colsize2).AddVCLObj(edID_FORNECEDOR);
+        FormGroup('',CSSClass.Col.colsize10).AddVCLObj(edFORNECEDOR);
+      end;
+      with Row.Items.Add do
+      begin
+        FormGroup(lbID_TAB_PRECO.Caption,CSSClass.Col.colsize2).AddVCLObj(edID_TAB_PRECO);
+        FormGroup('',CSSClass.Col.colsize10).AddVCLObj(edTAB_PRECO);
+      end;
     end;
 
     with Row(CSSClass.DivHtml.Align_Center).Items.Add do
@@ -270,6 +290,8 @@ begin
       FDMem_RegistroEMAIL.AsString := edEMAIL.Text;
       FDMem_RegistroDT_CADASTRO.AsDateTime := Date;
       FDMem_RegistroHR_CADASTRO.AsDateTime := Time;
+      FDMem_RegistroID_FORNECEDOR.AsInteger := StrToIntDef(edID_FORNECEDOR.Text,1);
+      FDMem_RegistroID_TAB_PRECO.AsInteger := StrToIntDef(edID_TAB_PRECO.Text,1);
     FDMem_Registro.Post;
 
   except on E: Exception do

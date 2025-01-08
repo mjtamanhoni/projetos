@@ -1,4 +1,4 @@
-unit uCad.Empresa.Add;
+unit uCad.Fornecedor.Add;
 
 { Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
 
@@ -16,39 +16,7 @@ uses
   FireDAC.DApt.Intf, Vcl.Mask, Vcl.ExtCtrls, Vcl.DBCtrls, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TfrmCad_Empresa_Add = class(TD2BridgeForm)
-    lbID: TLabel;
-    edID: TEdit;
-    lbNOME: TLabel;
-    edNome: TEdit;
-    lbPESSOA: TLabel;
-    edDOCUMENTO: TEdit;
-    lbDOCUMENTO: TLabel;
-    cbPESSOA: TComboBox;
-    lbINSC_EST: TLabel;
-    edINSC_EST: TEdit;
-    lbCEP: TLabel;
-    edCEP: TEdit;
-    lbENDERECO: TLabel;
-    edENDERECO: TEdit;
-    edCOMPLEMENTO: TEdit;
-    lbCOMPLEMENTO: TLabel;
-    lbNUMERO: TLabel;
-    edNUMERO: TEdit;
-    lbBAIRRO: TLabel;
-    edBAIRRO: TEdit;
-    edCIDADE: TEdit;
-    lbCIDADE: TLabel;
-    lbUF: TLabel;
-    cbUF: TComboBox;
-    edTELEFONE: TEdit;
-    lbTELEFONE: TLabel;
-    edCELULAR: TEdit;
-    lbCELULAR: TLabel;
-    lbEMAIL: TLabel;
-    edEMAIL: TEdit;
-    btConfirmar: TButton;
-    btCancelar: TButton;
+  TfrmCad_Fornecedor_Add = class(TD2BridgeForm)
     FDMem_Registro: TFDMemTable;
     FDMem_RegistroID: TIntegerField;
     FDMem_RegistroNOME: TStringField;
@@ -68,19 +36,50 @@ type
     FDMem_RegistroDT_CADASTRO: TDateField;
     FDMem_RegistroHR_CADASTRO: TTimeField;
     FDMem_RegistroPESSOA_DESC: TStringField;
-    procedure btCancelarClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure edDOCUMENTOExit(Sender: TObject);
-    procedure btConfirmarClick(Sender: TObject);
+    lbID: TLabel;
+    lbNOME: TLabel;
+    lbPESSOA: TLabel;
+    lbDOCUMENTO: TLabel;
+    lbINSC_EST: TLabel;
+    lbCEP: TLabel;
+    lbENDERECO: TLabel;
+    lbCOMPLEMENTO: TLabel;
+    lbNUMERO: TLabel;
+    lbBAIRRO: TLabel;
+    lbCIDADE: TLabel;
+    lbUF: TLabel;
+    lbTELEFONE: TLabel;
+    lbCELULAR: TLabel;
+    lbEMAIL: TLabel;
+    edID: TEdit;
+    edNome: TEdit;
+    edDOCUMENTO: TEdit;
+    cbPESSOA: TComboBox;
+    edINSC_EST: TEdit;
+    edCEP: TEdit;
+    edENDERECO: TEdit;
+    edCOMPLEMENTO: TEdit;
+    edNUMERO: TEdit;
+    edBAIRRO: TEdit;
+    edCIDADE: TEdit;
+    cbUF: TComboBox;
+    edTELEFONE: TEdit;
+    edCELULAR: TEdit;
+    edEMAIL: TEdit;
+    btConfirmar: TButton;
+    btCancelar: TButton;
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btConfirmarClick(Sender: TObject);
+    procedure btCancelarClick(Sender: TObject);
+    procedure edDOCUMENTOExit(Sender: TObject);
   private
-    FStatus_Tabela: Integer;
 
     FEnder :String;
     FIniFiles :TIniFile;
     FHost :String;
     FPorta :String;
+    FStatus_Tabela: Integer;
 
     procedure Gravando_Registro;
   public
@@ -93,7 +92,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function frmCad_Empresa_Add:TfrmCad_Empresa_Add;
+function frmCad_Fornecedor_Add:TfrmCad_Fornecedor_Add;
 
 implementation
 
@@ -102,53 +101,22 @@ Uses
 
 {$R *.dfm}
 
-function frmCad_Empresa_Add:TfrmCad_Empresa_Add;
+function frmCad_Fornecedor_Add:TfrmCad_Fornecedor_Add;
 begin
-  result:= TfrmCad_Empresa_Add(TfrmCad_Empresa_Add.GetInstance);
+  result:= TfrmCad_Fornecedor_Add(TfrmCad_Fornecedor_Add.GetInstance);
 end;
 
-procedure TfrmCad_Empresa_Add.btCancelarClick(Sender: TObject);
+procedure TfrmCad_Fornecedor_Add.btCancelarClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TfrmCad_Empresa_Add.Gravando_Registro;
-begin
-  try
-    FDMem_Registro.Active := False;
-    FDMem_Registro.Active := True;
-    FDMem_Registro.Insert;
-    if FStatus_Tabela = 1 then
-      FDMem_RegistroID.AsInteger := StrToIntDef(edID.Text,1);
-      FDMem_RegistroNOME.Text := edNome.Text;
-      FDMem_RegistroPESSOA.AsInteger := cbPESSOA.ItemIndex;
-      FDMem_RegistroDOCUMENTO.AsString := edDOCUMENTO.Text;
-      FDMem_RegistroINSC_EST.AsString := edINSC_EST.Text;
-      FDMem_RegistroCEP.AsString := edCEP.Text;
-      FDMem_RegistroENDERECO.AsString := edENDERECO.Text;
-      FDMem_RegistroCOMPLEMENTO.AsString := edCOMPLEMENTO.Text;
-      FDMem_RegistroNUMERO.AsString := edNUMERO.Text;
-      FDMem_RegistroBAIRRO.AsString := edBAIRRO.Text;
-      FDMem_RegistroCIDADE.AsString := edCIDADE.Text;
-      FDMem_RegistroUF.AsString := cbUF.Text;
-      FDMem_RegistroTELEFONE.AsString := edTELEFONE.Text;
-      FDMem_RegistroCELULAR.AsString := edCELULAR.Text;
-      FDMem_RegistroEMAIL.AsString := edEMAIL.Text;
-      FDMem_RegistroDT_CADASTRO.AsDateTime := Date;
-      FDMem_RegistroHR_CADASTRO.AsDateTime := Time;
-    FDMem_Registro.Post;
-
-  except on E: Exception do
-    raise Exception.Create(E.Message);
-  end;
-end;
-
-procedure TfrmCad_Empresa_Add.btConfirmarClick(Sender: TObject);
+procedure TfrmCad_Fornecedor_Add.btConfirmarClick(Sender: TObject);
 var
   FResp :IResponse;
   FBody :TJSONArray;
 begin
-  //Salvando o Empresa...
+  //Salvando o Fornecedor...
   try
     try
 
@@ -165,7 +133,7 @@ begin
       case FStatus_Tabela of
         0:begin
           FResp := TRequest.New.BaseURL(FHost)
-                   .Resource('empresa')
+                   .Resource('fornecedor')
                    .TokenBearer(ControleHoras.Usuario_Token)
                    .AddBody(FBody)
                    .Accept('application/json')
@@ -173,7 +141,7 @@ begin
         end;
         1:begin
           FResp := TRequest.New.BaseURL(FHost)
-                   .Resource('empresa')
+                   .Resource('fornecedor')
                    .TokenBearer(ControleHoras.Usuario_Token)
                    .AddBody(FBody)
                    .Accept('application/json')
@@ -193,7 +161,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_Empresa_Add.edDOCUMENTOExit(Sender: TObject);
+procedure TfrmCad_Fornecedor_Add.edDOCUMENTOExit(Sender: TObject);
 var
   FDocumento :String;
 begin
@@ -204,14 +172,13 @@ begin
     0:edDOCUMENTO.Text := Copy(FDocumento,1,3) + '.' + Copy(FDocumento,4,3)  + '.' + Copy(FDocumento,7,3) + '-' + Copy(FDocumento,10,2);
     1:edDOCUMENTO.Text := Copy(FDocumento,1,2) + '.' + Copy(FDocumento,3,3)  + '.' + Copy(FDocumento,6,3) + '/' + Copy(FDocumento,9,4) + '-' +  Copy(FDocumento,13,2);
   end;
-
 end;
 
-procedure TfrmCad_Empresa_Add.ExportD2Bridge;
+procedure TfrmCad_Fornecedor_Add.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'Cadastro de Empresas';
+  Title:= 'Cadastro de Fornecedor';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
@@ -265,12 +232,12 @@ begin
 
 end;
 
-procedure TfrmCad_Empresa_Add.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCad_Fornecedor_Add.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  //Action := caFree;
+  //
 end;
 
-procedure TfrmCad_Empresa_Add.FormCreate(Sender: TObject);
+procedure TfrmCad_Fornecedor_Add.FormCreate(Sender: TObject);
 begin
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS_WEB.ini';
@@ -280,14 +247,41 @@ begin
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
 end;
 
-procedure TfrmCad_Empresa_Add.FormKeyPress(Sender: TObject; var Key: Char);
+procedure TfrmCad_Fornecedor_Add.Gravando_Registro;
 begin
-  if key = #13 then perform(wm_nextdlgctl,0,0);
+  try
+    FDMem_Registro.Active := False;
+    FDMem_Registro.Active := True;
+    FDMem_Registro.Insert;
+    if FStatus_Tabela = 1 then
+      FDMem_RegistroID.AsInteger := StrToIntDef(edID.Text,1);
+      FDMem_RegistroNOME.Text := edNome.Text;
+      FDMem_RegistroPESSOA.AsInteger := cbPESSOA.ItemIndex;
+      FDMem_RegistroDOCUMENTO.AsString := edDOCUMENTO.Text;
+      FDMem_RegistroINSC_EST.AsString := edINSC_EST.Text;
+      FDMem_RegistroCEP.AsString := edCEP.Text;
+      FDMem_RegistroENDERECO.AsString := edENDERECO.Text;
+      FDMem_RegistroCOMPLEMENTO.AsString := edCOMPLEMENTO.Text;
+      FDMem_RegistroNUMERO.AsString := edNUMERO.Text;
+      FDMem_RegistroBAIRRO.AsString := edBAIRRO.Text;
+      FDMem_RegistroCIDADE.AsString := edCIDADE.Text;
+      FDMem_RegistroUF.AsString := cbUF.Text;
+      FDMem_RegistroTELEFONE.AsString := edTELEFONE.Text;
+      FDMem_RegistroCELULAR.AsString := edCELULAR.Text;
+      FDMem_RegistroEMAIL.AsString := edEMAIL.Text;
+      FDMem_RegistroDT_CADASTRO.AsDateTime := Date;
+      FDMem_RegistroHR_CADASTRO.AsDateTime := Time;
+    FDMem_Registro.Post;
+
+  except on E: Exception do
+    raise Exception.Create(E.Message);
+  end;
 end;
 
-procedure TfrmCad_Empresa_Add.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmCad_Fornecedor_Add.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
+
 
  if PrismControl.VCLComponent = edCELULAR then
   PrismControl.AsEdit.TextMask:= '''mask'' : ''(99)99999-9999''';
@@ -297,7 +291,6 @@ begin
    PrismControl.AsEdit.TextMask := TPrismTextMask.BrazilCep;
  if PrismControl.VCLComponent = edEMAIL then
    PrismControl.AsEdit.TextMask:= TPrismTextMask.Email;
-
 
  //Change Init Property of Prism Controls
  {
@@ -312,7 +305,7 @@ begin
  }
 end;
 
-procedure TfrmCad_Empresa_Add.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmCad_Fornecedor_Add.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 

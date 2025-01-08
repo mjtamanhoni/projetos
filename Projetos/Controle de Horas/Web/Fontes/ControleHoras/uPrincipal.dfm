@@ -45,6 +45,7 @@ object frmPrincipal: TfrmPrincipal
         end
         object Fornecedor1: TMenuItem
           Caption = 'Fornecedor'
+          OnClick = Fornecedor1Click
         end
       end
       object abeladePreo1: TMenuItem

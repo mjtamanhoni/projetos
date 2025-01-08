@@ -195,6 +195,14 @@
             <Form>frmCad_Cliente_Add</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uCad.Fornecedor.pas">
+            <Form>frmCad_Fornecedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Fornecedor.Add.pas">
+            <Form>frmCad_Fornecedor_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

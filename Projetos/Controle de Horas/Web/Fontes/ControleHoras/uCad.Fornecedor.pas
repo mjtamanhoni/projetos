@@ -1,4 +1,4 @@
-unit uCad.Cliente;
+unit uCad.Fornecedor;
 
 { Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
 
@@ -16,11 +16,10 @@ uses
   D2Bridge.Forms, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   uPrincipal, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-
-  uCad.Cliente.Add;
+  uCad.Fornecedor.Add;
 
 type
-  TfrmCad_Cliente = class(TfrmPrincipal)
+  TfrmCad_Fornecedor = class(TfrmPrincipal)
     FDMem_Registro: TFDMemTable;
     FDMem_RegistroID: TIntegerField;
     FDMem_RegistroNOME: TStringField;
@@ -51,19 +50,15 @@ type
     btNovo: TButton;
     btEditar: TButton;
     btExcluir: TButton;
-    FDMem_RegistroID_FORNECEDOR: TIntegerField;
-    FDMem_RegistroID_TAB_PRECO: TIntegerField;
-    FDMem_RegistroFORNECEDOR: TStringField;
-    FDMem_RegistroTABELA_PRECO: TStringField;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure btPesquisarClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure btEditarClick(Sender: TObject);
     procedure btExcluirClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
   private
-    FfrmCad_Cliente_Add :TfrmCad_Cliente_Add;
+    FfrmCad_Fornecedor_Add :TfrmCad_Fornecedor_Add;
 
     FEnder :String;
     FIniFiles :TIniFile;
@@ -79,7 +74,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function frmCad_Cliente:TfrmCad_Cliente;
+function frmCad_Fornecedor:TfrmCad_Fornecedor;
 
 implementation
 
@@ -88,47 +83,48 @@ Uses
 
 {$R *.dfm}
 
-function frmCad_Cliente:TfrmCad_Cliente;
+function frmCad_Fornecedor:TfrmCad_Fornecedor;
 begin
-  result:= TfrmCad_Cliente(TfrmCad_Cliente.GetInstance);
+  result:= TfrmCad_Fornecedor(TfrmCad_Fornecedor.GetInstance);
 end;
 
-procedure TfrmCad_Cliente.btEditarClick(Sender: TObject);
+procedure TfrmCad_Fornecedor.btEditarClick(Sender: TObject);
 begin
   if IsD2BridgeContext then
   begin
-    FfrmCad_Cliente_Add.edID.Text := FDMem_RegistroID.AsString;
-    FfrmCad_Cliente_Add.edNome.Text := FDMem_RegistroNOME.AsString;
-    FfrmCad_Cliente_Add.cbPESSOA.ItemIndex := FDMem_RegistroPESSOA.AsInteger;
-    FfrmCad_Cliente_Add.edDOCUMENTO.Text := FDMem_RegistroDOCUMENTO.AsString;
-    FfrmCad_Cliente_Add.edINSC_EST.Text := FDMem_RegistroINSC_EST.AsString;
-    FfrmCad_Cliente_Add.edCEP.Text := FDMem_RegistroCEP.AsString;
-    FfrmCad_Cliente_Add.edENDERECO.Text := FDMem_RegistroENDERECO.AsString;
-    FfrmCad_Cliente_Add.edCOMPLEMENTO.Text := FDMem_RegistroCOMPLEMENTO.AsString;
-    FfrmCad_Cliente_Add.edNUMERO.Text := FDMem_RegistroNUMERO.AsString;
-    FfrmCad_Cliente_Add.edBAIRRO.Text := FDMem_RegistroBAIRRO.AsString;
-    FfrmCad_Cliente_Add.edCIDADE.Text := FDMem_RegistroCIDADE.AsString;
-    FfrmCad_Cliente_Add.cbUF.Text := FDMem_RegistroUF.AsString;
-    FfrmCad_Cliente_Add.edTELEFONE.Text := FDMem_RegistroTELEFONE.AsString;
-    FfrmCad_Cliente_Add.edCELULAR.Text := FDMem_RegistroCELULAR.AsString;
-    FfrmCad_Cliente_Add.edEMAIL.Text := FDMem_RegistroEMAIL.AsString;
-    FfrmCad_Cliente_Add.Status_Tabela := 1;
+    FfrmCad_Fornecedor_Add.edID.Text := FDMem_RegistroID.AsString;
+    FfrmCad_Fornecedor_Add.edNome.Text := FDMem_RegistroNOME.AsString;
+    FfrmCad_Fornecedor_Add.cbPESSOA.ItemIndex := FDMem_RegistroPESSOA.AsInteger;
+    FfrmCad_Fornecedor_Add.edDOCUMENTO.Text := FDMem_RegistroDOCUMENTO.AsString;
+    FfrmCad_Fornecedor_Add.edINSC_EST.Text := FDMem_RegistroINSC_EST.AsString;
+    FfrmCad_Fornecedor_Add.edCEP.Text := FDMem_RegistroCEP.AsString;
+    FfrmCad_Fornecedor_Add.edENDERECO.Text := FDMem_RegistroENDERECO.AsString;
+    FfrmCad_Fornecedor_Add.edCOMPLEMENTO.Text := FDMem_RegistroCOMPLEMENTO.AsString;
+    FfrmCad_Fornecedor_Add.edNUMERO.Text := FDMem_RegistroNUMERO.AsString;
+    FfrmCad_Fornecedor_Add.edBAIRRO.Text := FDMem_RegistroBAIRRO.AsString;
+    FfrmCad_Fornecedor_Add.edCIDADE.Text := FDMem_RegistroCIDADE.AsString;
+    FfrmCad_Fornecedor_Add.cbUF.Text := FDMem_RegistroUF.AsString;
+    FfrmCad_Fornecedor_Add.edTELEFONE.Text := FDMem_RegistroTELEFONE.AsString;
+    FfrmCad_Fornecedor_Add.edCELULAR.Text := FDMem_RegistroCELULAR.AsString;
+    FfrmCad_Fornecedor_Add.edEMAIL.Text := FDMem_RegistroEMAIL.AsString;
+    FfrmCad_Fornecedor_Add.Status_Tabela := 1;
 
-    ShowPopupModal('PopupCadClienteAdd');
+
+    ShowPopupModal('PopupCadFornecedorAdd');
   end
   else
   begin
-    FfrmCad_Cliente_Add := TfrmCad_Cliente_Add.Create(Self);
-    FfrmCad_Cliente_Add.ShowModal;
+    FfrmCad_Fornecedor_Add := TfrmCad_Fornecedor_Add.Create(Self);
+    FfrmCad_Fornecedor_Add.ShowModal;
   end;
   Pesquisar;
 end;
 
-procedure TfrmCad_Cliente.btExcluirClick(Sender: TObject);
+procedure TfrmCad_Fornecedor.btExcluirClick(Sender: TObject);
 var
   FResp :IResponse;
 begin
-  if MessageDlg('Deseja excluir o Cliente selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+  if MessageDlg('Deseja excluir a Fornecedor selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
   begin
     if Trim(FHost) = '' then
       raise Exception.Create('Host não informado');
@@ -139,7 +135,7 @@ begin
     FResp := TRequest.New.BaseURL(FHost)
              .TokenBearer(ControleHoras.Usuario_Token)
              .AddParam('id',FDMem_RegistroID.AsString)
-             .Resource('cliente')
+             .Resource('fornecedor')
              .Accept('application/json')
              .Delete;
 
@@ -147,60 +143,60 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.btNovoClick(Sender: TObject);
+procedure TfrmCad_Fornecedor.btNovoClick(Sender: TObject);
 begin
   if IsD2BridgeContext then
   begin
-    FfrmCad_Cliente_Add.FDMem_Registro.Active := False;
-    FfrmCad_Cliente_Add.FDMem_Registro.Active := True;
+    FfrmCad_Fornecedor_Add.FDMem_Registro.Active := False;
+    FfrmCad_Fornecedor_Add.FDMem_Registro.Active := True;
 
-    FfrmCad_Cliente_Add.edID.Text := '';
-    FfrmCad_Cliente_Add.edNome.Text := '';
-    FfrmCad_Cliente_Add.cbPESSOA.Text := '';
-    FfrmCad_Cliente_Add.cbPESSOA.ItemIndex := -1;
-    FfrmCad_Cliente_Add.edDOCUMENTO.Text := '';
-    FfrmCad_Cliente_Add.edINSC_EST.Text := '';
-    FfrmCad_Cliente_Add.edCEP.Text := '';
-    FfrmCad_Cliente_Add.edENDERECO.Text := '';
-    FfrmCad_Cliente_Add.edCOMPLEMENTO.Text := '';
-    FfrmCad_Cliente_Add.edNUMERO.Text := '';
-    FfrmCad_Cliente_Add.edBAIRRO.Text := '';
-    FfrmCad_Cliente_Add.edCIDADE.Text := '';
-    FfrmCad_Cliente_Add.cbUF.Text := '';
-    FfrmCad_Cliente_Add.cbUF.ItemIndex := -1;
-    FfrmCad_Cliente_Add.edTELEFONE.Text := '';
-    FfrmCad_Cliente_Add.edCELULAR.Text := '';
-    FfrmCad_Cliente_Add.edEMAIL.Text := '';
-    FfrmCad_Cliente_Add.Status_Tabela := 0;
+    FfrmCad_Fornecedor_Add.edID.Text := '';
+    FfrmCad_Fornecedor_Add.edNome.Text := '';
+    FfrmCad_Fornecedor_Add.cbPESSOA.Text := '';
+    FfrmCad_Fornecedor_Add.cbPESSOA.ItemIndex := -1;
+    FfrmCad_Fornecedor_Add.edDOCUMENTO.Text := '';
+    FfrmCad_Fornecedor_Add.edINSC_EST.Text := '';
+    FfrmCad_Fornecedor_Add.edCEP.Text := '';
+    FfrmCad_Fornecedor_Add.edENDERECO.Text := '';
+    FfrmCad_Fornecedor_Add.edCOMPLEMENTO.Text := '';
+    FfrmCad_Fornecedor_Add.edNUMERO.Text := '';
+    FfrmCad_Fornecedor_Add.edBAIRRO.Text := '';
+    FfrmCad_Fornecedor_Add.edCIDADE.Text := '';
+    FfrmCad_Fornecedor_Add.cbUF.Text := '';
+    FfrmCad_Fornecedor_Add.cbUF.ItemIndex := -1;
+    FfrmCad_Fornecedor_Add.edTELEFONE.Text := '';
+    FfrmCad_Fornecedor_Add.edCELULAR.Text := '';
+    FfrmCad_Fornecedor_Add.edEMAIL.Text := '';
+    FfrmCad_Fornecedor_Add.Status_Tabela := 0;
 
-    ShowPopupModal('PopupCadClienteAdd')
+    ShowPopupModal('PopupCadFornecedorAdd')
   end
   else
   begin
-    FfrmCad_Cliente_Add := TfrmCad_Cliente_Add.Create(Self);
-    FfrmCad_Cliente_Add.ShowModal;
+    FfrmCad_Fornecedor_Add := TfrmCad_Fornecedor_Add.Create(Self);
+    FfrmCad_Fornecedor_Add.ShowModal;
   end;
   Pesquisar;
 end;
 
-procedure TfrmCad_Cliente.btPesquisarClick(Sender: TObject);
+procedure TfrmCad_Fornecedor.btPesquisarClick(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCad_Cliente.ExportD2Bridge;
+procedure TfrmCad_Fornecedor.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'Cliente';
+  Title:= 'Fornecedor';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
   //Configurações do Form Popup
-  FfrmCad_Cliente_Add := TfrmCad_Cliente_Add.Create(Self);
-  D2Bridge.AddNested(FfrmCad_Cliente_Add);
+  FfrmCad_Fornecedor_Add := TfrmCad_Fornecedor_Add.Create(Self);
+  D2Bridge.AddNested(FfrmCad_Fornecedor_Add);
 
   with D2Bridge.Items.add do
   begin
@@ -225,18 +221,18 @@ begin
     end;
 
     //Abrindo formulário popup
-    with Popup('PopupCadClienteAdd','Cadastro de Cliente').Items.Add do
-      Nested(FfrmCad_Cliente_Add);
+    with Popup('PopupCadFornecedorAdd','Cadastro de Fornecedor').Items.Add do
+      Nested(FfrmCad_Fornecedor_Add);
   end;
 
 end;
 
-procedure TfrmCad_Cliente.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCad_Fornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := CaFree;
 end;
 
-procedure TfrmCad_Cliente.FormCreate(Sender: TObject);
+procedure TfrmCad_Fornecedor.FormCreate(Sender: TObject);
 begin
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS_WEB.ini';
@@ -246,12 +242,12 @@ begin
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
 end;
 
-procedure TfrmCad_Cliente.FormShow(Sender: TObject);
+procedure TfrmCad_Fornecedor.FormShow(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCad_Cliente.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmCad_Fornecedor.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
@@ -268,7 +264,7 @@ begin
  }
 end;
 
-procedure TfrmCad_Cliente.Pesquisar;
+procedure TfrmCad_Fornecedor.Pesquisar;
 var
   FResp :IResponse;
   FBody :TJSONArray;
@@ -300,7 +296,7 @@ begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(ControleHoras.Usuario_Token)
                .AddParam(FTipoPesquisa,edPesquisar.Text)
-               .Resource('cliente')
+               .Resource('fornecedor')
                .Accept('application/json')
                .Get;
     end
@@ -308,7 +304,7 @@ begin
     begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(ControleHoras.Usuario_Token)
-               .Resource('cliente')
+               .Resource('fornecedor')
                .Accept('application/json')
                .Get;
     end;
@@ -341,8 +337,6 @@ begin
           FDMem_RegistroDT_CADASTRO.AsDateTime := StrToDateDef(FBody.Get(x).GetValue<String>('dtCadastro',''),Date);
           FDMem_RegistroHR_CADASTRO.AsDateTime := StrToTimeDef(FBody.Get(x).GetValue<String>('hrCadastro',''),Time);
           FDMem_RegistroPESSOA_DESC.AsString := FBody.Get(x).GetValue<String>('pessoaDesc','');
-          FDMem_RegistroID_FORNECEDOR.AsInteger := FBody.Get(x).GetValue<Integer>('idFornecedor',0);
-          FDMem_RegistroID_TAB_PRECO.AsInteger := FBody.Get(x).GetValue<Integer>('idTabPreco',0);
         FDMem_Registro.Post;
       end;
 
@@ -356,7 +350,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmCad_Fornecedor.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 

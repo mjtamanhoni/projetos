@@ -35,6 +35,7 @@ type
     procedure Empresas1Click(Sender: TObject);
     procedure PrestadordeServio1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
+    procedure Fornecedor1Click(Sender: TObject);
   private
 
   public
@@ -55,7 +56,8 @@ Uses
    ,uConfiguracoes
    ,uCad.Empresa
    ,uCad.PrestServico
-   ,uCad.Cliente;
+   ,uCad.Cliente
+   ,uCad.Fornecedor;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -78,8 +80,17 @@ begin
     frmCad_PrestServico.Close
   else if frmCad_Cliente <> Nil then
     frmCad_Cliente.Close
+  else if frmCad_Fornecedor <> Nil then
+    frmCad_Fornecedor.Close
   else
     Close;
+end;
+
+procedure TfrmPrincipal.Fornecedor1Click(Sender: TObject);
+begin
+  if frmCad_Fornecedor = Nil then
+    TfrmCad_Fornecedor.CreateInstance;
+  frmCad_Fornecedor.ShowModal;
 end;
 
 procedure TfrmPrincipal.Cliente1Click(Sender: TObject);

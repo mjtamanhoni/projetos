@@ -1,9 +1,9 @@
-object frmCad_Cliente: TfrmCad_Cliente
+object frmCad_Fornecedor: TfrmCad_Fornecedor
   Left = 0
   Top = 0
-  Caption = 'Clientes'
-  ClientHeight = 598
-  ClientWidth = 991
+  Caption = 'Fornecedor'
+  ClientHeight = 631
+  ClientWidth = 1014
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,8 @@ object frmCad_Cliente: TfrmCad_Cliente
   object DBGrid: TDBGrid
     Left = 0
     Top = 49
-    Width = 991
-    Height = 549
+    Width = 1014
+    Height = 582
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -157,11 +157,11 @@ object frmCad_Cliente: TfrmCad_Cliente
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 991
+    Width = 1014
     Height = 49
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 987
+    ExplicitWidth = 954
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -319,24 +319,6 @@ object frmCad_Cliente: TfrmCad_Cliente
     object FDMem_RegistroPESSOA_DESC: TStringField
       DisplayLabel = 'Pessoa'
       FieldName = 'PESSOA_DESC'
-    end
-    object FDMem_RegistroID_FORNECEDOR: TIntegerField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'ID_FORNECEDOR'
-    end
-    object FDMem_RegistroID_TAB_PRECO: TIntegerField
-      DisplayLabel = 'Tab. Pre'#231'o'
-      FieldName = 'ID_TAB_PRECO'
-    end
-    object FDMem_RegistroFORNECEDOR: TStringField
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'FORNECEDOR'
-      Size = 255
-    end
-    object FDMem_RegistroTABELA_PRECO: TStringField
-      DisplayLabel = 'Tab. Pre'#231'o'
-      FieldName = 'TABELA_PRECO'
-      Size = 100
     end
   end
   object dmRegistro: TDataSource
