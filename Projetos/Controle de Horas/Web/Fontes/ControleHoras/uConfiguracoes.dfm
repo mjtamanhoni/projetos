@@ -2,8 +2,8 @@ object frmConfiguracoes: TfrmConfiguracoes
   Left = 0
   Top = 0
   Caption = 'Configura'#231#245'es'
-  ClientHeight = 504
-  ClientWidth = 892
+  ClientHeight = 612
+  ClientWidth = 1018
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,11 +18,13 @@ object frmConfiguracoes: TfrmConfiguracoes
   object pcPrincipal: TPageControl
     Left = 0
     Top = 49
-    Width = 892
-    Height = 455
+    Width = 1018
+    Height = 563
     ActivePage = tsPlanoContasPadrao
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 888
+    ExplicitHeight = 454
     object tsPlanoContasPadrao: TTabSheet
       Caption = 'Contas Padr'#227'o'
       ImageIndex = 1
@@ -190,10 +192,11 @@ object frmConfiguracoes: TfrmConfiguracoes
   object pnTools: TPanel
     Left = 0
     Top = 0
-    Width = 892
+    Width = 1018
     Height = 49
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 888
     object btConfirmar: TButton
       Left = 17
       Top = 10

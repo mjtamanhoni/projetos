@@ -1,4 +1,4 @@
-unit uCad.PrestServico;
+unit uCad.TabPreco;
 
 { Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
 
@@ -16,39 +16,40 @@ uses
   D2Bridge.Forms, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   uPrincipal, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-
-  uCad.PrestServico.Add;
+  uCad.TabPreco.Add;
 
 type
-  TfrmCad_PrestServico = class(TfrmPrincipal)
-    FDMem_Registro: TFDMemTable;
-    FDMem_RegistroID: TIntegerField;
-    dmRegistro: TDataSource;
-    DBGrid: TDBGrid;
+  TfrmCad_TabPreco = class(TfrmPrincipal)
     pnHeader: TPanel;
     lbTipo: TLabel;
     lbPesquisar: TLabel;
     cbTipo: TComboBox;
     edPesquisar: TEdit;
     btPesquisar: TButton;
-    FDMem_RegistroNOME: TStringField;
-    FDMem_RegistroCELULAR: TStringField;
-    FDMem_RegistroEMAIL: TStringField;
+    FDMem_Registro: TFDMemTable;
+    FDMem_RegistroID: TIntegerField;
+    FDMem_RegistroDESCRICAO: TStringField;
+    FDMem_RegistroTIPO: TStringField;
+    FDMem_RegistroVALOR: TFloatField;
     FDMem_RegistroDT_CADASTRO: TDateField;
-    FDMem_RegistroHF_CADASTRO: TTimeField;
+    FDMem_RegistroHR_CADASTRO: TTimeField;
+    FDMem_RegistroTIPO_DESC: TStringField;
+    dmRegistro: TDataSource;
+    DBGrid: TDBGrid;
     pnFooter: TPanel;
-    btExcluir: TButton;
-    btEditar: TButton;
     btNovo: TButton;
-    procedure btPesquisarClick(Sender: TObject);
-    procedure btNovoClick(Sender: TObject);
+    btEditar: TButton;
+    btExcluir: TButton;
+    FDMem_RegistroTOTAL_HORAS_PREVISTA: TStringField;
     procedure btEditarClick(Sender: TObject);
     procedure btExcluirClick(Sender: TObject);
+    procedure btNovoClick(Sender: TObject);
+    procedure btPesquisarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    FfrmCad_PrestServico_Add :TfrmCad_PrestServico_Add;
+    FfrmCad_TabPreco_Add :TfrmCad_TabPreco_Add;
 
     FEnder :String;
     FIniFiles :TIniFile;
@@ -64,7 +65,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function frmCad_PrestServico:TfrmCad_PrestServico;
+function frmCad_TabPreco:TfrmCad_TabPreco;
 
 implementation
 
@@ -73,38 +74,37 @@ Uses
 
 {$R *.dfm}
 
-function frmCad_PrestServico:TfrmCad_PrestServico;
+function frmCad_TabPreco:TfrmCad_TabPreco;
 begin
-  result:= TfrmCad_PrestServico(TfrmCad_PrestServico.GetInstance);
+  result:= TfrmCad_TabPreco(TfrmCad_TabPreco.GetInstance);
 end;
 
-procedure TfrmCad_PrestServico.btEditarClick(Sender: TObject);
+procedure TfrmCad_TabPreco.btEditarClick(Sender: TObject);
 begin
-
   if IsD2BridgeContext then
   begin
-    FfrmCad_PrestServico_Add.edID.Text := FDMem_RegistroID.AsString;
-    FfrmCad_PrestServico_Add.edNome.Text := FDMem_RegistroNOME.AsString;
-    FfrmCad_PrestServico_Add.edCELULAR.Text := FDMem_RegistroCELULAR.AsString;
-    FfrmCad_PrestServico_Add.edEMAIL.Text := FDMem_RegistroEMAIL.AsString;
-    FfrmCad_PrestServico_Add.Status_Tabela := 1;
+    FfrmCad_TabPreco_Add.edID.Text := FDMem_RegistroID.AsString;
+    FfrmCad_TabPreco_Add.edDESCRICAO.Text := FDMem_RegistroDESCRICAO.AsString;
+    FfrmCad_TabPreco_Add.cbTIPO.ItemIndex := FDMem_RegistroTIPO.AsInteger;
+    FfrmCad_TabPreco_Add.edVALOR.Text := FloatToStr(FDMem_RegistroVALOR.AsFloat);
+    FfrmCad_TabPreco_Add.edTOTAL_HORAS_PREVISTA.Text := FDMem_RegistroTOTAL_HORAS_PREVISTA.AsString;
+    FfrmCad_TabPreco_Add.Status_Tabela := 1;
 
-    ShowPopupModal('PopupCadPrestServAdd');
+    ShowPopupModal('PopupCadTabPrecoAdd');
   end
   else
   begin
-    FfrmCad_PrestServico_Add := TfrmCad_PrestServico_Add.Create(Self);
-    FfrmCad_PrestServico_Add.ShowModal;
+    FfrmCad_TabPreco_Add := TfrmCad_TabPreco_Add.Create(Self);
+    FfrmCad_TabPreco_Add.ShowModal;
   end;
   Pesquisar;
-
 end;
 
-procedure TfrmCad_PrestServico.btExcluirClick(Sender: TObject);
+procedure TfrmCad_TabPreco.btExcluirClick(Sender: TObject);
 var
   FResp :IResponse;
 begin
-  if MessageDlg('Deseja excluir o Prestador de Serviço selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+  if MessageDlg('Deseja excluir a Tabela de Preço selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
   begin
     if Trim(FHost) = '' then
       raise Exception.Create('Host não informado');
@@ -115,58 +115,57 @@ begin
     FResp := TRequest.New.BaseURL(FHost)
              .TokenBearer(ControleHoras.Usuario_Token)
              .AddParam('id',FDMem_RegistroID.AsString)
-             .Resource('prestadorServico')
+             .Resource('tabelaPreco')
              .Accept('application/json')
              .Delete;
 
     Pesquisar;
   end;
-
 end;
 
-procedure TfrmCad_PrestServico.btNovoClick(Sender: TObject);
+procedure TfrmCad_TabPreco.btNovoClick(Sender: TObject);
 begin
-
   if IsD2BridgeContext then
   begin
-    FfrmCad_PrestServico_Add.FDMem_Registro.Active := False;
-    FfrmCad_PrestServico_Add.FDMem_Registro.Active := True;
+    FfrmCad_TabPreco_Add.FDMem_Registro.Active := False;
+    FfrmCad_TabPreco_Add.FDMem_Registro.Active := True;
 
-    FfrmCad_PrestServico_Add.edID.Text := '';
-    FfrmCad_PrestServico_Add.edNome.Text := '';
-    FfrmCad_PrestServico_Add.edCELULAR.Text := '';
-    FfrmCad_PrestServico_Add.edEMAIL.Text := '';
-    FfrmCad_PrestServico_Add.Status_Tabela := 0;
+    FfrmCad_TabPreco_Add.edID.Text := '';
+    FfrmCad_TabPreco_Add.edDESCRICAO.Text := '';
+    FfrmCad_TabPreco_Add.cbTIPO.Text := '';
+    FfrmCad_TabPreco_Add.cbTIPO.ItemIndex := -1;
+    FfrmCad_TabPreco_Add.edVALOR.Text := '';
+    FfrmCad_TabPreco_Add.edTOTAL_HORAS_PREVISTA.Text := '';
+    FfrmCad_TabPreco_Add.Status_Tabela := 0;
 
-    ShowPopupModal('PopupCadPrestServAdd')
+    ShowPopupModal('PopupCadTabPrecoAdd')
   end
   else
   begin
-    FfrmCad_PrestServico_Add := TfrmCad_PrestServico_Add.Create(Self);
-    FfrmCad_PrestServico_Add.ShowModal;
+    FfrmCad_TabPreco_Add := TfrmCad_TabPreco_Add.Create(Self);
+    FfrmCad_TabPreco_Add.ShowModal;
   end;
   Pesquisar;
-
 end;
 
-procedure TfrmCad_PrestServico.btPesquisarClick(Sender: TObject);
+procedure TfrmCad_TabPreco.btPesquisarClick(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCad_PrestServico.ExportD2Bridge;
+procedure TfrmCad_TabPreco.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'Prestadores de Serviços';
+  Title:= 'Tabela de Preço';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
   //Configurações do Form Popup
-  FfrmCad_PrestServico_Add := TfrmCad_PrestServico_Add.Create(Self);
-  D2Bridge.AddNested(FfrmCad_PrestServico_Add);
+  FfrmCad_TabPreco_Add := TfrmCad_TabPreco_Add.Create(Self);
+  D2Bridge.AddNested(FfrmCad_TabPreco_Add);
 
   with D2Bridge.Items.add do
   begin
@@ -179,6 +178,11 @@ begin
 
         FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search);
       end;
+      with Row.Items.Add do
+      begin
+
+      end;
+
     end;
 
     with Card.Items.Add do
@@ -198,25 +202,25 @@ begin
     end;
 
     //Abrindo formulário popup
-    with Popup('PopupCadPrestServAdd','Cadastro de Prestador de Serviço').Items.Add do
-      Nested(FfrmCad_PrestServico_Add);
+    with Popup('PopupCadTabPrecoAdd','Cadastro de Tabela de Preços').Items.Add do
+      Nested(FfrmCad_TabPreco_Add);
   end;
 
 end;
 
-procedure TfrmCad_PrestServico.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCad_TabPreco.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  ControleHoras.Prest_Servico_ID := 0;
-  ControleHoras.Prest_Servico_Nome := '';
+  ControleHoras.Tab_Preco_ID := 0;
+  ControleHoras.Tab_Preco_Nome := '';
   if not FDMem_Registro.IsEmpty then
   begin
-    ControleHoras.Prest_Servico_ID := FDMem_RegistroID.AsInteger;
-    ControleHoras.Prest_Servico_Nome := FDMem_RegistroNOME.AsString;
+    ControleHoras.Tab_Preco_ID := FDMem_RegistroID.AsInteger;
+    ControleHoras.Tab_Preco_Nome := FDMem_RegistroDESCRICAO.AsString;
   end;
-  Action := TCloseAction.caFree;
+  Action := CaFree;
 end;
 
-procedure TfrmCad_PrestServico.FormCreate(Sender: TObject);
+procedure TfrmCad_TabPreco.FormCreate(Sender: TObject);
 begin
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS_WEB.ini';
@@ -224,15 +228,14 @@ begin
 
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
-
 end;
 
-procedure TfrmCad_PrestServico.FormShow(Sender: TObject);
+procedure TfrmCad_TabPreco.FormShow(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCad_PrestServico.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmCad_TabPreco.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
@@ -241,7 +244,6 @@ begin
    PrismControl.AsDBGrid.RecordsPerPage := 12;
    //PrismControl.AsDBGrid.MaxRecords:= 2000;
   end;
-
  //Change Init Property of Prism Controls
  {
   if PrismControl.VCLComponent = Edit1 then
@@ -255,7 +257,7 @@ begin
  }
 end;
 
-procedure TfrmCad_PrestServico.Pesquisar;
+procedure TfrmCad_TabPreco.Pesquisar;
 var
   FResp :IResponse;
   FBody :TJSONArray;
@@ -272,7 +274,7 @@ begin
     FTipoPesquisa := '';
     case cbTipo.ItemIndex of
       0:FTipoPesquisa := 'id';
-      1:FTipoPesquisa := 'nome';
+      1:FTipoPesquisa := 'descricao';
     end;
 
 
@@ -287,7 +289,7 @@ begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(ControleHoras.Usuario_Token)
                .AddParam(FTipoPesquisa,edPesquisar.Text)
-               .Resource('prestadorServico')
+               .Resource('tabelaPreco')
                .Accept('application/json')
                .Get;
     end
@@ -295,7 +297,7 @@ begin
     begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(ControleHoras.Usuario_Token)
-               .Resource('prestadorServico')
+               .Resource('tabelaPreco')
                .Accept('application/json')
                .Get;
     end;
@@ -311,11 +313,13 @@ begin
       begin
         FDMem_Registro.Insert;
           FDMem_RegistroID.AsInteger := FBody.Get(x).GetValue<Integer>('id',0);
-          FDMem_RegistroNOME.AsString := FBody.Get(x).GetValue<String>('nome','');
-          FDMem_RegistroCELULAR.AsString := FBody.Get(x).GetValue<String>('celular','');
-          FDMem_RegistroEMAIL.AsString := FBody.Get(x).GetValue<String>('email','');
+          FDMem_RegistroDESCRICAO.AsString := FBody.Get(x).GetValue<String>('descricao','');
+          FDMem_RegistroTIPO.AsInteger := FBody.Get(x).GetValue<Integer>('tipo',0);
+          FDMem_RegistroVALOR.AsFloat := FBody.Get(x).GetValue<Double>('valor',0);
+          FDMem_RegistroTIPO_DESC.AsString := FBody.Get(x).GetValue<String>('tipoDesc','');
+          FDMem_RegistroTOTAL_HORAS_PREVISTA.AsString := FBody.Get(x).GetValue<String>('totalHorasPrevista','');
           FDMem_RegistroDT_CADASTRO.AsDateTime := StrToDateDef(FBody.Get(x).GetValue<String>('dtCadastro',''),Date);
-          FDMem_RegistroHF_CADASTRO.AsDateTime := StrToTimeDef(FBody.Get(x).GetValue<String>('hfCadastro',''),Time);
+          FDMem_RegistroHR_CADASTRO.AsDateTime := StrToTimeDef(FBody.Get(x).GetValue<String>('hrCadastro',''),Time);
         FDMem_Registro.Post;
       end;
 
@@ -329,7 +333,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_PrestServico.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmCad_TabPreco.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 

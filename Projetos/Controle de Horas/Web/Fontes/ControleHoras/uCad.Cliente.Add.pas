@@ -11,10 +11,13 @@ uses
   RESTRequest4D,
   IniFiles,
 
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+   Vcl.ComCtrls, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Vcl.Mask, Vcl.ExtCtrls, Vcl.DBCtrls, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.ImageList,
-  Vcl.ImgList;
+  Vcl.ImgList
+
+  ,uCon.Fornecedor
+  ,uCon.TabPreco;
 
 type
   TfrmCad_Cliente_Add = class(TD2BridgeForm)
@@ -83,7 +86,11 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edDOCUMENTOExit(Sender: TObject);
+    procedure edID_FORNECEDORRightButtonClick(Sender: TObject);
+    procedure edID_TAB_PRECORightButtonClick(Sender: TObject);
   private
+    FfrmCon_Fornecedor :TfrmCon_Fornecedor;
+    FfrmCon_TabPreco :TfrmCon_TabPreco;
 
     FEnder :String;
     FIniFiles :TIniFile;
@@ -183,6 +190,28 @@ begin
   end;
 end;
 
+procedure TfrmCad_Cliente_Add.edID_FORNECEDORRightButtonClick(Sender: TObject);
+begin
+  ShowPopupModal('PopupConFornecedor');
+  if ControleHoras.Fornecedor_ID > 0 then
+  begin
+    edID_FORNECEDOR.Text := IntToStr(ControleHoras.Fornecedor_ID);
+    edFORNECEDOR.Text := ControleHoras.Fornecedor_Nome;
+  end;
+
+end;
+
+procedure TfrmCad_Cliente_Add.edID_TAB_PRECORightButtonClick(Sender: TObject);
+begin
+  ShowPopupModal('PopupConTabPreco');
+  if ControleHoras.Tab_Preco_ID > 0 then
+  begin
+    edID_TAB_PRECO.Text := IntToStr(ControleHoras.Tab_Preco_ID);
+    edTAB_PRECO.Text := ControleHoras.Tab_Preco_Nome;
+  end;
+
+end;
+
 procedure TfrmCad_Cliente_Add.ExportD2Bridge;
 begin
   inherited;
@@ -192,6 +221,14 @@ begin
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+
+
+  //Configurações do Form Popup
+  FfrmCon_Fornecedor := TfrmCon_Fornecedor.Create(Self);
+  D2Bridge.AddNested(FfrmCon_Fornecedor);
+
+  FfrmCon_TabPreco := TfrmCon_TabPreco.Create(Self);
+  D2Bridge.AddNested(FfrmCon_TabPreco);
 
   with D2Bridge.Items.add do
   begin
@@ -247,6 +284,12 @@ begin
       VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize3);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize3);
     end;
+
+    //Popup
+    with Popup('PopupConFornecedor','Cadastro de Fornecedor').Items.Add do
+      Nested(FfrmCon_Fornecedor);
+    with Popup('PopupConTabPreco','Cadastro de Tabela de Preço').Items.Add do
+      Nested(FfrmCon_TabPreco);
   end;
 
 end;

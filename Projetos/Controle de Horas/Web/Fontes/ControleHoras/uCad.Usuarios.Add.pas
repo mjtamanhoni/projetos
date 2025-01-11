@@ -62,6 +62,19 @@ type
     edPRESTADOR_SERVICO: TDBEdit;
     btConfirmar: TButton;
     btCancelar: TButton;
+    FDMem_RegistroTIPO: TIntegerField;
+    FDMem_RegistroID_CLIENTE: TIntegerField;
+    FDMem_RegistroFORM_INICIAL: TStringField;
+    FDMem_RegistroCLIENTE: TStringField;
+    FDMem_RegistroTIPO_DESC: TStringField;
+    lbTIPO: TLabel;
+    cbTIPO: TDBComboBox;
+    lbID_CLIENTE: TLabel;
+    edID_CLIENTE: TDBEdit;
+    lbCLIENTE: TLabel;
+    edCLIENTE: TDBEdit;
+    lbFORM_INICIAL: TLabel;
+    edFORM_INICIAL: TDBEdit;
     procedure btConfirmarClick(Sender: TObject);
     procedure btCancelarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -166,6 +179,7 @@ begin
       with Row.Items.Add do
       begin
         FormGroup(lbID.Caption,CSSClass.Col.colsize2).AddVCLObj(edID);
+        FormGroup(lbTIPO.Caption,CSSClass.Col.colsize2).AddVCLObj(cbTIPO);
       end;
       with Row.Items.Add do
       begin
@@ -185,12 +199,21 @@ begin
       with Row.Items.Add do
       begin
         FormGroup(lbID_EMPRESA.Caption,CSSClass.Col.colsize2).AddVCLObj(edID_EMPRESA);
-        FormGroup(lbEMPRESA.Caption,CSSClass.Col.colsize10).AddVCLObj(edEMPRESA);
+        FormGroup('',CSSClass.Col.colsize10).AddVCLObj(edEMPRESA);
       end;
       with Row.Items.Add do
       begin
         FormGroup(lbID_PRESTADOR_SERVICO.Caption,CSSClass.Col.colsize2).AddVCLObj(edID_PRESTADOR_SERVICO);
-        FormGroup(lbPRESTADOR_SERVICO.Caption,CSSClass.Col.colsize10).AddVCLObj(edPRESTADOR_SERVICO);
+        FormGroup('',CSSClass.Col.colsize10).AddVCLObj(edPRESTADOR_SERVICO);
+      end;
+      with Row.Items.Add do
+      begin
+        FormGroup(lbID_CLIENTE.Caption,CSSClass.Col.colsize2).AddVCLObj(edID_CLIENTE);
+        FormGroup('',CSSClass.Col.colsize10).AddVCLObj(edCLIENTE);
+      end;
+      with Row.Items.Add do
+      begin
+        FormGroup(lbFORM_INICIAL.Caption,CSSClass.Col.colsize12).AddVCLObj(edFORM_INICIAL);
       end;
       with Row.Items.Add do
       begin

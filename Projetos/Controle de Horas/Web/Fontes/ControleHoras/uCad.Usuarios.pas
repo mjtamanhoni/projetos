@@ -27,9 +27,6 @@ type
     lbPesquisar: TLabel;
     edPesquisar: TEdit;
     btPesquisar: TButton;
-    btNovo: TButton;
-    btEditar: TButton;
-    btExcluir: TButton;
     DBGrid: TDBGrid;
     FDMem_Registro: TFDMemTable;
     dmRegistro: TDataSource;
@@ -48,6 +45,15 @@ type
     FDMem_RegistroSINCRONIZADO: TIntegerField;
     FDMem_RegistroEMPRESA: TStringField;
     FDMem_RegistroPRESTADOR_SERVICO: TStringField;
+    pnFooter: TPanel;
+    btExcluir: TButton;
+    btEditar: TButton;
+    btNovo: TButton;
+    FDMem_RegistroTIPO: TIntegerField;
+    FDMem_RegistroID_CLIENTE: TIntegerField;
+    FDMem_RegistroFORM_INICIAL: TStringField;
+    FDMem_RegistroCLIENTE: TStringField;
+    FDMem_RegistroTIPO_DESC: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btPesquisarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -108,6 +114,11 @@ begin
     FfrmUsuarios_Cad_Add.FDMem_RegistroFOTO.AsString := FDMem_RegistroFOTO.AsString;
     FfrmUsuarios_Cad_Add.FDMem_RegistroEMPRESA.AsString := FDMem_RegistroEMPRESA.AsString;
     FfrmUsuarios_Cad_Add.FDMem_RegistroPRESTADOR_SERVICO.AsString := FDMem_RegistroPRESTADOR_SERVICO.AsString;
+    FfrmUsuarios_Cad_Add.FDMem_RegistroID_CLIENTE.AsInteger := FDMem_RegistroID_CLIENTE.AsInteger;
+    FfrmUsuarios_Cad_Add.FDMem_RegistroCLIENTE.AsString := FDMem_RegistroCLIENTE.AsString;
+    FfrmUsuarios_Cad_Add.FDMem_RegistroTIPO.AsInteger := FDMem_RegistroTIPO.AsInteger;
+    FfrmUsuarios_Cad_Add.FDMem_RegistroFORM_INICIAL.AsString := FDMem_RegistroFORM_INICIAL.AsString;
+
 
     FfrmUsuarios_Cad_Add.Status_Tabela := 1;
 
@@ -248,6 +259,11 @@ begin
           FDMem_RegistroSINCRONIZADO.AsInteger := FBody.Get(x).GetValue<Integer>('sincronizado',0);
           FDMem_RegistroEMPRESA.AsString := FBody.Get(x).GetValue<String>('empresa','');
           FDMem_RegistroPRESTADOR_SERVICO.AsString := FBody.Get(x).GetValue<String>('prestador','');
+          FDMem_RegistroTIPO.AsInteger := FBody.Get(x).GetValue<Integer>('tipo',0);
+          FDMem_RegistroID_CLIENTE.AsInteger := FBody.Get(x).GetValue<Integer>('idCliente',0);
+          FDMem_RegistroFORM_INICIAL.AsString := FBody.Get(x).GetValue<String>('formInicial','');
+          FDMem_RegistroCLIENTE.AsString := FBody.Get(x).GetValue<String>('cliente','');
+          FDMem_RegistroTIPO_DESC.AsString := FBody.Get(x).GetValue<String>('tipoDesc','');
         FDMem_Registro.Post;
       end;
 
@@ -286,9 +302,6 @@ begin
         FormGroup(lbPesquisar.Caption,CSSClass.Col.colsize6).AddVCLObj(edPesquisar);
 
         FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btNovo,CSSClass.Button.add);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btEditar,CSSClass.Button.edit);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btExcluir,CSSClass.Button.delete);
       end;
     end;
 
@@ -296,6 +309,16 @@ begin
     begin
       with Row.Items.Add do
         VCLObj(DBGrid);
+    end;
+
+    with Card.Items.Add do
+    begin
+      with Row(CSSClass.DivHtml.Align_Left).Items.Add do
+      begin
+        VCLObj(btNovo,CSSClass.Button.add + CSSClass.Col.colsize1);
+        VCLObj(btEditar,CSSClass.Button.edit + CSSClass.Col.colsize1);
+        VCLObj(btExcluir,CSSClass.Button.delete + CSSClass.Col.colsize1);
+      end;
     end;
 
     //Abrindo formulário popup
@@ -331,6 +354,12 @@ end;
 procedure TfrmCad_Usuarios.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
+
+  if PrismControl.IsDBGrid then
+  begin
+   PrismControl.AsDBGrid.RecordsPerPage := 12;
+   //PrismControl.AsDBGrid.MaxRecords:= 2000;
+  end;
 
  //Change Init Property of Prism Controls
  {

@@ -50,17 +50,21 @@ object frmPrincipal: TfrmPrincipal
       end
       object abeladePreo1: TMenuItem
         Caption = 'Tabela de Pre'#231'o'
+        OnClick = abeladePreo1Click
       end
       object Contas1: TMenuItem
         Caption = 'Contas'
+        OnClick = Contas1Click
       end
       object Pagamento1: TMenuItem
         Caption = 'Pagamento'
-        object Forma1: TMenuItem
-          Caption = 'Forma'
-        end
         object Condio1: TMenuItem
           Caption = 'Condi'#231#227'o'
+          OnClick = Condio1Click
+        end
+        object Forma1: TMenuItem
+          Caption = 'Forma'
+          OnClick = Forma1Click
         end
       end
     end
@@ -71,6 +75,13 @@ object frmPrincipal: TfrmPrincipal
       end
       object LanamentosFinanceiros1: TMenuItem
         Caption = 'Lan'#231'amentos Financeiros'
+      end
+    end
+    object Consultas1: TMenuItem
+      Caption = 'Consultas'
+      object ServiosPrestados2: TMenuItem
+        Caption = 'Servi'#231'os Prestados'
+        OnClick = ServiosPrestados2Click
       end
     end
     object Fechar1: TMenuItem

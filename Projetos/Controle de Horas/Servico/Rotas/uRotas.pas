@@ -837,6 +837,8 @@ var
   FId :Integer;
   FFormaPagto :String;
   FCondPagto :String;
+  FCondPagtoId :Integer;
+  FCondFormaId :Integer;
   FPagina :Integer;
   FPaginas :Integer;
 
@@ -854,16 +856,20 @@ begin
       FId := 0;
       FFormaPagto := '';
       FCondPagto := '';
+      FCondPagtoId := 0;
+      FCondFormaId := 0;
       FPagina := 0;
       FPaginas := 0;
 
       FId := StrToIntDef(Req.Query['id'],0);
+      FCondPagtoId := StrToIntDef(Req.Query['condPagtoId'],0);
+      FCondFormaId := StrToIntDef(Req.Query['condFormaId'],0);
       FFormaPagto := Req.Query['formaPagto'];
       FCondPagto := Req.Query['condPagto'];
       FPagina := StrToIntDef(Req.Query['pagina'],0);
       FPaginas := StrToIntDef(Req.Query['paginas'],0);
 
-      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FFormaPagto,FCondPagto);
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina,FPaginas,FId,FFormaPagto,FCondPagto,FCondPagtoId,FCondFormaId);
 
       if FJSon_Retorno.Size = 0 then
       begin
@@ -949,6 +955,8 @@ end;
 procedure FormaCondPagto_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   FId :Integer;
+  FIdForma :Integer;
+  FIdCond :Integer;
   FDM_Global_Wnd :TDM_Global_Wnd;
   FModeloDados :TFormaCondPagto;
   FFuncoes_Wnd :TFuncoes_Wnd;
@@ -961,9 +969,14 @@ begin
       FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
 
       FId := 0;
-      FId := StrToIntDef(Req.Query['id'],0);
+      FIdForma := 0;
+      FIdCond := 0;
 
-      if FModeloDados.Json_Delete(FId) then
+      FId := StrToIntDef(Req.Query['id'],0);
+      FIdForma := StrToIntDef(Req.Query['idForma'],0);
+      FIdCond := StrToIntDef(Req.Query['idCond'],0);
+
+      if FModeloDados.Json_Delete(FId,FIdForma,FIdCond) then
         Res.Send('Formas/Condições de Pagamentos excluídas com sucesso').Status(200)
       else
         Res.Send('Não foi possível excluir as formas/condições de pagamentos.').Status(401);

@@ -2,8 +2,8 @@ object frmCad_Empresa: TfrmCad_Empresa
   Left = 0
   Top = 0
   Caption = 'Empresas'
-  ClientHeight = 592
-  ClientWidth = 958
+  ClientHeight = 612
+  ClientWidth = 1018
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,12 +19,11 @@ object frmCad_Empresa: TfrmCad_Empresa
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 958
+    Width = 1018
     Height = 49
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -4
-    ExplicitWidth = 962
+    ExplicitWidth = 1014
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -67,39 +66,12 @@ object frmCad_Empresa: TfrmCad_Empresa
       TabOrder = 2
       OnClick = btPesquisarClick
     end
-    object btNovo: TButton
-      Left = 552
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Novo'
-      TabOrder = 3
-      OnClick = btNovoClick
-    end
-    object btEditar: TButton
-      Left = 633
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Editar'
-      TabOrder = 4
-      OnClick = btEditarClick
-    end
-    object btExcluir: TButton
-      Left = 714
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Excluir'
-      TabOrder = 5
-      OnClick = btExcluirClick
-    end
   end
   object DBGrid: TDBGrid
     Left = 0
     Top = 49
-    Width = 958
-    Height = 543
+    Width = 1018
+    Height = 523
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -233,6 +205,42 @@ object frmCad_Empresa: TfrmCad_Empresa
         Title.Alignment = taCenter
         Visible = False
       end>
+  end
+  object pnFooter: TPanel
+    Left = 0
+    Top = 572
+    Width = 1018
+    Height = 40
+    Align = alBottom
+    TabOrder = 2
+    ExplicitTop = 571
+    object btExcluir: TButton
+      Left = 714
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Excluir'
+      TabOrder = 0
+      OnClick = btExcluirClick
+    end
+    object btEditar: TButton
+      Left = 633
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Editar'
+      TabOrder = 1
+      OnClick = btEditarClick
+    end
+    object btNovo: TButton
+      Left = 552
+      Top = 13
+      Width = 75
+      Height = 25
+      Caption = 'Novo'
+      TabOrder = 2
+      OnClick = btNovoClick
+    end
   end
   object FDMem_Registro: TFDMemTable
     IndexFieldNames = 'ID'

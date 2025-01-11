@@ -21,7 +21,7 @@ uses
   System.Actions, FMX.ActnList, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Fmx.Bind.Navigator, Data.Bind.Components,
-  Data.Bind.DBScope;
+  Data.Bind.DBScope, FMX.ListBox;
 
 type
   TTab_Status = (dsInsert,dsEdit);
@@ -112,6 +112,20 @@ type
     FDQRegistrosID_PRESTADOR_SERVICO: TIntegerField;
     FDQRegistrosEMPRESA: TStringField;
     FDQRegistrosPRESTADOR_SERVICO: TStringField;
+    lbTIPO: TLabel;
+    edTIPO: TComboBox;
+    lytBDF_Row007: TLayout;
+    lbID_CLIENTE: TLabel;
+    edID_CLIENTE_Desc: TEdit;
+    edID_CLIENTE: TEdit;
+    imgID_CLIENTE: TImage;
+    lytBDF_Row008: TLayout;
+    lbFORM_INICIAL: TLabel;
+    edFORM_INICIAL: TEdit;
+    FDQRegistrosTIPO: TIntegerField;
+    FDQRegistrosID_CLIENTE: TIntegerField;
+    FDQRegistrosFORM_INICIAL: TStringField;
+    FDQRegistrosCLIENTE: TStringField;
     procedure imgFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -196,9 +210,11 @@ begin
       FDQRegistros.SQL.Add('  U.* ');
       FDQRegistros.SQL.Add('  ,E.NOME AS EMPRESA ');
       FDQRegistros.SQL.Add('  ,PS.NOME AS PRESTADOR_SERVICO ');
+      FDQRegistros.SQL.Add('  ,C.NOME AS CLIENTE ');
       FDQRegistros.SQL.Add('FROM USUARIO U ');
       FDQRegistros.SQL.Add('  LEFT JOIN EMPRESA E ON E.ID = U.ID_EMPRESA ');
       FDQRegistros.SQL.Add('  LEFT JOIN PRESTADOR_SERVICO PS ON PS.ID = U.ID_PRESTADOR_SERVICO ');
+      FDQRegistros.SQL.Add('  LEFT JOIN CLIENTE C ON C.ID = U.ID_CLIENTE ');
       FDQRegistros.SQL.Add('WHERE NOT U.ID IS NULL ');
       FDQRegistros.SQL.Add('ORDER BY ');
       FDQRegistros.SQL.Add('  U.ID; ');
@@ -373,6 +389,10 @@ begin
       edID_EMPRESA_Desc.Text := FDQRegistros.FieldByName('EMPRESA').AsString;
       edID_PRESTADOR_SERVICO.Text := FDQRegistros.FieldByName('ID_PRESTADOR_SERVICO').AsString;
       edID_PRESTADOR_SERVICO_Desc.Text := FDQRegistros.FieldByName('PRESTADOR_SERVICO').AsString;
+      edTIPO.ItemIndex := FDQRegistrosTIPO.AsInteger;
+      edID_CLIENTE.Text := FDQRegistros.FieldByName('ID_CLIENTE').AsString;
+      edID_CLIENTE_Desc.Text := FDQRegistros.FieldByName('CLIENTE').AsString;
+      edFORM_INICIAL.Text := FDQRegistros.FieldByName('FORM_INICIAL').AsString;
 
       FTab_Status := TTab_Status.dsEdit;
 
@@ -441,6 +461,9 @@ begin
           FQuery.Sql.Add('  ,DT_CADASTRO ');
           FQuery.Sql.Add('  ,HR_CADASTRO ');
           FQuery.Sql.Add('  ,SINCRONIZADO ');
+          FQuery.Sql.Add('  ,TIPO ');
+          FQuery.Sql.Add('  ,ID_CLIENTE ');
+          FQuery.Sql.Add('  ,FORM_INICIAL ');
           FQuery.Sql.Add(') VALUES( ');
           FQuery.Sql.Add('  :NOME ');
           FQuery.Sql.Add('  ,:LOGIN ');
@@ -454,6 +477,9 @@ begin
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
           FQuery.Sql.Add('  ,:HR_CADASTRO ');
           FQuery.Sql.Add('  ,:SINCRONIZADO ');
+          FQuery.Sql.Add('  ,:TIPO ');
+          FQuery.Sql.Add('  ,:ID_CLIENTE ');
+          FQuery.Sql.Add('  ,:FORM_INICIAL ');
           FQuery.Sql.Add('); ');
           FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
           FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
@@ -470,6 +496,9 @@ begin
           FQuery.Sql.Add('  ,ID_PRESTADOR_SERVICO = :ID_PRESTADOR_SERVICO ');
           FQuery.Sql.Add('  ,FOTO = :FOTO ');
           FQuery.Sql.Add('  ,SINCRONIZADO = :SINCRONIZADO ');
+          FQuery.Sql.Add('  ,TIPO = :TIPO');
+          FQuery.Sql.Add('  ,ID_CLIENTE = :ID_CLIENTE');
+          FQuery.Sql.Add('  ,FORM_INICIAL = :FORM_INICIAL');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := StrToIntDef(edID.Text,0);
         end;
@@ -484,6 +513,9 @@ begin
       FQuery.ParamByName('ID_PRESTADOR_SERVICO').AsInteger := StrToIntDef(edID_PRESTADOR_SERVICO.Text,0);
       FQuery.ParamByName('FOTO').AsString := '';;
       FQuery.ParamByName('SINCRONIZADO').AsInteger := 0;
+      FQuery.ParamByName('TIPO').AsInteger := edTIPO.ItemIndex;
+      FQuery.ParamByName('ID_CLIENTE').AsInteger :=  StrToIntDef(edID_CLIENTE.Text,0);
+      FQuery.ParamByName('FORM_INICIAL').AsString := edFORM_INICIAL.Text;
       FQuery.ExecSQL;
 
       FDm_Global.FDC_Firebird.Commit;

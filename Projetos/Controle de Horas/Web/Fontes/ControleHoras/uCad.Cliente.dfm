@@ -2,8 +2,8 @@ object frmCad_Cliente: TfrmCad_Cliente
   Left = 0
   Top = 0
   Caption = 'Clientes'
-  ClientHeight = 598
-  ClientWidth = 991
+  ClientHeight = 612
+  ClientWidth = 1018
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,8 @@ object frmCad_Cliente: TfrmCad_Cliente
   object DBGrid: TDBGrid
     Left = 0
     Top = 49
-    Width = 991
-    Height = 549
+    Width = 1018
+    Height = 523
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -157,11 +157,11 @@ object frmCad_Cliente: TfrmCad_Cliente
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 991
+    Width = 1018
     Height = 49
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 987
+    ExplicitWidth = 1014
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -204,32 +204,41 @@ object frmCad_Cliente: TfrmCad_Cliente
       TabOrder = 2
       OnClick = btPesquisarClick
     end
-    object btNovo: TButton
-      Left = 552
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Novo'
-      TabOrder = 3
-      OnClick = btNovoClick
-    end
-    object btEditar: TButton
-      Left = 633
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Editar'
-      TabOrder = 4
-      OnClick = btEditarClick
-    end
+  end
+  object pnFooter: TPanel
+    Left = 0
+    Top = 572
+    Width = 1018
+    Height = 40
+    Align = alBottom
+    TabOrder = 2
+    ExplicitTop = 571
     object btExcluir: TButton
       Left = 714
-      Top = 13
+      Top = 6
       Width = 75
       Height = 25
       Caption = 'Excluir'
-      TabOrder = 5
+      TabOrder = 0
       OnClick = btExcluirClick
+    end
+    object btEditar: TButton
+      Left = 633
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'Editar'
+      TabOrder = 1
+      OnClick = btEditarClick
+    end
+    object btNovo: TButton
+      Left = 552
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'Novo'
+      TabOrder = 2
+      OnClick = btNovoClick
     end
   end
   object FDMem_Registro: TFDMemTable

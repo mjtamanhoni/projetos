@@ -282,7 +282,6 @@ procedure TfrmCad_Fornecedor_Add.InitControlsD2Bridge(const PrismControl: TPrism
 begin
  inherited;
 
-
  if PrismControl.VCLComponent = edCELULAR then
   PrismControl.AsEdit.TextMask:= '''mask'' : ''(99)99999-9999''';
  if PrismControl.VCLComponent = edTELEFONE then

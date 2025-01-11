@@ -1,9 +1,9 @@
-object frmCad_PrestServico: TfrmCad_PrestServico
+object frmCad_CondPagto: TfrmCad_CondPagto
   Left = 0
   Top = 0
-  Caption = 'Prestador de Servi'#231'o'
-  ClientHeight = 612
-  ClientWidth = 1018
+  Caption = 'Condi'#231#227'o de Pagamento'
+  ClientHeight = 611
+  ClientWidth = 1014
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +18,8 @@ object frmCad_PrestServico: TfrmCad_PrestServico
   object DBGrid: TDBGrid
     Left = 0
     Top = 49
-    Width = 1018
-    Height = 523
+    Width = 1014
+    Height = 522
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -39,26 +39,36 @@ object frmCad_PrestServico: TfrmCad_PrestServico
       end
       item
         Expanded = False
-        FieldName = 'NOME'
+        FieldName = 'DESCRICAO'
         Title.Alignment = taCenter
-        Title.Caption = 'Nome'
         Width = 300
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'CELULAR'
+        FieldName = 'PARCELAS'
         Title.Alignment = taCenter
-        Title.Caption = 'Celular'
-        Width = 120
+        Width = 65
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'EMAIL'
+        FieldName = 'TIPO_INTERVALO'
         Title.Alignment = taCenter
-        Title.Caption = 'E-Mail'
-        Width = 300
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'TIPO_INTERVALO_DESC'
+        Title.Alignment = taCenter
+        Width = 200
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'INTEVALOR'
+        Title.Alignment = taCenter
+        Width = 65
         Visible = True
       end
       item
@@ -69,19 +79,56 @@ object frmCad_PrestServico: TfrmCad_PrestServico
       end
       item
         Expanded = False
-        FieldName = 'HF_CADASTRO'
+        FieldName = 'HR_CADASTRO'
         Title.Alignment = taCenter
         Visible = False
       end>
   end
+  object pnFooter: TPanel
+    Left = 0
+    Top = 571
+    Width = 1014
+    Height = 40
+    Align = alBottom
+    TabOrder = 1
+    ExplicitTop = 570
+    ExplicitWidth = 1010
+    object btNovo: TButton
+      Left = 502
+      Top = 10
+      Width = 75
+      Height = 25
+      Caption = 'Novo'
+      TabOrder = 0
+      OnClick = btNovoClick
+    end
+    object btEditar: TButton
+      Left = 583
+      Top = 10
+      Width = 75
+      Height = 25
+      Caption = 'Editar'
+      TabOrder = 1
+      OnClick = btEditarClick
+    end
+    object btExcluir: TButton
+      Left = 664
+      Top = 10
+      Width = 75
+      Height = 25
+      Caption = 'Excluir'
+      TabOrder = 2
+      OnClick = btExcluirClick
+    end
+  end
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 1018
+    Width = 1014
     Height = 49
     Align = alTop
-    TabOrder = 1
-    ExplicitWidth = 1014
+    TabOrder = 2
+    ExplicitWidth = 1010
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -104,7 +151,7 @@ object frmCad_PrestServico: TfrmCad_PrestServico
       TabOrder = 0
       Items.Strings = (
         'ID'
-        'NOME')
+        'DESCRI'#199#195'O')
     end
     object edPesquisar: TEdit
       Left = 194
@@ -125,42 +172,6 @@ object frmCad_PrestServico: TfrmCad_PrestServico
       OnClick = btPesquisarClick
     end
   end
-  object pnFooter: TPanel
-    Left = 0
-    Top = 572
-    Width = 1018
-    Height = 40
-    Align = alBottom
-    TabOrder = 2
-    ExplicitTop = 571
-    object btExcluir: TButton
-      Left = 714
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Excluir'
-      TabOrder = 0
-      OnClick = btExcluirClick
-    end
-    object btEditar: TButton
-      Left = 633
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Editar'
-      TabOrder = 1
-      OnClick = btEditarClick
-    end
-    object btNovo: TButton
-      Left = 552
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Novo'
-      TabOrder = 2
-      OnClick = btNovoClick
-    end
-  end
   object FDMem_Registro: TFDMemTable
     IndexFieldNames = 'ID'
     FetchOptions.AssignedValues = [evMode]
@@ -170,33 +181,44 @@ object frmCad_PrestServico: TfrmCad_PrestServico
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 472
-    Top = 256
+    Left = 264
+    Top = 160
     object FDMem_RegistroID: TIntegerField
       FieldName = 'ID'
     end
-    object FDMem_RegistroNOME: TStringField
-      FieldName = 'NOME'
-      Size = 100
-    end
-    object FDMem_RegistroCELULAR: TStringField
-      FieldName = 'CELULAR'
-    end
-    object FDMem_RegistroEMAIL: TStringField
-      FieldName = 'EMAIL'
+    object FDMem_RegistroDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRICAO'
       Size = 255
+    end
+    object FDMem_RegistroPARCELAS: TIntegerField
+      DisplayLabel = 'Parcelas'
+      FieldName = 'PARCELAS'
+    end
+    object FDMem_RegistroTIPO_INTERVALO: TIntegerField
+      DisplayLabel = 'Tipo Intervalo'
+      FieldName = 'TIPO_INTERVALO'
+    end
+    object FDMem_RegistroINTEVALOR: TIntegerField
+      DisplayLabel = 'Intervalo'
+      FieldName = 'INTEVALOR'
     end
     object FDMem_RegistroDT_CADASTRO: TDateField
       FieldName = 'DT_CADASTRO'
     end
-    object FDMem_RegistroHF_CADASTRO: TTimeField
-      FieldName = 'HF_CADASTRO'
+    object FDMem_RegistroHR_CADASTRO: TTimeField
+      FieldName = 'HR_CADASTRO'
+    end
+    object FDMem_RegistroTIPO_INTERVALO_DESC: TStringField
+      DisplayLabel = 'Tipo Intervalo'
+      FieldName = 'TIPO_INTERVALO_DESC'
+      Size = 100
     end
   end
   object dmRegistro: TDataSource
     AutoEdit = False
     DataSet = FDMem_Registro
-    Left = 472
-    Top = 312
+    Left = 264
+    Top = 216
   end
 end

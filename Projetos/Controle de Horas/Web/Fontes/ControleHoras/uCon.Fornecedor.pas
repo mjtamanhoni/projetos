@@ -1,4 +1,4 @@
-unit uCad.Empresa;
+unit uCon.Fornecedor;
 
 { Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
 
@@ -16,20 +16,17 @@ uses
   D2Bridge.Forms, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   uPrincipal, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-
-  uCad.Empresa.Add;
+  uCad.Fornecedor.Add;
 
 type
-  TfrmCad_Empresa = class(TfrmPrincipal)
-    FDMem_Registro: TFDMemTable;
-    pnHeader: TPanel;
+  TfrmCon_Fornecedor = class(TD2BridgeForm)
+    pnFiltros: TPanel;
     lbTipo: TLabel;
-    lbPesquisar: TLabel;
     cbTipo: TComboBox;
+    lbPesquisar: TLabel;
     edPesquisar: TEdit;
     btPesquisar: TButton;
-    dmRegistro: TDataSource;
-    DBGrid: TDBGrid;
+    FDMem_Registro: TFDMemTable;
     FDMem_RegistroID: TIntegerField;
     FDMem_RegistroNOME: TStringField;
     FDMem_RegistroPESSOA: TIntegerField;
@@ -48,19 +45,16 @@ type
     FDMem_RegistroDT_CADASTRO: TDateField;
     FDMem_RegistroHR_CADASTRO: TTimeField;
     FDMem_RegistroPESSOA_DESC: TStringField;
+    dmRegistro: TDataSource;
+    DBGrid: TDBGrid;
     pnFooter: TPanel;
-    btExcluir: TButton;
-    btEditar: TButton;
-    btNovo: TButton;
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
+    btConfirmar: TButton;
     procedure FormShow(Sender: TObject);
     procedure btPesquisarClick(Sender: TObject);
-    procedure btEditarClick(Sender: TObject);
-    procedure btNovoClick(Sender: TObject);
-    procedure btExcluirClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure btConfirmarClick(Sender: TObject);
   private
-    FfrmCad_Empresa_Add :TfrmCad_Empresa_Add;
 
     FEnder :String;
     FIniFiles :TIniFile;
@@ -68,7 +62,6 @@ type
     FPorta :String;
 
     procedure Pesquisar;
-
   public
     { Public declarations }
   protected
@@ -77,7 +70,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function frmCad_Empresa:TfrmCad_Empresa;
+function frmCon_Fornecedor:TfrmCon_Fornecedor;
 
 implementation
 
@@ -86,120 +79,30 @@ Uses
 
 {$R *.dfm}
 
-function frmCad_Empresa:TfrmCad_Empresa;
+function frmCon_Fornecedor:TfrmCon_Fornecedor;
 begin
-  result:= TfrmCad_Empresa(TfrmCad_Empresa.GetInstance);
+  result:= TfrmCon_Fornecedor(TfrmCon_Fornecedor.GetInstance);
 end;
 
-procedure TfrmCad_Empresa.btEditarClick(Sender: TObject);
+procedure TfrmCon_Fornecedor.btConfirmarClick(Sender: TObject);
 begin
-  if IsD2BridgeContext then
-  begin
-    FfrmCad_Empresa_Add.edID.Text := FDMem_RegistroID.AsString;
-    FfrmCad_Empresa_Add.edNome.Text := FDMem_RegistroNOME.AsString;
-    FfrmCad_Empresa_Add.cbPESSOA.ItemIndex := FDMem_RegistroPESSOA.AsInteger;
-    FfrmCad_Empresa_Add.edDOCUMENTO.Text := FDMem_RegistroDOCUMENTO.AsString;
-    FfrmCad_Empresa_Add.edINSC_EST.Text := FDMem_RegistroINSC_EST.AsString;
-    FfrmCad_Empresa_Add.edCEP.Text := FDMem_RegistroCEP.AsString;
-    FfrmCad_Empresa_Add.edENDERECO.Text := FDMem_RegistroENDERECO.AsString;
-    FfrmCad_Empresa_Add.edCOMPLEMENTO.Text := FDMem_RegistroCOMPLEMENTO.AsString;
-    FfrmCad_Empresa_Add.edNUMERO.Text := FDMem_RegistroNUMERO.AsString;
-    FfrmCad_Empresa_Add.edBAIRRO.Text := FDMem_RegistroBAIRRO.AsString;
-    FfrmCad_Empresa_Add.edCIDADE.Text := FDMem_RegistroCIDADE.AsString;
-    FfrmCad_Empresa_Add.cbUF.Text := FDMem_RegistroUF.AsString;
-    FfrmCad_Empresa_Add.edTELEFONE.Text := FDMem_RegistroTELEFONE.AsString;
-    FfrmCad_Empresa_Add.edCELULAR.Text := FDMem_RegistroCELULAR.AsString;
-    FfrmCad_Empresa_Add.edEMAIL.Text := FDMem_RegistroEMAIL.AsString;
-    FfrmCad_Empresa_Add.Status_Tabela := 1;
-
-
-    ShowPopupModal('PopupCadEmpresaAdd');
-  end
-  else
-  begin
-    FfrmCad_Empresa_Add := TfrmCad_Empresa_Add.Create(Self);
-    FfrmCad_Empresa_Add.ShowModal;
-  end;
-  Pesquisar;
+  Close;
 end;
 
-procedure TfrmCad_Empresa.btExcluirClick(Sender: TObject);
-var
-  FResp :IResponse;
-begin
-  if MessageDlg('Deseja excluir a Empresa selecionada?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
-  begin
-    if Trim(FHost) = '' then
-      raise Exception.Create('Host não informado');
-
-    if Trim(ControleHoras.Usuario_Token) = '' then
-      raise Exception.Create('Token do Usuário inválido');
-
-    FResp := TRequest.New.BaseURL(FHost)
-             .TokenBearer(ControleHoras.Usuario_Token)
-             .AddParam('id',FDMem_RegistroID.AsString)
-             .Resource('empresa')
-             .Accept('application/json')
-             .Delete;
-
-    Pesquisar;
-  end;
-end;
-
-procedure TfrmCad_Empresa.btNovoClick(Sender: TObject);
-begin
-  if IsD2BridgeContext then
-  begin
-    FfrmCad_Empresa_Add.FDMem_Registro.Active := False;
-    FfrmCad_Empresa_Add.FDMem_Registro.Active := True;
-
-    FfrmCad_Empresa_Add.edID.Text := '';
-    FfrmCad_Empresa_Add.edNome.Text := '';
-    FfrmCad_Empresa_Add.cbPESSOA.Text := '';
-    FfrmCad_Empresa_Add.cbPESSOA.ItemIndex := -1;
-    FfrmCad_Empresa_Add.edDOCUMENTO.Text := '';
-    FfrmCad_Empresa_Add.edINSC_EST.Text := '';
-    FfrmCad_Empresa_Add.edCEP.Text := '';
-    FfrmCad_Empresa_Add.edENDERECO.Text := '';
-    FfrmCad_Empresa_Add.edCOMPLEMENTO.Text := '';
-    FfrmCad_Empresa_Add.edNUMERO.Text := '';
-    FfrmCad_Empresa_Add.edBAIRRO.Text := '';
-    FfrmCad_Empresa_Add.edCIDADE.Text := '';
-    FfrmCad_Empresa_Add.cbUF.Text := '';
-    FfrmCad_Empresa_Add.cbUF.ItemIndex := -1;
-    FfrmCad_Empresa_Add.edTELEFONE.Text := '';
-    FfrmCad_Empresa_Add.edCELULAR.Text := '';
-    FfrmCad_Empresa_Add.edEMAIL.Text := '';
-    FfrmCad_Empresa_Add.Status_Tabela := 0;
-
-    ShowPopupModal('PopupCadEmpresaAdd')
-  end
-  else
-  begin
-    FfrmCad_Empresa_Add := TfrmCad_Empresa_Add.Create(Self);
-    FfrmCad_Empresa_Add.ShowModal;
-  end;
-  Pesquisar;
-end;
-
-procedure TfrmCad_Empresa.btPesquisarClick(Sender: TObject);
+procedure TfrmCon_Fornecedor.btPesquisarClick(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCad_Empresa.ExportD2Bridge;
+procedure TfrmCon_Fornecedor.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'Empresas';
+  Title:= 'Consulta de Fornecedores';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
-
-  //Configurações do Form Popup
-  FfrmCad_Empresa_Add := TfrmCad_Empresa_Add.Create(Self);
-  D2Bridge.AddNested(FfrmCad_Empresa_Add);
 
   with D2Bridge.Items.add do
   begin
@@ -207,10 +110,10 @@ begin
     begin
       with Row.Items.Add do
       begin
-        FormGroup(lbTipo.Caption,CSSClass.Col.colsize1).AddVCLObj(cbTipo);
+        FormGroup(lbTipo.Caption,CSSClass.Col.colsize3).AddVCLObj(cbTipo);
         FormGroup(lbPesquisar.Caption,CSSClass.Col.colsize6).AddVCLObj(edPesquisar);
 
-        FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search);
+        FormGroup('',CSSClass.Col.colsize3).AddVCLObj(btPesquisar,CSSClass.Button.search);
       end;
     end;
 
@@ -222,34 +125,30 @@ begin
 
     with Card.Items.Add do
     begin
-      with Row(CSSClass.DivHtml.Align_Left).Items.Add do
+      with Row.Items.Add do
       begin
-        VCLObj(btNovo,CSSClass.Button.add + CSSClass.Col.colsize1);
-        VCLObj(btEditar,CSSClass.Button.edit + CSSClass.Col.colsize1);
-        VCLObj(btExcluir,CSSClass.Button.delete + CSSClass.Col.colsize1);
+        with Row(CSSClass.DivHtml.Align_Center).Items.Add do
+        begin
+          VCLObj(btConfirmar, CSSClass.Button.close + CSSClass.Col.colsize3);
+        end;
       end;
     end;
-
-    //Abrindo formulário popup
-    with Popup('PopupCadEmpresaAdd','Cadastro de Empresa').Items.Add do
-      Nested(FfrmCad_Empresa_Add);
   end;
 
 end;
 
-procedure TfrmCad_Empresa.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCon_Fornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  ControleHoras.Empresa_ID := 0;
-  ControleHoras.Empresa_Nome := '';
+  ControleHoras.Fornecedor_ID := 0;
+  ControleHoras.Fornecedor_Nome := '';
   if not FDMem_Registro.IsEmpty then
   begin
-    ControleHoras.Empresa_ID := FDMem_RegistroID.AsInteger;
-    ControleHoras.Empresa_Nome := FDMem_RegistroNOME.AsString;
+    ControleHoras.Fornecedor_ID := FDMem_RegistroID.AsInteger;
+    ControleHoras.Fornecedor_Nome := FDMem_RegistroNOME.AsString;
   end;
-  Action := CaFree;
 end;
 
-procedure TfrmCad_Empresa.FormCreate(Sender: TObject);
+procedure TfrmCon_Fornecedor.FormCreate(Sender: TObject);
 begin
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS_WEB.ini';
@@ -259,12 +158,12 @@ begin
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
 end;
 
-procedure TfrmCad_Empresa.FormShow(Sender: TObject);
+procedure TfrmCon_Fornecedor.FormShow(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCad_Empresa.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmCon_Fornecedor.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
@@ -287,7 +186,7 @@ begin
  }
 end;
 
-procedure TfrmCad_Empresa.Pesquisar;
+procedure TfrmCon_Fornecedor.Pesquisar;
 var
   FResp :IResponse;
   FBody :TJSONArray;
@@ -319,7 +218,7 @@ begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(ControleHoras.Usuario_Token)
                .AddParam(FTipoPesquisa,edPesquisar.Text)
-               .Resource('empresa')
+               .Resource('fornecedor')
                .Accept('application/json')
                .Get;
     end
@@ -327,7 +226,7 @@ begin
     begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(ControleHoras.Usuario_Token)
-               .Resource('empresa')
+               .Resource('fornecedor')
                .Accept('application/json')
                .Get;
     end;
@@ -373,7 +272,7 @@ begin
   end;
 end;
 
-procedure TfrmCad_Empresa.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmCon_Fornecedor.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 

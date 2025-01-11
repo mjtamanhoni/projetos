@@ -2,8 +2,8 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
   Left = 0
   Top = 0
   Caption = 'Cadastro de Usu'#225'rios'
-  ClientHeight = 392
-  ClientWidth = 815
+  ClientHeight = 462
+  ClientWidth = 988
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -88,7 +88,7 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
   end
   object lbFOTO: TLabel
     Left = 55
-    Top = 185
+    Top = 243
     Width = 24
     Height = 15
     Caption = 'Foto'
@@ -109,6 +109,38 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
     Height = 15
     Caption = 'Prestador'
     FocusControl = edPRESTADOR_SERVICO
+  end
+  object lbTIPO: TLabel
+    Left = 643
+    Top = 8
+    Width = 23
+    Height = 15
+    Caption = 'Tipo'
+    FocusControl = edID
+  end
+  object lbID_CLIENTE: TLabel
+    Left = 9
+    Top = 182
+    Width = 53
+    Height = 15
+    Caption = 'Id. Cliente'
+    FocusControl = edID_CLIENTE
+  end
+  object lbCLIENTE: TLabel
+    Left = 196
+    Top = 185
+    Width = 37
+    Height = 15
+    Caption = 'Cliente'
+    FocusControl = edCLIENTE
+  end
+  object lbFORM_INICIAL: TLabel
+    Left = 8
+    Top = 214
+    Width = 92
+    Height = 15
+    Caption = 'Formul'#225'rio inicial'
+    FocusControl = edFORM_INICIAL
   end
   object edID: TDBEdit
     Left = 84
@@ -198,7 +230,7 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
   end
   object edFOTO: TDBEdit
     Left = 85
-    Top = 182
+    Top = 240
     Width = 717
     Height = 23
     DataField = 'FOTO'
@@ -226,8 +258,8 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
     TabOrder = 11
   end
   object btConfirmar: TButton
-    Left = 295
-    Top = 232
+    Left = 312
+    Top = 368
     Width = 100
     Height = 30
     Caption = 'Confirmar'
@@ -235,13 +267,54 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
     OnClick = btConfirmarClick
   end
   object btCancelar: TButton
-    Left = 447
-    Top = 232
+    Left = 439
+    Top = 368
     Width = 100
     Height = 30
     Caption = 'Cancelar'
     TabOrder = 13
     OnClick = btCancelarClick
+  end
+  object cbTIPO: TDBComboBox
+    Left = 673
+    Top = 8
+    Width = 129
+    Height = 23
+    DataField = 'TIPO'
+    DataSource = dmRegistro
+    Items.Strings = (
+      'ADMINISTRADOR'
+      'NORMAL'
+      'CLIENTE')
+    TabOrder = 14
+  end
+  object edID_CLIENTE: TDBEdit
+    Left = 84
+    Top = 182
+    Width = 101
+    Height = 23
+    DataField = 'ID_CLIENTE'
+    DataSource = dmRegistro
+    TabOrder = 15
+  end
+  object edCLIENTE: TDBEdit
+    Left = 256
+    Top = 182
+    Width = 546
+    Height = 23
+    DataField = 'CLIENTE'
+    DataSource = dmRegistro
+    ReadOnly = True
+    TabOrder = 16
+  end
+  object edFORM_INICIAL: TDBEdit
+    Left = 106
+    Top = 211
+    Width = 696
+    Height = 23
+    DataField = 'FORM_INICIAL'
+    DataSource = dmRegistro
+    TabOrder = 17
   end
   object FDMem_Registro: TFDMemTable
     FieldDefs = <>
@@ -255,8 +328,8 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 592
-    Top = 280
+    Left = 904
+    Top = 96
     object FDMem_RegistroID: TIntegerField
       FieldName = 'ID'
     end
@@ -325,11 +398,29 @@ object frmCad_Usuario_ADD: TfrmCad_Usuario_ADD
       FieldName = 'PRESTADOR_SERVICO'
       Size = 100
     end
+    object FDMem_RegistroTIPO: TIntegerField
+      FieldName = 'TIPO'
+    end
+    object FDMem_RegistroID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+    object FDMem_RegistroFORM_INICIAL: TStringField
+      FieldName = 'FORM_INICIAL'
+      Size = 255
+    end
+    object FDMem_RegistroCLIENTE: TStringField
+      FieldName = 'CLIENTE'
+      Size = 255
+    end
+    object FDMem_RegistroTIPO_DESC: TStringField
+      FieldName = 'TIPO_DESC'
+      Size = 255
+    end
   end
   object dmRegistro: TDataSource
     AutoEdit = False
     DataSet = FDMem_Registro
-    Left = 592
-    Top = 224
+    Left = 904
+    Top = 40
   end
 end

@@ -2,8 +2,8 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
   Left = 0
   Top = 0
   Caption = 'Cadastro de Cliente'
-  ClientHeight = 423
-  ClientWidth = 968
+  ClientHeight = 462
+  ClientWidth = 988
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -308,6 +308,7 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
     RightButton.ImageIndex = 0
     RightButton.Visible = True
     TabOrder = 17
+    OnRightButtonClick = edID_FORNECEDORRightButtonClick
   end
   object edID_TAB_PRECO: TButtonedEdit
     Tag = 1
@@ -320,6 +321,7 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
     RightButton.ImageIndex = 0
     RightButton.Visible = True
     TabOrder = 18
+    OnRightButtonClick = edID_TAB_PRECORightButtonClick
   end
   object edFORNECEDOR: TEdit
     Left = 186
@@ -344,8 +346,8 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 688
-    Top = 248
+    Left = 704
+    Top = 344
     object FDMem_RegistroID: TIntegerField
       FieldName = 'ID'
     end
@@ -431,8 +433,8 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
     end
   end
   object ImageList: TImageList
-    Left = 784
-    Top = 248
+    Left = 792
+    Top = 344
     Bitmap = {
       494C010103000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

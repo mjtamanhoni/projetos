@@ -28,7 +28,20 @@ uses
   uCad.Cliente in 'uCad.Cliente.pas' {frmCad_Cliente},
   uCad.Cliente.Add in 'uCad.Cliente.Add.pas' {frmCad_Cliente_Add},
   uCad.Fornecedor in 'uCad.Fornecedor.pas' {frmCad_Fornecedor},
-  uCad.Fornecedor.Add in 'uCad.Fornecedor.Add.pas' {frmCad_Fornecedor_Add};
+  uCad.Fornecedor.Add in 'uCad.Fornecedor.Add.pas' {frmCad_Fornecedor_Add},
+  uCon.Fornecedor in 'uCon.Fornecedor.pas' {frmCon_Fornecedor},
+  uCon.TabPreco in 'uCon.TabPreco.pas' {frmCon_TabPreco},
+  uCad.TabPreco in 'uCad.TabPreco.pas' {frmCad_TabPreco},
+  uCad.TabPreco.Add in 'uCad.TabPreco.Add.pas' {frmCad_TabPreco_Add},
+  uCad.Conta in 'uCad.Conta.pas' {frmCad_Conta},
+  uCad.Conta.Add in 'uCad.Conta.Add.pas' {frmCad_Conta_Add},
+  uCad.CondPagto in 'uCad.CondPagto.pas' {frmCad_CondPagto},
+  uCad.CondPagto.Add in 'uCad.CondPagto.Add.pas' {frmCad_CondPagto_Add},
+  uCad.FormaPagto in 'uCad.FormaPagto.pas' {frmCad_FormaPagto},
+  uCad.FormaPagto.Add in 'uCad.FormaPagto.Add.pas' {frmCad_FormaPagto_Add},
+  uCad.Forma.Cond.Add in 'uCad.Forma.Cond.Add.pas' {frmFormaCond_Add},
+  uCon.ServisoPrestados in 'uCon.ServisoPrestados.pas' {frmCon_ServicosPrestados},
+  uCon.Cliente in 'uCon.Cliente.pas' {frmCon_Cliente};
 
 {$R *.res}
 

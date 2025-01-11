@@ -28,6 +28,8 @@ type
     Condio1: TMenuItem;
     ServiosPrestados1: TMenuItem;
     LanamentosFinanceiros1: TMenuItem;
+    Consultas1: TMenuItem;
+    ServiosPrestados2: TMenuItem;
     procedure Module11Click(Sender: TObject);
     procedure Usurios1Click(Sender: TObject);
     procedure Fechar1Click(Sender: TObject);
@@ -36,6 +38,11 @@ type
     procedure PrestadordeServio1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
     procedure Fornecedor1Click(Sender: TObject);
+    procedure abeladePreo1Click(Sender: TObject);
+    procedure Contas1Click(Sender: TObject);
+    procedure Condio1Click(Sender: TObject);
+    procedure Forma1Click(Sender: TObject);
+    procedure ServiosPrestados2Click(Sender: TObject);
   private
 
   public
@@ -57,7 +64,12 @@ Uses
    ,uCad.Empresa
    ,uCad.PrestServico
    ,uCad.Cliente
-   ,uCad.Fornecedor;
+   ,uCad.Fornecedor
+   ,uCad.TabPreco
+   ,uCad.Conta
+   ,uCad.CondPagto
+   ,uCad.FormaPagto
+   ,uCon.ServisoPrestados;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -82,8 +94,25 @@ begin
     frmCad_Cliente.Close
   else if frmCad_Fornecedor <> Nil then
     frmCad_Fornecedor.Close
+  else if frmCad_TabPreco <> Nil then
+    frmCad_TabPreco.Close
+  else if frmCad_Conta <> Nil then
+    frmCad_Conta.Close
+  else if frmCad_CondPagto <> Nil then
+    frmCad_CondPagto.Close
+  else if frmCad_FormaPagto <> Nil then
+    frmCad_FormaPagto.Close
+  else if frmCon_ServicosPrestados <> Nil then
+    frmCon_ServicosPrestados.Close
   else
     Close;
+end;
+
+procedure TfrmPrincipal.Forma1Click(Sender: TObject);
+begin
+  if frmCad_FormaPagto = Nil then
+    TfrmCad_FormaPagto.CreateInstance;
+  frmCad_FormaPagto.ShowModal;
 end;
 
 procedure TfrmPrincipal.Fornecedor1Click(Sender: TObject);
@@ -93,6 +122,13 @@ begin
   frmCad_Fornecedor.ShowModal;
 end;
 
+procedure TfrmPrincipal.abeladePreo1Click(Sender: TObject);
+begin
+  if frmCad_TabPreco = Nil then
+    TfrmCad_TabPreco.CreateInstance;
+  frmCad_TabPreco.ShowModal;
+end;
+
 procedure TfrmPrincipal.Cliente1Click(Sender: TObject);
 begin
   if frmCad_Cliente = Nil then
@@ -100,11 +136,25 @@ begin
   frmCad_Cliente.ShowModal;
 end;
 
+procedure TfrmPrincipal.Condio1Click(Sender: TObject);
+begin
+  if frmCad_CondPagto = Nil then
+    TfrmCad_CondPagto.CreateInstance;
+  frmCad_CondPagto.ShowModal;
+end;
+
 procedure TfrmPrincipal.Configuraes1Click(Sender: TObject);
 begin
   if frmConfiguracoes = Nil then
     TfrmConfiguracoes.CreateInstance;
   frmConfiguracoes.ShowModal;
+end;
+
+procedure TfrmPrincipal.Contas1Click(Sender: TObject);
+begin
+  if frmCad_Conta = Nil then
+    TfrmCad_Conta.CreateInstance;
+  frmCad_Conta.ShowModal;
 end;
 
 procedure TfrmPrincipal.Empresas1Click(Sender: TObject);
@@ -203,6 +253,13 @@ begin
  }
 end;
 
+procedure TfrmPrincipal.ServiosPrestados2Click(Sender: TObject);
+begin
+  if frmCon_ServicosPrestados = Nil then
+    TfrmCon_ServicosPrestados.CreateInstance;
+  frmCon_ServicosPrestados.ShowModal;
+end;
+
 procedure TfrmPrincipal.Usurios1Click(Sender: TObject);
 begin
   if frmCad_Usuarios = Nil then
@@ -217,6 +274,4 @@ end.
 {
 Cores:
 Butão Edit: #A1A29D
-
-
 }

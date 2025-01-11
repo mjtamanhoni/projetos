@@ -47,9 +47,10 @@ type
     cbTipo: TComboBox;
     edPesquisar: TEdit;
     btPesquisar: TButton;
-    btNovo: TButton;
-    btEditar: TButton;
+    pnFooter: TPanel;
     btExcluir: TButton;
+    btEditar: TButton;
+    btNovo: TButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -208,9 +209,6 @@ begin
         FormGroup(lbPesquisar.Caption,CSSClass.Col.colsize6).AddVCLObj(edPesquisar);
 
         FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btNovo,CSSClass.Button.add);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btEditar,CSSClass.Button.edit);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btExcluir,CSSClass.Button.delete);
       end;
     end;
 
@@ -218,6 +216,16 @@ begin
     begin
       with Row.Items.Add do
         VCLObj(DBGrid);
+    end;
+
+    with Card.Items.Add do
+    begin
+      with Row(CSSClass.DivHtml.Align_Left).Items.Add do
+      begin
+        VCLObj(btNovo,CSSClass.Button.add + CSSClass.Col.colsize1);
+        VCLObj(btEditar,CSSClass.Button.edit + CSSClass.Col.colsize1);
+        VCLObj(btExcluir,CSSClass.Button.delete + CSSClass.Col.colsize1);
+      end;
     end;
 
     //Abrindo formulário popup
@@ -229,6 +237,13 @@ end;
 
 procedure TfrmCad_Fornecedor.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  ControleHoras.Fornecedor_ID := 0;
+  ControleHoras.Fornecedor_Nome := '';
+  if not FDMem_Registro.IsEmpty then
+  begin
+    ControleHoras.Fornecedor_ID := FDMem_RegistroID.AsInteger;
+    ControleHoras.Fornecedor_Nome := FDMem_RegistroNOME.AsString;
+  end;
   Action := CaFree;
 end;
 
@@ -250,6 +265,12 @@ end;
 procedure TfrmCad_Fornecedor.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
+
+  if PrismControl.IsDBGrid then
+  begin
+   PrismControl.AsDBGrid.RecordsPerPage := 12;
+   //PrismControl.AsDBGrid.MaxRecords:= 2000;
+  end;
 
  //Change Init Property of Prism Controls
  {

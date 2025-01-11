@@ -48,13 +48,14 @@ type
     cbTipo: TComboBox;
     edPesquisar: TEdit;
     btPesquisar: TButton;
-    btNovo: TButton;
-    btEditar: TButton;
-    btExcluir: TButton;
     FDMem_RegistroID_FORNECEDOR: TIntegerField;
     FDMem_RegistroID_TAB_PRECO: TIntegerField;
     FDMem_RegistroFORNECEDOR: TStringField;
     FDMem_RegistroTABELA_PRECO: TStringField;
+    pnFooter: TPanel;
+    btExcluir: TButton;
+    btEditar: TButton;
+    btNovo: TButton;
     procedure btPesquisarClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure btEditarClick(Sender: TObject);
@@ -112,6 +113,10 @@ begin
     FfrmCad_Cliente_Add.edTELEFONE.Text := FDMem_RegistroTELEFONE.AsString;
     FfrmCad_Cliente_Add.edCELULAR.Text := FDMem_RegistroCELULAR.AsString;
     FfrmCad_Cliente_Add.edEMAIL.Text := FDMem_RegistroEMAIL.AsString;
+    FfrmCad_Cliente_Add.edID_FORNECEDOR.Text := FDMem_RegistroID_FORNECEDOR.AsString;
+    FfrmCad_Cliente_Add.edID_TAB_PRECO.Text := FDMem_RegistroID_TAB_PRECO.AsString;
+    FfrmCad_Cliente_Add.edFORNECEDOR.Text := FDMem_RegistroFORNECEDOR.AsString;
+    FfrmCad_Cliente_Add.edTAB_PRECO.Text := FDMem_RegistroTABELA_PRECO.AsString;
     FfrmCad_Cliente_Add.Status_Tabela := 1;
 
     ShowPopupModal('PopupCadClienteAdd');
@@ -212,9 +217,6 @@ begin
         FormGroup(lbPesquisar.Caption,CSSClass.Col.colsize6).AddVCLObj(edPesquisar);
 
         FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btNovo,CSSClass.Button.add);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btEditar,CSSClass.Button.edit);
-        FormGroup('',CSSClass.Col.colsize1).AddVCLObj(btExcluir,CSSClass.Button.delete);
       end;
     end;
 
@@ -222,6 +224,16 @@ begin
     begin
       with Row.Items.Add do
         VCLObj(DBGrid);
+    end;
+
+    with Card.Items.Add do
+    begin
+      with Row(CSSClass.DivHtml.Align_Left).Items.Add do
+      begin
+        VCLObj(btNovo,CSSClass.Button.add + CSSClass.Col.colsize1);
+        VCLObj(btEditar,CSSClass.Button.edit + CSSClass.Col.colsize1);
+        VCLObj(btExcluir,CSSClass.Button.delete + CSSClass.Col.colsize1);
+      end;
     end;
 
     //Abrindo formulário popup
@@ -254,6 +266,12 @@ end;
 procedure TfrmCad_Cliente.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
+
+  if PrismControl.IsDBGrid then
+  begin
+   PrismControl.AsDBGrid.RecordsPerPage := 12;
+   //PrismControl.AsDBGrid.MaxRecords:= 2000;
+  end;
 
  //Change Init Property of Prism Controls
  {
@@ -343,6 +361,8 @@ begin
           FDMem_RegistroPESSOA_DESC.AsString := FBody.Get(x).GetValue<String>('pessoaDesc','');
           FDMem_RegistroID_FORNECEDOR.AsInteger := FBody.Get(x).GetValue<Integer>('idFornecedor',0);
           FDMem_RegistroID_TAB_PRECO.AsInteger := FBody.Get(x).GetValue<Integer>('idTabPreco',0);
+          FDMem_RegistroFORNECEDOR.AsString := FBody.Get(x).GetValue<String>('fornecedor','');
+          FDMem_RegistroTABELA_PRECO.AsString := FBody.Get(x).GetValue<String>('tabPreco','');
         FDMem_Registro.Post;
       end;
 

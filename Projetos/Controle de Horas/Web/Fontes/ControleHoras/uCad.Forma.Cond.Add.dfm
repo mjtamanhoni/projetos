@@ -1,25 +1,23 @@
-object frmCad_PrestServico: TfrmCad_PrestServico
+object frmFormaCond_Add: TfrmFormaCond_Add
   Left = 0
   Top = 0
-  Caption = 'Prestador de Servi'#231'o'
-  ClientHeight = 612
-  ClientWidth = 1018
+  Caption = 'Condi'#231#227'o de Pagamento da Forma'
+  ClientHeight = 461
+  ClientWidth = 984
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Position = poScreenCenter
-  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 15
   object DBGrid: TDBGrid
     Left = 0
-    Top = 49
-    Width = 1018
-    Height = 523
+    Top = 57
+    Width = 984
+    Height = 348
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -39,49 +37,48 @@ object frmCad_PrestServico: TfrmCad_PrestServico
       end
       item
         Expanded = False
-        FieldName = 'NOME'
+        FieldName = 'DESCRICAO'
         Title.Alignment = taCenter
-        Title.Caption = 'Nome'
         Width = 300
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'CELULAR'
+        FieldName = 'PARCELAS'
         Title.Alignment = taCenter
-        Title.Caption = 'Celular'
-        Width = 120
+        Width = 65
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'EMAIL'
+        FieldName = 'TIPO_INTERVALO_DESC'
         Title.Alignment = taCenter
-        Title.Caption = 'E-Mail'
-        Width = 300
+        Width = 250
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'DT_CADASTRO'
+        FieldName = 'TIPO_INTERVALO'
         Title.Alignment = taCenter
         Visible = False
       end
       item
         Expanded = False
-        FieldName = 'HF_CADASTRO'
+        FieldName = 'INTEVALOR'
         Title.Alignment = taCenter
-        Visible = False
+        Width = 65
+        Visible = True
       end>
   end
-  object pnHeader: TPanel
+  object pnFiltros: TPanel
     Left = 0
     Top = 0
-    Width = 1018
-    Height = 49
+    Width = 984
+    Height = 57
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 1014
+    ExplicitLeft = -4
+    ExplicitWidth = 988
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -104,7 +101,7 @@ object frmCad_PrestServico: TfrmCad_PrestServico
       TabOrder = 0
       Items.Strings = (
         'ID'
-        'NOME')
+        'DESCRICAO')
     end
     object edPesquisar: TEdit
       Left = 194
@@ -127,38 +124,29 @@ object frmCad_PrestServico: TfrmCad_PrestServico
   end
   object pnFooter: TPanel
     Left = 0
-    Top = 572
-    Width = 1018
-    Height = 40
+    Top = 405
+    Width = 984
+    Height = 56
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 571
-    object btExcluir: TButton
-      Left = 714
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Excluir'
+    ExplicitTop = 411
+    object btConfirmar: TButton
+      Left = 346
+      Top = 6
+      Width = 111
+      Height = 35
+      Caption = 'Confirmar'
       TabOrder = 0
-      OnClick = btExcluirClick
+      OnClick = btConfirmarClick
     end
-    object btEditar: TButton
-      Left = 633
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Editar'
+    object btCancelar: TButton
+      Left = 463
+      Top = 6
+      Width = 111
+      Height = 35
+      Caption = 'Cancelar'
       TabOrder = 1
-      OnClick = btEditarClick
-    end
-    object btNovo: TButton
-      Left = 552
-      Top = 13
-      Width = 75
-      Height = 25
-      Caption = 'Novo'
-      TabOrder = 2
-      OnClick = btNovoClick
+      OnClick = btCancelarClick
     end
   end
   object FDMem_Registro: TFDMemTable
@@ -170,33 +158,38 @@ object frmCad_PrestServico: TfrmCad_PrestServico
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 472
-    Top = 256
+    Left = 264
+    Top = 160
     object FDMem_RegistroID: TIntegerField
       FieldName = 'ID'
     end
-    object FDMem_RegistroNOME: TStringField
-      FieldName = 'NOME'
-      Size = 100
-    end
-    object FDMem_RegistroCELULAR: TStringField
-      FieldName = 'CELULAR'
-    end
-    object FDMem_RegistroEMAIL: TStringField
-      FieldName = 'EMAIL'
+    object FDMem_RegistroDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRICAO'
       Size = 255
     end
-    object FDMem_RegistroDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
+    object FDMem_RegistroPARCELAS: TIntegerField
+      DisplayLabel = 'Parcelas'
+      FieldName = 'PARCELAS'
     end
-    object FDMem_RegistroHF_CADASTRO: TTimeField
-      FieldName = 'HF_CADASTRO'
+    object FDMem_RegistroTIPO_INTERVALO: TIntegerField
+      DisplayLabel = 'Tipo Intervalo'
+      FieldName = 'TIPO_INTERVALO'
+    end
+    object FDMem_RegistroINTEVALOR: TIntegerField
+      DisplayLabel = 'Intervalo'
+      FieldName = 'INTEVALOR'
+    end
+    object FDMem_RegistroTIPO_INTERVALO_DESC: TStringField
+      DisplayLabel = 'Tipo Intervalo'
+      FieldName = 'TIPO_INTERVALO_DESC'
+      Size = 50
     end
   end
   object dmRegistro: TDataSource
     AutoEdit = False
     DataSet = FDMem_Registro
-    Left = 472
-    Top = 312
+    Left = 264
+    Top = 216
   end
 end

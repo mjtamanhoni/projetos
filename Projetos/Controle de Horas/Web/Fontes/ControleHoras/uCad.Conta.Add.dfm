@@ -1,16 +1,15 @@
-object frmCad_PrestServico_Add: TfrmCad_PrestServico_Add
+object frmCad_Conta_Add: TfrmCad_Conta_Add
   Left = 0
   Top = 0
-  Caption = 'Cadastro de Prestador de Servi'#231'o'
-  ClientHeight = 462
-  ClientWidth = 988
+  Caption = 'Cadastro de Contas'
+  ClientHeight = 461
+  ClientWidth = 984
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Position = poScreenCenter
   OnCreate = FormCreate
   TextHeight = 15
   object lbID: TLabel
@@ -20,26 +19,26 @@ object frmCad_PrestServico_Add: TfrmCad_PrestServico_Add
     Height = 15
     Caption = 'Id'
   end
-  object lbNOME: TLabel
+  object lbDESCRICAO: TLabel
     Left = 168
     Top = 24
-    Width = 33
+    Width = 51
     Height = 15
-    Caption = 'Nome'
+    Caption = 'Descri'#231#227'o'
   end
-  object lbCELULAR: TLabel
-    Left = 17
+  object lbTIPO: TLabel
+    Left = 374
     Top = 48
-    Width = 37
+    Width = 23
     Height = 15
-    Caption = 'Celular'
+    Caption = 'Tipo'
   end
-  object lbEMAIL: TLabel
-    Left = 17
-    Top = 77
-    Width = 34
+  object lbSTATUS: TLabel
+    Left = 22
+    Top = 48
+    Width = 32
     Height = 15
-    Caption = 'E-Mail'
+    Caption = 'Status'
   end
   object edID: TEdit
     Left = 67
@@ -50,46 +49,51 @@ object frmCad_PrestServico_Add: TfrmCad_PrestServico_Add
     ReadOnly = True
     TabOrder = 0
   end
-  object edNome: TEdit
-    Left = 210
+  object edDESCRICAO: TEdit
+    Left = 225
     Top = 16
-    Width = 719
+    Width = 704
     Height = 23
     CharCase = ecUpperCase
     TabOrder = 1
   end
-  object edCELULAR: TEdit
-    Left = 67
+  object cbTIPO: TComboBox
+    Left = 419
     Top = 45
-    Width = 182
+    Width = 126
     Height = 23
     TabOrder = 2
-  end
-  object edEMAIL: TEdit
-    Left = 67
-    Top = 74
-    Width = 862
-    Height = 23
-    CharCase = ecLowerCase
-    TabOrder = 3
+    Items.Strings = (
+      'CR'#201'DITO'
+      'D'#201'BITO')
   end
   object btConfirmar: TButton
-    Left = 311
-    Top = 144
+    Left = 319
+    Top = 272
     Width = 100
     Height = 30
     Caption = 'Confirmar'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = btConfirmarClick
   end
   object btCancelar: TButton
-    Left = 463
-    Top = 144
+    Left = 471
+    Top = 272
     Width = 100
     Height = 30
     Caption = 'Cancelar'
-    TabOrder = 5
+    TabOrder = 4
     OnClick = btCancelarClick
+  end
+  object cbSTATUS: TComboBox
+    Left = 67
+    Top = 45
+    Width = 126
+    Height = 23
+    TabOrder = 5
+    Items.Strings = (
+      'INATIVO'
+      'ATIVO')
   end
   object FDMem_Registro: TFDMemTable
     IndexFieldNames = 'ID'
@@ -101,26 +105,38 @@ object frmCad_PrestServico_Add: TfrmCad_PrestServico_Add
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     Left = 664
-    Top = 101
+    Top = 120
     object FDMem_RegistroID: TIntegerField
       FieldName = 'ID'
     end
-    object FDMem_RegistroNOME: TStringField
-      FieldName = 'NOME'
-      Size = 100
+    object FDMem_RegistroSTATUS: TIntegerField
+      DisplayLabel = 'Status'
+      FieldName = 'STATUS'
     end
-    object FDMem_RegistroCELULAR: TStringField
-      FieldName = 'CELULAR'
-    end
-    object FDMem_RegistroEMAIL: TStringField
-      FieldName = 'EMAIL'
+    object FDMem_RegistroDESCRICAO: TStringField
+      DisplayLabel = 'Descri'#231#227'o'
+      FieldName = 'DESCRICAO'
       Size = 255
+    end
+    object FDMem_RegistroTIPO: TIntegerField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
     end
     object FDMem_RegistroDT_CADASTRO: TDateField
       FieldName = 'DT_CADASTRO'
     end
-    object FDMem_RegistroHF_CADASTRO: TTimeField
-      FieldName = 'HF_CADASTRO'
+    object FDMem_RegistroHR_CADASTRO: TTimeField
+      FieldName = 'HR_CADASTRO'
+    end
+    object FDMem_RegistroSTATUS_DESC: TStringField
+      DisplayLabel = 'Status'
+      FieldName = 'STATUS_DESC'
+      Size = 100
+    end
+    object FDMem_RegistroTIPO_DESC: TStringField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO_DESC'
+      Size = 100
     end
   end
 end

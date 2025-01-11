@@ -82,6 +82,10 @@ type
     dxfmGrid1RootLevel1TIPO: TdxfmGridColumn;
     dxfmGrid1RootLevel1VALOR: TdxfmGridColumn;
     dxfmGrid1RootLevel1TIPO_DESC: TdxfmGridColumn;
+    FDQRegistrosTOTAL_HORAS_PREVISTA: TStringField;
+    dxfmGrid1RootLevel1TOTAL_HORAS_PREVISTA: TdxfmGridColumn;
+    lbHR_TOTAL: TLabel;
+    edTOTAL_HORAS_PREVISTA: TEdit;
     procedure imgFecharClick(Sender: TObject);
     procedure edVALORTyping(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -90,6 +94,8 @@ type
     procedure edDESCRICAOKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edVALORChange(Sender: TObject);
     procedure rctCancelarClick(Sender: TObject);
+    procedure edTOTAL_HORAS_PREVISTATyping(Sender: TObject);
+    procedure edVALORKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -148,6 +154,11 @@ begin
     edVALOR.SetFocus;
 end;
 
+procedure TfrmCad_TabPrecos.edTOTAL_HORAS_PREVISTATyping(Sender: TObject);
+begin
+  Formatar(edTOTAL_HORAS_PREVISTA,Tempo);
+end;
+
 procedure TfrmCad_TabPrecos.Editar;
 begin
   try
@@ -160,6 +171,7 @@ begin
       edTIPO.ItemIndex := FDQRegistros.FieldByName('TIPO').AsInteger;
       edVALOR.Text := FloatToStr(FDQRegistros.FieldByName('VALOR').AsFloat);
       edVALOR.TagFloat := FDQRegistros.FieldByName('VALOR').AsFloat;
+      edTOTAL_HORAS_PREVISTA.Text := FDQRegistros.FieldByName('TOTAL_HORAS_PREVISTA').AsString;
 
       FTab_Status := TTab_Status.dsEdit;
 
@@ -184,6 +196,12 @@ procedure TfrmCad_TabPrecos.edVALORChange(Sender: TObject);
 begin
   if Trim(edVALOR.Text) <> '' then
     edVALOR.TagFloat := StrToFloatDef(edVALOR.Text,0);
+end;
+
+procedure TfrmCad_TabPrecos.edVALORKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edTOTAL_HORAS_PREVISTA.SetFocus;
 end;
 
 procedure TfrmCad_TabPrecos.edVALORTyping(Sender: TObject);
@@ -324,12 +342,14 @@ begin
           FQuery.Sql.Add('  ,VALOR ');
           FQuery.Sql.Add('  ,DT_CADASTRO ');
           FQuery.Sql.Add('  ,HR_CADASTRO ');
+          FQuery.Sql.Add('  ,TOTAL_HORAS_PREVISTA ');
           FQuery.Sql.Add(') VALUES( ');
           FQuery.Sql.Add('  :DESCRICAO ');
           FQuery.Sql.Add('  ,:TIPO ');
           FQuery.Sql.Add('  ,:VALOR ');
           FQuery.Sql.Add('  ,:DT_CADASTRO ');
           FQuery.Sql.Add('  ,:HR_CADASTRO ');
+          FQuery.Sql.Add('  ,:TOTAL_HORAS_PREVISTA ');
           FQuery.Sql.Add('); ');
           FQuery.ParamByName('DT_CADASTRO').AsDate := Date;
           FQuery.ParamByName('HR_CADASTRO').AsTime := Time;
@@ -339,6 +359,7 @@ begin
           FQuery.Sql.Add('  DESCRICAO = :DESCRICAO ');
           FQuery.Sql.Add('  ,TIPO = :TIPO ');
           FQuery.Sql.Add('  ,VALOR = :VALOR ');
+          FQuery.Sql.Add('  ,TOTAL_HORAS_PREVISTA = :TOTAL_HORAS_PREVISTA ');
           FQuery.Sql.Add('WHERE ID = :ID; ');
           FQuery.ParamByName('ID').AsInteger := StrToIntDef(edID.Text,0);
         end;
@@ -346,6 +367,7 @@ begin
       FQuery.ParamByName('DESCRICAO').AsString := edDESCRICAO.Text;
       FQuery.ParamByName('TIPO').AsInteger := edTIPO.ItemIndex;
       FQuery.ParamByName('VALOR').AsFloat := edVALOR.TagFloat;
+      FQuery.ParamByName('TOTAL_HORAS_PREVISTA').AsString := edTOTAL_HORAS_PREVISTA.Text;
       FQuery.ExecSQL;
 
       FDm_Global.FDC_Firebird.Commit;

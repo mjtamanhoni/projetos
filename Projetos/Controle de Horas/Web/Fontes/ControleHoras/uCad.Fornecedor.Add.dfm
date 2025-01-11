@@ -2,8 +2,8 @@ object frmCad_Fornecedor_Add: TfrmCad_Fornecedor_Add
   Left = 0
   Top = 0
   Caption = 'Cadastro de Fornecedor'
-  ClientHeight = 361
-  ClientWidth = 974
+  ClientHeight = 462
+  ClientWidth = 988
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
