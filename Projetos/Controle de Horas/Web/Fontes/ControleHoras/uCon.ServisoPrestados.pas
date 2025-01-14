@@ -15,6 +15,7 @@ uses
   DataSet.Serialize,
   RESTRequest4D,
   IniFiles,
+  uFuncoes.Wnd,
 
   uPrincipal, Data.DB, Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
@@ -60,32 +61,43 @@ type
     lbT_Valor_T: TLabel;
     DBGrid: TDBGrid;
     FDMem_Registro: TFDMemTable;
-    FDMem_RegistroID: TIntegerField;
-    FDMem_RegistroNOME: TStringField;
-    FDMem_RegistroPESSOA: TIntegerField;
-    FDMem_RegistroDOCUMENTO: TStringField;
-    FDMem_RegistroINSC_EST: TStringField;
-    FDMem_RegistroCEP: TStringField;
-    FDMem_RegistroENDERECO: TStringField;
-    FDMem_RegistroCOMPLEMENTO: TStringField;
-    FDMem_RegistroNUMERO: TStringField;
-    FDMem_RegistroBAIRRO: TStringField;
-    FDMem_RegistroCIDADE: TStringField;
-    FDMem_RegistroUF: TStringField;
-    FDMem_RegistroTELEFONE: TStringField;
-    FDMem_RegistroCELULAR: TStringField;
-    FDMem_RegistroEMAIL: TStringField;
-    FDMem_RegistroDT_CADASTRO: TDateField;
-    FDMem_RegistroHR_CADASTRO: TTimeField;
-    FDMem_RegistroPESSOA_DESC: TStringField;
-    FDMem_RegistroID_FORNECEDOR: TIntegerField;
-    FDMem_RegistroID_TAB_PRECO: TIntegerField;
-    FDMem_RegistroFONECEDOR: TStringField;
-    FDMem_RegistroTAB_PRECO: TStringField;
-    FDMem_RegistroTIPO_TAB_PRECO: TIntegerField;
-    FDMem_RegistroTIPO_TAB_PRECO_DESC: TStringField;
-    FDMem_RegistroVALOR: TFloatField;
     dmRegistro: TDataSource;
+    FDMem_Registroid: TIntegerField;
+    FDMem_Registrodescricao: TStringField;
+    FDMem_Registrostatus: TIntegerField;
+    FDMem_RegistroidEmpresa: TIntegerField;
+    FDMem_RegistroidPrestadorServico: TIntegerField;
+    FDMem_RegistroidCliente: TIntegerField;
+    FDMem_RegistroidTabela: TIntegerField;
+    FDMem_RegistroidConta: TIntegerField;
+    FDMem_RegistrohrTotal: TStringField;
+    FDMem_RegistrovlrHora: TFloatField;
+    FDMem_RegistrosubTotal: TFloatField;
+    FDMem_Registrodesconto: TFloatField;
+    FDMem_RegistrodescontoMotivo: TStringField;
+    FDMem_Registroacrescimo: TFloatField;
+    FDMem_RegistroacrescimoMotivo: TStringField;
+    FDMem_Registrototal: TFloatField;
+    FDMem_Registroobservacao: TStringField;
+    FDMem_RegistrodtPago: TStringField;
+    FDMem_RegistrovlrPago: TFloatField;
+    FDMem_RegistrodtCadastro: TDateField;
+    FDMem_RegistrohrCadastro: TDateField;
+    FDMem_RegistroidUsuario: TIntegerField;
+    FDMem_RegistrostatusDesc: TStringField;
+    FDMem_Registroempresa: TStringField;
+    FDMem_RegistroprestadorServico: TStringField;
+    FDMem_Registrocliente: TStringField;
+    FDMem_RegistrotabelaPreco: TStringField;
+    FDMem_RegistrotipoTabela: TIntegerField;
+    FDMem_RegistrotipoTabelaDesc: TStringField;
+    FDMem_Registroconta: TStringField;
+    FDMem_RegistrotipoConta: TIntegerField;
+    FDMem_RegistrotipoContaDesc: TStringField;
+    FDMem_Registrodata: TDateField;
+    FDMem_RegistrohrInicio: TStringField;
+    FDMem_RegistrohrFim: TStringField;
+    FDMem_Registroseq: TIntegerField;
     procedure FormCreate(Sender: TObject);
     procedure edFiltro_Cliente_IDRightButtonClick(Sender: TObject);
     procedure btFiltro_FiltrarClick(Sender: TObject);
@@ -98,6 +110,7 @@ type
     FPorta :String;
 
     procedure Pesquisar;
+    function HoraStrToTime(AHora:String):TTime;
 
   public
     { Public declarations }
@@ -129,76 +142,151 @@ end;
 
 procedure TfrmCon_ServicosPrestados.Pesquisar;
 var
+  FFuncoes_Wnd :TFuncoes_Wnd;
+
   FResp :IResponse;
-  FBody :TJSONArray;
+  FBody :TJSONObject;
+  FBody_VlrCliente :TJSONObject;
+  FBody_VlrMesAnterior :TJSONObject;
+  FBody_VlrMesAtual :TJSONObject;
+  FBodFBody_VlrMesAtualy_VlrTotal :TJSONObject;
+  FBody_Lancamentos :TJSONArray;
+
+  FData_I :String;
+  FData_F :String;
+
   x:Integer;
 begin
   try
     try
 
-    FDMem_Registro.Active := False;
-    FDMem_Registro.Active := True;
-    FDMem_Registro.DisableControls;
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FData_I := '';
+      FData_F := '';
+
+      FDMem_Registro.Active := False;
+      FDMem_Registro.Active := True;
+      FDMem_Registro.DisableControls;
 
 
-    if Trim(FHost) = '' then
-      raise Exception.Create('Host não informado');
+      if Trim(FHost) = '' then
+        raise Exception.Create('Host não informado');
 
-    if Trim(ControleHoras.Usuario_Token) = '' then
-      raise Exception.Create('Token do Usuário inválido');
+      if Trim(ControleHoras.Usuario_Token) = '' then
+        raise Exception.Create('Token do Usuário inválido');
 
-    FResp := TRequest.New.BaseURL(FHost)
-             .TokenBearer(ControleHoras.Usuario_Token)
-             .AddParam('',edFiltro_Cliente_ID.Text)
-             .Resource('cliente')
-             .Accept('application/json')
-             .Get;
+      FData_I := FormatDateTime('DD-MM-YYYY',edFiltro_DataI.Date);
+      FData_F := FormatDateTime('DD-MM-YYYY',edFiltro_DataF.Date);
 
-    if FResp.StatusCode = 200 then
-    begin
-      if FResp.Content = '' then
-        raise Exception.Create('Registros não localizados');
+      FResp := TRequest.New.BaseURL(FHost)
+               .TokenBearer(ControleHoras.Usuario_Token)
+               .AddParam('cliente',edFiltro_Cliente_ID.Text)
+               .AddParam('dataI',FData_I)
+               .AddParam('dataF',FData_F)
+               .Resource('servicosPrestados/apresentacao')
+               .Accept('application/json')
+               .Get;
 
-      FBody := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(FResp.Content),0) as TJSONArray;
 
-      for x := 0 to FBody.Size - 1 do
+      {
+      FResp := TRequest.New.BaseURL(FHost)
+               .TokenBearer(ControleHoras.Usuario_Token)
+               .AddParam('cliente',edFiltro_Cliente_ID.Text)
+               .AddParam('dataI',DateToStr(edFiltro_DataI.Date))
+               .AddParam('dataF',DateToStr(edFiltro_DataF.Date))
+               .Resource('servicosPrestados/apresentacao')
+               .Accept('application/json')
+               .Get;
+      }
+
+
+
+
+      if FResp.StatusCode = 200 then
       begin
-        FDMem_Registro.Insert;
-          FDMem_RegistroID.AsInteger := FBody.Get(x).GetValue<Integer>('id',0);
-          FDMem_RegistroNOME.AsString := FBody.Get(x).GetValue<String>('nome','');
-          FDMem_RegistroPESSOA.AsInteger := FBody.Get(x).GetValue<Integer>('pessoa',0);
-          FDMem_RegistroDOCUMENTO.AsString := FBody.Get(x).GetValue<String>('documento','');
-          FDMem_RegistroINSC_EST.AsString := FBody.Get(x).GetValue<String>('inscEst','');
-          FDMem_RegistroCEP.AsString := FBody.Get(x).GetValue<String>('cep','');
-          FDMem_RegistroENDERECO.AsString := FBody.Get(x).GetValue<String>('endereco','');
-          FDMem_RegistroCOMPLEMENTO.AsString := FBody.Get(x).GetValue<String>('complemento','');
-          FDMem_RegistroNUMERO.AsString := FBody.Get(x).GetValue<String>('numero','');
-          FDMem_RegistroBAIRRO.AsString := FBody.Get(x).GetValue<String>('bairro','');
-          FDMem_RegistroCIDADE.AsString := FBody.Get(x).GetValue<String>('cidade','');
-          FDMem_RegistroUF.AsString := FBody.Get(x).GetValue<String>('uf','');
-          FDMem_RegistroTELEFONE.AsString := FBody.Get(x).GetValue<String>('telefone','');
-          FDMem_RegistroCELULAR.AsString := FBody.Get(x).GetValue<String>('celular','');
-          FDMem_RegistroEMAIL.AsString := FBody.Get(x).GetValue<String>('email','');
-          FDMem_RegistroDT_CADASTRO.AsDateTime := StrToDateDef(FBody.Get(x).GetValue<String>('dtCadastro',''),Date);
-          FDMem_RegistroHR_CADASTRO.AsDateTime := StrToTimeDef(FBody.Get(x).GetValue<String>('hrCadastro',''),Time);
-          FDMem_RegistroPESSOA_DESC.AsString := FBody.Get(x).GetValue<String>('pessoaDesc','');
-          FDMem_RegistroID_FORNECEDOR.AsInteger := FBody.Get(x).GetValue<Integer>('idFornecedor',0);
-          FDMem_RegistroID_TAB_PRECO.AsInteger := FBody.Get(x).GetValue<Integer>('idTabPreco',0);
-          FDMem_RegistroFONECEDOR.AsString := FBody.Get(x).GetValue<String>('fornecedor','');
-          FDMem_RegistroTAB_PRECO.AsString := FBody.Get(x).GetValue<String>('tabPreco','');
-          FDMem_RegistroTIPO_TAB_PRECO.AsInteger := FBody.Get(x).GetValue<Integer>('tipoTabPreco',0);
-          FDMem_RegistroTIPO_TAB_PRECO_DESC.AsString := FBody.Get(x).GetValue<String>('tipoTabPrecoDesc','');
-          FDMem_RegistroVALOR.AsFloat := FBody.Get(x).GetValue<Double>('valor',0);
-        FDMem_Registro.Post;
-      end;
+        if FResp.Content = '' then
+          raise Exception.Create('Registros não localizados');
 
-    end;
+        FBody := TJSONArray.ParseJSONValue(TEncoding.UTF8.GetBytes(FResp.Content),0) as TJSONObject;
+
+        {$Region 'Valores do Cliente'}
+          FBody_VlrCliente := FBody.GetValue<TJSONObject>('valoresClientes',Nil);
+          lbVC_HorasPrevistas_T.Caption := FBody_VlrCliente.GetValue<String>('totalHorasPrevista','00:00:00');
+          lbVC_ValorHora_T.Caption := FormatFloat('R$ #,##0.00',FBody_VlrCliente.GetValue<Double>('valor',0));
+          lbVC_Totais_T.Caption := FormatFloat('R$ #,##0.00',FBody_VlrCliente.GetValue<Double>('valorTotal',0));
+        {$EndRegion 'Valores do Cliente'}
+
+        {$Region 'Valores do Mês Anterior'}
+          FBody_VlrMesAnterior := FBody.GetValue<TJSONObject>('valoresMesAnterior',Nil);
+          lbMA_HorasAcumuladas_T.Caption := FBody_VlrMesAnterior.GetValue<String>('hora','00:00:00');
+          lbMA_Valor_T.Caption := FormatFloat('R$ #,##0.00',FBody_VlrMesAnterior.GetValue<Double>('valor',0));
+        {$EndRegion 'Valores do Mês Anterior'}
+
+        {$Region 'Valores do Mês Atual'}
+          FBody_VlrMesAtual := FBody.GetValue<TJSONObject>('valoresMesAtual',Nil);
+          lbMAT_Horas_T.Caption := FBody_VlrMesAtual.GetValue<String>('horas','00:00:00');
+          lbMAT_Valor_T.Caption := FormatFloat('R$ #,##0.00',FBody_VlrMesAtual.GetValue<Double>('valor',0));
+        {$EndRegion 'Valores do Mês Atual'}
+
+        {$Region 'Total'}
+          FBody_VlrMesAtual := FBody.GetValue<TJSONObject>('totais',Nil);
+          lbT_Horas_T.Caption := FBody_VlrMesAtual.GetValue<String>('horas','00:00:00');
+          lbT_Valor_T.Caption := FormatFloat('R$ #,##0.00',FBody_VlrMesAtual.GetValue<Double>('valor',0));
+        {$EndRegion 'Total'}
+
+        {$Region 'Lançamentos'}
+          FBody_Lancamentos := FBody.GetValue<TJSONArray>('lancamentos',Nil);
+          for x := 0 to FBody_Lancamentos.Size - 1 do
+          begin
+            FDMem_Registro.Insert;
+              FDMem_Registroseq.AsInteger := x;
+              FDMem_Registroid.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('id',0);
+              FDMem_Registrodescricao.AsString := FBody_Lancamentos.Get(x).GetValue<String>('descricao','');
+              FDMem_Registrostatus.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('status',1);
+              FDMem_RegistroidEmpresa.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('idEmpresa',0);
+              FDMem_RegistroidPrestadorServico.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('idPrestadorServico',0);
+              FDMem_RegistroidCliente.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('idCliente',0);
+              FDMem_RegistroidTabela.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('idTabela',0);
+              FDMem_RegistroidConta.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('idConta',0);
+              FDMem_Registrodata.AsDateTime := FBody_Lancamentos.Get(x).GetValue<TDate>('data',0);
+              FDMem_RegistrohrInicio.AsString := Copy(FBody_Lancamentos.Get(x).GetValue<String>('hrInicio',''),1,8);
+              FDMem_RegistrohrFim.AsString := Copy(FBody_Lancamentos.Get(x).GetValue<String>('hrFim',''),1,8);
+              FDMem_RegistrohrTotal.AsString := FBody_Lancamentos.Get(x).GetValue<String>('hrTotal','');
+              FDMem_RegistrovlrHora.AsFloat := FBody_Lancamentos.Get(x).GetValue<Double>('vlrHora',0);
+              FDMem_RegistrosubTotal.AsFloat := FBody_Lancamentos.Get(x).GetValue<Double>('subTotal',0);
+              FDMem_Registrodesconto.AsFloat := FBody_Lancamentos.Get(x).GetValue<Double>('desconto',0);
+              FDMem_RegistrodescontoMotivo.AsString := FBody_Lancamentos.Get(x).GetValue<String>('descontoMotivo','');
+              FDMem_Registroacrescimo.AsFloat := FBody_Lancamentos.Get(x).GetValue<Double>('acrescimo',0);
+              FDMem_RegistroacrescimoMotivo.AsString := FBody_Lancamentos.Get(x).GetValue<String>('acrescimoMotivo','');
+              FDMem_Registrototal.AsFloat := FBody_Lancamentos.Get(x).GetValue<Double>('total',0);
+              FDMem_Registroobservacao.AsString := FBody_Lancamentos.Get(x).GetValue<String>('observacao','');
+              FDMem_RegistrodtPago.AsDateTime := FBody_Lancamentos.Get(x).GetValue<TDate>('dtPago',0);
+              FDMem_RegistrovlrPago.AsFloat := FBody_Lancamentos.Get(x).GetValue<Double>('vlrPago',0);
+              FDMem_RegistrodtCadastro.AsDateTime := FBody_Lancamentos.Get(x).GetValue<TDate>('dtCadastro',0);
+              FDMem_RegistrohrCadastro.AsDateTime := HoraStrToTime(FBody_Lancamentos.Get(x).GetValue<String>('hrCadastro',''));
+              FDMem_RegistroidUsuario.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('idUsuario',0);
+              FDMem_RegistrostatusDesc.AsString := FBody_Lancamentos.Get(x).GetValue<String>('statusDesc','');
+              FDMem_Registroempresa.AsString := FBody_Lancamentos.Get(x).GetValue<String>('empresa','');
+              FDMem_RegistroprestadorServico.AsString := FBody_Lancamentos.Get(x).GetValue<String>('prestadorServico','');
+              FDMem_Registrocliente.AsString := FBody_Lancamentos.Get(x).GetValue<String>('cliente','');
+              FDMem_RegistrotabelaPreco.AsString := FBody_Lancamentos.Get(x).GetValue<String>('tabelaPreco','');
+              FDMem_RegistrotipoTabela.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('tipoTabela',0);
+              FDMem_RegistrotipoTabelaDesc.AsString := FBody_Lancamentos.Get(x).GetValue<String>('tipoTabelaDesc','');
+              FDMem_Registroconta.AsString := FBody_Lancamentos.Get(x).GetValue<String>('conta','');
+              FDMem_RegistrotipoConta.AsInteger := FBody_Lancamentos.Get(x).GetValue<Integer>('tipoConta',0);
+              FDMem_RegistrotipoContaDesc.AsString := FBody_Lancamentos.Get(x).GetValue<String>('tipoContaDesc','');
+            FDMem_Registro.Post;
+          end;
+      {$EndRegion 'Lançamentos'}
+      end;
 
     except on E: Exception do
       MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
     end;
   finally
     FDMem_Registro.EnableControls;
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
@@ -367,10 +455,27 @@ begin
   lbVA_Titulo.Font.Color := clWhite;
 end;
 
+function TfrmCon_ServicosPrestados.HoraStrToTime(AHora: String): TTime;
+begin
+  try
+    if Length(AHora) = 12 then
+      Result := StrToTimeDef(Copy(AHora,1,2) + ':' + Copy(AHora,4,2) + Copy(AHora,7,2),0);
+
+  except on E: Exception do
+    raise Exception.Create('Erro ao converter Texto em Hora');
+  end;
+end;
+
 procedure TfrmCon_ServicosPrestados.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
+
+  if PrismControl.IsDBGrid then
+  begin
+   PrismControl.AsDBGrid.RecordsPerPage := 8;
+   //PrismControl.AsDBGrid.MaxRecords:= 2000;
+  end;
  //Change Init Property of Prism Controls
  {
   if PrismControl.VCLComponent = Edit1 then

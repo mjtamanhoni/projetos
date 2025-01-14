@@ -41,7 +41,8 @@ uses
   uCad.FormaPagto.Add in 'uCad.FormaPagto.Add.pas' {frmCad_FormaPagto_Add},
   uCad.Forma.Cond.Add in 'uCad.Forma.Cond.Add.pas' {frmFormaCond_Add},
   uCon.ServisoPrestados in 'uCon.ServisoPrestados.pas' {frmCon_ServicosPrestados},
-  uCon.Cliente in 'uCon.Cliente.pas' {frmCon_Cliente};
+  uCon.Cliente in 'uCon.Cliente.pas' {frmCon_Cliente},
+  uFuncoes.Wnd in '..\..\..\..\Global\uFuncoes.Wnd.pas';
 
 {$R *.res}
 

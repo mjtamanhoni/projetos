@@ -211,8 +211,7 @@ object frmCon_Cliente: TfrmCon_Cliente
     Height = 57
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = -4
-    ExplicitWidth = 988
+    ExplicitWidth = 980
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -263,8 +262,8 @@ object frmCon_Cliente: TfrmCon_Cliente
     Height = 56
     Align = alBottom
     TabOrder = 2
-    ExplicitLeft = -4
-    ExplicitWidth = 988
+    ExplicitTop = 404
+    ExplicitWidth = 980
     object btConfirmar: TButton
       Left = 346
       Top = 6
@@ -358,6 +357,7 @@ object frmCon_Cliente: TfrmCon_Cliente
     end
     object FDMem_RegistroHR_CADASTRO: TTimeField
       FieldName = 'HR_CADASTRO'
+      DisplayFormat = '###:##:##'
     end
     object FDMem_RegistroPESSOA_DESC: TStringField
       DisplayLabel = 'Pessoa'

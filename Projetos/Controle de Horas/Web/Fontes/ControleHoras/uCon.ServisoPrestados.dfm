@@ -45,7 +45,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
     end
     object edFiltro_Cliente_ID: TButtonedEdit
       Left = 51
-      Top = 10
+      Top = 12
       Width = 106
       Height = 23
       Alignment = taRightJustify
@@ -100,6 +100,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
     Align = alTop
     BevelInner = bvLowered
     TabOrder = 1
+    ExplicitWidth = 1039
     object pnCard_ValoresClienbte: TPanel
       Left = 8
       Top = 6
@@ -154,7 +155,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = '182:22:15'
+        Caption = '00:00:00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -168,7 +169,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = 'R$ 32,90'
+        Caption = 'R$ 0,00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -182,7 +183,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = 'R$ 6.000,00'
+        Caption = 'R$ 0,00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -236,7 +237,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = '182:22:15'
+        Caption = '00:00:00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -250,7 +251,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = 'R$ 32,90'
+        Caption = 'R$ 0,00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -304,7 +305,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = '182:22:15'
+        Caption = '00:00:00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -318,7 +319,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = 'R$ 32,90'
+        Caption = 'R$ 0,00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -372,7 +373,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = '182:22:15'
+        Caption = '00:00:00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -386,7 +387,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Width = 122
         Height = 15
         AutoSize = False
-        Caption = 'R$ 32,90'
+        Caption = 'R$ 0,00'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -402,12 +403,252 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
     Width = 1043
     Height = 583
     Align = alClient
+    DataSource = dmRegistro
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -12
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'data'
+        Title.Alignment = taCenter
+        Width = 75
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'hrInicio'
+        Title.Alignment = taCenter
+        Title.Caption = 'Hr. In'#237'cio'
+        Width = 80
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'hrFim'
+        Title.Alignment = taCenter
+        Title.Caption = 'Hr. Fim'
+        Width = 80
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'hrTotal'
+        Title.Alignment = taCenter
+        Title.Caption = 'Hr. Total'
+        Width = 80
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'vlrHora'
+        Title.Alignment = taCenter
+        Title.Caption = 'Vlr. Hora'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'subTotal'
+        Title.Alignment = taCenter
+        Title.Caption = 'Sub-Total'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'desconto'
+        Title.Alignment = taCenter
+        Title.Caption = 'Desconto'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'acrescimo'
+        Title.Alignment = taCenter
+        Title.Caption = 'Acr'#233'scimo'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'total'
+        Title.Alignment = taCenter
+        Title.Caption = 'Total'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'conta'
+        Title.Alignment = taCenter
+        Title.Caption = 'Conta'
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'id'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'descricao'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'status'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'idEmpresa'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'idPrestadorServico'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'idCliente'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'idTabela'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'idConta'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'descontoMotivo'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'acrescimoMotivo'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'dtPago'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'vlrPago'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'dtCadastro'
+        Title.Alignment = taCenter
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'hrCadastro'
+        Title.Alignment = taCenter
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'idUsuario'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'statusDesc'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'empresa'
+        Title.Alignment = taCenter
+        Title.Caption = 'Empresa'
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'prestadorServico'
+        Title.Alignment = taCenter
+        Title.Caption = 'Prest. Servi'#231'o'
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'cliente'
+        Title.Alignment = taCenter
+        Title.Caption = 'Cliente'
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'tabelaPreco'
+        Title.Alignment = taCenter
+        Title.Caption = 'Tabela Pre'#231'o'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'tipoTabela'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'tipoTabelaDesc'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'tipoConta'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'tipoContaDesc'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'observacao'
+        Title.Alignment = taCenter
+        Title.Caption = 'Observa'#231#227'o'
+        Width = 1000
+        Visible = True
+      end>
   end
   object ImageList: TImageList
     Left = 792
@@ -553,7 +794,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
       000000000000}
   end
   object FDMem_Registro: TFDMemTable
-    IndexFieldNames = 'ID'
+    IndexFieldNames = 'seq'
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -561,115 +802,141 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 264
-    Top = 160
-    object FDMem_RegistroID: TIntegerField
-      FieldName = 'ID'
+    Left = 272
+    Top = 224
+    object FDMem_Registroid: TIntegerField
+      FieldName = 'id'
     end
-    object FDMem_RegistroNOME: TStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'NOME'
+    object FDMem_Registrodescricao: TStringField
+      FieldName = 'descricao'
       Size = 255
     end
-    object FDMem_RegistroPESSOA: TIntegerField
-      DisplayLabel = 'Pessoa'
-      FieldName = 'PESSOA'
+    object FDMem_Registrostatus: TIntegerField
+      FieldName = 'status'
     end
-    object FDMem_RegistroDOCUMENTO: TStringField
-      DisplayLabel = 'Documento'
-      FieldName = 'DOCUMENTO'
+    object FDMem_RegistroidEmpresa: TIntegerField
+      FieldName = 'idEmpresa'
     end
-    object FDMem_RegistroINSC_EST: TStringField
-      DisplayLabel = 'Insc. Estadual'
-      FieldName = 'INSC_EST'
+    object FDMem_RegistroidPrestadorServico: TIntegerField
+      FieldName = 'idPrestadorServico'
     end
-    object FDMem_RegistroCEP: TStringField
-      DisplayLabel = 'Cep'
-      FieldName = 'CEP'
+    object FDMem_RegistroidCliente: TIntegerField
+      FieldName = 'idCliente'
+    end
+    object FDMem_RegistroidTabela: TIntegerField
+      FieldName = 'idTabela'
+    end
+    object FDMem_RegistroidConta: TIntegerField
+      FieldName = 'idConta'
+    end
+    object FDMem_Registrodata: TDateField
+      FieldName = 'data'
+    end
+    object FDMem_RegistrohrInicio: TStringField
+      FieldName = 'hrInicio'
+    end
+    object FDMem_RegistrohrFim: TStringField
+      FieldName = 'hrFim'
+    end
+    object FDMem_RegistrohrTotal: TStringField
+      FieldName = 'hrTotal'
+      Size = 12
+    end
+    object FDMem_RegistrovlrHora: TFloatField
+      FieldName = 'vlrHora'
+      DisplayFormat = 'R$ #,##0.00'
+    end
+    object FDMem_RegistrosubTotal: TFloatField
+      FieldName = 'subTotal'
+      DisplayFormat = 'R$ #,##0.00'
+    end
+    object FDMem_Registrodesconto: TFloatField
+      FieldName = 'desconto'
+      DisplayFormat = 'R$ #,##0.00'
+    end
+    object FDMem_RegistrodescontoMotivo: TStringField
+      FieldName = 'descontoMotivo'
+      Size = 1000
+    end
+    object FDMem_Registroacrescimo: TFloatField
+      FieldName = 'acrescimo'
+      DisplayFormat = 'R$ #,##0.00'
+    end
+    object FDMem_RegistroacrescimoMotivo: TStringField
+      FieldName = 'acrescimoMotivo'
+      Size = 1000
+    end
+    object FDMem_Registrototal: TFloatField
+      FieldName = 'total'
+      DisplayFormat = 'R$ #,##0.00'
+    end
+    object FDMem_Registroobservacao: TStringField
+      FieldName = 'observacao'
+      Size = 1000
+    end
+    object FDMem_RegistrodtPago: TStringField
+      FieldName = 'dtPago'
       Size = 10
     end
-    object FDMem_RegistroENDERECO: TStringField
-      DisplayLabel = 'Endere'#231'o'
-      FieldName = 'ENDERECO'
-      Size = 255
-    end
-    object FDMem_RegistroCOMPLEMENTO: TStringField
-      DisplayLabel = 'Complemento'
-      FieldName = 'COMPLEMENTO'
-      Size = 255
-    end
-    object FDMem_RegistroNUMERO: TStringField
-      DisplayLabel = 'Nr'
-      FieldName = 'NUMERO'
-      Size = 255
-    end
-    object FDMem_RegistroBAIRRO: TStringField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAIRRO'
-      Size = 100
-    end
-    object FDMem_RegistroCIDADE: TStringField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CIDADE'
-      Size = 100
-    end
-    object FDMem_RegistroUF: TStringField
-      FieldName = 'UF'
-      Size = 2
-    end
-    object FDMem_RegistroTELEFONE: TStringField
-      DisplayLabel = 'Telefone'
-      FieldName = 'TELEFONE'
-    end
-    object FDMem_RegistroCELULAR: TStringField
-      DisplayLabel = 'Celular'
-      FieldName = 'CELULAR'
-    end
-    object FDMem_RegistroEMAIL: TStringField
-      DisplayLabel = 'E-Mail'
-      FieldName = 'EMAIL'
-      Size = 255
-    end
-    object FDMem_RegistroDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
-    end
-    object FDMem_RegistroHR_CADASTRO: TTimeField
-      FieldName = 'HR_CADASTRO'
-    end
-    object FDMem_RegistroPESSOA_DESC: TStringField
-      DisplayLabel = 'Pessoa'
-      FieldName = 'PESSOA_DESC'
-    end
-    object FDMem_RegistroID_FORNECEDOR: TIntegerField
-      FieldName = 'ID_FORNECEDOR'
-    end
-    object FDMem_RegistroID_TAB_PRECO: TIntegerField
-      FieldName = 'ID_TAB_PRECO'
-    end
-    object FDMem_RegistroFONECEDOR: TStringField
-      FieldName = 'FONECEDOR'
-      Size = 255
-    end
-    object FDMem_RegistroTAB_PRECO: TStringField
-      FieldName = 'TAB_PRECO'
-      Size = 100
-    end
-    object FDMem_RegistroTIPO_TAB_PRECO: TIntegerField
-      FieldName = 'TIPO_TAB_PRECO'
-    end
-    object FDMem_RegistroTIPO_TAB_PRECO_DESC: TStringField
-      FieldName = 'TIPO_TAB_PRECO_DESC'
-      Size = 50
-    end
-    object FDMem_RegistroVALOR: TFloatField
-      FieldName = 'VALOR'
+    object FDMem_RegistrovlrPago: TFloatField
+      FieldName = 'vlrPago'
       DisplayFormat = 'R$ #,##0.00'
+    end
+    object FDMem_RegistrodtCadastro: TDateField
+      FieldName = 'dtCadastro'
+    end
+    object FDMem_RegistrohrCadastro: TDateField
+      FieldName = 'hrCadastro'
+    end
+    object FDMem_RegistroidUsuario: TIntegerField
+      FieldName = 'idUsuario'
+    end
+    object FDMem_RegistrostatusDesc: TStringField
+      FieldName = 'statusDesc'
+      Size = 100
+    end
+    object FDMem_Registroempresa: TStringField
+      FieldName = 'empresa'
+      Size = 255
+    end
+    object FDMem_RegistroprestadorServico: TStringField
+      FieldName = 'prestadorServico'
+      Size = 255
+    end
+    object FDMem_Registrocliente: TStringField
+      FieldName = 'cliente'
+      Size = 255
+    end
+    object FDMem_RegistrotabelaPreco: TStringField
+      FieldName = 'tabelaPreco'
+      Size = 255
+    end
+    object FDMem_RegistrotipoTabela: TIntegerField
+      FieldName = 'tipoTabela'
+    end
+    object FDMem_RegistrotipoTabelaDesc: TStringField
+      FieldName = 'tipoTabelaDesc'
+      Size = 255
+    end
+    object FDMem_Registroconta: TStringField
+      FieldName = 'conta'
+      Size = 255
+    end
+    object FDMem_RegistrotipoConta: TIntegerField
+      FieldName = 'tipoConta'
+    end
+    object FDMem_RegistrotipoContaDesc: TStringField
+      FieldName = 'tipoContaDesc'
+      Size = 255
+    end
+    object FDMem_Registroseq: TIntegerField
+      FieldName = 'seq'
     end
   end
   object dmRegistro: TDataSource
     AutoEdit = False
     DataSet = FDMem_Registro
-    Left = 264
-    Top = 216
+    Left = 272
+    Top = 280
   end
 end

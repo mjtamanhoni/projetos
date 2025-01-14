@@ -38,5 +38,23 @@
     <Transaction>2024/12/31 07:28:47.000.249,C:\Developer\projetos\Global\uFuncoes.Wnd.pas=</Transaction>
     <Transaction>2024/12/31 07:29:24.000.755,=C:\Developer\projetos\Controle de Horas\Servico\Unit1.pas</Transaction>
     <Transaction>2024/12/31 07:29:38.000.492,C:\Developer\projetos\Global\uFuncoes.Wnd.pas=C:\Developer\projetos\Controle de Horas\Servico\Unit1.pas</Transaction>
-  </Transactions>
+  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="..\..\Controle de Horas"/>
+    <File Path="..\DeskTop"/>
+    <File Path="..\DeskTop\Fontes"/>
+    <File Path="..\DeskTop\Fontes\Data_Modules"/>
+    <File Path="..\DeskTop\Fontes\Data_Modules\uDm.Global.Wnd.pas"/>
+    <File Path="..\DeskTop\Fontes\Data_Modules\uDm.Global.Wnd.dfm"/>
+    <File Path="..\Global"/>
+    <File Path="..\Global\Modelo de Dados"/>
+    <File Path="..\Global\Modelo de Dados\uModelo.Dados.Wnd.pas"/>
+    <File Path="..\..\..\projetos"/>
+    <File Path="..\..\Global"/>
+    <File Path="..\..\Global\uFuncoes.Wnd.pas"/>
+    <File Path="Rotas"/>
+    <File Path="Rotas\uRota.Auth.pas"/>
+    <File Path="Rotas\uRotas.pas"/>
+    <File Path="uMJT.Services.pas"/>
+    <File Path="uMJT.Services.dfm"/>
+  </ProjectSortOrder>
 </BorlandProject>
