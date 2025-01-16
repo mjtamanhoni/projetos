@@ -37,7 +37,9 @@ Function Form_Login: TForm_Login;
 implementation
 
 Uses
-   ControleHorasWebApp, uPrincipal;
+   ControleHorasWebApp
+   ,uPrincipal
+   ,uCon.ServisoPrestados;
 
 Function Form_Login: TForm_Login;
 begin
@@ -87,17 +89,53 @@ begin
         raise Exception.Create('Não houve retorno no login');
 
       FBody := TJSONObject.ParseJSONValue(FResp.Content);
-      ControleHoras.Usuario_ID := FBody.GetValue<Integer>('id');
-      ControleHoras.Usuario_Nome := FBody.GetValue<String>('nome');
-      ControleHoras.Usuario_Token := FBody.GetValue<String>('token');
-
-      if frmPrincipal = nil then
-       TfrmPrincipal.CreateInstance;
+      ControleHoras.Usuario_ID := FBody.GetValue<Integer>('id',0);
+      ControleHoras.Usuario_Nome := FBody.GetValue<String>('nome','');
+      ControleHoras.Usuario_Token := FBody.GetValue<String>('token','');
+      ControleHoras.Usuario_Tipo := FBody.GetValue<Integer>('tipo',0);
+      ControleHoras.Usuario_Form := FBody.GetValue<String>('formInicial','');
+      ControleHoras.Usuario_ClienteID := FBody.GetValue<Integer>('idCliente',0);
+      ControleHoras.Usuario_Cliente := FBody.GetValue<String>('cliente','');
 
       Edit_UserName.Text := '';
       Edit_Password.Text := '';
 
-      frmPrincipal.Show;
+      if ControleHoras.Usuario_Tipo = 2 then
+      begin
+        if frmPrincipal = nil then
+         TfrmPrincipal.CreateInstance;
+
+        frmPrincipal.menuCadastro.Enabled := False;
+        frmPrincipal.menuMovimento.Enabled := False;
+        frmPrincipal.menuConsultas.Enabled := False;
+
+        if frmCon_ServicosPrestados = nil then
+         TfrmCon_ServicosPrestados.CreateInstance;
+
+        frmCon_ServicosPrestados.menuCadastro.Enabled := False;
+        frmCon_ServicosPrestados.menuMovimento.Enabled := False;
+        frmCon_ServicosPrestados.menuConsultas.Enabled := False;
+
+        frmCon_ServicosPrestados.edFiltro_Cliente_ID.Text := ControleHoras.Usuario_ClienteID.ToString;
+        frmCon_ServicosPrestados.edFiltro_Cliente.Text := ControleHoras.Usuario_Cliente;
+        frmCon_ServicosPrestados.edFiltro_Cliente_ID.Enabled := False;
+        frmCon_ServicosPrestados.edFiltro_Cliente_ID.RightButton.Visible := False;
+        frmCon_ServicosPrestados.edFiltro_Cliente.Enabled := False;
+        frmCon_ServicosPrestados.Pesquisar;
+
+        frmCon_ServicosPrestados.Show;
+      end
+      else
+      begin
+        if frmPrincipal = nil then
+         TfrmPrincipal.CreateInstance;
+
+        frmPrincipal.menuCadastro.Enabled := True;
+        frmPrincipal.menuMovimento.Enabled := True;
+        frmPrincipal.menuConsultas.Enabled := True;
+
+        frmPrincipal.Show;
+      end;
 
     end
     else

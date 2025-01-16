@@ -10,10 +10,10 @@ uses
 type
   TfrmPrincipal = class(TD2BridgeForm)
     MainMenu1: TMainMenu;
-    Module11: TMenuItem;
-    AppModule21: TMenuItem;
+    menuCadastro: TMenuItem;
+    menuMovimento: TMenuItem;
     Fechar1: TMenuItem;
-    Configuraes1: TMenuItem;
+    menuCad_Config: TMenuItem;
     Configuraes2: TMenuItem;
     Usurios1: TMenuItem;
     Empresas1: TMenuItem;
@@ -28,12 +28,12 @@ type
     Condio1: TMenuItem;
     ServiosPrestados1: TMenuItem;
     LanamentosFinanceiros1: TMenuItem;
-    Consultas1: TMenuItem;
+    menuConsultas: TMenuItem;
     ServiosPrestados2: TMenuItem;
-    procedure Module11Click(Sender: TObject);
+    procedure menuCadastroClick(Sender: TObject);
     procedure Usurios1Click(Sender: TObject);
     procedure Fechar1Click(Sender: TObject);
-    procedure Configuraes1Click(Sender: TObject);
+    procedure menuCad_ConfigClick(Sender: TObject);
     procedure Empresas1Click(Sender: TObject);
     procedure PrestadordeServio1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
@@ -43,6 +43,7 @@ type
     procedure Condio1Click(Sender: TObject);
     procedure Forma1Click(Sender: TObject);
     procedure ServiosPrestados2Click(Sender: TObject);
+    procedure ServiosPrestados1Click(Sender: TObject);
   private
 
   public
@@ -69,7 +70,8 @@ Uses
    ,uCad.Conta
    ,uCad.CondPagto
    ,uCad.FormaPagto
-   ,uCon.ServisoPrestados;
+   ,uCon.ServisoPrestados
+   ,uMov.ServicosPrestados;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -104,6 +106,8 @@ begin
     frmCad_FormaPagto.Close
   else if frmCon_ServicosPrestados <> Nil then
     frmCon_ServicosPrestados.Close
+  else if frmMov_ServicosPrestados <> Nil then
+    frmMov_ServicosPrestados.Close
   else
     Close;
 end;
@@ -143,7 +147,7 @@ begin
   frmCad_CondPagto.ShowModal;
 end;
 
-procedure TfrmPrincipal.Configuraes1Click(Sender: TObject);
+procedure TfrmPrincipal.menuCad_ConfigClick(Sender: TObject);
 begin
   if frmConfiguracoes = Nil then
     TfrmConfiguracoes.CreateInstance;
@@ -228,7 +232,7 @@ begin
  }
 end;
 
-procedure TfrmPrincipal.Module11Click(Sender: TObject);
+procedure TfrmPrincipal.menuCadastroClick(Sender: TObject);
 begin
  frmPrincipal.Show;
 end;
@@ -253,10 +257,29 @@ begin
  }
 end;
 
+procedure TfrmPrincipal.ServiosPrestados1Click(Sender: TObject);
+begin
+  if frmMov_ServicosPrestados = Nil then
+    TfrmMov_ServicosPrestados.CreateInstance;
+  frmMov_ServicosPrestados.ShowModal;
+end;
+
 procedure TfrmPrincipal.ServiosPrestados2Click(Sender: TObject);
 begin
   if frmCon_ServicosPrestados = Nil then
     TfrmCon_ServicosPrestados.CreateInstance;
+
+  frmCon_ServicosPrestados.menuCadastro.Enabled := True;
+  frmCon_ServicosPrestados.menuMovimento.Enabled := True;
+  frmCon_ServicosPrestados.menuConsultas.Enabled := True;
+
+  frmCon_ServicosPrestados.edFiltro_Cliente_ID.Text := '';
+  frmCon_ServicosPrestados.edFiltro_Cliente.Text := '';
+  frmCon_ServicosPrestados.edFiltro_Cliente_ID.Enabled := True;
+  frmCon_ServicosPrestados.edFiltro_Cliente_ID.RightButton.Visible := True;
+  frmCon_ServicosPrestados.edFiltro_Cliente.Enabled := True;
+  frmCon_ServicosPrestados.FDMem_Registro.Active := False;
+  frmCon_ServicosPrestados.FDMem_Registro.Active := True;
   frmCon_ServicosPrestados.ShowModal;
 end;
 

@@ -109,11 +109,10 @@ type
     FHost :String;
     FPorta :String;
 
-    procedure Pesquisar;
     function HoraStrToTime(AHora:String):TTime;
 
   public
-    { Public declarations }
+    procedure Pesquisar;
   protected
     procedure ExportD2Bridge; override;
     procedure InitControlsD2Bridge(const PrismControl: TPrismControl); override;

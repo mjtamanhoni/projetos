@@ -42,7 +42,9 @@ uses
   uCad.Forma.Cond.Add in 'uCad.Forma.Cond.Add.pas' {frmFormaCond_Add},
   uCon.ServisoPrestados in 'uCon.ServisoPrestados.pas' {frmCon_ServicosPrestados},
   uCon.Cliente in 'uCon.Cliente.pas' {frmCon_Cliente},
-  uFuncoes.Wnd in '..\..\..\..\Global\uFuncoes.Wnd.pas';
+  uFuncoes.Wnd in '..\..\..\..\Global\uFuncoes.Wnd.pas',
+  uMov.ServicosPrestados in 'uMov.ServicosPrestados.pas' {frmMov_ServicosPrestados},
+  uMov.ServicosPrestados.Add in 'uMov.ServicosPrestados.Add.pas' {frmMov_ServicosPrestados_Add};
 
 {$R *.res}
 

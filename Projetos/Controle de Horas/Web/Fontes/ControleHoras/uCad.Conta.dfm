@@ -91,6 +91,7 @@ object frmCad_Conta: TfrmCad_Conta
     Align = alBottom
     TabOrder = 1
     ExplicitTop = 570
+    ExplicitWidth = 1010
     object btNovo: TButton
       Left = 502
       Top = 10
@@ -126,8 +127,7 @@ object frmCad_Conta: TfrmCad_Conta
     Height = 49
     Align = alTop
     TabOrder = 2
-    ExplicitLeft = -4
-    ExplicitWidth = 1018
+    ExplicitWidth = 1010
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -162,7 +162,7 @@ object frmCad_Conta: TfrmCad_Conta
       TextHint = 'Digite o texto da Pesquisa'
     end
     object btPesquisar: TButton
-      Left = 448
+      Left = 479
       Top = 13
       Width = 75
       Height = 25

@@ -415,6 +415,7 @@ object frmCon_ServicosPrestados: TfrmCon_ServicosPrestados
         Expanded = False
         FieldName = 'data'
         Title.Alignment = taCenter
+        Title.Caption = 'Data'
         Width = 75
         Visible = True
       end

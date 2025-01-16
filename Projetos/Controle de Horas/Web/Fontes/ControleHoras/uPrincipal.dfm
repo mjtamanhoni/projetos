@@ -15,12 +15,12 @@ object frmPrincipal: TfrmPrincipal
   object MainMenu1: TMainMenu
     Left = 176
     Top = 152
-    object Module11: TMenuItem
+    object menuCadastro: TMenuItem
       Caption = 'Cadastro'
-      OnClick = Module11Click
-      object Configuraes1: TMenuItem
+      OnClick = menuCadastroClick
+      object menuCad_Config: TMenuItem
         Caption = 'Configura'#231#245'es'
-        OnClick = Configuraes1Click
+        OnClick = menuCad_ConfigClick
       end
       object Configuraes2: TMenuItem
         Caption = '-'
@@ -68,16 +68,17 @@ object frmPrincipal: TfrmPrincipal
         end
       end
     end
-    object AppModule21: TMenuItem
+    object menuMovimento: TMenuItem
       Caption = 'Movimento'
       object ServiosPrestados1: TMenuItem
         Caption = 'Servi'#231'os Prestados'
+        OnClick = ServiosPrestados1Click
       end
       object LanamentosFinanceiros1: TMenuItem
         Caption = 'Lan'#231'amentos Financeiros'
       end
     end
-    object Consultas1: TMenuItem
+    object menuConsultas: TMenuItem
       Caption = 'Consultas'
       object ServiosPrestados2: TMenuItem
         Caption = 'Servi'#231'os Prestados'

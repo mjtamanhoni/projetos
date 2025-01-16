@@ -1599,17 +1599,6 @@ begin
       FData_I := StrToDateDef(FDateStr_I,0);
       FData_F := StrToDateDef(FDateStr_F,0);
 
-      //FData_I := StrToDateDef(StringReplace(Req.Query['dataI'],'-','/',[rfReplaceAll]),0);
-      //FData_F := StrToDateDef(StringReplace(Req.Query['dataF'],'-','/',[rfReplaceAll]),0);
-
-
-      FFuncoes.Gravar_Log('uRotas','ServicosPrestados_Apres','001','FFuncoes.DataFormatoLocal(Req.Query["dataI"]: ' + FFuncoes.DataFormatoLocal(Req.Query['dataI']));
-      FFuncoes.Gravar_Log('uRotas','ServicosPrestados_Apres','002','FFuncoes.DataFormatoLocal(Req.Query["dataF"]: ' + FFuncoes.DataFormatoLocal(Req.Query['dataF']));
-      FFuncoes.Gravar_Log('uRotas','ServicosPrestados_Apres','003','FFuncoes.DataFormatoLocal(FDateStr_I: ' + FDateStr_I);
-      FFuncoes.Gravar_Log('uRotas','ServicosPrestados_Apres','004','FFuncoes.DataFormatoLocal(FDateStr_F: ' + FDateStr_F);
-      FFuncoes.Gravar_Log('uRotas','ServicosPrestados_Apres','003','FFuncoes.DataFormatoLocal(FData_I: ' + DateToStr(FData_I));
-      FFuncoes.Gravar_Log('uRotas','ServicosPrestados_Apres','004','FFuncoes.DataFormatoLocal(FData_F: ' + DateToStr(FData_F));
-
       FPagina := StrToIntDef(Req.Query['pagina'],0);
       FPaginas := StrToIntDef(Req.Query['paginas'],0);
 

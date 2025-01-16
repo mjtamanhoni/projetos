@@ -26,6 +26,10 @@ type
     FCond_Pagto_Nome: String;
     FForma_Pagto_Nome: String;
     FForma_Pagto_ID: Integer;
+    FUsuario_Tipo: Integer;
+    FUsuario_Form: String;
+    FUsuario_ClienteID: Integer;
+    FUsuario_Cliente: String;
 
   public
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
@@ -35,6 +39,10 @@ type
       property Usuario_ID :Integer read FUsuario_ID write FUsuario_ID;
       property Usuario_Nome :String read FUsuario_Nome write FUsuario_Nome;
       property Usuario_Token :String read FUsuario_Token write FUsuario_Token;
+      property Usuario_Tipo :Integer read FUsuario_Tipo write FUsuario_Tipo;
+      property Usuario_Form :String read FUsuario_Form write FUsuario_Form;
+      property Usuario_ClienteID :Integer read FUsuario_ClienteID write FUsuario_ClienteID;
+      property Usuario_Cliente :String read FUsuario_Cliente write FUsuario_Cliente;
    {$EndRegion}
 
    {$Region 'Empresa'}
