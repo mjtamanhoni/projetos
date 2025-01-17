@@ -15,9 +15,6 @@
         <Projects Include="..\Web\Fontes\ControleHoras\ControleHoras.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\Web\Fontes\Gerenciador\Gerenciador.Web.dproj">
-            <Dependencies/>
-        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -62,23 +59,14 @@
     <Target Name="ControleHoras:Make">
         <MSBuild Projects="..\Web\Fontes\ControleHoras\ControleHoras.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Gerenciador_Web">
-        <MSBuild Projects="..\Web\Fontes\Gerenciador\Gerenciador.Web.dproj"/>
-    </Target>
-    <Target Name="Gerenciador_Web:Clean">
-        <MSBuild Projects="..\Web\Fontes\Gerenciador\Gerenciador.Web.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="Gerenciador_Web:Make">
-        <MSBuild Projects="..\Web\Fontes\Gerenciador\Gerenciador.Web.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Controle_Horas;Controle_Horas_App;MJT_Services;ControleHoras;Gerenciador_Web"/>
+        <CallTarget Targets="Controle_Horas;Controle_Horas_App;MJT_Services;ControleHoras"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Controle_Horas:Clean;Controle_Horas_App:Clean;MJT_Services:Clean;ControleHoras:Clean;Gerenciador_Web:Clean"/>
+        <CallTarget Targets="Controle_Horas:Clean;Controle_Horas_App:Clean;MJT_Services:Clean;ControleHoras:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Controle_Horas:Make;Controle_Horas_App:Make;MJT_Services:Make;ControleHoras:Make;Gerenciador_Web:Make"/>
+        <CallTarget Targets="Controle_Horas:Make;Controle_Horas_App:Make;MJT_Services:Make;ControleHoras:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

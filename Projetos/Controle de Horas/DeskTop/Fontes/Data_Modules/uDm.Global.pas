@@ -8,7 +8,7 @@ uses
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Comp.UI,
   FireDAC.Phys.IBBase, System.ImageList, FMX.ImgList, FireDAC.FMXUI.Wait,
-  IniFiles, FMX.frxClass, FMX.frxDBSet;
+  IniFiles, FMX.frxClass, FMX.frxDBSet, FireDAC.Phys.PGDef, FireDAC.Phys.PG;
 
 type
   TDM_Global = class(TDataModule)
@@ -39,6 +39,9 @@ type
     FDMT_RelatoriosTIPO_PERIODO: TStringField;
     FDMT_RelatoriosD_C: TStringField;
     FDMT_RelatoriosSTATUS: TStringField;
+    FDP_PostgreSql: TFDPhysPgDriverLink;
+    FDC_PostgreSql: TFDConnection;
+    FDQ_SelectP: TFDQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -94,6 +97,8 @@ var
   lPort :String;
   lServer :String;
   lDriverID :String;
+  FSchemaName :String;
+  FLibrary :String;
 begin
   Firebird_Conectado := True;
   Firebird_Erro := '';
@@ -137,6 +142,7 @@ begin
 
       FDC_Firebird.LoginPrompt := False;
       FDC_Firebird.Params.Clear;
+      {
       FDC_Firebird.Params.Add('Database=' + lDatabase);
       FDC_Firebird.Params.Add('User_Name=' + lUser_Name);
       FDC_Firebird.Params.Add('Password=' + lPassword);
@@ -144,12 +150,32 @@ begin
       FDC_Firebird.Params.Add('Port=' + lPort);
       FDC_Firebird.Params.Add('Server=' + lServer);
       FDC_Firebird.Params.Add('DriverID=' + lDriverID);
-
+      }
       //if IniFile.ReadString('BANDO_FIREBIRD','VERSAO','') = 'FIREBIRD 2.1' then
       //begin
       //  FDP_Firebired.VendorLib := '';
       //  FDP_Firebired.VendorLib := IniFile.ReadString('BANDO_FIREBIRD','LIBRARY','');
       //end;
+      FDC_Firebird.DriverName := 'PG';
+      lServer := 'localhost';
+      lPort := '5432';
+      lDatabase := 'financeiro';
+      lUser_Name := 'postgres';
+      lPassword := 'M74E25@Ta';
+      FSchemaName := 'public';
+      lDriverID := '';
+      FLibrary := 'C:\Program Files (x86)\PostgreSQL\9.6\lib\libpq.dll';
+
+      FDC_Firebird.Params.Add('Server=' + lServer);
+      FDC_Firebird.Params.Add('Port=' + lPort);
+      FDC_Firebird.Params.Add('Database=' + lDatabase);
+      FDC_Firebird.Params.Add('User_Name=' + lUser_Name);
+      FDC_Firebird.Params.Add('Password=' + lPassword);
+      FDC_Firebird.Params.Add('SchemaName=' + FSchemaName);
+      //FDP_PostgreSql.VendorLib := FLibrary;
+      //FDC_Firebird.Params.Add('Protocol=' + lProtocol);
+      //FDC_Firebird.Params.Add('DriverID=' + lDriverID);
+
 
       FDC_Firebird.Connected := True;
       Firebird_Conectado := FDC_Firebird.Connected;
