@@ -50,13 +50,6 @@ type
     lytLista: TLayout;
     dxfmGrid1: TdxfmGrid;
     dxfmGrid1RootLevel1: TdxfmGridRootLevel;
-    FDQRegistrosID: TIntegerField;
-    FDQRegistrosID_FORMA_PAGAMENTO: TIntegerField;
-    FDQRegistrosID_CONDICAO_PAGAMENTO: TIntegerField;
-    FDQRegistrosDT_CADASTRO: TDateField;
-    FDQRegistrosHR_CADASTRO: TTimeField;
-    FDQRegistrosFORMA_PAGAMENTO: TStringField;
-    FDQRegistrosCONDICAO_PAGAMENTO: TStringField;
     dxfmGrid1RootLevel1ID: TdxfmGridColumn;
     dxfmGrid1RootLevel1ID_FORMA_PAGAMENTO: TdxfmGridColumn;
     dxfmGrid1RootLevel1ID_CONDICAO_PAGAMENTO: TdxfmGridColumn;
@@ -64,6 +57,13 @@ type
     dxfmGrid1RootLevel1HR_CADASTRO: TdxfmGridColumn;
     dxfmGrid1RootLevel1FORMA_PAGAMENTO: TdxfmGridColumn;
     dxfmGrid1RootLevel1CONDICAO_PAGAMENTO: TdxfmGridColumn;
+    FDQRegistrosid: TIntegerField;
+    FDQRegistrosid_forma_pagamento: TIntegerField;
+    FDQRegistrosid_condicao_pagamento: TIntegerField;
+    FDQRegistrosdt_cadastro: TDateField;
+    FDQRegistroshr_cadastro: TTimeField;
+    FDQRegistrosforma_pagamento: TWideStringField;
+    FDQRegistroscondicao_pagamento: TWideStringField;
     procedure imgFecharClick(Sender: TObject);
     procedure edFiltroChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

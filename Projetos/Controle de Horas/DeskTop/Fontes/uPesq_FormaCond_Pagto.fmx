@@ -331,46 +331,38 @@ object frmPesq_FormaCond_Pagto: TfrmPesq_FormaCond_Pagto
       '')
     Left = 336
     Top = 360
-    object FDQRegistrosID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    object FDQRegistrosid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object FDQRegistrosID_FORMA_PAGAMENTO: TIntegerField
-      FieldName = 'ID_FORMA_PAGAMENTO'
-      Origin = 'ID_FORMA_PAGAMENTO'
-      Required = True
+    object FDQRegistrosid_forma_pagamento: TIntegerField
+      FieldName = 'id_forma_pagamento'
+      Origin = 'id_forma_pagamento'
     end
-    object FDQRegistrosID_CONDICAO_PAGAMENTO: TIntegerField
-      FieldName = 'ID_CONDICAO_PAGAMENTO'
-      Origin = 'ID_CONDICAO_PAGAMENTO'
-      Required = True
+    object FDQRegistrosid_condicao_pagamento: TIntegerField
+      FieldName = 'id_condicao_pagamento'
+      Origin = 'id_condicao_pagamento'
     end
-    object FDQRegistrosDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
-      Origin = 'DT_CADASTRO'
-      Required = True
+    object FDQRegistrosdt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Origin = 'dt_cadastro'
     end
-    object FDQRegistrosHR_CADASTRO: TTimeField
-      FieldName = 'HR_CADASTRO'
-      Origin = 'HR_CADASTRO'
-      Required = True
+    object FDQRegistroshr_cadastro: TTimeField
+      FieldName = 'hr_cadastro'
+      Origin = 'hr_cadastro'
+      ProviderFlags = [pfInUpdate]
     end
-    object FDQRegistrosFORMA_PAGAMENTO: TStringField
+    object FDQRegistrosforma_pagamento: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'FORMA_PAGAMENTO'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      ReadOnly = True
+      FieldName = 'forma_pagamento'
+      Origin = 'forma_pagamento'
       Size = 255
     end
-    object FDQRegistrosCONDICAO_PAGAMENTO: TStringField
+    object FDQRegistroscondicao_pagamento: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CONDICAO_PAGAMENTO'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      ReadOnly = True
+      FieldName = 'condicao_pagamento'
+      Origin = 'condicao_pagamento'
       Size = 255
     end
   end

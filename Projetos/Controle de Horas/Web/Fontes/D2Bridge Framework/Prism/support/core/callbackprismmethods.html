@@ -1,0 +1,37 @@
+<script type="text/javascript">
+   function PageLoadComplete()
+   {
+     if (vpageloadcomplete === false)
+     {
+        if (prismws instanceof WebSocket) {
+           if (prismws.readyState === WebSocket.OPEN & prismwsconnected === true) {
+              clearInterval(CheckPageLoadComplete);
+              hideOverlayError();
+              vpageloadcomplete = true;
+  
+              PrismServer().ExecEvent("{{UUID}}", "{{Token}}", "{{FormUUID}}", "{{ControlID}}", "AfterPageLoad", "", true);
+           }
+        }
+     } else {
+           clearInterval(CheckPageLoadComplete);
+     }
+   }
+  
+   function SendHBPrismWs()
+   {
+     if (vpageloadcomplete === true)
+     {
+        if (prismws instanceof WebSocket) {
+           if (prismws.readyState === WebSocket.OPEN & prismwsconnected === true) {
+              PrismServer().Heartbeat("{{UUID}}", "{{Token}}", "{{FormUUID}}");
+           }
+        }
+     }
+   }
+  
+   function UpdateD2BridgeControls(selectedprismcontrols)
+   {
+      PrismServer().ExecEvent("{{UUID}}", "{{Token}}", "{{FormUUID}}", "{{ControlID}}", "UpdateD2BridgeControls", "PrismComponentsStatus=" + GetComponentsStates(selectedprismcontrols), false);
+   }
+  </script>
+  

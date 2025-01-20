@@ -1404,33 +1404,29 @@ object frmFormaPagamento: TfrmFormaPagamento
       '')
     Left = 312
     Top = 432
-    object FDQRegistrosID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    object FDQRegistrosid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object FDQRegistrosDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      Required = True
+    object FDQRegistrosdescricao: TWideStringField
+      FieldName = 'descricao'
+      Origin = 'descricao'
       Size = 255
     end
-    object FDQRegistrosCLASSIFICACAO: TStringField
-      FieldName = 'CLASSIFICACAO'
-      Origin = 'CLASSIFICACAO'
-      Required = True
+    object FDQRegistrosclassificacao: TWideStringField
+      FieldName = 'classificacao'
+      Origin = 'classificacao'
       Size = 50
     end
-    object FDQRegistrosDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
-      Origin = 'DT_CADASTRO'
-      Required = True
+    object FDQRegistrosdt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Origin = 'dt_cadastro'
     end
-    object FDQRegistrosHR_CADASTRO: TTimeField
-      FieldName = 'HR_CADASTRO'
-      Origin = 'HR_CADASTRO'
-      Required = True
+    object FDQRegistroshr_cadastro: TTimeField
+      FieldName = 'hr_cadastro'
+      Origin = 'hr_cadastro'
+      ProviderFlags = [pfInUpdate]
     end
   end
   object DSRegistros: TDataSource
@@ -1454,38 +1450,32 @@ object frmFormaPagamento: TfrmFormaPagamento
       '')
     Left = 416
     Top = 440
-    object FDQCondicaoID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    object FDQCondicaoid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object FDQCondicaoID_FORMA_PAGAMENTO: TIntegerField
-      FieldName = 'ID_FORMA_PAGAMENTO'
-      Origin = 'ID_FORMA_PAGAMENTO'
-      Required = True
+    object FDQCondicaoid_forma_pagamento: TIntegerField
+      FieldName = 'id_forma_pagamento'
+      Origin = 'id_forma_pagamento'
     end
-    object FDQCondicaoID_CONDICAO_PAGAMENTO: TIntegerField
-      FieldName = 'ID_CONDICAO_PAGAMENTO'
-      Origin = 'ID_CONDICAO_PAGAMENTO'
-      Required = True
+    object FDQCondicaoid_condicao_pagamento: TIntegerField
+      FieldName = 'id_condicao_pagamento'
+      Origin = 'id_condicao_pagamento'
     end
-    object FDQCondicaoDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
-      Origin = 'DT_CADASTRO'
-      Required = True
+    object FDQCondicaodt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Origin = 'dt_cadastro'
     end
-    object FDQCondicaoHR_CADASTRO: TTimeField
-      FieldName = 'HR_CADASTRO'
-      Origin = 'HR_CADASTRO'
-      Required = True
+    object FDQCondicaohr_cadastro: TTimeField
+      FieldName = 'hr_cadastro'
+      Origin = 'hr_cadastro'
+      ProviderFlags = [pfInUpdate]
     end
-    object FDQCondicaoCONDICAO: TStringField
+    object FDQCondicaocondicao: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CONDICAO'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      ReadOnly = True
+      FieldName = 'condicao'
+      Origin = 'condicao'
       Size = 255
     end
   end
@@ -1510,38 +1500,32 @@ object frmFormaPagamento: TfrmFormaPagamento
       '')
     Left = 552
     Top = 424
-    object FDQ_Condicao_GridID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    object FDQ_Condicao_Gridid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object FDQ_Condicao_GridID_FORMA_PAGAMENTO: TIntegerField
-      FieldName = 'ID_FORMA_PAGAMENTO'
-      Origin = 'ID_FORMA_PAGAMENTO'
-      Required = True
+    object FDQ_Condicao_Gridid_forma_pagamento: TIntegerField
+      FieldName = 'id_forma_pagamento'
+      Origin = 'id_forma_pagamento'
     end
-    object FDQ_Condicao_GridID_CONDICAO_PAGAMENTO: TIntegerField
-      FieldName = 'ID_CONDICAO_PAGAMENTO'
-      Origin = 'ID_CONDICAO_PAGAMENTO'
-      Required = True
+    object FDQ_Condicao_Gridid_condicao_pagamento: TIntegerField
+      FieldName = 'id_condicao_pagamento'
+      Origin = 'id_condicao_pagamento'
     end
-    object FDQ_Condicao_GridDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
-      Origin = 'DT_CADASTRO'
-      Required = True
+    object FDQ_Condicao_Griddt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Origin = 'dt_cadastro'
     end
-    object FDQ_Condicao_GridHR_CADASTRO: TTimeField
-      FieldName = 'HR_CADASTRO'
-      Origin = 'HR_CADASTRO'
-      Required = True
+    object FDQ_Condicao_Gridhr_cadastro: TTimeField
+      FieldName = 'hr_cadastro'
+      Origin = 'hr_cadastro'
+      ProviderFlags = [pfInUpdate]
     end
-    object FDQ_Condicao_GridCONDICAO: TStringField
+    object FDQ_Condicao_Gridcondicao: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CONDICAO'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      ReadOnly = True
+      FieldName = 'condicao'
+      Origin = 'condicao'
       Size = 255
     end
   end

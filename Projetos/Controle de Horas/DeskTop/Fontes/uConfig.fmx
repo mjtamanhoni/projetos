@@ -201,90 +201,644 @@ object frmConfig: TfrmConfig
               Size.Height = 373.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
-              object lytBDF_Row001: TLayout
-                Align = Top
-                Margins.Top = 5.000000000000000000
-                Position.Y = 5.000000000000000000
+              object tcBanco: TTabControl
+                Align = Client
+                Margins.Bottom = 5.000000000000000000
                 Size.Width = 790.000000000000000000
-                Size.Height = 35.000000000000000000
+                Size.Height = 333.000000000000000000
                 Size.PlatformDefault = False
+                TabIndex = 1
                 TabOrder = 0
-                object lbBDF_Servidor: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 120.000000000000000000
-                  Size.Height = 35.000000000000000000
+                TabPosition = None
+                Sizes = (
+                  790s
+                  333s
+                  790s
+                  333s)
+                object tiFirebird: TTabItem
+                  CustomIcon = <
+                    item
+                    end>
+                  IsSelected = False
+                  Size.Width = 8.000000000000000000
+                  Size.Height = 8.000000000000000000
                   Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Servidor:'
-                  TabOrder = 2
-                end
-                object edBDF_Servidor: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
+                  StyleLookup = ''
                   TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 122.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 300.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Informe o Nome ou IP do Servidor'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edBDF_ServidorKeyDown
+                  Text = 'tiFirebird'
+                  object lytBDF_Row001: TLayout
+                    Align = Top
+                    Margins.Top = 5.000000000000000000
+                    Position.Y = 5.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbBDF_Servidor: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Servidor:'
+                      TabOrder = 2
+                    end
+                    object edBDF_Servidor: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 122.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'Informe o Nome ou IP do Servidor'
+                      StyledSettings = [Family, FontColor]
+                      CharCase = ecUpperCase
+                      OnKeyDown = edBDF_ServidorKeyDown
+                    end
+                    object edBDF_Porta: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Right
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 1
+                      FilterChar = '0123456789'
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 688.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 100.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'Porta'
+                      StyledSettings = [Family, FontColor]
+                      CharCase = ecUpperCase
+                      OnKeyDown = edBDF_PortaKeyDown
+                    end
+                    object lbBDF_Porta: TLabel
+                      Align = Right
+                      StyledSettings = [Family]
+                      Position.X = 566.000000000000000000
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Porta:'
+                      TabOrder = 3
+                    end
+                  end
+                  object lytBDF_Row002: TLayout
+                    Align = Top
+                    Position.Y = 40.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 1
+                    object lbBDF_Banco: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Banco:'
+                      TabOrder = 1
+                    end
+                    object edBDF_Banco: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 666.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'Informe ou selecione o banco de dados'
+                      StyledSettings = [Family, FontColor]
+                      CharCase = ecUpperCase
+                      OnKeyDown = edBDF_BancoKeyDown
+                      object dbBDF_Banco: TSpeedButton
+                        Align = Right
+                        Cursor = crHandPoint
+                        Position.X = 646.000000000000000000
+                        Size.Width = 20.000000000000000000
+                        Size.Height = 31.000000000000000000
+                        Size.PlatformDefault = False
+                        Text = '...'
+                        OnClick = dbBDF_BancoClick
+                      end
+                    end
+                  end
+                  object lytBDF_Row003: TLayout
+                    Align = Top
+                    Position.Y = 75.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 2
+                    object lbBDF_Usuario: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Usu'#225'rio:'
+                      TabOrder = 3
+                    end
+                    object edBDF_Usuario: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 122.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'Nome do Usu'#225'rio'
+                      StyledSettings = [Family, FontColor]
+                      CharCase = ecUpperCase
+                      OnKeyDown = edBDF_UsuarioKeyDown
+                    end
+                    object lbBDF_Senha: TLabel
+                      Align = Right
+                      StyledSettings = [Family]
+                      Position.X = 424.000000000000000000
+                      Size.Width = 62.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Senha:'
+                      TabOrder = 2
+                    end
+                    object edBDF_Senha: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Right
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 1
+                      Password = True
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 488.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'Senha do Banco'
+                      StyledSettings = [Family, FontColor]
+                      CharCase = ecLowerCase
+                      OnKeyDown = edBDF_SenhaKeyDown
+                      object lytExibeSenha: TLayout
+                        Align = Right
+                        Margins.Right = 2.000000000000000000
+                        Position.X = 278.000000000000000000
+                        Size.Width = 20.000000000000000000
+                        Size.Height = 31.000000000000000000
+                        Size.PlatformDefault = False
+                        TabOrder = 0
+                        object imgSenha: TImage
+                          MultiResBitmap = <
+                            item
+                              Width = 24
+                              Height = 24
+                              PNG = {
+                                89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+                                F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                                017949444154484BEDD4CB2B445100C7F121F2CC3BC58205524294AC50B6CA82
+                                8D94B0524A4AC9CE82FC0F884452CA4A76CA566465231B6FC2027925F2FAFECE
+                                DCC9BDD7DC31CCC266BEF5E19C73A7C3DC73677CD1FEBD18EB77A8E2508D52E4
+                                6A812EB18B6DBC6AE12F55601EF7F8F0A06BB32843D865621AEFD00633684309
+                                B2906D8DDBA1CD1FA0D74E2003212BC7099E318C34FC543A46F0822378BE1BDD
+                                E76B1C5B6377F518B2D469C1550DCE71854A2DD8D3E1E9AFEF215F0BB60AB101
+                                F7FD5F4701EC15E10CFBC8D142A0053CA1CACCBE4A869E961B74200189E8B4D6
+                                7690047BB5D05E7366467A6B3A24DD477783D0B5463373D6005D1B3033676378
+                                83F98727718B144D5CAD61D33F0CDA1656FD4347A9B8C3782C3F5AB08C47B8D3
+                                23AB83F3EA027A74DDE9D1D59EAD9A74A35883202D4187AF4FB3BB789C62D1CC
+                                BEA73DBBFC43EF9AA12766D4CC9CE93EEB5A939945903EC9DA68057DE887CE46
+                                6B5388387D21F6E210DA540ED08370BE2C7F559E255AB4403EDF2791AA5696C9
+                                500A480000000049454E44AE426082}
+                            end>
+                          Align = Client
+                          Size.Width = 20.000000000000000000
+                          Size.Height = 31.000000000000000000
+                          Size.PlatformDefault = False
+                        end
+                        object sbSenha: TSpeedButton
+                          Align = Contents
+                          Size.Width = 20.000000000000000000
+                          Size.Height = 31.000000000000000000
+                          Size.PlatformDefault = False
+                          OnClick = sbSenhaClick
+                        end
+                      end
+                    end
+                  end
+                  object lytBDF_Row004: TLayout
+                    Align = Top
+                    Position.Y = 110.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 3
+                    object lbBDF_Biblioteca: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Biblioteca:'
+                      TabOrder = 1
+                    end
+                    object edBDF_Biblioteca: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 666.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      TextPrompt = 'Informe ou selecione a biblioteca (FBCLIENTE.DLL)'
+                      StyledSettings = [Family, FontColor]
+                      CharCase = ecUpperCase
+                      object sbBDF_Biblioteca: TSpeedButton
+                        Align = Right
+                        Position.X = 646.000000000000000000
+                        Size.Width = 20.000000000000000000
+                        Size.Height = 31.000000000000000000
+                        Size.PlatformDefault = False
+                        Text = '...'
+                        OnClick = sbBDF_BibliotecaClick
+                      end
+                    end
+                  end
                 end
-                object edBDF_Porta: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
-                  FilterChar = '0123456789'
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 688.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 100.000000000000000000
-                  Size.Height = 31.000000000000000000
+                object tiPostgreSql: TTabItem
+                  CustomIcon = <
+                    item
+                    end>
+                  IsSelected = True
+                  Size.Width = 8.000000000000000000
+                  Size.Height = 8.000000000000000000
                   Size.PlatformDefault = False
-                  TextPrompt = 'Porta'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edBDF_PortaKeyDown
-                end
-                object lbBDF_Porta: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 566.000000000000000000
-                  Size.Width = 120.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Porta:'
-                  TabOrder = 3
+                  StyleLookup = ''
+                  TabOrder = 0
+                  Text = 'tiPostgreSql'
+                  object Layout1: TLayout
+                    Align = Top
+                    Margins.Top = 5.000000000000000000
+                    Position.Y = 5.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 0
+                    object lbBD_PS_Server: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Servidor:'
+                      TabOrder = 2
+                    end
+                    object edBD_PS_Server: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 122.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      StyledSettings = [Family, FontColor]
+                      OnKeyDown = edBDF_ServidorKeyDown
+                    end
+                    object edBD_PS_Port: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Right
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 1
+                      FilterChar = '0123456789'
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 688.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 100.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      StyledSettings = [Family, FontColor]
+                      OnKeyDown = edBDF_PortaKeyDown
+                    end
+                    object lbBD_PS_Port: TLabel
+                      Align = Right
+                      StyledSettings = [Family]
+                      Position.X = 566.000000000000000000
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Porta:'
+                      TabOrder = 3
+                    end
+                  end
+                  object Layout2: TLayout
+                    Align = Top
+                    Position.Y = 40.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 1
+                    object lbBD_PS_Banco: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Banco:'
+                      TabOrder = 3
+                    end
+                    object edBD_PS_Banco: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 2
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 122.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      StyledSettings = [Family, FontColor]
+                      OnKeyDown = edBDF_BancoKeyDown
+                    end
+                    object edBD_PS_Schema: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Right
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 488.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      StyledSettings = [Family, FontColor]
+                      OnKeyDown = edBD_PS_SchemaKeyDown
+                    end
+                    object lbBD_PS_Schema: TLabel
+                      Align = Right
+                      StyledSettings = [Family]
+                      Position.X = 428.000000000000000000
+                      Size.Width = 58.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Schema:'
+                      TabOrder = 1
+                    end
+                  end
+                  object Layout3: TLayout
+                    Align = Top
+                    Position.Y = 75.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 2
+                    object lbBD_PS_Usuario: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Usu'#225'rio:'
+                      TabOrder = 3
+                    end
+                    object edBD_PS_Usuario: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Left
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 122.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      StyledSettings = [Family, FontColor]
+                      OnKeyDown = edBDF_UsuarioKeyDown
+                    end
+                    object lbBD_PS_Senha: TLabel
+                      Align = Right
+                      StyledSettings = [Family]
+                      Position.X = 424.000000000000000000
+                      Size.Width = 62.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Senha:'
+                      TabOrder = 2
+                    end
+                    object edBD_PS_Senha: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Right
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 1
+                      Password = True
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Position.X = 488.000000000000000000
+                      Position.Y = 2.000000000000000000
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 300.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      StyledSettings = [Family, FontColor]
+                      OnKeyDown = edBDF_SenhaKeyDown
+                      object Layout4: TLayout
+                        Align = Right
+                        Margins.Right = 2.000000000000000000
+                        Position.X = 278.000000000000000000
+                        Size.Width = 20.000000000000000000
+                        Size.Height = 31.000000000000000000
+                        Size.PlatformDefault = False
+                        TabOrder = 0
+                        object Image1: TImage
+                          MultiResBitmap = <
+                            item
+                              Width = 24
+                              Height = 24
+                              PNG = {
+                                89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
+                                F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                                017949444154484BEDD4CB2B445100C7F121F2CC3BC58205524294AC50B6CA82
+                                8D94B0524A4AC9CE82FC0F884452CA4A76CA566465231B6FC2027925F2FAFECE
+                                DCC9BDD7DC31CCC266BEF5E19C73A7C3DC73677CD1FEBD18EB77A8E2508D52E4
+                                6A812EB18B6DBC6AE12F55601EF7F8F0A06BB32843D865621AEFD00633684309
+                                B2906D8DDBA1CD1FA0D74E2003212BC7099E318C34FC543A46F0822378BE1BDD
+                                E76B1C5B6377F518B2D469C1550DCE71854A2DD8D3E1E9AFEF215F0BB60AB101
+                                F7FD5F4701EC15E10CFBC8D142A0053CA1CACCBE4A869E961B74200189E8B4D6
+                                7690047BB5D05E7366467A6B3A24DD477783D0B5463373D6005D1B3033676378
+                                83F98727718B144D5CAD61D33F0CDA1656FD4347A9B8C3782C3F5AB08C47B8D3
+                                23AB83F3EA027A74DDE9D1D59EAD9A74A35883202D4187AF4FB3BB789C62D1CC
+                                BEA73DBBFC43EF9AA12766D4CC9CE93EEB5A939945903EC9DA68057DE887CE46
+                                6B5388387D21F6E210DA540ED08370BE2C7F559E255AB4403EDF2791AA5696C9
+                                500A480000000049454E44AE426082}
+                            end>
+                          Align = Client
+                          Size.Width = 20.000000000000000000
+                          Size.Height = 31.000000000000000000
+                          Size.PlatformDefault = False
+                        end
+                        object sbBD_PS_Senha: TSpeedButton
+                          Align = Contents
+                          Size.Width = 20.000000000000000000
+                          Size.Height = 31.000000000000000000
+                          Size.PlatformDefault = False
+                          OnClick = sbBD_PS_SenhaClick
+                        end
+                      end
+                    end
+                  end
+                  object Layout5: TLayout
+                    Align = Top
+                    Position.Y = 110.000000000000000000
+                    Size.Width = 790.000000000000000000
+                    Size.Height = 35.000000000000000000
+                    Size.PlatformDefault = False
+                    TabOrder = 3
+                    object lbBD_PS_Biblioteca: TLabel
+                      Align = Left
+                      StyledSettings = [Family]
+                      Size.Width = 120.000000000000000000
+                      Size.Height = 35.000000000000000000
+                      Size.PlatformDefault = False
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.FontColor = xFF656565
+                      TextSettings.HorzAlign = Trailing
+                      Text = 'Biblioteca:'
+                      TabOrder = 1
+                    end
+                    object edBD_PS_Biblioteca: TEdit
+                      Touch.InteractiveGestures = [LongTap, DoubleTap]
+                      Align = Client
+                      StyleLookup = 'Editstyle_Adapta'
+                      TabOrder = 0
+                      TextSettings.Font.Size = 14.000000000000000000
+                      TextSettings.Font.StyleExt = {00060000000000000004000000}
+                      Margins.Left = 2.000000000000000000
+                      Margins.Top = 2.000000000000000000
+                      Margins.Right = 2.000000000000000000
+                      Margins.Bottom = 2.000000000000000000
+                      Size.Width = 666.000000000000000000
+                      Size.Height = 31.000000000000000000
+                      Size.PlatformDefault = False
+                      StyledSettings = [Family, FontColor]
+                      object SpeedButton3: TSpeedButton
+                        Align = Right
+                        Position.X = 646.000000000000000000
+                        Size.Width = 20.000000000000000000
+                        Size.Height = 31.000000000000000000
+                        Size.PlatformDefault = False
+                        Text = '...'
+                        OnClick = SpeedButton3Click
+                      end
+                    end
+                  end
                 end
               end
-              object lytBDF_Row002: TLayout
+              object Layout6: TLayout
                 Align = Top
-                Position.Y = 40.000000000000000000
                 Size.Width = 790.000000000000000000
                 Size.Height = 35.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 1
-                object lbBDF_Banco: TLabel
+                object lbBancoDados: TLabel
                   Align = Left
                   StyledSettings = [Family]
                   Size.Width = 120.000000000000000000
@@ -293,202 +847,27 @@ object frmConfig: TfrmConfig
                   TextSettings.Font.Size = 14.000000000000000000
                   TextSettings.FontColor = xFF656565
                   TextSettings.HorzAlign = Trailing
-                  Text = 'Banco:'
-                  TabOrder = 1
-                end
-                object edBDF_Banco: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 666.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Informe ou selecione o banco de dados'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edBDF_BancoKeyDown
-                  object dbBDF_Banco: TSpeedButton
-                    Align = Right
-                    Cursor = crHandPoint
-                    Position.X = 646.000000000000000000
-                    Size.Width = 20.000000000000000000
-                    Size.Height = 31.000000000000000000
-                    Size.PlatformDefault = False
-                    Text = '...'
-                    OnClick = dbBDF_BancoClick
-                  end
-                end
-              end
-              object lytBDF_Row003: TLayout
-                Align = Top
-                Position.Y = 75.000000000000000000
-                Size.Width = 790.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 2
-                object lbBDF_Usuario: TLabel
-                  Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 120.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Usu'#225'rio:'
-                  TabOrder = 3
-                end
-                object edBDF_Usuario: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Left
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 122.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 300.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Nome do Usu'#225'rio'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  OnKeyDown = edBDF_UsuarioKeyDown
-                end
-                object lbBDF_Senha: TLabel
-                  Align = Right
-                  StyledSettings = [Family]
-                  Position.X = 424.000000000000000000
-                  Size.Width = 62.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Senha:'
+                  Text = 'Bando de Dados:'
                   TabOrder = 2
                 end
-                object edBDF_Senha: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Right
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 1
-                  Password = True
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
-                  Position.X = 488.000000000000000000
-                  Position.Y = 2.000000000000000000
-                  Margins.Left = 2.000000000000000000
-                  Margins.Top = 2.000000000000000000
-                  Margins.Right = 2.000000000000000000
-                  Margins.Bottom = 2.000000000000000000
-                  Size.Width = 300.000000000000000000
-                  Size.Height = 31.000000000000000000
-                  Size.PlatformDefault = False
-                  TextPrompt = 'Senha do Banco'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecLowerCase
-                  OnKeyDown = edBDF_SenhaKeyDown
-                  object lytExibeSenha: TLayout
-                    Align = Right
-                    Margins.Right = 2.000000000000000000
-                    Position.X = 278.000000000000000000
-                    Size.Width = 20.000000000000000000
-                    Size.Height = 31.000000000000000000
-                    Size.PlatformDefault = False
-                    TabOrder = 0
-                    object imgSenha: TImage
-                      MultiResBitmap = <
-                        item
-                          Width = 24
-                          Height = 24
-                          PNG = {
-                            89504E470D0A1A0A0000000D4948445200000018000000180806000000E0773D
-                            F8000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                            017949444154484BEDD4CB2B445100C7F121F2CC3BC58205524294AC50B6CA82
-                            8D94B0524A4AC9CE82FC0F884452CA4A76CA566465231B6FC2027925F2FAFECE
-                            DCC9BDD7DC31CCC266BEF5E19C73A7C3DC73677CD1FEBD18EB77A8E2508D52E4
-                            6A812EB18B6DBC6AE12F55601EF7F8F0A06BB32843D865621AEFD00633684309
-                            B2906D8DDBA1CD1FA0D74E2003212BC7099E318C34FC543A46F0822378BE1BDD
-                            E76B1C5B6377F518B2D469C1550DCE71854A2DD8D3E1E9AFEF215F0BB60AB101
-                            F7FD5F4701EC15E10CFBC8D142A0053CA1CACCBE4A869E961B74200189E8B4D6
-                            7690047BB5D05E7366467A6B3A24DD477783D0B5463373D6005D1B3033676378
-                            83F98727718B144D5CAD61D33F0CDA1656FD4347A9B8C3782C3F5AB08C47B8D3
-                            23AB83F3EA027A74DDE9D1D59EAD9A74A35883202D4187AF4FB3BB789C62D1CC
-                            BEA73DBBFC43EF9AA12766D4CC9CE93EEB5A939945903EC9DA68057DE887CE46
-                            6B5388387D21F6E210DA540ED08370BE2C7F559E255AB4403EDF2791AA5696C9
-                            500A480000000049454E44AE426082}
-                        end>
-                      Align = Client
-                      Size.Width = 20.000000000000000000
-                      Size.Height = 31.000000000000000000
-                      Size.PlatformDefault = False
-                    end
-                    object sbSenha: TSpeedButton
-                      Align = Contents
-                      Size.Width = 20.000000000000000000
-                      Size.Height = 31.000000000000000000
-                      Size.PlatformDefault = False
-                      OnClick = sbSenhaClick
-                    end
-                  end
-                end
-              end
-              object lytBDF_Row004: TLayout
-                Align = Top
-                Position.Y = 110.000000000000000000
-                Size.Width = 790.000000000000000000
-                Size.Height = 35.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 3
-                object lbBDF_Biblioteca: TLabel
+                object cbBancoDados: TComboBox
                   Align = Left
-                  StyledSettings = [Family]
-                  Size.Width = 120.000000000000000000
-                  Size.Height = 35.000000000000000000
-                  Size.PlatformDefault = False
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.FontColor = xFF656565
-                  TextSettings.HorzAlign = Trailing
-                  Text = 'Biblioteca:'
-                  TabOrder = 1
-                end
-                object edBDF_Biblioteca: TEdit
-                  Touch.InteractiveGestures = [LongTap, DoubleTap]
-                  Align = Client
-                  StyleLookup = 'Editstyle_Adapta'
-                  TabOrder = 0
-                  TextSettings.Font.Size = 14.000000000000000000
-                  TextSettings.Font.StyleExt = {00060000000000000004000000}
+                  Items.Strings = (
+                    'Firebird'
+                    'PostgreSql')
+                  ItemIndex = 0
                   Margins.Left = 2.000000000000000000
                   Margins.Top = 2.000000000000000000
                   Margins.Right = 2.000000000000000000
                   Margins.Bottom = 2.000000000000000000
-                  Size.Width = 666.000000000000000000
+                  Position.X = 122.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Size.Width = 167.000000000000000000
                   Size.Height = 31.000000000000000000
                   Size.PlatformDefault = False
-                  TextPrompt = 'Informe ou selecione a biblioteca (FBCLIENTE.DLL)'
-                  StyledSettings = [Family, FontColor]
-                  CharCase = ecUpperCase
-                  object sbBDF_Biblioteca: TSpeedButton
-                    Align = Right
-                    Position.X = 646.000000000000000000
-                    Size.Width = 20.000000000000000000
-                    Size.Height = 31.000000000000000000
-                    Size.PlatformDefault = False
-                    Text = '...'
-                    OnClick = sbBDF_BibliotecaClick
-                  end
+                  StyleLookup = 'ComboBox1Style_Adapta'
+                  TabOrder = 7
+                  OnChange = cbBancoDadosChange
                 end
               end
             end
@@ -579,33 +958,33 @@ object frmConfig: TfrmConfig
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          034F49444154785EEDDB4F4814611806F0F7FBC6DD753194482F2A516189465D
+                          034F49444154785EEDDB4F4814611806F0F7FBC6DD753194402F2A516189465D
                           92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BF4A2A1EEAAF37DB9FA061D12D29D9567E0F95DE6FD5E
-                          D865E19D99DDD9994788888888A80C8C6E63A5B3F3CCE18DFC46BF13DF635CD8
-                          E4ED467DB16F5C625EACFD648D1D3A545335383C3CB3B4FD821889D5403A3A5A
-                          8F6E16DC2D2FCB5745AA93DAFEA7C286E42B13EE41326DEF8C8ECEFDD036BCD8
-                          0C249369ED2F14DCE354422AB5F59FDC6A60ECA5F1E9B9E7DA8016E8165AA6AD
-                          E5BA787FBF22900A6DED81497891CB0D8D75DF73B9C577DA84057F84B4B735F7
-                          79314F75590A2736E89E9AFAF05AD790A00792C99C3D5E28AC67F77E9ADAD552
-                          B2B2F2E4D8D8FB055DC3B1BA85E437D7EF46388CA29AF542E1B6D690608F90F6
-                          F6D32D3E0CB3BA8C54BAAAAA6E646466519750708F10E7FAB48A5C7E65ED8296
-                          706007E2BD3FAF65E4BC77657BEF52E10E44C2462DA3E7FD29ADE0C00EC488A9
-                          D3327A568E690507F857D6E6D6F55C7978C9EFE302F360000F24F9538BC86DFF
-                          09090A76204EE49B969133D67ED5120EEC40AC98575A46CE8B7DA9251CDC8154
-                          98675A462E4894EFBD4B053B908989EC97AD5DF9892E23E41E8D8FCF96ED7458
-                          2AE02FF5AD3D39696E146F34E93202EB2B695371531790A00752DC9353297B45
-                          97A5722648F68E4C67CBF6EB2D0AF037A872B9856C63436DF128E9DEE9EC93B7
-                          D7A6A667CB700A8C562CEE18E6E617DF34D6D77E14F9D52392DAE36776AB26B0
-                          17B78631A00D68D0A7ACBF4DBE9D1B107BA4D93879B8BCBCB6A9ED5DE977CFBD
-                          54DA364D4ECEBED8E9E28BD553277F74759DABCDAFAEF47A2F7DA10F4F0426AC
-                          F7127A13A67312B8CF62ED607575D5501C1F032222222222223A68B1BC30643E
-                          0404F32140980F01C27C0810E64380301F0286F91020CC87A0613E040BF32160
-                          980F01C37C081CE643C0301F0285F91030CC8780613E040CF32180980F01C37C
-                          0820E64300311F0288F91060CC871011111111114527961786CC8780603E0408
-                          F32140980F01C27C0810E643C0301F0284F91034CC8760613E040CF32160980F
-                          81C37C0818E643A0301F0286F91030CC8780613E0410F32160980F01C47C0820
-                          E64300311F028CF91022222222DA0B91DF968F4D5482D413A20000000049454E
+                          FC97D4A5D5FE1C0A5A0BF4B281BAEB3ADF976B6FD02121DD5979069EDF65DEEF
+                          855D16DE99D99D9D798488888888AAC0E836567A7B4F1F2E154AC34EFC807161
+                          9BB7A5E672DFB8C4B258FBD11A3B76A8A16E747C7C21BFF3821889D5407A7A3A
+                          8F6C15DD4D2FF92B220D496DFF53B12485DA84BB9F4CDBDB93934BDFB50D2F36
+                          03C9643A878B45F72895905A6DFD27B71E187B717A7EE99936A005BA8596E9EA
+                          B826DEDFAB09A4465B7B60125EE4524B6BD3B75C6EF5AD3661C11F21DD5DED43
+                          5ECC135D56C2890DFAE7E6DEBFD23524E8816432678E158B9BD9BD9FA676954F
+                          D6D69E989A7AB7A26B3856B790FCD6E69D088751D6B0592CDED21A12EC11D2DD
+                          7DAAC387615697914AD7D5354D4C2CACEA120AEE11E2DC9056912BAC6D9CD712
+                          0EEC40BCF7E7B48C9CF7AE6AEF5D29DC8148D8AA65F4BC3FA9151CD88118314D
+                          5A46CFCA51ADE000FFCADADABE9EAB0E2F857D5C601E0CE081247F6811B99D3F
+                          2141C10EC4897CD53272C6DA2F5AC2811D8815F352CBC879B12FB484833B901A
+                          F354CBC80589EABD77A56007323393FDBCBD2B3FD66584DCC3E9E9C5AA9D0E2B
+                          05FCA5BEBD2727CDF5F28D265D4660732D6D6A6EE80212F440CA7B722A652FEB
+                          B252CE04C9C189F96CD57EBD4501FE06552EB7926D6D692C1F25FDBF3BFBE4ED
+                          D5B9F9C52A9C02A3158B3B86B9E5D5D7ADCD8D1F447E0E88A4F6F899DDBA09EC
+                          85ED618C68031AF429EB6FB36F9646C436B61B270FF2F98D2D6DEF4ABF7BEEA6
+                          D2B66D7676F1F9EF2EBE583D75F2475FDFD9C6C2FADAA0F73214FAF07860C266
+                          2FA137613A2781FB24D68ED6D7D78DC5F131202222222222A28316CB0B43E643
+                          40301F0284F91020CC8700613E0408F32160980F01C27C081AE643B0301F0286
+                          F91030CC87C0613E040CF32150980F01C37C0818E643C0301F0288F91030CC87
+                          00623E0410F32180980F01C67C0811111111115174627961C87C0808E6438030
+                          1F0284F91020CC8700613E040CF32140980F41C37C0816E643C0301F0286F910
+                          38CC8780613E040AF32160980F01C37C0818E64300311F0286F91040CC870062
+                          3E0410F321C0980F21222222A2BD10F9051E124D4ED885892E0000000049454E
                           44AE426082}
                       end>
                     Align = Right
@@ -685,34 +1064,34 @@ object frmConfig: TfrmConfig
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          034F49444154785EEDDB4F4814611806F0F7FBC6DD753194402F2A516189465D
+                          035049444154785EEDDB4F4814611806F0F7FBC65D7731B4402F2A516189455D
                           92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BF4B281BAEB3ADF976B6FD02121DD5979069EDF65DEEF
-                          855D16DE99D99D9D798488888888AAC0E836567A7B4F1F2E154AC34EFC807161
-                          9BB7A5E672DFB8C4B258FBD11A3B76A8A16E747C7C21BFF3821889D5407A7A3A
-                          8F6C15DD4D2FF92B220D496DFF53B12485DA84BB9F4CDBDB93934BDFB50D2F36
-                          03C9643A878B45F72895905A6DFD27B71E187B717A7EE99936A005BA8596E9EA
-                          B826DEDFAB09A4465B7B60125EE4524B6BD3B75C6EF5AD3661C11F21DD5DED43
-                          5ECC135D56C2890DFAE7E6DEBFD23524E8816432678E158B9BD9BD9FA676954F
-                          D6D69E989A7AB7A26B3856B790FCD6E69D088751D6B0592CDED21A12EC11D2DD
-                          7DAAC387615697914AD7D5354D4C2CACEA120AEE11E2DC9056912BAC6D9CD712
-                          0EEC40BCF7E7B48C9CF7AE6AEF5D29DC8148D8AA65F4BC3FA9151CD88118314D
-                          5A46CFCA51ADE000FFCADADABE9EAB0E2F857D5C601E0CE081247F6811B99D3F
-                          2141C10EC4897CD53272C6DA2F5AC2811D8815F352CBC879B12FB484833B901A
-                          F354CBC80589EABD77A56007323393FDBCBD2B3FD66584DCC3E9E9C5AA9D0E2B
-                          05FCA5BEBD2727CDF5F28D265D4660732D6D6A6EE80212F440CA7B722A652FEB
-                          B252CE04C9C189F96CD57EBD4501FE06552EB7926D6D692C1F25FDBF3BFBE4ED
-                          D5B9F9C52A9C02A3158B3B86B9E5D5D7ADCD8D1F447E0E88A4F6F899DDBA09EC
-                          85ED618C68031AF429EB6FB36F9646C436B61B270FF2F98D2D6DEF4ABF7BEEA6
-                          D2B66D7676F1F9EF2EBE583D75F2475FDFD9C6C2FADAA0F73214FAF07860C266
-                          2FA137613A2781FB24D68ED6D7D78DC5F131202222222222A28316CB0B43E643
-                          40301F0284F91020CC8700613E0408F32160980F01C27C081AE643B0301F0286
-                          F91030CC87C0613E040CF32150980F01C37C0818E643C0301F0288F91030CC87
-                          00623E0410F32180980F01C67C0811111111115174627961C87C0808E6438030
-                          1F0284F91020CC8700613E040CF32140980F41C37C0816E643C0301F0286F910
-                          38CC8780613E040AF32160980F01C37C0818E64300311F0286F91040CC870062
-                          3E0410F321C0980F21222222A2BD10F9051E124D4ED885892E0000000049454E
-                          44AE426082}
+                          FC97D4A5D5FE1C0A5A0BF4A007757775BE2F57DFA04342BAB3F20C3CBFCBBCDF
+                          0BBB2CBC33B33B3BF308111111115580D16DAC74759D3DB291DF1870E27B8D0B
+                          5BBCDD682CF58D4B2C88B59FADB1C387EA6A8646466657B65F1023B11A4867E7
+                          E9A39B0577DBCBF23591C3496DFF536143F2A9847B984CDBBB6363F33FB50D2F
+                          3603C9644E0F140AEE49754252DAFA4F6E2D30F6F2C4CCFC0B6D400B740B2DD3
+                          DE7643BC7F50154895B6F6C024BCC895A6E6861FB9DCD27B6DC2823F423ADA5B
+                          FBBD9867BA2C87131BF44C4F7F7CA36B48D003C964CE1D2F148AD9BD9FA676B5
+                          924CA54E8E8F7F58D4351CAB5B487EB3782FC26194D4150B853B5A43823D423A
+                          3ACEB4F930CCEA3252E99A9A86D1D1D9255D42C13D429CEBD72A72F9D5F58B5A
+                          C2811D88F7FE829691F3DE55ECBDCB853B10099BB58C9EF7A7B482033B1023A6
+                          41CBE85939A6151CE05F599B5BD77395E125BF8F0BCC83013C90E42F2D22B7FD
+                          272428D8813891EF5A46CE58FB4D4B38B003B1625E6B19392FF6959670700752
+                          659E6B19B92051B9F72E17EC402627B35FB776E5A7BA8C907B3C313157B1D361
+                          B980BFD4B7F6E4A4B959BAD1A4CB081457D3A6EA962E20410FA4B4275757DBAB
+                          BA2C973341B26F74265BB15F6F5180BF4195CB2D669B9BEA4B4749CF4E679FBC
+                          BD3E3D3357815360B46271C730B7B0F4B6B9B1FE93C84AAF486A8F9FD9AD99C0
+                          5EDA1AC6A036A0419FB2FE36F56E7E506C43AB71F26879797D53DBBBD2EF9EFB
+                          D569DB323535F772A78B2F564F9DFCD1DD7DBE3EBFB6DAE7BDF4873E3C1198B0
+                          D14BE84D98CE49E0BE88B543B5B535C3717C0C888888888888E8A0C5F2C290F9
+                          1010CC8700613E0408F32140980F01C27C0818E64380301F8286F9102CCC8780
+                          613E040CF32170980F01C37C0814E643C0301F0286F91030CC8700623E040CF3
+                          2180980F01C47C0820E64380311F424444444444149D585E18321F0282F91020
+                          CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030CC8780613E
+                          040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E0410F32180
+                          980F01C47C0830E64388888888682F447E0364274D4B6B4748F2000000004945
+                          4E44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -791,34 +1170,34 @@ object frmConfig: TfrmConfig
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          034F49444154785EEDDB4F4814611806F0F7FBC6DD753194402F2A516189465D
+                          035049444154785EEDDB4F4814611806F0F7FBC65D7731B4402F2A516189455D
                           92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BF4B281BAEB3ADF976B6FD02121DD5979069EDF65DEEF
-                          855D16DE99D99D9D798488888888AAC0E836567A7B4F1F2E154AC34EFC807161
-                          9BB7A5E672DFB8C4B258FBD11A3B76A8A16E747C7C21BFF3821889D5407A7A3A
-                          8F6C15DD4D2FF92B220D496DFF53B12485DA84BB9F4CDBDB93934BDFB50D2F36
-                          03C9643A878B45F72895905A6DFD27B71E187B717A7EE99936A005BA8596E9EA
-                          B826DEDFAB09A4465B7B60125EE4524B6BD3B75C6EF5AD3661C11F21DD5DED43
-                          5ECC135D56C2890DFAE7E6DEBFD23524E8816432678E158B9BD9BD9FA676954F
-                          D6D69E989A7AB7A26B3856B790FCD6E69D088751D6B0592CDED21A12EC11D2DD
-                          7DAAC387615697914AD7D5354D4C2CACEA120AEE11E2DC9056912BAC6D9CD712
-                          0EEC40BCF7E7B48C9CF7AE6AEF5D29DC8148D8AA65F4BC3FA9151CD88118314D
-                          5A46CFCA51ADE000FFCADADABE9EAB0E2F857D5C601E0CE081247F6811B99D3F
-                          2141C10EC4897CD53272C6DA2F5AC2811D8815F352CBC879B12FB484833B901A
-                          F354CBC80589EABD77A56007323393FDBCBD2B3FD66584DCC3E9E9C5AA9D0E2B
-                          05FCA5BEBD2727CDF5F28D265D4660732D6D6A6EE80212F440CA7B722A652FEB
-                          B252CE04C9C189F96CD57EBD4501FE06552EB7926D6D692C1F25FDBF3BFBE4ED
-                          D5B9F9C52A9C02A3158B3B86B9E5D5D7ADCD8D1F447E0E88A4F6F899DDBA09EC
-                          85ED618C68031AF429EB6FB36F9646C436B61B270FF2F98D2D6DEF4ABF7BEEA6
-                          D2B66D7676F1F9EF2EBE583D75F2475FDFD9C6C2FADAA0F73214FAF07860C266
-                          2FA137613A2781FB24D68ED6D7D78DC5F131202222222222A28316CB0B43E643
-                          40301F0284F91020CC8700613E0408F32160980F01C27C081AE643B0301F0286
-                          F91030CC87C0613E040CF32150980F01C37C0818E643C0301F0288F91030CC87
-                          00623E0410F32180980F01C67C0811111111115174627961C87C0808E6438030
-                          1F0284F91020CC8700613E040CF32140980F41C37C0816E643C0301F0286F910
-                          38CC8780613E040AF32160980F01C37C0818E64300311F0286F91040CC870062
-                          3E0410F321C0980F21222222A2BD10F9051E124D4ED885892E0000000049454E
-                          44AE426082}
+                          FC97D4A5D5FE1C0A5A0BF4A007757775BE2F57DFA04342BAB3F20C3CBFCBBCDF
+                          0BBB2CBC33B33B3BF308111111115580D16DAC74759D3DB291DF1870E27B8D0B
+                          5BBCDD682CF58D4B2C88B59FADB1C387EA6A8646466657B65F1023B11A4867E7
+                          E9A39B0577DBCBF23591C3496DFF536143F2A9847B984CDBBB6363F33FB50D2F
+                          3603C9644E0F140AEE49754252DAFA4F6E2D30F6F2C4CCFC0B6D400B740B2DD3
+                          DE7643BC7F50154895B6F6C024BCC895A6E6861FB9DCD27B6DC2823F423ADA5B
+                          FBBD9867BA2C87131BF44C4F7F7CA36B48D003C964CE1D2F148AD9BD9FA676B5
+                          924CA54E8E8F7F58D4351CAB5B487EB3782FC26194D4150B853B5A43823D423A
+                          3ACEB4F930CCEA3252E99A9A86D1D1D9255D42C13D429CEBD72A72F9D5F58B5A
+                          C2811D88F7FE829691F3DE55ECBDCB853B10099BB58C9EF7A7B482033B1023A6
+                          41CBE85939A6151CE05F599B5BD77395E125BF8F0BCC83013C90E42F2D22B7FD
+                          272428D8813891EF5A46CE58FB4D4B38B003B1625E6B19392FF6959670700752
+                          659E6B19B92051B9F72E17EC402627B35FB776E5A7BA8C907B3C313157B1D361
+                          B980BFD4B7F6E4A4B959BAD1A4CB081457D3A6EA962E20410FA4B4275757DBAB
+                          BA2C973341B26F74265BB15F6F5180BF4195CB2D669B9BEA4B4749CF4E679FBC
+                          BD3E3D3357815360B46271C730B7B0F4B6B9B1FE93C84AAF486A8F9FD9AD99C0
+                          5EDA1AC6A036A0419FB2FE36F56E7E506C43AB71F26879797D53DBBBD2EF9EFB
+                          D569DB323535F772A78B2F564F9DFCD1DD7DBE3EBFB6DAE7BDF4873E3C1198B0
+                          D14BE84D98CE49E0BE88B543B5B535C3717C0C888888888888E8A0C5F2C290F9
+                          1010CC8700613E0408F32140980F01C27C0818E64380301F8286F9102CCC8780
+                          613E040CF32170980F01C37C0814E643C0301F0286F91030CC8700623E040CF3
+                          2180980F01C47C0820E64380311F424444444444149D585E18321F0282F91020
+                          CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030CC8780613E
+                          040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E0410F32180
+                          980F01C47C0830E64388888888682F447E0364274D4B6B4748F2000000004945
+                          4E44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -897,34 +1276,34 @@ object frmConfig: TfrmConfig
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          035049444154785EEDDB4F4814611806F0F7FBC65D7731B4402F2A516189455D
+                          034F49444154785EEDDB4F4814611806F0F7FBC65D773194402F2A516189465D
                           92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BF4A007757775BE2F57DFA04342BAB3F20C3CBFCBBCDF
-                          0BBB2CBC33B33B3BF308111111115580D16DAC74759D3DB291DF1870E27B8D0B
-                          5BBCDD682CF58D4B2C88B59FADB1C387EA6A8646466657B65F1023B11A4867E7
-                          E9A39B0577DBCBF23591C3496DFF536143F2A9847B984CDBBB6363F33FB50D2F
-                          3603C9644E0F140AEE49754252DAFA4F6E2D30F6F2C4CCFC0B6D400B740B2DD3
-                          DE7643BC7F50154895B6F6C024BCC895A6E6861FB9DCD27B6DC2823F423ADA5B
-                          FBBD9867BA2C87131BF44C4F7F7CA36B48D003C964CE1D2F148AD9BD9FA676B5
-                          924CA54E8E8F7F58D4351CAB5B487EB3782FC26194D4150B853B5A43823D423A
-                          3ACEB4F930CCEA3252E99A9A86D1D1D9255D42C13D429CEBD72A72F9D5F58B5A
-                          C2811D88F7FE829691F3DE55ECBDCB853B10099BB58C9EF7A7B482033B1023A6
-                          41CBE85939A6151CE05F599B5BD77395E125BF8F0BCC83013C90E42F2D22B7FD
-                          272428D8813891EF5A46CE58FB4D4B38B003B1625E6B19392FF6959670700752
-                          659E6B19B92051B9F72E17EC402627B35FB776E5A7BA8C907B3C313157B1D361
-                          B980BFD4B7F6E4A4B959BAD1A4CB081457D3A6EA962E20410FA4B4275757DBAB
-                          BA2C973341B26F74265BB15F6F5180BF4195CB2D669B9BEA4B4749CF4E679FBC
-                          BD3E3D3357815360B46271C730B7B0F4B6B9B1FE93C84AAF486A8F9FD9AD99C0
-                          5EDA1AC6A036A0419FB2FE36F56E7E506C43AB71F26879797D53DBBBD2EF9EFB
-                          D569DB323535F772A78B2F564F9DFCD1DD7DBE3EBFB6DAE7BDF4873E3C1198B0
-                          D14BE84D98CE49E0BE88B543B5B535C3717C0C888888888888E8A0C5F2C290F9
-                          1010CC8700613E0408F32140980F01C27C0818E64380301F8286F9102CCC8780
-                          613E040CF32170980F01C37C0814E643C0301F0286F91030CC8700623E040CF3
-                          2180980F01C47C0820E64380311F424444444444149D585E18321F0282F91020
-                          CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030CC8780613E
-                          040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E0410F32180
-                          980F01C47C0830E64388888888682F447E0364274D4B6B4748F2000000004945
-                          4E44AE426082}
+                          FC97D4A5D5FE1C0A5A0B14C483BABB3ADF97AB6FD02121DD5979069EDF65DEEF
+                          855D16DE99D99D9D7984888888882AC0E83656BABBCF1EDDCC6F0E3AF17DC685
+                          2DDE6E3696FAC62516C5DACFD6D891237535C3A3A373AB3B2F8891580DA4ABAB
+                          FDD856C1DDF6B2724DE46852DBFF54D8947C2AE11E26D3F6EEF8F8C24F6DC38B
+                          CD403299F6C142C13DA94E484A5BFFC9AD07C65E9E9C5D78A10D68816EA1653A
+                          DA6E88F70FAA02A9D2D63E988417B9D2D4DCF023975B7EAF4D58F047486747EB
+                          8017F34C97E5706283DE99998F6F740D097A2099CCB913854231BBFFD3D49E56
+                          93A9D4A989890F4BBA8663750BC96F15EF45388C92BA62A170476B48B0474867
+                          E799361F86595D462A5D53D3303636B7AC4B28B8478873035A452EBFB671514B
+                          38B003F1DE5FD03272DEBB8ABD77B970072261B396D1F3FEB45670600762C434
+                          68193D2BC7B58203FC2B6B6BFB7AAE32BCE40F70817938800792FCA545E476FE
+                          8404053B1027F25DCBC8196BBF690907762056CC6B2D23E7C5BED2120EEE40AA
+                          CC732D2317242AF7DEE5821DC8D454F6EBF6AEFC549711728F2727E72B763A2C
+                          17F097FAF69E9C34374B379A741981E25ADA54DDD20524E88194F6E4EA6A7B55
+                          97E5722648F68FCD662BF6EB2D0AF037A872B9A56C73537DE928E9DDED1C90B7
+                          D76766E72B700A8C562CEE18E61697DF3637D67F1259ED1349EDF333BB7513D8
+                          4BDBC318D20634E853D6DFA6DF2D0C896D68354E1EADAC6C6C697B4FFADD73BF
+                          3A6D5BA6A7E75FEE76F1C5EAA9933F7A7ACED7E7D7D7FABD9781D08727031336
+                          7A09BD09D33909DC17B176B8B6B666248E8F011111111111111DB6585E18321F
+                          0282F91020CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030
+                          CC8780613E040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E
+                          0410F32180980F01C47C0830E643888888888888A213CB0B43E64340301F0284
+                          F91020CC8700613E0408F32160980F01C27C081AE643B0301F0286F91030CC87
+                          C0613E040CF32150980F01C37C0818E643C0301F0288F91030CC8700623E0410
+                          F32180980F01C67C0811111111ED87C86FF04E4D45DBDA06050000000049454E
+                          44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -1066,34 +1445,34 @@ object frmConfig: TfrmConfig
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          034F49444154785EEDDB4F4814611806F0F7FBC6DD753194402F2A516189465D
+                          035049444154785EEDDB4F4814611806F0F7FBC65D7731B4402F2A516189455D
                           92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BF4B281BAEB3ADF976B6FD02121DD5979069EDF65DEEF
-                          855D16DE99D99D9D798488888888AAC0E836567A7B4F1F2E154AC34EFC807161
-                          9BB7A5E672DFB8C4B258FBD11A3B76A8A16E747C7C21BFF3821889D5407A7A3A
-                          8F6C15DD4D2FF92B220D496DFF53B12485DA84BB9F4CDBDB93934BDFB50D2F36
-                          03C9643A878B45F72895905A6DFD27B71E187B717A7EE99936A005BA8596E9EA
-                          B826DEDFAB09A4465B7B60125EE4524B6BD3B75C6EF5AD3661C11F21DD5DED43
-                          5ECC135D56C2890DFAE7E6DEBFD23524E8816432678E158B9BD9BD9FA676954F
-                          D6D69E989A7AB7A26B3856B790FCD6E69D088751D6B0592CDED21A12EC11D2DD
-                          7DAAC387615697914AD7D5354D4C2CACEA120AEE11E2DC9056912BAC6D9CD712
-                          0EEC40BCF7E7B48C9CF7AE6AEF5D29DC8148D8AA65F4BC3FA9151CD88118314D
-                          5A46CFCA51ADE000FFCADADABE9EAB0E2F857D5C601E0CE081247F6811B99D3F
-                          2141C10EC4897CD53272C6DA2F5AC2811D8815F352CBC879B12FB484833B901A
-                          F354CBC80589EABD77A56007323393FDBCBD2B3FD66584DCC3E9E9C5AA9D0E2B
-                          05FCA5BEBD2727CDF5F28D265D4660732D6D6A6EE80212F440CA7B722A652FEB
-                          B252CE04C9C189F96CD57EBD4501FE06552EB7926D6D692C1F25FDBF3BFBE4ED
-                          D5B9F9C52A9C02A3158B3B86B9E5D5D7ADCD8D1F447E0E88A4F6F899DDBA09EC
-                          85ED618C68031AF429EB6FB36F9646C436B61B270FF2F98D2D6DEF4ABF7BEEA6
-                          D2B66D7676F1F9EF2EBE583D75F2475FDFD9C6C2FADAA0F73214FAF07860C266
-                          2FA137613A2781FB24D68ED6D7D78DC5F131202222222222A28316CB0B43E643
-                          40301F0284F91020CC8700613E0408F32160980F01C27C081AE643B0301F0286
-                          F91030CC87C0613E040CF32150980F01C37C0818E643C0301F0288F91030CC87
-                          00623E0410F32180980F01C67C0811111111115174627961C87C0808E6438030
-                          1F0284F91020CC8700613E040CF32140980F41C37C0816E643C0301F0286F910
-                          38CC8780613E040AF32160980F01C37C0818E64300311F0286F91040CC870062
-                          3E0410F321C0980F21222222A2BD10F9051E124D4ED885892E0000000049454E
-                          44AE426082}
+                          FC97D4A5D5FE1C0A5A0BF4A007757775BE2F57DFA04342BAB3F20C3CBFCBBCDF
+                          0BBB2CBC33B33B3BF308111111115580D16DAC74759D3DB291DF1870E27B8D0B
+                          5BBCDD682CF58D4B2C88B59FADB1C387EA6A8646466657B65F1023B11A4867E7
+                          E9A39B0577DBCBF23591C3496DFF536143F2A9847B984CDBBB6363F33FB50D2F
+                          3603C9644E0F140AEE49754252DAFA4F6E2D30F6F2C4CCFC0B6D400B740B2DD3
+                          DE7643BC7F50154895B6F6C024BCC895A6E6861FB9DCD27B6DC2823F423ADA5B
+                          FBBD9867BA2C87131BF44C4F7F7CA36B48D003C964CE1D2F148AD9BD9FA676B5
+                          924CA54E8E8F7F58D4351CAB5B487EB3782FC26194D4150B853B5A43823D423A
+                          3ACEB4F930CCEA3252E99A9A86D1D1D9255D42C13D429CEBD72A72F9D5F58B5A
+                          C2811D88F7FE829691F3DE55ECBDCB853B10099BB58C9EF7A7B482033B1023A6
+                          41CBE85939A6151CE05F599B5BD77395E125BF8F0BCC83013C90E42F2D22B7FD
+                          272428D8813891EF5A46CE58FB4D4B38B003B1625E6B19392FF6959670700752
+                          659E6B19B92051B9F72E17EC402627B35FB776E5A7BA8C907B3C313157B1D361
+                          B980BFD4B7F6E4A4B959BAD1A4CB081457D3A6EA962E20410FA4B4275757DBAB
+                          BA2C973341B26F74265BB15F6F5180BF4195CB2D669B9BEA4B4749CF4E679FBC
+                          BD3E3D3357815360B46271C730B7B0F4B6B9B1FE93C84AAF486A8F9FD9AD99C0
+                          5EDA1AC6A036A0419FB2FE36F56E7E506C43AB71F26879797D53DBBBD2EF9EFB
+                          D569DB323535F772A78B2F564F9DFCD1DD7DBE3EBFB6DAE7BDF4873E3C1198B0
+                          D14BE84D98CE49E0BE88B543B5B535C3717C0C888888888888E8A0C5F2C290F9
+                          1010CC8700613E0408F32140980F01C27C0818E64380301F8286F9102CCC8780
+                          613E040CF32170980F01C37C0814E643C0301F0286F91030CC8700623E040CF3
+                          2180980F01C47C0820E64380311F424444444444149D585E18321F0282F91020
+                          CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030CC8780613E
+                          040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E0410F32180
+                          980F01C47C0830E64388888888682F447E0364274D4B6B4748F2000000004945
+                          4E44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint
@@ -1173,34 +1552,34 @@ object frmConfig: TfrmConfig
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          035049444154785EEDDB4F4814611806F0F7FBC65D7731B4402F2A516189455D
+                          034F49444154785EEDDB4F4814611806F0F7FBC65D773194402F2A516189465D
                           92F5A0E0C543973011093A041DBB4744A74E5D3A762C823A4906214475104234
-                          FC97D4A5D5FE1C0A5A0BF4A007757775BE2F57DFA04342BAB3F20C3CBFCBBCDF
-                          0BBB2CBC33B33B3BF308111111115580D16DAC74759D3DB291DF1870E27B8D0B
-                          5BBCDD682CF58D4B2C88B59FADB1C387EA6A8646466657B65F1023B11A4867E7
-                          E9A39B0577DBCBF23591C3496DFF536143F2A9847B984CDBBB6363F33FB50D2F
-                          3603C9644E0F140AEE49754252DAFA4F6E2D30F6F2C4CCFC0B6D400B740B2DD3
-                          DE7643BC7F50154895B6F6C024BCC895A6E6861FB9DCD27B6DC2823F423ADA5B
-                          FBBD9867BA2C87131BF44C4F7F7CA36B48D003C964CE1D2F148AD9BD9FA676B5
-                          924CA54E8E8F7F58D4351CAB5B487EB3782FC26194D4150B853B5A43823D423A
-                          3ACEB4F930CCEA3252E99A9A86D1D1D9255D42C13D429CEBD72A72F9D5F58B5A
-                          C2811D88F7FE829691F3DE55ECBDCB853B10099BB58C9EF7A7B482033B1023A6
-                          41CBE85939A6151CE05F599B5BD77395E125BF8F0BCC83013C90E42F2D22B7FD
-                          272428D8813891EF5A46CE58FB4D4B38B003B1625E6B19392FF6959670700752
-                          659E6B19B92051B9F72E17EC402627B35FB776E5A7BA8C907B3C313157B1D361
-                          B980BFD4B7F6E4A4B959BAD1A4CB081457D3A6EA962E20410FA4B4275757DBAB
-                          BA2C973341B26F74265BB15F6F5180BF4195CB2D669B9BEA4B4749CF4E679FBC
-                          BD3E3D3357815360B46271C730B7B0F4B6B9B1FE93C84AAF486A8F9FD9AD99C0
-                          5EDA1AC6A036A0419FB2FE36F56E7E506C43AB71F26879797D53DBBBD2EF9EFB
-                          D569DB323535F772A78B2F564F9DFCD1DD7DBE3EBFB6DAE7BDF4873E3C1198B0
-                          D14BE84D98CE49E0BE88B543B5B535C3717C0C888888888888E8A0C5F2C290F9
-                          1010CC8700613E0408F32140980F01C27C0818E64380301F8286F9102CCC8780
-                          613E040CF32170980F01C37C0814E643C0301F0286F91030CC8700623E040CF3
-                          2180980F01C47C0820E64380311F424444444444149D585E18321F0282F91020
-                          CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030CC8780613E
-                          040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E0410F32180
-                          980F01C47C0830E64388888888682F447E0364274D4B6B4748F2000000004945
-                          4E44AE426082}
+                          FC97D4A5D5FE1C0A5A0B14C483BABB3ADF97AB6FD02121DD5979069EDF65DEEF
+                          855D16DE99D99D9D7984888888882AC0E83656BABBCF1EDDCC6F0E3AF17DC685
+                          2DDE6E3696FAC62516C5DACFD6D891237535C3A3A373AB3B2F8891580DA4ABAB
+                          FDD856C1DDF6B2724DE46852DBFF54D8947C2AE11E26D3F6EEF8F8C24F6DC38B
+                          CD403299F6C142C13DA94E484A5BFFC9AD07C65E9E9C5D78A10D68816EA1653A
+                          DA6E88F70FAA02A9D2D63E988417B9D2D4DCF023975B7EAF4D58F047486747EB
+                          8017F34C97E5706283DE99998F6F740D097A2099CCB913854231BBFFD3D49E56
+                          93A9D4A989890F4BBA8663750BC96F15EF45388C92BA62A170476B48B0474867
+                          E799361F86595D462A5D53D3303636B7AC4B28B8478873035A452EBFB671514B
+                          38B003F1DE5FD03272DEBB8ABD77B970072261B396D1F3FEB45670600762C434
+                          68193D2BC7B58203FC2B6B6BFB7AAE32BCE40F70817938800792FCA545E476FE
+                          8404053B1027F25DCBC8196BBF690907762056CC6B2D23E7C5BED2120EEE40AA
+                          CC732D2317242AF7DEE5821DC8D454F6EBF6AEFC549711728F2727E72B763A2C
+                          17F097FAF69E9C34374B379A741981E25ADA54DDD20524E88194F6E4EA6A7B55
+                          97E5722648F68FCD662BF6EB2D0AF037A872B9A56C73537DE928E9DDED1C90B7
+                          D76766E72B700A8C562CEE18E61697DF3637D67F1259ED1349EDF333BB7513D8
+                          4BDBC318D20634E853D6DFA6DF2D0C896D68354E1EADAC6C6C697B4FFADD73BF
+                          3A6D5BA6A7E75FEE76F1C5EAA9933F7A7ACED7E7D7D7FABD9781D08727031336
+                          7A09BD09D33909DC17B176B8B6B666248E8F011111111111111DB6585E18321F
+                          0282F91020CC8700613E0408F32140980F01C37C0810E643D0301F8285F91030
+                          CC8780613E040EF32160980F81C27C0818E643C0301F0286F91040CC8780613E
+                          0410F32180980F01C47C0830E643888888888888A213CB0B43E64340301F0284
+                          F91020CC8700613E0408F32160980F01C27C081AE643B0301F0286F91030CC87
+                          C0613E040CF32150980F01C37C0818E643C0301F0288F91030CC8700623E0410
+                          F32180980F01C67C0811111111ED87C86FF04E4D45DBDA06050000000049454E
+                          44AE426082}
                       end>
                     Align = Right
                     Cursor = crHandPoint

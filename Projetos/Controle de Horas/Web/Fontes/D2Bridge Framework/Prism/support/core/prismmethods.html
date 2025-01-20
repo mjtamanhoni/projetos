@@ -1,0 +1,528 @@
+<script type="text/javascript">
+
+let PrismcurrentURL = new URL(window.location.href);
+if (PrismcurrentURL.search) {
+  PrismcurrentURL.search = "";
+  window.history.replaceState({}, document.title, PrismcurrentURL.href);
+}
+
+
+if (window.location.href.indexOf('#') > -1) {
+  history.replaceState({}, document.title, window.location.pathname);
+}
+
+var d2bridge = {
+  version: "{{version}}",
+  servername: "{{servername}}",
+  serverdescription: "{{serverdescription}}"
+}
+
+function PrismServer()
+{
+  return new PrismServerFunctions();
+}
+
+
+function LockThreadClient()
+{
+  setTimeout(() => {
+     if (d2bridgeloader) {
+        hided2bridgeloader = false;
+        let _d2bridge_loader = document.getElementById('d2bridge-loader');
+        _d2bridge_loader.style.backgroundColor = "";
+        $('#d2bridge-loader').show();
+
+        setTimeout(() => {
+           if (d2bridgeloader) {
+              if (!hided2bridgeloader) {
+                 let _d2bridge_loader = document.getElementById('d2bridge-loader');
+                 _d2bridge_loader.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+                 let _d2bridge_loader_wrapp = document.getElementById('d2bridge_loader_wrapp');
+                 if (_d2bridge_loader_wrapp) {
+                    _d2bridge_loader_wrapp.style.display = 'flex';
+                 }
+              }
+           }
+        }, waitd2bridgeloader);
+     }
+  }, 10);
+}
+
+function UnLockThreadClient()
+{
+  hided2bridgeloader = true;
+  setTimeout(() => {
+     if (d2bridgeloader) {
+        $('#d2bridge-loader').hide();
+        let _d2bridge_loader_wrapp = document.getElementById('d2bridge_loader_wrapp');
+        if (_d2bridge_loader_wrapp) {
+           _d2bridge_loader_wrapp.style.display = 'none';
+        }
+     }
+  }, 10);
+}
+
+/*
+if (d2bridgeloader !== true) {
+   UnLockThreadClient()
+}
+*/
+
+
+function showOverlayError() {
+  document.getElementById('overlayerror').style.display = 'block';
+}
+
+
+function isOverlayErrorVisible() {
+    var overlayError = document.getElementById("overlayerror");
+    return window.getComputedStyle(overlayError).getPropertyValue("display") !== "none";
+}
+
+
+function hideOverlayError() {
+  document.getElementById('overlayerror').style.display = 'none';
+}
+
+function jqGridSelectedRows(selarrrow) {
+  var numeros = [];
+
+  for (var i = 0; i < selarrrow.length; i++) {
+    var numero = selarrrow[i].replace("jqg", "");
+    numeros.push(numero);
+  }
+
+  return numeros;
+}
+
+function checkRequired(validationgroup) {
+  const fields = document.querySelectorAll(`[validationgroup="${validationgroup}"]`);
+
+  let hasEmptyRequiredField = false;
+
+  Array.from(fields).forEach(field => {
+    if (field.hasAttribute('required')) {
+      if (field.value.trim() === '') {
+        field.reportValidity();
+        field.classList.add('is-invalid');
+        hasEmptyRequiredField = true;
+      }
+      else
+      {
+        field.classList.remove('is-invalid');
+      }
+    }
+  })
+
+  return hasEmptyRequiredField;
+}
+
+
+function removeValidationFeedback(elementID) {
+  const htmlElement = document.querySelector("[id=" + elementID + " i]");
+
+  if (htmlElement !== null) {
+    elementID = htmlElement.id;
+
+    htmlElement.classList.remove('is-invalid');
+    htmlElement.classList.remove('is-valid');
+
+    const htmlElementvalidfeedback = document.getElementById(elementID + '_valid_feedback');
+    if (htmlElementvalidfeedback !== null) {
+      htmlElementvalidfeedback.remove();
+    }
+
+    const htmlElementinvalidfeedback = document.getElementById(elementID + '_invalid_feedback');
+    if (htmlElementinvalidfeedback !== null) {
+      htmlElementinvalidfeedback.remove();
+    }
+
+    htmlElement.removeEventListener('input', RemoveEventListenerValidation);
+  }
+}
+
+
+function RemoveEventListenerValidation()
+{
+    removeValidationFeedback(this.id)
+}
+
+
+function insertValidationFeedback(elementID, isValid, feedbackMessage) {
+  const htmlElement = document.querySelector("[id=" + elementID + " i]");
+
+  if (htmlElement !== null) {
+    elementID = htmlElement.id;
+
+    removeValidationFeedback(elementID);
+
+    if (isValid) {
+      htmlElement.classList.add('is-valid');
+    }
+    else {
+      htmlElement.classList.add('is-invalid');
+    }
+
+    if (feedbackMessage !== '') {
+      const divElement = document.createElement('div');
+
+      if (isValid) {
+        divElement.id = elementID + '_valid_feedback';
+        divElement.className = 'valid-feedback';
+      }
+      else {
+        divElement.id = elementID + '_invalid_feedback';
+        divElement.className = 'invalid-feedback';
+      }
+
+      divElement.textContent = feedbackMessage;
+
+      if (htmlElement.parentNode.classList.contains('d2bridgeformgroupitems')) {
+         htmlElement.parentNode.appendChild(divElement);
+      } else {
+         htmlElement.parentNode.insertBefore(divElement, htmlElement.nextSibling);
+      }
+
+      htmlElement.addEventListener('input', RemoveEventListenerValidation);
+    }
+  }
+}
+
+
+function GetComponentsStates (JSONPrismComponents) {
+    var PrismComponentsState = [];
+
+    for (var i = 0; i < JSONPrismComponents.length; i++) {
+      var PrismComponent = JSONPrismComponents[i];
+      var PrismType = PrismComponent.PrismType;
+      var vHTMLElement = document.querySelector("[id=" + PrismComponent.id + " i]");
+
+      if (vHTMLElement !== null)
+      {
+              var id = vHTMLElement.id;
+              var PrismComponentState = { id: id };
+
+              if (PrismType === "TPrismEdit" || PrismType === "TPrismButtonedEdit")
+              {
+                if (vHTMLElement.classList.contains('text-uppercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toUpperCase();
+                }
+                else
+                if (vHTMLElement.classList.contains('text-lowercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toLowerCase();
+                }
+                else {
+                    PrismComponentState.text = vHTMLElement.value;
+                }
+              }
+              else
+              if (PrismType === "TPrismDBEdit")
+              {
+                if (vHTMLElement.classList.contains('text-uppercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toUpperCase();
+                }
+                else
+                if (vHTMLElement.classList.contains('text-lowercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toLowerCase();
+                }
+                else {
+                    PrismComponentState.text = vHTMLElement.value;
+                }
+              }
+              else
+              if (PrismType === "TPrismDBMemo")
+              {
+                if (vHTMLElement.classList.contains('text-uppercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toUpperCase();
+                }
+                else
+                if (vHTMLElement.classList.contains('text-lowercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toLowerCase();
+                }
+                else {
+                    PrismComponentState.text = vHTMLElement.value;
+                }
+              }
+              else
+              if (PrismType === "TPrismMemo")
+              {
+                if (vHTMLElement.classList.contains('text-uppercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toUpperCase();
+                }
+                else
+                if (vHTMLElement.classList.contains('text-lowercase')) {
+                    PrismComponentState.text = vHTMLElement.value.toLowerCase();
+                }
+                else {
+                    PrismComponentState.text = vHTMLElement.value;
+                }
+              }
+              else
+              if (PrismType === "TPrismCombobox")
+              {
+                PrismComponentState.selecteditemindex = document.getElementById(id).value;
+              }
+              else
+              if (PrismType === "TPrismDBCombobox")
+              {
+                PrismComponentState.selecteditemindex = document.getElementById(id).value;
+              }
+              else
+              if (PrismType === "TPrismDBLookupCombobox")
+              {
+                PrismComponentState.selectedvalue = document.getElementById(id).value;
+              }
+              else
+              if (PrismType === "TPrismCheckBox")
+              {
+                PrismComponentState.checked = document.getElementById(id).checked;
+              }
+              else
+              if (PrismType === "TPrismDBCheckBox")
+              {
+                PrismComponentState.checked = document.getElementById(id).checked;
+              }
+              else
+              if (PrismType === "OutroTipo")
+              {
+                // Adicione outras verificações de tipo e propriedades aqui
+              }
+
+              PrismComponentsState.push(PrismComponentState);
+      }
+    }
+
+    return JSON.stringify(PrismComponentsState).replace(/&/g, "|^e^|");
+}
+
+async function generateJWT(header, payload, privateKey) {
+	
+	async function importarChavePrivada(pem) {
+	  const pemContents = pem
+		.replace(/-----BEGIN PRIVATE KEY-----/g, '')
+		.replace(/-----END PRIVATE KEY-----/g, '')
+		.replace(/\n/g, '');
+	  const binaryDerString = window.atob(pemContents);
+	  const binaryDer = str2ab(binaryDerString);
+
+	  return crypto.subtle.importKey(
+		"pkcs8",
+		binaryDer,
+		{
+		  name: "ECDSA",
+		  namedCurve: "P-256",
+		},
+		true,
+		["sign"]
+	  );
+	}	
+
+	function str2ab(str) {
+	  const buf = new ArrayBuffer(str.length);
+	  const bufView = new Uint8Array(buf);
+	  for (let i = 0, strLen = str.length; i < strLen; i++) {
+		bufView[i] = str.charCodeAt(i);
+	  }
+	  return buf;
+	}	
+
+	function base64UrlEncode(str) {
+	  return btoa(str)
+		.replace(/\+/g, '-')
+		.replace(/\//g, '_')
+		.replace(/=+$/, '');
+	}	
+
+
+	const privateKeyImported = await importarChavePrivada(privateKey);		
+
+	const headerBase64 = base64UrlEncode(JSON.stringify(header));
+	const payloadBase64 = base64UrlEncode(JSON.stringify(payload));
+
+	const unsignedToken = `${headerBase64}.${payloadBase64}`;
+
+	const encoder = new TextEncoder();
+	const signatureArrayBuffer = await crypto.subtle.sign(
+	{
+	  name: "ECDSA",
+	  hash: { name: "SHA-256" }
+	},
+	privateKeyImported,
+	encoder.encode(unsignedToken)
+	);
+
+	const signature = base64UrlEncode(String.fromCharCode(...new Uint8Array(signatureArrayBuffer)));
+
+	return `${unsignedToken}.${signature}`;
+	
+}
+
+
+function incd2bridgepopup(d2bridgepopup) {
+  if (d2bridgepopups.length > 0) {
+    var last_modal = d2bridgepopups[d2bridgepopups.length - 1];
+    if (last_modal) {
+      last_modal._element.style.display = 'none';
+    }
+  }
+
+  d2bridgepopups.push(d2bridgepopup);
+
+  setTimeout(function() {
+    document.activeElement.blur();
+    document.body.focus();
+  }, 1);
+
+  d2bridgepopup.show();
+}
+
+
+function decd2bridgepopup(d2bridgepopup) {
+  var index = -1;
+  for (var i = 0; i < d2bridgepopups.length; i++) {
+    if (d2bridgepopups[i]._element.id === d2bridgepopup.id) {
+      index = i;
+      break;
+    }
+  }
+
+  if (index > -1) {
+    d2bridgepopups.splice(index, 1);
+  }
+
+  if (d2bridgepopups.length > 0) {
+    var prev_modal = d2bridgepopups[d2bridgepopups.length - 1];
+    if (prev_modal) {
+      prev_modal._element.style.display = 'block';
+    }
+  }
+
+  setTimeout(function() {
+    document.activeElement.blur();
+    document.body.focus();
+  }, 1);
+}
+
+
+function UpdateActivityTime() {
+	lastActivityTime = Date.now();
+}
+
+
+window.addEventListener('load', function() {
+   document.querySelectorAll('[required]').forEach(function (element) {
+     element.addEventListener('input', function () {
+       this.classList.remove('is-invalid');
+     });
+   })
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    var popups = document.querySelectorAll(".d2bridgepopup");
+    popups.forEach(function(popup) {
+        document.body.appendChild(popup);
+    });
+});
+
+
+window.addEventListener('beforeunload', function () {
+
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Função para atualizar a visibilidade do formgroup com base na visibilidade do input
+    function updateFormGroupVisibility(element) {
+        var inputId = element.getAttribute('formgroupfor');
+        var formGroup = document.getElementById(inputId).closest('.d2bridgeformgroup');
+        var style = getComputedStyle(element);
+
+        if (style.display === 'block')
+          return;
+
+        // Se o input estiver visível, mostrar o formgroup, caso contrário, ocultá-lo
+        if (style.display !== 'none' && style.visibility !== 'hidden') {
+            formGroup.style.display = 'block';
+        } else {
+            formGroup.style.display = 'none';
+        }
+    }
+
+    // Atribuir um observador de mutação a cada elemento com a classe d2bridgeformgroupcontrol
+    document.querySelectorAll('.d2bridgeformgroupcontrol').forEach(function(element) {
+
+        var style = getComputedStyle(element);
+        var parent = element.parentNode;
+        var controlsInParent = parent.querySelectorAll('.d2bridgeformgroupcontrol');
+
+        if (controlsInParent.length > 0 && controlsInParent[0] === element) {
+            if (style.display === 'none' || style.visibility === 'hidden') {
+                updateFormGroupVisibility(element);
+            }
+        }
+
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'style' || mutation.attributeName === 'class') {
+                    updateFormGroupVisibility(element);
+                }
+            });
+        });
+
+        observer.observe(element, { attributes: true });
+    });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const closeButtons = document.querySelectorAll('.d2bridgepopupbtnclose');
+    closeButtons.forEach(function(button) {
+        button.addEventListener('keydown', function(event) {
+            event.preventDefault();
+        });
+    });
+});
+
+
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('sweetAlert2CloseButton')) {
+        Swal.close();
+    }
+});
+
+
+
+window.addEventListener('load', function() {
+   CheckPageLoadComplete = setInterval(function() {
+      PageLoadComplete();
+   }, 1);
+});
+
+
+window.addEventListener('load', function() {
+   window.onload = UpdateActivityTime;
+   window.onmousemove = UpdateActivityTime;
+   window.onmousedown = UpdateActivityTime;
+   window.ontouchstart = UpdateActivityTime;
+   window.onclick = UpdateActivityTime;
+   window.onkeypress = UpdateActivityTime;
+   window.addEventListener('scroll', UpdateActivityTime, true);
+   window.addEventListener('wheel', UpdateActivityTime, true);
+   window.addEventListener('keydown', UpdateActivityTime, true);
+   window.addEventListener('focus', UpdateActivityTime, true);
+   window.addEventListener('blur', UpdateActivityTime, true);
+   window.addEventListener('touchmove', UpdateActivityTime, true);
+   window.addEventListener('touchend', UpdateActivityTime, true);
+   window.addEventListener('mouseup', UpdateActivityTime, true);
+   window.addEventListener('resize', UpdateActivityTime, true);
+   window.addEventListener('change', UpdateActivityTime, true);
+   window.addEventListener('input', UpdateActivityTime, true);
+   window.addEventListener('focusin', UpdateActivityTime, true);
+   window.addEventListener('focusout', UpdateActivityTime, true);
+});
+
+
+</script>

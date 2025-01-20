@@ -470,179 +470,160 @@ object frmPesq_Pessoas: TfrmPesq_Pessoas
       #9#9'WHEN 0 THEN '#39'F'#205'SICA'#39
       #9#9'WHEN 1 THEN '#39'JUR'#205'DICA'#39
       #9'END PESSOA_DESC'
-      'FROM RDB$DATABASE'
-      #9'JOIN (SELECT'
-      #9#9#9#9#9#39'CLIENTE'#39' AS TIPO'
-      #9#9#9#9#9',C.ID'
-      #9#9#9#9#9',C.NOME'
-      #9#9#9#9#9',C.PESSOA '
-      #9#9#9#9#9',C.DOCUMENTO '
-      #9#9#9#9#9',C.INSC_EST '
-      #9#9#9#9#9',C.ENDERECO '
-      #9#9#9#9#9',C.COMPLEMENTO '
-      #9#9#9#9#9',C.NUMERO '
-      #9#9#9#9#9',C.BAIRRO '
-      #9#9#9#9#9',C.CIDADE '
-      #9#9#9#9#9',C.UF '
-      #9#9#9#9#9',C.TELEFONE '
-      #9#9#9#9#9',C.CELULAR '
-      #9#9#9#9#9',C.EMAIL'
-      #9#9#9#9#9',C.ID_TAB_PRECO '
-      #9#9#9#9'FROM CLIENTE C'
-      #9#9#9#9'UNION ALL'
-      #9#9#9#9'SELECT'
-      #9#9#9#9#9#39'FOENECEDOR'#39' AS TIPO'
-      #9#9#9#9#9',F.ID'
-      #9#9#9#9#9',F.NOME'
-      #9#9#9#9#9',F.PESSOA '
-      #9#9#9#9#9',F.DOCUMENTO '
-      #9#9#9#9#9',F.INSC_EST '
-      #9#9#9#9#9',F.ENDERECO '
-      #9#9#9#9#9',F.COMPLEMENTO '
-      #9#9#9#9#9',F.NUMERO '
-      #9#9#9#9#9',F.BAIRRO '
-      #9#9#9#9#9',F.CIDADE '
-      #9#9#9#9#9',F.UF '
-      #9#9#9#9#9',F.TELEFONE '
-      #9#9#9#9#9',F.CELULAR '
-      #9#9#9#9#9',F.EMAIL'
-      #9#9#9#9#9',0 AS ID_TAB_PRECO '
-      #9#9#9#9'FROM FORNECEDOR F) C ON 1=1'
+      'FROM (SELECT'
+      #9#9#9'  '#39'CLIENTE'#39' AS TIPO'
+      #9#9#9#9',C.ID'
+      #9#9#9#9',C.NOME'
+      #9#9#9#9',C.PESSOA '
+      #9#9#9#9',C.DOCUMENTO '
+      #9#9#9#9',C.INSC_EST '
+      #9#9#9#9',C.ENDERECO '
+      #9#9#9#9',C.COMPLEMENTO '
+      #9#9#9#9',C.NUMERO '
+      #9#9#9#9',C.BAIRRO '
+      #9#9#9#9',C.CIDADE '
+      #9#9#9#9',C.UF '
+      #9#9#9#9',C.TELEFONE '
+      #9#9#9#9',C.CELULAR '
+      #9#9#9#9',C.EMAIL'
+      #9#9#9#9',C.ID_TAB_PRECO '
+      #9#9#9'FROM CLIENTE C'
+      #9#9#9'UNION ALL'
+      #9#9#9'SELECT'
+      #9#9#9#9#39'FOENECEDOR'#39' AS TIPO'
+      #9#9#9#9',F.ID'
+      #9#9#9#9',F.NOME'
+      #9#9#9#9',F.PESSOA '
+      #9#9#9#9',F.DOCUMENTO '
+      #9#9#9#9',F.INSC_EST '
+      #9#9#9#9',F.ENDERECO '
+      #9#9#9#9',F.COMPLEMENTO '
+      #9#9#9#9',F.NUMERO '
+      #9#9#9#9',F.BAIRRO '
+      #9#9#9#9',F.CIDADE '
+      #9#9#9#9',F.UF '
+      #9#9#9#9',F.TELEFONE '
+      #9#9#9#9',F.CELULAR '
+      #9#9#9#9',F.EMAIL'
+      #9#9#9#9',0 AS ID_TAB_PRECO '
+      #9#9#9'FROM FORNECEDOR F) C'
       'WHERE NOT C.ID IS NULL'
       'ORDER BY 1,2;'
       '')
     Left = 336
     Top = 360
-    object FDQRegistrosTIPO: TStringField
+    object FDQRegistrostipo: TWideMemoField
       AutoGenerateValue = arDefault
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-      ProviderFlags = []
+      FieldName = 'tipo'
+      Origin = 'tipo'
       ReadOnly = True
-      FixedChar = True
-      Size = 10
+      BlobType = ftWideMemo
     end
-    object FDQRegistrosID: TIntegerField
+    object FDQRegistrosid: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'ID'
-      Origin = 'ID'
-      ProviderFlags = []
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = True
     end
-    object FDQRegistrosNOME: TStringField
+    object FDQRegistrosnome: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      ProviderFlags = []
+      FieldName = 'nome'
+      Origin = 'nome'
       ReadOnly = True
       Size = 255
     end
-    object FDQRegistrosPESSOA: TIntegerField
+    object FDQRegistrospessoa: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'PESSOA'
-      Origin = 'PESSOA'
-      ProviderFlags = []
+      FieldName = 'pessoa'
+      Origin = 'pessoa'
       ReadOnly = True
     end
-    object FDQRegistrosDOCUMENTO: TStringField
+    object FDQRegistrosdocumento: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'DOCUMENTO'
-      Origin = 'DOCUMENTO'
-      ProviderFlags = []
+      FieldName = 'documento'
+      Origin = 'documento'
       ReadOnly = True
     end
-    object FDQRegistrosINSC_EST: TStringField
+    object FDQRegistrosinsc_est: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'INSC_EST'
-      Origin = 'INSC_EST'
-      ProviderFlags = []
+      FieldName = 'insc_est'
+      Origin = 'insc_est'
       ReadOnly = True
     end
-    object FDQRegistrosENDERECO: TStringField
+    object FDQRegistrosendereco: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'ENDERECO'
-      Origin = 'ENDERECO'
-      ProviderFlags = []
+      FieldName = 'endereco'
+      Origin = 'endereco'
       ReadOnly = True
       Size = 255
     end
-    object FDQRegistrosCOMPLEMENTO: TStringField
+    object FDQRegistroscomplemento: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'COMPLEMENTO'
-      Origin = 'COMPLEMENTO'
-      ProviderFlags = []
+      FieldName = 'complemento'
+      Origin = 'complemento'
       ReadOnly = True
       Size = 255
     end
-    object FDQRegistrosNUMERO: TStringField
+    object FDQRegistrosnumero: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'NUMERO'
-      Origin = 'NUMERO'
-      ProviderFlags = []
+      FieldName = 'numero'
+      Origin = 'numero'
       ReadOnly = True
       Size = 10
     end
-    object FDQRegistrosBAIRRO: TStringField
+    object FDQRegistrosbairro: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'BAIRRO'
-      Origin = 'BAIRRO'
-      ProviderFlags = []
+      FieldName = 'bairro'
+      Origin = 'bairro'
       ReadOnly = True
       Size = 100
     end
-    object FDQRegistrosCIDADE: TStringField
+    object FDQRegistroscidade: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CIDADE'
-      Origin = 'CIDADE'
-      ProviderFlags = []
+      FieldName = 'cidade'
+      Origin = 'cidade'
       ReadOnly = True
       Size = 100
     end
-    object FDQRegistrosUF: TStringField
+    object FDQRegistrosuf: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'UF'
-      Origin = 'UF'
-      ProviderFlags = []
+      FieldName = 'uf'
+      Origin = 'uf'
       ReadOnly = True
       Size = 2
     end
-    object FDQRegistrosTELEFONE: TStringField
+    object FDQRegistrostelefone: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'TELEFONE'
-      Origin = 'TELEFONE'
-      ProviderFlags = []
+      FieldName = 'telefone'
+      Origin = 'telefone'
       ReadOnly = True
     end
-    object FDQRegistrosCELULAR: TStringField
+    object FDQRegistroscelular: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CELULAR'
-      Origin = 'CELULAR'
-      ProviderFlags = []
+      FieldName = 'celular'
+      Origin = 'celular'
       ReadOnly = True
     end
-    object FDQRegistrosEMAIL: TStringField
+    object FDQRegistrosemail: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      ProviderFlags = []
+      FieldName = 'email'
+      Origin = 'email'
       ReadOnly = True
       Size = 255
     end
-    object FDQRegistrosID_TAB_PRECO: TIntegerField
+    object FDQRegistrosid_tab_preco: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'ID_TAB_PRECO'
-      Origin = 'ID_TAB_PRECO'
-      ProviderFlags = []
+      FieldName = 'id_tab_preco'
+      Origin = 'id_tab_preco'
       ReadOnly = True
     end
-    object FDQRegistrosPESSOA_DESC: TStringField
+    object FDQRegistrospessoa_desc: TWideMemoField
       AutoGenerateValue = arDefault
-      FieldName = 'PESSOA_DESC'
-      Origin = 'PESSOA_DESC'
-      ProviderFlags = []
+      FieldName = 'pessoa_desc'
+      Origin = 'pessoa_desc'
       ReadOnly = True
-      FixedChar = True
-      Size = 8
+      BlobType = ftWideMemo
     end
   end
   object DSRegistros: TDataSource

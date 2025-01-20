@@ -89,17 +89,8 @@ Coordinates=215,10,66,51
 Coordinates=970,737,83,33
 Visible=False
 
-[FDQRegistrosSINCRONIZADO]
-Coordinates=1092,1,163,33
-
 [DSRegistros]
 Coordinates=352,535,76,33
-
-[FDQRegistrosDT_CADASTRO]
-Coordinates=1092,111,161,33
-
-[FDQRegistrosCELULAR]
-Coordinates=1092,166,132,33
 
 [DM_Global.FDQ_Select]
 Coordinates=561,410,128,51
@@ -107,32 +98,8 @@ Coordinates=561,410,128,51
 [imgEditar]
 Coordinates=321,410,61,51
 
-[FDQRegistrosID]
-Coordinates=877,617,93,33
-
-[FDQRegistrosEMAIL]
-Coordinates=1092,331,115,33
-
-[FDQRegistrosHR_CADASTRO]
-Coordinates=1339,1,162,33
-
-[FDQRegistrosPIN]
-Coordinates=877,672,100,33
-
-[FDQRegistrosLOGIN]
-Coordinates=1092,386,116,33
-
 [DM_Global.FDQ_Update]
 Coordinates=958,410,133,51
-
-[FDQRegistrosFOTO]
-Coordinates=1092,441,112,33
-
-[FDQRegistrosSENHA]
-Coordinates=1073,482,119,33
-
-[FDQRegistrosNOME]
-Coordinates=1092,537,114,33
 
 [imgSalvar]
 Coordinates=755,342,63,51
@@ -156,7 +123,7 @@ Coordinates=106,342,76,51
 Coordinates=300,10,126,51
 
 []
-Coordinates=628,342,102,51
+Coordinates=877,617,93,33
 Visible=True
 
 [lbID]

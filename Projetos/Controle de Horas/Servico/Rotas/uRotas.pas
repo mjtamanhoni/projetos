@@ -229,7 +229,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FNome := '';
@@ -278,7 +278,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -307,7 +307,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -336,7 +336,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCliente.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -422,7 +422,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FDescricao := '';
@@ -471,7 +471,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -500,7 +500,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -529,7 +529,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TCondicaoPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -565,7 +565,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FDescricao := '';
@@ -614,7 +614,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -643,7 +643,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -672,7 +672,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TConta.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -708,7 +708,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FNome := '';
@@ -757,7 +757,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -786,7 +786,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -815,7 +815,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TEmpresa.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -854,7 +854,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FFormaPagto := '';
@@ -909,7 +909,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -938,7 +938,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -969,7 +969,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaCondPagto.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FIdForma := 0;
@@ -1010,7 +1010,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FDescricao := '';
@@ -1059,7 +1059,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1088,7 +1088,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1117,7 +1117,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFormaPagamento.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -1153,7 +1153,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FNome := '';
@@ -1202,7 +1202,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1231,7 +1231,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1260,7 +1260,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TFornecedor.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -1305,7 +1305,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TLancto_Financeiro.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TLancto_Financeiro.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FEmpresa_ID := 0;
@@ -1428,7 +1428,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FNome := '';
@@ -1477,7 +1477,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1506,7 +1506,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1535,7 +1535,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TPrestador_Servico.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -1580,7 +1580,7 @@ begin
       FFuncoes := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnectionP);
 
       FEmpresa_ID := 0;
       FPrestador_ID := 0;
@@ -1656,7 +1656,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FEmpresa_ID := 0;
@@ -1770,7 +1770,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FDescricao := '';
@@ -1819,7 +1819,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1848,7 +1848,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -1877,7 +1877,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TTabela_Preco.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);
@@ -1916,7 +1916,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FTUsuario := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+      FTUsuario := TUsuario.Create(FDM_Global_Wnd.FDConnectionP);
 
       FUsuario := '';
       FSenha := '';
@@ -1967,7 +1967,7 @@ begin
   try
     try
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FNome := '';
@@ -2016,7 +2016,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -2045,7 +2045,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
 
@@ -2074,7 +2074,7 @@ begin
       FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
       FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
-      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnection);
+      FModeloDados := TUsuario.Create(FDM_Global_Wnd.FDConnectionP);
 
       FId := 0;
       FId := StrToIntDef(Req.Query['id'],0);

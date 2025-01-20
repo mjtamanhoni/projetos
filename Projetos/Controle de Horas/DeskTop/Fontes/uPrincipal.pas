@@ -115,6 +115,7 @@ type
     procedure rctLancamentosClick(Sender: TObject);
     procedure rctFormaPagtoClick(Sender: TObject);
     procedure rctCondPagtoClick(Sender: TObject);
+    procedure mtvMenuHidden(Sender: TObject);
   private
     FDm_Global :TDM_Global;
     procedure AbreForm(AForm:TFormClass);
@@ -216,7 +217,15 @@ end;
 procedure TfrmPrincipal.imgLogClick(Sender: TObject);
 begin
   exCadastro.IsExpanded := False;
+  exMovimento.IsExpanded := False;
   mtvMenu.ShowMaster;
+end;
+
+procedure TfrmPrincipal.mtvMenuHidden(Sender: TObject);
+begin
+  exCadastro.Height := 400;
+  exMovimento.Height := 150;
+
 end;
 
 procedure TfrmPrincipal.AbreForm(AForm:TFormClass);
@@ -243,8 +252,6 @@ begin
   mtvMenu.HideMaster;
   exCadastro.IsExpanded := False;
   exMovimento.IsExpanded := False;
-  exCadastro.Height := 400;
-  exMovimento.Height := 150;
 end;
 
 procedure TfrmPrincipal.rctServPrestadosClick(Sender: TObject);

@@ -10,20 +10,24 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.ConsoleUI.Wait,
   Data.DB, FireDAC.Comp.Client, FireDAC.Phys.FBDef, FireDAC.Phys.IBBase,
-  FireDAC.Phys.FB, FireDAC.Comp.UI;
+  FireDAC.Phys.FB, FireDAC.Comp.UI, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Phys.PG,
+  FireDAC.Phys.PGDef, FireDAC.Comp.DataSet;
 
 type
   TDM_Global_Wnd = class(TDataModule)
-    FDConnection: TFDConnection;
+    FDConnectionF: TFDConnection;
     FDTransaction: TFDTransaction;
     FDPhysFBDriverLink: TFDPhysFBDriverLink;
     FDGUIxWaitCursor: TFDGUIxWaitCursor;
+    FDQ_SelectP: TFDQuery;
+    FDConnectionP: TFDConnection;
+    FDPhysPgDriverLink: TFDPhysPgDriverLink;
     procedure DataModuleCreate(Sender: TObject);
   private
 
   public
     Firebird_Erro: String;
-    Firebird_Conectado: Boolean;
+    Banco_Conectado: Boolean;
 
     procedure Conectar_Banco;
   end;
@@ -42,28 +46,30 @@ implementation
 procedure TDM_Global_Wnd.Conectar_Banco;
 var
   IniFile  :TIniFile;
-  lEnder   :String;
+  FEnder   :String;
 
-  lDatabase :String;
-  lUser_Name :String;
-  lPassword :String;
-  lProtocol :String;
-  lPort :String;
-  lServer :String;
-  lDriverID :String;
+  FDatabase :String;
+  FUser_Name :String;
+  FPassword :String;
+  FProtocol :String;
+  FPort :String;
+  FServer :String;
+  FDriverID :String;
+  FSchemaName :String;
+  FLibrary :String;
+
 begin
-  Firebird_Conectado := True;
+  Banco_Conectado := True;
   Firebird_Erro := '';
 
-  FDConnection.Connected   := False;
   try
     try
-      lEnder  := '';
-      lEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
+      FEnder  := '';
+      FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
 
-      if not FileExists(lEnder) then
+      if not FileExists(FEnder) then
         Exit;
-      IniFile := TIniFile.Create(lEnder);
+      IniFile := TIniFile.Create(FEnder);
 
       if IniFile.ReadString('BANDO_FIREBIRD','BANCO','') = '' then
         Exit;
@@ -71,52 +77,76 @@ begin
       if not FileExists(IniFile.ReadString('BANDO_FIREBIRD','BANCO','')) then
         Exit;
 
-      {$Region 'Pegando informações do arquivo INI'}
-        lDatabase := '';
-        lUser_Name := '';
-        lPassword := '';
-        lProtocol := '';
-        lPort := '';
-        lServer := '';
-        lDriverID := '';
+      FDatabase := '';
+      FUser_Name := '';
+      FPassword := '';
+      FProtocol := '';
+      FPort := '';
+      FServer := '';
+      FDriverID := '';
+      FSchemaName := '';
+      FLibrary := '';
 
-        lDatabase := IniFile.ReadString('BANDO_FIREBIRD','BANCO','');
-        lUser_Name := IniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
-        lPassword := IniFile.ReadString('BANDO_FIREBIRD','SENHA','');
-        lServer := IniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
-        if lServer = 'LOCALHOST' then
-          lProtocol := 'LOCAL'
-        else
-          lProtocol := 'TCPIP';
-        lPort := IniFile.ReadString('BANDO_FIREBIRD','PORTA','');
-        lDriverID := 'FB';
-      {$EndRegion 'Pegando informações do arquivo INI'}
+      case IniFile.ReadInteger('BANDO','USADO.ID',0) of
+        0:begin
+          {$Region 'Pegando informações Banco Firebird'}
+            FDatabase := IniFile.ReadString('BANDO_FIREBIRD','BANCO','');
+            FUser_Name := IniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
+            FPassword := IniFile.ReadString('BANDO_FIREBIRD','SENHA','');
+            FServer := IniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
+            if FServer = 'LOCALHOST' then
+              FProtocol := 'LOCAL'
+            else
+              FProtocol := 'TCPIP';
+            FPort := IniFile.ReadString('BANDO_FIREBIRD','PORTA','');
+            FDriverID := 'FB';
 
-      FDConnection.LoginPrompt := False;
-      FDConnection.Params.Clear;
-      FDConnection.Params.Add('Database=' + lDatabase);
-      FDConnection.Params.Add('User_Name=' + lUser_Name);
-      FDConnection.Params.Add('Password=' + lPassword);
-      FDConnection.Params.Add('Protocol=' + lProtocol);
-      FDConnection.Params.Add('Port=' + lPort);
-      FDConnection.Params.Add('Server=' + lServer);
-      FDConnection.Params.Add('DriverID=' + lDriverID);
+            FDConnectionF.Connected   := False;
+            FDConnectionF.LoginPrompt := False;
+            FDConnectionF.Params.Clear;
+            FDConnectionF.Params.Add('Database=' + FDatabase);
+            FDConnectionF.Params.Add('User_Name=' + FUser_Name);
+            FDConnectionF.Params.Add('Password=' + FPassword);
+            FDConnectionF.Params.Add('Protocol=' + FProtocol);
+            FDConnectionF.Params.Add('Port=' + FPort);
+            FDConnectionF.Params.Add('Server=' + FServer);
+            FDConnectionF.Params.Add('DriverID=' + FDriverID);
+            FDConnectionF.Connected := True;
+          {$EndRegion 'Pegando informações Banco Firebird'}
+        end;
+        1:begin
+          FDriverID := IniFile.ReadString('BANDO.POSTGRESQL','DRIVER','');
+          FServer := IniFile.ReadString('BANDO.POSTGRESQL','SERVER','');
+          FPort := IniFile.ReadString('BANDO.POSTGRESQL','PORT','');
+          FDatabase := IniFile.ReadString('BANDO.POSTGRESQL','DATABASE','');
+          FUser_Name := IniFile.ReadString('BANDO.POSTGRESQL','USER_NAME','');
+          FPassword := IniFile.ReadString('BANDO.POSTGRESQL','PASSWORD','');
+          FSchemaName := IniFile.ReadString('BANDO.POSTGRESQL','SCHEMANAME','');
+          FLibrary := IniFile.ReadString('BANDO.POSTGRESQL','VENDOR_LIB','');
 
-      //if IniFile.ReadString('BANDO_FIREBIRD','VERSAO','') = 'FIREBIRD 2.1' then
-      //begin
-      //  FDP_Firebired.VendorLib := '';
-      //  FDP_Firebired.VendorLib := IniFile.ReadString('BANDO_FIREBIRD','LIBRARY','');
-      //end;
+          FDConnectionP.Connected   := False;
+          FDConnectionP.LoginPrompt := False;
+          FDConnectionP.Params.Clear;
+          FDConnectionP.DriverName := 'PG';
+          FDConnectionP.Params.Add('Server=' + FServer);
+          FDConnectionP.Params.Add('Port=' + FPort);
+          FDConnectionP.Params.Add('Database=' + FDatabase);
+          FDConnectionP.Params.Add('User_Name=' + FUser_Name);
+          FDConnectionP.Params.Add('Password=' + FPassword);
+          FDConnectionP.Params.Add('SchemaName=' + FSchemaName);
+          FDPhysPgDriverLink.VendorLib := FLibrary;
+          FDConnectionP.Connected := True;
+        end;
+      end;
 
-      FDConnection.Connected := True;
-      Firebird_Conectado := FDConnection.Connected;
+      Banco_Conectado := FDConnectionF.Connected;
 
-      if not Firebird_Conectado then
+      if not Banco_Conectado then
       begin
-        Firebird_Erro := Firebird_Erro + lServer + ' - ' +  lPort + sLineBreak;
-        Firebird_Erro := Firebird_Erro + lUser_Name + sLineBreak;
-        Firebird_Erro := Firebird_Erro + lPassword + sLineBreak;
-        Firebird_Erro := Firebird_Erro + lDatabase;
+        Firebird_Erro := Firebird_Erro + FServer + ' - ' +  FPort + sLineBreak;
+        Firebird_Erro := Firebird_Erro + FUser_Name + sLineBreak;
+        Firebird_Erro := Firebird_Erro + FPassword + sLineBreak;
+        Firebird_Erro := Firebird_Erro + FDatabase;
       end
       else
         Firebird_Erro := Firebird_Erro + ' Conectado';

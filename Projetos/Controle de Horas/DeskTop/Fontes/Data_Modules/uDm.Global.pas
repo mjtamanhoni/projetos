@@ -12,7 +12,7 @@ uses
 
 type
   TDM_Global = class(TDataModule)
-    FDC_Firebird: TFDConnection;
+    FDC_Firebird_: TFDConnection;
     FDT_Firebird: TFDTransaction;
     FDP_Firebired: TFDPhysFBDriverLink;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
@@ -39,9 +39,9 @@ type
     FDMT_RelatoriosTIPO_PERIODO: TStringField;
     FDMT_RelatoriosD_C: TStringField;
     FDMT_RelatoriosSTATUS: TStringField;
-    FDP_PostgreSql: TFDPhysPgDriverLink;
-    FDC_PostgreSql: TFDConnection;
     FDQ_SelectP: TFDQuery;
+    FDC_Firebird: TFDConnection;
+    FDPhysPgDriverLink: TFDPhysPgDriverLink;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -88,15 +88,15 @@ implementation
 procedure TDM_Global.Conectar_Banco;
 var
   IniFile  :TIniFile;
-  lEnder   :String;
+  FEnder   :String;
 
-  lDatabase :String;
-  lUser_Name :String;
-  lPassword :String;
-  lProtocol :String;
-  lPort :String;
-  lServer :String;
-  lDriverID :String;
+  FDatabase :String;
+  FUser_Name :String;
+  FPassword :String;
+  FProtocol :String;
+  FPort :String;
+  FServer :String;
+  FDriverID :String;
   FSchemaName :String;
   FLibrary :String;
 begin
@@ -106,12 +106,12 @@ begin
   FDC_Firebird.Connected   := False;
   try
     try
-      lEnder  := '';
-      lEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
+      FEnder  := '';
+      FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS.ini';
 
-      if not FileExists(lEnder) then
+      if not FileExists(FEnder) then
         Exit;
-      IniFile := TIniFile.Create(lEnder);
+      IniFile := TIniFile.Create(FEnder);
 
       if IniFile.ReadString('BANDO_FIREBIRD','BANCO','') = '' then
         Exit;
@@ -119,73 +119,86 @@ begin
       if not FileExists(IniFile.ReadString('BANDO_FIREBIRD','BANCO','')) then
         Exit;
 
-      {$Region 'Pegando informações do arquivo INI'}
-        lDatabase := '';
-        lUser_Name := '';
-        lPassword := '';
-        lProtocol := '';
-        lPort := '';
-        lServer := '';
-        lDriverID := '';
 
-        lDatabase := IniFile.ReadString('BANDO_FIREBIRD','BANCO','');
-        lUser_Name := IniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
-        lPassword := IniFile.ReadString('BANDO_FIREBIRD','SENHA','');
-        lServer := IniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
-        if lServer = 'LOCALHOST' then
-          lProtocol := 'LOCAL'
-        else
-          lProtocol := 'TCPIP';
-        lPort := IniFile.ReadString('BANDO_FIREBIRD','PORTA','');
-        lDriverID := 'FB';
-      {$EndRegion 'Pegando informações do arquivo INI'}
+      FDatabase := '';
+      FUser_Name := '';
+      FPassword := '';
+      FProtocol := '';
+      FPort := '';
+      FServer := '';
+      FDriverID := '';
+      FSchemaName := '';
+      FLibrary := '';
 
       FDC_Firebird.LoginPrompt := False;
       FDC_Firebird.Params.Clear;
-      {
-      FDC_Firebird.Params.Add('Database=' + lDatabase);
-      FDC_Firebird.Params.Add('User_Name=' + lUser_Name);
-      FDC_Firebird.Params.Add('Password=' + lPassword);
-      FDC_Firebird.Params.Add('Protocol=' + lProtocol);
-      FDC_Firebird.Params.Add('Port=' + lPort);
-      FDC_Firebird.Params.Add('Server=' + lServer);
-      FDC_Firebird.Params.Add('DriverID=' + lDriverID);
-      }
-      //if IniFile.ReadString('BANDO_FIREBIRD','VERSAO','') = 'FIREBIRD 2.1' then
-      //begin
-      //  FDP_Firebired.VendorLib := '';
-      //  FDP_Firebired.VendorLib := IniFile.ReadString('BANDO_FIREBIRD','LIBRARY','');
-      //end;
-      FDC_Firebird.DriverName := 'PG';
-      lServer := 'localhost';
-      lPort := '5432';
-      lDatabase := 'financeiro';
-      lUser_Name := 'postgres';
-      lPassword := 'M74E25@Ta';
-      FSchemaName := 'public';
-      lDriverID := '';
-      FLibrary := 'C:\Program Files (x86)\PostgreSQL\9.6\lib\libpq.dll';
 
-      FDC_Firebird.Params.Add('Server=' + lServer);
-      FDC_Firebird.Params.Add('Port=' + lPort);
-      FDC_Firebird.Params.Add('Database=' + lDatabase);
-      FDC_Firebird.Params.Add('User_Name=' + lUser_Name);
-      FDC_Firebird.Params.Add('Password=' + lPassword);
-      FDC_Firebird.Params.Add('SchemaName=' + FSchemaName);
-      //FDP_PostgreSql.VendorLib := FLibrary;
-      //FDC_Firebird.Params.Add('Protocol=' + lProtocol);
-      //FDC_Firebird.Params.Add('DriverID=' + lDriverID);
+      case IniFile.ReadInteger('BANDO','USADO.ID',0) of
+        0:begin
+          {$Region 'Banco de Dados - Firebird'}
+            FDatabase := IniFile.ReadString('BANDO_FIREBIRD','BANCO','');
+            FUser_Name := IniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
+            FPassword := IniFile.ReadString('BANDO_FIREBIRD','SENHA','');
+            FServer := IniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
+            if FServer = 'LOCALHOST' then
+              FProtocol := 'LOCAL'
+            else
+              FProtocol := 'TCPIP';
+            FPort := IniFile.ReadString('BANDO_FIREBIRD','PORTA','');
+            FDriverID := IniFile.ReadString('BANDO','USADO.SIGLA','FB');
 
+            FDC_Firebird.Params.Add('Database=' + FDatabase);
+            FDC_Firebird.Params.Add('User_Name=' + FUser_Name);
+            FDC_Firebird.Params.Add('Password=' + FPassword);
+            FDC_Firebird.Params.Add('Protocol=' + FProtocol);
+            FDC_Firebird.Params.Add('Port=' + FPort);
+            FDC_Firebird.Params.Add('Server=' + FServer);
+            FDC_Firebird.Params.Add('DriverID=' + FDriverID);
+          {$EndRegion 'Banco de Dados - Firebird'}
+        end;
+        1:begin
+          {$Region 'Banco de Dados - PostgreSql'}
+            FDriverID := IniFile.ReadString('BANDO.POSTGRESQL','DRIVER','');
+            FServer := IniFile.ReadString('BANDO.POSTGRESQL','SERVER','');
+            FPort := IniFile.ReadString('BANDO.POSTGRESQL','PORT','');
+            FDatabase := IniFile.ReadString('BANDO.POSTGRESQL','DATABASE','');
+            FUser_Name := IniFile.ReadString('BANDO.POSTGRESQL','USER_NAME','');
+            FPassword := IniFile.ReadString('BANDO.POSTGRESQL','PASSWORD','');
+            FSchemaName := IniFile.ReadString('BANDO.POSTGRESQL','SCHEMANAME','');
+            FLibrary := IniFile.ReadString('BANDO.POSTGRESQL','VENDOR_LIB','');
+
+            FDC_Firebird.DriverName := 'PG';
+            FDC_Firebird.Params.Add('Server=' + FServer);
+            FDC_Firebird.Params.Add('Port=' + FPort);
+            FDC_Firebird.Params.Add('Database=' + FDatabase);
+            FDC_Firebird.Params.Add('User_Name=' + FUser_Name);
+            FDC_Firebird.Params.Add('Password=' + FPassword);
+            FDC_Firebird.Params.Add('SchemaName=' + FSchemaName);
+            FDPhysPgDriverLink.VendorLib := FLibrary;
+
+            {
+              FServer := 'localhost';
+              FPort := '5432';
+              FDatabase := 'financeiro';
+              FUser_Name := 'postgres';
+              FPassword := 'M74E25@Ta';
+              FSchemaName := 'public';
+              FDriverID := '';
+              FLibrary := 'C:\Programas\PostgreSql_9_32\bin\libpq.dll';
+            }
+          {$EndRegion 'Banco de Dados - PostgreSql'}
+        end;
+      end;
 
       FDC_Firebird.Connected := True;
       Firebird_Conectado := FDC_Firebird.Connected;
 
       if not Firebird_Conectado then
       begin
-        Firebird_Erro := Firebird_Erro + lServer + ' - ' +  lPort + sLineBreak;
-        Firebird_Erro := Firebird_Erro + lUser_Name + sLineBreak;
-        Firebird_Erro := Firebird_Erro + lPassword + sLineBreak;
-        Firebird_Erro := Firebird_Erro + lDatabase;
+        Firebird_Erro := Firebird_Erro + FServer + ' - ' +  FPort + sLineBreak;
+        Firebird_Erro := Firebird_Erro + FUser_Name + sLineBreak;
+        Firebird_Erro := Firebird_Erro + FPassword + sLineBreak;
+        Firebird_Erro := Firebird_Erro + FDatabase;
       end
       else
         Firebird_Erro := Firebird_Erro + ' Conectado';

@@ -622,7 +622,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
           Size.Width = 1099.000000000000000000
           Size.Height = 512.000000000000000000
           Size.PlatformDefault = False
-          TabIndex = 1
+          TabIndex = 0
           TabOrder = 2
           TabPosition = None
           Sizes = (
@@ -634,7 +634,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             CustomIcon = <
               item
               end>
-            IsSelected = False
+            IsSelected = True
             Size.Width = 8.000000000000000000
             Size.Height = 8.000000000000000000
             Size.PlatformDefault = False
@@ -1295,71 +1295,71 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                         PNG = {
                           89504E470D0A1A0A0000000D494844520000006400000064080600000070E295
                           54000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
-                          07FB49444154785EEDDD7F6C13E71907F0E7BD3BDB750C291D94ADA81A6C5247
-                          9C009B867F9052164D1D841FA52B5A192BFC4391564DD33A4DFDA393C6268656
-                          ADD336893F366D52F7B393A88A22A8D40E256AFA432994D86747DD489AB8A352
-                          A3AEED60058168E210DBF7BE7BDFF3039BB33877B61BFB4C9ECF3F799EC79016
-                          7F7DBEF3EBF31908218410420821A4CE18FEAC4934DAD10D82773326E2168715
-                          3AE3CB01B416BCF926C5B305AE5D3034F8400033355DF42693997EBCB16A3505
-                          128DB6EF15821FD10064000420FF2F06C6A3C9F45BC77150B1AA02D9B4A9ED8E
-                          6B53EC690662338EC8FF62F042B02574606060E8224E5CAB3890582CFC00E785
-                          3F6AA0DF8623328BBCC52FF87CBE874CF3CD5771E44A45816C8874ECE4603D8F
-                          2D71C641D3BF524928AE03E9EC0CAF2CE4B3230C828B7044DCC84D5F62C15047
-                          32397201277392FB6377AC82E8A130AAE00F2C052BF717EC1CB90A241E5DBD1F
-                          0444B1251512A06D89C7C3DBB19D93AB40448E3F8925A992C85B3FC7724E8E81
-                          C4621D5F069FFE296C49B534ADE3EEC8DAD5D895E51888E07C2796A44616CBDD
-                          8765598E813026EEC192D44AB04D5895E5BC0F11FC9358911A7180CF6259968B
-                          9DFAB53BB02035922FFA3E8D65592E0269F161416A772BFE2CCB4520A49E2810
-                          8FA1403C8602F1180AC46328108FA1403C8602F1180AC40107EB3296754181CC
-                          81039CF5FB6F5F2918FC0947F38E0229A3C0E1BD10D3BACF9C39F3512A9539C0
-                          18FB3640368F37CF1B0A64563CEBF7FBB60FA446CFE30092A9B1DF720826B09D
-                          3714C8FFE34CD71E48248687B1B7C522E19F69E0FC7E46AD289019E453D37766
-                          9EA3AB4E990510DFC7765E5120A57EA59E9AB0B6DD1D6DEB6462E2CFD8CE3B0A
-                          040960FDDB76ECF91EB6B6787CF5AA9CB04ED6F33D210A449287B7634B6EF3ED
-                          3A7CF8B02C8B62B1586BA1C05FACF739CC1448DE3AAF69BE2DFDFD67277102BB
-                          77EFD6A170E5799DE977E1A86E16742093599862B704BA4D73F83D1CD9C6C787
-                          7F079AD6856D5D2DE440446B08BE9E4C8E9CC5DE168FB63DC6043C8C6DDD2DE0
-                          40D8E383A9CC5FB1B1C5E36D9B85805F60DB100B3210B53665A6C77E89AD2D1E
-                          EF080B2BF79C2C1B7A9F2CBC40381F58B56AED37B1B37575AD5F96CF5B2F02F8
-                          43386A980515883ABC0563C9FD3D3D3D168E60EBD6AD81A989C95E43833B71D4
-                          500B29908BEAF0D634CDABD8DB2EFD7BFC28308860DB708D08E4439DB12E0150
-                          B27837DF0433B6CD3CBC8D45DA9E601A7C0D5B4FA877201FEA3EE34B83A9B1D7
-                          7CFE4F6C94FDEBC5F1FC62201E4CA546D2D8DA8A0B8670B0D879475D0361BADE
-                          3538389251B57AE3C74C67EE111CE6F953BDECE0CC0FF217170CF9516C3DA5AE
-                          81888275F0D0A14325FFCDED3BF7EC129C3D8BEDC7ED197978FB53AC6DFF5D30
-                          F4A6FA3E6531D8D777F2D889471E597F63F5542DE89943A37B19F05FE3E8E321
-                          F8E017BE18DA8F9DAD510B8695A8F73E04E4CEFCAB7F1B9AE855879B38526F0A
-                          8964FA1F8FCAF207C5496D2C619DF307033B9E7A6AE8C67BE08D5C30AC44DD03
-                          B13176EFC58BEFF46FDEBCAEE48598DCA73CA931508F6A995B75D4693B86A16D
-                          397D7AB8E4F49D462E1856A2318148EAFDE9AB9773035D5D9F5F82235B229579
-                          9A013C58DD191ED9BC9FE93B92C9B7C671608B47C3DF6DE48261251A16882237
-                          83F51313D75EEFEC5C577279A7643A7302B4C5DD00B91BEF51B821D8A2FD6752
-                          99416C6DC5054371045BCF6B68208A7C91D83E3D9D4B6CDCD85EF2F93B75C116
-                          1D029BE4DD7C05474E9E48A5469FC1DAE69505C34A78E27FD4D0E033B9693E18
-                          8F874B76B883E9B137749FAF535D180C47B392AF658ECBFDCF8FB0B57969C1B0
-                          129E79E4C8FDC60A31754D86B2661D8E6CEA8564006E890BE06FE3A89480F4D2
-                          E5ABF66167F3DA826125BCB529FB034BB3D9C2A958AC6D034E6CA7D26FFEB395
-                          691BE4F1EC1B38B25902C6838B42DBFAFAFAA67164F3DA8261253CF7DC1A0C40
-                          EBE404BCD2190DDF8B23DBCBA9CCA55B97A97D4A71FD6B6A1AAE1A06DB32F332
-                          7AB148DB21AF2D1856C2933BBB500B042D215E8A47DAEFC7914D9D1982EB5FC7
-                          83416D573239760E6FB2C523E13DF2C78F8B5D7372BCA29C7CC455FD22AD5693
-                          935385D0E2D05ED31CEDC15159D1E89A081385D3B2BCB102E045F20135E77DEE
-                          C92DE4BA50286800E7C76291F0011CCD2A165B7BA70CA357969E0EC30D4F0782
-                          E4234AFC416EA925A7795EA7965F38CFCBC35B58569C34B76608E4BA2332949F
-                          606D534BF9572EE79F93FF88308E9A5E3305A2FC5086F21B2184FD3CDC7BF2D8
-                          919BED62CE9EDEA99725E028E8EC55E0E2F738691A4DBD532F8BC1BE660CC38D
-                          E60CE4264681780C05E2311488C750201E4381780C05E2311488C7380692B7E0
-                          232C498DDCDC978E81F8003EC092D448D7A1E4E310B3717ECAD284E32F21EEC8
-                          3BFB5D2CCB720E84B15358919AB1D7B028CB3110A643C9478749F534C37801CB
-                          B21C97DF9568E4AE7106FA4A6C4915D419F94343E73E876D59CE4F5992CE8CC7
-                          B12455F26BFA6358CEC9D516A244236DA7E41FA66FDBA986803E7328B30DBB39
-                          B9DA4214DD087C43FE66B7273E13A4BE82951946C927B9E6E23A9044E2EFEF6B
-                          4C7F085BE20E0F1AEA843E77DFF2A9B80E4449A446FBE4DFB8AFDE17176E466A
-                          CB50DF833BF3F32A4E2A0A4431CDCCC96050EF5097C4C3119989B113ADAD8BD7
-                          54FA4DD18AEB9DFA6C3644DBF771C1D5A7936E2F4E163675F165C3806FA9072D
-                          8E2A565320D745A31DDD4C583BE46F5B6F7158A133BE5C6E7C2D78F34D8A67A1
-                          A09DE786785F672C2198D6679AA3AFE08D84104208218410D22400FE03846B8D
-                          6F45D307580000000049454E44AE426082}
+                          07FC49444154785EEDDD7F6C13E71907F0E7BD3BDB35868416CA56540D36A925
+                          4E804DC33F48298BA60EC28FD215AD9415FE6148ABA6699DA6FED149631343AB
+                          D6699BC41F9B36A9FBD949544511546A8B12355BAB144AECB3A3B6244DDC31A9
+                          51D776B08240E026C4F6BDEFDEF7FCC0E62CCE9DEDC63E93E7F34F9EE731A4C5
+                          5F9FEFFCFA7C0642082184104208A933863F6B128D767483E0DD8C89B8C561B9
+                          CEF832006D01DE7C93E21305AE9D3734F8500033355DF42693997EBCB16A3505
+                          128DB6EF11821FD60064000420FF2F06C663C9F43BC77050B1AA02D9B8B1ED8E
+                          6B93EC190662138EC8FF62F062704168FFC0C0D0059CB8567120B158F841CE0B
+                          7FD440BF15476406798B9FF7F97C8F98E6DBAFE2C8958A02591FE9D8C1C17A01
+                          5BE28C83A67FA592505C07D2D9195E51C84F8C30082EC411712337759105431D
+                          C9E4C8799CCC4AEE8FDDB10AA287C2A8823FB004ACDC5FB073E42A907874D53E
+                          1010C596544880B6391E0F6FC37656AE021139FE1496A44A226FFD1CCB593906
+                          128B757C197CFAA7B125D5D2B48E7B226B56615796632082F31D58921A592C77
+                          3F96653906C298B8174B522BC136625596F33E44F04F61456AC4013E8765592E
+                          76EA137760416A245FF47D06CBB25C04B2D08705A95D2BFE2CCB4520A49E2810
+                          8FA1403C8602F1180AC46328108FA1403C8602F1180AC40107EB1296754181CC
+                          82039CF1FB6F5F2118FC0947738E0229A3C0E1FD10D3BA4F9F3E7D3595CAEC67
+                          8C7D1B209BC79BE70C0532233EE1F7FBB60DA446CFE10092A9B1DF720825B09D
+                          3314C8FFE34CD71E4C248687B1B7C522E19F69E0FC7E46AD289069E453D377A6
+                          9FA3AB4E990510DFC7764E5120A57EA59E9AB0B6DD136DEB64E2CA9FB19D7314
+                          0812C0FAB76EDFFD3D6C6DF1F8AA9539619DA8E77B421488240F6FC716DFEADB
+                          79E8D0215916C562B1964281BF5CEF73982990BC754ED37C9BFBFBCF7C8C13D8
+                          B56B970E85CB2FE84CBF0B477533AF03C94EC024BB25D06D9AC3EFE3C8363E3E
+                          FC3BD0B42E6CEB6A3E07225A43F070323972067B5B3CDAF63813F00D6CEB6E1E
+                          07C29E184C655EC2C6168FB76D12027E816D43CCCB40D4DA94991EFB25B6B678
+                          BC232CACDCF3B26CE87D32FF02E17C60E5CA35DFC4CED6D5B56E693E6FBD0CE0
+                          0FE1A861E65520EAF0168CC50FF4F4F45838822D5BB60426B31FF71A1ADC89A3
+                          869A4F815C5087B7A6695EC1DE76F1DFE347804104DB866B44201FE98C750980
+                          92C5BBB92698B175FAE16D2CD2F624D3E06BD87A42BD03F948F7195F1A4C8DBD
+                          E6F3DFB641F6AF17C7738B817828951A49636B2B2E18C28162E71D750D84E97A
+                          D7E0E04846D5EA8D1F339DB9577098E34FF5B203D33FC85F5C30E447B0F594BA
+                          06220AD68183070F96FC37B7EDD8BD5370F61CB69FB467E5E1ED4FB1B6FD77C1
+                          D09BEAFB94C5606FDF89A3C71F7D74DD8DD553B5A0670E8DEE61C07F8DA34F86
+                          E0835FF862681F76B6462D1856A2DEFB10903BF3AFBE3994ED55879B38526F0A
+                          8964FAEF8FC9F207C5496D2C619DF50703DB9F7E7AE8C67BE08D5C30AC44DD03
+                          B13176DF850BEFF66FDAB4B6E48598DCA73CA531508F6A995B75D4693B86A16D
+                          3E756AB8E4F49D462E1856A2318148EAFDE92B9772035D5D9F5F8C235B229579
+                          86013C54DD191ED9BC9FE9DB93C977C671608B47C3DF6DE48261251A16882237
+                          8375D9ECB5D73B3BD7965CDE2999CE1C07ADB51B2077E33D0A37046BD9773A95
+                          19C4D6565C301487B1F5BC8606A2C81789ED5353B9C4860DED259FBF53176CD1
+                          21B051DECD9771E4E4C9546AF459AC6D5E5930AC8427FE470D0D3E9B9BE283F1
+                          78B864873B981E7B43F7F93AD585C1703423F95AE698DCFFFC085B9B97160C2B
+                          E199478EDC6F2C1793D76428ABD7E2C8A65E4806E096B800FE0F1C9512905EB2
+                          6CE55EEC6C5E5B30AC84B736657F60C9C444E1642CD6B61E27B693E9B7FFD9C2
+                          B4F5F278F60D1CD92C01E3C185A1AD7D7D7D5338B2796DC1B0129E7B6E0D06A0
+                          259B85573AA3E1FB7064FB5B2A73B175A9DAA714D7BF26A7E08A61B0CDD32FA3
+                          178BB41DF4DA8261253CB9B35BB8008296107F8D47DA1FC0914D9D1982EB5FC7
+                          82416D67323976166FB2C523E1DDF2C78F8B5D7372BCA29C7CC455FD22AD5657
+                          AF4E1616B586F698E6680F8ECA8A46574798289C92E58D15002F920FA859EF73
+                          4F6E21D72D5A143480F3A3B148783F8E66148BADB95386D12B4B4F87E186A703
+                          41F21125FE20B7D492D33CAF53CB2F9CE7E5E12D2C2D4E9A5B330472DD6119CA
+                          4FB0B6A9A5FCCB97F2CFCB7F4418474DAF9902517E2843F98D10C27E1EEE3D71
+                          F4F0CD7631674FEFD4CB12700474F62A70F17B9C348DA6DEA997C5606F3386E1
+                          4673067213A3403C8602F1180AC46328108FA1403C8602F1180AC4631C03C95B
+                          70154B522337F7A563203E800FB12435D27528F938C44C9C9FB234E1F84B883B
+                          F2CE7E0FCBB29C0361EC2456A466EC352CCA720C84E950F2D161523DCD305EC4
+                          B22CC7E577251AB96B9C81BE025B52057546FED0D0D9BBB12DCBF9294BD299F1
+                          0496A44A7E4D7F1CCB59B9DA429468A4EDA4FCC3F46D3BD510D0670E65B66237
+                          2B575B88A21B81AFCBDFECF6C46782D457B032C328F924D76C5C079248BCF581
+                          C6F447B025EEF0A0A14EE873F72D9F8AEB4094446AB44FFE8DFBEB7D71E166A4
+                          B60CF53DB8D33FAFE2A4A24014D3CC9C0806F50E75493C1C91E9183BDED2B268
+                          75A5DF14ADB8DEA9CF647DB47D2F175C7D3AE9F6E2647E53175F360CF8967AD0
+                          E2A8623505725D34DAD1CD84B55DFEB6751687E53AE3CBE4C6B7006FBE49F109
+                          2868E7B8213ED0194B08A6F599E6E82B782321841042082184340980FF0050B8
+                          8D73164519CD0000000049454E44AE426082}
                       end>
                     Align = Left
                     Cursor = crHandPoint
@@ -1441,6 +1441,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
                     HeaderText = 'Baixado'
                     Kind = Check
                     Width = 75.000000000000000000
+                    Visible = False
                   end
                   object dxfmGrid1RootLevel1DATA: TdxfmGridColumn
                     FieldName = 'DATA'
@@ -1608,7 +1609,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
             CustomIcon = <
               item
               end>
-            IsSelected = True
+            IsSelected = False
             Size.Width = 8.000000000000000000
             Size.Height = 8.000000000000000000
             Size.PlatformDefault = False
@@ -3889,7 +3890,7 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
               object Calendar: TCalendar
                 Align = Client
                 Cursor = crHandPoint
-                Date = 45667.000000000000000000
+                Date = 45675.000000000000000000
                 Margins.Left = 2.000000000000000000
                 Margins.Top = 2.000000000000000000
                 Margins.Right = 2.000000000000000000
@@ -4904,268 +4905,321 @@ object frmMov_ServicosPrestados: TfrmMov_ServicosPrestados
     Connection = DM_Global.FDC_Firebird
     SQL.Strings = (
       'SELECT '
-      #9'SP.*'
-      #9',CASE SP.STATUS'
-      #9#9'WHEN 0 THEN '#39'ABERTO'#39
-      #9#9'WHEN 1 THEN '#39'PAGO'#39
-      #9'END STATUS_DESC'
-      #9',E.NOME AS EMPRESA'
-      #9',PS.NOME AS PRESTAOR_SERVICO'
-      #9',C.NOME AS CLIENTE'
-      #9',CT.DESCRICAO AS CONTA'
-      #9',CT.TIPO '
-      #9',CASE CT.TIPO '
-      #9#9'WHEN 0 THEN '#39'CR'#201'DITO'#39
-      #9#9'WHEN 1 THEN '#39'D'#201'BITO'#39
-      #9' END TIPO_CONTA'
-      #9',TP.DESCRICAO AS TABELA'
-      #9',CASE TP.TIPO '
-      #9#9'WHEN 0 THEN '#39'HORAS'#39
-      #9#9'WHEN 1 THEN '#39'FIXO'#39
-      #9'END TABELA_TIPO'
-      #9',TP.VALOR '
-      #9',((CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) '
-      #9#9'WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3)'
-      #9#9'WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 2)'
-      #9' END AS INTEGER) * 3600)'
-      #9' + (CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) '
-      #9#9'WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 5 FOR 2)'
-      #9#9'WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 4 FOR 2)'
-      #9' END AS INTEGER) * 60)'
-      #9' + CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) '
-      #9#9'WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 8 FOR 2)'
-      #9#9'WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 7 FOR 2)'
-      #9' END AS INTEGER)) AS SEGUNDOS'
-      'FROM SERVICOS_PRESTADOS SP'
-      #9'JOIN EMPRESA E ON E.ID = SP.ID_EMPRESA '
-      #9'JOIN PRESTADOR_SERVICO PS ON PS.ID = SP.ID_PRESTADOR_SERVICO '
-      #9'JOIN CLIENTE C ON C.ID = SP.ID_CLIENTE '
-      #9'JOIN TABELA_PRECO TP ON TP.ID = SP.ID_TABELA '
-      #9'JOIN CONTA CT ON CT.ID = SP.ID_CONTA'
-      'ORDER BY'
-      #9'SP.ID;'
+      '  SP.* '
+      '  ,CASE SP.STATUS '
+      '    WHEN 0 THEN '#39'ABERTO'#39' '
+      '    WHEN 1 THEN '#39'PAGO'#39' '
+      '  END STATUS_DESC '
+      '  ,E.NOME AS EMPRESA '
+      '  ,PS.NOME AS PRESTAOR_SERVICO '
+      '  ,C.NOME AS CLIENTE '
+      '  ,CT.DESCRICAO AS CONTA '
+      '  ,CT.TIPO '
+      '  ,CASE CT.TIPO '
+      '    WHEN 0 THEN '#39'CR'#201'DITO'#39' '
+      '    WHEN 1 THEN '#39'D'#201'BITO'#39' '
+      '   END TIPO_CONTA '
+      '  ,TP.DESCRICAO AS TABELA '
+      '  ,CASE TP.TIPO '
+      '    WHEN 0 THEN '#39'HORAS'#39' '
+      '    WHEN 1 THEN '#39'FIXO'#39' '
+      '  END TABELA_TIPO '
+      '  ,TP.VALOR '
+      '  ,((CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) '
+      '    WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 3) '
+      '    WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 1 FOR 2) '
+      '   END AS INTEGER) * 3600) '
+      '   + (CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) '
+      '    WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 5 FOR 2) '
+      '    WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 4 FOR 2) '
+      '   END AS INTEGER) * 60) '
+      '   + CAST(CASE CHAR_LENGTH(SP.HR_TOTAL) '
+      '    WHEN 9 THEN SUBSTRING(SP.HR_TOTAL FROM 8 FOR 2) '
+      '    WHEN 8 THEN SUBSTRING(SP.HR_TOTAL FROM 7 FOR 2) '
+      '   END AS INTEGER)) AS SEGUNDOS '
+      'FROM SERVICOS_PRESTADOS SP '
+      '  JOIN EMPRESA E ON E.ID = SP.ID_EMPRESA '
+      '  JOIN PRESTADOR_SERVICO PS ON PS.ID = SP.ID_PRESTADOR_SERVICO '
+      '  JOIN CLIENTE C ON C.ID = SP.ID_CLIENTE '
+      '  JOIN TABELA_PRECO TP ON TP.ID = SP.ID_TABELA '
+      #9'JOIN CONTA CT ON CT.ID = SP.ID_CONTA '
+      'WHERE NOT SP.ID IS NULL '
+      '  AND SP."DATA" BETWEEN :DATA_I AND :DATA_F'
+      '  AND SP.ID_EMPRESA = :ID_EMPRESA'
+      '  AND SP.ID_PRESTADOR_SERVICO = :ID_PRESTADOR_SERVICO'
+      'ORDER BY '
+      '  E.NOME '
+      '  ,PS.NOME '
+      '  ,C.NOME '
+      '  ,CT.DESCRICAO '
+      '  ,sp.data;'
+      ''
+      ''
+      ''
+      'select '
+      #9'sp.* '
+      #9',case sp.status'
+      #9#9'when 0 then '#39'ABERTO'#39
+      #9#9'when 1 then '#39'PAGO'#39
+      #9'end status_desc'
+      #9',e.nome as empresa'
+      #9',ps.nome as prestador_servico'
+      #9',c.nome as cliente'
+      #9',ct.descricao as conta'
+      #9',ct.tipo'
+      #9',case ct.tipo '
+      #9#9'when 0 then '#39'CR'#201'DITO'#39
+      #9#9'when 1 then '#39'D'#201'BITO'#39
+      #9'end tipo_conta'
+      #9',tp.descricao as tabela'
+      #9',case tp.tipo '
+      #9#9'when 0 then '#39'HORAS'#39
+      #9#9'when 1 then '#39'FIXO'#39
+      #9'end tabela_tipo'
+      #9',tp.valor'
+      '  ,((cast(case char_length(sp.hr_total) '
+      '    when 9 then substring(sp.hr_total from 1 for 3) '
+      '    when 8 then substring(sp.hr_total from 1 for 2) '
+      '   end as integer) * 3600) '
+      '   + (cast(case char_length(sp.hr_total) '
+      '    when 9 then substring(sp.hr_total from 5 for 2) '
+      '    when 8 then substring(sp.hr_total from 4 for 2) '
+      '   end as integer) * 60) '
+      '   + cast(case char_length(sp.hr_total) '
+      '    when 9 then substring(sp.hr_total from 8 for 2) '
+      '    when 8 then substring(sp.hr_total from 7 for 2) '
+      '   end as integer)) as segundos '
+      'from servicos_prestados sp'
+      #9'join empresa e on e.id = sp.id_empresa '
+      #9'join prestador_servico ps on ps.id = sp.id_prestador_servico '
+      #9'join cliente c on c.id = sp.id_cliente '
+      #9'join conta ct on ct.id = sp.id_conta '
+      #9'join tabela_preco tp on tp.id = sp.id_tabela '
+      'where not sp.id is null '
+      '  and sp."DATA" between :DATA_I and :DATA_F'
+      '  and sp.id_empresa = :id_empresa'
+      '  and sp.id_prestador_servico = :id_prestador_servico'
+      'order by '
+      '  e.nome '
+      '  ,ps.nome '
+      '  ,c.nome '
+      '  ,ct.descricao'
+      #9',sp."DATA";'
       '')
     Left = 184
     Top = 384
-    object FDQRegistrosID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
+    ParamData = <
+      item
+        Name = 'DATA_I'
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATA_F'
+        ParamType = ptInput
+      end
+      item
+        Name = 'ID_EMPRESA'
+        ParamType = ptInput
+      end
+      item
+        Name = 'ID_PRESTADOR_SERVICO'
+        ParamType = ptInput
+      end>
+    object FDQRegistrosid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object FDQRegistrosDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
+    object FDQRegistrosdescricao: TWideStringField
+      FieldName = 'descricao'
+      Origin = 'descricao'
       Size = 500
     end
-    object FDQRegistrosSTATUS: TIntegerField
-      FieldName = 'STATUS'
-      Origin = 'STATUS'
-      Required = True
+    object FDQRegistrosstatus: TIntegerField
+      FieldName = 'status'
+      Origin = 'status'
     end
-    object FDQRegistrosID_EMPRESA: TIntegerField
-      FieldName = 'ID_EMPRESA'
-      Origin = 'ID_EMPRESA'
-      Required = True
+    object FDQRegistrosid_empresa: TIntegerField
+      FieldName = 'id_empresa'
+      Origin = 'id_empresa'
     end
-    object FDQRegistrosID_PRESTADOR_SERVICO: TIntegerField
-      FieldName = 'ID_PRESTADOR_SERVICO'
-      Origin = 'ID_PRESTADOR_SERVICO'
-      Required = True
+    object FDQRegistrosid_prestador_servico: TIntegerField
+      FieldName = 'id_prestador_servico'
+      Origin = 'id_prestador_servico'
     end
-    object FDQRegistrosID_CLIENTE: TIntegerField
-      FieldName = 'ID_CLIENTE'
-      Origin = 'ID_CLIENTE'
-      Required = True
+    object FDQRegistrosid_cliente: TIntegerField
+      FieldName = 'id_cliente'
+      Origin = 'id_cliente'
     end
-    object FDQRegistrosID_TABELA: TIntegerField
-      FieldName = 'ID_TABELA'
-      Origin = 'ID_TABELA'
-      Required = True
+    object FDQRegistrosid_tabela: TIntegerField
+      FieldName = 'id_tabela'
+      Origin = 'id_tabela'
+    end
+    object FDQRegistrosid_conta: TIntegerField
+      FieldName = 'id_conta'
+      Origin = 'id_conta'
     end
     object FDQRegistrosDATA: TDateField
       FieldName = 'DATA'
       Origin = '"DATA"'
-      Required = True
     end
-    object FDQRegistrosHR_INICIO: TTimeField
-      FieldName = 'HR_INICIO'
-      Origin = 'HR_INICIO'
+    object FDQRegistroshr_inicio: TTimeField
+      FieldName = 'hr_inicio'
+      Origin = 'hr_inicio'
+      ProviderFlags = [pfInUpdate]
     end
-    object FDQRegistrosHR_FIM: TTimeField
-      FieldName = 'HR_FIM'
-      Origin = 'HR_FIM'
+    object FDQRegistroshr_fim: TTimeField
+      FieldName = 'hr_fim'
+      Origin = 'hr_fim'
+      ProviderFlags = [pfInUpdate]
     end
-    object FDQRegistrosHR_TOTAL: TStringField
-      FieldName = 'HR_TOTAL'
-      Origin = 'HR_TOTAL'
+    object FDQRegistroshr_total: TWideStringField
+      FieldName = 'hr_total'
+      Origin = 'hr_total'
       Size = 15
     end
-    object FDQRegistrosVLR_HORA: TFMTBCDField
-      FieldName = 'VLR_HORA'
-      Origin = 'VLR_HORA'
+    object FDQRegistrosvlr_hora: TBCDField
+      FieldName = 'vlr_hora'
+      Origin = 'vlr_hora'
       DisplayFormat = 'R$ #,##0.00'
-      Precision = 18
+      Precision = 15
       Size = 2
     end
-    object FDQRegistrosSUB_TOTAL: TFMTBCDField
-      FieldName = 'SUB_TOTAL'
-      Origin = 'SUB_TOTAL'
+    object FDQRegistrossub_total: TBCDField
+      FieldName = 'sub_total'
+      Origin = 'sub_total'
       DisplayFormat = 'R$ #,##0.00'
-      Precision = 18
+      Precision = 15
       Size = 2
     end
-    object FDQRegistrosDESCONTO: TFMTBCDField
-      FieldName = 'DESCONTO'
-      Origin = 'DESCONTO'
+    object FDQRegistrosdesconto: TBCDField
+      FieldName = 'desconto'
+      Origin = 'desconto'
       DisplayFormat = 'R$ #,##0.00'
-      Precision = 18
+      Precision = 15
       Size = 2
     end
-    object FDQRegistrosDESCONTO_MOTIVO: TStringField
-      FieldName = 'DESCONTO_MOTIVO'
-      Origin = 'DESCONTO_MOTIVO'
+    object FDQRegistrosdesconto_motivo: TWideStringField
+      FieldName = 'desconto_motivo'
+      Origin = 'desconto_motivo'
       Size = 500
     end
-    object FDQRegistrosACRESCIMO: TFMTBCDField
-      FieldName = 'ACRESCIMO'
-      Origin = 'ACRESCIMO'
+    object FDQRegistrosacrescimo: TBCDField
+      FieldName = 'acrescimo'
+      Origin = 'acrescimo'
       DisplayFormat = 'R$ #,##0.00'
-      Precision = 18
+      Precision = 15
       Size = 2
     end
-    object FDQRegistrosACRESCIMO_MOTIVO: TStringField
-      FieldName = 'ACRESCIMO_MOTIVO'
-      Origin = 'ACRESCIMO_MOTIVO'
+    object FDQRegistrosacrescimo_motivo: TWideStringField
+      FieldName = 'acrescimo_motivo'
+      Origin = 'acrescimo_motivo'
       Size = 500
     end
-    object FDQRegistrosTOTAL: TFMTBCDField
-      FieldName = 'TOTAL'
-      Origin = 'TOTAL'
+    object FDQRegistrostotal: TBCDField
+      FieldName = 'total'
+      Origin = 'total'
       DisplayFormat = 'R$ #,##0.00'
-      Precision = 18
+      Precision = 15
       Size = 2
     end
-    object FDQRegistrosOBSERVACAO: TStringField
-      FieldName = 'OBSERVACAO'
-      Origin = 'OBSERVACAO'
+    object FDQRegistrosobservacao: TWideStringField
+      FieldName = 'observacao'
+      Origin = 'observacao'
       Size = 1000
     end
-    object FDQRegistrosDT_PAGO: TDateField
-      FieldName = 'DT_PAGO'
-      Origin = 'DT_PAGO'
+    object FDQRegistrosdt_pago: TDateField
+      FieldName = 'dt_pago'
+      Origin = 'dt_pago'
     end
-    object FDQRegistrosVLR_PAGO: TFMTBCDField
-      FieldName = 'VLR_PAGO'
-      Origin = 'VLR_PAGO'
+    object FDQRegistrosvlr_pago: TBCDField
+      FieldName = 'vlr_pago'
+      Origin = 'vlr_pago'
       DisplayFormat = 'R$ #,##0.00'
-      Precision = 18
+      Precision = 15
       Size = 2
     end
-    object FDQRegistrosDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
-      Origin = 'DT_CADASTRO'
+    object FDQRegistrosdt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Origin = 'dt_cadastro'
     end
-    object FDQRegistrosHR_CADASTRO: TTimeField
-      FieldName = 'HR_CADASTRO'
-      Origin = 'HR_CADASTRO'
+    object FDQRegistroshr_cadastro: TTimeField
+      FieldName = 'hr_cadastro'
+      Origin = 'hr_cadastro'
+      ProviderFlags = [pfInUpdate]
     end
-    object FDQRegistrosID_USUARIO: TIntegerField
-      FieldName = 'ID_USUARIO'
-      Origin = 'ID_USUARIO'
+    object FDQRegistrosid_usuario: TIntegerField
+      FieldName = 'id_usuario'
+      Origin = 'id_usuario'
     end
-    object FDQRegistrosSTATUS_DESC: TStringField
+    object FDQRegistrosstatus_desc: TWideMemoField
       AutoGenerateValue = arDefault
-      FieldName = 'STATUS_DESC'
-      Origin = 'STATUS_DESC'
-      ProviderFlags = []
+      FieldName = 'status_desc'
+      Origin = 'status_desc'
       ReadOnly = True
-      FixedChar = True
-      Size = 6
+      BlobType = ftWideMemo
     end
-    object FDQRegistrosEMPRESA: TStringField
+    object FDQRegistrosempresa: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'EMPRESA'
-      Origin = 'NOME'
-      ProviderFlags = []
-      ReadOnly = True
+      FieldName = 'empresa'
+      Origin = 'empresa'
       Size = 255
     end
-    object FDQRegistrosPRESTAOR_SERVICO: TStringField
+    object FDQRegistrosprestaor_servico: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'PRESTAOR_SERVICO'
-      Origin = 'NOME'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 100
+      FieldName = 'prestaor_servico'
+      Origin = 'prestaor_servico'
+      Size = 255
     end
-    object FDQRegistrosCLIENTE: TStringField
+    object FDQRegistroscliente: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'CLIENTE'
-      Origin = 'NOME'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 100
+      FieldName = 'cliente'
+      Origin = 'cliente'
+      Size = 255
     end
-    object FDQRegistrosTABELA: TStringField
+    object FDQRegistrosconta: TWideStringField
       AutoGenerateValue = arDefault
-      FieldName = 'TABELA'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 100
+      FieldName = 'conta'
+      Origin = 'conta'
+      Size = 255
     end
-    object FDQRegistrosTABELA_TIPO: TStringField
+    object FDQRegistrostipo: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'TABELA_TIPO'
-      Origin = 'TABELA_TIPO'
-      ProviderFlags = []
-      ReadOnly = True
-      FixedChar = True
-      Size = 5
+      FieldName = 'tipo'
+      Origin = 'tipo'
     end
-    object FDQRegistrosVALOR: TFMTBCDField
+    object FDQRegistrostipo_conta: TWideMemoField
       AutoGenerateValue = arDefault
-      FieldName = 'VALOR'
-      Origin = 'VALOR'
-      ProviderFlags = []
+      FieldName = 'tipo_conta'
+      Origin = 'tipo_conta'
       ReadOnly = True
-      Precision = 18
+      BlobType = ftWideMemo
+    end
+    object FDQRegistrostabela: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tabela'
+      Origin = 'tabela'
+      Size = 255
+    end
+    object FDQRegistrostabela_tipo: TWideMemoField
+      AutoGenerateValue = arDefault
+      FieldName = 'tabela_tipo'
+      Origin = 'tabela_tipo'
+      ReadOnly = True
+      BlobType = ftWideMemo
+    end
+    object FDQRegistrosvalor: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'valor'
+      Origin = 'valor'
+      Precision = 15
       Size = 2
     end
-    object FDQRegistrosID_CONTA: TIntegerField
-      FieldName = 'ID_CONTA'
-      Origin = 'ID_CONTA'
-    end
-    object FDQRegistrosCONTA: TStringField
+    object FDQRegistrossegundos: TIntegerField
       AutoGenerateValue = arDefault
-      FieldName = 'CONTA'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 255
-    end
-    object FDQRegistrosTIPO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object FDQRegistrosTIPO_CONTA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIPO_CONTA'
-      Origin = 'TIPO_CONTA'
-      ProviderFlags = []
-      ReadOnly = True
-      FixedChar = True
-      Size = 7
-    end
-    object FDQRegistrosSEGUNDOS: TLargeintField
-      AutoGenerateValue = arDefault
-      FieldName = 'SEGUNDOS'
-      Origin = 'SEGUNDOS'
-      ProviderFlags = []
+      FieldName = 'segundos'
+      Origin = 'segundos'
       ReadOnly = True
     end
   end

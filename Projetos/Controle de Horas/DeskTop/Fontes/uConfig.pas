@@ -11,7 +11,7 @@ uses
     uFancyDialog,
   {$EndRegion '99 Coders'}
   IniFiles,
-  uPrincipal, FMX.TabControl, FMX.Edit;
+  uPrincipal, FMX.TabControl, FMX.Edit, FMX.ListBox;
 
 type
   TfrmConfig = class(TForm)
@@ -103,6 +103,34 @@ type
     edCondPagto_Desc: TEdit;
     edCondPagto_Id: TEdit;
     imgCondPagto: TImage;
+    tcBanco: TTabControl;
+    tiFirebird: TTabItem;
+    tiPostgreSql: TTabItem;
+    Layout1: TLayout;
+    lbBD_PS_Server: TLabel;
+    edBD_PS_Server: TEdit;
+    edBD_PS_Port: TEdit;
+    lbBD_PS_Port: TLabel;
+    Layout2: TLayout;
+    lbBD_PS_Banco: TLabel;
+    edBD_PS_Banco: TEdit;
+    Layout3: TLayout;
+    lbBD_PS_Usuario: TLabel;
+    edBD_PS_Usuario: TEdit;
+    lbBD_PS_Senha: TLabel;
+    edBD_PS_Senha: TEdit;
+    Layout4: TLayout;
+    Image1: TImage;
+    sbBD_PS_Senha: TSpeedButton;
+    Layout5: TLayout;
+    lbBD_PS_Biblioteca: TLabel;
+    edBD_PS_Biblioteca: TEdit;
+    SpeedButton3: TSpeedButton;
+    Layout6: TLayout;
+    lbBancoDados: TLabel;
+    cbBancoDados: TComboBox;
+    edBD_PS_Schema: TEdit;
+    lbBD_PS_Schema: TLabel;
     procedure imgFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -123,6 +151,10 @@ type
     procedure imgHorasRecebidasClick(Sender: TObject);
     procedure imgFormaPagto_IdClick(Sender: TObject);
     procedure imgCondPagtoClick(Sender: TObject);
+    procedure cbBancoDadosChange(Sender: TObject);
+    procedure sbBD_PS_SenhaClick(Sender: TObject);
+    procedure edBD_PS_SchemaKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure SpeedButton3Click(Sender: TObject);
   private
     FFancyDialog :TFancyDialog;
     FIniFile :TIniFile;
@@ -153,6 +185,11 @@ uses
   ,uCad.FormaPagamento
   ,uCad.CondicaoPagamento;
 
+procedure TfrmConfig.cbBancoDadosChange(Sender: TObject);
+begin
+  tcBanco.GotoVisibleTab(cbBancoDados.ItemIndex);
+end;
+
 procedure TfrmConfig.dbBDF_BancoClick(Sender: TObject);
 begin
   OpenDialog.DefaultExt := '*.FDB';
@@ -166,35 +203,41 @@ procedure TfrmConfig.edBDF_BancoKeyDown(Sender: TObject; var Key: Word; var KeyC
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edBDF_Usuario.SetFocus;
+    edBD_PS_Schema.SetFocus;
 end;
 
 procedure TfrmConfig.edBDF_PortaKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edBDF_Banco.SetFocus;
+    edBD_PS_Banco.SetFocus;
 end;
 
 procedure TfrmConfig.edBDF_SenhaKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edBDF_Biblioteca.SetFocus;
+    edBD_PS_Biblioteca.SetFocus;
 end;
 
 procedure TfrmConfig.edBDF_ServidorKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edBDF_Porta.SetFocus;
+    edBD_PS_Port.SetFocus;
 end;
 
 procedure TfrmConfig.edBDF_UsuarioKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
   Shift: TShiftState);
 begin
   if Key = vkReturn then
-    edBDF_Senha.SetFocus;
+    edBD_PS_Senha.SetFocus;
+end;
+
+procedure TfrmConfig.edBD_PS_SchemaKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+    edBD_PS_Usuario.SetFocus;
 end;
 
 procedure TfrmConfig.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -216,6 +259,7 @@ begin
 
   lytFormulario.Align := TAlignLayout.Center;
   tcPrincipal.ActiveTab := tiDB;
+  tcBanco.ActiveTab := tiFirebird;
 
   Ler_Configuracoes;
 end;
@@ -231,12 +275,24 @@ begin
   try
     try
       {$Region 'Banco de Dados'}
+        cbBancoDados.ItemIndex := FIniFile.ReadInteger('BANDO','USADO.ID',-1);
+
+        //Firebird
         edBDF_Servidor.Text    := FIniFile.ReadString('BANDO_FIREBIRD','SERVIDOR','');
         edBDF_Porta.Text       := FIniFile.ReadInteger('BANDO_FIREBIRD','PORTA',3050).ToString;
         edBDF_Banco.Text       := FIniFile.ReadString('BANDO_FIREBIRD','BANCO','');
         edBDF_Usuario.Text     := FIniFile.ReadString('BANDO_FIREBIRD','USUARIO','');
         edBDF_Senha.Text       := FIniFile.ReadString('BANDO_FIREBIRD','SENHA','');
         edBDF_Biblioteca.Text  := FIniFile.ReadString('BANDO_FIREBIRD','BIBLIOTECA','');
+
+        //PostgreSql
+        edBD_PS_Server.Text := FIniFile.ReadString('BANDO.POSTGRESQL','SERVER','');
+        edBD_PS_Port.Text := FIniFile.ReadString('BANDO.POSTGRESQL','PORT','5432');
+        edBD_PS_Banco.Text := FIniFile.ReadString('BANDO.POSTGRESQL','DATABASE','');
+        edBD_PS_Usuario.Text := FIniFile.ReadString('BANDO.POSTGRESQL','USER_NAME','');
+        edBD_PS_Senha.Text := FIniFile.ReadString('BANDO.POSTGRESQL','PASSWORD','');
+        edBD_PS_Schema.Text := FIniFile.ReadString('BANDO.POSTGRESQL','SCHEMANAME','');
+        edBD_PS_Biblioteca.Text := FIniFile.ReadString('BANDO.POSTGRESQL','VENDOR_LIB','');
       {$EndRegion 'Banco de Dados'}
 
       {$Region 'Plano de Contas - Lançamentos'}
@@ -337,12 +393,30 @@ begin
   try
     try
       {$Region 'Banco de Dados'}
+        FIniFile.WriteInteger('BANDO','USADO.ID',cbBancoDados.ItemIndex);
+        FIniFile.WriteString('BANDO','USADO.NOME',cbBancoDados.ListItems[cbBancoDados.ItemIndex].Text);
+        case cbBancoDados.ItemIndex of
+          0:FIniFile.WriteString('BANDO','USADO.SIGLA','FB');
+          1:FIniFile.WriteString('BANDO','USADO.SIGLA','PG');
+        end;
+
+        //Firebird
         FIniFile.WriteString('BANDO_FIREBIRD','SERVIDOR',edBDF_Servidor.Text);
         FIniFile.WriteInteger('BANDO_FIREBIRD','PORTA',StrToIntDef(edBDF_Porta.Text,0));
         FIniFile.WriteString('BANDO_FIREBIRD','BANCO',edBDF_Banco.Text);
         FIniFile.WriteString('BANDO_FIREBIRD','USUARIO',edBDF_Usuario.Text);
         FIniFile.WriteString('BANDO_FIREBIRD','SENHA',edBDF_Senha.Text);
         FIniFile.WriteString('BANDO_FIREBIRD','BIBLIOTECA',edBDF_Biblioteca.Text);
+
+        //PostgreSql
+        FIniFile.WriteString('BANDO.POSTGRESQL','DRIVER','PG');
+        FIniFile.WriteString('BANDO.POSTGRESQL','SERVER',edBD_PS_Server.Text);
+        FIniFile.WriteString('BANDO.POSTGRESQL','PORT',edBD_PS_Port.Text);
+        FIniFile.WriteString('BANDO.POSTGRESQL','DATABASE',edBD_PS_Banco.Text);
+        FIniFile.WriteString('BANDO.POSTGRESQL','USER_NAME',edBD_PS_Usuario.Text);
+        FIniFile.WriteString('BANDO.POSTGRESQL','PASSWORD',edBD_PS_Senha.Text);
+        FIniFile.WriteString('BANDO.POSTGRESQL','SCHEMANAME',edBD_PS_Schema.Text);
+        FIniFile.WriteString('BANDO.POSTGRESQL','VENDOR_LIB',edBD_PS_Biblioteca.Text);
       {$EndRegion 'Banco de Dados'}
 
       {$Region 'Plano de Contas - Lançamentos'}
@@ -467,6 +541,32 @@ procedure TfrmConfig.Sel_HorasRecebidas(Aid: Integer; ADescricao: String; ATipo:
 begin
   edHorasRecebidas.Text := Aid.ToString;
   edHorasRecebidas_Desc.Text := ADescricao;
+end;
+
+procedure TfrmConfig.SpeedButton3Click(Sender: TObject);
+begin
+  OpenDialog.DefaultExt := '*.DLL';
+  OpenDialog.Filter := 'Biblioteca Firebird|*.DLL';
+  OpenDialog.Execute;
+  if FileExists(OpenDialog.FileName) then
+    edBD_PS_Biblioteca.Text := OpenDialog.FileName;
+end;
+
+procedure TfrmConfig.sbBD_PS_SenhaClick(Sender: TObject);
+begin
+  case sbBD_PS_Senha.Tag of
+    0:begin
+      edBD_PS_Senha.Password := False;
+      imgSenha.Bitmap := imgEsconteSenha.Bitmap;
+      sbBD_PS_Senha.Tag := 1;
+    end;
+    1:begin
+      edBD_PS_Senha.Password := True;
+      imgSenha.Bitmap := imgExibeSenha.Bitmap;
+      sbBD_PS_Senha.Tag := 0;
+    end;
+  end;
+
 end;
 
 procedure TfrmConfig.sbBDF_BibliotecaClick(Sender: TObject);

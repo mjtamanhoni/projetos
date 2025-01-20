@@ -15,7 +15,6 @@ uses
   ControleHoras_Session in 'ControleHoras_Session.pas' {ControleHorasSession},
   D2BridgeFormTemplate in 'D2BridgeFormTemplate.pas',
   Unit_Login in 'Unit_Login.pas',
-  Unit_D2Bridge_Server_Console in 'Unit_D2Bridge_Server_Console.pas',
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
   uCad.Usuarios in 'uCad.Usuarios.pas' {frmCad_Usuarios},
   uCad.Usuarios.Add in 'uCad.Usuarios.Add.pas' {frmCad_Usuario_ADD},
@@ -44,7 +43,13 @@ uses
   uCon.Cliente in 'uCon.Cliente.pas' {frmCon_Cliente},
   uFuncoes.Wnd in '..\..\..\..\Global\uFuncoes.Wnd.pas',
   uMov.ServicosPrestados in 'uMov.ServicosPrestados.pas' {frmMov_ServicosPrestados},
-  uMov.ServicosPrestados.Add in 'uMov.ServicosPrestados.Add.pas' {frmMov_ServicosPrestados_Add};
+  uMov.ServicosPrestados.Add in 'uMov.ServicosPrestados.Add.pas' {frmMov_ServicosPrestados_Add},
+  Unit_D2Bridge_Server_Console in 'Unit_D2Bridge_Server_Console.pas',
+  ServerController in 'ServerController.pas' {D2BridgeServerController: TDataModule},
+  UserSessionUnit in 'UserSessionUnit.pas' {PrismUserSession: TDataModule},
+  Unit_D2Bridge_Server in 'Unit_D2Bridge_Server.pas' {Form_D2Bridge_Server},
+  uStart.Stop in 'uStart.Stop.pas' {frmStart_Stop},
+  D2Bridge.BaseClass in 'C:\Instalacoes\D2Bridge\D2Bridge Framework\D2Bridge.BaseClass.pas';
 
 {$R *.res}
 
@@ -63,6 +68,9 @@ begin
   Application.Run;
   {$ELSE}
   TD2BridgeServerConsole.Run
-  
+  //Application.CreateForm(TfrmStart_Stop, frmStart_Stop);
+  //D2BridgeInstance.AddInstace(frmStart_Stop);
+  //frmStart_Stop.Show;
+  //Application.Run;
   {$ENDIF}
 end.
