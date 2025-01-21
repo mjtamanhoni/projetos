@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/01/21 06:47:42.000.509,C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uPrincipal.pas=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\Unit1.pas</Transaction>
+    <Transaction>2025/01/21 06:47:42.000.509,C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uPrincipal.dfm=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\Unit1.dfm</Transaction>
+    <Transaction>2025/01/21 07:14:24.000.288,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uConfiguracoes.pas</Transaction>
+    <Transaction>2025/01/21 13:20:16.038,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Usuarios.Add.pas</Transaction>
+    <Transaction>2025/01/21 13:20:16.147,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Usuarios.pas</Transaction>
+  </Transactions>
+</BorlandProject>
