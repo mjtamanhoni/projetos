@@ -1,4 +1,4 @@
-{
+﻿{
  +--------------------------------------------------------------------------+
   D2Bridge Framework Content
 
@@ -59,6 +59,7 @@ type
     Image_Logo_D2Bridge: TImage;
     Edit_ServerName: TEdit;
     Label5: TLabel;
+    btFechar: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button_StartClick(Sender: TObject);
     procedure Button_StopClick(Sender: TObject);
@@ -69,6 +70,8 @@ type
     procedure SendPushMessage1Click(Sender: TObject);
     procedure CloseAllSessions1Click(Sender: TObject);
     procedure SendPushMessageAllSessions1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btFecharClick(Sender: TObject);
   private
     procedure SessionChange(AChangeType: TSessionChangeType; APrismSession: IPrismSession);
   public
@@ -87,6 +90,11 @@ Uses
 
 {$R *.dfm}
 
+
+procedure TForm_D2Bridge_Server.btFecharClick(Sender: TObject);
+begin
+  Close;
+end;
 
 procedure TForm_D2Bridge_Server.Button_OptionsClick(Sender: TObject);
 begin
@@ -177,6 +185,11 @@ end;
 procedure TForm_D2Bridge_Server.CloseSession1Click(Sender: TObject);
 begin
  D2BridgeServerController.CloseSession(DBGrid_Log.DataSource.DataSet.FieldByName('UUID').AsString);
+end;
+
+procedure TForm_D2Bridge_Server.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
 end;
 
 procedure TForm_D2Bridge_Server.FormCreate(Sender: TObject);

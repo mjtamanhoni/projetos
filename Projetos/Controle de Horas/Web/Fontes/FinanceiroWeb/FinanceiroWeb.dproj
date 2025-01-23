@@ -3,7 +3,7 @@
         <ProjectGuid>{F9D19490-C8BF-4AC1-AC1A-D1EA65A4792D}</ProjectGuid>
         <MainSource>FinanceiroWeb.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">D2Bridge Web Debug</Config>
+        <Config Condition="'$(Config)'==''">D2Bridge Web Release</Config>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
@@ -168,6 +168,86 @@
         </DCCReference>
         <DCCReference Include="uCad.Usuarios.pas">
             <Form>frmCad_Usuarios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Empresa.Add.pas">
+            <Form>frmCad_Empresa_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Empresa.pas">
+            <Form>frmCad_Empresa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.PrestServico.Add.pas">
+            <Form>frmCad_PrestServico_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.PrestServico.pas">
+            <Form>frmCad_PrestServico</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Cliente.Add.pas">
+            <Form>frmCad_Cliente_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Cliente.pas">
+            <Form>frmCad_Cliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Fornecedor.Add.pas">
+            <Form>frmCad_Fornecedor_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Fornecedor.pas">
+            <Form>frmCad_Fornecedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.TabPreco.Add.pas">
+            <Form>frmCad_TabPreco_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.TabPreco.pas">
+            <Form>frmCad_TabPreco</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCon.Cliente.pas">
+            <Form>frmCon_Cliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCon.Fornecedor.pas">
+            <Form>frmCon_Fornecedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCon.TabPreco.pas">
+            <Form>frmCon_TabPreco</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Conta.pas">
+            <Form>frmCad_Conta</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.Conta.Add.pas">
+            <Form>frmCad_Conta_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.CondPagto.Add.pas">
+            <Form>frmCad_CondPagto_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.CondPagto.pas">
+            <Form>frmCad_CondPagto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.FormaPagto.Add.pas">
+            <Form>frmCad_FormaPagto_Add</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCad.FormaPagto.pas">
+            <Form>frmCad_FormaPagto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uDemo.ServicosPrestados.pas">
+            <Form>frmDemo_ServicosPrestados</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

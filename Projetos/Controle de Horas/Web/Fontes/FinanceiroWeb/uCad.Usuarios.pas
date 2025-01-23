@@ -298,10 +298,11 @@ begin
     begin
       with Row.Items.Add do
       begin
-        FormGroup(lbTipo.Caption,CSSClass.Col.colsize1).AddVCLObj(cbTipo);
+        FormGroup(lbTipo.Caption,CSSClass.Col.colsize2).AddVCLObj(cbTipo);
         FormGroup(lbPesquisar.Caption,CSSClass.Col.colsize6).AddVCLObj(edPesquisar);
 
-        FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search);
+        FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search+CSSClass.Button.Width.large);
+        FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btNovo,CSSClass.Button.add+CSSClass.Button.Width.large)
       end;
     end;
 
@@ -309,16 +310,6 @@ begin
     begin
       with Row.Items.Add do
         VCLObj(DBGrid);
-    end;
-
-    with Card.Items.Add do
-    begin
-      with Row(CSSClass.DivHtml.Align_Left).Items.Add do
-      begin
-        VCLObj(btNovo,CSSClass.Button.add + CSSClass.Col.colsize1);
-        VCLObj(btEditar,CSSClass.Button.edit + CSSClass.Col.colsize1);
-        VCLObj(btExcluir,CSSClass.Button.delete + CSSClass.Col.colsize1);
-      end;
     end;
 
     //Abrindo formulário popup
@@ -357,8 +348,30 @@ begin
 
   if PrismControl.IsDBGrid then
   begin
-   PrismControl.AsDBGrid.RecordsPerPage := 12;
+   PrismControl.AsDBGrid.RecordsPerPage := 10;
    //PrismControl.AsDBGrid.MaxRecords:= 2000;
+    with PrismControl.AsDBGrid do
+    begin
+      with Columns.Add do
+      begin
+         Title:= 'Ações';
+         ColumnIndex :=0;
+         Width := 65;
+         With Buttons.Add do
+           begin
+            ButtonModel := TButtonModel.edit;
+            Caption:='';
+            Onclick:=btEditarClick;
+           end;
+
+         With Buttons.Add do
+           begin
+            ButtonModel := TButtonModel.Delete;
+            Caption:='';
+            Onclick:=btExcluirClick;
+           end;
+      end;
+    end;
   end;
 
  //Change Init Property of Prism Controls

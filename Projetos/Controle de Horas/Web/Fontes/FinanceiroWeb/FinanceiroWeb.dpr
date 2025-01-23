@@ -19,7 +19,27 @@ uses
   uPrincipal in 'uPrincipal.pas' {frmPrincipal},
   uConfiguracoes in 'uConfiguracoes.pas' {frmConfiguracoes},
   uCad.Usuarios.Add in 'uCad.Usuarios.Add.pas' {frmCad_Usuario_ADD},
-  uCad.Usuarios in 'uCad.Usuarios.pas' {frmCad_Usuarios};
+  uCad.Usuarios in 'uCad.Usuarios.pas' {frmCad_Usuarios},
+  uCad.Empresa.Add in 'uCad.Empresa.Add.pas' {frmCad_Empresa_Add},
+  uCad.Empresa in 'uCad.Empresa.pas' {frmCad_Empresa},
+  uCad.PrestServico.Add in 'uCad.PrestServico.Add.pas' {frmCad_PrestServico_Add},
+  uCad.PrestServico in 'uCad.PrestServico.pas' {frmCad_PrestServico},
+  uCad.Cliente.Add in 'uCad.Cliente.Add.pas' {frmCad_Cliente_Add},
+  uCad.Cliente in 'uCad.Cliente.pas' {frmCad_Cliente},
+  uCad.Fornecedor.Add in 'uCad.Fornecedor.Add.pas' {frmCad_Fornecedor_Add},
+  uCad.Fornecedor in 'uCad.Fornecedor.pas' {frmCad_Fornecedor},
+  uCad.TabPreco.Add in 'uCad.TabPreco.Add.pas' {frmCad_TabPreco_Add},
+  uCad.TabPreco in 'uCad.TabPreco.pas' {frmCad_TabPreco},
+  uCon.Cliente in 'uCon.Cliente.pas' {frmCon_Cliente},
+  uCon.Fornecedor in 'uCon.Fornecedor.pas' {frmCon_Fornecedor},
+  uCon.TabPreco in 'uCon.TabPreco.pas' {frmCon_TabPreco},
+  uCad.Conta in 'uCad.Conta.pas' {frmCad_Conta},
+  uCad.Conta.Add in 'uCad.Conta.Add.pas' {frmCad_Conta_Add},
+  uCad.CondPagto.Add in 'uCad.CondPagto.Add.pas' {frmCad_CondPagto_Add},
+  uCad.CondPagto in 'uCad.CondPagto.pas' {frmCad_CondPagto},
+  uCad.FormaPagto.Add in 'uCad.FormaPagto.Add.pas' {frmCad_FormaPagto_Add},
+  uCad.FormaPagto in 'uCad.FormaPagto.pas' {frmCad_FormaPagto},
+  uDemo.ServicosPrestados in 'uDemo.ServicosPrestados.pas' {frmDemo_ServicosPrestados};
 
 {$R *.res}
 

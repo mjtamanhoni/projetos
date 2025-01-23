@@ -150,15 +150,15 @@ procedure TForm_Login.ExportD2Bridge;
 begin
  inherited;
 
- Title:= 'Login';
- SubTitle:= 'Efetua o login para acessar o sistema';
+ //Title:= 'Login';
+ //SubTitle:= 'Efetua o login para acessar o sistema';
 
  //Background color
- D2Bridge.HTML.Render.BodyStyle:= 'background-color: #f0f0f0;';
+ //D2Bridge.HTML.Render.BodyStyle:= 'background-color: #f0f0f0;';
 
  //TemplateClassForm:= TD2BridgeFormTemplate;
- D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
- D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+ D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= 'pages-login.html';
+ //D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
  //Export yours Controls
  with D2Bridge.Items.add do
