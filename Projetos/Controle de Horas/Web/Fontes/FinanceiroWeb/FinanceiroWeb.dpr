@@ -39,7 +39,9 @@ uses
   uCad.CondPagto in 'uCad.CondPagto.pas' {frmCad_CondPagto},
   uCad.FormaPagto.Add in 'uCad.FormaPagto.Add.pas' {frmCad_FormaPagto_Add},
   uCad.FormaPagto in 'uCad.FormaPagto.pas' {frmCad_FormaPagto},
-  uDemo.ServicosPrestados in 'uDemo.ServicosPrestados.pas' {frmDemo_ServicosPrestados};
+  uDemo.ServicosPrestados in 'uDemo.ServicosPrestados.pas' {frmDemo_ServicosPrestados},
+  uMov.ServPrestados in 'uMov.ServPrestados.pas' {frmMov_ServPrestados},
+  uMov.ServPrestados.Add in 'uMov.ServPrestados.Add.pas' {frmMov_ServPrestados_Add};
 
 {$R *.res}
 

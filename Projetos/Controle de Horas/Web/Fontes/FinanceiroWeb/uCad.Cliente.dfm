@@ -212,8 +212,8 @@ object frmCad_Cliente: TfrmCad_Cliente
     Height = 40
     Align = alBottom
     TabOrder = 2
-    ExplicitLeft = 8
-    ExplicitTop = 562
+    ExplicitTop = 569
+    ExplicitWidth = 1006
     object btExcluir: TButton
       Left = 714
       Top = 6
@@ -241,14 +241,14 @@ object frmCad_Cliente: TfrmCad_Cliente
       TabOrder = 2
       OnClick = btNovoClick
     end
-    object btFechar: TButton
+    object btnFiltrar: TButton
       Left = 795
       Top = 6
       Width = 75
       Height = 25
       Caption = 'Fechar'
       TabOrder = 3
-      OnClick = btFecharClick
+      OnClick = btnFiltrarClick
     end
   end
   object FDMem_Registro: TFDMemTable

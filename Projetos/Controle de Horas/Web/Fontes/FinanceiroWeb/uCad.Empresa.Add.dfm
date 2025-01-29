@@ -2,8 +2,8 @@ object frmCad_Empresa_Add: TfrmCad_Empresa_Add
   Left = 0
   Top = 0
   Caption = 'Cadastro de Empresas'
-  ClientHeight = 461
-  ClientWidth = 984
+  ClientHeight = 330
+  ClientWidth = 937
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

@@ -56,7 +56,7 @@ type
     btExcluir: TButton;
     btEditar: TButton;
     btNovo: TButton;
-    btFechar: TButton;
+    btnFiltrar: TButton;
     procedure btPesquisarClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure btEditarClick(Sender: TObject);
@@ -64,7 +64,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure btFecharClick(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
   private
     FfrmCad_Cliente_Add :TfrmCad_Cliente_Add;
 
@@ -154,10 +154,10 @@ begin
   end;
 end;
 
-procedure TfrmCad_Cliente.btFecharClick(Sender: TObject);
+procedure TfrmCad_Cliente.btnFiltrarClick(Sender: TObject);
 begin
   inherited;
-  Close;
+  Pesquisar;
 end;
 
 procedure TfrmCad_Cliente.btNovoClick(Sender: TObject);
@@ -186,7 +186,7 @@ begin
     FfrmCad_Cliente_Add.edEMAIL.Text := '';
     FfrmCad_Cliente_Add.Status_Tabela := 0;
 
-    ShowPopupModal('PopupCadClienteAdd')
+    ShowPopupModal('PopupCadClienteAdd');
   end
   else
   begin
@@ -223,7 +223,7 @@ begin
       begin
         FormGroup(lbTipo.Caption,CSSClass.Col.colsize2).AddVCLObj(cbTipo);
         FormGroup(lbPesquisar.Caption,CSSClass.Col.colsize8).AddVCLObj(edPesquisar);
-        FormGroup('',CSSClass.Col.colsize2).AddVCLObj(btPesquisar,CSSClass.Button.search);
+        FormGroup('',CSSClass.Col.colsize2+CSSClass.DivHtml.Align_Right).AddVCLObj(btPesquisar,CSSClass.Button.search);
       end;
     end;
 
@@ -231,20 +231,19 @@ begin
     begin
       with Row.Items.Add do
         VCLObj(DBGrid);
+    end;
 
+    with Card.Items.Add do
+    begin
       with Row.Items.Add do
       begin
-        with Row(CSSClass.DivHtml.Align_Left).Items.Add do
+        with Row(CSSClass.DivHtml.Align_Right).Items.Add do
         begin
-          VCLObj(btNovo, CSSClass.Button.add + CSSClass.Col.colsize2);
-        end;
-        with Row(CSSClass.DivHtml.Align_Left).Items.Add do
-        begin
-          VCLObj(btFechar, CSSClass.Button.close + CSSClass.Col.colsize2);
+          VCLObj(btNovo, CSSClass.Button.add + CSSClass.Col.colsize1);
+          VCLObj(btnFiltrar, CSSClass.Button.close + CSSClass.Col.colsize1);
         end;
       end;
     end;
-
     //Abrindo formulário popup
     with Popup('PopupCadClienteAdd','Cadastro de Cliente',True,CSSClass.Popup.Large).Items.Add do
       Nested(FfrmCad_Cliente_Add);

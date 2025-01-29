@@ -10,7 +10,8 @@ uses
   RESTRequest4D,
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  Vcl.Menus, D2Bridge.Forms, Vcl.Imaging.pngimage, Vcl.ExtCtrls; //Declare D2Bridge.Forms always in the last unit
+  Vcl.Menus, D2Bridge.Forms, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  D2BridgeFormTemplate; //Declare D2Bridge.Forms always in the last unit
 
 type
   TForm_Login = class(TD2BridgeForm)
@@ -176,7 +177,7 @@ begin
  //Background color
  D2Bridge.HTML.Render.BodyStyle:= 'background-color: #f0f0f0;';
 
- //TemplateClassForm:= TD2BridgeFormTemplate;
+ TemplateClassForm:= TD2BridgeFormTemplate;
  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 

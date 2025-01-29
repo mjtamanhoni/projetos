@@ -38,8 +38,19 @@ type
 implementation
 
 Uses
- FinanceiroWebWebApp, uConfiguracoes, uCad.Usuarios, uCad.Empresa, uCad.PrestServico, uCad.Cliente, uCad.Fornecedor,
-  uCad.TabPreco, uCad.Conta, uCad.CondPagto, uCad.FormaPagto, uDemo.ServicosPrestados;
+ FinanceiroWebWebApp
+ ,uConfiguracoes
+ ,uCad.Usuarios
+ ,uCad.Empresa
+ ,uCad.PrestServico
+ ,uCad.Cliente
+ ,uCad.Fornecedor
+ ,uCad.TabPreco
+ ,uCad.Conta
+ ,uCad.CondPagto
+ ,uCad.FormaPagto
+ ,uDemo.ServicosPrestados
+ ,uMov.ServPrestados;
 
 
 { TD2BridgeFormTemplate }
@@ -134,17 +145,22 @@ begin
   begin
     if frmConfiguracoes = Nil then
       TfrmConfiguracoes.CreateInstance;
-    frmConfiguracoes.ShowModal;
+    frmConfiguracoes.Show;
   end;
 
   if SameText(CallBackName,'DemoServPrest') then
   begin
     if frmDemo_ServicosPrestados = Nil then
       TfrmDemo_ServicosPrestados.CreateInstance;
-    frmDemo_ServicosPrestados.ShowModal;
+    frmDemo_ServicosPrestados.Show;
   end;
 
-
+  if SameText(CallBackName,'MovServPrestado') then
+  begin
+    if frmMov_ServPrestados = Nil then
+      TfrmMov_ServPrestados.CreateInstance;
+    frmMov_ServPrestados.Show;
+  end;
 
 end;
 

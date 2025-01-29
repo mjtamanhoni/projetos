@@ -1,0 +1,177 @@
+<section>
+
+	<section class="section filtro">
+	  <div class="row">
+			<div class="col-lg-12">
+				<div class="card-body">
+					<form>
+						<div class="row mb-2">
+							<div class="col-sm-2">
+								<div class="form-floating mb-2">
+									<input type="date" class="form-control" id="edData_I" placeholder="Data Inicial">
+									<label for="floatingInput">Data Inicial</label>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="form-floating mb-2">
+									<input type="date" class="form-control" id="edData_F" placeholder="Data Final">
+									<label for="floatingInput">Data Final</label>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="form-floating mb-2">
+									<input type="text" class="form-control" id="edEmpresa" placeholder="Empresa">
+									<label for="floatingInput">Empresa</label>
+								</div>
+							</div>
+							<div class="col-sm-2">							
+								<div class="form-floating mb-2">
+									<input type="text" class="form-control" id="edPrestador" placeholder="Prestador">
+									<label for="floatingInput">Prestador</label>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<div class="form-floating mb-2">
+									<input type="text" class="form-control" id="edCliente" placeholder="Cliente">
+									<label for="floatingInput">Cliente</label>
+								</div>
+							</div>				
+							<div class="col-sm-1">
+								<button class="btn btn-secondary w-100" type="button" id="btFiltrar">
+									<i class="fas fa-search"></i>
+								</button>
+							</div>
+							<div class="col-sm-1">
+								<button class="btn btn-primary w-100" type="button" id="btNovo">
+									<i class="fas fa-add"></i>
+								</button>
+							</div>							
+						</div>
+					</form>
+				</div>
+			</div>
+	  </div>		
+	</section>    
+	
+	<section class="section dbGrid">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card-body">
+					<form>
+						<h6>{%DBGrid%}</h6>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="footer">
+    <div class="row">
+			<div class="col-lg-12">
+				<div class="card-body">
+					<form>
+						<div class="row">		
+							<!-- Horas trabalhadas -->			
+							<div class="col-xxl-3 col-md-6">
+								<div class="card info-card sales-card">
+									<div class="card-body">
+										<h5 class="card-title">Horas <span>Trabalhadas</span></h5>
+										<div class="d-flex align-items-center">
+											<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+												<i class="bi bg-gradient-danger bi-calendar3"></i>
+											</div>
+											<div class="ps-3">
+												<h6>{%lbHr_Trab_Hr%}</h6>
+												<h6>{%lbHr_Trab_Vlr%}</h6>
+												<!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
+											</div>
+										</div>
+									</div>			
+								</div>
+							</div><!-- End Horas trabalhadas -->
+
+									<!--Horas acumuladas -->
+							<div class="col-xxl-3 col-md-6">
+								<div class="card info-card sales-card">
+									<div class="card-body">
+										<h5 class="card-title">Horas <span>Acumuladas</span></h5>
+										<div class="d-flex align-items-center">
+											<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+												<i class="bi bi-calendar2-week"></i>
+											</div>
+											<div class="ps-3">
+												<h6>{%lbHr_Acul_Hr%}</h6>
+												<h6>{%lbHr_Acul_Vlr%}</h6>
+												<!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- End Horas acumuladas -->
+
+							<!-- Total de Horas -->
+							<div class="col-xxl-3 col-xl-6">
+								<div class="card info-card sales-card">
+									<div class="card-body">
+										<h5 class="card-title">Horas <span>Total</span></h5>
+										<div class="d-flex align-items-center">
+											<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+												<i class="bi bi-calendar2-check"></i>
+											</div>
+											<div class="ps-3">
+												<h6>{%lbHr_Tot_Hr%}</h6>
+												<h6>{%lbHr_Tot_Vlr%}</h6>
+												<!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- End Total horas -->
+
+							<!-- Horas acumuladas pagas -->
+							<div class="col-xxl-3 col-xl-6">
+								<div class="card info-card sales-card">
+									<div class="card-body">
+										<h5 class="card-title">Horas <span>Pagas</span></h5>
+										<div class="d-flex align-items-center">
+											<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+												<i class="bi bi-calendar2-minus"></i>
+											</div>
+											<div class="ps-3">
+												<h6>{%lbHr_Pagas_Hr%}</h6>
+												<h6>{%lbHr_Pagas_Vlr%}</h6>
+												<!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- End horas acumuladas pagas -->=					
+						</div>
+					</form>
+				</div>
+			</div>
+    </div>
+	</section>
+
+	<!--Script para definir hora inicial e hora final -->
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => 
+		{
+		const dateInputStart = document.getElementById('edData_I');
+		const dateInputEnd = document.getElementById('edData_F');
+		
+		const today = new Date();
+		const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+		const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+		
+		const formattedFirstDay = firstDayOfMonth.toISOString().split('T')[0];
+		const formattedLastDay = lastDayOfMonth.toISOString().split('T')[0];
+		
+		dateInputStart.value = formattedFirstDay;
+		dateInputEnd.value = formattedLastDay;		  
+		});
+	</script>	  
+
+</section>
+	
+	<!--$primspage-->

@@ -1,41 +1,109 @@
+<!--
+<style>
+	.highlighted 
+	{			
+		color: red;
+	}
+</style>
+
+<head>
+	<title>DBGrid Example</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		.highlighted {
+			color: red;
+		}
+	</style>
+</head>
+-->
 <section >
-    <section class="section dashboard">
+	<section class="section dashboard">
 	  <div class="row">
-		<div class="col-lg-12">
-		  <div class="card-body">
-		    <form>
-			  <div class="row mb-3">
-			    <label for="imputCliente" class="col-sm-1 col-form-label">Cliente</label>
-			    <div class="col-sm-4">
-				  <input type="text" name="cliente" class="form-control" id="edFiltro_Cliente_ID">
-			    </div>
+			<div class="col-lg-12">
+				<div class="card-body">
+					<form>
+						<div class="row mb-3">
+							<label for="imputCliente" class="col-sm-1 col-form-label">Cliente</label>
+							<div class="col-sm-4">
+								<input type="text" name="cliente" class="form-control" id="edFiltro_Cliente_ID">
+							</div>
 				
-			    <div class="col-sm-1">
-				  <button class="btn btn-primary w-100" type="button" id="btFiltro_LocCli">
-				    <!--<a href="#" onclick="{{AbreFormConCliente}}">-->
-					<i class="fas fa-search"></i>
-				  </button>
-			    </div>
+							<div class="col-sm-1">
+								<button class="btn btn-primary w-100" type="button" id="btFiltro_LocCli">
+									<i class="fas fa-search"></i>
+								</button>
+							</div>
 				
-                <label for="inputDateI" class="col-sm-1 col-form-label">Perído</label>
-                  <div class="col-sm-2">
-                    <input type="date" name="dataI" class="form-control" id="edFiltro_DataI">
-                </div>
-                 <div class="col-sm-2">
-                    <input type="date" name="dataI" class="form-control" id="edFiltro_DataF">
-                </div>
+							<label for="inputDateI" class="col-sm-1 col-form-label">Período</label>
+							<div class="col-sm-2">
+								<input type="date" name="dataI" class="form-control" id="edFiltro_DataI">
+							</div>
+							<div class="col-sm-2">
+								<input type="date" name="dataI" class="form-control" id="edFiltro_DataF">
+							</div>
 				
-			    <div class="col-sm-1">
-				  <button class="btn btn-primary w-100" type="button" id="btFiltro_Filtrar">
-					<i class="fas fa-search"></i>
-				  </button>
-			    </div>
+							<div class="col-sm-1">
+								<button class="btn btn-primary w-100" type="button" id="btFiltro_Filtrar">
+									<i class="fas fa-search"></i>
+								</button>
+							</div>
 				
-			  </div>
-		    </form>
-		  </div>
-		</div>
+						</div>
+					</form>
+				</div>
+			</div>
 	  </div>
+	  
+		<!-- Modal (Popup) -->
+		<!--
+		<div class="modal fade" id="PopupConCliente" tabindex="-1" role="dialog" aria-labelledby="PopupConClienteLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="PopupConClienteLabel">Cadastro de Cliente</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="card-body">
+																	<form>
+																		<div class="row mb-3">
+																			<label for="imputTipo" class="col-sm-1 col-form-label">Tipo</label>
+																			<div class="col-sm-3">
+																				<select name="opcao" class="form-control" id="cbTipo">
+																			</div>
+																			<div class="col-sm-8">
+																				<input type="text" name="pesquisa" class="form-control" id="edPesquisar">
+																			</div>
+																
+																			<div class="col-sm-1">
+																				<button class="btn btn-primary w-100" type="button" id="btPesquisar">
+																					<i class="fas fa-search"></i>
+																				</button>
+																			</div>															
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+						
+						<div id="formContainer"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	  -->
+	  
 	  
 		<script>
 		  document.addEventListener('DOMContentLoaded', (event) => 
@@ -55,172 +123,172 @@
 			});
 		</script>	  
 	  
-      <div class="row">
+    <div class="row">
         <!-- Left side columns -->
-        <div class="col-lg-12">
-          <div class="row">
+			<div class="col-lg-12">
+        <div class="row">
+           <!-- Sales Card -->
+					<div style="margin-bottom: 15px;">
+						<!-- 	 		  {%edit_vendas%}   -->
+							<!--		  {%MEMO_SERIES%} -->
+						<!--			  {%button_alterar%}    -->
+					</div>  
+				
+					<!-- Horas trabalhadas -->			
+					<div class="col-xxl-3 col-md-6">
+						<div class="card info-card sales-card">
+							<div class="card-body">
+								<h5 class="card-title">Horas <span>Trabalhadas</span></h5>
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="bi bg-gradient-danger bi-calendar3"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{%lbHr_Trab_Hr%}</h6>
+										<h6>{%lbHr_Trab_Vlr%}</h6>
+										<!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
+									</div>
+								</div>
+							</div>			
+						</div>
+					</div><!-- End Horas trabalhadas -->
 
-            <!-- Sales Card -->
-			
-			<div style="margin-bottom: 15px;">
-			
- <!-- 	 		  {%edit_vendas%}    -->
- 
-	<!--		  {%MEMO_SERIES%} -->
- <!--			  {%button_alterar%}    -->
-			</div>  
-			
-            <!-- Horas trabalhadas -->			
-            <div class="col-xxl-3 col-md-6">
-              <div class="card info-card sales-card">
-                <div class="card-body">
-                  <h5 class="card-title">Horas Trabalhadas</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-calendar3"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>{%lbHr_Trab_Hr%}</h6>
-                      <h6>{%lbHr_Trab_Vlr%}</h6>
-                      <!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
-                    </div>
-                  </div>
-                </div>			
-              </div>
-            </div><!-- End Horas trabalhadas -->
+							<!--Horas acumuladas -->
+					<div class="col-xxl-3 col-md-6">
+						<div class="card info-card sales-card">
+							<div class="card-body">
+								<h5 class="card-title">Horas <span>Acumuladas</span></h5>
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="bi bi-calendar2-week"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{%lbHr_Acul_Hr%}</h6>
+										<h6>{%lbHr_Acul_Vlr%}</h6>
+										<!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
+									</div>
+								</div>
+							</div>
 
-            <!--Horas acumuladas -->
-            <div class="col-xxl-3 col-md-6">
-              <div class="card info-card sales-card">
-                <div class="card-body">
-                  <h5 class="card-title">Horas Acumuladas</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-calendar2-week"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>{%lbHr_Acul_Hr%}</h6>
-                      <h6>{%lbHr_Acul_Vlr%}</h6>
-                      <!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
-                    </div>
-                  </div>
-                </div>
+						</div>
+					</div><!-- End Horas acumuladas -->
 
-              </div>
-            </div><!-- End Horas acumuladas -->
+					<!-- Total de Horas -->
+					<div class="col-xxl-3 col-xl-6">
+						<div class="card info-card sales-card">
+							<div class="card-body">
+								<h5 class="card-title">Horas <span>Total</span></h5>
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="bi bi-calendar2-check"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{%lbHr_Tot_Hr%}</h6>
+										<h6>{%lbHr_Tot_Vlr%}</h6>
+										<!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!-- End Total horas -->
 
-            <!-- Total de Horas -->
-            <div class="col-xxl-3 col-xl-6">
-              <div class="card info-card sales-card">
-                <div class="card-body">
-                  <h5 class="card-title">Total de Horas</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-calendar2-check"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>{%lbHr_Tot_Hr%}</h6>
-                      <h6>{%lbHr_Tot_Vlr%}</h6>
-                      <!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Total horas -->
+					<!-- Horas acumuladas pagas -->
+					<div class="col-xxl-3 col-xl-6">
+						<div class="card info-card sales-card">
+							<div class="card-body">
+								<h5 class="card-title">Horas <span>Pagas</span></h5>
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="bi bi-calendar2-minus"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{%lbHr_Pagas_Hr%}</h6>
+										<h6>{%lbHr_Pagas_Vlr%}</h6>
+										<!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!-- End horas acumuladas pagas -->
 
-            <!-- Horas acumuladas pagas -->
-            <div class="col-xxl-3 col-xl-6">
-              <div class="card info-card sales-card">
-                <div class="card-body">
-                  <h5 class="card-title">Horas Pagas</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-calendar2-minus"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>{%lbHr_Pagas_Hr%}</h6>
-                      <h6>{%lbHr_Pagas_Vlr%}</h6>
-                      <!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End horas acumuladas pagas -->
-
-          </div>
-		</div>
+				</div>
+			</div>
     </div>
-	
+
+
 		<div class="row">
 			<div class="col-12">
 				<h6>{%DBGrid%}</h6>
 			</div>
 		</div>
-	
-	
-         <div class="col-xl-8">
-               <div class="card-body">
-                  <h5 class="card-title">Reports <span>/Today</span></h5>
 
-                  <!-- Line Chart -->
-                  <div id="reportsChart"></div>
+<!--		
+    <div class="col-xl-8">
+      <div class="card-body">
+        <h5 class="card-title">Reports <span>/Today</span></h5>
 
-                  <script>
-                    document.addEventListener("DOMContentLoaded", geragrafico);
+        <!-- Line Chart 
+        <div id="reportsChart"></div>
 
-                    function geragrafico()
-					{
-					  
-					  const memoseries = document.getElementById("MEMO_SERIES").value;
-					  const seriesdomemo = JSON.parse(memoseries);
+          <script>
+            document.addEventListener("DOMContentLoaded", geragrafico);
+
+            function geragrafico()
+						{					  
+							const memoseries = document.getElementById("MEMO_SERIES").value;
+							const seriesdomemo = JSON.parse(memoseries);
                      
-					  new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: seriesdomemo,
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
-                    };
-                  </script>
-                  <!-- End Line Chart -->
+							new ApexCharts(document.querySelector("#reportsChart"), 
+							    {
+	                  series: seriesdomemo,chart: 
+										{
+                      height: 350,
+                      type: 'area',
+                          : {
+															show: false
+                            },
+                    },
+                    markers: 
+										{
+											size: 4
+                    },
+                    colors: ['#4154f1', '#2eca6a', '#ff771d'], fill: 
+										{
+											type: "gradient", gradient: 
+											{
+												shadeIntensity: 1,
+												opacityFrom: 0.3,
+												opacityTo: 0.4,
+												stops: [0, 90, 100]
+											}
+                    },
+                    dataLabels: 
+										{
+											enabled: false
+                    },
+                    stroke: 
+										{
+											curve: 'smooth',
+											width: 2
+                    },
+                    xaxis: 
+										{
+											type: 'datetime',
+											categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                    },
+                    tooltip: 
+										{
+                      x: 
+											{
+												format: 'dd/MM/yy HH:mm'
+                      },
+                    }
+                  }).render();
+            };
+          </script>
+             End Line Chart -->
 
-                </div>
-
-              </div>
-	
-	</section>
-    
+      </div>
+    </div>	
+	</section>    
 </section>

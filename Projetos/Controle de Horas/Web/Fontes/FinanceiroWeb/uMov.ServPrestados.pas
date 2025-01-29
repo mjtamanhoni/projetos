@@ -1,39 +1,40 @@
-unit uDemo.ServicosPrestados;
+unit uMov.ServPrestados;
 
 { Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms,
-  DateUtils,
-  uCon.Cliente,
+  D2Bridge.Forms, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, FireDAC.Stan.StorageBin,
 
+  //D2BridgeFormTemplate,
   System.JSON,
   DataSet.Serialize,
   RESTRequest4D,
   IniFiles,
-  uPrincipal,
 
-  System.ImageList, Vcl.ImgList, Vcl.ComCtrls, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.StorageBin;
+  uPrincipal,
+  uCon.Cliente,
+  uMov.ServPrestados.Add;
 
 type
-  TfrmDemo_ServicosPrestados = class(TfrmPrincipal)
-    pnFiltro: TPanel;
-    lbFiltro_Cliente: TLabel;
-    lbFiltro_Data_I: TLabel;
-    lbFiltro_Data_F: TLabel;
-    edFiltro_DataI: TDateTimePicker;
-    edFiltro_DataF: TDateTimePicker;
-    btFiltro_Filtrar: TButton;
-    ImageList: TImageList;
-    edFiltro_Cliente_ID: TButtonedEdit;
-    btFiltro_LocCli: TButton;
-    pnCards: TPanel;
+  TfrmMov_ServPrestados = class(TfrmPrincipal)
+    pnHeader: TPanel;
+    pnDetail: TPanel;
+    pnFooter: TPanel;
+    lbFiltro_Tit: TLabel;
+    edData_I: TDateTimePicker;
+    edData_F: TDateTimePicker;
+    lbEmpresa: TLabel;
+    edEmpresa: TEdit;
+    lbPrestador: TLabel;
+    edPrestador: TEdit;
+    lbCliente: TLabel;
+    edCliente: TEdit;
     lbHr_Trab_Tit: TLabel;
     lbHr_Trab_Hr: TLabel;
     lbHr_Trab_Vlr: TLabel;
@@ -43,18 +44,11 @@ type
     lbHr_Tot_Tit: TLabel;
     lbHr_Tot_Hr: TLabel;
     lbHr_Tot_Vlr: TLabel;
-    lbHr_Pagas_Tit: TLabel;
-    lbHr_Pagas_Vlr: TLabel;
-    lbHr_Pagas_Hr: TLabel;
+    btExcluir: TButton;
+    btEditar: TButton;
+    btNovo: TButton;
+    btFiltrar: TButton;
     FDMem_Registro: TFDMemTable;
-    FDMem_Registroid: TIntegerField;
-    FDMem_Registrodescricao: TStringField;
-    FDMem_Registrostatus: TIntegerField;
-    FDMem_RegistroidEmpresa: TIntegerField;
-    FDMem_RegistroidPrestadorServico: TIntegerField;
-    FDMem_RegistroidCliente: TIntegerField;
-    FDMem_RegistroidTabela: TIntegerField;
-    FDMem_RegistroidConta: TIntegerField;
     FDMem_Registrodata: TDateField;
     FDMem_RegistrohrInicio: TStringField;
     FDMem_RegistrohrFim: TStringField;
@@ -62,10 +56,19 @@ type
     FDMem_RegistrovlrHora: TFloatField;
     FDMem_RegistrosubTotal: TFloatField;
     FDMem_Registrodesconto: TFloatField;
-    FDMem_RegistrodescontoMotivo: TStringField;
     FDMem_Registroacrescimo: TFloatField;
-    FDMem_RegistroacrescimoMotivo: TStringField;
     FDMem_Registrototal: TFloatField;
+    FDMem_RegistroidConta: TIntegerField;
+    FDMem_Registroconta: TStringField;
+    FDMem_Registroid: TIntegerField;
+    FDMem_Registrodescricao: TStringField;
+    FDMem_Registrostatus: TIntegerField;
+    FDMem_RegistroidEmpresa: TIntegerField;
+    FDMem_RegistroidPrestadorServico: TIntegerField;
+    FDMem_RegistroidCliente: TIntegerField;
+    FDMem_RegistroidTabela: TIntegerField;
+    FDMem_RegistrodescontoMotivo: TStringField;
+    FDMem_RegistroacrescimoMotivo: TStringField;
     FDMem_Registroobservacao: TStringField;
     FDMem_RegistrodtPago: TStringField;
     FDMem_RegistrovlrPago: TFloatField;
@@ -79,18 +82,22 @@ type
     FDMem_RegistrotabelaPreco: TStringField;
     FDMem_RegistrotipoTabela: TIntegerField;
     FDMem_RegistrotipoTabelaDesc: TStringField;
-    FDMem_Registroconta: TStringField;
     FDMem_RegistrotipoConta: TIntegerField;
     FDMem_RegistrotipoContaDesc: TStringField;
     FDMem_Registroseq: TIntegerField;
     dmRegistro: TDataSource;
     DBGrid: TDBGrid;
-    procedure btFiltro_FiltrarClick(Sender: TObject);
-    procedure btFiltro_LocCliClick(Sender: TObject);
+    lbHr_Pagas_Tit: TLabel;
+    lbHr_Pagas_Hr: TLabel;
+    lbHr_Pagas_Vlr: TLabel;
+    procedure btFiltrarClick(Sender: TObject);
+    procedure btEditarClick(Sender: TObject);
+    procedure btExcluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure DBGridDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btNovoClick(Sender: TObject);
   private
     FfrmCon_Cliente :TfrmCon_Cliente;
+    FfrmMov_ServPrestados_Add :TfrmMov_ServPrestados_Add;
 
     FEnder :String;
     FIniFiles :TIniFile;
@@ -98,8 +105,6 @@ type
     FPorta :String;
 
     function HoraStrToTime(AHora:String):TTime;
-    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    function GetDBGridDataAsJSON(): String;
 
   public
     procedure Pesquisar;
@@ -109,7 +114,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function frmDemo_ServicosPrestados:TfrmDemo_ServicosPrestados;
+function frmMov_ServPrestados:TfrmMov_ServPrestados;
 
 implementation
 
@@ -118,138 +123,97 @@ Uses
 
 {$R *.dfm}
 
-function frmDemo_ServicosPrestados:TfrmDemo_ServicosPrestados;
+function frmMov_ServPrestados:TfrmMov_ServPrestados;
 begin
-  result:= TfrmDemo_ServicosPrestados(TfrmDemo_ServicosPrestados.GetInstance);
+  result:= TfrmMov_ServPrestados(TfrmMov_ServPrestados.GetInstance);
 end;
 
-procedure TfrmDemo_ServicosPrestados.btFiltro_FiltrarClick(Sender: TObject);
+procedure TfrmMov_ServPrestados.btEditarClick(Sender: TObject);
 begin
   inherited;
+  //
+end;
+
+procedure TfrmMov_ServPrestados.btExcluirClick(Sender: TObject);
+begin
+  inherited;
+  //
+end;
+
+procedure TfrmMov_ServPrestados.btFiltrarClick(Sender: TObject);
+begin
   Pesquisar;
 end;
 
-function TfrmDemo_ServicosPrestados.GetDBGridDataAsJSON():String;
-var
-  FJsonArray :TJSONArray;
-  FJsonObject :TJSONObject;
-  I :Integer;
-begin
-  try
-    FDMem_Registro.DisableControls;
-    FJsonArray := TJSONArray.Create;
-
-    if not FDMem_Registro.IsEmpty then
-    begin
-      FDMem_Registro.First;
-      while not FDMem_Registro.Eof do
-      begin
-        FJsonObject := TJSONObject.Create;
-        FJsonObject.AddPair('data',FormatDateTime('DD/MM/YYYY',FDMem_Registro.FieldByName('data').AsDateTime));
-        FJsonObject.AddPair('hrInicio',FDMem_Registro.FieldByName('hrInicio').AsString);
-        FJsonObject.AddPair('hrFim',FDMem_Registro.FieldByName('hrFim').AsString);
-        FJsonObject.AddPair('hrTotal',FDMem_Registro.FieldByName('hrTotal').AsString);
-        FJsonObject.AddPair('vlrHora',FormatFloat('R$ #,##0.00',FDMem_Registro.FieldByName('vlrHora').AsFloat));
-        FJsonObject.AddPair('subTotal',FormatFloat('R$ #,##0.00',FDMem_Registro.FieldByName('subTotal').AsFloat));
-        FJsonObject.AddPair('desconto',FormatFloat('R$ #,##0.00',FDMem_Registro.FieldByName('desconto').AsFloat));
-        FJsonObject.AddPair('acrescimo',FormatFloat('R$ #,##0.00',FDMem_Registro.FieldByName('acrescimo').AsFloat));
-        FJsonObject.AddPair('total',FormatFloat('R$ #,##0.00',FDMem_Registro.FieldByName('total').AsFloat));
-        FJsonObject.AddPair('idConta',FDMem_Registro.FieldByName('idConta').AsInteger);
-        FJsonObject.AddPair('conta',FDMem_Registro.FieldByName('conta').AsString);
-
-        FJsonArray.AddElement(FJsonObject);
-
-        FDMem_Registro.Next;
-      end;
-    end;
-
-    Result := FJsonArray.ToString;
-
-  finally
-    FDMem_Registro.EnableControls;
-  end;
-end;
-
-procedure TfrmDemo_ServicosPrestados.btFiltro_LocCliClick(Sender: TObject);
+procedure TfrmMov_ServPrestados.btNovoClick(Sender: TObject);
 begin
   inherited;
-  //ShowPopupModal('PopupConCliente');
-  if frmCon_Cliente = Nil then
-    TfrmCon_Cliente.CreateInstance;
-  frmCon_Cliente.ShowModal;
+  if frmMov_ServPrestados_Add = Nil then
+    TfrmMov_ServPrestados_Add.CreateInstance;
+  frmMov_ServPrestados_Add.ShowModal;
 
-  if FinanceiroWeb.Cliente_ID > 0 then
-  begin
-    edFiltro_Cliente_ID.Tag := FinanceiroWeb.Cliente_ID;
-    edFiltro_Cliente_ID.Text := FinanceiroWeb.Cliente_Nome;
-  end;
+  ShowPopup('Popup'+frmMov_ServPrestados_Add.Name);
+
 end;
 
-procedure TfrmDemo_ServicosPrestados.DBGridDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
-  State: TGridDrawState);
-begin
-  inherited;
-  // Condição para mudar a cor da fonte, você pode ajustar conforme necessário
-  if FDMem_Registro.FieldByName('idConta').AsInteger = 13 then
-  begin
-    DBGrid.Canvas.Font.Color := clRed; // Cor da fonte
-  end
-  else
-  begin
-    DBGrid.Canvas.Font.Color := clBlack; // Cor padrão
-  end;
-  DBGrid.DefaultDrawColumnCell(Rect, DataCol, Column, State);
-end;
-
-procedure TfrmDemo_ServicosPrestados.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
-  DataCol: Integer; Column: TColumn; State: TGridDrawState);
-begin
-end;
-
-procedure TfrmDemo_ServicosPrestados.ExportD2Bridge;
-var
- FormHtml: string;
+procedure TfrmMov_ServPrestados.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'Demonstrativo dos Serviços Prestados';
+  Title:= 'Serviços Prestados';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
-  //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= 'dashboard.html';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := 'dashboard.html';
+  //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := 'forms-servicosPrestados.html';
 
-  //Configurações do Form Popup
-  FfrmCon_Cliente := TfrmCon_Cliente.Create(Self);
-  D2Bridge.AddNested(FfrmCon_Cliente);
+  //if FfrmMov_ServPrestados_Add = Nil then
+  //  TfrmMov_ServPrestados_Add.CreateInstance;
+  //D2Bridge.AddNested(FfrmMov_ServPrestados_Add);
 
   with D2Bridge.Items.add do
   begin
-    VCLObj(edFiltro_Cliente_ID);
-    VCLObj(edFiltro_DataI);
-    VCLObj(edFiltro_DataF);
-    VCLObj(btFiltro_Filtrar);
-    VCLObj(btFiltro_LocCli);
+    //Filtros
+    VCLObj(edData_I);
+    VCLObj(edData_F);
+    VCLObj(edEmpresa);
+    VCLObj(edPrestador);
+    VCLObj(edCliente);
 
+    //Grid
+    VCLObj(DBGrid);
+
+    //Cards
+    //VCLObj(lbHr_Trab_Tit);
     VCLObj(lbHr_Trab_Hr);
     VCLObj(lbHr_Trab_Vlr);
+
+    //VCLObj(lbHr_Acul_Tit);
     VCLObj(lbHr_Acul_Hr);
     VCLObj(lbHr_Acul_Vlr);
+
+    //VCLObj(lbHr_Tot_Tit);
     VCLObj(lbHr_Tot_Hr);
     VCLObj(lbHr_Tot_Vlr);
+
+    //VCLObj(lbHr_Tot_Tit);
     VCLObj(lbHr_Pagas_Hr);
     VCLObj(lbHr_Pagas_Vlr);
 
-    VCLObj(DBGrid);
+    //Botões de ações
+    VCLObj(btNovo);
+    VCLObj(btFiltrar);
+    VCLObj(btExcluir);
+    VCLObj(btEditar);
 
-    //Popup
-    with Popup('PopupConCliente','Cadastro de Cliente',False,CSSClass.Popup.Large).Items.Add do
-      Nested(FfrmCon_Cliente);
+    //Popup('Popup'+frmMov_ServPrestados_Add.Name,'Serviços Prestados').Items.Add.Nested(frmMov_ServPrestados_Add.Name);
 
+    //with Popup('PopupMovServPrest','Serviços Prestados',True,CSSClass.Popup.Large).Items.Add do
+      //Nested(FfrmMov_ServPrestados_Add);
   end;
 
 end;
 
-procedure TfrmDemo_ServicosPrestados.FormCreate(Sender: TObject);
+procedure TfrmMov_ServPrestados.FormCreate(Sender: TObject);
 begin
   inherited;
   FEnder  := '';
@@ -258,13 +222,9 @@ begin
 
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
-
-  edFiltro_DataI.Date := StartOfTheMonth(Now);
-  edFiltro_DataF.Date := EndOfTheMonth(Now);
-
 end;
 
-function TfrmDemo_ServicosPrestados.HoraStrToTime(AHora: String): TTime;
+function TfrmMov_ServPrestados.HoraStrToTime(AHora: String): TTime;
 begin
   try
     if Length(AHora) = 12 then
@@ -273,21 +233,38 @@ begin
   except on E: Exception do
     raise Exception.Create('Erro ao converter Texto em Hora');
   end;
-
 end;
 
-procedure TfrmDemo_ServicosPrestados.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmMov_ServPrestados.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
   if PrismControl.IsDBGrid then
   begin
-   PrismControl.AsDBGrid.RecordsPerPage := 10;
+   PrismControl.AsDBGrid.RecordsPerPage := 7;
    //PrismControl.AsDBGrid.MaxRecords:= 2000;
+    with PrismControl.AsDBGrid do
+    begin
+      with Columns.Add do
+      begin
+         Title:= 'Ações';
+         ColumnIndex :=0;
+         Width := 65;
+         With Buttons.Add do
+           begin
+            ButtonModel := TButtonModel.edit;
+            Caption:='';
+            Onclick:=btEditarClick;
+           end;
+         With Buttons.Add do
+           begin
+            ButtonModel := TButtonModel.Delete;
+            Caption:='';
+            Onclick:=btExcluirClick;
+           end;
+      end;
+    end;
   end;
-
-  edFiltro_DataI.Date := StartOfTheMonth(Now);
-  edFiltro_DataF.Date := EndOfTheMonth(Now);
 
  //Change Init Property of Prism Controls
  {
@@ -302,7 +279,7 @@ begin
  }
 end;
 
-procedure TfrmDemo_ServicosPrestados.Pesquisar;
+procedure TfrmMov_ServPrestados.Pesquisar;
 var
   FResp :IResponse;
   FBody :TJSONObject;
@@ -335,19 +312,19 @@ begin
       if Trim(FinanceiroWeb.Usuario_Token) = '' then
         raise Exception.Create('Token do Usuário inválido');
 
-      FData_I := FormatDateTime('DD-MM-YYYY',edFiltro_DataI.Date);
-      FData_F := FormatDateTime('DD-MM-YYYY',edFiltro_DataF.Date);
+      FData_I := FormatDateTime('DD-MM-YYYY',edData_I.Date);
+      FData_F := FormatDateTime('DD-MM-YYYY',edData_F.Date);
 
       if Trim(FData_I) = '' then
         raise Exception.Create('Data inicial é obrigatória');
       if Trim(FData_F) = '' then
         raise Exception.Create('Data final é obrigatória');
-      if edFiltro_Cliente_ID.Tag = 0 then
+      if edCliente.Tag = 0 then
         raise Exception.Create('Cliente é  obrigatório');
 
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(FinanceiroWeb.Usuario_Token)
-               .AddParam('cliente',edFiltro_Cliente_ID.Tag.ToString)
+               .AddParam('cliente',edCliente.Tag.ToString)
                .AddParam('dataI',FData_I)
                .AddParam('dataF',FData_F)
                .Resource('servicosPrestados/apresentacao')
@@ -444,7 +421,7 @@ begin
   end;
 end;
 
-procedure TfrmDemo_ServicosPrestados.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmMov_ServPrestados.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 
