@@ -2,8 +2,8 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
   Left = 0
   Top = 0
   Caption = 'Movimento de Servi'#231'os Prestados'
-  ClientHeight = 659
-  ClientWidth = 998
+  ClientHeight = 450
+  ClientWidth = 884
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -61,11 +61,11 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Caption = 'Tab. Pre'#231'o'
   end
   object lbid_conta: TLabel
-    Left = 8
-    Top = 205
-    Width = 54
+    Left = 42
+    Top = 202
+    Width = 32
     Height = 15
-    Caption = 'Tab. Pre'#231'o'
+    Caption = 'Conta'
   end
   object lbdt_registro: TLabel
     Left = 216
@@ -96,35 +96,35 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Caption = 'Total'
   end
   object lbvlr_hora: TLabel
-    Left = 23
-    Top = 262
+    Left = 660
+    Top = 233
     Width = 55
     Height = 15
     Caption = 'Valor Hora'
   end
   object lbsub_total: TLabel
-    Left = 201
+    Left = 25
     Top = 262
     Width = 50
     Height = 15
     Caption = 'Sub-Total'
   end
   object lbdesconto: TLabel
-    Left = 378
+    Left = 202
     Top = 264
     Width = 50
     Height = 15
     Caption = 'Desconto'
   end
   object lbacrescimo: TLabel
-    Left = 546
+    Left = 370
     Top = 267
     Width = 56
     Height = 15
     Caption = 'Acr'#233'scimo'
   end
   object lbtotal: TLabel
-    Left = 722
+    Left = 546
     Top = 267
     Width = 25
     Height = 15
@@ -163,6 +163,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Top = 50
     Width = 508
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 1
   end
   object cbstatus: TComboBox
@@ -182,6 +183,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Top = 79
     Width = 457
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 3
   end
   object btid_empresa: TButton
@@ -191,12 +193,14 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Height = 25
     Caption = 'Loc'
     TabOrder = 4
+    OnClick = btid_empresaClick
   end
   object edid_prestador_servico: TEdit
     Left = 84
     Top = 110
     Width = 457
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 5
   end
   object btid_prestador_servico: TButton
@@ -206,12 +210,14 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Height = 25
     Caption = 'Loc'
     TabOrder = 6
+    OnClick = btid_prestador_servicoClick
   end
   object edid_cliente: TEdit
     Left = 84
     Top = 141
     Width = 457
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 7
   end
   object btid_cliente: TButton
@@ -221,12 +227,14 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Height = 25
     Caption = 'Loc'
     TabOrder = 8
+    OnClick = btid_clienteClick
   end
   object edid_tabela: TEdit
     Left = 84
     Top = 172
     Width = 338
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 9
   end
   object btid_tabela: TButton
@@ -236,12 +244,14 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Height = 25
     Caption = 'Loc'
     TabOrder = 10
+    OnClick = btid_tabelaClick
   end
   object edid_tabela_Vlr: TEdit
     Left = 428
     Top = 170
     Width = 113
     Height = 23
+    ReadOnly = True
     TabOrder = 11
   end
   object edid_conta: TEdit
@@ -249,6 +259,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Top = 201
     Width = 338
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 12
   end
   object btid_conta: TButton
@@ -258,12 +269,14 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Height = 25
     Caption = 'Loc'
     TabOrder = 13
+    OnClick = btid_contaClick
   end
   object edid_conta_tipo: TEdit
     Left = 428
     Top = 199
     Width = 113
     Height = 23
+    ReadOnly = True
     TabOrder = 14
   end
   object eddt_registro: TDateTimePicker
@@ -298,36 +311,36 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     TabOrder = 17
   end
   object edvlr_hora: TEdit
-    Left = 84
-    Top = 259
+    Left = 721
+    Top = 230
     Width = 107
     Height = 23
     TabOrder = 18
   end
   object edsub_total: TEdit
-    Left = 257
+    Left = 81
     Top = 259
     Width = 107
     Height = 23
     TabOrder = 19
   end
   object eddesconto: TEdit
-    Left = 434
+    Left = 258
     Top = 261
     Width = 107
     Height = 23
     TabOrder = 20
   end
   object edacrescimo: TEdit
-    Left = 608
+    Left = 432
     Top = 259
     Width = 107
     Height = 23
     TabOrder = 21
   end
   object edtotal: TEdit
-    Left = 753
-    Top = 278
+    Left = 577
+    Top = 259
     Width = 107
     Height = 23
     TabOrder = 22
@@ -337,6 +350,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Top = 288
     Width = 776
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 23
   end
   object eddt_pago: TDateTimePicker

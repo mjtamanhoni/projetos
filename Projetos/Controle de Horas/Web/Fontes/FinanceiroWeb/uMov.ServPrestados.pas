@@ -131,13 +131,13 @@ end;
 procedure TfrmMov_ServPrestados.btEditarClick(Sender: TObject);
 begin
   inherited;
-  //
+  ShowMessage('Editando lançamento',True,True,10000);
 end;
 
 procedure TfrmMov_ServPrestados.btExcluirClick(Sender: TObject);
 begin
   inherited;
-  //
+  ShowMessage('Excluindo lançamento',True,True,10000);
 end;
 
 procedure TfrmMov_ServPrestados.btFiltrarClick(Sender: TObject);
@@ -152,7 +152,7 @@ begin
     TfrmMov_ServPrestados_Add.CreateInstance;
   frmMov_ServPrestados_Add.ShowModal;
 
-  ShowPopup('Popup'+frmMov_ServPrestados_Add.Name);
+  //ShowPopup('Popup'+frmMov_ServPrestados_Add.Name);
 
 end;
 

@@ -64,6 +64,11 @@ type
     btCancelar: TButton;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
+    procedure btid_empresaClick(Sender: TObject);
+    procedure btid_prestador_servicoClick(Sender: TObject);
+    procedure btid_clienteClick(Sender: TObject);
+    procedure btid_tabelaClick(Sender: TObject);
+    procedure btid_contaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -96,6 +101,36 @@ end;
 procedure TfrmMov_ServPrestados_Add.btConfirmarClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmMov_ServPrestados_Add.btid_clienteClick(Sender: TObject);
+begin
+  inherited;
+  ShowMessage('Pesquisar Cliente');
+end;
+
+procedure TfrmMov_ServPrestados_Add.btid_contaClick(Sender: TObject);
+begin
+  inherited;
+  ShowMessage('Pesquisar Conta');
+end;
+
+procedure TfrmMov_ServPrestados_Add.btid_empresaClick(Sender: TObject);
+begin
+  inherited;
+  ShowMessage('Pesquisar Empresa',True,True,10000);
+end;
+
+procedure TfrmMov_ServPrestados_Add.btid_prestador_servicoClick(Sender: TObject);
+begin
+  inherited;
+  ShowMessage('Pesquisar Prestador de Serviço');
+end;
+
+procedure TfrmMov_ServPrestados_Add.btid_tabelaClick(Sender: TObject);
+begin
+  inherited;
+  ShowMessage('Pesquisar Tabela de Preço');
 end;
 
 procedure TfrmMov_ServPrestados_Add.ExportD2Bridge;

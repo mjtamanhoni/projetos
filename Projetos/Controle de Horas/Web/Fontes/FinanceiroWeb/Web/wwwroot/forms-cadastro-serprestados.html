@@ -1,27 +1,268 @@
-<section>
-
-	<section class="section filtro">
-	  <div class="row">
-			<div class="col-lg-12">
-				<div class="card-body">
-					<form>
-						<div class="row mb-2">
-							<div class="col-sm-2">
-								<div class="form-floating mb-2">
-									<input type="text" class="form-control" id="edid" placeholder="Id">
-									<label for="floatingInput">Id</label>
-								</div>
-							<div class="col-sm-2">
-								<div class="form-floating mb-2">
-									<input type="date" class="form-control" id="eddt_registro" placeholder="Data">
-									<label for="floatingInput">Data</label>
+<section class="section filtro">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card-body">
+				<form>
+					<div class="row mb-2">
+						<div class="col-sm-1">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="edid" placeholder="Id">
+								<label for="floatingInput">Id</label>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<input type="date" class="form-control text-center" id="eddt_registro" placeholder="Data">
+								<label for="floatingInput">Data</label>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<select class="form-control" id="cbstatus" placeholder="Status">
+									<option value="1">ATIVO</option>
+									<option value="0">INATIVO</option>
+								</select>
+								<label for="floatingInput">Status</label>
+							</div>
+						</div>
+						<div class="col-sm-7">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="eddescricao" placeholder="Descrição">
+								<label for="floatingInput">Descrição</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<div class="form-floating mb-2">
+								<div class="input-group">
+									<div class="form-floating flex-grow-1">
+										<input type="text" class="form-control" id="edid_empresa" placeholder="Empresa">
+										<label for="floatingInput">Empresa</label>
+									</div>
+									<button class="btn btn-primary" type="button" id="btid_empresa">
+										<i class="bi bi-search"></i>
+									</button>
 								</div>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-	  </div>		
-	</section>    
+						<div class="col-sm-6">
+							<div class="form-floating mb-2">
+								<div class="input-group">
+									<div class="form-floating flex-grow-1">
+										<input type="text" class="form-control" id="edid_prestador_servico" placeholder="Prestador de Serviço">
+										<label for="floatingInput">Prestador de Serviço</label>
+									</div>
+									<button class="btn btn-primary" type="button" id="btid_prestador_servico">
+										<i class="bi bi-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-12">
+							<div class="form-floating mb-2">
+								<div class="input-group">
+									<div class="form-floating flex-grow-1">
+										<input type="text" class="form-control" id="edid_cliente" placeholder="Cliente">
+										<label for="floatingInput">Cliente</label>
+									</div>
+									<button class="btn btn-primary" type="button" id="btid_cliente">
+										<i class="bi bi-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-10">
+							<div class="form-floating mb-2">
+								<div class="input-group">
+									<div class="form-floating flex-grow-1">
+										<input type="text" class="form-control" id="edid_tabela" placeholder="Tabela de Preços">
+										<label for="floatingInput">Tabela de Preços</label>
+									</div>
+									<button class="btn btn-primary" type="button" id="btid_tabela">
+										<i class="bi bi-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="edid_tabela_Vlr" placeholder="Valor">
+								<label for="floatingInput">Valor</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-10">
+							<div class="form-floating mb-2">
+								<div class="input-group">
+									<div class="form-floating flex-grow-1">
+										<input type="text" class="form-control" id="edid_conta" placeholder="Conta">
+										<label for="floatingInput">Conta</label>
+									</div>
+									<button class="btn btn-primary" type="button" id="btid_conta">
+										<i class="bi bi-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="edid_conta_tipo" placeholder="Tipo">
+								<label for="floatingInput">Tipo</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<input type="time" class="form-control text-center" id="edhr_inicio" placeholder="Início" step="1">
+								<label for="floatingInput">Início</label>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<input type="time" class="form-control text-center" id="edhr_fim" placeholder="Fim" step="1">
+								<label for="floatingInput">Fim</label>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<input type="date" class="form-control text-center" id="edhr_total" placeholder="Total de Horas">
+								<label for="floatingInput">Total de Horas</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="edvlr_hora" placeholder="Valor da Hora">
+								<label for="floatingInput">Valor da Hora</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-3">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="edsub_total" placeholder="Sub-Total">
+								<label for="floatingInput">Sub-Total</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="eddesconto" placeholder="Desconto">
+								<label for="floatingInput">Desconto</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="edacrescimo" placeholder="Acréscimo">
+								<label for="floatingInput">Acréscimo</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-floating mb-2">
+								<input type="text" 
+									   class="form-control text-end fw-bold bg-light" 
+									   id="edtotal" 
+									   placeholder="Total" 
+									   readonly 
+									   style="font-size: 1.1em; color: #0d6efd;">
+								<label for="floatingInput">Total</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-sm-12">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="edobservacao" placeholder="Observação">
+								<label for="floatingInput">Observação</label>
+							</div>
+						</div>
+					</div>
 
-</section>
+					<div class="row mb-2">
+						<div class="col-sm-2">
+							<div class="form-floating mb-2">
+								<input type="date" class="form-control text-center" id="eddt_pago" placeholder="Data do Pagamento">
+								<label for="floatingInput">Data do Pagamento</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control text-end" id="edvlr_pago" placeholder="Valor do Pagamento">
+								<label for="floatingInput">Valor do Pagamento</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row mb-2">
+						<div class="col-sm-2">
+							<button class="btn btn-primary w-100" type="button" id="btConfirmar">
+								<i class="bi bi-check-circle"></i> Salvar
+							</button>
+						</div>						
+						<div class="col-sm-2">
+							<button class="btn btn-secondary w-100" type="button" id="btCancelar">
+								<i class="bi bi-x-circle"></i> Cancelar
+							</button>
+						</div>						
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>		
+</section>    
+
+<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+		const dateInputRegistro = document.getElementById('eddt_registro');
+		const today = new Date();
+		const formattedToday = today.toISOString().split('T')[0];		
+		dateInputRegistro.value = formattedToday;
+
+		// Função para formatar moeda
+		function formatarMoeda(elementId) {
+			const input = document.getElementById(elementId);
+			
+			if (!input) return; // Verifica se o elemento existe
+
+			input.addEventListener('input', function(e) {
+				// Remove tudo que não é número
+				let valor = this.value.replace(/\D/g, '');
+				
+				// Converte para número e divide por 100 para considerar os centavos
+				valor = (parseInt(valor) || 0) / 100;
+				
+				// Formata o número como moeda brasileira
+				const formatoMoeda = new Intl.NumberFormat('pt-BR', {
+					style: 'currency',
+					currency: 'BRL',
+					minimumFractionDigits: 2
+				});
+				
+				// Atualiza o valor do input
+				this.value = formatoMoeda.format(valor);
+			});
+
+			// Inicializa com 0,00
+			input.value = new Intl.NumberFormat('pt-BR', {
+				style: 'currency',
+				currency: 'BRL',
+				minimumFractionDigits: 2
+			}).format(0);
+		}
+
+		// Lista de IDs dos campos que precisam de formatação de moeda
+		const camposMoeda = ['edid_tabela_Vlr','edvlr_hora','edsub_total','eddesconto','edacrescimo','edtotal'];
+		// Você pode adicionar mais campos assim:
+		// const camposMoeda = ['edid_tabela_Vlr', 'outro_campo', 'mais_um_campo'];
+
+		// Aplica a formatação para cada campo
+		camposMoeda.forEach(campo => formatarMoeda(campo));
+
+	});
+</script>	  
