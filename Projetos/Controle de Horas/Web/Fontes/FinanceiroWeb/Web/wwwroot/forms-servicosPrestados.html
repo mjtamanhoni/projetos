@@ -57,16 +57,107 @@
 	<section class="section dbGrid">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="card-body">
-					<form onsubmit="return false;">
-						<h6>{%DBGrid%}</h6>
-					</form>
+				<div class="table-responsive">
+					<style>
+						/* Apenas estilos dos botões de navegação */
+						.table-responsive nav {
+							padding: 8px 0;
+						}
+
+						.table-responsive nav button,
+						.table-responsive nav input {
+							padding: 4px 8px !important;
+							font-size: 0.85rem !important;
+							line-height: 1.2 !important;
+						}
+
+						.table-responsive nav i,
+						.table-responsive nav .bi {
+							font-size: 0.85rem !important;
+						}
+
+						.table-responsive nav .input-group {
+							width: auto !important;
+						}
+
+						.table-responsive nav .input-group input {
+							max-width: 60px;
+						}
+
+						.table-responsive nav .btn-group > .btn {
+							margin: 0 2px;
+						}
+
+						/* Apenas estilo do cabeçalho do grid */
+						table > thead > tr > th {
+							background-color: #e6f0ff !important;  /* Azul bem claro */
+							color: #0d6efd !important;            /* Azul escuro */
+							text-align: center !important;        /* Centralizado */
+							font-weight: 600 !important;          /* Um pouco mais negrito */
+						}
+
+						/* Efeito zebrado nas linhas */
+						table > tbody > tr:nth-child(even) {
+							background-color: #f8f9fa !important;  /* Cinza bem claro */
+						}
+
+						table > tbody > tr:nth-child(odd) {
+							background-color: #ffffff !important;  /* Branco */
+						}
+					</style>
+					<h6>{%DBGrid%}</h6>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<section class="footer">
+    <style>
+        /* Reduz o tamanho dos cards e ícones */
+        .info-card {
+            margin-bottom: 10px;
+        }
+
+        .info-card .card-body {
+            padding: 12px !important;
+        }
+
+        .info-card .card-title {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+        }
+
+        /* Aumenta o tamanho dos ícones */
+        .info-card .card-icon {
+            width: 45px;  /* Aumentado de 35px */
+            height: 45px; /* Aumentado de 35px */
+            margin-right: 8px;
+        }
+
+        .info-card .card-icon i {
+            font-size: 1.5rem !important; /* Aumentado de 1.1rem */
+        }
+
+        .info-card h6 {
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .info-card .fw-bold {
+            font-size: 1rem;
+        }
+
+        /* Ajusta o espaçamento */
+        .info-card .ps-3 {
+            padding-left: 0.8rem !important; /* Aumentado de 0.5rem */
+        }
+
+        /* Mantém o alinhamento vertical */
+        .info-card .d-flex {
+            align-items: center;
+        }
+    </style>
     <div class="row">
 			<div class="col-lg-12">
 				<div class="card-body">

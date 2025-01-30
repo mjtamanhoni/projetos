@@ -2,8 +2,8 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
   Left = 0
   Top = 0
   Caption = 'Movimento de Servi'#231'os Prestados'
-  ClientHeight = 450
-  ClientWidth = 884
+  ClientHeight = 440
+  ClientWidth = 695
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -89,15 +89,15 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Caption = 'Fim'
   end
   object lbhr_total: TLabel
-    Left = 472
-    Top = 238
+    Left = 332
+    Top = 240
     Width = 25
     Height = 15
     Caption = 'Total'
   end
   object lbvlr_hora: TLabel
-    Left = 660
-    Top = 233
+    Left = 486
+    Top = 235
     Width = 55
     Height = 15
     Caption = 'Valor Hora'
@@ -311,8 +311,8 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     TabOrder = 17
   end
   object edvlr_hora: TEdit
-    Left = 721
-    Top = 230
+    Left = 547
+    Top = 232
     Width = 107
     Height = 23
     TabOrder = 18
@@ -348,7 +348,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
   object edobservacao: TEdit
     Left = 84
     Top = 288
-    Width = 776
+    Width = 600
     Height = 23
     CharCase = ecUpperCase
     TabOrder = 23
@@ -363,8 +363,8 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     TabOrder = 24
   end
   object edhr_total: TEdit
-    Left = 503
-    Top = 228
+    Left = 363
+    Top = 230
     Width = 113
     Height = 23
     TabOrder = 25
@@ -385,8 +385,8 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     TabOrder = 27
   end
   object btConfirmar: TButton
-    Left = 257
-    Top = 408
+    Left = 422
+    Top = 325
     Width = 75
     Height = 25
     Caption = 'Confirmar'
@@ -394,8 +394,8 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     OnClick = btConfirmarClick
   end
   object btCancelar: TButton
-    Left = 338
-    Top = 408
+    Left = 503
+    Top = 325
     Width = 75
     Height = 25
     Caption = 'Cancelar'

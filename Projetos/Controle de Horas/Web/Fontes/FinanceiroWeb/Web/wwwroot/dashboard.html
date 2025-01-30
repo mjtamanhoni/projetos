@@ -26,29 +26,39 @@
 				<div class="card-body">
 					<form>
 						<div class="row mb-3">
-							<label for="imputCliente" class="col-sm-1 col-form-label">Cliente</label>
-							<div class="col-sm-4">
-								<input type="text" name="cliente" class="form-control" id="edFiltro_Cliente_ID">
-							</div>
-				
-							<div class="col-sm-1">
-								<button class="btn btn-primary w-100" type="button" id="btFiltro_LocCli">
-									<i class="fas fa-search"></i>
-								</button>
-							</div>
-				
-							<label for="inputDateI" class="col-sm-1 col-form-label">Período</label>
+							<!--label for="imputCliente" class="col-sm-1 col-form-label">Cliente</label-->
+
+							<div class="col-sm-7">
+								<div class="input-group">
+									<div class="form-floating flex-grow-1">
+										<input type="text" class="form-control" id="edFiltro_Cliente_ID" placeholder="Cliente">
+										<label for="floatingInput">Cliente</label>
+									</div>
+									<!--input type="text" class="form-control" id="edFiltro_Cliente_ID" name="cliente" placeholder="Localizar cliente..."-->
+									<button class="btn btn-outline-primary" type="button" id="btFiltro_LocCli">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
+							</div>				
 							<div class="col-sm-2">
-								<input type="date" name="dataI" class="form-control" id="edFiltro_DataI">
+									<div class="form-floating mb-2">
+									<input type="date" class="form-control" id="edFiltro_DataI" placeholder="Data Inicial">
+									<label for="floatingInput">Data Inicial</label>
+								</div>
 							</div>
+
 							<div class="col-sm-2">
-								<input type="date" name="dataI" class="form-control" id="edFiltro_DataF">
-							</div>
-				
+								<div class="form-floating mb-2">
+									<input type="date" class="form-control" id="edFiltro_DataF" placeholder="Data Final">
+									<label for="floatingInput">Data Final</label>
+								</div>
+							</div>							
 							<div class="col-sm-1">
-								<button class="btn btn-primary w-100" type="button" id="btFiltro_Filtrar">
-									<i class="fas fa-search"></i>
-								</button>
+								<div class="form-floating mb-2">
+									<button class="btn btn-primary h-100 w-100" type="button" id="btFiltro_Filtrar">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
 							</div>
 				
 						</div>
@@ -56,53 +66,6 @@
 				</div>
 			</div>
 	  </div>
-	  
-		<!-- Modal (Popup) -->
-		<!--
-		<div class="modal fade" id="PopupConCliente" tabindex="-1" role="dialog" aria-labelledby="PopupConClienteLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="PopupConClienteLabel">Cadastro de Cliente</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-														<div class="row">
-															<div class="col-lg-12">
-																<div class="card-body">
-																	<form>
-																		<div class="row mb-3">
-																			<label for="imputTipo" class="col-sm-1 col-form-label">Tipo</label>
-																			<div class="col-sm-3">
-																				<select name="opcao" class="form-control" id="cbTipo">
-																			</div>
-																			<div class="col-sm-8">
-																				<input type="text" name="pesquisa" class="form-control" id="edPesquisar">
-																			</div>
-																
-																			<div class="col-sm-1">
-																				<button class="btn btn-primary w-100" type="button" id="btPesquisar">
-																					<i class="fas fa-search"></i>
-																				</button>
-																			</div>															
-																		</div>
-																	</form>
-																</div>
-															</div>
-														</div>
-						
-						<div id="formContainer"></div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-						<button type="button" class="btn btn-primary">Salvar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	  -->
 	  
 	  
 		<script>
@@ -136,56 +99,52 @@
 				
 					<!-- Horas trabalhadas -->			
 					<div class="col-xxl-3 col-md-6">
-						<div class="card info-card sales-card">
+						<div class="card info-card border-primary">
 							<div class="card-body">
 								<h5 class="card-title">Horas <span>Trabalhadas</span></h5>
 								<div class="d-flex align-items-center">
-									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bg-gradient-danger bi-calendar3"></i>
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-primary bg-opacity-10">
+										<i class="bi bi-stopwatch text-primary"></i>
 									</div>
 									<div class="ps-3">
 										<h6>{%lbHr_Trab_Hr%}</h6>
-										<h6>{%lbHr_Trab_Vlr%}</h6>
-										<!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
+										<h6 class="text-primary fw-bold">{%lbHr_Trab_Vlr%}</h6>
 									</div>
 								</div>
-							</div>			
+							</div>
 						</div>
 					</div><!-- End Horas trabalhadas -->
 
 							<!--Horas acumuladas -->
 					<div class="col-xxl-3 col-md-6">
-						<div class="card info-card sales-card">
+						<div class="card info-card border-success">
 							<div class="card-body">
 								<h5 class="card-title">Horas <span>Acumuladas</span></h5>
 								<div class="d-flex align-items-center">
-									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bi-calendar2-week"></i>
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-success bg-opacity-10">
+										<i class="bi bi-hourglass-split text-success"></i>
 									</div>
 									<div class="ps-3">
 										<h6>{%lbHr_Acul_Hr%}</h6>
-										<h6>{%lbHr_Acul_Vlr%}</h6>
-										<!--<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>-->
+										<h6 class="text-success fw-bold">{%lbHr_Acul_Vlr%}</h6>
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div><!-- End Horas acumuladas -->
 
 					<!-- Total de Horas -->
-					<div class="col-xxl-3 col-xl-6">
-						<div class="card info-card sales-card">
+					<div class="col-xxl-3 col-md-6">
+						<div class="card info-card border-warning">
 							<div class="card-body">
 								<h5 class="card-title">Horas <span>Total</span></h5>
 								<div class="d-flex align-items-center">
-									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bi-calendar2-check"></i>
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-warning bg-opacity-10">
+										<i class="bi bi-clock-history text-warning"></i>
 									</div>
 									<div class="ps-3">
 										<h6>{%lbHr_Tot_Hr%}</h6>
-										<h6>{%lbHr_Tot_Vlr%}</h6>
-										<!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
+										<h6 class="text-warning fw-bold">{%lbHr_Tot_Vlr%}</h6>
 									</div>
 								</div>
 							</div>
@@ -193,18 +152,17 @@
 					</div><!-- End Total horas -->
 
 					<!-- Horas acumuladas pagas -->
-					<div class="col-xxl-3 col-xl-6">
-						<div class="card info-card sales-card">
+					<div class="col-xxl-3 col-md-6">
+						<div class="card info-card border-info">
 							<div class="card-body">
 								<h5 class="card-title">Horas <span>Pagas</span></h5>
 								<div class="d-flex align-items-center">
-									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-										<i class="bi bi-calendar2-minus"></i>
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-info bg-opacity-10">
+										<i class="bi bi-cash-stack text-info"></i>
 									</div>
 									<div class="ps-3">
 										<h6>{%lbHr_Pagas_Hr%}</h6>
-										<h6>{%lbHr_Pagas_Vlr%}</h6>
-										<!--<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>-->
+										<h6 class="text-info fw-bold">{%lbHr_Pagas_Vlr%}</h6>
 									</div>
 								</div>
 							</div>
@@ -218,7 +176,73 @@
 
 		<div class="row">
 			<div class="col-12">
-				<h6>{%DBGrid%}</h6>
+				<div class="table-responsive">
+					<style>
+						/* Cabeçalho mais sutil */
+						table > thead > tr > th {
+							background-color: #f0f4ff !important;
+							color: #0d6efd !important;
+							font-weight: 500 !important;
+							text-align: center !important;
+							padding: 8px !important;
+							border-bottom: 1px solid #dee2e6 !important;
+						}
+
+						/* Células mais compactas */
+						table > tbody > tr > td {
+							padding: 6px 8px !important;
+							border-bottom: 1px solid #f2f2f2 !important;
+						}
+
+						/* Efeito zebrado mais sutil */
+						table > tbody > tr:nth-child(even) {
+							background-color: #fafbff !important;
+						}
+
+						/* Hover suave */
+						table > tbody > tr:hover {
+							background-color: #f5f8ff !important;
+						}
+
+						/* Botões de navegação */
+						.table-responsive nav {
+							padding: 8px 0;
+						}
+
+						.table-responsive nav button,
+						.table-responsive nav input {
+							padding: 4px 8px !important;
+							font-size: 0.85rem !important;
+						}
+
+						.table-responsive nav .input-group input {
+							max-width: 60px;
+							text-align: center;
+						}
+
+						/* Destaque para colunas específicas */
+						table > tbody > tr > td:nth-child(4),  /* Hr. Total */
+						table > tbody > tr > td:nth-child(9) { /* Total */
+							font-weight: 600 !important;
+							color: #0d6efd !important;
+							text-align: right !important;
+						}
+
+						/* Cabeçalhos das colunas destacadas */
+						table > thead > tr > th:nth-child(4),  /* Hr. Total */
+						table > thead > tr > th:nth-child(9) { /* Total */
+							font-weight: 600 !important;
+							color: #0d6efd !important;
+							background-color: #e6f0ff !important;
+						}
+
+						/* Ajusta altura do botão filtrar */
+						#btFiltro_Filtrar {
+							height: 58px !important;  /* Mesma altura do form-floating */
+						}
+					</style>
+					<h6>{%DBGrid%}</h6>
+				</div>
 			</div>
 		</div>
 
@@ -292,3 +316,41 @@
     </div>	
 	</section>    
 </section>
+
+<style>
+    .info-card {
+        transition: all 0.3s ease;
+    }
+
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .card-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+    }
+
+    .card-title {
+        color: #012970;
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+    .card-title span {
+        color: #899bbd;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .info-card h6 {
+        font-size: 28px;
+        color: #012970;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+    }
+</style>
