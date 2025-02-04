@@ -2,7 +2,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
   Left = 0
   Top = 0
   Caption = 'Movimento de Servi'#231'os Prestados'
-  ClientHeight = 440
+  ClientHeight = 573
   ClientWidth = 695
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,369 +12,284 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
   Font.Style = []
   TextHeight = 15
   object lbid: TLabel
-    Left = 65
-    Top = 24
-    Width = 13
+    Left = 0
+    Top = 8
+    Width = 10
     Height = 15
-    Caption = 'Id:'
+    Caption = 'Id'
   end
   object lbdescricao: TLabel
-    Left = 24
-    Top = 53
+    Left = 348
+    Top = 8
     Width = 54
     Height = 15
     Caption = 'Descri'#231#227'o:'
   end
   object lbstatus: TLabel
-    Left = 441
-    Top = 24
+    Left = 234
+    Top = 8
     Width = 35
     Height = 15
     Caption = 'Status:'
   end
   object lbid_empresa: TLabel
-    Left = 30
-    Top = 82
-    Width = 48
+    Left = 1
+    Top = 58
+    Width = 45
     Height = 15
-    Caption = 'Empresa:'
+    Caption = 'Empresa'
   end
   object lbid_prestador_servico: TLabel
-    Left = 8
-    Top = 114
-    Width = 70
+    Left = 1
+    Top = 108
+    Width = 107
     Height = 15
-    Caption = 'Prest. Servi'#231'o'
+    Caption = 'Prestador de Servi'#231'o'
   end
   object lbid_cliente: TLabel
-    Left = 8
-    Top = 145
+    Left = 1
+    Top = 158
     Width = 37
     Height = 15
     Caption = 'Cliente'
   end
   object lbid_tabela: TLabel
-    Left = 8
-    Top = 176
-    Width = 54
+    Left = 0
+    Top = 208
+    Width = 83
     Height = 15
-    Caption = 'Tab. Pre'#231'o'
+    Caption = 'Tabela de Pre'#231'o'
   end
   object lbid_conta: TLabel
-    Left = 42
-    Top = 202
+    Left = 0
+    Top = 258
     Width = 32
     Height = 15
     Caption = 'Conta'
   end
   object lbdt_registro: TLabel
-    Left = 216
-    Top = 24
+    Left = 116
+    Top = 8
     Width = 70
     Height = 15
     Caption = 'Data Registro'
   end
   object lbhr_inicio: TLabel
-    Left = 45
-    Top = 241
+    Left = 0
+    Top = 308
     Width = 29
     Height = 15
     Caption = 'In'#237'cio'
   end
   object lbhr_fim: TLabel
-    Left = 190
-    Top = 238
+    Left = 94
+    Top = 308
     Width = 20
     Height = 15
     Caption = 'Fim'
   end
   object lbhr_total: TLabel
-    Left = 332
-    Top = 240
-    Width = 25
+    Left = 190
+    Top = 308
+    Width = 26
     Height = 15
     Caption = 'Total'
   end
   object lbvlr_hora: TLabel
-    Left = 486
-    Top = 235
+    Left = 309
+    Top = 308
     Width = 55
     Height = 15
     Caption = 'Valor Hora'
   end
   object lbsub_total: TLabel
-    Left = 25
-    Top = 262
-    Width = 50
+    Left = 1
+    Top = 366
+    Width = 51
     Height = 15
     Caption = 'Sub-Total'
   end
   object lbdesconto: TLabel
-    Left = 202
-    Top = 264
+    Left = 113
+    Top = 366
     Width = 50
     Height = 15
     Caption = 'Desconto'
   end
   object lbacrescimo: TLabel
-    Left = 370
-    Top = 267
+    Left = 226
+    Top = 366
     Width = 56
     Height = 15
     Caption = 'Acr'#233'scimo'
   end
   object lbtotal: TLabel
-    Left = 546
-    Top = 267
-    Width = 25
+    Left = 339
+    Top = 366
+    Width = 26
     Height = 15
     Caption = 'Total'
   end
   object lbobservacao: TLabel
-    Left = 8
-    Top = 292
+    Left = 1
+    Top = 416
     Width = 62
     Height = 15
     Caption = 'Observa'#231#227'o'
   end
-  object lbdt_pago: TLabel
+  object lbdtPago: TLabel
     Left = 8
-    Top = 325
-    Width = 64
+    Top = 469
+    Width = 61
     Height = 15
-    Caption = 'Pagamento:'
+    Caption = 'Pagamento'
   end
-  object lbvlr_pago: TLabel
-    Left = 215
-    Top = 320
-    Width = 27
+  object lbvlrPago: TLabel
+    Left = 121
+    Top = 468
+    Width = 56
     Height = 15
-    Caption = 'Pago'
+    Caption = 'Valor Pago'
   end
   object edid: TEdit
-    Left = 84
-    Top = 21
+    Left = 1
+    Top = 29
     Width = 107
     Height = 23
     TabOrder = 0
   end
   object eddescricao: TEdit
-    Left = 84
-    Top = 50
-    Width = 508
+    Left = 349
+    Top = 29
+    Width = 335
     Height = 23
     CharCase = ecUpperCase
     TabOrder = 1
+    OnKeyPress = eddescricaoKeyPress
   end
   object cbstatus: TComboBox
-    Left = 482
-    Top = 21
+    Left = 233
+    Top = 29
     Width = 110
     Height = 23
     ItemIndex = 0
     TabOrder = 2
     Text = 'ABERTO'
+    OnKeyPress = cbstatusKeyPress
     Items.Strings = (
       'ABERTO'
       'PAGO')
   end
-  object edid_empresa: TEdit
-    Left = 84
-    Top = 79
-    Width = 457
+  object edid_tabela_Vlr: TEdit
+    Left = 571
+    Top = 229
+    Width = 113
     Height = 23
-    CharCase = ecUpperCase
+    Alignment = taRightJustify
+    ReadOnly = True
     TabOrder = 3
   end
-  object btid_empresa: TButton
-    Left = 547
-    Top = 79
-    Width = 45
-    Height = 25
-    Caption = 'Loc'
-    TabOrder = 4
-    OnClick = btid_empresaClick
-  end
-  object edid_prestador_servico: TEdit
-    Left = 84
-    Top = 110
-    Width = 457
-    Height = 23
-    CharCase = ecUpperCase
-    TabOrder = 5
-  end
-  object btid_prestador_servico: TButton
-    Left = 547
-    Top = 110
-    Width = 45
-    Height = 25
-    Caption = 'Loc'
-    TabOrder = 6
-    OnClick = btid_prestador_servicoClick
-  end
-  object edid_cliente: TEdit
-    Left = 84
-    Top = 141
-    Width = 457
-    Height = 23
-    CharCase = ecUpperCase
-    TabOrder = 7
-  end
-  object btid_cliente: TButton
-    Left = 547
-    Top = 141
-    Width = 45
-    Height = 25
-    Caption = 'Loc'
-    TabOrder = 8
-    OnClick = btid_clienteClick
-  end
-  object edid_tabela: TEdit
-    Left = 84
-    Top = 172
-    Width = 338
-    Height = 23
-    CharCase = ecUpperCase
-    TabOrder = 9
-  end
-  object btid_tabela: TButton
-    Left = 547
-    Top = 172
-    Width = 45
-    Height = 25
-    Caption = 'Loc'
-    TabOrder = 10
-    OnClick = btid_tabelaClick
-  end
-  object edid_tabela_Vlr: TEdit
-    Left = 428
-    Top = 170
-    Width = 113
-    Height = 23
-    ReadOnly = True
-    TabOrder = 11
-  end
-  object edid_conta: TEdit
-    Left = 84
-    Top = 201
-    Width = 338
-    Height = 23
-    CharCase = ecUpperCase
-    TabOrder = 12
-  end
-  object btid_conta: TButton
-    Left = 547
-    Top = 201
-    Width = 45
-    Height = 25
-    Caption = 'Loc'
-    TabOrder = 13
-    OnClick = btid_contaClick
-  end
   object edid_conta_tipo: TEdit
-    Left = 428
-    Top = 199
+    Left = 571
+    Top = 279
     Width = 113
     Height = 23
     ReadOnly = True
-    TabOrder = 14
+    TabOrder = 4
   end
   object eddt_registro: TDateTimePicker
-    Left = 292
-    Top = 16
+    Left = 114
+    Top = 29
     Width = 113
     Height = 23
-    Date = 45685.000000000000000000
+    Date = 45690.000000000000000000
     Time = 0.380987650460156100
-    TabOrder = 15
+    TabOrder = 5
+    OnKeyPress = eddt_registroKeyPress
   end
   object edhr_inicio: TDateTimePicker
-    Left = 80
-    Top = 230
+    Left = 0
+    Top = 329
     Width = 89
     Height = 23
     Date = 45685.000000000000000000
-    Time = 0.381801678238844000
+    Time = 45685.000000000000000000
     DateFormat = dfLong
     Kind = dtkTime
-    TabOrder = 16
+    TabOrder = 6
+    OnChange = edhr_inicioChange
+    OnKeyPress = edhr_inicioKeyPress
   end
   object edhr_fim: TDateTimePicker
-    Left = 216
-    Top = 230
+    Left = 95
+    Top = 329
     Width = 89
     Height = 23
     Date = 45685.000000000000000000
-    Time = 0.381801678238844000
+    Time = 45685.000000000000000000
     DateFormat = dfLong
     Kind = dtkTime
-    TabOrder = 17
+    TabOrder = 7
+    OnChange = edhr_inicioChange
+    OnKeyPress = edhr_fimKeyPress
   end
   object edvlr_hora: TEdit
-    Left = 547
-    Top = 232
+    Left = 309
+    Top = 329
     Width = 107
     Height = 23
-    TabOrder = 18
+    ReadOnly = True
+    TabOrder = 8
   end
   object edsub_total: TEdit
-    Left = 81
-    Top = 259
+    Left = 0
+    Top = 387
     Width = 107
     Height = 23
-    TabOrder = 19
+    TabOrder = 9
+    OnChange = edsub_totalChange
+    OnKeyPress = edsub_totalKeyPress
   end
   object eddesconto: TEdit
-    Left = 258
-    Top = 261
+    Left = 113
+    Top = 387
     Width = 107
     Height = 23
-    TabOrder = 20
+    TabOrder = 10
+    OnChange = edsub_totalChange
+    OnKeyPress = eddescontoKeyPress
   end
   object edacrescimo: TEdit
-    Left = 432
-    Top = 259
+    Left = 226
+    Top = 387
     Width = 107
     Height = 23
-    TabOrder = 21
+    TabOrder = 11
+    OnChange = edsub_totalChange
+    OnKeyPress = edacrescimoKeyPress
   end
   object edtotal: TEdit
-    Left = 577
-    Top = 259
+    Left = 339
+    Top = 387
     Width = 107
     Height = 23
-    TabOrder = 22
+    ReadOnly = True
+    TabOrder = 12
   end
   object edobservacao: TEdit
-    Left = 84
-    Top = 288
-    Width = 600
+    Left = 1
+    Top = 437
+    Width = 683
     Height = 23
     CharCase = ecUpperCase
-    TabOrder = 23
-  end
-  object eddt_pago: TDateTimePicker
-    Left = 84
-    Top = 317
-    Width = 113
-    Height = 23
-    Date = 45685.000000000000000000
-    Time = 0.380987650460156100
-    TabOrder = 24
+    TabOrder = 13
   end
   object edhr_total: TEdit
-    Left = 363
-    Top = 230
+    Left = 190
+    Top = 329
     Width = 113
     Height = 23
-    TabOrder = 25
-  end
-  object edvlr_pago: TEdit
-    Left = 271
-    Top = 317
-    Width = 107
-    Height = 23
-    TabOrder = 26
+    TabOrder = 14
   end
   object Button1: TButton
     Left = 1000
@@ -382,24 +297,240 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Width = 75
     Height = 25
     Caption = 'Button1'
-    TabOrder = 27
+    TabOrder = 15
   end
   object btConfirmar: TButton
-    Left = 422
-    Top = 325
+    Left = 209
+    Top = 533
     Width = 75
     Height = 25
     Caption = 'Confirmar'
-    TabOrder = 28
+    TabOrder = 16
     OnClick = btConfirmarClick
   end
   object btCancelar: TButton
-    Left = 503
-    Top = 325
+    Left = 290
+    Top = 533
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 29
+    TabOrder = 17
     OnClick = btCancelarClick
+  end
+  object edid_empresa: TButtonedEdit
+    Left = 0
+    Top = 79
+    Width = 684
+    Height = 23
+    Images = ImageList
+    RightButton.ImageIndex = 0
+    RightButton.Visible = True
+    TabOrder = 18
+    OnRightButtonClick = edid_empresaRightButtonClick
+  end
+  object edid_prestador_servico: TButtonedEdit
+    Left = 3
+    Top = 129
+    Width = 684
+    Height = 23
+    Images = ImageList
+    RightButton.ImageIndex = 0
+    RightButton.Visible = True
+    TabOrder = 19
+    OnRightButtonClick = edid_prestador_servicoRightButtonClick
+  end
+  object edid_cliente: TButtonedEdit
+    Left = 3
+    Top = 179
+    Width = 684
+    Height = 23
+    Images = ImageList
+    RightButton.ImageIndex = 0
+    RightButton.Visible = True
+    TabOrder = 20
+    OnRightButtonClick = edid_clienteRightButtonClick
+  end
+  object edid_tabela: TButtonedEdit
+    Left = 0
+    Top = 229
+    Width = 565
+    Height = 23
+    Images = ImageList
+    RightButton.ImageIndex = 0
+    RightButton.Visible = True
+    TabOrder = 21
+    OnRightButtonClick = edid_tabelaRightButtonClick
+  end
+  object edid_conta: TButtonedEdit
+    Left = 1
+    Top = 279
+    Width = 565
+    Height = 23
+    Images = ImageList
+    RightButton.ImageIndex = 0
+    RightButton.Visible = True
+    TabOrder = 22
+    OnRightButtonClick = edid_contaRightButtonClick
+  end
+  object eddtPago: TDateTimePicker
+    Left = 1
+    Top = 490
+    Width = 113
+    Height = 23
+    Date = 45685.000000000000000000
+    Time = 0.380987650460156100
+    TabOrder = 23
+    OnKeyPress = eddt_registroKeyPress
+  end
+  object edvlrPago: TEdit
+    Left = 120
+    Top = 489
+    Width = 107
+    Height = 23
+    TabOrder = 24
+    OnKeyPress = edsub_totalKeyPress
+  end
+  object ImageList: TImageList
+    Left = 403
+    Top = 488
+    Bitmap = {
+      494C010103000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      0000000000003600000028000000400000001000000001002000000000000010
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000848887D600000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000009DA2A1FF9DA2A1FF797D7CC4000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000009DA2A1FF9DA2A1FF797D7CC5000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000002F31304C929796EE00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000009DA2A1FF9DA2A1FF929696ED000000000000
+      00000000000000000000000000000000000000000000000000009DA2A1FF9DA2
+      A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2
+      A1FF9DA2A1FF9DA2A1FF8B908FE20000000000000000000000009DA2A1FF9DA2
+      A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2A1FF9DA2
+      A1FF9DA2A1FF9DA2A1FF8A8E8DE0000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000009DA2A1FF9DA2A1FF2E2F2F4A000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000009DA2A1FF9DA2A1FF2D2F2E49000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000009DA2A1FF9DA2A1FF919695EC000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000003132324F949897F000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009DA2A1FF00000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000424D3E000000000000003E000000
+      2800000040000000100000000100010000000000800000000000000000000000
+      000000000000000000000000FFFFFF0000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000}
   end
 end

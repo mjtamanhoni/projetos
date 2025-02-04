@@ -100,6 +100,10 @@ begin
       FinanceiroWeb.Usuario_Form := FBody.GetValue<String>('formInicial','');
       FinanceiroWeb.Usuario_ClienteID := FBody.GetValue<Integer>('idCliente',0);
       FinanceiroWeb.Usuario_Cliente := FBody.GetValue<String>('cliente','');
+      FinanceiroWeb.Usuario_ID_Prestador := FBody.GetValue<Integer>('idPrestadorServico',0);
+      FinanceiroWeb.Usuario_Prestador := FBody.GetValue<String>('prestador','');
+      FinanceiroWeb.Usuario_ID_Empresa := FBody.GetValue<Integer>('idEmpresa',0);
+      FinanceiroWeb.Usuario_Empresa := FBody.GetValue<String>('empresa','');
 
       Edit_UserName.Text := '';
       Edit_Password.Text := '';

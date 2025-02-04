@@ -258,6 +258,18 @@
             <Form>frmMov_ServPrestados_Add</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uCon.Empresa.pas">
+            <Form>frmCon_Empresa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCon.PrestServicos.pas">
+            <Form>frmCon_PrestServicos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uCon.Contas.pas">
+            <Form>frmCon_Contas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -299,6 +311,12 @@
                 <DeployFile LocalName="D2BridgeNewApp.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName="FinanceiroWeb.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="Web\FinanceiroWeb.exe" Configuration="D2Bridge Web Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>FinanceiroWeb.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Web\FinanceiroWeb.exe" Configuration="D2Bridge Web Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>FinanceiroWeb.exe</RemoteName>
                         <Overwrite>true</Overwrite>

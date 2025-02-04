@@ -1,9 +1,9 @@
-object frmCon_TabPreco: TfrmCon_TabPreco
+object frmCon_PrestServicos: TfrmCon_PrestServicos
   Left = 0
   Top = 0
-  Caption = 'Consulta de Tabela de Pre'#231'o'
-  ClientHeight = 460
-  ClientWidth = 980
+  Caption = 'Consulta de Prestador de Servi'#231'os'
+  ClientHeight = 511
+  ClientWidth = 859
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmCon_TabPreco: TfrmCon_TabPreco
   object DBGrid: TDBGrid
     Left = 0
     Top = 57
-    Width = 980
-    Height = 347
+    Width = 859
+    Height = 398
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -33,26 +33,28 @@ object frmCon_TabPreco: TfrmCon_TabPreco
         Expanded = False
         FieldName = 'ID'
         Title.Alignment = taCenter
+        Width = 65
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'DESCRICAO'
+        FieldName = 'NOME'
         Title.Alignment = taCenter
         Width = 300
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'TIPO'
+        FieldName = 'CELULAR'
         Title.Alignment = taCenter
-        Visible = False
+        Width = 120
+        Visible = True
       end
       item
         Expanded = False
-        FieldName = 'VALOR'
+        FieldName = 'EMAIL'
         Title.Alignment = taCenter
-        Width = 100
+        Width = 300
         Visible = True
       end
       item
@@ -66,23 +68,16 @@ object frmCon_TabPreco: TfrmCon_TabPreco
         FieldName = 'HR_CADASTRO'
         Title.Alignment = taCenter
         Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'TIPO_DESC'
-        Title.Alignment = taCenter
-        Width = 300
-        Visible = True
       end>
   end
   object pnFiltros: TPanel
     Left = 0
     Top = 0
-    Width = 980
+    Width = 859
     Height = 57
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 976
+    ExplicitWidth = 855
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -105,7 +100,7 @@ object frmCon_TabPreco: TfrmCon_TabPreco
       TabOrder = 0
       Items.Strings = (
         'ID'
-        'DESCRICAO')
+        'NOME')
     end
     object edPesquisar: TEdit
       Left = 194
@@ -128,13 +123,13 @@ object frmCon_TabPreco: TfrmCon_TabPreco
   end
   object pnFooter: TPanel
     Left = 0
-    Top = 404
-    Width = 980
+    Top = 455
+    Width = 859
     Height = 56
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 403
-    ExplicitWidth = 976
+    ExplicitTop = 454
+    ExplicitWidth = 855
     object btConfirmar: TButton
       Left = 346
       Top = 6
@@ -159,31 +154,26 @@ object frmCon_TabPreco: TfrmCon_TabPreco
     object FDMem_RegistroID: TIntegerField
       FieldName = 'ID'
     end
-    object FDMem_RegistroDESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRICAO'
-      Size = 100
+    object FDMem_RegistroNOME: TStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'NOME'
+      Size = 255
     end
-    object FDMem_RegistroTIPO: TStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Size = 100
+    object FDMem_RegistroCELULAR: TStringField
+      DisplayLabel = 'Celular'
+      FieldName = 'CELULAR'
     end
-    object FDMem_RegistroVALOR: TFloatField
-      DisplayLabel = 'Valor'
-      FieldName = 'VALOR'
-      DisplayFormat = 'R$ #,##0.00'
+    object FDMem_RegistroEMAIL: TStringField
+      DisplayLabel = 'E-Mail'
+      FieldName = 'EMAIL'
+      Size = 255
     end
     object FDMem_RegistroDT_CADASTRO: TDateField
       FieldName = 'DT_CADASTRO'
     end
     object FDMem_RegistroHR_CADASTRO: TTimeField
       FieldName = 'HR_CADASTRO'
-    end
-    object FDMem_RegistroTIPO_DESC: TStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO_DESC'
-      Size = 100
+      DisplayFormat = '###:##:##'
     end
   end
   object dmRegistro: TDataSource

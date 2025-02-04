@@ -41,7 +41,10 @@ uses
   uCad.FormaPagto in 'uCad.FormaPagto.pas' {frmCad_FormaPagto},
   uDemo.ServicosPrestados in 'uDemo.ServicosPrestados.pas' {frmDemo_ServicosPrestados},
   uMov.ServPrestados in 'uMov.ServPrestados.pas' {frmMov_ServPrestados},
-  uMov.ServPrestados.Add in 'uMov.ServPrestados.Add.pas' {frmMov_ServPrestados_Add};
+  uMov.ServPrestados.Add in 'uMov.ServPrestados.Add.pas' {frmMov_ServPrestados_Add},
+  uCon.Empresa in 'uCon.Empresa.pas' {frmCon_Empresa},
+  uCon.PrestServicos in 'uCon.PrestServicos.pas' {frmCon_PrestServicos},
+  uCon.Contas in 'uCon.Contas.pas' {frmCon_Contas};
 
 {$R *.res}
 

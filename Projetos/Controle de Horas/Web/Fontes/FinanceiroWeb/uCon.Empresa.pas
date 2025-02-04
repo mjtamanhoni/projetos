@@ -1,11 +1,11 @@
-unit uCon.Cliente;
+unit uCon.Empresa;
 
 { Copyright 2025 / 2026 D2Bridge Framework by Talis Jonatas Gomes }
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
   System.IOUtils,
   System.JSON,
   DataSet.Serialize,
@@ -14,12 +14,11 @@ uses
   uPrincipal,
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
 
 type
-  TfrmCon_Cliente = class(TfrmPrincipal)
+  TfrmCon_Empresa = class(TfrmPrincipal)
     FDMem_Registro: TFDMemTable;
     FDMem_RegistroID: TIntegerField;
     FDMem_RegistroNOME: TStringField;
@@ -49,18 +48,11 @@ type
     btPesquisar: TButton;
     pnFooter: TPanel;
     btConfirmar: TButton;
-    FDMem_RegistroID_FORNECEDOR: TIntegerField;
-    FDMem_RegistroID_TAB_PRECO: TIntegerField;
-    FDMem_RegistroFONECEDOR: TStringField;
-    FDMem_RegistroTAB_PRECO: TStringField;
-    FDMem_RegistroTIPO_TAB_PRECO: TIntegerField;
-    FDMem_RegistroTIPO_TAB_PRECO_DESC: TStringField;
-    FDMem_RegistroVALOR: TFloatField;
-    procedure btConfirmarClick(Sender: TObject);
-    procedure btPesquisarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btPesquisarClick(Sender: TObject);
+    procedure btConfirmarClick(Sender: TObject);
   private
 
     FEnder :String;
@@ -77,7 +69,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function frmCon_Cliente:TfrmCon_Cliente;
+function frmCon_Empresa:TfrmCon_Empresa;
 
 implementation
 
@@ -86,26 +78,26 @@ Uses
 
 {$R *.dfm}
 
-function frmCon_Cliente:TfrmCon_Cliente;
+function frmCon_Empresa:TfrmCon_Empresa;
 begin
-  result:= TfrmCon_Cliente(TfrmCon_Cliente.GetInstance);
+  result:= TfrmCon_Empresa(TfrmCon_Empresa.GetInstance);
 end;
 
-procedure TfrmCon_Cliente.btConfirmarClick(Sender: TObject);
+procedure TfrmCon_Empresa.btConfirmarClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TfrmCon_Cliente.btPesquisarClick(Sender: TObject);
+procedure TfrmCon_Empresa.btPesquisarClick(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCon_Cliente.ExportD2Bridge;
+procedure TfrmCon_Empresa.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'Consulta de Clientes';
+  Title:= 'Consuta de Empresas';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
@@ -144,19 +136,19 @@ begin
 
 end;
 
-procedure TfrmCon_Cliente.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCon_Empresa.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  FinanceiroWeb.Cliente_ID := 0;
-  FinanceiroWeb.Cliente_Nome := '';
+  FinanceiroWeb.Empresa_ID := 0;
+  FinanceiroWeb.Empresa_Nome := '';
   if not FDMem_Registro.IsEmpty then
   begin
-    FinanceiroWeb.Cliente_ID := FDMem_RegistroID.AsInteger;
-    FinanceiroWeb.Cliente_Nome := FDMem_RegistroNOME.AsString;
+    FinanceiroWeb.Empresa_ID := FDMem_RegistroID.AsInteger;
+    FinanceiroWeb.Empresa_Nome := FDMem_RegistroNOME.AsString;
   end;
 
 end;
 
-procedure TfrmCon_Cliente.FormCreate(Sender: TObject);
+procedure TfrmCon_Empresa.FormCreate(Sender: TObject);
 begin
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\CONTROLE_HORAS_WEB.ini';
@@ -167,12 +159,12 @@ begin
 
 end;
 
-procedure TfrmCon_Cliente.FormShow(Sender: TObject);
+procedure TfrmCon_Empresa.FormShow(Sender: TObject);
 begin
   Pesquisar;
 end;
 
-procedure TfrmCon_Cliente.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmCon_Empresa.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
@@ -195,7 +187,7 @@ begin
  }
 end;
 
-procedure TfrmCon_Cliente.Pesquisar;
+procedure TfrmCon_Empresa.Pesquisar;
 var
   FResp :IResponse;
   FBody :TJSONArray;
@@ -227,7 +219,7 @@ begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(FinanceiroWeb.Usuario_Token)
                .AddParam(FTipoPesquisa,edPesquisar.Text)
-               .Resource('cliente')
+               .Resource('empresa')
                .Accept('application/json')
                .Get;
     end
@@ -235,7 +227,7 @@ begin
     begin
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(FinanceiroWeb.Usuario_Token)
-               .Resource('cliente')
+               .Resource('empresa')
                .Accept('application/json')
                .Get;
     end;
@@ -268,13 +260,6 @@ begin
           FDMem_RegistroDT_CADASTRO.AsDateTime := StrToDateDef(FBody.Get(x).GetValue<String>('dtCadastro',''),Date);
           FDMem_RegistroHR_CADASTRO.AsDateTime := StrToTimeDef(FBody.Get(x).GetValue<String>('hrCadastro',''),Time);
           FDMem_RegistroPESSOA_DESC.AsString := FBody.Get(x).GetValue<String>('pessoaDesc','');
-          FDMem_RegistroID_FORNECEDOR.AsInteger := FBody.Get(x).GetValue<Integer>('idFornecedor',0);
-          FDMem_RegistroID_TAB_PRECO.AsInteger := FBody.Get(x).GetValue<Integer>('idTabPreco',0);
-          FDMem_RegistroFONECEDOR.AsString := FBody.Get(x).GetValue<String>('fornecedor','');
-          FDMem_RegistroTAB_PRECO.AsString := FBody.Get(x).GetValue<String>('tabPreco','');
-          FDMem_RegistroTIPO_TAB_PRECO.AsInteger := FBody.Get(x).GetValue<Integer>('tipoTabPreco',0);
-          FDMem_RegistroTIPO_TAB_PRECO_DESC.AsString := FBody.Get(x).GetValue<String>('tipoTabPrecoDesc','');
-          FDMem_RegistroVALOR.AsFloat := FBody.Get(x).GetValue<Double>('valor',0);
         FDMem_Registro.Post;
       end;
 
@@ -288,7 +273,7 @@ begin
   end;
 end;
 
-procedure TfrmCon_Cliente.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmCon_Empresa.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 

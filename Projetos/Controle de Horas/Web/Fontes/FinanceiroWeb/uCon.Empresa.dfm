@@ -1,16 +1,15 @@
-object frmCon_Cliente: TfrmCon_Cliente
+object frmCon_Empresa: TfrmCon_Empresa
   Left = 0
   Top = 0
-  Caption = 'Consulta de Clientes'
-  ClientHeight = 459
-  ClientWidth = 976
+  Caption = 'Consulta Empresa'
+  ClientHeight = 456
+  ClientWidth = 913
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -18,8 +17,8 @@ object frmCon_Cliente: TfrmCon_Cliente
   object DBGrid: TDBGrid
     Left = 0
     Top = 57
-    Width = 976
-    Height = 346
+    Width = 913
+    Height = 343
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -152,66 +151,17 @@ object frmCon_Cliente: TfrmCon_Cliente
         FieldName = 'HR_CADASTRO'
         Title.Alignment = taCenter
         Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'ID_FORNECEDOR'
-        Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'ID_TAB_PRECO'
-        Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'FONECEDOR'
-        Title.Alignment = taCenter
-        Title.Caption = 'Fornecedor'
-        Width = 300
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'TAB_PRECO'
-        Title.Alignment = taCenter
-        Title.Caption = 'Tab. Pre'#231'o'
-        Width = 250
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'TIPO_TAB_PRECO'
-        Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'TIPO_TAB_PRECO_DESC'
-        Title.Alignment = taCenter
-        Title.Caption = 'Tp. Tab. Pre'#231'o'
-        Width = 200
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'VALOR'
-        Title.Alignment = taCenter
-        Title.Caption = 'Valor'
-        Width = 110
-        Visible = True
       end>
   end
   object pnFiltros: TPanel
     Left = 0
     Top = 0
-    Width = 976
+    Width = 913
     Height = 57
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 972
+    ExplicitLeft = -63
+    ExplicitWidth = 976
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -257,13 +207,13 @@ object frmCon_Cliente: TfrmCon_Cliente
   end
   object pnFooter: TPanel
     Left = 0
-    Top = 403
-    Width = 976
+    Top = 400
+    Width = 913
     Height = 56
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 402
-    ExplicitWidth = 972
+    ExplicitLeft = -63
+    ExplicitWidth = 976
     object btConfirmar: TButton
       Left = 346
       Top = 6
@@ -362,31 +312,6 @@ object frmCon_Cliente: TfrmCon_Cliente
     object FDMem_RegistroPESSOA_DESC: TStringField
       DisplayLabel = 'Pessoa'
       FieldName = 'PESSOA_DESC'
-    end
-    object FDMem_RegistroID_FORNECEDOR: TIntegerField
-      FieldName = 'ID_FORNECEDOR'
-    end
-    object FDMem_RegistroID_TAB_PRECO: TIntegerField
-      FieldName = 'ID_TAB_PRECO'
-    end
-    object FDMem_RegistroFONECEDOR: TStringField
-      FieldName = 'FONECEDOR'
-      Size = 255
-    end
-    object FDMem_RegistroTAB_PRECO: TStringField
-      FieldName = 'TAB_PRECO'
-      Size = 100
-    end
-    object FDMem_RegistroTIPO_TAB_PRECO: TIntegerField
-      FieldName = 'TIPO_TAB_PRECO'
-    end
-    object FDMem_RegistroTIPO_TAB_PRECO_DESC: TStringField
-      FieldName = 'TIPO_TAB_PRECO_DESC'
-      Size = 50
-    end
-    object FDMem_RegistroVALOR: TFloatField
-      FieldName = 'VALOR'
-      DisplayFormat = 'R$ #,##0.00'
     end
   end
   object dmRegistro: TDataSource

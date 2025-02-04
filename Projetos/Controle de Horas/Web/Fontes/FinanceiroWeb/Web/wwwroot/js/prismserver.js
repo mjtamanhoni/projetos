@@ -41,6 +41,8 @@ function PrismServerFunctions() {
 
 
     this.ExecEvent = function (UUID, Token, FormUUID, ID, EventID, Parameters, LockClient) {
+        
+        UpdateActivityTime();
 
         if (Parameters === undefined) {
             Parameters = "&";

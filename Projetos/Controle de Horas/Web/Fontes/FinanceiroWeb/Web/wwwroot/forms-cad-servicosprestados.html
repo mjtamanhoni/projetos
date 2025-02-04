@@ -1,0 +1,222 @@
+<section class="fields">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card-body">
+                <!--Linha 1-->
+                <div class="row mb-2">
+                    <div class="col-sm-1">
+                        <div class="mb-2">
+                            <label class="form-label">Id</label>
+                            <input type="text" class="form-control text-end" id="edid">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="mb-2">
+                            <label class="form-label">Data</label>
+                            <input type="date" class="form-control text-center" id="eddt_registro">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="mb-2">
+                            <label class="form-label">Status</label>
+                            <select class="form-control" id="cbstatus">
+                                <option value="1">ATIVO</option>
+                                <option value="0">INATIVO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="mb-2">
+                            <label class="form-label">Descrição</label>
+                            <input type="text" class="form-control" id="eddescricao">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Linha 2-->
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <div class="mb-2">
+                            <label class="form-label">Empresa</label>
+                            <div class="input-group">   
+                                <input type="text" class="form-control" id="edid_empresa">
+                                <button class="btn btn-primary" type="button" id="btid_empresa">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-2">
+                            <label class="form-label">Prestador de Serviço</label>
+                            <div class="input-group">   
+                                <input type="text" class="form-control" id="edid_prestador_servico">
+                                <button class="btn btn-primary" type="button" id="btid_prestador_servico">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Linha 3-->
+                <div class="row mb-2">
+                    <div class="col-sm-12">
+                        <div class="mb-2">
+                            <label class="form-label">Cliente</label>
+                            <div class="input-group">   
+                                <input type="text" class="form-control" id="edid_cliente">
+                                <button class="btn btn-primary" type="button" id="btid_cliente">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+		</div>
+	</div>  
+</section>
+
+<!-- Adicione os modais de pesquisa -->
+<div class="modal fade" id="modalPesquisaEmpresa" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pesquisar Empresa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="pesquisaEmpresa" placeholder="Digite para pesquisar...">
+                            <button class="btn btn-primary" type="button" onclick="pesquisarEmpresas()">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="tabelaEmpresas">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nome</th>
+                                <th>CNPJ</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Preenchido via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Configura data atual
+        const dateInputRegistro = document.getElementById('eddt_registro');
+        const today = new Date();
+        const formattedToday = today.toISOString().split('T')[0];		
+        dateInputRegistro.value = formattedToday;
+
+        // Função para formatar valores monetários
+        function formatarMoeda(elementId) {
+            const input = document.getElementById(elementId);
+            if (!input) return;
+
+            input.addEventListener('input', function(e) {
+                let valor = this.value.replace(/\D/g, '');
+                valor = (parseInt(valor) || 0) / 100;
+                
+                const formatoMoeda = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                    minimumFractionDigits: 2
+                });
+                
+                this.value = formatoMoeda.format(valor);
+            });
+
+            // Inicializa com 0,00
+            input.value = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 2
+            }).format(0);
+        }
+
+        // Aplica formatação monetária aos campos necessários
+        const camposMoeda = ['edid_tabela_Vlr','edvlr_hora','edsub_total','eddesconto','edacrescimo','edtotal'];
+        camposMoeda.forEach(campo => formatarMoeda(campo));
+    });
+
+    // Função para pesquisar empresas
+    function pesquisarEmpresas() {
+        const termo = document.getElementById('pesquisaEmpresa').value;
+        // Chama função do Delphi para pesquisar
+        if (window.external) {
+            window.external.PesquisarEmpresas(termo);
+        }
+    }
+
+    // Função chamada pelo Delphi para preencher resultados
+    function preencherResultadosEmpresas(resultados) {
+        const tbody = document.querySelector('#tabelaEmpresas tbody');
+        tbody.innerHTML = '';
+        
+        JSON.parse(resultados).forEach(empresa => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${empresa.codigo}</td>
+                <td>${empresa.nome}</td>
+                <td>${empresa.cnpj}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick="selecionarEmpresa(${empresa.codigo}, '${empresa.nome}')">
+                        <i class="bi bi-check"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Função para selecionar empresa
+    function selecionarEmpresa(codigo, nome) {
+        document.getElementById('edid_empresa').value = nome;
+        // Fecha o modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalPesquisaEmpresa'));
+        modal.hide();
+        // Notifica o Delphi
+        if (window.external) {
+            window.external.EmpresaSelecionada(codigo, nome);
+        }
+    }
+
+    // Função para abrir o modal de pesquisa
+    function abrirPesquisaEmpresa() {
+        // Limpa a pesquisa anterior
+        document.getElementById('pesquisaEmpresa').value = '';
+        document.querySelector('#tabelaEmpresas tbody').innerHTML = '';
+        
+        // Abre o modal
+        const modal = new bootstrap.Modal(document.getElementById('modalPesquisaEmpresa'));
+        modal.show();
+        
+        // Foca no campo de pesquisa
+        document.getElementById('pesquisaEmpresa').focus();
+    }
+
+    // Adiciona evento de Enter no campo de pesquisa
+    document.getElementById('pesquisaEmpresa').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            pesquisarEmpresas();
+        }
+    });
+</script>
+

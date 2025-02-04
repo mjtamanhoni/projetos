@@ -1717,14 +1717,31 @@ begin
 end;
 
 procedure ServicosPrestados_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TServicos_Prestados;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnectionP);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Insert(FBody) then
+        Res.Send('Empresas cadastradas com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível cadatrar as empresas.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 

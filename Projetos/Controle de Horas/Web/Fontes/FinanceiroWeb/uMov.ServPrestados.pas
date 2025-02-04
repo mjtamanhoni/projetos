@@ -6,6 +6,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  System.ImageList, Vcl.ImgList,
+  DateUtils,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
@@ -19,6 +21,7 @@ uses
 
   uPrincipal,
   uCon.Cliente,
+  uCon.PrestServicos,
   uMov.ServPrestados.Add;
 
 type
@@ -29,12 +32,7 @@ type
     lbFiltro_Tit: TLabel;
     edData_I: TDateTimePicker;
     edData_F: TDateTimePicker;
-    lbEmpresa: TLabel;
-    edEmpresa: TEdit;
-    lbPrestador: TLabel;
-    edPrestador: TEdit;
     lbCliente: TLabel;
-    edCliente: TEdit;
     lbHr_Trab_Tit: TLabel;
     lbHr_Trab_Hr: TLabel;
     lbHr_Trab_Vlr: TLabel;
@@ -47,7 +45,7 @@ type
     btExcluir: TButton;
     btEditar: TButton;
     btNovo: TButton;
-    btFiltrar: TButton;
+    btFechar: TButton;
     FDMem_Registro: TFDMemTable;
     FDMem_Registrodata: TDateField;
     FDMem_RegistrohrInicio: TStringField;
@@ -90,13 +88,25 @@ type
     lbHr_Pagas_Tit: TLabel;
     lbHr_Pagas_Hr: TLabel;
     lbHr_Pagas_Vlr: TLabel;
-    procedure btFiltrarClick(Sender: TObject);
+    ImageList: TImageList;
+    edPrestador: TButtonedEdit;
+    lbPrestador: TLabel;
+    edCliente: TButtonedEdit;
+    procedure btFecharClick(Sender: TObject);
     procedure btEditarClick(Sender: TObject);
     procedure btExcluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure edData_IChange(Sender: TObject);
+    procedure edData_FChange(Sender: TObject);
+    procedure edClienteKeyPress(Sender: TObject; var Key: Char);
+    procedure edPrestadorKeyPress(Sender: TObject; var Key: Char);
+    procedure edPrestadorRightButtonClick(Sender: TObject);
+    procedure edClienteRightButtonClick(Sender: TObject);
   private
     FfrmCon_Cliente :TfrmCon_Cliente;
+    FfrmCon_PrestServicos :TfrmCon_PrestServicos;
     FfrmMov_ServPrestados_Add :TfrmMov_ServPrestados_Add;
 
     FEnder :String;
@@ -140,20 +150,99 @@ begin
   ShowMessage('Excluindo lançamento',True,True,10000);
 end;
 
-procedure TfrmMov_ServPrestados.btFiltrarClick(Sender: TObject);
+procedure TfrmMov_ServPrestados.btFecharClick(Sender: TObject);
 begin
-  Pesquisar;
+  Close;
 end;
 
 procedure TfrmMov_ServPrestados.btNovoClick(Sender: TObject);
 begin
   inherited;
-  if frmMov_ServPrestados_Add = Nil then
-    TfrmMov_ServPrestados_Add.CreateInstance;
-  frmMov_ServPrestados_Add.ShowModal;
+  {
+  frmMov_ServPrestados_Add.edid.Text := '';
+  frmMov_ServPrestados_Add.eddescricao.Text := '';
+  frmMov_ServPrestados_Add.edid_empresa.Text := '';
+  frmMov_ServPrestados_Add.edid_empresa.Tag := 0;
+  frmMov_ServPrestados_Add.edid_prestador_servico.Text := '';
+  frmMov_ServPrestados_Add.edid_prestador_servico.Tag := 0;
+  frmMov_ServPrestados_Add.edid_cliente.Text := '';
+  frmMov_ServPrestados_Add.edid_cliente.Tag := 0;
+  frmMov_ServPrestados_Add.edid_tabela.Text := '';
+  frmMov_ServPrestados_Add.edid_tabela.Tag := 0;
+  frmMov_ServPrestados_Add.edid_tabela_Vlr.Text := '';
+  frmMov_ServPrestados_Add.edid_conta.Text := '';
+  frmMov_ServPrestados_Add.edid_conta.Tag := 0;
+  frmMov_ServPrestados_Add.edid_conta_tipo.Text := '';
+  frmMov_ServPrestados_Add.edhr_total.Text := '';
+  frmMov_ServPrestados_Add.edvlr_hora.Text := '';
+  frmMov_ServPrestados_Add.edsub_total.Text := '';
+  frmMov_ServPrestados_Add.eddesconto.Text := '';
+  frmMov_ServPrestados_Add.edacrescimo.Text := '';
+  frmMov_ServPrestados_Add.edtotal.Text := '';
+  frmMov_ServPrestados_Add.edobservacao.Text := '';
+  frmMov_ServPrestados_Add.edvlrPago.Text := '';
+  }
 
-  //ShowPopup('Popup'+frmMov_ServPrestados_Add.Name);
+  FinanceiroWeb.Stauts_Tab_SP := 'INSERT';
+  ShowPopupModal('Popup'+FfrmMov_ServPrestados_Add.Name);
 
+end;
+
+procedure TfrmMov_ServPrestados.edClienteKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+    Pesquisar;
+end;
+
+procedure TfrmMov_ServPrestados.edClienteRightButtonClick(Sender: TObject);
+begin
+  inherited;
+  FinanceiroWeb.Cliente_ID := 0;
+  FinanceiroWeb.Cliente_Nome := '';
+
+  ShowPopupModal('Popup'+FfrmCon_Cliente.Name);
+  if ((FinanceiroWeb.Cliente_ID > 0) and (Trim(FinanceiroWeb.Cliente_Nome) <> '')) then
+  begin
+    edCliente.Tag := FinanceiroWeb.Cliente_ID;
+    edCliente.Text := FinanceiroWeb.Cliente_Nome;
+    Pesquisar;
+  end;
+end;
+
+procedure TfrmMov_ServPrestados.edData_FChange(Sender: TObject);
+begin
+  inherited;
+  Pesquisar;
+end;
+
+procedure TfrmMov_ServPrestados.edData_IChange(Sender: TObject);
+begin
+  inherited;
+  Pesquisar;
+end;
+
+procedure TfrmMov_ServPrestados.edPrestadorKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+    Pesquisar;
+
+end;
+
+procedure TfrmMov_ServPrestados.edPrestadorRightButtonClick(Sender: TObject);
+begin
+  inherited;
+  FinanceiroWeb.Prest_Servico_ID := 0;
+  FinanceiroWeb.Prest_Servico_Nome := '';
+
+  ShowPopupModal('Popup'+FfrmCon_PrestServicos.Name);
+  if ((FinanceiroWeb.Prest_Servico_ID > 0) and (Trim(FinanceiroWeb.Prest_Servico_Nome) <> '')) then
+  begin
+    edPrestador.Tag := FinanceiroWeb.Prest_Servico_ID;
+    edPrestador.Text := FinanceiroWeb.Prest_Servico_Nome;
+    Pesquisar;
+  end;
 end;
 
 procedure TfrmMov_ServPrestados.ExportD2Bridge;
@@ -164,51 +253,95 @@ begin
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := 'forms-servicosPrestados.html';
+  //D2Bridge.FrameworkExportType.TemplatePageHTMLFile := 'forms-servicosPrestados.html';
 
-  //if FfrmMov_ServPrestados_Add = Nil then
-  //  TfrmMov_ServPrestados_Add.CreateInstance;
-  //D2Bridge.AddNested(FfrmMov_ServPrestados_Add);
+  if FfrmMov_ServPrestados_Add = Nil then
+    FfrmMov_ServPrestados_Add := TfrmMov_ServPrestados_Add.Create(Self);
+  D2Bridge.AddNested(FfrmMov_ServPrestados_Add);
+
+  if FfrmCon_PrestServicos = Nil then
+    FfrmCon_PrestServicos := TfrmCon_PrestServicos.Create(Self);
+  D2Bridge.AddNested(FfrmCon_PrestServicos);
+
+  if FfrmCon_Cliente = Nil then
+    FfrmCon_Cliente := TfrmCon_Cliente.Create(Self);
+  D2Bridge.AddNested(FfrmCon_Cliente);
 
   with D2Bridge.Items.add do
   begin
-    //Filtros
-    VCLObj(edData_I);
-    VCLObj(edData_F);
-    VCLObj(edEmpresa);
-    VCLObj(edPrestador);
-    VCLObj(edCliente);
+    with Row.Items.Add do
+    begin
+      with PanelGroup(lbFiltro_Tit.Caption,'',False,CSSClass.Col.colsize4).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(edData_I);
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(edData_F);
+        end;
+      end;
 
-    //Grid
-    VCLObj(DBGrid);
+      with PanelGroup(lbPrestador.Caption,'',False,CSSClass.Col.colsize4).Items.Add do
+      begin
+        FormGroup('',CSSClass.Col.colsize12).AddVCLObj(edPrestador);
+      end;
 
-    //Cards
-    //VCLObj(lbHr_Trab_Tit);
-    VCLObj(lbHr_Trab_Hr);
-    VCLObj(lbHr_Trab_Vlr);
+      with PanelGroup(lbCliente.Caption,'',False,CSSClass.Col.colsize4).Items.Add do
+      begin
+        FormGroup('',CSSClass.Col.colsize12).AddVCLObj(edCliente);
+      end;
+    end;
 
-    //VCLObj(lbHr_Acul_Tit);
-    VCLObj(lbHr_Acul_Hr);
-    VCLObj(lbHr_Acul_Vlr);
+    with Row.Items.Add do
+      VCLObj(DBGrid);
 
-    //VCLObj(lbHr_Tot_Tit);
-    VCLObj(lbHr_Tot_Hr);
-    VCLObj(lbHr_Tot_Vlr);
+    with Row.Items.Add do
+    begin
+      with PanelGroup(lbHr_Trab_Tit.Caption,'',False,CSSClass.Col.colsize3).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Trab_Hr);
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Trab_Vlr);
+        end;
+      end;
+      with PanelGroup(lbHr_Acul_Tit.Caption,'',False,CSSClass.Col.colsize3).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Acul_Hr);
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Acul_Vlr);
+        end;
+      end;
+      with PanelGroup(lbHr_Tot_Tit.Caption,'',False,CSSClass.Col.colsize3).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Tot_Hr);
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Tot_Vlr);
+        end;
+      end;
+      with PanelGroup(lbHr_Pagas_Tit.Caption,'',False,CSSClass.Col.colsize3).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Pagas_Hr);
+          FormGroup('',CSSClass.Col.colsize6).AddVCLObj(lbHr_Pagas_Vlr);
+        end;
+      end;
+    end;
 
-    //VCLObj(lbHr_Tot_Tit);
-    VCLObj(lbHr_Pagas_Hr);
-    VCLObj(lbHr_Pagas_Vlr);
+    with Row.Items.Add do
+    begin
+      with Row(CSSClass.DivHtml.Align_Right).Items.Add do
+      begin
+        VCLObj(btNovo, CSSClass.Button.add + CSSClass.Col.colsize2);
+        VCLObj(btFechar, CSSClass.Button.close + CSSClass.Col.colsize2);
+      end;
+    end;
 
-    //Botões de ações
-    VCLObj(btNovo);
-    VCLObj(btFiltrar);
-    VCLObj(btExcluir);
-    VCLObj(btEditar);
-
-    //Popup('Popup'+frmMov_ServPrestados_Add.Name,'Serviços Prestados').Items.Add.Nested(frmMov_ServPrestados_Add.Name);
-
-    //with Popup('PopupMovServPrest','Serviços Prestados',True,CSSClass.Popup.Large).Items.Add do
-      //Nested(FfrmMov_ServPrestados_Add);
+    Popup('Popup'+FfrmCon_PrestServicos.Name,'Prestadores de Serviços',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_PrestServicos.Name);
+    Popup('Popup'+FfrmCon_Cliente.Name,'Clientes',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmCon_Cliente.Name);
+    Popup('Popup'+FfrmMov_ServPrestados_Add.Name,'Cadastro Serviços Prestados',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmMov_ServPrestados_Add.Name);
   end;
 
 end;
@@ -222,6 +355,16 @@ begin
 
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
+
+  //edPrestador.Tag := FinanceiroWeb.Usuario_ID_Prestador;
+  //edPrestador.Text := FinanceiroWeb.Usuario_Prestador;
+
+end;
+
+procedure TfrmMov_ServPrestados.FormShow(Sender: TObject);
+begin
+  inherited;
+  Pesquisar;
 end;
 
 function TfrmMov_ServPrestados.HoraStrToTime(AHora: String): TTime;
@@ -265,6 +408,11 @@ begin
       end;
     end;
   end;
+
+  edPrestador.Tag := FinanceiroWeb.Usuario_ID_Prestador;
+  edPrestador.Text := FinanceiroWeb.Usuario_Prestador;
+  edData_I.Date := StartOfTheMonth(Now);
+  edData_F.Date := EndOfTheMonth(Now);
 
  //Change Init Property of Prism Controls
  {
@@ -319,11 +467,11 @@ begin
         raise Exception.Create('Data inicial é obrigatória');
       if Trim(FData_F) = '' then
         raise Exception.Create('Data final é obrigatória');
-      if edCliente.Tag = 0 then
-        raise Exception.Create('Cliente é  obrigatório');
 
       FResp := TRequest.New.BaseURL(FHost)
                .TokenBearer(FinanceiroWeb.Usuario_Token)
+               .AddParam('empresa',FinanceiroWeb.Usuario_ID_Empresa.ToString)
+               .AddParam('prestador',edPrestador.Tag.ToString)
                .AddParam('cliente',edCliente.Tag.ToString)
                .AddParam('dataI',FData_I)
                .AddParam('dataF',FData_F)

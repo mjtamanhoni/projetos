@@ -42,7 +42,7 @@
 								</button>
 							</div>
 							<div class="col-sm-1">
-								<button type="button" class="btn btn-primary w-100" id="btNovo">
+								<button type="button" class="btn btn-primary w-100" id="btNovo" onclick="limparFormulario()">
 									<i class="fas fa-add"></i>
 								</button>
 							</div>							
@@ -257,7 +257,17 @@
 			dateInputStart.value = formattedFirstDay;
 			dateInputEnd.value = formattedLastDay;		  
 		});
+
+		function limparFormulario() {
+			// Chama a função original do Delphi
+			if (window.external) {
+				window.external.NovoRegistro();
+			}
+		}
 	</script>	  
+
+
+
 
 </section>
 

@@ -1,9 +1,9 @@
-object frmCon_TabPreco: TfrmCon_TabPreco
+object frmCon_Contas: TfrmCon_Contas
   Left = 0
   Top = 0
-  Caption = 'Consulta de Tabela de Pre'#231'o'
-  ClientHeight = 460
-  ClientWidth = 980
+  Caption = 'Consulta de Contas'
+  ClientHeight = 508
+  ClientWidth = 953
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmCon_TabPreco: TfrmCon_TabPreco
   object DBGrid: TDBGrid
     Left = 0
     Top = 57
-    Width = 980
-    Height = 347
+    Width = 953
+    Height = 395
     Align = alClient
     DataSource = dmRegistro
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -31,58 +31,70 @@ object frmCon_TabPreco: TfrmCon_TabPreco
     Columns = <
       item
         Expanded = False
-        FieldName = 'ID'
+        FieldName = 'id'
         Title.Alignment = taCenter
+        Title.Caption = 'Id'
+        Width = 65
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'DESCRICAO'
+        FieldName = 'descricao'
         Title.Alignment = taCenter
+        Title.Caption = 'Descri'#231#227'o'
         Width = 300
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'TIPO'
+        FieldName = 'statusDesc'
         Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'VALOR'
-        Title.Alignment = taCenter
+        Title.Caption = 'Status'
         Width = 100
         Visible = True
       end
       item
         Expanded = False
-        FieldName = 'DT_CADASTRO'
+        FieldName = 'tipoDesc'
         Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'HR_CADASTRO'
-        Title.Alignment = taCenter
-        Visible = False
-      end
-      item
-        Expanded = False
-        FieldName = 'TIPO_DESC'
-        Title.Alignment = taCenter
-        Width = 300
+        Title.Caption = 'Tipo'
+        Width = 100
         Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'status'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'tipo'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'dtCadastro'
+        Title.Alignment = taCenter
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'hrCadastro'
+        Title.Alignment = taCenter
+        Visible = False
       end>
   end
   object pnFiltros: TPanel
     Left = 0
     Top = 0
-    Width = 980
+    Width = 953
     Height = 57
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 976
+    ExplicitLeft = -27
+    ExplicitWidth = 980
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -128,13 +140,14 @@ object frmCon_TabPreco: TfrmCon_TabPreco
   end
   object pnFooter: TPanel
     Left = 0
-    Top = 404
-    Width = 980
+    Top = 452
+    Width = 953
     Height = 56
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 403
-    ExplicitWidth = 976
+    ExplicitLeft = -27
+    ExplicitTop = 404
+    ExplicitWidth = 980
     object btConfirmar: TButton
       Left = 346
       Top = 6
@@ -156,34 +169,32 @@ object frmCon_TabPreco: TfrmCon_TabPreco
     UpdateOptions.AutoCommitUpdates = True
     Left = 264
     Top = 160
-    object FDMem_RegistroID: TIntegerField
-      FieldName = 'ID'
+    object FDMem_Registroid: TIntegerField
+      FieldName = 'id'
     end
-    object FDMem_RegistroDESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRICAO'
-      Size = 100
+    object FDMem_Registrostatus: TIntegerField
+      FieldName = 'status'
     end
-    object FDMem_RegistroTIPO: TStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Size = 100
+    object FDMem_Registrodescricao: TStringField
+      FieldName = 'descricao'
+      Size = 255
     end
-    object FDMem_RegistroVALOR: TFloatField
-      DisplayLabel = 'Valor'
-      FieldName = 'VALOR'
-      DisplayFormat = 'R$ #,##0.00'
+    object FDMem_Registrotipo: TIntegerField
+      FieldName = 'tipo'
     end
-    object FDMem_RegistroDT_CADASTRO: TDateField
-      FieldName = 'DT_CADASTRO'
+    object FDMem_RegistrodtCadastro: TDateField
+      FieldName = 'dtCadastro'
     end
-    object FDMem_RegistroHR_CADASTRO: TTimeField
-      FieldName = 'HR_CADASTRO'
+    object FDMem_RegistrohrCadastro: TTimeField
+      FieldName = 'hrCadastro'
     end
-    object FDMem_RegistroTIPO_DESC: TStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO_DESC'
-      Size = 100
+    object FDMem_RegistrostatusDesc: TStringField
+      FieldName = 'statusDesc'
+      Size = 50
+    end
+    object FDMem_RegistrotipoDesc: TStringField
+      FieldName = 'tipoDesc'
+      Size = 50
     end
   end
   object dmRegistro: TDataSource
