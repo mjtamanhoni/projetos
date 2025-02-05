@@ -43,7 +43,7 @@ implementation
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
 Uses
- D2Bridge.Instance;
+  D2Bridge.Instance;
 
 {$R *.dfm}
 

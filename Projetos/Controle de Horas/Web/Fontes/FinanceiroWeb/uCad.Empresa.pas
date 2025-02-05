@@ -276,7 +276,6 @@ begin
             Caption:='';
             Onclick:=btEditarClick;
            end;
-
          With Buttons.Add do
            begin
             ButtonModel := TButtonModel.Delete;

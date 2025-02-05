@@ -160,8 +160,7 @@ object frmCon_Empresa: TfrmCon_Empresa
     Height = 57
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = -63
-    ExplicitWidth = 976
+    ExplicitWidth = 909
     object lbTipo: TLabel
       Left = 16
       Top = 17
@@ -212,8 +211,8 @@ object frmCon_Empresa: TfrmCon_Empresa
     Height = 56
     Align = alBottom
     TabOrder = 2
-    ExplicitLeft = -63
-    ExplicitWidth = 976
+    ExplicitTop = 399
+    ExplicitWidth = 909
     object btConfirmar: TButton
       Left = 346
       Top = 6

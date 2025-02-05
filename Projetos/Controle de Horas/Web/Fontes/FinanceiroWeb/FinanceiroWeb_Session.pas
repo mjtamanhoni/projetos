@@ -42,6 +42,37 @@ type
     FUsuario_Empresa: String;
     FUsuario_Prestador: String;
     FStauts_Tab_SP: String;
+    FSP_dtPago: TDate;
+    FSP_vlrHora: Double;
+    FSP_tipoTabelaDesc: String;
+    FSP_observacao: String;
+    FSP_acrescimo: Double;
+    FSP_desconto: Double;
+    FSP_idEmpresa: Integer;
+    FSP_hrTotal: String;
+    FSP_idConta: Integer;
+    FSP_tipoTabela: Integer;
+    FSP_vlrPago: Double;
+    FSP_subTotal: Double;
+    FSP_descricao: String;
+    FSP_cliente: String;
+    FSP_prestadorServico: String;
+    FSP_acrescimoMotivo: String;
+    FSP_descontoMotivo: String;
+    FSP_hrFim: TTime;
+    FSP_tipoContaDesc: String;
+    FSP_total: Double;
+    FSP_hrInicio: TTime;
+    FSP_dtRegistro: TDate;
+    FSP_id: Integer;
+    FSP_tipoConta: Integer;
+    FSP_status: Integer;
+    FSP_empresa: String;
+    FSP_tabelaPreco: String;
+    FSP_conta: String;
+    FSP_idTabela: Integer;
+    FSP_idCliente: Integer;
+    FSP_idPrestadorServico: Integer;
 
   public
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
@@ -104,6 +135,37 @@ type
 
    {$Region 'Serviços Prestados'}
     property Stauts_Tab_SP :String read FStauts_Tab_SP write FStauts_Tab_SP; {INSERT,EDIT}
+    property SP_id :Integer read FSP_id write FSP_id;
+    property SP_descricao :String read FSP_descricao write FSP_descricao;
+    property SP_status :Integer read FSP_status write FSP_status;
+    property SP_idEmpresa :Integer read FSP_idEmpresa write FSP_idEmpresa;
+    property SP_idPrestadorServico :Integer read FSP_idPrestadorServico write FSP_idPrestadorServico;
+    property SP_idCliente :Integer read FSP_idCliente write FSP_idCliente;
+    property SP_idTabela :Integer read FSP_idTabela write FSP_idTabela;
+    property SP_idConta :Integer read FSP_idConta write FSP_idConta;
+    property SP_dtRegistro :TDate read FSP_dtRegistro write FSP_dtRegistro;
+    property SP_hrInicio :TTime read FSP_hrInicio write FSP_hrInicio;
+    property SP_hrFim :TTime read FSP_hrFim write FSP_hrFim;
+    property SP_hrTotal :String read FSP_hrTotal write FSP_hrTotal;
+    property SP_vlrHora :Double read FSP_vlrHora write FSP_vlrHora;
+    property SP_subTotal :Double read FSP_subTotal write FSP_subTotal;
+    property SP_desconto :Double read FSP_desconto write FSP_desconto;
+    property SP_descontoMotivo :String read FSP_descontoMotivo write FSP_descontoMotivo;
+    property SP_acrescimo :Double read FSP_acrescimo write FSP_acrescimo;
+    property SP_acrescimoMotivo :String read FSP_acrescimoMotivo write FSP_acrescimoMotivo;
+    property SP_total :Double read FSP_total write FSP_total;
+    property SP_observacao :String read FSP_observacao  write FSP_observacao;
+    property SP_dtPago :TDate read FSP_dtPago write FSP_dtPago;
+    property SP_vlrPago :Double read FSP_vlrPago write FSP_vlrPago;
+    property SP_empresa :String read FSP_empresa write FSP_empresa;
+    property SP_prestadorServico :String read FSP_prestadorServico write FSP_prestadorServico;
+    property SP_cliente :String read FSP_cliente write FSP_cliente;
+    property SP_tabelaPreco :String read FSP_tabelaPreco write FSP_tabelaPreco;
+    property SP_tipoTabela :Integer read FSP_tipoTabela write FSP_tipoTabela;
+    property SP_tipoTabelaDesc :String read FSP_tipoTabelaDesc write FSP_tipoTabelaDesc;
+    property SP_conta :String read FSP_conta write FSP_conta;
+    property SP_tipoConta :Integer read FSP_tipoConta write FSP_tipoConta;
+    property SP_tipoContaDesc :String read FSP_tipoContaDesc write FSP_tipoContaDesc;
    {$EndRegion 'Serviços Prestados'}
 
   end;

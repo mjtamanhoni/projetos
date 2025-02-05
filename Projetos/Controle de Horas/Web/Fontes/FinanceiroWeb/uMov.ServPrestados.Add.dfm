@@ -10,6 +10,8 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object lbid: TLabel
     Left = 0
@@ -217,7 +219,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     DateFormat = dfLong
     Kind = dtkTime
     TabOrder = 6
-    OnChange = edhr_inicioChange
+    OnExit = edhr_inicioExit
     OnKeyPress = edhr_inicioKeyPress
   end
   object edhr_fim: TDateTimePicker
@@ -230,7 +232,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     DateFormat = dfLong
     Kind = dtkTime
     TabOrder = 7
-    OnChange = edhr_inicioChange
+    OnExit = edhr_inicioExit
     OnKeyPress = edhr_fimKeyPress
   end
   object edvlr_hora: TEdit
@@ -532,5 +534,84 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
+  end
+  object FDMem_Registro: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 491
+    Top = 488
+    object FDMem_Registrodescricao: TStringField
+      FieldName = 'descricao'
+      Size = 255
+    end
+    object FDMem_Registrostatus: TIntegerField
+      FieldName = 'status'
+    end
+    object FDMem_RegistroidEmpresa: TIntegerField
+      FieldName = 'idEmpresa'
+    end
+    object FDMem_RegistroidPrestadorServico: TIntegerField
+      FieldName = 'idPrestadorServico'
+    end
+    object FDMem_RegistroidCliente: TIntegerField
+      FieldName = 'idCliente'
+    end
+    object FDMem_RegistroidTabela: TIntegerField
+      FieldName = 'idTabela'
+    end
+    object FDMem_RegistroidConta: TIntegerField
+      FieldName = 'idConta'
+    end
+    object FDMem_RegistrodtRegistro: TDateField
+      FieldName = 'dtRegistro'
+    end
+    object FDMem_Registrohrinicio: TTimeField
+      FieldName = 'hrinicio'
+    end
+    object FDMem_Registrohrfim: TTimeField
+      FieldName = 'hrfim'
+    end
+    object FDMem_RegistrohrTotal: TStringField
+      FieldName = 'hrTotal'
+      Size = 10
+    end
+    object FDMem_RegistrovlrHora: TFloatField
+      FieldName = 'vlrHora'
+    end
+    object FDMem_RegistrosubTotal: TFloatField
+      FieldName = 'subTotal'
+    end
+    object FDMem_Registrodesconto: TFloatField
+      FieldName = 'desconto'
+    end
+    object FDMem_RegistrodescontoMotivo: TStringField
+      FieldName = 'descontoMotivo'
+      Size = 500
+    end
+    object FDMem_Registroacrescimo: TFloatField
+      FieldName = 'acrescimo'
+    end
+    object FDMem_RegistroacrescimoMotivo: TStringField
+      FieldName = 'acrescimoMotivo'
+      Size = 500
+    end
+    object FDMem_Registrototal: TFloatField
+      FieldName = 'total'
+    end
+    object FDMem_Registroobservacao: TStringField
+      FieldName = 'observacao'
+      Size = 500
+    end
+    object FDMem_RegistroidUsuario: TIntegerField
+      FieldName = 'idUsuario'
+    end
+    object FDMem_Registroid: TIntegerField
+      FieldName = 'id'
+    end
   end
 end

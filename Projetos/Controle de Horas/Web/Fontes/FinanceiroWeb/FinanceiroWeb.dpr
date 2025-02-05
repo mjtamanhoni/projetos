@@ -44,7 +44,8 @@ uses
   uMov.ServPrestados.Add in 'uMov.ServPrestados.Add.pas' {frmMov_ServPrestados_Add},
   uCon.Empresa in 'uCon.Empresa.pas' {frmCon_Empresa},
   uCon.PrestServicos in 'uCon.PrestServicos.pas' {frmCon_PrestServicos},
-  uCon.Contas in 'uCon.Contas.pas' {frmCon_Contas};
+  uCon.Contas in 'uCon.Contas.pas' {frmCon_Contas},
+  uFuncoes.Wnd in '..\..\..\..\Global\uFuncoes.Wnd.pas';
 
 {$R *.res}
 

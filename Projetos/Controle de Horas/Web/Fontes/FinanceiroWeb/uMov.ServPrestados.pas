@@ -18,6 +18,7 @@ uses
   DataSet.Serialize,
   RESTRequest4D,
   IniFiles,
+  uFuncoes.Wnd,
 
   uPrincipal,
   uCon.Cliente,
@@ -108,6 +109,7 @@ type
     FfrmCon_Cliente :TfrmCon_Cliente;
     FfrmCon_PrestServicos :TfrmCon_PrestServicos;
     FfrmMov_ServPrestados_Add :TfrmMov_ServPrestados_Add;
+    FFuncoes_Wnd :TFuncoes_Wnd;
 
     FEnder :String;
     FIniFiles :TIniFile;
@@ -141,7 +143,42 @@ end;
 procedure TfrmMov_ServPrestados.btEditarClick(Sender: TObject);
 begin
   inherited;
-  ShowMessage('Editando lançamento',True,True,10000);
+  FinanceiroWeb.SP_id := FDMem_Registroid.AsInteger;
+  FinanceiroWeb.SP_descricao := FDMem_Registrodescricao.AsString;
+  FinanceiroWeb.SP_status := FDMem_Registrostatus.AsInteger;
+  FinanceiroWeb.SP_idEmpresa := FDMem_RegistroidEmpresa.AsInteger;
+  FinanceiroWeb.SP_idPrestadorServico := FDMem_RegistroidPrestadorServico.AsInteger;
+  FinanceiroWeb.SP_idCliente := FDMem_RegistroidCliente.AsInteger;
+  FinanceiroWeb.SP_idTabela := FDMem_RegistroidTabela.AsInteger;
+  FinanceiroWeb.SP_idConta := FDMem_RegistroidConta.AsInteger;
+  FinanceiroWeb.SP_dtRegistro := FDMem_Registrodata.AsDateTime;
+  FinanceiroWeb.SP_hrInicio := FFuncoes_Wnd.HoraStrToTime(FDMem_RegistrohrInicio.AsString);
+  FinanceiroWeb.SP_hrFim := FFuncoes_Wnd.HoraStrToTime(FDMem_RegistrohrFim.AsString);
+  FinanceiroWeb.SP_hrTotal := FDMem_RegistrohrTotal.AsString;
+  FinanceiroWeb.SP_vlrHora := FDMem_RegistrovlrHora.AsFloat;
+  FinanceiroWeb.SP_subTotal := FDMem_RegistrosubTotal.AsFloat;
+  FinanceiroWeb.SP_desconto := FDMem_RegistrosubTotal.AsFloat;
+  FinanceiroWeb.SP_descontoMotivo := FDMem_RegistrodescontoMotivo.AsString;
+  FinanceiroWeb.SP_acrescimo := FDMem_Registroacrescimo.AsFloat;
+  FinanceiroWeb.SP_acrescimoMotivo := FDMem_RegistroacrescimoMotivo.AsString;
+  FinanceiroWeb.SP_total := FDMem_Registrototal.AsFloat;
+  FinanceiroWeb.SP_observacao := FDMem_RegistrodescontoMotivo.AsString;
+  FinanceiroWeb.SP_dtPago := FDMem_RegistrodtPago.AsDateTime;
+  FinanceiroWeb.SP_vlrPago := FDMem_RegistrovlrPago.AsFloat;
+  FinanceiroWeb.SP_empresa := FDMem_Registroempresa.AsString;
+  FinanceiroWeb.SP_prestadorServico := FDMem_RegistroprestadorServico.AsString;
+  FinanceiroWeb.SP_cliente := FDMem_Registrocliente.AsString;
+  FinanceiroWeb.SP_tabelaPreco := FDMem_RegistrotabelaPreco.AsString;
+  FinanceiroWeb.SP_tipoTabela := FDMem_RegistrotipoTabela.AsInteger;
+  FinanceiroWeb.SP_tipoTabelaDesc := FDMem_RegistrotipoTabelaDesc.AsString;
+  FinanceiroWeb.SP_conta := FDMem_RegistrotipoConta.AsString;
+  FinanceiroWeb.SP_tipoConta := FDMem_RegistrotipoConta.AsInteger;
+  FinanceiroWeb.SP_tipoContaDesc := FDMem_RegistrotipoContaDesc.AsString;
+
+  FinanceiroWeb.Stauts_Tab_SP := 'EDIT';
+  ShowPopupModal('Popup'+FfrmMov_ServPrestados_Add.Name);
+  Pesquisar;
+
 end;
 
 procedure TfrmMov_ServPrestados.btExcluirClick(Sender: TObject);
@@ -158,33 +195,10 @@ end;
 procedure TfrmMov_ServPrestados.btNovoClick(Sender: TObject);
 begin
   inherited;
-  {
-  frmMov_ServPrestados_Add.edid.Text := '';
-  frmMov_ServPrestados_Add.eddescricao.Text := '';
-  frmMov_ServPrestados_Add.edid_empresa.Text := '';
-  frmMov_ServPrestados_Add.edid_empresa.Tag := 0;
-  frmMov_ServPrestados_Add.edid_prestador_servico.Text := '';
-  frmMov_ServPrestados_Add.edid_prestador_servico.Tag := 0;
-  frmMov_ServPrestados_Add.edid_cliente.Text := '';
-  frmMov_ServPrestados_Add.edid_cliente.Tag := 0;
-  frmMov_ServPrestados_Add.edid_tabela.Text := '';
-  frmMov_ServPrestados_Add.edid_tabela.Tag := 0;
-  frmMov_ServPrestados_Add.edid_tabela_Vlr.Text := '';
-  frmMov_ServPrestados_Add.edid_conta.Text := '';
-  frmMov_ServPrestados_Add.edid_conta.Tag := 0;
-  frmMov_ServPrestados_Add.edid_conta_tipo.Text := '';
-  frmMov_ServPrestados_Add.edhr_total.Text := '';
-  frmMov_ServPrestados_Add.edvlr_hora.Text := '';
-  frmMov_ServPrestados_Add.edsub_total.Text := '';
-  frmMov_ServPrestados_Add.eddesconto.Text := '';
-  frmMov_ServPrestados_Add.edacrescimo.Text := '';
-  frmMov_ServPrestados_Add.edtotal.Text := '';
-  frmMov_ServPrestados_Add.edobservacao.Text := '';
-  frmMov_ServPrestados_Add.edvlrPago.Text := '';
-  }
 
   FinanceiroWeb.Stauts_Tab_SP := 'INSERT';
   ShowPopupModal('Popup'+FfrmMov_ServPrestados_Add.Name);
+  Pesquisar;
 
 end;
 
@@ -355,6 +369,8 @@ begin
 
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
+
+  FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
   //edPrestador.Tag := FinanceiroWeb.Usuario_ID_Prestador;
   //edPrestador.Text := FinanceiroWeb.Usuario_Prestador;
