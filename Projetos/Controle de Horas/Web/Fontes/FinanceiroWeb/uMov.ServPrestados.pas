@@ -171,7 +171,7 @@ begin
   FinanceiroWeb.SP_tabelaPreco := FDMem_RegistrotabelaPreco.AsString;
   FinanceiroWeb.SP_tipoTabela := FDMem_RegistrotipoTabela.AsInteger;
   FinanceiroWeb.SP_tipoTabelaDesc := FDMem_RegistrotipoTabelaDesc.AsString;
-  FinanceiroWeb.SP_conta := FDMem_RegistrotipoConta.AsString;
+  FinanceiroWeb.SP_conta := FDMem_Registroconta.AsString;
   FinanceiroWeb.SP_tipoConta := FDMem_RegistrotipoConta.AsInteger;
   FinanceiroWeb.SP_tipoContaDesc := FDMem_RegistrotipoContaDesc.AsString;
 
@@ -182,9 +182,33 @@ begin
 end;
 
 procedure TfrmMov_ServPrestados.btExcluirClick(Sender: TObject);
+var
+  FResp :IResponse;
 begin
-  inherited;
-  ShowMessage('Excluindo lançamento',True,True,10000);
+  try
+    if MessageDlg('Deseja excluir o Serviço Prestado selecionado?',TMsgDlgType.mtConfirmation,[mbYes,mbNo],0) = mrYes then
+    begin
+      if Trim(FHost) = '' then
+        raise Exception.Create('Host não informado');
+
+      if Trim(FinanceiroWeb.Usuario_Token) = '' then
+        raise Exception.Create('Token do Usuário inválido');
+
+      FResp := TRequest.New.BaseURL(FHost)
+               .TokenBearer(FinanceiroWeb.Usuario_Token)
+               .AddParam('id',FDMem_RegistroID.AsString)
+               .Resource('servicosPrestados')
+               .Accept('application/json')
+               .Delete;
+
+      if FResp.StatusCode = 200 then
+        Pesquisar
+      else
+        raise Exception.Create(FResp.Content);
+    end;
+  except on E: Exception do
+    ShowMessage(E.Message,True,True,10000);
+  end;
 end;
 
 procedure TfrmMov_ServPrestados.btFecharClick(Sender: TObject);

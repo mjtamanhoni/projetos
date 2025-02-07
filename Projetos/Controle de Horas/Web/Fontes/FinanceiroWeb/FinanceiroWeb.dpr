@@ -8,6 +8,7 @@ program FinanceiroWeb;
 
 uses
   Vcl.Forms,
+  System.SysUtils,
   D2Bridge.Instance,
   D2Bridge.ServerControllerBase in 'C:\Instalacoes\D2Bridge\D2Bridge Framework\D2Bridge.ServerControllerBase.pas' {D2BridgeServerControllerBase: TDataModule},
   Prism.SessionBase in 'C:\Instalacoes\D2Bridge\D2Bridge Framework\Prism\Prism.SessionBase.pas' {PrismSessionBase: TPrismSessionBase},
@@ -58,6 +59,10 @@ var
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar:= True;
+  FormatSettings.ShortDateFormat := 'dd/mm/yyyy';
+  FormatSettings.ThousandSeparator := '.';
+  FormatSettings.DecimalSeparator := ',';
+  Application.MainFormOnTaskBar := False;
   {$IFNDEF D2BRIDGE}
   Application.CreateForm(TForm_Login, Unit_Login);
   D2BridgeInstance.AddInstace(Unit_Login);

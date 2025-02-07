@@ -8,14 +8,14 @@
     <Transaction>2025/01/21 13:20:16.000.038,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Usuarios.Add.pas</Transaction>
     <Transaction>2025/01/21 13:56:44.000.461,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Empresa.Add.pas</Transaction>
     <Transaction>2025/01/21 13:56:44.000.571,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Empresa.pas</Transaction>
-    <Transaction>2025/01/21 14:35:32.000.350,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.PrestServico.Add.pas</Transaction>
     <Transaction>2025/01/21 14:35:32.000.443,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.PrestServico.pas</Transaction>
-    <Transaction>2025/01/21 14:42:25.000.257,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Cliente.Add.pas</Transaction>
+    <Transaction>2025/01/21 14:35:32.000.350,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.PrestServico.Add.pas</Transaction>
     <Transaction>2025/01/21 14:42:25.000.366,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Cliente.pas</Transaction>
-    <Transaction>2025/01/21 14:46:40.000.944,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Fornecedor.pas</Transaction>
+    <Transaction>2025/01/21 14:42:25.000.257,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Cliente.Add.pas</Transaction>
     <Transaction>2025/01/21 14:46:40.000.860,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Fornecedor.Add.pas</Transaction>
-    <Transaction>2025/01/21 14:48:34.000.412,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.TabPreco.Add.pas</Transaction>
+    <Transaction>2025/01/21 14:46:40.000.944,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.Fornecedor.pas</Transaction>
     <Transaction>2025/01/21 14:48:34.000.491,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.TabPreco.pas</Transaction>
+    <Transaction>2025/01/21 14:48:34.000.412,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCad.TabPreco.Add.pas</Transaction>
     <Transaction>2025/01/21 14:50:28.000.159,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCon.Cliente.pas</Transaction>
     <Transaction>2025/01/21 14:50:28.000.428,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCon.TabPreco.pas</Transaction>
     <Transaction>2025/01/21 14:50:28.000.253,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCon.Fornecedor.pas</Transaction>
@@ -45,7 +45,7 @@
     <Transaction>2025/01/31 07:15:25.000.567,=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\Unit2.pas</Transaction>
     <Transaction>2025/01/31 07:16:03.000.928,C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCon.Contas.pas=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\Unit2.pas</Transaction>
     <Transaction>2025/01/31 07:16:03.000.928,C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\uCon.Contas.dfm=C:\Developer\projetos\Controle de Horas\Web\Fontes\FinanceiroWeb\Unit2.dfm</Transaction>
-    <Transaction>2025/02/05 10:55:35.666,=C:\Developer\projetos\Global\uFuncoes.Wnd.pas</Transaction>
+    <Transaction>2025/02/05 10:55:35.000.666,=C:\Developer\projetos\Global\uFuncoes.Wnd.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="C:"/>

@@ -430,7 +430,7 @@ begin
 
     edHR_TOTAL.Text := FHor + ':' + FMin + ':' + FSeg;
     FTotal_Receber := ((FHora_Resultado * 24) * FValorHora);
-    edSUB_TOTAL.Text := FormatFloat('R$ #,##0.00',FTotal_Receber);
+    edSUB_TOTAL.Text := FloatToStr(FTotal_Receber);//FormatFloat('R$ #,##0.00',FTotal_Receber);
     edSUB_TOTALChange(Sender);
 
   except on E: Exception do
@@ -578,7 +578,7 @@ begin
 
     FSub_Total := StrToFloatDef(Trim(StringReplace(edSUB_TOTAL.Text,'R$','',[rfReplaceAll])),0);
     FTotal := ((FSub_Total + FAcrescimo) - FDesconto);
-    edTOTAL.Text := FormatFloat('R$ #,##0.00',FTotal);
+    edTOTAL.Text := FloatToStr(FTotal);// FormatFloat('R$ #,##0.00',FTotal);
 
   except on E: Exception do
     ShowMessage('Erro ao calcular o valor total. ' + E.Message,True,True,10000);
@@ -756,7 +756,13 @@ begin
   edobservacao.Text := '';
   edvlrPago.Text := '';
 
-  if FinanceiroWeb.Stauts_Tab_SP = 'EDIT' then
+
+  if FinanceiroWeb.Stauts_Tab_SP = 'INSERT' then
+  begin
+    eddt_registro.Date := Date;
+    cbstatus.ItemIndex := 0;
+  end
+  else if FinanceiroWeb.Stauts_Tab_SP = 'EDIT' then
   begin
     edid.Tag := FinanceiroWeb.SP_id;
     edid.Text := IntToStr(FinanceiroWeb.SP_id);
@@ -793,16 +799,6 @@ end;
 procedure TfrmMov_ServPrestados_Add.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
-
-  if FTable_Status = stInsert then
-  begin
-    eddt_registro.Date := Date;
-  end;
-
-  if FinanceiroWeb.Stauts_Tab_SP = 'INSERT' then
-  begin
-    eddt_registro.Date := Date;
-  end;
 
   if PrismControl.VCLComponent = edsub_total then
     PrismControl.AsEdit.TextMask := TPrismTextMask.Currency('R$');

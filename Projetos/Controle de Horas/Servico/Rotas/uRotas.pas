@@ -1733,9 +1733,9 @@ begin
       FBody := Req.Body<TJSONArray>;
 
       if FModeloDados.Json_Insert(FBody) then
-        Res.Send('Empresas cadastradas com sucesso').Status(200)
+        Res.Send('Serviço Prestado cadastrado com sucesso').Status(200)
       else
-        Res.Send('Não foi possível cadatrar as empresas.').Status(401);
+        Res.Send('Não foi possível cadatrar o Serviço Pretado.').Status(401);
 
     except on E: Exception do
       Res.Send(E.Message).Status(500);
@@ -1746,26 +1746,61 @@ begin
 end;
 
 procedure ServicosPrestados_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FBody :TJSONArray;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TServicos_Prestados;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnectionP);
+
+      FBody := Req.Body<TJSONArray>;
+
+      if FModeloDados.Json_Update(FBody) then
+        Res.Send('Serviço Prestado alterado com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível alterar o Serviço Prestado.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 
 procedure ServicosPrestados_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId :Integer;
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TServicos_Prestados;
+  FFuncoes_Wnd :TFuncoes_Wnd;
 begin
   try
     try
+      FFuncoes_Wnd := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnectionP);
+
+      FId := 0;
+      FId := StrToIntDef(Req.Query['id'],0);
+
+      if FModeloDados.Json_Delete(FId) then
+        Res.Send('Serviço Prestado excluído com sucesso').Status(200)
+      else
+        Res.Send('Não foi possível excluir o Serviço Prestado.').Status(401);
 
     except on E: Exception do
-      raise Exception.Create(E.Message);
+      Res.Send(E.Message).Status(500);
     end;
   finally
+    FreeAndNil(FFuncoes_Wnd);
   end;
 end;
 {$EndRegion 'SERVICOS_PRESTADOS'}
