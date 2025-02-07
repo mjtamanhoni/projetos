@@ -708,10 +708,10 @@ begin
     end;
 
     Popup('Popup'+FfrmCon_Cliente.Name,'Clientes',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_Cliente.Name);
-    Popup('Popup'+FfrmCon_PrestServicos.Name,'Prestadores de Serviços',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmCon_PrestServicos.Name);
-    Popup('Popup'+FfrmCon_Empresa.Name,'Empresas',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmCon_Empresa.Name);
-    Popup('Popup'+FfrmCon_Contas.Name,'Contas',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmCon_Contas.Name);
-    Popup('Popup'+FfrmCon_TabPreco.Name,'Tabelas de Preços',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmCon_TabPreco.Name);
+    Popup('Popup'+FfrmCon_PrestServicos.Name,'Prestadores de Serviços',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_PrestServicos.Name);
+    Popup('Popup'+FfrmCon_Empresa.Name,'Empresas',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_Empresa.Name);
+    Popup('Popup'+FfrmCon_Contas.Name,'Contas',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_Contas.Name);
+    Popup('Popup'+FfrmCon_TabPreco.Name,'Tabelas de Preços',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_TabPreco.Name);
 
   end;
 

@@ -378,8 +378,8 @@ begin
     end;
 
     Popup('Popup'+FfrmCon_PrestServicos.Name,'Prestadores de Serviços',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_PrestServicos.Name);
-    Popup('Popup'+FfrmCon_Cliente.Name,'Clientes',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmCon_Cliente.Name);
-    Popup('Popup'+FfrmMov_ServPrestados_Add.Name,'Cadastro Serviços Prestados',True,CSSClass.Popup.Large).Items.Add.Nested(FfrmMov_ServPrestados_Add.Name);
+    Popup('Popup'+FfrmCon_Cliente.Name,'Clientes',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmCon_Cliente.Name);
+    Popup('Popup'+FfrmMov_ServPrestados_Add.Name,'Cadastro Serviços Prestados',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmMov_ServPrestados_Add.Name);
   end;
 
 end;
