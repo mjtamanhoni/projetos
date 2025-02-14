@@ -46,7 +46,8 @@ uses
   uCon.Empresa in 'uCon.Empresa.pas' {frmCon_Empresa},
   uCon.PrestServicos in 'uCon.PrestServicos.pas' {frmCon_PrestServicos},
   uCon.Contas in 'uCon.Contas.pas' {frmCon_Contas},
-  uFuncoes.Wnd in '..\..\..\..\Global\uFuncoes.Wnd.pas';
+  uFuncoes.Wnd in '..\..\..\..\Global\uFuncoes.Wnd.pas',
+  uCon.ServPrestados in 'uCon.ServPrestados.pas' {frmCon_ServPrestados};
 
 {$R *.res}
 

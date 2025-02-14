@@ -255,6 +255,10 @@
             <Form>frmCon_Contas</Form>
         </DCCReference>
         <DCCReference Include="..\..\..\..\Global\uFuncoes.Wnd.pas"/>
+        <DCCReference Include="uCon.ServPrestados.pas">
+            <Form>frmCon_ServPrestados</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

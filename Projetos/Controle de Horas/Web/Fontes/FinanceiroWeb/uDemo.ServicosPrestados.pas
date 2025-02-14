@@ -89,6 +89,7 @@ type
     procedure btFiltro_LocCliClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure DBGridDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FormShow(Sender: TObject);
   private
     FfrmCon_Cliente :TfrmCon_Cliente;
 
@@ -96,6 +97,7 @@ type
     FIniFiles :TIniFile;
     FHost :String;
     FPorta :String;
+    FCod_Cliente :Integer;
 
     function HoraStrToTime(AHora:String):TTime;
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -261,6 +263,28 @@ begin
 
   edFiltro_DataI.Date := StartOfTheMonth(Now);
   edFiltro_DataF.Date := EndOfTheMonth(Now);
+  FCod_Cliente := 0;
+
+end;
+
+procedure TfrmDemo_ServicosPrestados.FormShow(Sender: TObject);
+begin
+  inherited;
+  FCod_Cliente := 0;
+  
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+  begin
+    edFiltro_Cliente_ID.Text := FinanceiroWeb.Usuario_ClienteID.ToString;
+    FCod_Cliente := FinanceiroWeb.Usuario_ClienteID;
+
+    edFiltro_Cliente_ID.Tag := FinanceiroWeb.Usuario_ClienteID;
+    edFiltro_Cliente_ID.Text := FinanceiroWeb.Usuario_Cliente;
+    edFiltro_Cliente_ID.Enabled := False;
+    edFiltro_Cliente_ID.RightButton.Visible := False;
+    edFiltro_Cliente_ID.Enabled := False;
+
+    Pesquisar;
+  end;
 
 end;
 

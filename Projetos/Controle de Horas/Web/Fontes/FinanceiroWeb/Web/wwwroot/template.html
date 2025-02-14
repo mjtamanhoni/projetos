@@ -43,15 +43,17 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between w-100">
-      <div class="d-flex align-items-center">
-        <a href="index.html" class="logo d-flex align-items-center">
+      <div class="d-flex align-items-center">        
+        <a class="logo d-flex align-items-center">
           <img src="assets/img/logo.png" alt="">
           <span class="d-none d-lg-block">MJT Systems</span>
-        </a>
+        </a>        
+
         <i class="bi bi-list toggle-sidebar-btn ms-2"></i>
       </div>
       <span class="me-4">{{usuario}}</span>
     </div>
+
   </header>
 
   <!-- ======= Sidebar ======= -->
@@ -143,6 +145,13 @@
           <li>
             <a href="#" onclick="{{Callback=DemoServPrest}}">
               <i class="bi bi-circle"></i><span>Demonstrativo Serviços Prestados</span>
+            </a>
+          </li>
+        </ul>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#" onclick="{{Callback=ConServPrest}}">
+              <i class="bi bi-circle"></i><span>Consulta de Serviços Prestados</span>
             </a>
           </li>
         </ul>

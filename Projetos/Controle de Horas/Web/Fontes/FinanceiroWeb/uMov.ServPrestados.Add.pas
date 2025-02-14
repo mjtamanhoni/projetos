@@ -12,6 +12,7 @@ uses
   DataSet.Serialize,
   RESTRequest4D,
   IniFiles,
+  uFuncoes.Wnd,
 
   System.Generics.Collections, D2Bridge,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
@@ -121,6 +122,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edhr_inicioExit(Sender: TObject);
+    procedure edhr_totalExit(Sender: TObject);
+    procedure edhr_totalKeyPress(Sender: TObject; var Key: Char);
   private
     FTabela_Valor :Double;
     FEmpresaTemp: string;
@@ -146,6 +149,8 @@ type
     FfrmCon_Empresa :TfrmCon_Empresa;
     FfrmCon_Contas :TfrmCon_Contas;
     FfrmCon_TabPreco :TfrmCon_TabPreco;
+
+    FFuncoes_Wnd :TFuncoes_Wnd;
 
     procedure SalvarValoresAntesConsulta;
     procedure RestaurarValoresAposConsulta(const CampoAtualizado: string);
@@ -447,6 +452,25 @@ begin
 
 end;
 
+procedure TfrmMov_ServPrestados_Add.edhr_totalExit(Sender: TObject);
+begin
+  inherited;
+  if Trim(edhr_total.Text) = '' then
+    Exit;
+
+  edSUB_TOTAL.Text := FloatToStr(FFuncoes_Wnd.CalculaValorHora(edhr_total.Text,StrToFloatDef(Trim(StringReplace(edvlr_hora.Text,'R$','',[rfReplaceAll])),0)));
+  edSUB_TOTALChange(Sender);
+
+end;
+
+procedure TfrmMov_ServPrestados_Add.edhr_totalKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+    edsub_total.SetFocus;
+
+end;
+
 procedure TfrmMov_ServPrestados_Add.edid_clienteKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
@@ -726,6 +750,8 @@ begin
 
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
+
+  FFuncoes_Wnd := TFuncoes_Wnd.Create;
 
 end;
 

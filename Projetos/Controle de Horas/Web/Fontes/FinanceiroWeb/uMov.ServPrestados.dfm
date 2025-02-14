@@ -21,7 +21,7 @@ object frmMov_ServPrestados: TfrmMov_ServPrestados
     Height = 57
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 1024
+    ExplicitTop = -5
     object lbFiltro_Tit: TLabel
       Left = 7
       Top = 21

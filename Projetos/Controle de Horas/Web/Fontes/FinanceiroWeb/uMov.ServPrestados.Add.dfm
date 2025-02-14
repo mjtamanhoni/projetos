@@ -291,7 +291,10 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
     Top = 329
     Width = 113
     Height = 23
+    TabStop = False
     TabOrder = 14
+    OnExit = edhr_totalExit
+    OnKeyPress = edhr_totalKeyPress
   end
   object Button1: TButton
     Left = 1000

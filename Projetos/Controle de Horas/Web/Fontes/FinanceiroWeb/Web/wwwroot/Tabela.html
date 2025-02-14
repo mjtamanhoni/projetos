@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nodemailer@6.9.9/lib/client.js"></script>
+    <script src="config.js"></script>
+    <style>
+        .group-header {
+            background-color: #f0f4ff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 15px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .group-title {
+            color: #0d6efd;
+            font-weight: 600;
+        }
+
+        .group-totals {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-left: auto;
+            min-width: 300px;
+            justify-content: flex-end;
+        }
+
+        .total-hours, 
+        .total-value {
+            min-width: 120px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .group-totals .total-hours,
+        .group-totals .total-value {
+            color: #0d6efd;
+        }
+
+        .group-container.horas-pagas .total-hours,
+        .group-container.horas-pagas .total-value {
+            color: #dc3545;
+        }
+
+        .group-header i {
+            color: #0d6efd;
+            transition: transform 0.3s;
+        }
+
+        .group-header.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .group-content {
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .group-content.collapsed {
+            display: none;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 120px 100px 80px 80px 100px 100px 120px 1fr;
+            gap: 10px;
+            padding: 8px 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            min-height: 32px;
+        }
+
+        .table-header {
+            font-weight: 600;
+            color: #333;
+            min-height: 32px !important;
+            align-items: center !important;
+        }
+
+        .table-cell {
+            overflow: hidden;
+            padding: 4px 0;
+        }
+
+        .table-cell:not(:last-child) {
+            white-space: nowrap;
+        }
+
+        .table-cell:last-child {
+            white-space: normal;
+            word-wrap: break-word;
+            min-width: 200px;
+            line-height: 1.4;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .badge {
+            font-size: 0.85em;
+            padding: 5px 10px;
+        }
+
+        .total-geral {
+            text-align: right;
+            font-weight: 600;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        .total-geral.positive {
+            color: #0d6efd; /* Azul do Bootstrap */
+        }
+
+        .total-geral.negative {
+            color: #dc3545; /* Vermelho do Bootstrap */
+        }
+
+        .table-row.has-long-obs {
+            align-items: start;
+            min-height: 40px;
+        }
+
+        /* Estilo específico para o grupo de horas pagas */
+        .group-container.horas-pagas .table-row:not(.table-header) .table-cell {
+            color: #dc3545; /* Vermelho apenas para os registros */
+        }
+
+        .group-container.horas-pagas .group-header {
+            color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+        .group-container.horas-pagas .group-header .badge {
+            background-color: #dc3545 !important;
+        }
+
+        .group-container.horas-pagas .total-value {
+            color: #dc3545;
+        }
+
+        /* Garante que o cabeçalho fique preto */
+        .group-container.horas-pagas .table-header .table-cell {
+            color: #333 !important;
+        }
+
+        .total-hours {
+            font-weight: 600;
+            color: #198754; /* Verde do Bootstrap */
+        }
+
+        /* Para o grupo de horas pagas */
+        .group-container.horas-pagas .total-hours {
+            color: #dc3545;
+        }
+
+        /* Total Geral */
+        .total-geral {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+        }
+
+        .total-geral-hours {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #198754;
+        }
+
+        .total-geral-value {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .total-geral-value.positive {
+            color: #0d6efd;
+        }
+
+        .total-geral-value.negative {
+            color: #dc3545;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 10px;
+            padding: 0; /* Removido padding geral */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e6e6e6;
+        }
+
+        .card-title {
+            background-color: transparent;
+            border-bottom: none;
+            color: #2d3748;
+            font-size: 0.9em;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .card-content {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .card-values {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex-grow: 1;
+        }
+
+        .hours {
+            font-size: 1.5em;
+            font-weight: 600;
+            font-family: monospace;
+            line-height: 1;
+        }
+
+        .amount {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #0d6efd;
+            line-height: 1;
+        }
+
+        .summary-card:nth-child(3) .amount {
+            color: #dc3545;
+        }
+
+        /* Card 1 - Horas Trabalhadas (Azul) */
+        .summary-card:nth-child(1) .card-title {
+            background-color: #e8f0ff;
+            border-bottom: 1px solid #cce0ff;
+        }
+
+        /* Card 2 - Horas Acumuladas (Verde) */
+        .summary-card:nth-child(2) .card-title {
+            background-color: #e8fff0;
+            border-bottom: 1px solid #ccf5e0;
+        }
+
+        /* Card 3 - Horas Pagas (Vermelho) */
+        .summary-card:nth-child(3) .card-title {
+            background-color: #ffe8e8;
+            border-bottom: 1px solid #ffcccc;
+        }
+
+        /* Card 4 - Horas Total (Amarelo) */
+        .summary-card:nth-child(4) .card-title {
+            background-color: #fff8e8;
+            border-bottom: 1px solid #fff2cc;
+        }
+
+        .page-header {
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .page-title {
+            color: #2d3748;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .print-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+        }
+
+        .print-button i {
+            font-size: 1.1em;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+
+        /* Estilo específico para modo PDF */
+        .pdf-mode {
+            width: 100% !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 20px !important;
+            background: white;
+        }
+
+        .pdf-mode .cards-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+        }
+
+        .pdf-mode .group-container {
+            page-break-inside: avoid;
+            margin-top: 15px;
+        }
+
+        .pdf-mode .group-container:first-of-type {
+            margin-top: 0;
+        }
+
+        .pdf-mode .table-row {
+            page-break-inside: avoid;
+        }
+
+        @page {
+            size: landscape;
+            margin: 1cm;
+        }
+
+        @media print {
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 20px !important;
+            }
+        }
+
+        .group-container {
+            margin-top: 15px;
+        }
+
+        /* Ajuste específico para o primeiro grupo */
+        .group-container:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Estilos específicos para o PDF */
+        .pdf-mode .cards-container {
+            margin-bottom: 10px !important; /* Força um espaçamento menor no PDF */
+        }
+
+        .pdf-mode .group-container {
+            margin-top: 10px !important; /* Reduz o espaço entre grupos no PDF */
+        }
+
+        .pdf-mode .page-header {
+            margin-bottom: 10px !important; /* Reduz o espaço após o título */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Título da página -->
+        <div class="page-header mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="page-title">Movimento de Serviços Prestados</h1>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary print-button" onclick="generatePDF()" title="Imprimir">
+                        <i class="bi bi-printer"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="fecharJanela()" title="Fechar">
+                        <i class="bi bi-x-lg"></i>
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Área de Filtros -->
+        <div class="card mt-3 mb-4">
+            <div class="card-body">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-2">
+                        <div class="form-floating">
+                            <input type="date" class="form-control datepicker" id="edData_I" name="edData_I">
+                            <label for="edData_I">Data Inicial</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-floating">
+                            <input type="date" class="form-control datepicker" id="edData_F" name="edData_F">
+                            <label for="edData_F">Data Final</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="form-floating flex-grow-1">
+                                <input type="hidden" id="edCliente_ID" name="edCliente_ID">
+                                <input type="text" class="form-control" id="edCliente" name="edCliente" placeholder="Cliente" readonly>
+                                <label for="edCliente">Cliente</label>
+                            </div>
+                            <button class="btn btn-outline-secondary" type="button" id="btLocCliente" onclick="if(window.external) window.external.BuscarCliente()">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100" type="button" id="btPesquisa" onclick="if(window.external) window.external.Pesquisar()">
+                            <i class="bi bi-filter"></i>
+                            Pesquisar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cards container -->
+        <div class="cards-container mb-4">
+            <!-- Card 1 - Horas Trabalhadas -->
+            <div class="summary-card">
+                <div class="card-title">Horas Trabalhadas</div>
+                <div class="card-content">
+                    <div class="card-icon" style="background-color: #e8f0ff;">
+                        <i class="bi bi-clock text-primary"></i>
+                    </div>
+                    <div class="card-values">
+                        <div class="hours">046:00:00</div>
+                        <div class="amount">R$ 1.513,40</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 - Horas Acumuladas -->
+            <div class="summary-card">
+                <div class="card-title">Horas Acumuladas</div>
+                <div class="card-content">
+                    <div class="card-icon" style="background-color: #e8fff0;">
+                        <i class="bi bi-hourglass text-success"></i>
+                    </div>
+                    <div class="card-values">
+                        <div class="hours">085:53:09</div>
+                        <div class="amount">R$ 2.825,64</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 - Horas Pagas -->
+            <div class="summary-card">
+                <div class="card-title">Horas Pagas</div>
+                <div class="card-content">
+                    <div class="card-icon" style="background-color: #ffe8e8;">
+                        <i class="bi bi-cash text-danger"></i>
+                    </div>
+                    <div class="card-values">
+                        <div class="hours">000:00:00</div>
+                        <div class="amount">R$ 0,00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 - Total -->
+            <div class="summary-card">
+                <div class="card-title">Horas Total</div>
+                <div class="card-content">
+                    <div class="card-icon" style="background-color: #fff8e8;">
+                        <i class="bi bi-clock-history text-warning"></i>
+                    </div>
+                    <div class="card-values">
+                        <div class="hours">132:53:09</div>
+                        <div class="amount">R$ 4.339,04</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grupo HORAS TRABALHADAS MÊS -->
+        <div class="group-container">
+            <div class="group-header" onclick="toggleGroup(this)">
+                <i class="bi bi-chevron-down"></i>
+                <span class="group-title">HORAS TRABALHADAS MÊS</span>
+                <div class="group-totals">
+                    <span class="total-hours">40:00 hrs</span>
+                    <span class="total-value">R$ 1.316,00</span>
+                </div>
+            </div>
+            
+            <div class="group-content">
+                <div class="table-row table-header">
+                    <div class="table-cell">Data</div>
+                    <div class="table-cell">Dia</div>
+                    <div class="table-cell text-right">Início</div>
+                    <div class="table-cell text-right">Fim</div>
+                    <div class="table-cell text-right">Total Hrs</div>
+                    <div class="table-cell text-right">Vlr. Hora</div>
+                    <div class="table-cell text-right">Total</div>
+                    <div class="table-cell">Observação</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell">15/03/2025</div>
+                    <div class="table-cell">Sábado</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">10:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 329,00</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">28/02/2025</div>
+                    <div class="table-cell">Sexta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">10:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 329,00</div>
+                    <div class="table-cell">Desenvolvimento do módulo de relatórios com implementação de novos recursos solicitados pelo cliente. Realização de testes e ajustes conforme feedback da equipe.</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">15/02/2025</div>
+                    <div class="table-cell">Quinta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">8:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 263,20</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">10/02/2025</div>
+                    <div class="table-cell">Quinta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">8:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 263,20</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">03/02/2025</div>
+                    <div class="table-cell">Quinta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">4:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 131,60</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grupo HORAS EXCEDIDAS MÊS ANTERIOR -->
+        <div class="group-container">
+            <div class="group-header" onclick="toggleGroup(this)">
+                <i class="bi bi-chevron-down"></i>
+                <span class="group-title">HORAS EXCEDIDAS MÊS ANTERIOR</span>
+                <div class="group-totals">
+                    <span class="total-hours">12:00 hrs</span>
+                    <span class="total-value">R$ 789,60</span>
+                </div>
+            </div>
+            
+            <div class="group-content">
+                <div class="table-row table-header">
+                    <div class="table-cell">Data</div>
+                    <div class="table-cell">Dia</div>
+                    <div class="table-cell text-right">Início</div>
+                    <div class="table-cell text-right">Fim</div>
+                    <div class="table-cell text-right">Total Hrs</div>
+                    <div class="table-cell text-right">Vlr. Hora</div>
+                    <div class="table-cell text-right">Total</div>
+                    <div class="table-cell">Observação</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell">28/02/2024</div>
+                    <div class="table-cell">Sexta</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">22:00</div>
+                    <div class="table-cell text-right">4:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 131,60</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">27/02/2024</div>
+                    <div class="table-cell">Quinta</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">22:00</div>
+                    <div class="table-cell text-right">4:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 131,60</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">26/02/2024</div>
+                    <div class="table-cell">Quarta</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">22:00</div>
+                    <div class="table-cell text-right">4:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 131,60</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grupo HORAS PAGAS -->
+        <div class="group-container horas-pagas">
+            <div class="group-header" onclick="toggleGroup(this)">
+                <i class="bi bi-chevron-down"></i>
+                <span class="group-title">HORAS PAGAS</span>
+                <div class="group-totals">
+                    <span class="total-hours">32:00 hrs</span>
+                    <span class="total-value">R$ 1.052,80</span>
+                </div>
+            </div>
+            
+            <div class="group-content">
+                <div class="table-row table-header">
+                    <div class="table-cell">Data</div>
+                    <div class="table-cell">Dia</div>
+                    <div class="table-cell text-right">Início</div>
+                    <div class="table-cell text-right">Fim</div>
+                    <div class="table-cell text-right">Total Hrs</div>
+                    <div class="table-cell text-right">Vlr. Hora</div>
+                    <div class="table-cell text-right">Total</div>
+                    <div class="table-cell">Observação</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell">15/02/2024</div>
+                    <div class="table-cell">Quinta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">10:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 329,00</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">14/02/2024</div>
+                    <div class="table-cell">Quarta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">8:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 263,20</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">13/02/2024</div>
+                    <div class="table-cell">Quarta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">7:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 230,30</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">12/02/2024</div>
+                    <div class="table-cell">Quarta</div>
+                    <div class="table-cell text-right">08:00</div>
+                    <div class="table-cell text-right">18:00</div>
+                    <div class="table-cell text-right">7:00</div>
+                    <div class="table-cell text-right">R$ 32,90</div>
+                    <div class="table-cell text-right">R$ 230,30</div>
+                    <div class="table-cell">Reunião com cliente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Geral (Horas Trabalhadas + Horas Excedidas - Horas Pagas) -->
+        <div class="total-geral">
+            <span class="total-geral-hours">Total Horas: 20:00 hrs</span>
+            <span class="total-geral-value" id="totalGeral">Total Geral: R$ 1.052,80</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleGroup(header) {
+            header.classList.toggle('collapsed');
+            const content = header.nextElementSibling;
+            content.classList.toggle('collapsed');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = document.querySelectorAll('.table-row');
+            rows.forEach(row => {
+                const obsCell = row.querySelector('.table-cell:last-child');
+                if (obsCell && obsCell.scrollHeight > 32) {
+                    row.classList.add('has-long-obs');
+                }
+            });
+
+            updateTotalGeralColor();
+        });
+
+        // Função para atualizar a cor do total geral
+        function updateTotalGeralColor() {
+            const totalGeralElement = document.getElementById('totalGeral');
+            const valorText = totalGeralElement.textContent;
+            const valor = parseFloat(valorText.replace('Total Geral: R$ ', '').replace('.', '').replace(',', '.'));
+            
+            totalGeralElement.classList.remove('positive', 'negative');
+            totalGeralElement.classList.add(valor >= 0 ? 'positive' : 'negative');
+        }
+
+        async function generatePDF() {
+            const printButton = document.querySelector('.print-button');
+            printButton.disabled = true;
+            printButton.innerHTML = '<i class="bi bi-hourglass"></i> Gerando PDF...';
+
+            try {
+                const element = document.querySelector('.container');
+                
+                // Expande todos os grupos antes de gerar o PDF
+                const groups = document.querySelectorAll('.group-header');
+                groups.forEach(header => {
+                    const content = header.nextElementSibling;
+                    if (content.classList.contains('collapsed')) {
+                        content.classList.remove('collapsed');
+                    }
+                });
+
+                // Adiciona classe para ajustes específicos do PDF
+                element.classList.add('pdf-mode');
+
+                const opt = {
+                    margin: [0.5, 1, 1, 1], // Reduzidas as margens
+                    filename: 'servicos-prestados.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { 
+                        scale: 2,
+                        useCORS: true,
+                        logging: true
+                    },
+                    jsPDF: { 
+                        unit: 'cm', 
+                        format: 'a4', 
+                        orientation: 'landscape'
+                    }
+                };
+
+                await html2pdf().set(opt).from(element).save();
+                
+                // Recarrega a página após gerar o PDF
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000); // Aguarda 1 segundo para garantir que o PDF foi salvo
+
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao gerar PDF. Por favor, tente novamente.');
+                // Restaura o botão em caso de erro
+                printButton.disabled = false;
+                printButton.innerHTML = '<i class="bi bi-printer"></i>';
+            }
+        }
+
+        function fecharJanela() {
+            try {
+                // Tenta primeiro o método do Delphi
+                if (window.external && window.external.Close) {
+                    window.external.Close();
+                    return;
+                }
+                
+                // Tenta voltar para a página anterior
+                if (window.history.length > 1) {
+                    window.history.back();
+                    return;
+                }
+                
+                // Se não conseguir voltar, tenta fechar a janela
+                if (window.opener) {
+                    window.close();
+                    return;
+                }
+
+                // Se nada funcionar, redireciona para a página inicial
+                window.location.href = '/';
+
+            } catch (error) {
+                console.error('Erro ao fechar:', error);
+                // Última tentativa: simplesmente fecha a janela
+                window.close();
+            }
+        }
+
+        // Inicializa as datas quando o documento carregar
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const dateInputStart = document.getElementById('edData_I');
+            const dateInputEnd = document.getElementById('edData_F');
+            
+            const today = new Date();
+            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            
+            const formattedFirstDay = firstDayOfMonth.toISOString().split('T')[0];
+            const formattedLastDay = lastDayOfMonth.toISOString().split('T')[0];
+            
+            dateInputStart.value = formattedFirstDay;
+            dateInputEnd.value = formattedLastDay;
+        });
+    </script>
+</body>
+</html>

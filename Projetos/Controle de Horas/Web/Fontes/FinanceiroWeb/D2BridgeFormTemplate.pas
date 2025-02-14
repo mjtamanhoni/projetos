@@ -50,13 +50,17 @@ Uses
  ,uCad.CondPagto
  ,uCad.FormaPagto
  ,uDemo.ServicosPrestados
- ,uMov.ServPrestados;
+ ,uMov.ServPrestados
+ ,uCon.ServPrestados;
 
 
 { TD2BridgeFormTemplate }
 
 function TD2BridgeFormTemplate.AbreMenuCliente(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_Cliente = Nil then
     TfrmCad_Cliente.CreateInstance;
   frmCad_Cliente.ShowModal;
@@ -65,6 +69,9 @@ end;
 
 function TD2BridgeFormTemplate.AbreMenuCondPagto(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_CondPagto = Nil then
     TfrmCad_CondPagto.CreateInstance;
   frmCad_CondPagto.ShowModal;
@@ -73,6 +80,9 @@ end;
 
 function TD2BridgeFormTemplate.AbreMenuConta(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_Conta = Nil then
     TfrmCad_Conta.CreateInstance;
   frmCad_Conta.ShowModal;
@@ -81,6 +91,9 @@ end;
 
 function TD2BridgeFormTemplate.AbreMenuFormaPagto(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_FormaPagto = Nil then
     TfrmCad_FormaPagto.CreateInstance;
   frmCad_FormaPagto.ShowModal;
@@ -89,6 +102,9 @@ end;
 
 function TD2BridgeFormTemplate.AbreMenuFornecedor(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_Fornecedor = Nil then
     TfrmCad_Fornecedor.CreateInstance;
   frmCad_Fornecedor.ShowModal;
@@ -97,6 +113,9 @@ end;
 
 function TD2BridgeFormTemplate.AbreMenuPrestServ(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_PrestServico = Nil then
     TfrmCad_PrestServico.CreateInstance;
   frmCad_PrestServico.ShowModal;
@@ -105,6 +124,9 @@ end;
 
 function TD2BridgeFormTemplate.AbreMenuTabPreco(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_TabPreco = Nil then
     TfrmCad_TabPreco.CreateInstance;
   frmCad_TabPreco.ShowModal;
@@ -123,6 +145,9 @@ end;
 
 function TD2BridgeFormTemplate.AbrirMenuEmpresa(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_Empresa = Nil then
     TfrmCad_Empresa.CreateInstance;
   frmCad_Empresa.ShowModal;
@@ -131,6 +156,9 @@ end;
 
 function TD2BridgeFormTemplate.AbrirMenuUsuario(EventParams: TStrings): String;
 begin
+  if FinanceiroWeb.Usuario_Tipo = 2 then
+    Exit;
+
   if frmCad_Usuarios = Nil then
     TfrmCad_Usuarios.CreateInstance;
   frmCad_Usuarios.ShowModal;
@@ -143,6 +171,9 @@ begin
 
   if SameText(CallBackName,'AbrirMenuConfig') then
   begin
+    if FinanceiroWeb.Usuario_Tipo = 2 then
+      Exit;
+
     if frmConfiguracoes = Nil then
       TfrmConfiguracoes.CreateInstance;
     frmConfiguracoes.Show;
@@ -150,6 +181,9 @@ begin
 
   if SameText(CallBackName,'DemoServPrest') then
   begin
+    if FinanceiroWeb.Usuario_Tipo = 2 then
+      Exit;
+
     if frmDemo_ServicosPrestados = Nil then
       TfrmDemo_ServicosPrestados.CreateInstance;
     frmDemo_ServicosPrestados.Show;
@@ -157,10 +191,24 @@ begin
 
   if SameText(CallBackName,'MovServPrestado') then
   begin
+    if FinanceiroWeb.Usuario_Tipo = 2 then
+      Exit;
+
     if frmMov_ServPrestados = Nil then
       TfrmMov_ServPrestados.CreateInstance;
     frmMov_ServPrestados.Show;
   end;
+
+  if SameText(CallBackName,'ConServPrest') then
+  begin
+    if FinanceiroWeb.Usuario_Tipo = 2 then
+      Exit;
+
+    if frmCon_ServPrestados = Nil then
+      TfrmCon_ServPrestados.CreateInstance;
+    frmCon_ServPrestados.Show;
+  end;
+  //
 
 end;
 

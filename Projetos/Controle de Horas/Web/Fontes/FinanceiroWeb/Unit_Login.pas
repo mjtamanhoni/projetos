@@ -42,7 +42,7 @@ Function Form_Login: TForm_Login;
 implementation
 
 Uses
-   FinanceiroWebWebApp, uPrincipal;
+   FinanceiroWebWebApp, uPrincipal, uDemo.ServicosPrestados;
 
 Function Form_Login: TForm_Login;
 begin
@@ -112,27 +112,30 @@ begin
       begin
         if frmPrincipal = nil then
          TfrmPrincipal.CreateInstance;
+
+        //frmPrincipal.menuCadastro.Enabled := False;
+        //frmPrincipal.menuMovimento.Enabled := False;
+        //frmPrincipal.menuConsultas.Enabled := False;
+
+        if frmDemo_ServicosPrestados = nil then
+         TfrmDemo_ServicosPrestados.CreateInstance;
+
         {
-        frmPrincipal.menuCadastro.Enabled := False;
-        frmPrincipal.menuMovimento.Enabled := False;
-        frmPrincipal.menuConsultas.Enabled := False;
+        frmDemo_ServicosPrestados.menuCadastro.Enabled := False;
+        frmDemo_ServicosPrestados.menuMovimento.Enabled := False;
+        frmDemo_ServicosPrestados.menuConsultas.Enabled := False;
 
-        if frmCon_ServicosPrestados = nil then
-         TfrmCon_ServicosPrestados.CreateInstance;
 
-        frmCon_ServicosPrestados.menuCadastro.Enabled := False;
-        frmCon_ServicosPrestados.menuMovimento.Enabled := False;
-        frmCon_ServicosPrestados.menuConsultas.Enabled := False;
-
-        frmCon_ServicosPrestados.edFiltro_Cliente_ID.Text := FinanceiroWeb.Usuario_ClienteID.ToString;
-        frmCon_ServicosPrestados.edFiltro_Cliente.Text := FinanceiroWeb.Usuario_Cliente;
-        frmCon_ServicosPrestados.edFiltro_Cliente_ID.Enabled := False;
-        frmCon_ServicosPrestados.edFiltro_Cliente_ID.RightButton.Visible := False;
-        frmCon_ServicosPrestados.edFiltro_Cliente.Enabled := False;
-        frmCon_ServicosPrestados.Pesquisar;
-
-        frmCon_ServicosPrestados.Show;
+        frmDemo_ServicosPrestados.edFiltro_Cliente_ID.Text := FinanceiroWeb.Usuario_ClienteID.ToString;
+        frmDemo_ServicosPrestados.edFiltro_Cliente_ID.Text := FinanceiroWeb.Usuario_Cliente;
+        frmDemo_ServicosPrestados.edFiltro_Cliente_ID.Enabled := False;
+        frmDemo_ServicosPrestados.edFiltro_Cliente_ID.RightButton.Visible := False;
+        frmDemo_ServicosPrestados.edFiltro_Cliente_ID.Enabled := False;
+        frmDemo_ServicosPrestados.Pesquisar;
         }
+
+        frmDemo_ServicosPrestados.ShowModal;
+
       end
       else
       begin

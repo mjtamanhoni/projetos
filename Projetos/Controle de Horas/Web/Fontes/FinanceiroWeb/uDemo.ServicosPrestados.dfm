@@ -12,6 +12,7 @@ object frmDemo_ServicosPrestados: TfrmDemo_ServicosPrestados
   Font.Style = []
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object pnFiltro: TPanel
     Left = 0
@@ -103,7 +104,7 @@ object frmDemo_ServicosPrestados: TfrmDemo_ServicosPrestados
     object lbHr_Trab_Tit: TLabel
       Left = 16
       Top = 16
-      Width = 96
+      Width = 97
       Height = 15
       Caption = 'Horas Trabalhadas'
     end
@@ -169,7 +170,7 @@ object frmDemo_ServicosPrestados: TfrmDemo_ServicosPrestados
     object lbHr_Tot_Tit: TLabel
       Left = 256
       Top = 16
-      Width = 75
+      Width = 76
       Height = 15
       Caption = 'Total de Horas'
     end
@@ -298,6 +299,22 @@ object frmDemo_ServicosPrestados: TfrmDemo_ServicosPrestados
       end
       item
         Expanded = False
+        FieldName = 'total'
+        Title.Alignment = taCenter
+        Title.Caption = 'Total'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'conta'
+        Title.Alignment = taCenter
+        Title.Caption = 'Conta'
+        Width = 300
+        Visible = True
+      end
+      item
+        Expanded = False
         FieldName = 'desconto'
         Title.Alignment = taCenter
         Title.Caption = 'Desconto'
@@ -314,26 +331,9 @@ object frmDemo_ServicosPrestados: TfrmDemo_ServicosPrestados
       end
       item
         Expanded = False
-        FieldName = 'total'
+        FieldName = 'descricao'
         Title.Alignment = taCenter
-        Title.Caption = 'Total'
-        Width = 100
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'idConta'
-        Title.Alignment = taCenter
-        Title.Caption = 'Conta ID'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'conta'
-        Title.Alignment = taCenter
-        Title.Caption = 'Conta'
-        Width = 300
-        Visible = True
+        Visible = False
       end
       item
         Expanded = False
@@ -343,9 +343,10 @@ object frmDemo_ServicosPrestados: TfrmDemo_ServicosPrestados
       end
       item
         Expanded = False
-        FieldName = 'descricao'
+        FieldName = 'idConta'
         Title.Alignment = taCenter
-        Visible = False
+        Title.Caption = 'Conta ID'
+        Visible = True
       end
       item
         Expanded = False
