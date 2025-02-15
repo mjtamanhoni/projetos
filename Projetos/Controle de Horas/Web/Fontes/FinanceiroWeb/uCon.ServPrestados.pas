@@ -35,6 +35,7 @@ type
     edData_F: TDateTimePicker;
     edCliente: TButtonedEdit;
     btFechar: TButton;
+    Memo_HTML: TMemo;
     procedure btFecharClick(Sender: TObject);
     procedure edClienteRightButtonClick(Sender: TObject);
     procedure WebViewExecuteScript(Sender: TCustomEdgeBrowser; AResult: string);
@@ -129,9 +130,11 @@ begin
     FHr_Acul_Vlr := FormatFloat('R$ #,##0.00',FBody_VlrMesAnterior.GetValue<Double>('valor',0));
   {$EndRegion 'Valores do Mês Anterior'}
 
+  Memo_HTML.Lines.Clear;
 
  //HTMLElement
-  with vDataTables do
+  //with vDataTables do
+  with Memo_HTML.Lines do
   begin
     add('<!DOCTYPE html>');
     add('<html>');
@@ -978,7 +981,8 @@ begin
 
   end;
 
-  Result := vDataTables.Text;
+  //Result := vDataTables.Text;
+  Result := Memo_HTML.Lines.Text;
 
 end;
 
@@ -990,7 +994,7 @@ end;
 procedure TfrmCon_ServPrestados.edClienteRightButtonClick(Sender: TObject);
 begin
   BuildDataTable;
-  PrismSession.Reloading;
+  //PrismSession.Reloading;
 end;
 
 procedure TfrmCon_ServPrestados.ExportD2Bridge;
@@ -1024,6 +1028,8 @@ begin
 
     with Row.Items.Add do
       HTMLElement(BuildDataTable);
+
+    VCLObj(Memo_HTML);
 
   end;
 

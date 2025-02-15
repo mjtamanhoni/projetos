@@ -74,6 +74,16 @@ object frmCon_ServPrestados: TfrmCon_ServPrestados
       OnClick = btFecharClick
     end
   end
+  object Memo_HTML: TMemo
+    Left = 408
+    Top = 272
+    Width = 185
+    Height = 89
+    Lines.Strings = (
+      'Memo_HTML')
+    TabOrder = 1
+    Visible = False
+  end
   object ImageList: TImageList
     Left = 792
     Top = 344
