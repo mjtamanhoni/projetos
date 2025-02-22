@@ -110,6 +110,7 @@ procedure RegistrarRotas;
   procedure ServicosPrestados_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure ServicosPrestados_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure ServicosPrestados_Apres(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure ServicosPrestados_Agrup(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 {$EndRegion 'SERVICOS_PRESTADOS'}
 
 implementation
@@ -1801,6 +1802,85 @@ begin
     end;
   finally
     FreeAndNil(FFuncoes_Wnd);
+  end;
+end;
+
+procedure ServicosPrestados_Agrup(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FEmpresa_ID :Integer;
+  FPrestador_ID :Integer;
+  FCliente_ID :Integer;
+  FData_I :TDate;
+  FData_F :TDate;
+  FPagina :Integer;
+  FPaginas :Integer;
+  FDateStr_I :String;
+  FDateStr_F :String;
+
+  FDM_Global_Wnd :TDM_Global_Wnd;
+  FModeloDados :TServicos_Prestados;
+
+  FJSon_Retorno :TJSONObject;
+  FFuncoes :TFuncoes_Wnd;
+
+
+begin
+  try
+    try
+      FFuncoes := TFuncoes_Wnd.Create;
+
+      FDM_Global_Wnd := TDM_Global_Wnd.Create(Nil);
+      FModeloDados := TServicos_Prestados.Create(FDM_Global_Wnd.FDConnectionP);
+
+      FEmpresa_ID := 0;
+      FPrestador_ID := 0;
+      FCliente_ID := 0;
+      FData_I := 0;
+      FData_F := 0;
+      FPagina := 0;
+      FPaginas := 0;
+
+      FEmpresa_ID := StrToIntDef(Req.Query['empresa'],0);
+      FPrestador_ID := StrToIntDef(Req.Query['prestador'],0);
+      FCliente_ID := StrToIntDef(Req.Query['cliente'],0);
+      FDateStr_I := FFuncoes.DataFormatoLocal(Req.Query['dataI']);
+      FDateStr_F := FFuncoes.DataFormatoLocal(Req.Query['dataF']);
+
+      FData_I := StrToDateDef(FDateStr_I,0);
+      FData_F := StrToDateDef(FDateStr_F,0);
+
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FModeloDados.JSon_Apresentacao(
+        FPagina
+        ,FPaginas
+        ,FEmpresa_ID
+        ,FPrestador_ID
+        ,FCliente_ID
+        ,FData_I
+        ,FData_F);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar os Serviços Prestados.').Status(401);
+        FFuncoes.Gravar_Log('','','','Não há apresentação a ser exibida');
+      end
+      else
+      begin
+        Res.Send<TJSONObject>(FJSon_Retorno).Status(200);
+        FFuncoes.Gravar_Log('','','','Apresentação obtida com sucesso');
+      end;
+
+    except on E: Exception do
+      begin
+        Res.Send(E.Message).Status(500);
+        FFuncoes.Gravar_Log('','','','Erro ao obter uma apresentação de Serviços Prestados: ' + E.Message);
+      end;
+    end;
+  finally
+    FreeAndNil(FDM_Global_Wnd);
+    FreeAndNil(FModeloDados);
   end;
 end;
 {$EndRegion 'SERVICOS_PRESTADOS'}

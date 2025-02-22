@@ -34,9 +34,33 @@ type
     edData_I: TDateTimePicker;
     edData_F: TDateTimePicker;
     edCliente: TButtonedEdit;
-    btFechar: TButton;
+    btPesquisa: TButton;
     Memo_HTML: TMemo;
-    procedure btFecharClick(Sender: TObject);
+    lbHrAcum_Hr: TLabel;
+    lbHrAcum_Vlr: TLabel;
+    gbHorasAcumuladas: TGroupBox;
+    gbHorasTrabalhadas: TGroupBox;
+    lbHr_Trab_Vlr: TLabel;
+    lbHr_Trab_Hr: TLabel;
+    gbHorasPagas: TGroupBox;
+    lbHr_Pagas_Vlr: TLabel;
+    lbHr_Pagas_Hr: TLabel;
+    gbHorasTotal: TGroupBox;
+    lbHr_Total_Vlr: TLabel;
+    lbHr_Total_Hr: TLabel;
+    gbHrTrab_Grupo: TGroupBox;
+    lbHr_Trab_VlrG: TLabel;
+    lbHr_Trab_HrG: TLabel;
+    gbHr_Acum_Grupo: TGroupBox;
+    lbHrAcum_VlrG: TLabel;
+    lbHrAcum_HrG: TLabel;
+    GroupBox1: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    gbHorasTotal_F: TGroupBox;
+    lbHr_Total_Vlr_F: TLabel;
+    lbHr_Total_Hr_F: TLabel;
+    procedure btPesquisaClick(Sender: TObject);
     procedure edClienteRightButtonClick(Sender: TObject);
     procedure WebViewExecuteScript(Sender: TCustomEdgeBrowser; AResult: string);
     procedure FormCreate(Sender: TObject);
@@ -91,10 +115,65 @@ begin
   result:= TfrmCon_ServPrestados(TfrmCon_ServPrestados.GetInstance);
 end;
 
-procedure TfrmCon_ServPrestados.btFecharClick(Sender: TObject);
+procedure TfrmCon_ServPrestados.btPesquisaClick(Sender: TObject);
+var
+  FBody :TJSONObject;
+  FBody_VlrMesAnterior :TJSONObject;
+  FBody_VlrCliente :TJSONObject;
+  FBody_VlrMesAtual :TJSONObject;
+  FBody_VlrPagas :TJSONObject;
+  FBodFBody_VlrMesAtualy_VlrTotal :TJSONObject;
+  FBody_Lancamentos :TJSONArray;
+
 begin
   //Close;
-  BuildDataTable;
+  //BuildDataTable;
+
+  FBody := Pesquisar;
+
+  if FBody = Nil then
+    Exit;
+
+  lbHrAcum_Hr.Caption := '';
+  lbHrAcum_Vlr.Caption := '';
+  lbHrAcum_HrG.Caption := '';
+  lbHrAcum_VlrG.Caption := '';
+
+  lbHr_Trab_Hr.Caption := '';
+  lbHr_Trab_Vlr.Caption := '';
+  lbHr_Trab_HrG.Caption := '';
+  lbHr_Trab_VlrG.Caption := '';
+
+  lbHr_Pagas_Hr.Caption := '';
+  lbHr_Pagas_Vlr.Caption := '';
+
+  lbHr_Total_Hr.Caption := '';
+  lbHr_Total_Vlr.Caption := '';
+
+  FBody_VlrMesAnterior := FBody.GetValue<TJSONObject>('valoresMesAnterior',Nil);
+  lbHrAcum_Hr.Caption := FBody_VlrMesAnterior.GetValue<String>('horas','00:00:00');
+  lbHrAcum_Vlr.Caption := FormatFloat('R$ #,##0.00',FBody_VlrMesAnterior.GetValue<Double>('valor',0));
+  lbHrAcum_HrG.Caption := FBody_VlrMesAnterior.GetValue<String>('horas','00:00:00') + ' hrs';
+  lbHrAcum_VlrG.Caption := FormatFloat('R$ #,##0.00',FBody_VlrMesAnterior.GetValue<Double>('valor',0));
+
+  FBody_VlrMesAtual := FBody.GetValue<TJSONObject>('valoresMesAtual',Nil);
+  lbHr_Trab_Hr.Caption := FBody_VlrMesAtual.GetValue<String>('horas','00:00:00');
+  lbHr_Trab_Vlr.Caption := FormatFloat('R$ #,##0.00',FBody_VlrMesAtual.GetValue<Double>('valor',0));
+  lbHr_Trab_HrG.Caption := FBody_VlrMesAtual.GetValue<String>('horas','00:00:00') + ' hrs';
+  lbHr_Trab_VlrG.Caption := FormatFloat('R$ #,##0.00',FBody_VlrMesAtual.GetValue<Double>('valor',0));
+
+  {
+  FBody_VlrPagas := FBody.GetValue<TJSONObject>('valoresMesAtual',Nil);
+  lbHr_Pagas_Hr.Caption := FBody_VlrMesAnterior.GetValue<String>('horas','00:00:00');
+  lbHr_Pagas_Vlr.Caption := FormatFloat('R$ 0,00',FBody_VlrMesAnterior.GetValue<Double>('valor',0));
+  }
+
+  FBody_VlrPagas := FBody.GetValue<TJSONObject>('totais',Nil);
+  lbHr_Total_Hr.Caption := FBody_VlrPagas.GetValue<String>('horas','00:00:00');
+  lbHr_Total_Vlr.Caption := FormatFloat('R$ #,##0.00',FBody_VlrPagas.GetValue<Double>('valor',0));
+  lbHr_Total_Hr_F.Caption := 'Total Horas: ' + FBody_VlrPagas.GetValue<String>('horas','00:00:00') + ' hrs';
+  lbHr_Total_Vlr_F.Caption := 'Total Geral: ' + FormatFloat('R$ #,##0.00',FBody_VlrPagas.GetValue<Double>('valor',0));
+
 end;
 
 function TfrmCon_ServPrestados.BuildDataTable: string;
@@ -607,7 +686,7 @@ begin
     add('                        <i class="bi bi-hourglass text-success"></i>');
     add('                    </div>');
     add('                    <div class="card-values">');
-    add('                        <div class="hours">'+FHr_Acul_Hr+'</div>');
+    add('                        <div class="hours">{%lbHrAcumuladas_Hr%}</div>');
     add('                        <div class="amount">'+FHr_Acul_Vlr+'</div>');
     add('                    </div>');
     add('                </div>');
@@ -1005,7 +1084,7 @@ begin
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
   //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
-  //D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := 'Tabela.html';
 
   with D2Bridge.Items.add do
   begin
@@ -1026,10 +1105,32 @@ begin
       end;
     end;
 
-    with Row.Items.Add do
-      HTMLElement(BuildDataTable);
+    VCLObj(lbHrAcum_Hr);
+    VCLObj(lbHrAcum_Vlr);
+    VCLObj(lbHrAcum_HrG);
+    VCLObj(lbHrAcum_VlrG);
 
-    VCLObj(Memo_HTML);
+    VCLObj(lbHr_Trab_Hr);
+    VCLObj(lbHr_Trab_Vlr);
+    VCLObj(lbHr_Trab_HrG);
+    VCLObj(lbHr_Trab_VlrG);
+
+    VCLObj(lbHr_Pagas_Hr);
+    VCLObj(lbHr_Pagas_Vlr);
+
+    VCLObj(lbHr_Total_Hr);
+    VCLObj(lbHr_Total_Vlr);
+    VCLObj(lbHr_Total_Hr_F);
+    VCLObj(lbHr_Total_Vlr_F);
+
+    VCLObj(btPesquisa);
+
+
+
+    //with Row.Items.Add do
+    //  HTMLElement(BuildDataTable);
+
+    //VCLObj(Memo_HTML);
 
   end;
 

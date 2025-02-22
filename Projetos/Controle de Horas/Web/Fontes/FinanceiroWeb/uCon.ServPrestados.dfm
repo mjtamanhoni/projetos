@@ -64,25 +64,299 @@ object frmCon_ServPrestados: TfrmCon_ServPrestados
       TabOrder = 2
       OnRightButtonClick = edClienteRightButtonClick
     end
-    object btFechar: TButton
+    object btPesquisa: TButton
       Left = 768
       Top = 13
       Width = 75
       Height = 25
-      Caption = 'Fechar'
+      Caption = 'Pesquisar'
       TabOrder = 3
-      OnClick = btFecharClick
+      OnClick = btPesquisaClick
     end
   end
   object Memo_HTML: TMemo
-    Left = 408
-    Top = 272
-    Width = 185
-    Height = 89
+    Left = 562
+    Top = 421
+    Width = 239
+    Height = 52
     Lines.Strings = (
       'Memo_HTML')
     TabOrder = 1
     Visible = False
+  end
+  object gbHorasAcumuladas: TGroupBox
+    Left = 159
+    Top = 55
+    Width = 137
+    Height = 89
+    Caption = 'Horas Acumuladas'
+    TabOrder = 2
+    object lbHrAcum_Vlr: TLabel
+      Left = 22
+      Top = 49
+      Width = 53
+      Height = 21
+      Caption = 'R$ 0,00'
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+    end
+    object lbHrAcum_Hr: TLabel
+      Left = 22
+      Top = 22
+      Width = 60
+      Height = 21
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object gbHorasTrabalhadas: TGroupBox
+    Left = 16
+    Top = 55
+    Width = 137
+    Height = 89
+    Caption = 'Horas Trabalhadas'
+    TabOrder = 3
+    object lbHr_Trab_Vlr: TLabel
+      Left = 22
+      Top = 49
+      Width = 53
+      Height = 21
+      Caption = 'R$ 0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbHr_Trab_Hr: TLabel
+      Left = 22
+      Top = 18
+      Width = 60
+      Height = 21
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object gbHorasPagas: TGroupBox
+    Left = 302
+    Top = 55
+    Width = 137
+    Height = 89
+    Caption = 'Horas Pagas'
+    TabOrder = 4
+    object lbHr_Pagas_Vlr: TLabel
+      Left = 22
+      Top = 53
+      Width = 53
+      Height = 21
+      Caption = 'R$ 0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 8947967
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbHr_Pagas_Hr: TLabel
+      Left = 22
+      Top = 22
+      Width = 60
+      Height = 21
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object gbHorasTotal: TGroupBox
+    Left = 445
+    Top = 55
+    Width = 137
+    Height = 89
+    Caption = 'Horas Total'
+    TabOrder = 5
+    object lbHr_Total_Vlr: TLabel
+      Left = 22
+      Top = 49
+      Width = 53
+      Height = 21
+      Caption = 'R$ 0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbHr_Total_Hr: TLabel
+      Left = 22
+      Top = 22
+      Width = 60
+      Height = 21
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object gbHrTrab_Grupo: TGroupBox
+    Left = 16
+    Top = 150
+    Width = 185
+    Height = 75
+    Caption = 'Horas Trabalhadas Grupo'
+    TabOrder = 6
+    object lbHr_Trab_VlrG: TLabel
+      Left = 22
+      Top = 44
+      Width = 37
+      Height = 15
+      Caption = 'R$ 0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbHr_Trab_HrG: TLabel
+      Left = 22
+      Top = 18
+      Width = 42
+      Height = 15
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object gbHr_Acum_Grupo: TGroupBox
+    Left = 207
+    Top = 150
+    Width = 185
+    Height = 75
+    Caption = 'Horas Acumuladas Grupo'
+    TabOrder = 7
+    object lbHrAcum_VlrG: TLabel
+      Left = 22
+      Top = 44
+      Width = 37
+      Height = 15
+      Caption = 'R$ 0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbHrAcum_HrG: TLabel
+      Left = 22
+      Top = 18
+      Width = 42
+      Height = 15
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 398
+    Top = 150
+    Width = 185
+    Height = 75
+    Caption = 'Horas Acumuladas Grupo'
+    TabOrder = 8
+    object Label1: TLabel
+      Left = 22
+      Top = 44
+      Width = 37
+      Height = 15
+      Caption = 'R$ 0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 22
+      Top = 18
+      Width = 42
+      Height = 15
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 16744448
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object gbHorasTotal_F: TGroupBox
+    Left = 589
+    Top = 150
+    Width = 185
+    Height = 75
+    Caption = 'Horas Acumuladas Grupo'
+    TabOrder = 9
+    object lbHr_Total_Vlr_F: TLabel
+      Left = 22
+      Top = 44
+      Width = 43
+      Height = 17
+      Caption = 'R$ 0,00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lbHr_Total_Hr_F: TLabel
+      Left = 22
+      Top = 18
+      Width = 48
+      Height = 17
+      Caption = '00:00:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
   end
   object ImageList: TImageList
     Left = 792

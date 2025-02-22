@@ -306,7 +306,7 @@ object frmMov_ServPrestados_Add: TfrmMov_ServPrestados_Add
   end
   object btConfirmar: TButton
     Left = 209
-    Top = 533
+    Top = 540
     Width = 75
     Height = 25
     Caption = 'Confirmar'

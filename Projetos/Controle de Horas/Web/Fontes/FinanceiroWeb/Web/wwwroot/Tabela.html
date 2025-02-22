@@ -179,14 +179,14 @@
         }
 
         .total-geral-hours {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #198754;
+            font-size: 1.1em !important;
+            font-weight: 600 !important;
+            color: #198754 !important;
         }
 
         .total-geral-value {
-            font-size: 1.1em;
-            font-weight: 600;
+            font-size: 1.1em !important;
+            font-weight: 600 !important;
         }
 
         .total-geral-value.positive {
@@ -250,7 +250,7 @@
         }
 
         .hours {
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: 600;
             font-family: monospace;
             line-height: 1;
@@ -434,10 +434,11 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary w-100" type="button" id="btPesquisa" onclick="if(window.external) window.external.Pesquisar()">
+                        <button class="btn btn-primary w-100" type="button" id="btPesquisa">Pesquisar</button>
+                        <!--<button class="btn btn-primary w-100" type="button" id="btPesquisa" onclick="if(window.external) window.external.Pesquisar()">
                             <i class="bi bi-filter"></i>
                             Pesquisar
-                        </button>
+                        </button>-->
                     </div>
                 </div>
             </div>
@@ -453,8 +454,8 @@
                         <i class="bi bi-clock text-primary"></i>
                     </div>
                     <div class="card-values">
-                        <div class="hours">046:00:00</div>
-                        <div class="amount">R$ 1.513,40</div>
+                        <div class="hours">{%lbHr_Trab_Hr class="hours"%}</div>
+                        <div class="amount">{%lbHr_Trab_Vlr class="amount"%}</div>
                     </div>
                 </div>
             </div>
@@ -467,8 +468,8 @@
                         <i class="bi bi-hourglass text-success"></i>
                     </div>
                     <div class="card-values">
-                        <div class="hours">085:53:09</div>
-                        <div class="amount">R$ 2.825,64</div>
+                        <div class="hours">{%lbHrAcum_Hr class="hours"%}</div>
+                        <div class="amount">{%lbHrAcum_Vlr class="amount"%}</div>
                     </div>
                 </div>
             </div>
@@ -481,8 +482,8 @@
                         <i class="bi bi-cash text-danger"></i>
                     </div>
                     <div class="card-values">
-                        <div class="hours">000:00:00</div>
-                        <div class="amount">R$ 0,00</div>
+                        <div class="hours">{%lbHr_Pagas_Hr = class="hours"%}</div>
+                        <div class="amount">{%lbHr_Pagas_Vlr = class="amount"%}</div>
                     </div>
                 </div>
             </div>
@@ -495,8 +496,8 @@
                         <i class="bi bi-clock-history text-warning"></i>
                     </div>
                     <div class="card-values">
-                        <div class="hours">132:53:09</div>
-                        <div class="amount">R$ 4.339,04</div>
+                        <div class="hours">{%lbHr_Total_Hr = class="hours"%}</div>
+                        <div class="amount">{%lbHr_Total_Vlr = class="amount"%}</div>
                     </div>
                 </div>
             </div>
@@ -508,8 +509,8 @@
                 <i class="bi bi-chevron-down"></i>
                 <span class="group-title">HORAS TRABALHADAS MÊS</span>
                 <div class="group-totals">
-                    <span class="total-hours">40:00 hrs</span>
-                    <span class="total-value">R$ 1.316,00</span>
+                    <span class="total-hours">{%lbHr_Trab_HrG class="group-totals .total-hours"%}</span>
+                    <span class="total-value">{%lbHr_Trab_VlrG class="group-totals .total-value"%}</span>
                 </div>
             </div>
             
@@ -584,8 +585,8 @@
                 <i class="bi bi-chevron-down"></i>
                 <span class="group-title">HORAS EXCEDIDAS MÊS ANTERIOR</span>
                 <div class="group-totals">
-                    <span class="total-hours">12:00 hrs</span>
-                    <span class="total-value">R$ 789,60</span>
+                    <span class="total-hours">{%lbHrAcum_HrG%}</span>
+                    <span class="total-value">{%lbHrAcum_VlrG%}</span>
                 </div>
             </div>
             
@@ -702,8 +703,8 @@
 
         <!-- Total Geral (Horas Trabalhadas + Horas Excedidas - Horas Pagas) -->
         <div class="total-geral">
-            <span class="total-geral-hours">Total Horas: 20:00 hrs</span>
-            <span class="total-geral-value" id="totalGeral">Total Geral: R$ 1.052,80</span>
+            <span class="total-geral-hours">{%lbHr_Total_Hr_F class="total-geral-hours"%}</span>
+            <span class="total-geral-value" id="totalGeral">{%lbHr_Total_Vlr_F class="total-geral-value"%}</span>
         </div>
     </div>
 
