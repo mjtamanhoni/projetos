@@ -101,7 +101,7 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
   object lbTELEFONE: TLabel
     Left = 17
     Top = 164
-    Width = 44
+    Width = 45
     Height = 15
     Caption = 'Telefone'
   end
@@ -129,7 +129,7 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
   object lbID_TAB_PRECO: TLabel
     Left = 8
     Top = 250
-    Width = 54
+    Width = 55
     Height = 15
     Caption = 'Tab. Pre'#231'o'
   end
@@ -281,7 +281,7 @@ object frmCad_Cliente_Add: TfrmCad_Cliente_Add
     TabOrder = 14
   end
   object btConfirmar: TButton
-    Left = 326
+    Left = 323
     Top = 369
     Width = 100
     Height = 30

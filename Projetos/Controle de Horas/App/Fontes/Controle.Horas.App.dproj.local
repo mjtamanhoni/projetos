@@ -290,6 +290,8 @@
     <File Path="Frame\uFrame.FormaPagto.fmx"/>
     <File Path="Frame\uFrame.LancFinanceiro.pas"/>
     <File Path="Frame\uFrame.LancFinanceiro.fmx"/>
+    <File Path="Frame\uFrame.LancFinanceiro_F.pas"/>
+    <File Path="Frame\uFrame.LancFinanceiro_F.fmx"/>
     <File Path="Frame\uFrame.LancFinanceiro_H.pas"/>
     <File Path="Frame\uFrame.LancFinanceiro_H.fmx"/>
     <File Path="Frame\uFrame.PrestServico.pas"/>
@@ -304,8 +306,6 @@
     <File Path="Frame\uFrame.TabelaPreco.fmx"/>
     <File Path="Frame\uFrame.Usuario.pas"/>
     <File Path="Frame\uFrame.Usuario.fmx"/>
-    <File Path="Frame\uFrame.LancFinanceiro_F.pas"/>
-    <File Path="Frame\uFrame.LancFinanceiro_F.fmx"/>
     <File Path="Units"/>
     <File Path="Units\uModelo.Dados.pas"/>
     <File Path="uCad.Cliente.pas"/>
