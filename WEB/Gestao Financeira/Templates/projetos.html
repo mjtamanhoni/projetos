@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Gestão Financeira - Projetos</title>
+    <!-- Suporte HTML5 Shim e Respond.js para IE11 com elementos HTML5 e media queries -->
+    <!-- AVISO: Respond.js não funciona se você visualizar a página via file:// -->
+    <!--[if lt IE 11]>
+    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Phoenixcoded" />
+    <!-- Ícone Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/plugins/dataTables.bootstrap4.min.css">
+    <!-- CSS de terceiros -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    
+
+</head>
+<body class="" style="background-color: rgb(237, 234, 213);">
+	<!-- [ Pré-carregador ] início -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pré-carregador ] Fim -->
+
+
+<!-- [ Conteúdo Principal ] início -->
+<div class="container-fluid" style="padding-top: 30px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Lista de Projetos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <button class="btn btn-success btn-sm btn-round has-ripple" data-bs-toggle="modal" data-bs-target="#modal-report" type="button" id="btNovo"><i class="feather icon-plus"></i> Adicionar Projeto</button>
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <button class="btn btn-block btn-primary mb-4" style="border-radius: 25px; padding: 12px 40px;" type="button" id="btListar">Listar</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descrição</th>
+                                    <th>Status</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>001</td>
+                                    <td>Sistema de Gestão Financeira</td>
+                                    <td><span class="badge badge-light-success">Ativo</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm"><i class="feather icon-edit"></i>&nbsp;Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm"><i class="feather icon-trash-2"></i>&nbsp;Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>Portal do Cliente</td>
+                                    <td><span class="badge badge-light-warning">Em Desenvolvimento</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm"><i class="feather icon-edit"></i>&nbsp;Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm"><i class="feather icon-trash-2"></i>&nbsp;Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>003</td>
+                                    <td>App Mobile</td>
+                                    <td><span class="badge badge-light-secondary">Pausado</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm"><i class="feather icon-edit"></i>&nbsp;Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm"><i class="feather icon-trash-2"></i>&nbsp;Excluir</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Projeto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>Informações do Projeto</h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Codigo">Código</label>
+                                <input type="text" class="form-control" id="Codigo" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="floating-label" for="Nome">Nome</label>
+                                <input type="text" class="form-control" id="Nome" placeholder="Digite o nome do projeto">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="floating-label" for="Descricao">Descrição</label>
+                                <textarea class="form-control" id="Descricao" rows="3" placeholder="Digite a descrição do projeto"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="floating-label" for="DataInicio">Data Início</label>
+                                <input type="date" class="form-control" id="DataInicio" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="floating-label" for="DataFim">Data Fim</label>
+                                <input type="date" class="form-control" id="DataFim" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Status">Status</label>
+                                <select class="form-control" id="Status">
+                                    <option value=""></option>
+                                    <option value="ativo">Ativo</option>
+                                    <option value="andamento">Em Andamento</option>
+                                    <option value="concluido">Concluído</option>
+                                    <option value="cancelado">Cancelado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Responsavel">Responsável</label>
+                                <input type="text" class="form-control" id="Responsavel" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary">Salvar</button>
+                            <button class="btn btn-danger">Limpar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ Conteúdo Principal ] fim -->
+
+<!-- JavaScript Obrigatório -->
+<script src="assets/js/vendor-all.min.js"></script>
+<script src="assets/js/plugins/bootstrap.min.js"></script>
+<script src="assets/js/ripple.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+
+<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+<script>
+    // Início DataTable
+    $('#report-table').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "Nenhum registro encontrado",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered": "(filtrado de _MAX_ registros totais)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primeiro",
+                "last": "Último",
+                "next": "Próximo",
+                "previous": "Anterior"
+            }
+        }
+    });
+    // Fim DataTable
+</script>
+
+</body>
+
+</html>

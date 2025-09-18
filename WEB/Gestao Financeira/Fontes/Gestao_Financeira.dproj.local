@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/09/10 10:31:21.000.698,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uPrincipal.dfm</Transaction>
+    <Transaction>2025/09/10 10:31:21.000.698,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uPrincipal.pas</Transaction>
+    <Transaction>2025/09/11 06:44:47.000.537,=C:\Developer\Projetos\Global\uFuncoes.Gerais.pas</Transaction>
+    <Transaction>2025/09/11 06:46:15.000.598,=C:\Developer\Projetos\Global\uCalculadoraExpressao.pas</Transaction>
+    <Transaction>2025/09/11 08:53:59.000.764,=C:\Developer\Projetos\Global\uValidacaoDocumentos.pas</Transaction>
+    <Transaction>2025/09/11 09:02:38.000.411,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/11 09:03:21.000.207,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/11 09:03:21.000.207,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/11 09:03:37.000.852,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/11 09:05:31.000.643,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Cad.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/11 09:05:31.000.643,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Cad.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/12 10:51:31.000.564,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/12 10:55:36.000.657,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Loc.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/12 10:55:36.000.657,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Loc.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/12 17:46:10.000.172,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Cad.pas</Transaction>
+    <Transaction>2025/09/12 17:46:18.000.178,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Loc.pas</Transaction>
+    <Transaction>2025/09/12 17:46:18.000.232,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.pas</Transaction>
+    <Transaction>2025/09/12 17:46:30.000.219,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Cad.pas=</Transaction>
+    <Transaction>2025/09/12 17:46:38.000.569,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Loc.pas=</Transaction>
+    <Transaction>2025/09/12 17:46:43.000.693,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.pas=</Transaction>
+    <Transaction>2025/09/12 17:51:24.000.757,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.pas</Transaction>
+    <Transaction>2025/09/12 17:51:24.000.437,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Cad.pas</Transaction>
+    <Transaction>2025/09/12 17:51:24.000.584,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Loc.pas</Transaction>
+    <Transaction>2025/09/12 17:52:14.000.993,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Cad.pas=</Transaction>
+    <Transaction>2025/09/12 17:52:15.000.204,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.pas=</Transaction>
+    <Transaction>2025/09/12 17:52:15.000.099,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Loc.pas=</Transaction>
+    <Transaction>2025/09/12 20:47:06.000.655,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uPublicSchema.pas</Transaction>
+    <Transaction>2025/09/12 20:47:35.000.564,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uPublicSchema.pas=</Transaction>
+    <Transaction>2025/09/15 20:23:56.437,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTipo_Formulario.pas</Transaction>
+    <Transaction>2025/09/15 20:24:48.151,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTipo_Formulario.pas=</Transaction>
+    <Transaction>2025/09/16 06:04:08.353,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:05:02.048,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTipo_Formulario.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/16 06:05:02.048,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTipo_Formulario.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:05:23.620,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTipo_Formulario.pas=</Transaction>
+    <Transaction>2025/09/16 06:07:29.228,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:07:57.591,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/16 06:07:57.591,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:08:08.477,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:08:40.530,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.Cad.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:08:40.530,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.Cad.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/16 06:08:50.019,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:09:29.347,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.Loc.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 06:09:29.347,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.Loc.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/16 11:39:15.687,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 11:39:40.337,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/16 11:39:40.337,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 11:39:54.707,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 11:40:22.848,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Cad.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/16 11:40:22.848,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Cad.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 11:40:31.777,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/16 11:40:53.593,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Loc.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/16 11:40:53.593,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Loc.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

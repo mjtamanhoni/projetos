@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Gestão Financeira - Projetos DB</title>
+    <!-- Suporte HTML5 Shim e Respond.js para IE11 com elementos HTML5 e media queries -->
+    <!-- AVISO: Respond.js não funciona se você visualizar a página via file:// -->
+    <!--[if lt IE 11]>
+    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Phoenixcoded" />
+    <!-- Ícone Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/plugins/dataTables.bootstrap4.min.css">
+    <!-- CSS de terceiros -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    
+
+</head>
+<body class="" style="background-color: rgb(237, 234, 213);">
+	<!-- [ Pré-carregador ] início -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pré-carregador ] Fim -->
+
+
+	
+	
+
+<!-- [ Conteúdo Principal ] início -->
+<div class="container-fluid" style="padding-top: 30px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Lista de Projetos - Exemplo D2Bridge</h5>
+                    <small class="text-muted">Exemplo de como buscar dados de uma query Delphi usando D2Bridge</small>
+                </div>
+                <div class="card-body">
+                    <!-- Comentário explicativo sobre D2Bridge -->
+                    <div class="alert alert-info" role="alert">
+                        <h6><i class="feather icon-info"></i> Exemplo D2Bridge - Delphi</h6>
+                        <p><strong>Query SQL:</strong> <code>SELECT id, descricao, status FROM projetos ORDER BY id</code></p>
+                        <p><strong>Código Delphi:</strong></p>
+                        <pre><code>// No servidor Delphi (D2Bridge)
+function TFormProjetos.GetProjetos: string;
+var
+  Query: TFDQuery;
+  JSONArray: TJSONArray;
+  JSONObject: TJSONObject;
+begin
+  Query := TFDQuery.Create(nil);
+  try
+    Query.Connection := FDConnection1;
+    Query.SQL.Text := 'SELECT id, descricao, status FROM projetos ORDER BY id';
+    Query.Open;
+    
+    JSONArray := TJSONArray.Create;
+    try
+      while not Query.Eof do
+      begin
+        JSONObject := TJSONObject.Create;
+        JSONObject.AddPair('id', Query.FieldByName('id').AsString);
+        JSONObject.AddPair('descricao', Query.FieldByName('descricao').AsString);
+        JSONObject.AddPair('status', Query.FieldByName('status').AsString);
+        JSONArray.AddElement(JSONObject);
+        Query.Next;
+      end;
+      Result := JSONArray.ToString;
+    finally
+      JSONArray.Free;
+    end;
+  finally
+    Query.Free;
+  end;
+end;</code></pre>
+                    </div>
+                    
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6 text-end">
+                            <button class="btn btn-success btn-sm btn-round has-ripple" data-bs-toggle="modal" data-bs-target="#modal-report"><i class="feather icon-plus"></i> Adicionar Projeto</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Descrição</th>
+                                    <th>Status</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Sistema Gestão Financeira</td>
+                                    <td><span class="badge badge-success">Ativo</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm">Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm">Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Portal Web Clientes</td>
+                                    <td><span class="badge badge-warning">Inativo</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm">Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm">Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Sistema de Relatórios</td>
+                                    <td><span class="badge badge-success">Ativo</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm">Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm">Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>API de Integração</td>
+                                    <td><span class="badge badge-warning">Inativo</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm">Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm">Excluir</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Dashboard Executivo</td>
+                                    <td><span class="badge badge-success">Ativo</span></td>
+                                    <td>
+                                        <a href="#!" class="btn btn-info btn-sm">Editar</a>
+                                        <a href="#!" class="btn btn-danger btn-sm">Excluir</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Projeto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>Informações do Projeto</h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Id">ID</label>
+                                <input type="number" class="form-control" id="Id" placeholder="ID será gerado automaticamente" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Status">Status</label>
+                                <select class="form-control" id="Status">
+                                    <option value="">Selecione o status</option>
+                                    <option value="ativo">Ativo</option>
+                                    <option value="inativo">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="floating-label" for="Descricao">Descrição</label>
+                                <textarea class="form-control" id="Descricao" rows="3" placeholder="Digite a descrição do projeto"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary">Salvar</button>
+                            <button class="btn btn-danger">Limpar</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Exemplo de código D2Bridge para salvar -->
+                <div class="mt-4">
+                    <h6>Exemplo D2Bridge - Salvar Dados:</h6>
+                    <pre><code>// Função para salvar projeto
+function TFormProjetos.SalvarProjeto(ADescricao, AStatus: string): string;
+var
+  Query: TFDQuery;
+begin
+  Query := TFDQuery.Create(nil);
+  try
+    Query.Connection := FDConnection1;
+    Query.SQL.Text := 'INSERT INTO projetos (descricao, status) VALUES (:descricao, :status)';
+    Query.ParamByName('descricao').AsString := ADescricao;
+    Query.ParamByName('status').AsString := AStatus;
+    Query.ExecSQL;
+    Result := '{"success": true, "message": "Projeto salvo com sucesso!"}';
+  except
+    on E: Exception do
+      Result := '{"success": false, "message": "' + E.Message + '"}';
+  end;
+  Query.Free;
+end;</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ Conteúdo Principal ] fim -->
+
+<!-- JavaScript Obrigatório -->
+<script src="assets/js/vendor-all.min.js"></script>
+<script src="assets/js/plugins/bootstrap.min.js"></script>
+<script src="assets/js/ripple.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+
+<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
+<script src="assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+<script>
+    // Início DataTable
+    $('#report-table').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "Nenhum registro encontrado",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered": "(filtrado de _MAX_ registros totais)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primeiro",
+                "last": "Último",
+                "next": "Próximo",
+                "previous": "Anterior"
+            }
+        }
+    });
+    // Fim DataTable
+    
+    // Exemplo de função JavaScript para chamar D2Bridge
+    function carregarProjetos() {
+        // Exemplo de chamada AJAX para D2Bridge
+        $.ajax({
+            url: '/GetProjetos', // Endpoint D2Bridge
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Limpar tabela
+                $('#report-table').DataTable().clear();
+                
+                // Adicionar dados na tabela
+                data.forEach(function(projeto) {
+                    var statusBadge = projeto.status === 'ativo' ? 
+                        '<span class="badge badge-success">Ativo</span>' : 
+                        '<span class="badge badge-warning">Inativo</span>';
+                    
+                    var acoes = '<a href="#!" class="btn btn-info btn-sm">Editar</a> ' +
+                               '<a href="#!" class="btn btn-danger btn-sm">Excluir</a>';
+                    
+                    $('#report-table').DataTable().row.add([
+                        projeto.id,
+                        projeto.descricao,
+                        statusBadge,
+                        acoes
+                    ]);
+                });
+                
+                // Redesenhar tabela
+                $('#report-table').DataTable().draw();
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro ao carregar projetos:', error);
+                alert('Erro ao carregar dados dos projetos.');
+            }
+        });
+    }
+    
+    // Carregar dados ao inicializar a página
+    // $(document).ready(function() {
+    //     carregarProjetos();
+    // });
+</script>
+
+</body>
+
+</html>

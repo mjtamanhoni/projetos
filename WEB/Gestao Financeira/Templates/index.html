@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Gestão Financeira</title>
+    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 11]>
+    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="">
+    <meta name="author" content="Phoenixcoded" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Custom Header CSS - Reduced Height -->
+    <link rel="stylesheet" href="assets/css/custom-header-reduced.css">
+    
+    
+
+</head>
+<body class="">
+	<!-- [ Pre-loader ] start -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pre-loader ] End -->
+	<!-- [ navigation menu ] start -->
+	<nav class="pcoded-navbar menu-light ">
+		<div class="navbar-wrapper  ">
+			<div class="navbar-content scroll-div " >
+				
+				<div class="">
+					<div class="main-menu-header">
+						<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="User-Profile-Image">
+						<div class="user-details">
+							<div id="more-details">Detalhes <i class="fa fa-caret-down"></i></div>
+						</div>
+					</div>
+					<div class="collapse" id="nav-user-link">
+						<ul class="list-inline">
+							<li class="list-inline-item"><a href="#" onclick="{{editarUsuario}}"><i class="feather icon-user"></i></a></li>
+							<li class="list-inline-item"><a href="#" onclick="{{enviarEmail}}"><i class="feather icon-mail" data-toggle="tooltip" title="Mensagens"></i><small class="badge badge-pill badge-primary">5</small></a></li>
+							<li class="list-inline-item"><a href="#" onclick="{{fechar}}"><i class="feather icon-power"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<ul class="nav pcoded-inner-navbar ">
+					<li class="nav-item pcoded-menu-caption">
+						<label>Gestão Financeira</label>
+					</li>
+					<li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Cadastros</span></a>
+						<ul class="pcoded-submenu">
+							<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-settings"></i> Gerais</a>
+								<ul class="pcoded-submenu">
+									<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-briefcase"></i> Projeto</a>
+										<ul class="pcoded-submenu">
+											<li><a href="#" onclick="{{Abrir_Projetos}}"><i class="feather icon-folder"></i> Projetos</a></li>
+											<li><a href="#!"><i class="feather icon-file-text"></i> Formulários</a></li>
+										</ul>
+									</li>
+									<li><a href="#!"><i class="feather icon-users"></i> Usuários</a></li>
+									<li><a href="#!"><i class="feather icon-home"></i> Empresas</a></li>
+									<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-map"></i> Geográficos</a>
+										<ul class="pcoded-submenu">
+											<li><a href="#!"><i class="feather icon-globe"></i> Regiões</a></li>
+											<li><a href="#!"><i class="feather icon-map-pin"></i> Estados</a></li>
+											<li><a href="#!"><i class="feather icon-navigation"></i> Cidades</a></li>
+										</ul>
+									</li>
+									<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-credit-card"></i> Pagamentos</a>
+										<ul class="pcoded-submenu">
+											<li><a href="#!"><i class="feather icon-check-square"></i> Condições</a></li>
+											<li><a href="#!"><i class="feather icon-credit-card"></i> Formas</a></li>
+										</ul>
+									</li>
+									<li><a href="#!"><i class="feather icon-maximize"></i> UN de Medidas</a></li>
+									<li><a href="#!"><i class="feather icon-list"></i> Plano de Contas Gerencial</a></li>
+								</ul>
+							</li>
+							<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-users"></i> Pessoas</a>
+								<ul class="pcoded-submenu">
+									<li><a href="#!"><i class="feather icon-user"></i> Pessoas</a></li>
+									<li><a href="#!"><i class="feather icon-user-check"></i> Funcionários</a></li>
+									<li><a href="#!"><i class="feather icon-truck"></i> Fornecedores</a></li>
+									<li><a href="#!"><i class="feather icon-user-plus"></i> Clientes</a></li>
+									<li><a href="#!"><i class="feather icon-settings"></i> Fabricantes</a></li>
+								</ul>
+							</li>
+							<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-package"></i> Produtos</a>
+								<ul class="pcoded-submenu">
+									<li><a href="#!"><i class="feather icon-box"></i> Produtos</a></li>
+									<li><a href="#!"><i class="feather icon-layers"></i> Famílias</a></li>
+									<li><a href="#!"><i class="feather icon-map-pin"></i> Localizações</a></li>
+									<li><a href="#!"><i class="feather icon-pie-chart"></i> Segmentos</a></li>
+									<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-grid"></i> Grupos</a>
+										<ul class="pcoded-submenu">
+											<li><a href="#!"><i class="feather icon-square"></i> Grupos</a></li>
+											<li><a href="#!"><i class="feather icon-minus-square"></i> Sub-Grupos</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><a href="#!"><i class="feather icon-tag"></i> Tabelas de Preços</a></li>
+							<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-file-minus"></i> Fiscal</a>
+								<ul class="pcoded-submenu">
+									<li><a href="#!"><i class="feather icon-hash"></i> CFOPs</a></li>
+									<li><a href="#!"><i class="feather icon-shuffle"></i> Tipos do Movimento</a></li>
+								</ul>
+							</li>
+							<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-dollar-sign"></i> Financeiros</a>
+								<ul class="pcoded-submenu">
+									<li><a href="#!"><i class="feather icon-home"></i> Bancos</a></li>
+									<li><a href="#!"><i class="feather icon-credit-card"></i> Contas Bancárias</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-trending-up"></i></span><span class="pcoded-mtext">Movimentos</span></a>
+						<ul class="pcoded-submenu">
+							<li class="pcoded-hasmenu"><a href="#!"><i class="feather icon-dollar-sign"></i> Financeiro</a>
+								<ul class="pcoded-submenu">
+									<li><a href="#!"><i class="feather icon-arrow-down-left"></i> Conta Pagar</a></li>
+									<li><a href="#!"><i class="feather icon-arrow-up-right"></i> Contas a Receber</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+
+					<li class="nav-item">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-bar-chart-2"></i></span><span class="pcoded-mtext">Relatórios</span></a>
+					</li>
+					<li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-folder"></i></span><span class="pcoded-mtext">Arquivos</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="#!"><i class="feather icon-sliders"></i> Configurações</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-sliders"></i></span><span class="pcoded-mtext">Configurações</span></a>
+					</li>
+					<li class="nav-item">
+						<a href="auth-signin.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-log-out"></i></span><span class="pcoded-mtext">Fechar</span></a>
+					</li>
+
+
+				</ul>
+				<!--
+				<div class="card text-center">
+					<div class="card-block">
+						<button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
+						<i class="feather icon-sunset f-40"></i>
+						<h6 class="mt-3">Ajuda?</h6>
+						<p>Entre em contato conosco por email para qualquer suporte necessário</p>
+						<a href="#!" target="_blank" class="btn btn-primary btn-sm text-white m-0">Suporte</a>
+					</div>
+				</div>
+				-->
+			</div>
+		</div>
+	</nav>
+	<!-- [ navigation menu ] end -->
+	<!-- [ Header ] start -->
+	<header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
+		
+			
+				<div class="m-header">
+					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+					<a href="#!" class="b-brand">
+						<!-- Logo do Sistema -->
+					<span class="text-white fw-bold fs-5">Gestão Financeira</span>
+						
+					</a>
+					<a href="#!" class="mob-toggler">
+						<i class="feather icon-more-vertical"></i>
+					</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item">
+							<a href="#!" class="pop-search"><i class="feather icon-search"></i></a>
+							<div class="search-bar">
+								<input type="text" class="form-control border-0 shadow-none" placeholder="Search hear">
+								<button type="button" class="close close btn-close position-absolute top-50 end-0 translate-middle" aria-label="Close">
+								</button>
+							</div>
+						</li>
+					</ul>
+					<ul class="navbar-nav ms-auto">
+						<li>
+							<div class="dropdown">
+								<a class="dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
+								<div class="dropdown-menu dropdown-menu-end notification">
+									<div class="noti-head">
+										<h6 class="d-inline-block m-b-0">Notificações</h6>
+										<div class="float-end">
+											<a href="#!" class="m-r-10">marcar como lida</a>
+											<a href="#!">limpar todas</a>
+										</div>
+									</div>
+									<ul class="noti-body">
+										<li class="n-title">
+												<p class="m-b-0">NOVO</p>
+											</li>
+										<li class="notification">
+											<div class="d-flex">
+												<img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+												<div class="flex-grow-1">
+													<p><strong>{{Usuario_Nome}}</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
+													<p>New ticket Added</p>
+												</div>
+											</div>
+										</li>
+										<li class="n-title">
+												<p class="m-b-0">ANTERIOR</p>
+											</li>
+										<li class="notification">
+											<div class="d-flex">
+												<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+												<div class="flex-grow-1">
+													<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
+													<p>Prchace New Theme and make payment</p>
+												</div>
+											</div>
+										</li>
+										<li class="notification">
+											<div class="d-flex">
+												<img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+												<div class="flex-grow-1">
+													<p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
+													<p>currently login</p>
+												</div>
+											</div>
+										</li>
+										<li class="notification">
+											<div class="d-flex">
+												<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+												<div class="flex-grow-1">
+													<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
+													<p>Prchace New Theme and make payment</p>
+												</div>
+											</div>
+										</li>
+									</ul>
+									<div class="noti-footer">
+											<a href="#!">mostrar todas</a>
+										</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="dropdown drp-user">
+								<a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+									<i class="feather icon-user"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-end profile-notification">
+									<div class="pro-head">
+										<img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+										<span>{{Usuario_Nome}}</span>
+										<a href="auth-signin.html" class="dud-logout" title="Sair">
+												<i class="feather icon-log-out"></i>
+											</a>
+									</div>
+									<ul class="pro-body">
+											<li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Perfil</a></li>
+											<li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> Minhas Mensagens</a></li>
+											<li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Bloquear Tela</a></li>
+										</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				
+			
+	</header>
+	<!-- [ Header ] end -->
+	
+	
+
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+    <!--<div class="pcoded-content">-->
+    <div class="container-fluid mt-4 px-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-4">
+                <div class="row">
+                    $prismpage
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+</div>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                    <div class="text-center">
+                        <h3 class="mt-3">Bem-vindo ao <span class="text-primary">Sistema de Gestão Financeira</span></h3>
+                    </div>
+                    <div class="carousel-inner text-center">
+                        <div class="carousel-item active" data-interval="50000">
+                            <img src="assets/images/model/welcome.svg" class="wid-250 my-4" alt="images">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-9">
+                                    <p class="f-16">Sistema completo para <strong>Gestão Financeira</strong> com interface moderna e intuitiva.</p>
+                                    <p class="f-16">Inclui funcionalidades para <strong>controle de receitas, despesas, relatórios financeiros e muito mais</strong></p>
+                                    <div class="row justify-content-center text-start">
+                                        <div class="col-md-10">
+                                            <h4 class="mb-3">Funcionalidades</h4>
+                                            <p class="mb-2 f-16"><i class="feather icon-check-circle me-2 text-primary"></i> Controle de Receitas e Despesas</p>
+                                            <p class="mb-2 f-16"><i class="feather icon-check-circle me-2 text-primary"></i> Relatórios Financeiros</p>
+                                            <p class="mb-2 f-16"><i class="feather icon-check-circle me-2 text-primary"></i> Gráficos e Dashboards</p>
+                                            <p class="mb-2 f-16"><i class="feather icon-check-circle me-2 text-primary"></i> Categorização de Transações</p>
+                                            <p class="mb-2 f-16"><i class="feather icon-check-circle me-2 text-primary"></i> Interface Responsiva</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item" data-interval="50000">
+                            <img src="assets/images/model/able-admin.jpg" class="img-fluid mt-0" alt="images">
+                        </div>
+                        <!-- <div class="carousel-item" data-interval="50000">
+                            <img src="assets/images/model/welcome.svg" class="wid-250 my-4" alt="images">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <p class="f-16"><strong>Able pro v8.0</strong> will come with new Structure.</p>
+                                    <p class="f-16"> it include  <strong>Gulp / npm support, UI kit, Live customizer improved version, New improved layouts with RTL support, 8+ New Admin Panels</strong></p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" style="transform:rotate(180deg);margin-bottom:-1px">
+                    <path class="elementor-shape-fill" fill="#4680ff" opacity="0.33"
+                        d="M473,67.3c-203.9,88.3-263.1-34-320.3,0C66,119.1,0,59.7,0,59.7V0h1000v59.7 c0,0-62.1,26.1-94.9,29.3c-32.8,3.3-62.8-12.3-75.8-22.1C806,49.6,745.3,8.7,694.9,4.7S492.4,59,473,67.3z">
+                    </path>
+                    <path class="elementor-shape-fill" fill="#4680ff" opacity="0.66"
+                        d="M734,67.3c-45.5,0-77.2-23.2-129.1-39.1c-28.6-8.7-150.3-10.1-254,39.1 s-91.7-34.4-149.2,0C115.7,118.3,0,39.8,0,39.8V0h1000v36.5c0,0-28.2-18.5-92.1-18.5C810.2,18.1,775.7,67.3,734,67.3z"></path>
+                    <path class="elementor-shape-fill" fill="#4680ff" d="M766.1,28.9c-200-57.5-266,65.5-395.1,19.5C242,1.8,242,5.4,184.8,20.6C128,35.8,132.3,44.9,89.9,52.5C28.6,63.7,0,0,0,0 h1000c0,0-9.9,40.9-83.6,48.1S829.6,47,766.1,28.9z"></path>
+                </svg>
+                <div class="modal-body text-center bg-primary py-4">
+                    <ol class="carousel-indicators">
+                        <li data-bs-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-bs-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <!-- <li data-bs-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
+                    </ol>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="ms-2">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                        <span class="me-2">Próximo</span>
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ Main Content ] end -->
+    <!-- Warning Section start -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 11]>
+        <div class="ie-warning">
+            <h1>Warning!!</h1>
+            <p>You are using an outdated version of Internet Explorer, please upgrade
+               <br/>to any of the following web browsers to access this website.
+            </p>
+            <div class="iew-container">
+                <ul class="iew-download">
+                    <li>
+                        <a href="http://www.google.com/chrome/">
+                            <img src="assets/images/browser/chrome.png" alt="Chrome">
+                            <div>Chrome</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/">
+                            <img src="assets/images/browser/firefox.png" alt="Firefox">
+                            <div>Firefox</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.opera.com">
+                            <img src="assets/images/browser/opera.png" alt="Opera">
+                            <div>Opera</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.apple.com/safari/">
+                            <img src="assets/images/browser/safari.png" alt="Safari">
+                            <div>Safari</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                            <img src="assets/images/browser/ie.png" alt="">
+                            <div>IE (11 & above)</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Sorry for the inconvenience!</p>
+        </div>
+    <![endif]-->
+    <!-- Warning Section Ends -->
+
+    <!-- Required Js -->
+    <script src="assets/js/vendor-all.min.js"></script>
+    <script src="assets/js/plugins/bootstrap.min.js"></script>
+    <script src="assets/js/ripple.js"></script>
+    <script src="assets/js/pcoded.min.js"></script>
+
+<!-- Apex Chart -->
+<script src="assets/js/plugins/apexcharts.min.js"></script>
+<!-- custom-chart js -->
+<script src="assets/js/pages/dashboard-main.js"></script>
+<script>
+    $(document).ready(function() {
+        checkCookie();
+    });
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function checkCookie() {
+        var ticks = getCookie("modelopen");
+        if (ticks != "") {
+            ticks++ ;
+            setCookie("modelopen", ticks, 1);
+            if (ticks == "2" || ticks == "1" || ticks == "0") {
+                $('#exampleModalCenter').modal();
+            }
+        } else {
+            // user = prompt("Please enter your name:", "");
+            $('#exampleModalCenter').modal();
+            ticks = 1;
+            setCookie("modelopen", ticks, 1);
+        }
+    }
+</script>
+
+
+</body>
+
+</html>

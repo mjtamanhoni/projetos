@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{06DB4685-5347-4890-89BB-F079CC284565}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Service\Fontes\Service_Controle.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Gestao Financeira\Fontes\Gestao_Financeira.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Service_Controle">
+        <MSBuild Projects="Service\Fontes\Service_Controle.dproj"/>
+    </Target>
+    <Target Name="Service_Controle:Clean">
+        <MSBuild Projects="Service\Fontes\Service_Controle.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Service_Controle:Make">
+        <MSBuild Projects="Service\Fontes\Service_Controle.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Gestao_Financeira">
+        <MSBuild Projects="Gestao Financeira\Fontes\Gestao_Financeira.dproj"/>
+    </Target>
+    <Target Name="Gestao_Financeira:Clean">
+        <MSBuild Projects="Gestao Financeira\Fontes\Gestao_Financeira.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Gestao_Financeira:Make">
+        <MSBuild Projects="Gestao Financeira\Fontes\Gestao_Financeira.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Service_Controle;Gestao_Financeira"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Service_Controle:Clean;Gestao_Financeira:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Service_Controle:Make;Gestao_Financeira:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
