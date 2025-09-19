@@ -20,10 +20,6 @@ object frmForm_Projeto_Loc: TfrmForm_Projeto_Loc
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitLeft = -103
-    ExplicitTop = 24
-    ExplicitWidth = 1006
-    ExplicitHeight = 550
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -116,8 +112,6 @@ object frmForm_Projeto_Loc: TfrmForm_Projeto_Loc
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -103
-    ExplicitWidth = 1006
     object lbStatus: TLabel
       Left = 8
       Top = 13
@@ -187,6 +181,7 @@ object frmForm_Projeto_Loc: TfrmForm_Projeto_Loc
       Height = 25
       Caption = 'Cancelar'
       TabOrder = 4
+      OnClick = btCancelarClick
     end
   end
   object FDMem_Registro: TFDMemTable

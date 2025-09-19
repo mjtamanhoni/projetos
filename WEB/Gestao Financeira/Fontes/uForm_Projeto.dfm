@@ -23,8 +23,6 @@ object frmForm_Projeto: TfrmForm_Projeto
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitWidth = 949
-    ExplicitHeight = 502
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -50,10 +48,16 @@ object frmForm_Projeto: TfrmForm_Projeto
         end
         item
           Expanded = False
-          FieldName = 'nome_form'
+          FieldName = 'idProjeto'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'nomeForm'
           Title.Alignment = taCenter
           Title.Caption = 'Formul'#225'rio'
-          Width = 300
+          Width = 250
           Visible = True
         end
         item
@@ -61,50 +65,61 @@ object frmForm_Projeto: TfrmForm_Projeto
           FieldName = 'descricao'
           Title.Alignment = taCenter
           Title.Caption = 'Descri'#231#227'o'
-          Width = 255
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'status_desc'
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'id_tipo_form_desc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tipo Formul'#225'rio'
           Width = 500
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'id_projeto_desc'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'id_tipo_form'
+          FieldName = 'idTipoForm'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'status'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'id_projeto'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
-          FieldName = 'dt_cadastro'
+          FieldName = 'dtCadastro'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'hrCadastro'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'statusDesc'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'tipoFormTipoDesc'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tipo do Formul'#225'rio'
+          Width = 150
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'hr_cadastro'
+          FieldName = 'idTipoFormDesc'
+          Title.Alignment = taCenter
+          Title.Caption = 'Descri'#231#227'o do Tipo do Formul'#225'rio'
+          Width = 500
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'idProjetoDesc'
+          Title.Alignment = taCenter
+          Title.Caption = 'Projeto'
+          Width = 250
           Visible = True
         end>
     end
@@ -117,7 +132,6 @@ object frmForm_Projeto: TfrmForm_Projeto
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 949
     object lbStatus: TLabel
       Left = 8
       Top = 13
@@ -211,40 +225,42 @@ object frmForm_Projeto: TfrmForm_Projeto
     object FDMem_Registroid: TIntegerField
       FieldName = 'id'
     end
-    object FDMem_Registroid_projeto: TIntegerField
-      FieldName = 'id_projeto'
+    object FDMem_RegistroidProjeto: TIntegerField
+      FieldName = 'idProjeto'
     end
-    object FDMem_Registronome_form: TStringField
-      FieldName = 'nome_form'
+    object FDMem_RegistronomeForm: TStringField
+      FieldName = 'nomeForm'
       Size = 255
     end
     object FDMem_Registrodescricao: TStringField
       FieldName = 'descricao'
-      Size = 255
+      Size = 500
     end
-    object FDMem_Registroid_tipo_form: TIntegerField
-      FieldName = 'id_tipo_form'
+    object FDMem_RegistroidTipoForm: TIntegerField
+      FieldName = 'idTipoForm'
     end
     object FDMem_Registrostatus: TIntegerField
       FieldName = 'status'
     end
-    object FDMem_Registrostatus_desc: TStringField
-      FieldName = 'status_desc'
-      Size = 10
+    object FDMem_RegistrodtCadastro: TDateField
+      FieldName = 'dtCadastro'
     end
-    object FDMem_Registroid_tipo_form_desc: TStringField
-      FieldName = 'id_tipo_form_desc'
+    object FDMem_RegistrohrCadastro: TTimeField
+      FieldName = 'hrCadastro'
+    end
+    object FDMem_RegistrostatusDesc: TStringField
+      FieldName = 'statusDesc'
+    end
+    object FDMem_RegistrotipoFormTipoDesc: TStringField
+      FieldName = 'tipoFormTipoDesc'
+    end
+    object FDMem_RegistroidTipoFormDesc: TStringField
+      FieldName = 'idTipoFormDesc'
       Size = 500
     end
-    object FDMem_Registroid_projeto_desc: TStringField
-      FieldName = 'id_projeto_desc'
+    object FDMem_RegistroidProjetoDesc: TStringField
+      FieldName = 'idProjetoDesc'
       Size = 255
-    end
-    object FDMem_Registrohr_cadastro: TTimeField
-      FieldName = 'hr_cadastro'
-    end
-    object FDMem_Registrodt_cadastro: TDateField
-      FieldName = 'dt_cadastro'
     end
   end
   object dsRegistros: TDataSource

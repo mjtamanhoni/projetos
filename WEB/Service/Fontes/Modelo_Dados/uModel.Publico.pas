@@ -3272,6 +3272,16 @@ begin
       FDQ_Select.Sql.Add('    when 0 then ''INATIVO'' ');
       FDQ_Select.Sql.Add('    when 1 then ''ATIVO'' ');
       FDQ_Select.Sql.Add('  end status_desc ');
+      FDQ_Select.Sql.Add('  ,case tf.tipo ');
+      FDQ_Select.Sql.Add('    when 0 then ''LOGIN'' ');
+      FDQ_Select.Sql.Add('    when 1 then ''CONFIG'' ');
+      FDQ_Select.Sql.Add('    when 2 then ''PRINCIPAL'' ');
+      FDQ_Select.Sql.Add('    when 3 then ''CADASTRO'' ');
+      FDQ_Select.Sql.Add('    when 4 then ''MOVIMENTO'' ');
+      FDQ_Select.Sql.Add('    when 5 then ''RELATORIO'' ');
+      FDQ_Select.Sql.Add('    when 6 then ''CONSULTA'' ');
+      FDQ_Select.Sql.Add('    when 7 then ''DASHBOARD'' ');
+      FDQ_Select.Sql.Add('  end tipo_form_tipo_desc ');
       FDQ_Select.Sql.Add('  ,tf.descricao as id_tipo_form_desc ');
       FDQ_Select.Sql.Add('  ,p.descricao as id_projeto_desc ');
       FDQ_Select.Sql.Add('FROM public.telas_projetos tp ');

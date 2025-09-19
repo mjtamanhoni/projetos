@@ -23,8 +23,6 @@ object frmTipoFormulario: TfrmTipoFormulario
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitWidth = 949
-    ExplicitHeight = 502
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -74,7 +72,6 @@ object frmTipoFormulario: TfrmTipoFormulario
           FieldName = 'tipo'
           Title.Alignment = taCenter
           Title.Caption = 'Tipo'
-          Width = -1
           Visible = False
         end
         item
@@ -104,7 +101,6 @@ object frmTipoFormulario: TfrmTipoFormulario
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 949
     object lbStatus: TLabel
       Left = 8
       Top = 13

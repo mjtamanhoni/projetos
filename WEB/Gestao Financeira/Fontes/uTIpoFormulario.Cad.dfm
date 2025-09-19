@@ -39,7 +39,6 @@ object frmTipoFormulario_Cad: TfrmTipoFormulario_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitWidth = 929
     object lbid: TLabel
       Left = 8
       Top = 13

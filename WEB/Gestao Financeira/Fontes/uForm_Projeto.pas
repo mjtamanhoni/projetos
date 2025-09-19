@@ -23,12 +23,6 @@ uses
 type
   TfrmForm_Projeto = class(TfrmPrincipal)
     FDMem_Registro: TFDMemTable;
-    FDMem_Registroid: TIntegerField;
-    FDMem_Registrodescricao: TStringField;
-    FDMem_Registrodt_cadastro: TDateField;
-    FDMem_Registrohr_cadastro: TTimeField;
-    FDMem_Registrostatus: TIntegerField;
-    FDMem_Registrostatus_desc: TStringField;
     dsRegistros: TDataSource;
     pnDetail: TPanel;
     DBGrid_Registros: TDBGrid;
@@ -41,11 +35,18 @@ type
     btNovo: TButton;
     btFechar: TButton;
     cbTipo: TComboBox;
-    FDMem_Registroid_projeto: TIntegerField;
-    FDMem_Registronome_form: TStringField;
-    FDMem_Registroid_tipo_form: TIntegerField;
-    FDMem_Registroid_tipo_form_desc: TStringField;
-    FDMem_Registroid_projeto_desc: TStringField;
+    FDMem_Registroid: TIntegerField;
+    FDMem_RegistroidProjeto: TIntegerField;
+    FDMem_RegistronomeForm: TStringField;
+    FDMem_Registrodescricao: TStringField;
+    FDMem_RegistroidTipoForm: TIntegerField;
+    FDMem_Registrostatus: TIntegerField;
+    FDMem_RegistrodtCadastro: TDateField;
+    FDMem_RegistrohrCadastro: TTimeField;
+    FDMem_RegistrostatusDesc: TStringField;
+    FDMem_RegistrotipoFormTipoDesc: TStringField;
+    FDMem_RegistroidTipoFormDesc: TStringField;
+    FDMem_RegistroidProjetoDesc: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarRightButtonClick(Sender: TObject);
@@ -203,7 +204,6 @@ procedure TfrmForm_Projeto.InitControlsD2Bridge(const PrismControl: TPrismContro
 begin
  inherited;
 
-
   if PrismControl.VCLComponent = edPesquisar then
   begin
     with PrismControl.AsButtonedEdit do
@@ -220,7 +220,7 @@ begin
       begin
          Title:= 'Ações';
          ColumnIndex :=0;
-         Width := 55;
+         Width := 65;
          //Height := 50;
          With Buttons.Add do
          begin
@@ -348,16 +348,17 @@ begin
         begin
           FDMem_Registro.Insert;
             FDMem_Registroid.AsInteger := FBody.Get(x).GetValue<Integer>('id',0);
-            FDMem_Registroid_projeto.AsInteger := FBody.Get(x).GetValue<Integer>('idProjeto',0);
-            FDMem_Registronome_form.AsString := FBody.Get(x).GetValue<String>('nomeForm','');
+            FDMem_RegistroidProjeto.AsInteger := FBody.Get(x).GetValue<Integer>('idProjeto',0);
+            FDMem_RegistronomeForm.AsString := FBody.Get(x).GetValue<String>('nomeForm','');
             FDMem_Registrodescricao.AsString := FBody.Get(x).GetValue<String>('descricao','');
-            FDMem_Registroid_tipo_form.AsInteger := FBody.Get(x).GetValue<Integer>('idTipoForm',0);
+            FDMem_RegistroidTipoForm.AsInteger := FBody.Get(x).GetValue<Integer>('idTipoForm',0);
             FDMem_Registrostatus.AsInteger := FBody.Get(x).GetValue<Integer>('status',-1);
-            FDMem_Registrostatus_desc.AsString := FBody.Get(x).GetValue<String>('statusDesc','');
-            FDMem_Registroid_tipo_form_desc.AsString := FBody.Get(x).GetValue<String>('idTipoFormDesc','');
-            FDMem_Registroid_projeto_desc.AsString := FBody.Get(x).GetValue<String>('idProjetoDesc','');
-            FDMem_Registrodt_cadastro.AsDateTime := TFuncoes.StringParaData(FBody.Get(x).GetValue<String>('dtCadastro',''));
-            FDMem_Registrohr_cadastro.AsDateTime := TFuncoes.StringParaHora(FBody.Get(x).GetValue<String>('hrCadastro',''));
+            FDMem_RegistrostatusDesc.AsString := FBody.Get(x).GetValue<String>('statusDesc','');
+            FDMem_RegistrotipoFormTipoDesc.AsString := FBody.Get(x).GetValue<String>('tipoFormTipoDesc','');
+            FDMem_RegistroidTipoFormDesc.AsString := FBody.Get(x).GetValue<String>('idTipoFormDesc','');
+            FDMem_RegistroidProjetoDesc.AsString := FBody.Get(x).GetValue<String>('idProjetoDesc','');
+            FDMem_RegistrodtCadastro.AsDateTime := TFuncoes.StringParaData(FBody.Get(x).GetValue<String>('dtCadastro',''));
+            FDMem_RegistrohrCadastro.AsDateTime := TFuncoes.StringParaHora(FBody.Get(x).GetValue<String>('hrCadastro',''));
           FDMem_Registro.Post;
         end;
       end

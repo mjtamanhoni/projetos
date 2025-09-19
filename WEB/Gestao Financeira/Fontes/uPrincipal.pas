@@ -63,6 +63,7 @@ type
     procedure Module11Click(Sender: TObject);
     procedure Projeto1Click(Sender: TObject);
     procedure ipodeFormulrios1Click(Sender: TObject);
+    procedure Projeto2Click(Sender: TObject);
   private
 
   public
@@ -79,7 +80,7 @@ implementation
 
 Uses
    Gestao_FinanceiraWebApp,
-   uProjetos, uTIpoFormulario;
+   uProjetos, uTIpoFormulario, uForm_Projeto;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -170,6 +171,14 @@ begin
   if frmProjetos = Nil then
     TfrmProjetos.CreateInstance;
   frmProjetos.Show;
+end;
+
+procedure TfrmPrincipal.Projeto2Click(Sender: TObject);
+begin
+  if frmForm_Projeto = Nil then
+    TfrmForm_Projeto.CreateInstance;
+  frmForm_Projeto.Show;
+
 end;
 
 procedure TfrmPrincipal.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);

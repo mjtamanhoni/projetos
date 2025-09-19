@@ -10,6 +10,8 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object btCancelar: TButton
     Left = 902
@@ -18,6 +20,7 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 3
+    OnClick = btCancelarClick
   end
   object btConfirmar: TButton
     Left = 821
@@ -26,6 +29,7 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     Height = 25
     Caption = 'Confirmar'
     TabOrder = 4
+    OnClick = btConfirmarClick
   end
   object pnRow001: TPanel
     Left = 0
@@ -35,8 +39,6 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 4
     object lbid: TLabel
       Left = 82
       Top = 13
@@ -87,15 +89,15 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
         'ATIVO')
     end
   end
-  object pnRow003: TPanel
+  object pnRow004: TPanel
     Left = 0
-    Top = 82
+    Top = 123
     Width = 997
     Height = 98
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 41
+    ExplicitTop = 82
     object lbdescricao: TLabel
       Left = 38
       Top = 6
@@ -113,15 +115,15 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       TabOrder = 0
     end
   end
-  object pnRow002: TPanel
+  object pnRow003: TPanel
     Left = 0
-    Top = 41
+    Top = 82
     Width = 997
     Height = 41
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 8
+    ExplicitTop = 41
     object lbid_tipo_form: TLabel
       Left = 8
       Top = 6
@@ -146,6 +148,41 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       RightButton.Visible = True
       TabOrder = 1
       TextHint = 'Tipo Form'
+    end
+  end
+  object pnRow002: TPanel
+    Left = 0
+    Top = 41
+    Width = 997
+    Height = 41
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 5
+    ExplicitTop = 34
+    object lbid_projeto: TLabel
+      Left = 54
+      Top = 6
+      Width = 38
+      Height = 15
+      Caption = 'Projeto'
+    end
+    object edid_projeto_Desc: TEdit
+      Left = 193
+      Top = 6
+      Width = 784
+      Height = 23
+      ReadOnly = True
+      TabOrder = 0
+      TextHint = 'Descri'#231#227'o do Projeto'
+    end
+    object edid_projeto: TButtonedEdit
+      Left = 98
+      Top = 6
+      Width = 89
+      Height = 23
+      RightButton.Visible = True
+      TabOrder = 1
+      TextHint = 'Projeto'
     end
   end
   object FDMem_Registro: TFDMemTable

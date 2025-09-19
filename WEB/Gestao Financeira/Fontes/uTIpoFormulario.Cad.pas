@@ -173,9 +173,6 @@ begin
 
   with D2Bridge.Items.add do
   begin
-
-  with D2Bridge.Items.add do
-  begin
     with Row.Items.Add do
     begin
       with Card.Items.Add do
@@ -196,7 +193,6 @@ begin
       VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
-  end;
   end;
 
 end;

@@ -32,6 +32,7 @@ object frmPrincipal: TfrmPrincipal
           end
           object Projeto2: TMenuItem
             Caption = 'Formul'#225'rios'
+            OnClick = Projeto2Click
           end
         end
         object Usurios1: TMenuItem

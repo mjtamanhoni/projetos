@@ -6,6 +6,14 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
+
+  System.JSON,
+  DataSet.Serialize,
+  RESTRequest4D,
+  IniFiles,
+  uFuncoes.Gerais,
+  uPrincipal,
+
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
@@ -36,8 +44,16 @@ type
     cbTipo: TComboBox;
     btConfirmar: TButton;
     btCancelar: TButton;
+    procedure btCancelarClick(Sender: TObject);
   private
-    { Private declarations }
+
+    FEnder :String;
+    FIniFiles :TIniFile;
+    FHost :String;
+    FPorta :String;
+
+    procedure Pesquisar;
+
   public
     { Public declarations }
   protected
@@ -58,6 +74,21 @@ Uses
 function frmForm_Projeto_Loc:TfrmForm_Projeto_Loc;
 begin
   result:= TfrmForm_Projeto_Loc(TfrmForm_Projeto_Loc.GetInstance);
+end;
+
+procedure TfrmForm_Projeto_Loc.btCancelarClick(Sender: TObject);
+begin
+  {$Region 'Retornando valores'}
+    Gestao_Financeira.FormProjeto_Id := 0;
+    Gestao_Financeira.FormProjeto_Id_Projeto := 0;
+    Gestao_Financeira.FormProjeto_Nome_Form := '';
+    Gestao_Financeira.FormProjeto_Descricao := '';
+    Gestao_Financeira.FormProjeto_Id_Tipo_Form := 0;
+    Gestao_Financeira.FormProjeto_Status := -1;
+  {$Region 'Retornando valores'}
+
+  Close;
+
 end;
 
 procedure TfrmForm_Projeto_Loc.ExportD2Bridge;
@@ -92,6 +123,11 @@ begin
    PrismControl.AsDBGrid.MaxRecords:= 2000;
   end;
  }
+end;
+
+procedure TfrmForm_Projeto_Loc.Pesquisar;
+begin
+
 end;
 
 procedure TfrmForm_Projeto_Loc.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
