@@ -277,7 +277,8 @@ var
   FId :Integer;
   FNome :String;
   FLogin :String;
-  FPIN :String;
+  FEmail :String;
+  FStatus :Integer;
 
   FPagina :Integer;
   FPaginas :Integer;
@@ -296,19 +297,21 @@ begin
       FId := 0;
       FNome := '';
       FLogin := '';
-      FPIN := '';
+      FEmail := '';
+      FStatus := -1;
 
       FPagina := 0;
       FPaginas := 0;
 
       FId := StrToIntDef(Req.Query['id'],0);
+      FStatus := StrToIntDef(Req.Query['status'],1);
       FNome := Req.Query['nome'];
       FLogin := Req.Query['login'];
-      FPin := Req.Query['pin'];
+      FEmail := Req.Query['email'];
       FPagina := StrToIntDef(Req.Query['pagina'],0);
       FPaginas := StrToIntDef(Req.Query['paginas'],0);
 
-      FJSon_Retorno := FUsuario.JSon_Listagem(FPagina, FPaginas, FId, FNome, FLogin, FPin);
+      FJSon_Retorno := FUsuario.JSon_Listagem(FPagina, FPaginas, FId, FNome, FLogin, FEmail, FStatus);
 
       if FJSon_Retorno.Size = 0 then
       begin
@@ -402,10 +405,16 @@ begin
       if FModeloDados.Json_Insert(FBody) then
         Res.Send('Usuário cadastrado com sucesso').Status(200)
       else
+      begin
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o usuário.');
         Res.Send('Não foi possível cadatrar o usuário.').Status(422);
+      end;
 
     except on E: Exception do
-      Res.Send(E.Message).Status(500);
+      begin
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Cadastro de Usuário: ' + sLineBreak + E.Message);
+        Res.Send(E.Message).Status(500);
+      end;
     end;
   finally
     FreeAndNil(FDM_PostgreSql);

@@ -239,8 +239,8 @@ begin
       with Columns.Add do
       begin
         Title:= 'Status';
-        Width:= 50;
-        HTML:= '<span class="badge ${data.status == 0 ? '+QuotedStr('bg-danger')+' : '+QuotedStr('bg-success')+'} rounded-pill p-2" style="width: 7em;">  ${data.status_desc}</span>';
+        Width:= 60;
+        HTML:= '<span class="badge ${data.status == 0 ? '+QuotedStr('bg-danger')+' : '+QuotedStr('bg-success')+'} rounded-pill p-2" style="width: 7em;">  ${data.statusDesc}</span>';
       end;
     end;
   end;
@@ -323,7 +323,7 @@ begin
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
                  .AddParam(FTipoPesquisa,edPesquisar.Text)
                  .AddParam('status',cbStatus.ItemIndex.ToString)
-                 .Resource('tipoForm')
+                 .Resource('telaProjeto')
                  .Accept('application/json')
                  .Get;
       end
@@ -332,7 +332,7 @@ begin
         FResp := TRequest.New.BaseURL(FHost)
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
                  .AddParam('status',cbStatus.ItemIndex.ToString)
-                 .Resource('tipoForm')
+                 .Resource('telaProjeto')
                  .Accept('application/json')
                  .Get;
       end;
@@ -390,9 +390,11 @@ begin
   begin
     FfrmForm_Projeto_Cad.edid.Text := FDMem_Registro.FieldByName('id').AsString;
     FfrmForm_Projeto_Cad.cbstatus.ItemIndex := FDMem_Registro.FieldByName('status').AsInteger;
-    FfrmForm_Projeto_Cad.ednome_form.Text := FDMem_Registro.FieldByName('nome_form').AsString;
-    FfrmForm_Projeto_Cad.edid_tipo_form.Text := FDMem_Registro.FieldByName('id_tipo_form').AsString;
-    FfrmForm_Projeto_Cad.edid_tipo_form_Desc.Text := FDMem_Registro.FieldByName('id_tipo_form_desc').AsString;
+    FfrmForm_Projeto_Cad.ednome_form.Text := FDMem_Registro.FieldByName('nomeForm').AsString;
+    FfrmForm_Projeto_Cad.edid_projeto.Text := FDMem_Registro.FieldByName('idProjeto').AsString;
+    FfrmForm_Projeto_Cad.edid_projeto_Desc.Text := FDMem_Registro.FieldByName('idProjetoDesc').AsString;
+    FfrmForm_Projeto_Cad.edid_tipo_form.Text := FDMem_Registro.FieldByName('idTipoForm').AsString;
+    FfrmForm_Projeto_Cad.edid_tipo_form_Desc.Text := FDMem_Registro.FieldByName('idTipoFormDesc').AsString;
     FfrmForm_Projeto_Cad.eddescricao.Lines.Add(FDMem_Registro.FieldByName('descricao').AsString);
   end;
 

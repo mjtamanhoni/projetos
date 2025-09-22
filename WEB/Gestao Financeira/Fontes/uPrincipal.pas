@@ -64,6 +64,7 @@ type
     procedure Projeto1Click(Sender: TObject);
     procedure ipodeFormulrios1Click(Sender: TObject);
     procedure Projeto2Click(Sender: TObject);
+    procedure Usurios1Click(Sender: TObject);
   private
 
   public
@@ -80,7 +81,7 @@ implementation
 
 Uses
    Gestao_FinanceiraWebApp,
-   uProjetos, uTIpoFormulario, uForm_Projeto;
+   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -192,6 +193,14 @@ begin
    HTMLControl:= '</>';
   end;
  }
+end;
+
+procedure TfrmPrincipal.Usurios1Click(Sender: TObject);
+begin
+  if frmUsuarios = Nil then
+    TfrmUsuarios.CreateInstance;
+  frmUsuarios.Show;
+
 end;
 
 end.

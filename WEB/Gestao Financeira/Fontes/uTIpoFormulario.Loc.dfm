@@ -10,6 +10,7 @@ object frmTipoFormulario_Loc: TfrmTipoFormulario_Loc
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 15
@@ -41,13 +42,13 @@ object frmTipoFormulario_Loc: TfrmTipoFormulario_Loc
           Expanded = False
           FieldName = 'id'
           Title.Alignment = taCenter
-          Title.Caption = 'ID'
+          Title.Caption = 'Id'
           Width = 65
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'tipo'
+          FieldName = 'tipoDesc'
           Title.Alignment = taCenter
           Title.Caption = 'Tipo'
           Width = 200
@@ -58,31 +59,37 @@ object frmTipoFormulario_Loc: TfrmTipoFormulario_Loc
           FieldName = 'descricao'
           Title.Alignment = taCenter
           Title.Caption = 'Descri'#231#227'o'
-          Width = 500
+          Width = 700
           Visible = True
         end
         item
           Expanded = False
+          FieldName = 'status_desc'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'tipo'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
           FieldName = 'dt_cadastro'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'hr_cadastro'
+          Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
           FieldName = 'status'
           Title.Alignment = taCenter
-          Title.Caption = 'Status'
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'status_desc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Status'
           Visible = False
         end>
     end
@@ -206,6 +213,10 @@ object frmTipoFormulario_Loc: TfrmTipoFormulario_Loc
     object FDMem_Registrostatus_desc: TStringField
       FieldName = 'status_desc'
       Size = 10
+    end
+    object FDMem_RegistrotipoDesc: TStringField
+      FieldName = 'tipoDesc'
+      Size = 255
     end
   end
   object dsRegistros: TDataSource

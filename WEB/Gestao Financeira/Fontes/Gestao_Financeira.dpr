@@ -28,7 +28,11 @@ uses
   uTIpoFormulario.Loc in 'uTIpoFormulario.Loc.pas' {frmTipoFormulario_Loc},
   uForm_Projeto in 'uForm_Projeto.pas' {frmForm_Projeto},
   uForm_Projeto.Cad in 'uForm_Projeto.Cad.pas' {frmForm_Projeto_Cad},
-  uForm_Projeto.Loc in 'uForm_Projeto.Loc.pas' {frmForm_Projeto_Loc};
+  uForm_Projeto.Loc in 'uForm_Projeto.Loc.pas' {frmForm_Projeto_Loc},
+  uNavegacaoEnter in '..\..\..\Global\uNavegacaoEnter.pas',
+  uUsuarios in 'uUsuarios.pas' {frmUsuarios},
+  uUsuarios.Cad in 'uUsuarios.Cad.pas' {frmUsuarios_Cad},
+  uUsuarios.Loc in 'uUsuarios.Loc.pas' {frmUsuarios_Loc};
 
 {$R *.res}
 

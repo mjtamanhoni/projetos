@@ -201,6 +201,19 @@
             <Form>frmForm_Projeto_Loc</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\..\..\Global\uNavegacaoEnter.pas"/>
+        <DCCReference Include="uUsuarios.pas">
+            <Form>frmUsuarios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uUsuarios.Cad.pas">
+            <Form>frmUsuarios_Cad</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uUsuarios.Loc.pas">
+            <Form>frmUsuarios_Loc</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

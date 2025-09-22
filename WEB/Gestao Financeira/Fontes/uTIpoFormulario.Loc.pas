@@ -40,11 +40,13 @@ type
     cbTipo: TComboBox;
     btConfirmar: TButton;
     btCancelar: TButton;
+    FDMem_RegistrotipoDesc: TStringField;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure edPesquisarRightButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
     FEnder :String;
@@ -82,7 +84,7 @@ begin
     Gestao_Financeira.TipoFormulario_Id := 0;
     Gestao_Financeira.TipoFormulario_Descricao := '';
     Gestao_Financeira.TipoFormulario_Status := -1;
-    Gestao_Financeira.TipoFormulario_Tipo := -1;
+    Gestao_Financeira.TipoFormulario_Tipo := '';
   {$Region 'Retornando valores'}
 
   Close;
@@ -95,7 +97,7 @@ begin
     Gestao_Financeira.TipoFormulario_Id := FDMem_Registroid.AsInteger;
     Gestao_Financeira.TipoFormulario_Status := FDMem_Registrostatus.AsInteger;
     Gestao_Financeira.TipoFormulario_Descricao := FDMem_Registrodescricao.AsString;
-    Gestao_Financeira.TipoFormulario_Tipo := FDMem_Registrotipo.AsInteger;
+    Gestao_Financeira.TipoFormulario_TipoDesc := FDMem_RegistrotipoDesc.AsString;
   {$Region 'Retornando valores'}
 
   Close;
@@ -152,6 +154,11 @@ begin
 
 end;
 
+procedure TfrmTipoFormulario_Loc.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+end;
+
 procedure TfrmTipoFormulario_Loc.FormCreate(Sender: TObject);
 begin
 
@@ -166,6 +173,7 @@ end;
 
 procedure TfrmTipoFormulario_Loc.FormShow(Sender: TObject);
 begin
+  cbStatus.ItemIndex := 1;
   Pesquisar;
 end;
 
@@ -188,7 +196,7 @@ begin
       with Columns.Add do
       begin
         Title:= 'Status';
-        Width:= 50;
+        Width:= 60;
         HTML:= '<span class="badge ${data.status == 0 ? '+QuotedStr('bg-danger')+' : '+QuotedStr('bg-success')+'} rounded-pill p-2" style="width: 7em;">  ${data.status_desc}</span>';
       end;
     end;
@@ -240,7 +248,7 @@ begin
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
                  .AddParam(FTipoPesquisa,edPesquisar.Text)
                  .AddParam('status',cbStatus.ItemIndex.ToString)
-                 .Resource('projeto')
+                 .Resource('tipoForm')
                  .Accept('application/json')
                  .Get;
       end
@@ -249,7 +257,7 @@ begin
         FResp := TRequest.New.BaseURL(FHost)
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
                  .AddParam('status',cbStatus.ItemIndex.ToString)
-                 .Resource('projeto')
+                 .Resource('tipoForm')
                  .Accept('application/json')
                  .Get;
       end;
@@ -265,9 +273,11 @@ begin
         begin
           FDMem_Registro.Insert;
             FDMem_Registroid.AsInteger := FBody.Get(x).GetValue<Integer>('id',0);
+            FDMem_Registrostatus.AsInteger := FBody.Get(x).GetValue<Integer>('tipo',-1);
             FDMem_Registrodescricao.AsString := FBody.Get(x).GetValue<String>('descricao','');
             FDMem_Registrostatus.AsInteger := FBody.Get(x).GetValue<Integer>('status',-1);
             FDMem_Registrostatus_desc.AsString := FBody.Get(x).GetValue<String>('statusDesc','');
+            FDMem_RegistrotipoDesc.AsString := FBody.Get(x).GetValue<String>('tipoDesc','');
             FDMem_Registrodt_cadastro.AsDateTime := TFuncoes.StringParaData(FBody.Get(x).GetValue<String>('dtCadastro',''));
             FDMem_Registrohr_cadastro.AsDateTime := TFuncoes.StringParaHora(FBody.Get(x).GetValue<String>('hrCadastro',''));
           FDMem_Registro.Post;

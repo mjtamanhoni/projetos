@@ -20,7 +20,7 @@ type
     FProjeto_Descricao: String;
     FProjeto_Status: Integer;
     FTipoFormulario_Status_Tab: String;
-    FTipoFormulario_Tipo: Integer;
+    FTipoFormulario_Tipo: String;
     FTipoFormulario_Descricao: String;
     FTipoFormulario_Id: Integer;
     FTipoFormulario_Status: Integer;
@@ -31,16 +31,23 @@ type
     FFormProjeto_Id: Integer;
     FFormProjeto_Status: Integer;
     FFormProjeto_Nome_Form: String;
+    FTipoFormulario_TipoDesc: String;
+    FUsuario_Status: Integer;
+    FUsuario_Login: String;
+    FUsuario_Email: String;
 
   public
 
     {$Region 'Usuario'}
+      property Usuario_Status_Tab :String read FUsuario_Status_Tab write FUsuario_Status_Tab;
       property Usuario_ID :Integer read FUsuario_ID write FUsuario_ID;
       property Usuario_Nome :String read FUsuario_Nome write FUsuario_Nome;
       property Usuario_Tipo :Integer read FUsuario_Tipo write FUsuario_Tipo;
       property Usuario_Token :String read FUsuario_Token write FUsuario_Token;
-      property Usuario_Status_Tab :String read FUsuario_Status_Tab write FUsuario_Status_Tab;
       property Id_Filial :Integer read FId_Filial write FId_Filial;
+      property Usuario_Status :Integer read FUsuario_Status write FUsuario_Status;
+      property Usuario_Login :String read FUsuario_Login write FUsuario_Login;
+      property Usuario_Email :String read FUsuario_Email write FUsuario_Email;
     {$EndRegion 'Usuario'}
 
     {$Region 'Projetos'}
@@ -55,7 +62,8 @@ type
       property TipoFormulario_Id :Integer read FTipoFormulario_Id write FTipoFormulario_Id;
       property TipoFormulario_Descricao :String read FTipoFormulario_Descricao write FTipoFormulario_Descricao;
       property TipoFormulario_Status :Integer read FTipoFormulario_Status write FTipoFormulario_Status;
-      property TipoFormulario_Tipo :Integer read FTipoFormulario_Tipo write FTipoFormulario_Tipo;
+      property TipoFormulario_Tipo :String read FTipoFormulario_Tipo write FTipoFormulario_Tipo;
+      property TipoFormulario_TipoDesc :String read FTipoFormulario_TipoDesc write FTipoFormulario_TipoDesc;
     {$EndRegion 'Tipo de Formulário'}
 
     {$Region 'Formulário Projeto'}

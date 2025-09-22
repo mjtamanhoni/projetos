@@ -7,14 +7,14 @@
     <Transaction>2025/09/11 06:46:15.000.598,=C:\Developer\Projetos\Global\uCalculadoraExpressao.pas</Transaction>
     <Transaction>2025/09/11 08:53:59.000.764,=C:\Developer\Projetos\Global\uValidacaoDocumentos.pas</Transaction>
     <Transaction>2025/09/11 09:02:38.000.411,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
-    <Transaction>2025/09/11 09:03:21.000.207,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.dfm</Transaction>
     <Transaction>2025/09/11 09:03:21.000.207,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.pas</Transaction>
+    <Transaction>2025/09/11 09:03:21.000.207,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.dfm</Transaction>
     <Transaction>2025/09/11 09:03:37.000.852,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
     <Transaction>2025/09/11 09:05:31.000.643,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Cad.pas</Transaction>
     <Transaction>2025/09/11 09:05:31.000.643,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Cad.dfm</Transaction>
     <Transaction>2025/09/12 10:51:31.000.564,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
-    <Transaction>2025/09/12 10:55:36.000.657,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Loc.pas</Transaction>
     <Transaction>2025/09/12 10:55:36.000.657,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Loc.dfm</Transaction>
+    <Transaction>2025/09/12 10:55:36.000.657,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uProjetos.Loc.pas</Transaction>
     <Transaction>2025/09/12 17:46:10.000.172,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Cad.pas</Transaction>
     <Transaction>2025/09/12 17:46:18.000.232,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.pas</Transaction>
     <Transaction>2025/09/12 17:46:18.000.178,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTelasProjetos.Loc.pas</Transaction>
@@ -45,13 +45,23 @@
     <Transaction>2025/09/16 06:09:29.000.347,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.Loc.pas</Transaction>
     <Transaction>2025/09/16 06:09:29.000.347,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uTIpoFormulario.Loc.dfm</Transaction>
     <Transaction>2025/09/16 11:39:15.000.687,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
-    <Transaction>2025/09/16 11:39:40.000.337,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.pas</Transaction>
     <Transaction>2025/09/16 11:39:40.000.337,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.dfm</Transaction>
+    <Transaction>2025/09/16 11:39:40.000.337,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.pas</Transaction>
     <Transaction>2025/09/16 11:39:54.000.707,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
     <Transaction>2025/09/16 11:40:22.000.848,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Cad.dfm</Transaction>
     <Transaction>2025/09/16 11:40:22.000.848,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Cad.pas</Transaction>
     <Transaction>2025/09/16 11:40:31.000.777,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
     <Transaction>2025/09/16 11:40:53.000.593,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Loc.dfm</Transaction>
     <Transaction>2025/09/16 11:40:53.000.593,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uForm_Projeto.Loc.pas</Transaction>
+    <Transaction>2025/09/20 08:45:23.000.463,=C:\Developer\Projetos\Global\uNavegacaoEnter.pas</Transaction>
+    <Transaction>2025/09/22 10:12:21.619,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/22 10:12:51.332,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uUsuarios.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/22 10:12:51.332,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uUsuarios.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/22 10:12:59.631,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/22 10:13:44.192,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uUsuarios.Cad.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/22 10:13:44.193,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uUsuarios.Cad.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
+    <Transaction>2025/09/22 10:14:08.692,=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/22 10:14:38.711,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uUsuarios.Loc.pas=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.pas</Transaction>
+    <Transaction>2025/09/22 10:14:38.711,C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\uUsuarios.Loc.dfm=C:\Developer\Projetos\WEB\Gestao Financeira\Fontes\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

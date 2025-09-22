@@ -10,6 +10,7 @@ object frmProjetos_Loc: TfrmProjetos_Loc
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 15
@@ -29,6 +30,7 @@ object frmProjetos_Loc: TfrmProjetos_Loc
       Height = 483
       Align = alClient
       DataSource = dsRegistros
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText

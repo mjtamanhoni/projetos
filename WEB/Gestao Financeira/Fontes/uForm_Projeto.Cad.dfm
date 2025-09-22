@@ -2,8 +2,8 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   Left = 0
   Top = 0
   Caption = 'Cadastro de Formul'#225'rio do Projeto'
-  ClientHeight = 626
-  ClientWidth = 997
+  ClientHeight = 429
+  ClientWidth = 1067
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,26 +15,26 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   TextHeight = 15
   object btCancelar: TButton
     Left = 902
-    Top = 186
+    Top = 250
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 3
+    TabOrder = 4
     OnClick = btCancelarClick
   end
   object btConfirmar: TButton
     Left = 821
-    Top = 186
+    Top = 250
     Width = 75
     Height = 25
     Caption = 'Confirmar'
-    TabOrder = 4
+    TabOrder = 5
     OnClick = btConfirmarClick
   end
   object pnRow001: TPanel
     Left = 0
     Top = 0
-    Width = 997
+    Width = 1067
     Height = 41
     Align = alTop
     BevelOuter = bvNone
@@ -74,16 +74,18 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       Top = 10
       Width = 568
       Height = 23
-      TabOrder = 1
+      TabOrder = 2
       TextHint = 'Informe a Descri'#231#227'o'
+      OnKeyPress = ednome_formKeyPress
     end
     object cbstatus: TComboBox
       Left = 249
       Top = 10
       Width = 115
       Height = 23
-      TabOrder = 2
+      TabOrder = 1
       Text = 'Selecione'
+      OnKeyPress = cbstatusKeyPress
       Items.Strings = (
         'INATIVO'
         'ATIVO')
@@ -92,12 +94,11 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   object pnRow004: TPanel
     Left = 0
     Top = 123
-    Width = 997
+    Width = 1067
     Height = 98
     Align = alTop
     BevelOuter = bvNone
-    TabOrder = 2
-    ExplicitTop = 82
+    TabOrder = 3
     object lbdescricao: TLabel
       Left = 38
       Top = 6
@@ -118,12 +119,11 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   object pnRow003: TPanel
     Left = 0
     Top = 82
-    Width = 997
+    Width = 1067
     Height = 41
     Align = alTop
     BevelOuter = bvNone
-    TabOrder = 1
-    ExplicitTop = 41
+    TabOrder = 2
     object lbid_tipo_form: TLabel
       Left = 8
       Top = 6
@@ -136,8 +136,9 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       Top = 6
       Width = 784
       Height = 23
+      TabStop = False
       ReadOnly = True
-      TabOrder = 0
+      TabOrder = 1
       TextHint = 'Descri'#231#227'o do tipo do Formul'#225'rio'
     end
     object edid_tipo_form: TButtonedEdit
@@ -146,19 +147,20 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       Width = 89
       Height = 23
       RightButton.Visible = True
-      TabOrder = 1
+      TabOrder = 0
       TextHint = 'Tipo Form'
+      OnKeyPress = edid_tipo_formKeyPress
+      OnRightButtonClick = edid_tipo_formRightButtonClick
     end
   end
   object pnRow002: TPanel
     Left = 0
     Top = 41
-    Width = 997
+    Width = 1067
     Height = 41
     Align = alTop
     BevelOuter = bvNone
-    TabOrder = 5
-    ExplicitTop = 34
+    TabOrder = 1
     object lbid_projeto: TLabel
       Left = 54
       Top = 6
@@ -171,8 +173,9 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       Top = 6
       Width = 784
       Height = 23
+      TabStop = False
       ReadOnly = True
-      TabOrder = 0
+      TabOrder = 1
       TextHint = 'Descri'#231#227'o do Projeto'
     end
     object edid_projeto: TButtonedEdit
@@ -181,8 +184,10 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       Width = 89
       Height = 23
       RightButton.Visible = True
-      TabOrder = 1
+      TabOrder = 0
       TextHint = 'Projeto'
+      OnKeyPress = edid_projetoKeyPress
+      OnRightButtonClick = edid_projetoRightButtonClick
     end
   end
   object FDMem_Registro: TFDMemTable
@@ -202,40 +207,42 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     object FDMem_Registroid: TIntegerField
       FieldName = 'id'
     end
-    object FDMem_Registroid_projeto: TIntegerField
-      FieldName = 'id_projeto'
+    object FDMem_RegistroidProjeto: TIntegerField
+      FieldName = 'idProjeto'
     end
-    object FDMem_Registronome_form: TStringField
-      FieldName = 'nome_form'
+    object FDMem_RegistronomeForm: TStringField
+      FieldName = 'nomeForm'
       Size = 255
     end
     object FDMem_Registrodescricao: TStringField
       FieldName = 'descricao'
-      Size = 255
+      Size = 500
     end
-    object FDMem_Registroid_tipo_form: TIntegerField
-      FieldName = 'id_tipo_form'
+    object FDMem_RegistroidTipoForm: TIntegerField
+      FieldName = 'idTipoForm'
     end
     object FDMem_Registrostatus: TIntegerField
       FieldName = 'status'
     end
-    object FDMem_Registrostatus_desc: TStringField
-      FieldName = 'status_desc'
-      Size = 10
+    object FDMem_RegistrodtCadastro: TDateField
+      FieldName = 'dtCadastro'
     end
-    object FDMem_Registroid_tipo_form_desc: TStringField
-      FieldName = 'id_tipo_form_desc'
+    object FDMem_RegistrohrCadastro: TTimeField
+      FieldName = 'hrCadastro'
+    end
+    object FDMem_RegistrostatusDesc: TStringField
+      FieldName = 'statusDesc'
+    end
+    object FDMem_RegistrotipoFormTipoDesc: TStringField
+      FieldName = 'tipoFormTipoDesc'
+    end
+    object FDMem_RegistroidTipoFormDesc: TStringField
+      FieldName = 'idTipoFormDesc'
       Size = 500
     end
-    object FDMem_Registroid_projeto_desc: TStringField
-      FieldName = 'id_projeto_desc'
+    object FDMem_RegistroidProjetoDesc: TStringField
+      FieldName = 'idProjetoDesc'
       Size = 255
-    end
-    object FDMem_Registrohr_cadastro: TTimeField
-      FieldName = 'hr_cadastro'
-    end
-    object FDMem_Registrodt_cadastro: TDateField
-      FieldName = 'dt_cadastro'
     end
   end
 end

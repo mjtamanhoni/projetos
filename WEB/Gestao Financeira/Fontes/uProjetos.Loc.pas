@@ -44,6 +44,7 @@ type
     procedure edPesquisarRightButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
     FEnder :String;
@@ -149,6 +150,15 @@ begin
 
 end;
 
+procedure TfrmProjetos_Loc.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Gestao_Financeira.Projeto_ID := FDMem_Registroid.AsInteger;
+  Gestao_Financeira.Projeto_Descricao := FDMem_Registrodescricao.AsString;
+
+  Action := TCloseAction.caFree;
+
+end;
+
 procedure TfrmProjetos_Loc.FormCreate(Sender: TObject);
 begin
 
@@ -163,6 +173,7 @@ end;
 
 procedure TfrmProjetos_Loc.FormShow(Sender: TObject);
 begin
+  cbStatus.ItemIndex := 1;
   Pesquisar;
 end;
 
@@ -185,7 +196,7 @@ begin
       with Columns.Add do
       begin
         Title:= 'Status';
-        Width:= 50;
+        Width:= 60;
         HTML:= '<span class="badge ${data.status == 0 ? '+QuotedStr('bg-danger')+' : '+QuotedStr('bg-success')+'} rounded-pill p-2" style="width: 7em;">  ${data.status_desc}</span>';
       end;
     end;

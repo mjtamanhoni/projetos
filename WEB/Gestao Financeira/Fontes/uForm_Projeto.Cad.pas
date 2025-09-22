@@ -19,22 +19,10 @@ uses
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls,
 
-  uTIpoFormulario.Loc, uProjetos.Loc;
+  uTIpoFormulario.Loc, uProjetos.Loc, uNavegacaoEnter;
 
 type
   TfrmForm_Projeto_Cad = class(TD2BridgeForm)
-    FDMem_Registro: TFDMemTable;
-    FDMem_Registroid: TIntegerField;
-    FDMem_Registroid_projeto: TIntegerField;
-    FDMem_Registronome_form: TStringField;
-    FDMem_Registrodescricao: TStringField;
-    FDMem_Registroid_tipo_form: TIntegerField;
-    FDMem_Registrostatus: TIntegerField;
-    FDMem_Registrostatus_desc: TStringField;
-    FDMem_Registroid_tipo_form_desc: TStringField;
-    FDMem_Registroid_projeto_desc: TStringField;
-    FDMem_Registrohr_cadastro: TTimeField;
-    FDMem_Registrodt_cadastro: TDateField;
     btCancelar: TButton;
     btConfirmar: TButton;
     pnRow001: TPanel;
@@ -55,10 +43,29 @@ type
     lbid_projeto: TLabel;
     edid_projeto_Desc: TEdit;
     edid_projeto: TButtonedEdit;
+    FDMem_Registro: TFDMemTable;
+    FDMem_Registroid: TIntegerField;
+    FDMem_RegistroidProjeto: TIntegerField;
+    FDMem_RegistronomeForm: TStringField;
+    FDMem_Registrodescricao: TStringField;
+    FDMem_RegistroidTipoForm: TIntegerField;
+    FDMem_Registrostatus: TIntegerField;
+    FDMem_RegistrodtCadastro: TDateField;
+    FDMem_RegistrohrCadastro: TTimeField;
+    FDMem_RegistrostatusDesc: TStringField;
+    FDMem_RegistrotipoFormTipoDesc: TStringField;
+    FDMem_RegistroidTipoFormDesc: TStringField;
+    FDMem_RegistroidProjetoDesc: TStringField;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure cbstatusKeyPress(Sender: TObject; var Key: Char);
+    procedure ednome_formKeyPress(Sender: TObject; var Key: Char);
+    procedure edid_projetoKeyPress(Sender: TObject; var Key: Char);
+    procedure edid_tipo_formKeyPress(Sender: TObject; var Key: Char);
+    procedure edid_projetoRightButtonClick(Sender: TObject);
+    procedure edid_tipo_formRightButtonClick(Sender: TObject);
   private
     FfrmTipoFormulario_Loc :TfrmTipoFormulario_Loc;
     FfrmProjetos_Loc :TfrmProjetos_Loc;
@@ -67,6 +74,12 @@ type
     FIniFiles :TIniFile;
     FHost :String;
     FPorta :String;
+
+    procedure ShowPopup(const AName:String; var CanShow:Boolean);
+    procedure PopupOpened(AName:String); override;
+
+    procedure ClosePopup(const AName:String; var CanClose:Boolean);
+    procedure PopupClosed(const AName:String); override;
 
   public
     procedure Configura_Form;
@@ -110,25 +123,29 @@ begin
         FDMem_Registro.Active := True;
 
         if ((Gestao_Financeira.FormProjeto_Status_Tab = 'Edit') and (Trim(edid.Text) = ''))  then
-          raise Exception.Create('Id do Formulário do Projeto é obrigatório');
+          raise Exception.Create('Id do Formulário do Projeto é obrigatório.');
 
         if Trim(ednome_form.Text) = '' then
-          raise Exception.Create('Nome do Formulário do Projeto é obrigatório');
+          raise Exception.Create('Nome do Formulário do Projeto é obrigatório.');
 
         if Trim(eddescricao.Text) = '' then
-          raise Exception.Create('Descrição do Formulário do Projeto é obrigatória');
+          raise Exception.Create('Descrição do Formulário do Projeto é obrigatória.');
 
-        if edid_tipo_form.Text = '' then
-          raise Exception.Create('Tipo do Formulário é obrigatório');
+        if Trim(edid_projeto.Text) = '' then
+          raise Exception.Create('Projeto não informado.');
+
+        if Trim(edid_tipo_form.Text) = '' then
+          raise Exception.Create('Tipo do formulário não informado.');
 
         FDMem_Registro.Insert;
           if Gestao_Financeira.FormProjeto_Status_Tab = 'Edit' then
             FDMem_Registro.FieldByName('id').AsInteger := StrToIntDef(edid.Text,0);
 
-          FDMem_Registro.FieldByName('status').AsInteger := cbstatus.ItemIndex;
-          FDMem_Registro.FieldByName('nome_form').AsString := ednome_form.Text;
-          FDMem_Registro.FieldByName('id_projeto').AsInteger := StrToIntDef(edid_tipo_form.Text,0);
+          FDMem_Registro.FieldByName('idProjeto').AsInteger := StrToIntDef(edid_projeto.Text,0);
+          FDMem_Registro.FieldByName('nomeForm').AsString := ednome_form.Text;
           FDMem_Registro.FieldByName('descricao').AsString := eddescricao.Text;
+          FDMem_Registro.FieldByName('idTipoForm').AsString := edid_tipo_form.Text;
+          FDMem_Registro.FieldByName('status').AsInteger := cbstatus.ItemIndex;
 
         FDMem_Registro.Post;
         FDMem_Registro.ToJSONArray;
@@ -139,7 +156,7 @@ begin
         if FBody.Size = 0 then
           raise Exception.Create('Não há dados para serem salvos.');
 
-        if Gestao_Financeira.TipoFormulario_Status_Tab = 'Insert' then
+        if Gestao_Financeira.FormProjeto_Status_Tab = 'Insert' then
         begin
           FResp := TRequest.New.BaseURL(FHost)
                    .Resource('telaProjeto')
@@ -168,7 +185,7 @@ begin
       Close;
     except on E: Exception do
       begin
-        raise Exception.Create(E.Message);
+        ShowMessage(E.Message);
         Close;
       end;
     end;
@@ -177,13 +194,57 @@ begin
   end;
 end;
 
+procedure TfrmForm_Projeto_Cad.cbstatusKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+    ednome_form.SetFocus;
+end;
+
+procedure TfrmForm_Projeto_Cad.ClosePopup(const AName: String; var CanClose: Boolean);
+begin
+
+end;
+
 procedure TfrmForm_Projeto_Cad.Configura_Form;
 begin
   edid.Clear;
   cbstatus.ItemIndex := -1;
   ednome_form.Clear;
+  edid_projeto.Clear;
+  edid_projeto_Desc.Clear;
   edid_tipo_form.Clear;
+  edid_tipo_form_Desc.Clear;
   eddescricao.Clear;
+end;
+
+procedure TfrmForm_Projeto_Cad.edid_projetoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+    edid_tipo_form.SetFocus;
+
+end;
+
+procedure TfrmForm_Projeto_Cad.edid_projetoRightButtonClick(Sender: TObject);
+begin
+  ShowPopupModal('Popup' + FfrmProjetos_Loc.Name);
+end;
+
+procedure TfrmForm_Projeto_Cad.edid_tipo_formKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+    eddescricao.SetFocus;
+
+end;
+
+procedure TfrmForm_Projeto_Cad.edid_tipo_formRightButtonClick(Sender: TObject);
+begin
+  ShowPopupModal('Popup' + FfrmTipoFormulario_Loc.Name);
+end;
+
+procedure TfrmForm_Projeto_Cad.ednome_formKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+    edid_projeto.SetFocus;
 end;
 
 procedure TfrmForm_Projeto_Cad.ExportD2Bridge;
@@ -254,6 +315,8 @@ begin
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
 
+  TNavegacaoEnter.AtivarNavegacao(Self);
+
 end;
 
 procedure TfrmForm_Projeto_Cad.FormShow(Sender: TObject);
@@ -290,6 +353,29 @@ begin
  }
 end;
 
+procedure TfrmForm_Projeto_Cad.PopupClosed(const AName: String);
+begin
+  inherited;
+  if UpperCase(AName) = UpperCase('Popup' + FfrmProjetos_Loc.Name)  then
+  begin
+    edid_projeto.Text := Gestao_Financeira.Projeto_ID.ToString;
+    edid_projeto_Desc.Text := Gestao_Financeira.Projeto_Descricao;
+  end;
+
+  if UpperCase(AName) = UpperCase('Popup' + FfrmTipoFormulario_Loc.Name) then
+  begin
+    edid_tipo_form.Text := Gestao_Financeira.TipoFormulario_Id.ToString;
+    edid_tipo_form_Desc.Text := Gestao_Financeira.TipoFormulario_TipoDesc;
+  end;
+
+end;
+
+procedure TfrmForm_Projeto_Cad.PopupOpened(AName: String);
+begin
+  inherited;
+
+end;
+
 procedure TfrmForm_Projeto_Cad.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
@@ -301,6 +387,11 @@ begin
    HTMLControl:= '</>';
   end;
  }
+end;
+
+procedure TfrmForm_Projeto_Cad.ShowPopup(const AName: String; var CanShow: Boolean);
+begin
+
 end;
 
 end.

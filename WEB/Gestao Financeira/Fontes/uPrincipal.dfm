@@ -13,8 +13,8 @@ object frmPrincipal: TfrmPrincipal
   Menu = MainMenu1
   TextHeight = 14
   object MainMenu1: TMainMenu
-    Left = 176
-    Top = 152
+    Left = 272
+    Top = 48
     object Module11: TMenuItem
       Caption = 'Cadastros'
       OnClick = Module11Click
@@ -37,6 +37,7 @@ object frmPrincipal: TfrmPrincipal
         end
         object Usurios1: TMenuItem
           Caption = 'Usu'#225'rios'
+          OnClick = Usurios1Click
         end
         object Empresa1: TMenuItem
           Caption = 'Empresas'
