@@ -214,6 +214,54 @@
             <Form>frmUsuarios_Loc</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uEmpresa.pas">
+            <Form>frmEmpresa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uEmpresa.Cad.pas">
+            <Form>frmEmpresa_Cad</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uEmpresa.Loc.pas">
+            <Form>frmEmpresa_Loc</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uRegioes.pas">
+            <Form>frmRegioes</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uRegioes.Cad.pas">
+            <Form>uRegioes_Cad</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uRegioes.Loc.pas">
+            <Form>frmRegioes_Loc</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uUnidadeFederativa.pas">
+            <Form>frmUnidadeFederativa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uUnidadeFederativa.Cad.pas">
+            <Form>frmUnidadeFederativa_Cad</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uUnidadeFederativa.Loc.pas">
+            <Form>frmUnidadeFederativa_Loc</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uMunicipios.pas">
+            <Form>frmMunicipios</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uMunicipios.Cad.pas">
+            <Form>frmMunicipios_Cad</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uMunicipios.Loc.pas">
+            <Form>frmMunicipios_Loc</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -17,7 +17,7 @@ uses
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls;
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids;
 
 type
   TfrmUsuarios_Cad = class(TD2BridgeForm)
@@ -56,6 +56,13 @@ type
     pnRow003: TPanel;
     edemail: TEdit;
     lbemail: TLabel;
+    pcPrincipal: TPageControl;
+    tsPermissoes: TTabSheet;
+    tsEmpresas: TTabSheet;
+    DBGrid_Permissoes: TDBGrid;
+    pnPermissoes: TPanel;
+    pnEmpresa: TPanel;
+    DBGrid_Empresa: TDBGrid;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure edidKeyPress(Sender: TObject; var Key: Char);
@@ -300,6 +307,27 @@ begin
         with Row.Items.Add do
         begin
           FormGroup(lbemail.Caption,CSSClass.col.col).Items.Add.VCLObj(edemail);
+        end;
+      end;
+    end;
+
+    with Row.Items.Add do
+    begin
+      with Tabs('TabControl1') do
+      begin
+      //Disable Tabs
+      //ShowTabs:= false;
+
+        with AddTab(pcPrincipal.Pages[0].Caption).Items.Add do
+        begin
+          with Row.Items.Add do
+            VCLObj(DBGrid_Permissoes);
+        end;
+
+        with AddTab(pcPrincipal.Pages[1].Caption).Items.Add do
+        begin
+          with Row.Items.Add do
+            VCLObj(DBGrid_Empresa);
         end;
       end;
     end;

@@ -32,7 +32,19 @@ uses
   uNavegacaoEnter in '..\..\..\Global\uNavegacaoEnter.pas',
   uUsuarios in 'uUsuarios.pas' {frmUsuarios},
   uUsuarios.Cad in 'uUsuarios.Cad.pas' {frmUsuarios_Cad},
-  uUsuarios.Loc in 'uUsuarios.Loc.pas' {frmUsuarios_Loc};
+  uUsuarios.Loc in 'uUsuarios.Loc.pas' {frmUsuarios_Loc},
+  uEmpresa in 'uEmpresa.pas' {frmEmpresa},
+  uEmpresa.Cad in 'uEmpresa.Cad.pas' {frmEmpresa_Cad},
+  uEmpresa.Loc in 'uEmpresa.Loc.pas' {frmEmpresa_Loc},
+  uRegioes in 'uRegioes.pas' {frmRegioes},
+  uRegioes.Cad in 'uRegioes.Cad.pas' {uRegioes_Cad},
+  uRegioes.Loc in 'uRegioes.Loc.pas' {frmRegioes_Loc},
+  uUnidadeFederativa in 'uUnidadeFederativa.pas' {frmUnidadeFederativa},
+  uUnidadeFederativa.Cad in 'uUnidadeFederativa.Cad.pas' {frmUnidadeFederativa_Cad},
+  uUnidadeFederativa.Loc in 'uUnidadeFederativa.Loc.pas' {frmUnidadeFederativa_Loc},
+  uMunicipios in 'uMunicipios.pas' {frmMunicipios},
+  uMunicipios.Cad in 'uMunicipios.Cad.pas' {frmMunicipios_Cad},
+  uMunicipios.Loc in 'uMunicipios.Loc.pas' {frmMunicipios_Loc};
 
 {$R *.res}
 

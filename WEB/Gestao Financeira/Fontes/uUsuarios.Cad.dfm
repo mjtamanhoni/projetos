@@ -14,8 +14,8 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
   OnShow = FormShow
   TextHeight = 15
   object btCancelar: TButton
-    Left = 884
-    Top = 250
+    Left = 910
+    Top = 492
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -23,8 +23,8 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
     OnClick = btCancelarClick
   end
   object btConfirmar: TButton
-    Left = 803
-    Top = 250
+    Left = 829
+    Top = 492
     Width = 75
     Height = 25
     Caption = 'Confirmar'
@@ -198,6 +198,75 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
       Height = 23
       TabOrder = 0
       TextHint = 'E-Mail do Usu'#225'rio'
+    end
+  end
+  object pcPrincipal: TPageControl
+    Left = 8
+    Top = 129
+    Width = 977
+    Height = 344
+    ActivePage = tsPermissoes
+    TabOrder = 5
+    object tsPermissoes: TTabSheet
+      Caption = 'Permiss'#245'es'
+      object pnPermissoes: TPanel
+        Left = 0
+        Top = 0
+        Width = 969
+        Height = 314
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        ExplicitLeft = 392
+        ExplicitTop = 136
+        ExplicitWidth = 185
+        ExplicitHeight = 41
+        object DBGrid_Permissoes: TDBGrid
+          AlignWithMargins = True
+          Left = 3
+          Top = 3
+          Width = 963
+          Height = 308
+          Align = alClient
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -12
+          TitleFont.Name = 'Segoe UI'
+          TitleFont.Style = []
+        end
+      end
+    end
+    object tsEmpresas: TTabSheet
+      Caption = 'Empresas'
+      ImageIndex = 1
+      object pnEmpresa: TPanel
+        Left = 0
+        Top = 0
+        Width = 969
+        Height = 314
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+        ExplicitLeft = 392
+        ExplicitTop = 136
+        ExplicitWidth = 185
+        ExplicitHeight = 41
+        object DBGrid_Empresa: TDBGrid
+          AlignWithMargins = True
+          Left = 3
+          Top = 3
+          Width = 963
+          Height = 308
+          Align = alClient
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -12
+          TitleFont.Name = 'Segoe UI'
+          TitleFont.Style = []
+        end
+      end
     end
   end
   object FDMem_Registro: TFDMemTable
