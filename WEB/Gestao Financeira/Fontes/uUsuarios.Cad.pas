@@ -144,7 +144,7 @@ begin
           raise Exception.Create('PIN do usuário é obrigatório.');
 
         FDMem_Registro.Insert;
-          if Gestao_Financeira.FormProjeto_Status_Tab = 'Edit' then
+          if Gestao_Financeira.Usuario_Status_Tab = 'Edit' then
             FDMem_Registro.FieldByName('id').AsInteger := StrToIntDef(edid.Text,0);
 
           FDMem_Registro.FieldByName('status').AsInteger := cbstatus.ItemIndex;

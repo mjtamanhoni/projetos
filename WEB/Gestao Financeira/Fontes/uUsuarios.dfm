@@ -277,7 +277,7 @@ object frmUsuarios: TfrmUsuarios
   end
   object dsRegistros: TDataSource
     DataSet = FDMem_Registro
-    Left = 424
+    Left = 432
     Top = 296
   end
 end

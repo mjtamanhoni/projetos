@@ -231,7 +231,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uRegioes.Cad.pas">
-            <Form>uRegioes_Cad</Form>
+            <Form>frmRegioes_Cad</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uRegioes.Loc.pas">

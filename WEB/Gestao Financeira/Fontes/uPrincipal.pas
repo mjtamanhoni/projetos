@@ -65,6 +65,7 @@ type
     procedure ipodeFormulrios1Click(Sender: TObject);
     procedure Projeto2Click(Sender: TObject);
     procedure Usurios1Click(Sender: TObject);
+    procedure Regies1Click(Sender: TObject);
   private
 
   public
@@ -81,7 +82,7 @@ implementation
 
 Uses
    Gestao_FinanceiraWebApp,
-   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios;
+   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios, uRegioes;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -179,6 +180,14 @@ begin
   if frmForm_Projeto = Nil then
     TfrmForm_Projeto.CreateInstance;
   frmForm_Projeto.Show;
+
+end;
+
+procedure TfrmPrincipal.Regies1Click(Sender: TObject);
+begin
+  if frmRegioes = Nil then
+    TfrmRegioes.CreateInstance;
+  frmRegioes.Show;
 
 end;
 

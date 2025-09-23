@@ -37,7 +37,7 @@ uses
   uEmpresa.Cad in 'uEmpresa.Cad.pas' {frmEmpresa_Cad},
   uEmpresa.Loc in 'uEmpresa.Loc.pas' {frmEmpresa_Loc},
   uRegioes in 'uRegioes.pas' {frmRegioes},
-  uRegioes.Cad in 'uRegioes.Cad.pas' {uRegioes_Cad},
+  uRegioes.Cad in 'uRegioes.Cad.pas' {frmRegioes_Cad},
   uRegioes.Loc in 'uRegioes.Loc.pas' {frmRegioes_Loc},
   uUnidadeFederativa in 'uUnidadeFederativa.pas' {frmUnidadeFederativa},
   uUnidadeFederativa.Cad in 'uUnidadeFederativa.Cad.pas' {frmUnidadeFederativa_Cad},

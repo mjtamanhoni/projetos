@@ -7,10 +7,39 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms;
+  D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls;
 
 type
   TfrmUnidadeFederativa_Cad = class(TD2BridgeForm)
+    FDMem_Registro: TFDMemTable;
+    FDMem_Registroid: TIntegerField;
+    FDMem_RegistroidRegiao: TIntegerField;
+    FDMem_Registroibge: TIntegerField;
+    FDMem_Registrosigla: TStringField;
+    FDMem_Registrodescricao: TStringField;
+    FDMem_Registrocapital: TStringField;
+    FDMem_RegistrodtCadastro: TDateField;
+    FDMem_RegistrohrCadastro: TTimeField;
+    FDMem_RegistronomeRegiao: TStringField;
+    btCancelar: TButton;
+    btConfirmar: TButton;
+    pnRow001: TPanel;
+    lbid: TLabel;
+    edid: TEdit;
+    pnRow002: TPanel;
+    lbidRegiao: TLabel;
+    edidRegiao_Desc: TEdit;
+    edidRegiao: TButtonedEdit;
+    lbibge: TLabel;
+    edibge: TEdit;
+    lbsigla: TLabel;
+    edsigla: TEdit;
+    pnRow003: TPanel;
+    lbcapital: TLabel;
+    edcapital: TEdit;
+    lbdescricao: TLabel;
+    eddescricao: TEdit;
   private
     { Private declarations }
   public

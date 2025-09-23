@@ -7,10 +7,33 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms;
+  D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
 
 type
   TfrmUnidadeFederativa_Loc = class(TD2BridgeForm)
+    FDMem_Registro: TFDMemTable;
+    FDMem_Registroid: TIntegerField;
+    FDMem_RegistroidRegiao: TIntegerField;
+    FDMem_Registroibge: TIntegerField;
+    FDMem_Registrosigla: TStringField;
+    FDMem_Registrodescricao: TStringField;
+    FDMem_Registrocapital: TStringField;
+    FDMem_RegistrodtCadastro: TDateField;
+    FDMem_RegistrohrCadastro: TTimeField;
+    FDMem_RegistronomeRegiao: TStringField;
+    dsRegistros: TDataSource;
+    pnDetail: TPanel;
+    DBGrid_Registros: TDBGrid;
+    pnHeader: TPanel;
+    lbStatus: TLabel;
+    lbPesquisa: TLabel;
+    lbTipo: TLabel;
+    cbStatus: TComboBox;
+    edPesquisar: TButtonedEdit;
+    cbTipo: TComboBox;
+    btConfirmar: TButton;
+    btCancelar: TButton;
   private
     { Private declarations }
   public

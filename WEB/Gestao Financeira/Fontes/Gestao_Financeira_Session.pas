@@ -35,6 +35,10 @@ type
     FUsuario_Status: Integer;
     FUsuario_Login: String;
     FUsuario_Email: String;
+    FRegiao_ID: Integer;
+    FRegiao_Status_Tab: String;
+    FRegiao_Nome: String;
+    FRegiao_IBGE: Integer;
 
   public
 
@@ -75,6 +79,13 @@ type
       property FormProjeto_Id_Tipo_Form :Integer read FFormProjeto_Id_Tipo_Form write FFormProjeto_Id_Tipo_Form;
       property FormProjeto_Status :Integer read FFormProjeto_Status write FFormProjeto_Status;
     {$EndRegion 'Formulário Projeto'}
+
+    {$Region 'Regiões do brasil'}
+      property Regiao_Status_Tab :String read FRegiao_Status_Tab write FRegiao_Status_Tab;
+      property Regiao_ID :Integer read FRegiao_ID write FRegiao_ID;
+      property Regiao_IBGE :Integer read FRegiao_IBGE write FRegiao_IBGE;
+      property Regiao_Nome :String read FRegiao_Nome write FRegiao_Nome;
+    {$EndRegion 'Regiões do brasil'}
 
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
    destructor Destroy; override; //OnCloseSession

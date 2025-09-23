@@ -46,6 +46,7 @@ object frmPrincipal: TfrmPrincipal
           Caption = 'Geogr'#225'fico'
           object Regies1: TMenuItem
             Caption = 'Regi'#245'es'
+            OnClick = Regies1Click
           end
           object Regies2: TMenuItem
             Caption = 'Estados'
