@@ -10,6 +10,9 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object pnDetail: TPanel
     Left = 0
@@ -159,6 +162,7 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
       RightButton.Visible = True
       TabOrder = 1
       TextHint = 'DIgite um texto para selecionar'
+      OnRightButtonClick = edPesquisarRightButtonClick
     end
     object btNovo: TButton
       Left = 790
@@ -167,6 +171,7 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
       Height = 25
       Caption = 'Novo'
       TabOrder = 2
+      OnClick = btNovoClick
     end
     object btFechar: TButton
       Left = 871
@@ -175,6 +180,7 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
       Height = 25
       Caption = 'Fechar'
       TabOrder = 3
+      OnClick = btFecharClick
     end
     object cbTipo: TComboBox
       Left = 197
@@ -186,7 +192,8 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
       Items.Strings = (
         'ID'
         'NOME'
-        'IBGE')
+        'IBGE'
+        'SIGLA')
     end
   end
   object FDMem_Registro: TFDMemTable

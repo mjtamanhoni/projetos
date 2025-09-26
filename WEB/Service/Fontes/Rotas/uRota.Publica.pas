@@ -646,9 +646,10 @@ end;
 procedure UnidadeFederativa_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   FId :Integer;
-  FNome :String;
+  FDescricao :String;
   FIBGE :Integer;
   FRegiao :String;
+  FSigla :String;
 
   FPagina :Integer;
   FPaginas :Integer;
@@ -665,7 +666,7 @@ begin
       FModeloDados := TUnidadesFederativas.Create(FDM_PostgreSql.FDConnectionP);
 
       FId := 0;
-      FNome := '';
+      FDescricao := '';
       FRegiao := '';
       FIBGE := 0;
 
@@ -673,14 +674,15 @@ begin
       FPaginas := 0;
 
       FId := StrToIntDef(Req.Query['id'],0);
-      FNome := Req.Query['nome'];
+      FDescricao := Req.Query['descricao'];
       FIBGE := StrToIntDef(Req.Query['ibge'],0);
       FRegiao := Req.Query['regiao'];
+      FSigla := Req.Query['sigla'];
 
       FPagina := StrToIntDef(Req.Query['pagina'],0);
       FPaginas := StrToIntDef(Req.Query['paginas'],0);
 
-      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina, FPaginas, FId, FNome, FIBGE, FRegiao);
+      FJSon_Retorno := FModeloDados.JSon_Listagem(FPagina, FPaginas, FId, FDescricao, FIBGE, FRegiao, FSigla);
 
       if FJSon_Retorno.Size = 0 then
       begin

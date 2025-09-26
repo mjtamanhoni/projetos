@@ -10,6 +10,8 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object btCancelar: TButton
     Left = 902
@@ -18,6 +20,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 0
+    OnClick = btCancelarClick
   end
   object btConfirmar: TButton
     Left = 821
@@ -26,6 +29,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
     Height = 25
     Caption = 'Confirmar'
     TabOrder = 1
+    OnClick = btConfirmarClick
   end
   object pnRow001: TPanel
     Left = 0
@@ -66,6 +70,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
       Enabled = False
       TabOrder = 0
       TextHint = 'Id'
+      OnKeyPress = edidKeyPress
     end
     object edibge: TEdit
       Left = 523
@@ -75,6 +80,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
       NumbersOnly = True
       TabOrder = 1
       TextHint = 'Informe a Descri'#231#227'o'
+      OnKeyPress = edibgeKeyPress
     end
     object edsigla: TEdit
       Left = 912
@@ -83,6 +89,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
       Height = 23
       TabOrder = 2
       TextHint = 'Informe a Descri'#231#227'o'
+      OnKeyPress = edsiglaKeyPress
     end
   end
   object pnRow002: TPanel
@@ -120,6 +127,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
       RightButton.Visible = True
       TabOrder = 0
       TextHint = 'Regi'#227'o'
+      OnRightButtonClick = edidRegiaoRightButtonClick
     end
   end
   object pnRow003: TPanel
@@ -152,6 +160,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
       Height = 23
       TabOrder = 0
       TextHint = 'Informe a Capital'
+      OnKeyPress = edcapitalKeyPress
     end
     object eddescricao: TEdit
       Left = 98
@@ -160,6 +169,7 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
       Height = 23
       TabOrder = 1
       TextHint = 'Informe a Descri'#231#227'o'
+      OnKeyPress = eddescricaoKeyPress
     end
   end
   object FDMem_Registro: TFDMemTable

@@ -72,7 +72,8 @@ type
       AID:Integer=0;
       ANome:String='';
       AIBGE:Integer=0;
-      ARegiao:String=''):TJSONArray;
+      ARegiao:String='';
+      ASigla:String=''):TJSONArray;
     function Json_Insert(AJSon:TJSONArray):Boolean;
     function Json_Update(AJSon:TJSONArray):Boolean;
     function Json_Delete(AId:Integer):Boolean;
@@ -1039,8 +1040,14 @@ begin
   end;
 end;
 
-function TUnidadesFederativas.JSon_Listagem(APagina, APaginas, AID: Integer; ANome: String; AIBGE: Integer;
-  ARegiao: String): TJSONArray;
+function TUnidadesFederativas.JSon_Listagem(
+  APagina:Integer=0;
+  APaginas:Integer=0;
+  AID:Integer=0;
+  ANome:String='';
+  AIBGE:Integer=0;
+  ARegiao:String='';
+  ASigla:String=''): TJSONArray;
 var
   FDQ_Select :TFDQuery;
   FPagina :Integer;
@@ -1070,6 +1077,10 @@ begin
       FDQ_Select.Sql.Add('  and uf.ibge = ' + AIBGE.ToString);
     if Trim(ARegiao) <> '' then
       FDQ_Select.Sql.Add('  and r.nome like ' + QuotedStr('%'+ARegiao+'%'));
+    if Trim(ASigla) <> '' then
+      FDQ_Select.Sql.Add('  and uf.sigla = ' + QuotedStr(ASigla));
+
+
     FDQ_Select.Sql.Add('order by ');
     FDQ_Select.Sql.Add('  r.id ');
     FDQ_Select.Sql.Add('  ,uf.id; ');

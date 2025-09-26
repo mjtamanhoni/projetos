@@ -19,7 +19,7 @@ type
     Empresa1: TMenuItem;
     CadastrosGeogrficos1: TMenuItem;
     Regies1: TMenuItem;
-    Regies2: TMenuItem;
+    uf2: TMenuItem;
     MunicpiosCidades1: TMenuItem;
     Pagamengos1: TMenuItem;
     CondiesdePagamentos1: TMenuItem;
@@ -66,6 +66,7 @@ type
     procedure Projeto2Click(Sender: TObject);
     procedure Usurios1Click(Sender: TObject);
     procedure Regies1Click(Sender: TObject);
+    procedure uf2Click(Sender: TObject);
   private
 
   public
@@ -82,7 +83,7 @@ implementation
 
 Uses
    Gestao_FinanceiraWebApp,
-   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios, uRegioes;
+   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios, uRegioes, uUnidadeFederativa;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -188,6 +189,14 @@ begin
   if frmRegioes = Nil then
     TfrmRegioes.CreateInstance;
   frmRegioes.Show;
+
+end;
+
+procedure TfrmPrincipal.uf2Click(Sender: TObject);
+begin
+  if frmUnidadeFederativa = Nil then
+    TfrmUnidadeFederativa.CreateInstance;
+  frmUnidadeFederativa.Show;
 
 end;
 

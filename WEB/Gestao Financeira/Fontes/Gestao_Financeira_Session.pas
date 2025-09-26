@@ -39,6 +39,13 @@ type
     FRegiao_Status_Tab: String;
     FRegiao_Nome: String;
     FRegiao_IBGE: Integer;
+    FUF_IBGE: Integer;
+    FUF_Descricao: String;
+    FUF_Id: Integer;
+    FUF_IdRegiao: Integer;
+    FUF_Status_Tab: String;
+    FUF_Sigla: String;
+    FUF_Capital: String;
 
   public
 
@@ -86,6 +93,16 @@ type
       property Regiao_IBGE :Integer read FRegiao_IBGE write FRegiao_IBGE;
       property Regiao_Nome :String read FRegiao_Nome write FRegiao_Nome;
     {$EndRegion 'Regiões do brasil'}
+
+    {$Region 'Unidades Federativas'}
+      property UF_Status_Tab :String read FUF_Status_Tab write FUF_Status_Tab;
+      property UF_Id :Integer read FUF_Id write FUF_Id;
+      property UF_IdRegiao :Integer read FUF_IdRegiao write FUF_IdRegiao;
+      property UF_IBGE :Integer read FUF_IBGE write FUF_IBGE;
+      property UF_Sigla :String read FUF_Sigla write FUF_Sigla;
+      property UF_Descricao :String read FUF_Descricao write FUF_Descricao;
+      property UF_Capital :String read FUF_Capital write FUF_Capital;
+    {$EndRegion 'Unidades Federativas'}
 
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
    destructor Destroy; override; //OnCloseSession

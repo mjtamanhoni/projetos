@@ -48,8 +48,9 @@ object frmPrincipal: TfrmPrincipal
             Caption = 'Regi'#245'es'
             OnClick = Regies1Click
           end
-          object Regies2: TMenuItem
+          object uf2: TMenuItem
             Caption = 'Estados'
+            OnClick = uf2Click
           end
           object MunicpiosCidades1: TMenuItem
             Caption = 'Cidades'

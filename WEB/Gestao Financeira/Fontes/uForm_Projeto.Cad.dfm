@@ -3,7 +3,7 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   Top = 0
   Caption = 'Cadastro de Formul'#225'rio do Projeto'
   ClientHeight = 429
-  ClientWidth = 1067
+  ClientWidth = 995
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -34,11 +34,12 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   object pnRow001: TPanel
     Left = 0
     Top = 0
-    Width = 1067
+    Width = 995
     Height = 41
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 1067
     object lbid: TLabel
       Left = 82
       Top = 13
@@ -94,11 +95,12 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   object pnRow004: TPanel
     Left = 0
     Top = 123
-    Width = 1067
+    Width = 995
     Height = 98
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitWidth = 1067
     object lbdescricao: TLabel
       Left = 38
       Top = 6
@@ -119,11 +121,12 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   object pnRow003: TPanel
     Left = 0
     Top = 82
-    Width = 1067
+    Width = 995
     Height = 41
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitWidth = 1067
     object lbid_tipo_form: TLabel
       Left = 8
       Top = 6
@@ -156,11 +159,12 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   object pnRow002: TPanel
     Left = 0
     Top = 41
-    Width = 1067
+    Width = 995
     Height = 41
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitWidth = 1067
     object lbid_projeto: TLabel
       Left = 54
       Top = 6

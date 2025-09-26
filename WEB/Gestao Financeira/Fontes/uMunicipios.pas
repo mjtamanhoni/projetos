@@ -7,10 +7,34 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms;
+  D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
 
 type
   TfrmMunicipios = class(TD2BridgeForm)
+    FDMem_Registro: TFDMemTable;
+    dsRegistros: TDataSource;
+    pnDetail: TPanel;
+    DBGrid_Registros: TDBGrid;
+    pnHeader: TPanel;
+    lbStatus: TLabel;
+    lbPesquisa: TLabel;
+    lbTipo: TLabel;
+    cbStatus: TComboBox;
+    edPesquisar: TButtonedEdit;
+    btNovo: TButton;
+    btFechar: TButton;
+    cbTipo: TComboBox;
+    FDMem_Registroid: TIntegerField;
+    FDMem_RegistroidUf: TIntegerField;
+    FDMem_RegistrosiglaUf: TStringField;
+    FDMem_Registroibge: TIntegerField;
+    FDMem_RegistrocepPadrao: TStringField;
+    FDMem_Registrodescricao: TStringField;
+    FDMem_RegistrodtCadastro: TDateField;
+    FDMem_RegistrohrCadastro: TTimeField;
+    FDMem_RegistrounidadeFederativa: TStringField;
+    FDMem_Registroregiao: TStringField;
   private
     { Private declarations }
   public
