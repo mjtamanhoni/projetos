@@ -54,6 +54,7 @@ object frmPrincipal: TfrmPrincipal
           end
           object mnuCidades: TMenuItem
             Caption = 'Cidades'
+            OnClick = mnuCidadesClick
           end
         end
         object Pagamengos1: TMenuItem

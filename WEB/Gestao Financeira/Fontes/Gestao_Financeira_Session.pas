@@ -46,6 +46,13 @@ type
     FUF_Status_Tab: String;
     FUF_Sigla: String;
     FUF_Capital: String;
+    FMun_Descricao: String;
+    FMun_Id: Integer;
+    FMun_SilaUF: String;
+    FMun_IdUF: Integer;
+    FMun_Status_Tag: String;
+    FMun_IBGE: Integer;
+    FMun_CepPadrao: String;
 
   public
 
@@ -103,6 +110,17 @@ type
       property UF_Descricao :String read FUF_Descricao write FUF_Descricao;
       property UF_Capital :String read FUF_Capital write FUF_Capital;
     {$EndRegion 'Unidades Federativas'}
+
+    {$Region 'Municípios'}
+      property Mun_Status_Tag :String read FMun_Status_Tag write FMun_Status_Tag;
+      property Mun_Id :Integer read FMun_Id write FMun_Id;
+      property Mun_IdUF :Integer read FMun_IdUF write FMun_IdUF;
+      property Mun_SilaUF :String read FMun_SilaUF write FMun_SilaUF;
+      property Mun_IBGE :Integer read FMun_IBGE write FMun_IBGE;
+      property Mun_CepPadrao :String read FMun_CepPadrao write FMun_CepPadrao;
+      property Mun_Descricao :String read FMun_Descricao write FMun_Descricao;
+    {$EndRegion 'Municípios'}
+
 
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
    destructor Destroy; override; //OnCloseSession

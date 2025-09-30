@@ -124,9 +124,6 @@ begin
 
   with D2Bridge.Items.add do
   begin
-
-  with D2Bridge.Items.add do
-  begin
     with Row.Items.Add do
     begin
       with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
@@ -156,7 +153,6 @@ begin
         VCLObj(btCancelar, CSSClass.Button.cancel + ' ' + CSSClass.Col.colsize2);
       end;
     end;
-  end;
   end;
 
 end;

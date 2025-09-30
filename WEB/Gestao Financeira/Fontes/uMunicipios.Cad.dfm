@@ -10,6 +10,8 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object btCancelar: TButton
     Left = 902
@@ -18,6 +20,7 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 0
+    OnClick = btCancelarClick
   end
   object btConfirmar: TButton
     Left = 821
@@ -26,6 +29,7 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
     Height = 25
     Caption = 'Confirmar'
     TabOrder = 1
+    OnClick = btConfirmarClick
   end
   object pnRow001: TPanel
     Left = 0
@@ -35,7 +39,6 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitWidth = 624
     object lbid: TLabel
       Left = 82
       Top = 20
@@ -72,6 +75,7 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
       Enabled = False
       TabOrder = 0
       TextHint = 'Id'
+      OnKeyPress = edidKeyPress
     end
     object edibge: TEdit
       Left = 624
@@ -81,6 +85,7 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
       NumbersOnly = True
       TabOrder = 1
       TextHint = 'IBGE'
+      OnKeyPress = edibgeKeyPress
     end
     object edidUf: TButtonedEdit
       Left = 250
@@ -90,6 +95,7 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
       RightButton.Visible = True
       TabOrder = 2
       TextHint = 'UF'
+      OnKeyPress = edidUfKeyPress
     end
     object edsiglaUf: TEdit
       Left = 303
@@ -116,9 +122,10 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
       Top = 12
       Width = 81
       Height = 23
-      NumbersOnly = True
       TabOrder = 5
       TextHint = 'Cep Padr'#227'o'
+      OnExit = edcepPadraoExit
+      OnKeyPress = edcepPadraoKeyPress
     end
   end
   object pnRow003: TPanel
@@ -129,7 +136,6 @@ object frmMunicipios_Cad: TfrmMunicipios_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitWidth = 624
     object lbdescricao: TLabel
       Left = 41
       Top = 7

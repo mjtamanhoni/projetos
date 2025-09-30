@@ -68,6 +68,7 @@ type
     procedure mnuRegiaoClick(Sender: TObject);
     procedure mnuEstadosClick(Sender: TObject);
     procedure mnuDesconectarClick(Sender: TObject);
+    procedure mnuCidadesClick(Sender: TObject);
   private
 
   public
@@ -84,7 +85,7 @@ implementation
 
 Uses
    Gestao_FinanceiraWebApp,
-   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios, uRegioes, uUnidadeFederativa;
+   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios, uRegioes, uUnidadeFederativa, uMunicipios;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -201,6 +202,13 @@ begin
  TD2BridgeForm(Session.PrimaryForm).Show;
 end;
 
+procedure TfrmPrincipal.mnuCidadesClick(Sender: TObject);
+begin
+  if frmMunicipios = Nil then
+    TfrmMunicipios.CreateInstance;
+  frmMunicipios.Show;
+end;
+
 procedure TfrmPrincipal.mnuDesconectarClick(Sender: TObject);
 begin
   if IsD2BridgeContext then
@@ -221,7 +229,6 @@ begin
   if frmForm_Projeto = Nil then
     TfrmForm_Projeto.CreateInstance;
   frmForm_Projeto.Show;
-
 end;
 
 procedure TfrmPrincipal.mnuRegiaoClick(Sender: TObject);

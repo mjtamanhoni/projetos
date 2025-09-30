@@ -10,6 +10,9 @@ object frmMunicipios: TfrmMunicipios
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object pnDetail: TPanel
     Left = 0
@@ -45,39 +48,39 @@ object frmMunicipios: TfrmMunicipios
         end
         item
           Expanded = False
-          FieldName = 'idRegiao'
+          FieldName = 'idUf'
           Title.Alignment = taCenter
           Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'siglaUf'
+          Title.Alignment = taCenter
+          Title.Caption = 'UF'
+          Width = 35
+          Visible = True
         end
         item
           Expanded = False
           FieldName = 'ibge'
           Title.Alignment = taCenter
           Title.Caption = 'IBGE'
-          Width = 75
+          Width = 65
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'sigla'
+          FieldName = 'cepPadrao'
           Title.Alignment = taCenter
-          Title.Caption = 'Sigla'
-          Width = 50
+          Title.Caption = 'CEP Padr'#227'o'
+          Width = 100
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'descricao'
           Title.Alignment = taCenter
-          Title.Caption = 'Descri'#231#227'o'
-          Width = 300
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'capital'
-          Title.Alignment = taCenter
-          Title.Caption = 'Capital'
+          Title.Caption = 'Nome'
           Width = 300
           Visible = True
         end
@@ -95,10 +98,18 @@ object frmMunicipios: TfrmMunicipios
         end
         item
           Expanded = False
-          FieldName = 'nomeRegiao'
+          FieldName = 'unidadeFederativa'
+          Title.Alignment = taCenter
+          Title.Caption = 'Unidade Federativa'
+          Width = 200
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'regiao'
           Title.Alignment = taCenter
           Title.Caption = 'Regi'#227'o'
-          Width = 250
+          Width = 200
           Visible = True
         end>
     end
@@ -153,6 +164,7 @@ object frmMunicipios: TfrmMunicipios
       RightButton.Visible = True
       TabOrder = 1
       TextHint = 'DIgite um texto para selecionar'
+      OnRightButtonClick = edPesquisarRightButtonClick
     end
     object btNovo: TButton
       Left = 790
@@ -161,6 +173,7 @@ object frmMunicipios: TfrmMunicipios
       Height = 25
       Caption = 'Novo'
       TabOrder = 2
+      OnClick = btNovoClick
     end
     object btFechar: TButton
       Left = 871
@@ -169,6 +182,7 @@ object frmMunicipios: TfrmMunicipios
       Height = 25
       Caption = 'Fechar'
       TabOrder = 3
+      OnClick = btFecharClick
     end
     object cbTipo: TComboBox
       Left = 197

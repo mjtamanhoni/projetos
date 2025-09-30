@@ -10,6 +10,8 @@ object frmMunicipios_Loc: TfrmMunicipios_Loc
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object pnDetail: TPanel
     Left = 0
@@ -20,8 +22,6 @@ object frmMunicipios_Loc: TfrmMunicipios_Loc
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitWidth = 975
-    ExplicitHeight = 524
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -113,7 +113,6 @@ object frmMunicipios_Loc: TfrmMunicipios_Loc
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 975
     object lbStatus: TLabel
       Left = 8
       Top = 13
@@ -156,6 +155,7 @@ object frmMunicipios_Loc: TfrmMunicipios_Loc
       RightButton.Visible = True
       TabOrder = 1
       TextHint = 'DIgite um texto para selecionar'
+      OnRightButtonClick = edPesquisarRightButtonClick
     end
     object cbTipo: TComboBox
       Left = 197
@@ -178,6 +178,7 @@ object frmMunicipios_Loc: TfrmMunicipios_Loc
       Height = 25
       Caption = 'Confirmar'
       TabOrder = 3
+      OnClick = btConfirmarClick
     end
     object btCancelar: TButton
       Left = 871
@@ -186,6 +187,7 @@ object frmMunicipios_Loc: TfrmMunicipios_Loc
       Height = 25
       Caption = 'Cancelar'
       TabOrder = 4
+      OnClick = btCancelarClick
     end
   end
   object FDMem_Registro: TFDMemTable
