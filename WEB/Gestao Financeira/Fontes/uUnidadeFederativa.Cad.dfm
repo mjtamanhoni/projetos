@@ -39,8 +39,6 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = -144
-    ExplicitWidth = 1067
     object lbid: TLabel
       Left = 82
       Top = 13
@@ -100,8 +98,6 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitLeft = -8
-    ExplicitTop = 177
     object lbidRegiao: TLabel
       Left = 54
       Top = 6
@@ -138,7 +134,6 @@ object frmUnidadeFederativa_Cad: TfrmUnidadeFederativa_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 4
-    ExplicitTop = 49
     object lbcapital: TLabel
       Left = 581
       Top = 6

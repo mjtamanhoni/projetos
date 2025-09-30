@@ -15,24 +15,24 @@ object frmPrincipal: TfrmPrincipal
   object MainMenu1: TMainMenu
     Left = 272
     Top = 48
-    object Module11: TMenuItem
+    object mnuCadastro: TMenuItem
       Caption = 'Cadastros'
-      OnClick = Module11Click
-      object Gerais1: TMenuItem
+      OnClick = mnuCadastroClick
+      object mnuGerais: TMenuItem
         Caption = 'Gerais'
-        object Projeto: TMenuItem
+        object mnuProjeto: TMenuItem
           Caption = 'Projeto'
-          object Projeto1: TMenuItem
+          object mnuProjetos: TMenuItem
             Caption = 'Projetos'
-            OnClick = Projeto1Click
+            OnClick = mnuProjetosClick
           end
-          object ipodeFormulrios1: TMenuItem
+          object mnuTipoForm: TMenuItem
             Caption = 'Tipo de Formul'#225'rios'
-            OnClick = ipodeFormulrios1Click
+            OnClick = mnuTipoFormClick
           end
-          object Projeto2: TMenuItem
+          object mnuForms: TMenuItem
             Caption = 'Formul'#225'rios'
-            OnClick = Projeto2Click
+            OnClick = mnuFormsClick
           end
         end
         object Usurios1: TMenuItem
@@ -42,17 +42,17 @@ object frmPrincipal: TfrmPrincipal
         object Empresa1: TMenuItem
           Caption = 'Empresas'
         end
-        object CadastrosGeogrficos1: TMenuItem
+        object mnuGeografico: TMenuItem
           Caption = 'Geogr'#225'fico'
-          object Regies1: TMenuItem
+          object mnuRegiao: TMenuItem
             Caption = 'Regi'#245'es'
-            OnClick = Regies1Click
+            OnClick = mnuRegiaoClick
           end
-          object uf2: TMenuItem
+          object mnuEstados: TMenuItem
             Caption = 'Estados'
-            OnClick = uf2Click
+            OnClick = mnuEstadosClick
           end
-          object MunicpiosCidades1: TMenuItem
+          object mnuCidades: TMenuItem
             Caption = 'Cidades'
           end
         end
@@ -142,7 +142,7 @@ object frmPrincipal: TfrmPrincipal
         end
       end
     end
-    object Movimentos1: TMenuItem
+    object mnuMovimento: TMenuItem
       Caption = 'Movimentos'
       object Financeiro2: TMenuItem
         Caption = 'Financeiro'
@@ -154,23 +154,24 @@ object frmPrincipal: TfrmPrincipal
         end
       end
     end
-    object Dashboard1: TMenuItem
+    object mnuDashboard: TMenuItem
       Caption = 'Dashboard'
     end
-    object Relatrios1: TMenuItem
+    object mnuRelatorios: TMenuItem
       Caption = 'Relat'#243'rios'
     end
-    object Arquivos1: TMenuItem
+    object mnuArquivos: TMenuItem
       Caption = 'Arquivos'
       object Configuraes1: TMenuItem
         Caption = 'Configura'#231#245'es'
       end
     end
-    object Configuraes2: TMenuItem
+    object mnuConfig: TMenuItem
       Caption = 'Configura'#231#245'es'
     end
-    object Fechar1: TMenuItem
-      Caption = 'Fechar'
+    object mnuDesconectar: TMenuItem
+      Caption = 'Desconectar'
+      OnClick = mnuDesconectarClick
     end
   end
 end

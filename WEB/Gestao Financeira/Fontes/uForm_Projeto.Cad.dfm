@@ -39,7 +39,6 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 1067
     object lbid: TLabel
       Left = 82
       Top = 13
@@ -100,7 +99,6 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitWidth = 1067
     object lbdescricao: TLabel
       Left = 38
       Top = 6
@@ -126,7 +124,6 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitWidth = 1067
     object lbid_tipo_form: TLabel
       Left = 8
       Top = 6
@@ -164,7 +161,6 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 1067
     object lbid_projeto: TLabel
       Left = 54
       Top = 6

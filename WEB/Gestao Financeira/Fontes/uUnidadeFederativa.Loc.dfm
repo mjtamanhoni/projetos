@@ -22,9 +22,6 @@ object frmUnidadeFederativa_Loc: TfrmUnidadeFederativa_Loc
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitLeft = -29
-    ExplicitWidth = 941
-    ExplicitHeight = 530
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -116,8 +113,6 @@ object frmUnidadeFederativa_Loc: TfrmUnidadeFederativa_Loc
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -29
-    ExplicitWidth = 941
     object lbStatus: TLabel
       Left = 8
       Top = 13

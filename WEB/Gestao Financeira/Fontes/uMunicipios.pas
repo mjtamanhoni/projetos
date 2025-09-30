@@ -6,12 +6,22 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
+
+  System.JSON,
+  DataSet.Serialize,
+  RESTRequest4D,
+  IniFiles,
+  uFuncoes.Gerais,
+  uPrincipal,
+
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids;
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
+
+  uMunicipios.Cad;
 
 type
-  TfrmMunicipios = class(TD2BridgeForm)
+  TfrmMunicipios = class(TfrmPrincipal)
     FDMem_Registro: TFDMemTable;
     dsRegistros: TDataSource;
     pnDetail: TPanel;

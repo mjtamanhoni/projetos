@@ -20,9 +20,6 @@ object frmMunicipios: TfrmMunicipios
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 35
-    ExplicitWidth = 941
-    ExplicitHeight = 530
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -114,8 +111,6 @@ object frmMunicipios: TfrmMunicipios
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -19
-    ExplicitWidth = 960
     object lbStatus: TLabel
       Left = 8
       Top = 13
@@ -186,7 +181,8 @@ object frmMunicipios: TfrmMunicipios
         'ID'
         'NOME'
         'IBGE'
-        'SIGLA')
+        'REGI'#195'O'
+        'UF-SIGLA')
     end
   end
   object FDMem_Registro: TFDMemTable

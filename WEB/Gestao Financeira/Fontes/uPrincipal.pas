@@ -10,17 +10,17 @@ uses
 type
   TfrmPrincipal = class(TD2BridgeForm)
     MainMenu1: TMainMenu;
-    Module11: TMenuItem;
-    Gerais1: TMenuItem;
-    Projeto: TMenuItem;
-    Projeto1: TMenuItem;
-    Projeto2: TMenuItem;
+    mnuCadastro: TMenuItem;
+    mnuGerais: TMenuItem;
+    mnuProjeto: TMenuItem;
+    mnuProjetos: TMenuItem;
+    mnuForms: TMenuItem;
     Usurios1: TMenuItem;
     Empresa1: TMenuItem;
-    CadastrosGeogrficos1: TMenuItem;
-    Regies1: TMenuItem;
-    uf2: TMenuItem;
-    MunicpiosCidades1: TMenuItem;
+    mnuGeografico: TMenuItem;
+    mnuRegiao: TMenuItem;
+    mnuEstados: TMenuItem;
+    mnuCidades: TMenuItem;
     Pagamengos1: TMenuItem;
     CondiesdePagamentos1: TMenuItem;
     FormasdePagamentos1: TMenuItem;
@@ -49,24 +49,25 @@ type
     Financeiro1: TMenuItem;
     Banco1: TMenuItem;
     ContasBancrias1: TMenuItem;
-    Movimentos1: TMenuItem;
+    mnuMovimento: TMenuItem;
     Financeiro2: TMenuItem;
     ContaPagar1: TMenuItem;
     ContasaReceber1: TMenuItem;
-    Dashboard1: TMenuItem;
-    Relatrios1: TMenuItem;
-    Arquivos1: TMenuItem;
+    mnuDashboard: TMenuItem;
+    mnuRelatorios: TMenuItem;
+    mnuArquivos: TMenuItem;
     Configuraes1: TMenuItem;
-    Configuraes2: TMenuItem;
-    Fechar1: TMenuItem;
-    ipodeFormulrios1: TMenuItem;
-    procedure Module11Click(Sender: TObject);
-    procedure Projeto1Click(Sender: TObject);
-    procedure ipodeFormulrios1Click(Sender: TObject);
-    procedure Projeto2Click(Sender: TObject);
+    mnuConfig: TMenuItem;
+    mnuDesconectar: TMenuItem;
+    mnuTipoForm: TMenuItem;
+    procedure mnuCadastroClick(Sender: TObject);
+    procedure mnuProjetosClick(Sender: TObject);
+    procedure mnuTipoFormClick(Sender: TObject);
+    procedure mnuFormsClick(Sender: TObject);
     procedure Usurios1Click(Sender: TObject);
-    procedure Regies1Click(Sender: TObject);
-    procedure uf2Click(Sender: TObject);
+    procedure mnuRegiaoClick(Sender: TObject);
+    procedure mnuEstadosClick(Sender: TObject);
+    procedure mnuDesconectarClick(Sender: TObject);
   private
 
   public
@@ -119,6 +120,37 @@ procedure TfrmPrincipal.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
+  if PrismControl.VCLComponent = MainMenu1 then
+  begin
+    with PrismControl.AsSideMenu do
+    begin
+      {$Region 'Principal'}
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadastro).Icon := 'fa-solid fa-address-card';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuMovimento).Icon := 'fa-solid fa-money-bill-transfer';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuDashboard).Icon := 'fa-solid fa-chart-line';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuRelatorios).Icon := 'fa-solid fa-print';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuArquivos).Icon := 'fa-solid fa-file';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuConfig).Icon := 'fa-solid fa-gear';
+      PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuDesconectar).Icon := 'fa-solid fa-arrow-right-from-bracket';
+      {$EndRegion 'Principal'}
+
+      {$Region 'Cadastro de Projetos'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuGerais).Icon := 'fa-solid fa-bars-progress';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuProjeto).Icon := 'fa-solid fa-list-check';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuProjetos).Icon := 'fa-solid fa-diagram-project';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuTipoForm).Icon := 'fa-solid fa-border-all';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuForms).Icon := 'fa-solid fa-table-columns';
+      {$EndRegion 'Cadastro de Projetos'}
+
+      {$Region 'Cadastro Geográficos'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuGeografico).Icon := 'fa-solid fa-earth-africa';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuRegiao).Icon := 'fa-solid fa-map-location';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuEstados).Icon := 'fa-solid fa-location-dot';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCidades).Icon := 'fa-solid fa-building-user';
+      {$EndRegion 'Cadastro Geográficos'}
+    end;
+  end;
+
  //Menu example
  {
   if PrismControl.VCLComponent = MainMenu1 then
@@ -156,7 +188,7 @@ begin
  }
 end;
 
-procedure TfrmPrincipal.ipodeFormulrios1Click(Sender: TObject);
+procedure TfrmPrincipal.mnuTipoFormClick(Sender: TObject);
 begin
   if frmTipoFormulario = Nil then
     TfrmTipoFormulario.CreateInstance;
@@ -164,19 +196,27 @@ begin
 
 end;
 
-procedure TfrmPrincipal.Module11Click(Sender: TObject);
+procedure TfrmPrincipal.mnuCadastroClick(Sender: TObject);
 begin
  TD2BridgeForm(Session.PrimaryForm).Show;
 end;
 
-procedure TfrmPrincipal.Projeto1Click(Sender: TObject);
+procedure TfrmPrincipal.mnuDesconectarClick(Sender: TObject);
+begin
+  if IsD2BridgeContext then
+    Session.Close(True)
+  else
+    Application.Terminate;
+end;
+
+procedure TfrmPrincipal.mnuProjetosClick(Sender: TObject);
 begin
   if frmProjetos = Nil then
     TfrmProjetos.CreateInstance;
   frmProjetos.Show;
 end;
 
-procedure TfrmPrincipal.Projeto2Click(Sender: TObject);
+procedure TfrmPrincipal.mnuFormsClick(Sender: TObject);
 begin
   if frmForm_Projeto = Nil then
     TfrmForm_Projeto.CreateInstance;
@@ -184,7 +224,7 @@ begin
 
 end;
 
-procedure TfrmPrincipal.Regies1Click(Sender: TObject);
+procedure TfrmPrincipal.mnuRegiaoClick(Sender: TObject);
 begin
   if frmRegioes = Nil then
     TfrmRegioes.CreateInstance;
@@ -192,7 +232,7 @@ begin
 
 end;
 
-procedure TfrmPrincipal.uf2Click(Sender: TObject);
+procedure TfrmPrincipal.mnuEstadosClick(Sender: TObject);
 begin
   if frmUnidadeFederativa = Nil then
     TfrmUnidadeFederativa.CreateInstance;

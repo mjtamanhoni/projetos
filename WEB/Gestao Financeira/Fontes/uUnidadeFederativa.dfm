@@ -23,10 +23,6 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitLeft = -19
-    ExplicitTop = 29
-    ExplicitWidth = 960
-    ExplicitHeight = 542
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -118,8 +114,6 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -19
-    ExplicitWidth = 960
     object lbStatus: TLabel
       Left = 8
       Top = 13
