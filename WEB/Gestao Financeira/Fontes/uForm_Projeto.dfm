@@ -16,18 +16,20 @@ object frmForm_Projeto: TfrmForm_Projeto
   TextHeight = 15
   object pnDetail: TPanel
     Left = 0
-    Top = 41
+    Top = 30
     Width = 1006
-    Height = 550
+    Height = 561
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
+    ExplicitTop = 41
+    ExplicitHeight = 550
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
       Width = 1000
-      Height = 544
+      Height = 555
       Align = alClient
       DataSource = dsRegistros
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -58,6 +60,14 @@ object frmForm_Projeto: TfrmForm_Projeto
           Title.Alignment = taCenter
           Title.Caption = 'Formul'#225'rio'
           Width = 250
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'tipoFormTipoDesc'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tipo do Formul'#225'rio'
+          Width = 150
           Visible = True
         end
         item
@@ -100,14 +110,6 @@ object frmForm_Projeto: TfrmForm_Projeto
         end
         item
           Expanded = False
-          FieldName = 'tipoFormTipoDesc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tipo do Formul'#225'rio'
-          Width = 150
-          Visible = True
-        end
-        item
-          Expanded = False
           FieldName = 'idTipoFormDesc'
           Title.Alignment = taCenter
           Title.Caption = 'Descri'#231#227'o do Tipo do Formul'#225'rio'
@@ -128,84 +130,63 @@ object frmForm_Projeto: TfrmForm_Projeto
     Left = 0
     Top = 0
     Width = 1006
-    Height = 41
+    Height = 30
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    object lbStatus: TLabel
-      Left = 8
-      Top = 13
-      Width = 32
-      Height = 15
-      Caption = 'Status'
-      Layout = tlCenter
-    end
-    object lbPesquisa: TLabel
-      Left = 284
-      Top = 13
-      Width = 46
-      Height = 15
-      Caption = 'Pesquisa'
-    end
-    object lbTipo: TLabel
-      Left = 157
-      Top = 13
-      Width = 26
-      Height = 15
-      Caption = 'Tipo:'
-    end
-    object cbStatus: TComboBox
-      Left = 46
-      Top = 10
-      Width = 99
-      Height = 23
-      TabOrder = 0
-      TextHint = 'Selecine'
-      Items.Strings = (
-        'INATIVO'
-        'ATIVO'
-        'AMBOS')
-    end
-    object edPesquisar: TButtonedEdit
-      Left = 336
-      Top = 12
-      Width = 441
-      Height = 23
-      RightButton.Visible = True
-      TabOrder = 1
-      TextHint = 'DIgite um texto para selecionar'
-      OnRightButtonClick = edPesquisarRightButtonClick
-    end
     object btNovo: TButton
-      Left = 790
-      Top = 10
+      AlignWithMargins = True
+      Left = 847
+      Top = 3
       Width = 75
-      Height = 25
+      Height = 24
+      Align = alRight
       Caption = 'Novo'
-      TabOrder = 2
+      TabOrder = 0
       OnClick = btNovoClick
+      ExplicitLeft = 790
+      ExplicitTop = 10
+      ExplicitHeight = 25
     end
-    object btFechar: TButton
-      Left = 871
-      Top = 10
+    object edPesquisar: TEdit
+      Tag = 1
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 650
+      Height = 24
+      Align = alLeft
+      TabOrder = 1
+      TextHint = 'Pesquisar pela Descri'#231#227'o do Tipo de Formul'#225'rio'
+      ExplicitLeft = 11
+      ExplicitTop = 6
+      ExplicitHeight = 35
+    end
+    object btFiltros: TButton
+      AlignWithMargins = True
+      Left = 659
+      Top = 3
       Width = 75
-      Height = 25
-      Caption = 'Fechar'
-      TabOrder = 3
-      OnClick = btFecharClick
+      Height = 24
+      Align = alLeft
+      Caption = 'Filtros'
+      TabOrder = 2
+      ExplicitLeft = 295
+      ExplicitTop = 10
+      ExplicitHeight = 25
     end
-    object cbTipo: TComboBox
-      Left = 197
-      Top = 10
-      Width = 81
-      Height = 23
-      TabOrder = 4
-      TextHint = 'Tipo da Pesquisa'
-      Items.Strings = (
-        'ID'
-        'DESCRI'#199#195'O'
-        'ID - PROJETO'
-        'PROJETO')
+    object btPrint: TButton
+      AlignWithMargins = True
+      Left = 928
+      Top = 3
+      Width = 75
+      Height = 24
+      Align = alRight
+      Caption = 'Impress'#227'o'
+      TabOrder = 3
+      ExplicitLeft = 871
+      ExplicitTop = 10
+      ExplicitHeight = 25
     end
   end
   object FDMem_Registro: TFDMemTable
@@ -267,5 +248,75 @@ object frmForm_Projeto: TfrmForm_Projeto
     DataSet = FDMem_Registro
     Left = 424
     Top = 296
+  end
+  object PopupMenu: TPopupMenu
+    Left = 656
+    Top = 152
+    object mnuPop_Filtro_ID: TMenuItem
+      Caption = 'Id'
+    end
+    object mnuPop_Filtro_Nome: TMenuItem
+      Tag = 1
+      Caption = 'Descri'#231#227'o'
+    end
+    object mnuPop_Filtro_SiglaUF: TMenuItem
+      Tag = 2
+      Caption = 'Inativos'
+    end
+  end
+  object frxReport: TfrxReport
+    Version = '2023.1.3'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45931.597265277800000000
+    ReportOptions.LastChange = 45931.722082881940000000
+    ScriptLanguage = 'PascalScript'
+    ShowProgress = False
+    StoreInDFM = False
+    Left = 656
+    Top = 216
+  end
+  object frxPDFExport: TfrxPDFExport
+    ShowDialog = False
+    UseFileCache = True
+    ShowProgress = False
+    OverwritePrompt = False
+    DataOnly = False
+    EmbedFontsIfProtected = False
+    InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
+    OpenAfterExport = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    Creator = 'FastReport'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    PDFStandard = psNone
+    PDFVersion = pv17
+    Left = 656
+    Top = 272
+  end
+  object frxDBDataset: TfrxDBDataset
+    UserName = 'frxDBDataset'
+    CloseDataSource = False
+    DataSet = FDMem_Registro
+    BCDToCurrency = False
+    DataSetOptions = []
+    Left = 656
+    Top = 328
   end
 end

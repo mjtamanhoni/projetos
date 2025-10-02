@@ -18,17 +18,12 @@ uses
   D2Bridge.Forms, Vcl.ExtCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids,
 
-  uProjetos.Cad;
+  uProjetos.Cad, frxClass, frxDBSet, frxExportBaseDialog, frxExportPDF, Vcl.Menus;
 
 type
   TfrmProjetos = class(TfrmPrincipal)
     pnHeader: TPanel;
-    lbStatus: TLabel;
-    cbStatus: TComboBox;
-    edPesquisar: TButtonedEdit;
-    lbPesquisa: TLabel;
     btNovo: TButton;
-    btFechar: TButton;
     pnDetail: TPanel;
     DBGrid_Registros: TDBGrid;
     FDMem_Registro: TFDMemTable;
@@ -39,14 +34,26 @@ type
     FDMem_Registrohr_cadastro: TTimeField;
     FDMem_Registrostatus: TIntegerField;
     FDMem_Registrostatus_desc: TStringField;
-    lbTipo: TLabel;
-    cbTipo: TComboBox;
+    PopupMenu: TPopupMenu;
+    mnuPop_Filtro_ID: TMenuItem;
+    mnuPop_Filtro_Nome: TMenuItem;
+    mnuPop_Filtro_SiglaUF: TMenuItem;
+    frxReport: TfrxReport;
+    frxPDFExport: TfrxPDFExport;
+    frxDBDataset: TfrxDBDataset;
+    edPesquisar: TEdit;
+    btFiltros: TButton;
+    btPrint: TButton;
+    mnuFiltro_TipoForm: TMenuItem;
+    mnuFiltro_Projeto: TMenuItem;
     procedure btFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
-    procedure edPesquisarRightButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btPrintClick(Sender: TObject);
+    procedure edPesquisarKeyPress(Sender: TObject; var Key: Char);
+    procedure mnuPop_Filtro_SiglaUFClick(Sender: TObject);
   private
     FfrmProjetos_Cad :TfrmProjetos_Cad;
 
@@ -108,14 +115,42 @@ begin
 
 end;
 
+procedure TfrmProjetos.btPrintClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if FDMem_Registro.IsEmpty then
+      raise Exception.Create('Não há registros a serem impressos');
+
+    frxPDFExport.FileName := PrismSession.PathSession + 'Rel_Projetos.pdf';
+
+    // Config. do rel e exportacao do pdf...
+    frxReport.LoadFromFile(RootDirectory + '/Reports/Rel_Projetos.fr3');
+    frxReport.PrepareReport;
+    frxReport.Export(frxPDFExport);
+
+    if FileExists(PrismSession.PathSession + 'Rel_Projetos.pdf') then
+      D2Bridge.PrismSession.SendFile(PrismSession.PathSession + 'Rel_Projetos.pdf')
+    else
+      raise Exception.Create('Erro ao gerar o PDF');
+
+  except on E: Exception do
+    MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
+  end;
+
+end;
+
 procedure TfrmProjetos.ClosePopup(const AName: String; var CanClose: Boolean);
 begin
 
 end;
 
-procedure TfrmProjetos.edPesquisarRightButtonClick(Sender: TObject);
+procedure TfrmProjetos.edPesquisarKeyPress(Sender: TObject; var Key: Char);
 begin
-  Pesquisar;
+  inherited;
+  if Key = #13 then
+    Pesquisar;
+
 end;
 
 procedure TfrmProjetos.ExportD2Bridge;
@@ -138,31 +173,26 @@ begin
   begin
     with Row.Items.Add do
     begin
-      with HTMLDIV(CSSClass.Col.colsize10 + ' ' + CSSClass.ColorName.beige).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize10).Items.Add do
       begin
         with Row(CSSClass.Space.margim_bottom3).Items.Add do
         begin
-          With FormGroup(lbStatus.Caption,CSSClass.Col.colsize2).Items.Add do
-            VCLObj(cbStatus);
-          With FormGroup(lbPesquisa.Caption,CSSClass.Col.col).Items.Add do
+          With FormGroup('',CSSClass.Col.col).Items.Add do
           begin
-            with Row.Items.Add do
-            begin
-              FormGroup('',CSSClass.col.colsize2).Items.Add.VCLObj(cbTipo);
-              FormGroup('',CSSClass.col.col).Items.Add.VCLObj(edPesquisar);
-            end;
+            VCLObj(edPesquisar);
+            VCLObj(btFiltros, PopupMenu, CSSClass.Button.search);
           end;
         end;
       end;
 
-      with HTMLDIV(CSSClass.Col.colsize2).Items.Add do
+      with HTMLDIV(CSSClass.Col.col).Items.Add do
       begin
-        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top4).Items.Add do
+        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
         begin
           with HTMLDIV(CSSClass.Text.Align.right).Items.Add do
           begin
             VCLObj(btNovo, CSSClass.Button.add);
-            VCLObj(btFechar, CSSClass.Button.close);
+            VCLObj(btPrint, CSSClass.Button.print);
           end;
         end;
       end;
@@ -170,8 +200,6 @@ begin
 
     with Row.Items.Add do
       VCLObj(DBGrid_Registros);
-
-    //Popup('Popup'+frmProjetos_Cad.Name, 'Cadastro de Projetos',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmProjetos_Cad.Name);
 
     with Popup('Popup' + FfrmProjetos_Cad.Name,'Cadastro de Projetos',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmProjetos_Cad);
@@ -187,8 +215,6 @@ end;
 
 procedure TfrmProjetos.FormCreate(Sender: TObject);
 begin
-  cbStatus.ItemIndex := 1;
-
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\Config.ini';
   FIniFiles := TIniFile.Create(FEnder);
@@ -205,12 +231,6 @@ end;
 procedure TfrmProjetos.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
-
-  if PrismControl.VCLComponent = edPesquisar then
-  begin
-    with PrismControl.AsButtonedEdit do
-      ButtonRightCSS:= CSSClass.Button.search;
-  end;
 
   if PrismControl.IsDBGrid then
   begin
@@ -261,6 +281,18 @@ begin
  }
 end;
 
+procedure TfrmProjetos.mnuPop_Filtro_SiglaUFClick(Sender: TObject);
+begin
+  inherited;
+  edPesquisar.Tag := TMenuItem(Sender).Tag;
+  case TMenuItem(Sender).Tag of
+    0:edPesquisar.TextHint := 'Pesquisar pelo ID do Projeto';
+    1:edPesquisar.TextHint := 'Pesquisar pela Descrição do Projeto';
+  end;
+  Pesquisar;
+
+end;
+
 function TfrmProjetos.OnClosePopupEvent(APopupName: String): string;
 begin
 
@@ -309,6 +341,7 @@ var
   FBody :TJSONArray;
   FTipoPesquisa:String;
   x:Integer;
+  FStatus :Integer;
 begin
   try
     try
@@ -316,12 +349,19 @@ begin
       FDMem_Registro.Active := True;
       FDMem_Registro.EmptyDataSet;
 
+      FStatus := 1;
+
       FDMem_Registro.DisableControls;
 
       FTipoPesquisa := '';
-      case cbTipo.ItemIndex of
-        0:FTipoPesquisa := 'id';
+      case edPesquisar.Tag of
+        0:begin
+          if TFuncoes.ContemNaoNumerico(edPesquisar.Text) then
+            raise Exception.Create('Para pesquisar o ID não pode haver letras no texto da pesquisa');
+          FTipoPesquisa := 'id';
+        end;
         1:FTipoPesquisa := 'descricao';
+        2:FStatus := 0;
       end;
 
       if Trim(FHost) = '' then
@@ -335,7 +375,7 @@ begin
         FResp := TRequest.New.BaseURL(FHost)
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
                  .AddParam(FTipoPesquisa,edPesquisar.Text)
-                 .AddParam('status',cbStatus.ItemIndex.ToString)
+                 .AddParam('status',FStatus.ToString)
                  .Resource('projeto')
                  .Accept('application/json')
                  .Get;
@@ -344,7 +384,7 @@ begin
       begin
         FResp := TRequest.New.BaseURL(FHost)
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
-                 .AddParam('status',cbStatus.ItemIndex.ToString)
+                 .AddParam('status',FStatus.ToString)
                  .Resource('projeto')
                  .Accept('application/json')
                  .Get;
@@ -375,7 +415,7 @@ begin
       end;
 
     except on E: Exception do
-      ShowMessage(E.Message,True,True,10000);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
     end;
   finally
     FDMem_Registro.EnableControls;

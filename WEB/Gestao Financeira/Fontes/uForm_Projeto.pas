@@ -18,7 +18,7 @@ uses
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
 
-  uForm_Projeto.Cad;
+  uForm_Projeto.Cad, frxClass, frxDBSet, frxExportBaseDialog, frxExportPDF, Vcl.Menus;
 
 type
   TfrmForm_Projeto = class(TfrmPrincipal)
@@ -27,14 +27,7 @@ type
     pnDetail: TPanel;
     DBGrid_Registros: TDBGrid;
     pnHeader: TPanel;
-    lbStatus: TLabel;
-    lbPesquisa: TLabel;
-    lbTipo: TLabel;
-    cbStatus: TComboBox;
-    edPesquisar: TButtonedEdit;
     btNovo: TButton;
-    btFechar: TButton;
-    cbTipo: TComboBox;
     FDMem_Registroid: TIntegerField;
     FDMem_RegistroidProjeto: TIntegerField;
     FDMem_RegistronomeForm: TStringField;
@@ -47,6 +40,16 @@ type
     FDMem_RegistrotipoFormTipoDesc: TStringField;
     FDMem_RegistroidTipoFormDesc: TStringField;
     FDMem_RegistroidProjetoDesc: TStringField;
+    edPesquisar: TEdit;
+    btFiltros: TButton;
+    btPrint: TButton;
+    PopupMenu: TPopupMenu;
+    mnuPop_Filtro_ID: TMenuItem;
+    mnuPop_Filtro_Nome: TMenuItem;
+    mnuPop_Filtro_SiglaUF: TMenuItem;
+    frxReport: TfrxReport;
+    frxPDFExport: TfrxPDFExport;
+    frxDBDataset: TfrxDBDataset;
     procedure btFecharClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure edPesquisarRightButtonClick(Sender: TObject);

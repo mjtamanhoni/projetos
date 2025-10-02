@@ -6,7 +6,7 @@ uses
   FireDAC.Comp.Client, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt, FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet,
 
-  DateUtils, System.Math,  System.SysUtils, System.JSON, System.Classes
+  DateUtils, System.Math,  System.SysUtils, System.JSON, System.Classes, System.StrUtils
 
   ,IniFiles
   ,DataSet.Serialize
@@ -257,7 +257,8 @@ type
         AStatus:Integer=0;
         ADescricao:String='';
         AID_Projeto:Integer=0;
-        AProjeto:String=''):TJSONArray;
+        AProjeto:String='';
+        ATipoForm:String=''):TJSONArray;
       function Json_Insert(AJSon:TJSONArray):Boolean;
       function Json_Update(AJSon:TJSONArray):Boolean;
       function Json_Delete(AId:Integer):Boolean;
@@ -3285,15 +3286,24 @@ begin
 end;
 
 function TTelas_Projeto.JSon_Listagem(APagina, APaginas, AID, AStatus: Integer; ADescricao: String; AID_Projeto: Integer;
-  AProjeto: String): TJSONArray;
+  AProjeto, ATipoForm: String): TJSONArray;
 var
   FDQ_Select :TFDQuery;
   FPagina :Integer;
   FPaginas :Integer;
+  FIndice :Integer;
 begin
 
   FDQ_Select := TFDQuery.Create(Nil);
   FDQ_Select.Connection := FConexao;
+
+  FIndice := -1;
+  if Trim(ATipoForm) <> '' then
+  begin
+    FIndice := IndexStr(ATipoForm,['LOGIN','CONFIG','PRINCIPAL','CADASTRO','MOVIMENTO','RELATÓRIO','CONSULTA','DASHBOARD']);
+    if FIndice = -1 then
+      FIndice := 99;
+  end;
 
   if APaginas > 0 then
     FPaginas := APaginas;
@@ -3334,6 +3344,8 @@ begin
         FDQ_Select.Sql.Add('  and tp.id_projeto = ' + AID_Projeto.ToString);
       if Trim(AProjeto) <> '' then
         FDQ_Select.Sql.Add('  and p.descricao like ' + QuotedStr('%'+AProjeto+'%'));
+      if FIndice >= 0 then
+        FDQ_Select.Sql.Add('  and tp.tipo = ' + FIndice.ToString);
 
       FDQ_Select.Sql.Add('order by tp.id; ');
 
@@ -3595,10 +3607,19 @@ var
   FDQ_Select :TFDQuery;
   FPagina :Integer;
   FPaginas :Integer;
+  FIndice :Integer;
 begin
 
   FDQ_Select := TFDQuery.Create(Nil);
   FDQ_Select.Connection := FConexao;
+
+  FIndice := -1;
+  if Trim(ATipo) <> '' then
+  begin
+    FIndice := IndexStr(ATipo,['LOGIN','CONFIG','PRINCIPAL','CADASTRO','MOVIMENTO','RELATÓRIO','CONSULTA','DASHBOARD']);
+    if FIndice = -1 then
+      FIndice := 99;
+  end;
 
   if APaginas > 0 then
     FPaginas := APaginas;
@@ -3631,8 +3652,8 @@ begin
         FDQ_Select.Sql.Add('  and tf.descricao like ' + QuotedStr('%'+ADescricao+'%'));
       if AStatus <> 2 then
         FDQ_Select.Sql.Add('  and tf.status = ' + AStatus.ToString);
-      if Trim(ATipo) <> '' then
-        FDQ_Select.Sql.Add('  and tf.tipo like ' + QuotedStr('%'+ATipo+'%'));
+      if FIndice >= 0 then
+        FDQ_Select.Sql.Add('  and tf.tipo = ' + FIndice.ToString);
 
       FDQ_Select.Sql.Add('order by tf.id; ');
 
@@ -3642,6 +3663,7 @@ begin
         FPaginas := (APagina * FPaginas);
         FDQ_Select.Sql.Add('ROWS ' + FPagina.ToString + ' TO ' + FPaginas.ToString);
       end;
+
       FDQ_Select.Active := True;
 
       Result := FDQ_Select.ToJSONArray;
@@ -3649,12 +3671,12 @@ begin
     except
       on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Tipos de Formulários. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Listando Tipos de Formulários. ' + E.Message);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Tipos de Formulários. Banco de dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Listando Tipos de Formulários. Banco de dados: ' + sLineBreak + E.Message);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;

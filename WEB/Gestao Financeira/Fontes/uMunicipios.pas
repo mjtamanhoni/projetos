@@ -18,7 +18,7 @@ uses
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
 
-  uMunicipios.Cad;
+  uMunicipios.Cad, Vcl.Menus, frxClass, frxDBSet, frxExportBaseDialog, frxExportPDF;
 
 type
   TfrmMunicipios = class(TfrmPrincipal)
@@ -27,14 +27,8 @@ type
     pnDetail: TPanel;
     DBGrid_Registros: TDBGrid;
     pnHeader: TPanel;
-    lbStatus: TLabel;
-    lbPesquisa: TLabel;
-    lbTipo: TLabel;
-    cbStatus: TComboBox;
-    edPesquisar: TButtonedEdit;
     btNovo: TButton;
-    btFechar: TButton;
-    cbTipo: TComboBox;
+    btFiltros: TButton;
     FDMem_Registroid: TIntegerField;
     FDMem_RegistroidUf: TIntegerField;
     FDMem_RegistrosiglaUf: TStringField;
@@ -45,12 +39,24 @@ type
     FDMem_RegistrohrCadastro: TTimeField;
     FDMem_RegistrounidadeFederativa: TStringField;
     FDMem_Registroregiao: TStringField;
-    procedure btFecharClick(Sender: TObject);
+    PopupMenu: TPopupMenu;
+    mnuPop_Filtro_ID: TMenuItem;
+    mnuPop_Filtro_Nome: TMenuItem;
+    mnuPop_Filtro_IBGE: TMenuItem;
+    mnuPop_Filtro_Regiao: TMenuItem;
+    mnuPop_Filtro_SiglaUF: TMenuItem;
+    btPrint: TButton;
+    edPesquisar: TEdit;
+    frxReport: TfrxReport;
+    frxPDFExport: TfrxPDFExport;
+    frxDBDataset: TfrxDBDataset;
     procedure btNovoClick(Sender: TObject);
-    procedure edPesquisarRightButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure mnuPop_Filtro_SiglaUFClick(Sender: TObject);
+    procedure edPesquisarKeyPress(Sender: TObject; var Key: Char);
+    procedure btPrintClick(Sender: TObject);
   private
     FfrmMunicipios_Cad :TfrmMunicipios_Cad;
 
@@ -92,12 +98,6 @@ begin
   result:= TfrmMunicipios(TfrmMunicipios.GetInstance);
 end;
 
-procedure TfrmMunicipios.btFecharClick(Sender: TObject);
-begin
-  inherited;
-  Close;
-end;
-
 procedure TfrmMunicipios.btNovoClick(Sender: TObject);
 begin
   inherited;
@@ -108,15 +108,41 @@ begin
 
 end;
 
+procedure TfrmMunicipios.btPrintClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if FDMem_Registro.IsEmpty then
+      raise Exception.Create('Não há registros a serem impressos');
+
+    frxPDFExport.FileName := PrismSession.PathSession + 'Rel_Municipios.pdf';
+
+    // Config. do rel e exportacao do pdf...
+    frxReport.LoadFromFile(RootDirectory + '/Reports/Rel_Municipios.fr3');
+    frxReport.PrepareReport;
+    frxReport.Export(frxPDFExport);
+
+    if FileExists(PrismSession.PathSession + 'Rel_Municipios.pdf') then
+      D2Bridge.PrismSession.SendFile(PrismSession.PathSession + 'Rel_Municipios.pdf')
+    else
+      raise Exception.Create('Erro ao gerar o PDF');
+
+  except on E: Exception do
+    MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
+  end;
+
+end;
+
 procedure TfrmMunicipios.ClosePopup(const AName: String; var CanClose: Boolean);
 begin
 
 end;
 
-procedure TfrmMunicipios.edPesquisarRightButtonClick(Sender: TObject);
+procedure TfrmMunicipios.edPesquisarKeyPress(Sender: TObject; var Key: Char);
 begin
   inherited;
-  Pesquisar;
+  if Key = #13 then
+    Pesquisar;
 end;
 
 procedure TfrmMunicipios.ExportD2Bridge;
@@ -136,29 +162,26 @@ begin
   begin
     with Row.Items.Add do
     begin
-      with HTMLDIV(CSSClass.Col.colsize10 + ' ' + CSSClass.ColorName.beige).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize10).Items.Add do
       begin
         with Row(CSSClass.Space.margim_bottom3).Items.Add do
         begin
-          With FormGroup(lbPesquisa.Caption,CSSClass.Col.col).Items.Add do
+          With FormGroup('',CSSClass.Col.col).Items.Add do
           begin
-            with Row.Items.Add do
-            begin
-              FormGroup('',CSSClass.col.colsize2).Items.Add.VCLObj(cbTipo);
-              FormGroup('',CSSClass.col.col).Items.Add.VCLObj(edPesquisar);
-            end;
+            VCLObj(edPesquisar);
+            VCLObj(btFiltros, PopupMenu, CSSClass.Button.search);
           end;
         end;
       end;
 
-      with HTMLDIV(CSSClass.Col.colsize2).Items.Add do
+      with HTMLDIV(CSSClass.Col.col).Items.Add do
       begin
-        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top4).Items.Add do
+        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
         begin
           with HTMLDIV(CSSClass.Text.Align.right).Items.Add do
           begin
             VCLObj(btNovo, CSSClass.Button.add);
-            VCLObj(btFechar, CSSClass.Button.close);
+            VCLObj(btPrint, CSSClass.Button.print);
           end;
         end;
       end;
@@ -166,8 +189,6 @@ begin
 
     with Row.Items.Add do
       VCLObj(DBGrid_Registros);
-
-    //Popup('Popup'+frmProjetos_Cad.Name, 'Cadastro de Projetos',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmProjetos_Cad.Name);
 
     with Popup('Popup' + FfrmMunicipios_Cad.Name,'Cadastro de Municípios',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmMunicipios_Cad);
@@ -192,6 +213,10 @@ begin
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
 
+  //btNovo.Caption := '';
+  //btFiltros.Caption := '';
+  //btPrint.Caption := '';
+
 end;
 
 procedure TfrmMunicipios.FormShow(Sender: TObject);
@@ -203,12 +228,6 @@ end;
 procedure TfrmMunicipios.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
-
-  if PrismControl.VCLComponent = edPesquisar then
-  begin
-    with PrismControl.AsButtonedEdit do
-      ButtonRightCSS:= CSSClass.Button.search;
-  end;
 
   if PrismControl.IsDBGrid then
   begin
@@ -249,6 +268,20 @@ begin
    PrismControl.AsDBGrid.MaxRecords:= 2000;
   end;
  }
+end;
+
+procedure TfrmMunicipios.mnuPop_Filtro_SiglaUFClick(Sender: TObject);
+begin
+  inherited;
+  edPesquisar.Tag := TMenuItem(Sender).Tag;
+  case TMenuItem(Sender).Tag of
+    0:edPesquisar.TextHint := 'Pesquisar pelo ID do Município';
+    1:edPesquisar.TextHint := 'Pesquisar pelo Nome do Município';
+    2:edPesquisar.TextHint := 'Pesquisar pelo código IBGE do Município';
+    3:edPesquisar.TextHint := 'Pesquisar pela Região do Município';
+    4:edPesquisar.TextHint := 'Pesquisar pela sigla da UF do Município';
+  end;
+  Pesquisar;
 end;
 
 procedure TfrmMunicipios.OnEdit(Sender: TObject);
@@ -297,10 +330,18 @@ begin
       FDMem_Registro.DisableControls;
 
       FTipoPesquisa := '';
-      case cbTipo.ItemIndex of
-        0:FTipoPesquisa := 'id';
+      case edPesquisar.Tag of
+        0:begin
+          if TFuncoes.ContemNaoNumerico(edPesquisar.Text) then
+            raise Exception.Create('Para pesquisar o ID não pode haver letras no texto da pesquisa');
+          FTipoPesquisa := 'id';
+        end;
         1:FTipoPesquisa := 'nome';
-        2:FTipoPesquisa := 'ibge';
+        2:begin
+          if TFuncoes.ContemNaoNumerico(edPesquisar.Text) then
+            raise Exception.Create('Para pesquisar o IBGE não pode haver letras no texto da pesquisa');
+          FTipoPesquisa := 'ibge';
+        end;
         3:FTipoPesquisa := 'regiao';
         4:FTipoPesquisa := 'ufSigla';
       end;
@@ -358,7 +399,7 @@ begin
       end;
 
     except on E: Exception do
-      ShowMessage(E.Message,True,True,10000);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
     end;
   finally
     FDMem_Registro.EnableControls;

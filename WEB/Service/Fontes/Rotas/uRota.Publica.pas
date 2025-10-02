@@ -2214,6 +2214,7 @@ var
   FStatus :Integer;
   FProjeto :String;
   FId_Projeto :Integer;
+  FTipoForm :String;
 
   FPagina :Integer;
   FPaginas :Integer;
@@ -2234,6 +2235,7 @@ begin
       FStatus := 1;
       FProjeto := '';
       FId_Projeto := 0;
+      FTipoForm := '';
 
       FPagina := 0;
       FPaginas := 0;
@@ -2243,6 +2245,7 @@ begin
       FDescricao := Req.Query['descricao'];
       FProjeto := Req.Query['projeto'];
       FId_Projeto := StrToIntDef(Req.Query['idProjeto'],0);
+      FProjeto := Req.Query['tipoForm'];
 
       FPagina := StrToIntDef(Req.Query['pagina'],0);
       FPaginas := StrToIntDef(Req.Query['paginas'],0);
@@ -2254,7 +2257,8 @@ begin
         ,FStatus
         ,FDescricao
         ,FId_Projeto
-        ,FProjeto);
+        ,FProjeto
+        ,FTipoForm);
 
       if FJSon_Retorno.Size = 0 then
       begin

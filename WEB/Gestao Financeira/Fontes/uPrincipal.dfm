@@ -2,7 +2,7 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Formul'#225'rio Principal'
-  ClientHeight = 304
+  ClientHeight = 299
   ClientWidth = 635
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
