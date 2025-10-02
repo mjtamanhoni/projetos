@@ -1127,7 +1127,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Unidades Federativas. Não há informações a serem alteradas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Unidades Federativas. Não há informações a serem alteradas',10);
         raise Exception.Create('Não há informações a serem alteradas');
       end;
 
@@ -1140,7 +1140,7 @@ begin
         FDQ_Select.Active := True;
         if FDQ_Select.IsEmpty then
         begin
-          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Unidade Federativa ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas');
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Unidade Federativa ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas',10);
           raise Exception.Create('Unidade Federativa ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas');
         end;
 
@@ -1169,7 +1169,7 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Unidades Federativas. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Unidades Federativas. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
     end;
@@ -1378,7 +1378,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Municípios. Não há informações a serem alteradas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Municípios. Não há informações a serem alteradas',10);
         raise Exception.Create('Não há informações a serem alteradas');
       end;
 
@@ -1391,7 +1391,7 @@ begin
         FDQ_Select.Active := True;
         if FDQ_Select.IsEmpty then
         begin
-          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Município ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Município ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas',10);
           raise Exception.Create('Município ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
         end;
 
@@ -1420,7 +1420,7 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Município. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Município. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
     end;
@@ -1508,7 +1508,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Empresa. Não há informações a serem Inseridas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Empresa. Não há informações a serem Inseridas',10);
         raise Exception.Create('Não há informações a serem inseridas');
       end;
 
@@ -1681,7 +1681,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Empresa. Não há informações a serem alteradas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Empresa. Não há informações a serem alteradas',10);
         raise Exception.Create('Não há informações a serem alteradas');
       end;
 
@@ -1694,7 +1694,7 @@ begin
         FDQ_Select.Active := True;
         if FDQ_Select.IsEmpty then
         begin
-          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Empresa ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas');
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Empresa ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas',10);
           raise Exception.Create('Empresa ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas');
         end;
 
@@ -1753,7 +1753,7 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Empresa. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Empresa. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
     end;
@@ -2701,7 +2701,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Unidade de Medida. Não há informações a serem Inseridas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Unidade de Medida. Não há informações a serem Inseridas',10);
         raise Exception.Create('Não há informações a serem inseridas');
       end;
 
@@ -2809,7 +2809,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Unidade de Medida. Não há informações a serem alteradas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Unidade de Medida. Não há informações a serem alteradas',10);
         raise Exception.Create('Não há informações a serem alteradas');
       end;
 
@@ -2822,7 +2822,7 @@ begin
         FDQ_Select.Active := True;
         if FDQ_Select.IsEmpty then
         begin
-          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Unidade de Medida ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas');
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Unidade de Medida ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas',10);
           raise Exception.Create('Unidade de Medida ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizada. As alterações serão canceladas');
         end;
 
@@ -2847,7 +2847,7 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Unidade de Medida. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Unidade de Medida. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
     end;
@@ -2904,14 +2904,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Projeto. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Projeto. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Projeto. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -2943,7 +2943,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Projetos. Não há informações a serem Inseridas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Projetos. Não há informações a serem Inseridas',10);
         raise Exception.Create('Não há informações a serem inseridas');
       end;
 
@@ -2978,14 +2978,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Projetos. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Projetos. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Projetos. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Projetos. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3042,12 +3042,12 @@ begin
     except
       on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Projetos. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Projetos. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Projetos. Banco de dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Projetos. Banco de dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3081,7 +3081,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Projetos. Não há informações a serem alteradas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Projetos. Não há informações a serem alteradas',10);
         raise Exception.Create('Não há informações a serem alteradas');
       end;
 
@@ -3094,7 +3094,7 @@ begin
         FDQ_Select.Active := True;
         if FDQ_Select.IsEmpty then
         begin
-          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Projetos ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Projetos ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas',10);
           raise Exception.Create('Projetos ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
         end;
 
@@ -3118,14 +3118,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Projetos. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Projetos. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Projetos. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Projetos. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3182,14 +3182,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tela do Formujlário. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tela do Formujlário. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tela do Formulário. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tela do Formulário. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3221,11 +3221,11 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Telas do Projeto. Não há informações a serem Inseridas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Telas do Projeto. Não há informações a serem Inseridas',10);
         raise Exception.Create('Não há informações a serem inseridas');
       end;
 
-      TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', AJson.ToString);
+      TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', AJson.ToString,10);
 
 
       for I := 0 to AJSon.Size - 1 do
@@ -3268,14 +3268,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Telas do Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Telas do Projeto. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Telas do Projeto. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Telas do Projeto. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3345,7 +3345,7 @@ begin
       if Trim(AProjeto) <> '' then
         FDQ_Select.Sql.Add('  and p.descricao like ' + QuotedStr('%'+AProjeto+'%'));
       if FIndice >= 0 then
-        FDQ_Select.Sql.Add('  and tp.tipo = ' + FIndice.ToString);
+        FDQ_Select.Sql.Add('  and tp.id_tipo_form = ' + FIndice.ToString);
 
       FDQ_Select.Sql.Add('order by tp.id; ');
 
@@ -3362,12 +3362,12 @@ begin
     except
       on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Formulários do Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Formulários do Projeto. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Formulários do Projeto. Banco de dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Listando Formulários do Projeto. Banco de dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3401,7 +3401,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Telas do Projeto. Não há informações a serem alteradas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Telas do Projeto. Não há informações a serem alteradas',10);
         raise Exception.Create('Não há informações a serem alteradas');
       end;
 
@@ -3414,7 +3414,7 @@ begin
         FDQ_Select.Active := True;
         if FDQ_Select.IsEmpty then
         begin
-          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Telas do Projeto ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Telas do Projeto ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas',10);
           raise Exception.Create('Telas do Projeto ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
         end;
 
@@ -3444,14 +3444,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Telas do Formulário. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Telas do Formulário. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Telas do Formulário. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Telas do Formulário. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3508,14 +3508,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tipo de Formulário. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tipo de Formulário. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tipo de Formulário. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Exclui Tipo de Formulário. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3547,7 +3547,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Tipos de Formulários. Não há informações a serem Inseridas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere Tipos de Formulários. Não há informações a serem Inseridas',10);
         raise Exception.Create('Não há informações a serem inseridas');
       end;
 
@@ -3585,14 +3585,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Tipos Formulários. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Tipos Formulários. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Tipos de Formulários. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Insere dados Tipos de Formulários. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3671,12 +3671,12 @@ begin
     except
       on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Listando Tipos de Formulários. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Listando Tipos de Formulários. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Listando Tipos de Formulários. Banco de dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Listando Tipos de Formulários. Banco de dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;
@@ -3710,7 +3710,7 @@ begin
     try
       if AJSon.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Tipos de Formulários. Não há informações a serem alteradas');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Altera Tipos de Formulários. Não há informações a serem alteradas',10);
         raise Exception.Create('Não há informações a serem alteradas');
       end;
 
@@ -3723,7 +3723,7 @@ begin
         FDQ_Select.Active := True;
         if FDQ_Select.IsEmpty then
         begin
-          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Tipo de Formulário ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Tipo de Formulário ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas',10);
           raise Exception.Create('Tipo de Formulário ' + AJSon[I].GetValue<Integer>('id',0).ToString + ' não localizado. As alterações serão canceladas');
         end;
 
@@ -3749,14 +3749,14 @@ begin
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Tipo de Formulário. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Tipo de Formulário. ' + E.Message,10);
         raise Exception.Create(E.Message);
       end;
       on E: EDatabaseError do
       begin
         FConexao.Rollback;
         Result := False;
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Tipo de Formulário. Banco de Dados: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, 'LOG_SERVICO.TXT', 'Atualiza dados Tipo de Formulário. Banco de Dados: ' + sLineBreak + E.Message,10);
         raise Exception.Create('Erro ao acessar o Banco de Dados: ' + sLineBreak +  E.Message);
       end;
     end;

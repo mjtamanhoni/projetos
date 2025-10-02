@@ -23,8 +23,6 @@ object frmForm_Projeto: TfrmForm_Projeto
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 41
-    ExplicitHeight = 550
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -144,9 +142,6 @@ object frmForm_Projeto: TfrmForm_Projeto
       Caption = 'Novo'
       TabOrder = 0
       OnClick = btNovoClick
-      ExplicitLeft = 790
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object edPesquisar: TEdit
       Tag = 1
@@ -158,9 +153,8 @@ object frmForm_Projeto: TfrmForm_Projeto
       Align = alLeft
       TabOrder = 1
       TextHint = 'Pesquisar pela Descri'#231#227'o do Tipo de Formul'#225'rio'
-      ExplicitLeft = 11
-      ExplicitTop = 6
-      ExplicitHeight = 35
+      OnKeyPress = edPesquisarKeyPress
+      ExplicitHeight = 23
     end
     object btFiltros: TButton
       AlignWithMargins = True
@@ -171,9 +165,6 @@ object frmForm_Projeto: TfrmForm_Projeto
       Align = alLeft
       Caption = 'Filtros'
       TabOrder = 2
-      ExplicitLeft = 295
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object btPrint: TButton
       AlignWithMargins = True
@@ -184,9 +175,7 @@ object frmForm_Projeto: TfrmForm_Projeto
       Align = alRight
       Caption = 'Impress'#227'o'
       TabOrder = 3
-      ExplicitLeft = 871
-      ExplicitTop = 10
-      ExplicitHeight = 25
+      OnClick = btPrintClick
     end
   end
   object FDMem_Registro: TFDMemTable
@@ -254,14 +243,27 @@ object frmForm_Projeto: TfrmForm_Projeto
     Top = 152
     object mnuPop_Filtro_ID: TMenuItem
       Caption = 'Id'
+      OnClick = mnuPop_Filtro_SiglaUFClick
     end
     object mnuPop_Filtro_Nome: TMenuItem
       Tag = 1
       Caption = 'Descri'#231#227'o'
+      OnClick = mnuPop_Filtro_SiglaUFClick
+    end
+    object mnuFiltro_TipoForm: TMenuItem
+      Tag = 2
+      Caption = 'Tipo do Formul'#225'rio'
+      OnClick = mnuPop_Filtro_SiglaUFClick
+    end
+    object mnuFiltro_Projeot: TMenuItem
+      Tag = 3
+      Caption = 'Projeto'
+      OnClick = mnuPop_Filtro_SiglaUFClick
     end
     object mnuPop_Filtro_SiglaUF: TMenuItem
-      Tag = 2
+      Tag = 4
       Caption = 'Inativos'
+      OnClick = mnuPop_Filtro_SiglaUFClick
     end
   end
   object frxReport: TfrxReport
@@ -273,7 +275,7 @@ object frmForm_Projeto: TfrmForm_Projeto
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 45931.597265277800000000
-    ReportOptions.LastChange = 45931.722082881940000000
+    ReportOptions.LastChange = 45932.270286539350000000
     ScriptLanguage = 'PascalScript'
     ShowProgress = False
     StoreInDFM = False

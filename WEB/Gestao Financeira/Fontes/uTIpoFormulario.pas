@@ -49,7 +49,6 @@ type
     mnuFiltro_TipoForm: TMenuItem;
     procedure btFecharClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
-    procedure edPesquisarRightButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -148,11 +147,6 @@ begin
   if Key = #13 then
     Pesquisar;
 
-end;
-
-procedure TfrmTipoFormulario.edPesquisarRightButtonClick(Sender: TObject);
-begin
-  Pesquisar;
 end;
 
 procedure TfrmTipoFormulario.ExportD2Bridge;

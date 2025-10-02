@@ -2,8 +2,8 @@ object frmRegioes: TfrmRegioes
   Left = 0
   Top = 0
   Caption = 'Regi'#245'es Brasileiras'
-  ClientHeight = 583
-  ClientWidth = 960
+  ClientHeight = 511
+  ClientWidth = 944
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,22 +16,21 @@ object frmRegioes: TfrmRegioes
   TextHeight = 15
   object pnDetail: TPanel
     Left = 0
-    Top = 41
-    Width = 960
-    Height = 542
+    Top = 30
+    Width = 944
+    Height = 481
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitLeft = -54
-    ExplicitTop = 30
-    ExplicitWidth = 964
-    ExplicitHeight = 553
+    ExplicitTop = 41
+    ExplicitWidth = 960
+    ExplicitHeight = 542
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
-      Width = 954
-      Height = 536
+      Width = 938
+      Height = 475
       Align = alClient
       DataSource = dsRegistros
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -91,86 +90,62 @@ object frmRegioes: TfrmRegioes
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 960
-    Height = 41
+    Width = 944
+    Height = 30
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -54
-    ExplicitWidth = 964
-    object lbStatus: TLabel
-      Left = 8
-      Top = 13
-      Width = 32
-      Height = 15
-      Caption = 'Status'
-      Layout = tlCenter
-    end
-    object lbPesquisa: TLabel
-      Left = 284
-      Top = 13
-      Width = 46
-      Height = 15
-      Caption = 'Pesquisa'
-    end
-    object lbTipo: TLabel
-      Left = 157
-      Top = 13
-      Width = 26
-      Height = 15
-      Caption = 'Tipo:'
-    end
-    object cbStatus: TComboBox
-      Left = 46
-      Top = 12
-      Width = 99
-      Height = 23
-      TabOrder = 0
-      TextHint = 'Selecine'
-      Items.Strings = (
-        'INATIVO'
-        'ATIVO'
-        'AMBOS')
-    end
-    object edPesquisar: TButtonedEdit
-      Left = 336
-      Top = 12
-      Width = 441
-      Height = 23
-      RightButton.Visible = True
-      TabOrder = 1
-      TextHint = 'DIgite um texto para selecionar'
-      OnRightButtonClick = edPesquisarRightButtonClick
-    end
+    ExplicitWidth = 960
     object btNovo: TButton
-      Left = 790
-      Top = 10
+      AlignWithMargins = True
+      Left = 785
+      Top = 3
       Width = 75
-      Height = 25
+      Height = 24
+      Align = alRight
       Caption = 'Novo'
-      TabOrder = 2
+      TabOrder = 0
       OnClick = btNovoClick
+      ExplicitLeft = 790
+      ExplicitTop = 10
+      ExplicitHeight = 25
     end
-    object btFechar: TButton
-      Left = 871
-      Top = 10
+    object edPesquisar: TEdit
+      Tag = 1
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 650
+      Height = 24
+      Align = alLeft
+      TabOrder = 1
+      TextHint = 'Pesquisar pelo Nome da Regi'#227'o'
+      OnKeyPress = edPesquisarKeyPress
+      ExplicitLeft = 11
+      ExplicitTop = 6
+      ExplicitHeight = 35
+    end
+    object btFiltros: TButton
+      AlignWithMargins = True
+      Left = 659
+      Top = 3
       Width = 75
-      Height = 25
-      Caption = 'Fechar'
-      TabOrder = 3
-      OnClick = btFecharClick
+      Height = 24
+      Align = alLeft
+      Caption = 'Filtros'
+      TabOrder = 2
     end
-    object cbTipo: TComboBox
-      Left = 197
-      Top = 12
-      Width = 81
-      Height = 23
-      TabOrder = 4
-      TextHint = 'Tipo da Pesquisa'
-      Items.Strings = (
-        'ID'
-        'NOME'
-        'IBGE')
+    object btPrint: TButton
+      AlignWithMargins = True
+      Left = 866
+      Top = 3
+      Width = 75
+      Height = 24
+      Align = alRight
+      Caption = 'Impress'#227'o'
+      TabOrder = 3
+      OnClick = btPrintClick
+      ExplicitLeft = 887
     end
   end
   object FDMem_Registro: TFDMemTable
@@ -212,5 +187,78 @@ object frmRegioes: TfrmRegioes
     DataSet = FDMem_Registro
     Left = 432
     Top = 296
+  end
+  object PopupMenu: TPopupMenu
+    Left = 656
+    Top = 152
+    object mnuPop_Filtro_ID: TMenuItem
+      Caption = 'Id'
+      OnClick = mnuFiltro_TipoFormClick
+    end
+    object mnuPop_Filtro_Nome: TMenuItem
+      Tag = 1
+      Caption = 'Nome'
+      OnClick = mnuFiltro_TipoFormClick
+    end
+    object mnuFiltro_TipoForm: TMenuItem
+      Tag = 2
+      Caption = 'IBGE'
+      OnClick = mnuFiltro_TipoFormClick
+    end
+  end
+  object frxReport: TfrxReport
+    Version = '2023.1.3'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45931.597265277800000000
+    ReportOptions.LastChange = 45932.325664768520000000
+    ScriptLanguage = 'PascalScript'
+    ShowProgress = False
+    StoreInDFM = False
+    Left = 656
+    Top = 216
+  end
+  object frxPDFExport: TfrxPDFExport
+    ShowDialog = False
+    UseFileCache = True
+    ShowProgress = False
+    OverwritePrompt = False
+    DataOnly = False
+    EmbedFontsIfProtected = False
+    InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
+    OpenAfterExport = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    Creator = 'FastReport'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    PDFStandard = psNone
+    PDFVersion = pv17
+    Left = 656
+    Top = 272
+  end
+  object frxDBDataset: TfrxDBDataset
+    UserName = 'frxDBDataset'
+    CloseDataSource = False
+    DataSet = FDMem_Registro
+    BCDToCurrency = False
+    DataSetOptions = []
+    Left = 656
+    Top = 328
   end
 end

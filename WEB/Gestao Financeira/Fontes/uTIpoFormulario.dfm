@@ -23,8 +23,6 @@ object frmTipoFormulario: TfrmTipoFormulario
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 41
-    ExplicitHeight = 530
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -113,9 +111,6 @@ object frmTipoFormulario: TfrmTipoFormulario
       Caption = 'Novo'
       TabOrder = 0
       OnClick = btNovoClick
-      ExplicitLeft = 790
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object edPesquisar: TEdit
       Tag = 1
@@ -128,6 +123,7 @@ object frmTipoFormulario: TfrmTipoFormulario
       TabOrder = 1
       TextHint = 'Pesquisar pela Descri'#231#227'o do Tipo de Formul'#225'rio'
       OnKeyPress = edPesquisarKeyPress
+      ExplicitHeight = 23
     end
     object btFiltros: TButton
       AlignWithMargins = True
@@ -138,9 +134,6 @@ object frmTipoFormulario: TfrmTipoFormulario
       Align = alLeft
       Caption = 'Filtros'
       TabOrder = 2
-      ExplicitLeft = 295
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object btPrint: TButton
       AlignWithMargins = True
@@ -152,9 +145,6 @@ object frmTipoFormulario: TfrmTipoFormulario
       Caption = 'Impress'#227'o'
       TabOrder = 3
       OnClick = btPrintClick
-      ExplicitLeft = 871
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
   end
   object FDMem_Registro: TFDMemTable

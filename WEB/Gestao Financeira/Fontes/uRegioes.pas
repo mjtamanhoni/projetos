@@ -18,7 +18,7 @@ uses
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
 
-  uRegioes.Cad;
+  uRegioes.Cad, frxClass, frxDBSet, frxExportBaseDialog, frxExportPDF, Vcl.Menus;
 
 type
   TfrmRegioes = class(TfrmPrincipal)
@@ -27,26 +27,31 @@ type
     pnDetail: TPanel;
     DBGrid_Registros: TDBGrid;
     pnHeader: TPanel;
-    lbStatus: TLabel;
-    lbPesquisa: TLabel;
-    lbTipo: TLabel;
-    cbStatus: TComboBox;
-    edPesquisar: TButtonedEdit;
     btNovo: TButton;
-    btFechar: TButton;
-    cbTipo: TComboBox;
     FDMem_Registroid: TIntegerField;
     FDMem_Registroibge: TIntegerField;
     FDMem_Registronome: TStringField;
     FDMem_Registrosigla: TStringField;
     FDMem_RegistrodtCadastro: TDateField;
     FDMem_RegistrohrCadastro: TTimeField;
+    edPesquisar: TEdit;
+    btFiltros: TButton;
+    btPrint: TButton;
+    PopupMenu: TPopupMenu;
+    mnuPop_Filtro_ID: TMenuItem;
+    mnuPop_Filtro_Nome: TMenuItem;
+    mnuFiltro_TipoForm: TMenuItem;
+    frxReport: TfrxReport;
+    frxPDFExport: TfrxPDFExport;
+    frxDBDataset: TfrxDBDataset;
     procedure btFecharClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
-    procedure edPesquisarRightButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btPrintClick(Sender: TObject);
+    procedure edPesquisarKeyPress(Sender: TObject; var Key: Char);
+    procedure mnuFiltro_TipoFormClick(Sender: TObject);
   private
     FfrmRegioes_Cad :TfrmRegioes_Cad;
 
@@ -102,14 +107,42 @@ begin
 
 end;
 
+procedure TfrmRegioes.btPrintClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if FDMem_Registro.IsEmpty then
+      raise Exception.Create('Não há registros a serem impressos');
+
+    frxPDFExport.FileName := PrismSession.PathSession + 'Rel_Regioes.pdf';
+
+    // Config. do rel e exportacao do pdf...
+    frxReport.LoadFromFile(RootDirectory + '/Reports/Rel_Regioes.fr3');
+    frxReport.PrepareReport;
+    frxReport.Export(frxPDFExport);
+
+    if FileExists(PrismSession.PathSession + 'Rel_Regioes.pdf') then
+      D2Bridge.PrismSession.SendFile(PrismSession.PathSession + 'Rel_Regioes.pdf')
+    else
+      raise Exception.Create('Erro ao gerar o PDF');
+
+  except on E: Exception do
+    MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
+  end;
+
+end;
+
 procedure TfrmRegioes.ClosePopup(const AName: String; var CanClose: Boolean);
 begin
 
 end;
 
-procedure TfrmRegioes.edPesquisarRightButtonClick(Sender: TObject);
+procedure TfrmRegioes.edPesquisarKeyPress(Sender: TObject; var Key: Char);
 begin
-  Pesquisar;
+  inherited;
+  if Key = #13 then
+    Pesquisar;
+
 end;
 
 procedure TfrmRegioes.ExportD2Bridge;
@@ -130,29 +163,26 @@ begin
   begin
     with Row.Items.Add do
     begin
-      with HTMLDIV(CSSClass.Col.colsize10 + ' ' + CSSClass.ColorName.beige).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize10).Items.Add do
       begin
         with Row(CSSClass.Space.margim_bottom3).Items.Add do
         begin
-          With FormGroup(lbPesquisa.Caption,CSSClass.Col.col).Items.Add do
+          With FormGroup('',CSSClass.Col.col).Items.Add do
           begin
-            with Row.Items.Add do
-            begin
-              FormGroup('',CSSClass.col.colsize2).Items.Add.VCLObj(cbTipo);
-              FormGroup('',CSSClass.col.col).Items.Add.VCLObj(edPesquisar);
-            end;
+            VCLObj(edPesquisar);
+            VCLObj(btFiltros, PopupMenu, CSSClass.Button.search);
           end;
         end;
       end;
 
-      with HTMLDIV(CSSClass.Col.colsize2).Items.Add do
+      with HTMLDIV(CSSClass.Col.col).Items.Add do
       begin
-        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top4).Items.Add do
+        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
         begin
           with HTMLDIV(CSSClass.Text.Align.right).Items.Add do
           begin
             VCLObj(btNovo, CSSClass.Button.add);
-            VCLObj(btFechar, CSSClass.Button.close);
+            VCLObj(btPrint, CSSClass.Button.print);
           end;
         end;
       end;
@@ -160,8 +190,6 @@ begin
 
     with Row.Items.Add do
       VCLObj(DBGrid_Registros);
-
-    //Popup('Popup'+frmProjetos_Cad.Name, 'Cadastro de Projetos',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmProjetos_Cad.Name);
 
     with Popup('Popup' + FfrmRegioes_Cad.Name,'Cadastro de Regiões Brasileiras',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmRegioes_Cad);
@@ -195,12 +223,6 @@ procedure TfrmRegioes.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
-  if PrismControl.VCLComponent = edPesquisar then
-  begin
-    with PrismControl.AsButtonedEdit do
-      ButtonRightCSS:= CSSClass.Button.search;
-  end;
-
   if PrismControl.IsDBGrid then
   begin
    PrismControl.AsDBGrid.RecordsPerPage := 10;
@@ -228,6 +250,19 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmRegioes.mnuFiltro_TipoFormClick(Sender: TObject);
+begin
+  inherited;
+  edPesquisar.Tag := TMenuItem(Sender).Tag;
+  case TMenuItem(Sender).Tag of
+    0:edPesquisar.TextHint := 'Pesquisar pelo ID da Região Brasileira';
+    1:edPesquisar.TextHint := 'Pesquisar pelo Nome da Região Brasileira';
+    2:edPesquisar.TextHint := 'Pesquisar pelo Código do IBGE da Região Brasileira';
+  end;
+  Pesquisar;
+
 end;
 
 procedure TfrmRegioes.OnEdit(Sender: TObject);
@@ -276,10 +311,18 @@ begin
       FDMem_Registro.DisableControls;
 
       FTipoPesquisa := '';
-      case cbTipo.ItemIndex of
-        0:FTipoPesquisa := 'id';
+      case edPesquisar.Tag of
+        0:begin
+          if TFuncoes.ContemNaoNumerico(edPesquisar.Text) then
+            raise Exception.Create('Para pesquisar o ID não pode haver letras no texto da pesquisa');
+          FTipoPesquisa := 'id';
+        end;
         1:FTipoPesquisa := 'nome';
-        2:FTipoPesquisa := 'ibge';
+        2:begin
+          if TFuncoes.ContemNaoNumerico(edPesquisar.Text) then
+            raise Exception.Create('Para pesquisar o Código do IBGE não pode haver letras no texto da pesquisa');
+          FTipoPesquisa := 'ibge';
+        end;
       end;
 
       if Trim(FHost) = '' then
@@ -331,7 +374,7 @@ begin
       end;
 
     except on E: Exception do
-      ShowMessage(E.Message,True,True,10000);
+      raise Exception.Create(FResp.StatusCode.ToString + ': ' + FResp.Content);
     end;
   finally
     FDMem_Registro.EnableControls;

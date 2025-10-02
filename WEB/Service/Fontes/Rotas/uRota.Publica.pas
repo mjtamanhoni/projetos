@@ -316,18 +316,18 @@ begin
       if FJSon_Retorno.Size = 0 then
       begin
         Res.Send('Não foi possível localizar os Usuários.').Status(204);
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar os Usuários.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar os Usuários.',10);
       end
       else
       begin
         Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Lista de Usuários retornada',C_LINHA_ERRO);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Lista de Usuários retornada',10);
       end;
 
     except on E: Exception do
       begin
         Res.Send(E.Message).Status(500);
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
       end;
     end;
   finally
@@ -406,13 +406,13 @@ begin
         Res.Send('Usuário cadastrado com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o usuário.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o usuário.',10);
         Res.Send('Não foi possível cadatrar o usuário.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Cadastro de Usuário: ' + sLineBreak + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Cadastro de Usuário: ' + sLineBreak + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -520,7 +520,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível localizar as Regiões.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível localizar as Regiões.',10);
         Res.Send('Não foi possível localizar as Regiões.').Status(204);
       end
       else
@@ -530,7 +530,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Pesquisa de Regiões: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Pesquisa de Regiões: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -560,7 +560,7 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível cadatrar a Região Brasileira.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível cadatrar a Região Brasileira.',10);
         Res.Send('Não foi possível cadatrar a Região Brasileira.').Status(422);
       end;
 
@@ -593,7 +593,7 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível alterar a Região Brasileira.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível alterar a Região Brasileira.',10);
         Res.Send('Não foi possível alterar a Região Brasileira.').Status(422);
       end;
 
@@ -628,7 +628,7 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível excluir a Região Brasileira.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível excluir a Região Brasileira.',10);
         Res.Send('Não foi possível excluir a Região.').Status(409);
       end;
 
@@ -686,7 +686,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível localizar as Unidades Federativas.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível localizar as Unidades Federativas.',10);
         Res.Send('Não foi possível localizar as Unidades Federativas.').Status(204);
       end
       else
@@ -696,7 +696,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Pesquisa de Unidades Federativas: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Pesquisa de Unidades Federativas: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -726,13 +726,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível cadatrar a Unidade Federativa.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível cadatrar a Unidade Federativa.',10);
         Res.Send('Não foi possível cadatrar a Unidade Federativa.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Unidade Federativa. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Unidade Federativa. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -762,13 +762,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível alterar a Unidade Federativa.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível alterar a Unidade Federativa.',10);
         Res.Send('Não foi possível alterar a Unidade Federativa.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Unidade Federativa. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Unidade Federativa. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -800,13 +800,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível excluir a Unidade Federativa.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível excluir a Unidade Federativa.',10);
         Res.Send('Não foi possível excluir a Unidade Federativa.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Unidade Federativa. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Unidade Federativa. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -862,7 +862,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível localizar os Municípios.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível localizar os Municípios.',10);
         Res.Send('Não foi possível localizar os Municípios.').Status(204);
       end
       else
@@ -872,7 +872,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Pesquisa de Municípios: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Pesquisa de Municípios: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -902,13 +902,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível cadatrar o Município.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível cadatrar o Município.',10);
         Res.Send('Não foi possível cadatrar o Município.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Município. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Município. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -938,13 +938,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível alterar o Município.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível alterar o Município.',10);
         Res.Send('Não foi possível alterar o Município.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Município. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Município. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -976,13 +976,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível excluir o Município.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Não foi possível excluir o Município.',10);
         Res.Send('Não foi possível excluir o Município.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Município. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico,C_NOME_LOG, 'Município. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1035,7 +1035,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Empresas.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Empresas.',10);
         Res.Send('Não foi possível localizar as Empresas.').Status(204);
       end
       else
@@ -1045,7 +1045,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Empresas: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Empresas: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1075,13 +1075,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Empresa.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Empresa.',10);
         Res.Send('Não foi possível cadatrar a Empresa.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Empresa. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Empresa. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1111,13 +1111,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Empresa.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Empresa.',10);
         Res.Send('Não foi possível alterar a Empresa.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Empresa. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Empresa. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1149,13 +1149,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Empresa.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Empresa.',10);
         Res.Send('Não foi possível excluir a Empresa.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Empresa. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Empresa. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1205,7 +1205,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Formas de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Formas de Pagamento.',10);
         Res.Send('Não foi possível localizar as Formas de Pagamento.').Status(204);
       end
       else
@@ -1215,7 +1215,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1243,13 +1243,13 @@ begin
         Res.Send('Forma de Pagamento cadastrada com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Forma de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Forma de Pagamento.',10);
         Res.Send('Não foi possível cadatrar a Forma de Pagamento.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1278,13 +1278,13 @@ begin
         Res.Send('Forma de Pagamento alterada com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Forma de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Forma de Pagamento.',10);
         Res.Send('Não foi possível alterar a Forma de Pagamento.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1314,13 +1314,13 @@ begin
         Res.Send('Forma de Pagamento excluída com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Forma de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Forma de Pagamento.',10);
         Res.Send('Não foi possível excluir a Forma de Pagamento.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1364,7 +1364,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Condições de Pagamento da Forma de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Condições de Pagamento da Forma de Pagamento.',10);
         Res.Send('Não foi possível localizar as Condições de Pagamento da Forma de Pagamento.').Status(204);
       end
       else
@@ -1374,7 +1374,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1428,7 +1428,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Condições de Pagamento da Forma de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Condições de Pagamento da Forma de Pagamento.',10);
         Res.Send('Não foi possível localizar as Condições de Pagamento da Forma de Pagamento.').Status(204);
       end
       else
@@ -1438,7 +1438,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1466,13 +1466,13 @@ begin
         Res.Send('Condição da Forma de Pagamento cadastrada com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Condição da Forma de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Condição da Forma de Pagamento.',10);
         Res.Send('Não foi possível cadatrar a Condição da Forma de Pagamento.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1502,13 +1502,13 @@ begin
         Res.Send('Condição da Forma de Pagamento excluída com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Condição da Forma de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Condição da Forma de Pagamento.',10);
         Res.Send('Não foi possível excluir a Condição da Forma de Pagamento.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1558,7 +1558,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Condições de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Condições de Pagamento.',10);
         Res.Send('Não foi possível localizar as Condições de Pagamento.').Status(204);
       end
       else
@@ -1568,7 +1568,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1596,13 +1596,13 @@ begin
         Res.Send('Condição de Pagamento cadastrada com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Condição de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Condição de Pagamento.',10);
         Res.Send('Não foi possível cadatrar a Condição de Pagamento.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1630,13 +1630,13 @@ begin
         Res.Send('Condição de Pagamento alterada com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Condição de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Condição de Pagamento.',10);
         Res.Send('Não foi possível alterar a Condição de Pagamento.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1666,13 +1666,13 @@ begin
         Res.Send('Condição de Pagamento excluída com sucesso').Status(200)
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Condição de Pagamento.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Condição de Pagamento.',10);
         Res.Send('Não foi possível excluir a Condição de Pagamento.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1722,7 +1722,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Unidades de Medida.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar as Unidades de Medida.',10);
         Res.Send('Não foi possível localizar as Unidades de Medida.').Status(204);
       end
       else
@@ -1732,7 +1732,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Unidades de Medida: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Unidades de Medida: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1762,13 +1762,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Unidade de Medida.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar a Unidade de Medida.',10);
         Res.Send('Não foi possível cadatrar a Unidade de Medida.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Unidade de Medida. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Unidade de Medida. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1798,13 +1798,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Unidade de Medida.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar a Unidade de Medida.',10);
         Res.Send('Não foi possível alterar a Unidade de Medida.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Unidade de Medida. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Unidade de Medida. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1836,13 +1836,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Unidade de Medida.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir a Unidade de Medida.',10);
         Res.Send('Não foi possível excluir a Unidade de Medida.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Unidade de Medida. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Unidade de Medida. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1896,7 +1896,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar o Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar o Projeto.',10);
         Res.Send('Não foi possível localizar o Projeto.').Status(204);
       end
       else
@@ -1906,7 +1906,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Projeto: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Projeto: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1936,13 +1936,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o Projeto.',10);
         Res.Send('Não foi possível cadatrar o Projeto.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Projeto. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -1972,13 +1972,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar o Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar o Projeto.',10);
         Res.Send('Não foi possível alterar o Projeto.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Projeto. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2010,13 +2010,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir o Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir o Projeto.',10);
         Res.Send('Não foi possível excluir o Projeto.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Projeto. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2075,7 +2075,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar o Tipo do Formulário.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar o Tipo do Formulário.',10);
         Res.Send('Não foi possível localizar o Tipo do Formulário.').Status(204);
       end
       else
@@ -2085,7 +2085,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Tipo de Formulário: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Tipo de Formulário: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2115,13 +2115,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o Tipo de Formulário.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o Tipo de Formulário.',10);
         Res.Send('Não foi possível cadatrar o Tipo de Formulário.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Tipo de Formulário. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Tipo de Formulário. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2151,13 +2151,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar o Tipo de Formulário.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar o Tipo de Formulário.',10);
         Res.Send('Não foi possível alterar o Tipo de Formulário.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Tipo de Formulário. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Tipo de Formulário. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2189,13 +2189,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir o Tipo de Formulário.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir o Tipo de Formulário.',10);
         Res.Send('Não foi possível excluir o Tipo de Formulário.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Tipo de Formulário. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Tipo de Formulário. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2245,7 +2245,7 @@ begin
       FDescricao := Req.Query['descricao'];
       FProjeto := Req.Query['projeto'];
       FId_Projeto := StrToIntDef(Req.Query['idProjeto'],0);
-      FProjeto := Req.Query['tipoForm'];
+      FTipoForm := Req.Query['tipoForm'];
 
       FPagina := StrToIntDef(Req.Query['pagina'],0);
       FPaginas := StrToIntDef(Req.Query['paginas'],0);
@@ -2262,7 +2262,7 @@ begin
 
       if FJSon_Retorno.Size = 0 then
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar o Formulário do Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível localizar o Formulário do Projeto.',10);
         Res.Send('Não foi possível localizar o Formulário do Projeto.').Status(204);
       end
       else
@@ -2272,7 +2272,7 @@ begin
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Formulário do Projeto: ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Pesquisa de Formulário do Projeto: ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2302,13 +2302,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o Formulário do Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível cadatrar o Formulário do Projeto.',10);
         Res.Send('Não foi possível cadatrar o Formulário do Projeto.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Formulário do Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Formulário do Projeto. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2338,13 +2338,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar o Formulário do Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível alterar o Formulário do Projeto.',10);
         Res.Send('Não foi possível alterar o Formulário do Projeto.').Status(422);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Formulário do Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Formulário do Projeto. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
@@ -2376,13 +2376,13 @@ begin
       end
       else
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir o Formulário do Projeto.');
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Não foi possível excluir o Formulário do Projeto.',10);
         Res.Send('Não foi possível excluir o Formulário do Projeto.').Status(409);
       end;
 
     except on E: Exception do
       begin
-        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Formulário do Projeto. ' + E.Message);
+        TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'Formulário do Projeto. ' + E.Message,10);
         Res.Send(E.Message).Status(500);
       end;
     end;
