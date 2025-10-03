@@ -35,11 +35,11 @@ object frmPrincipal: TfrmPrincipal
             OnClick = mnuFormsClick
           end
         end
-        object Usurios1: TMenuItem
+        object mnuUsusario: TMenuItem
           Caption = 'Usu'#225'rios'
-          OnClick = Usurios1Click
+          OnClick = mnuUsusarioClick
         end
-        object Empresa1: TMenuItem
+        object mnuEmpresa: TMenuItem
           Caption = 'Empresas'
         end
         object mnuGeografico: TMenuItem

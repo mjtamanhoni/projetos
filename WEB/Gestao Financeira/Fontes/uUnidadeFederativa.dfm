@@ -258,7 +258,7 @@ object frmUnidadeFederativa: TfrmUnidadeFederativa
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 45931.597265277800000000
-    ReportOptions.LastChange = 45932.345484722220000000
+    ReportOptions.LastChange = 45932.349737928240000000
     ScriptLanguage = 'PascalScript'
     ShowProgress = False
     StoreInDFM = False

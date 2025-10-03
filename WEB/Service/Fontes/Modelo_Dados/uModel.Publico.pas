@@ -515,7 +515,7 @@ begin
     FDQ_Select.Sql.Add('  end status_desc ');
     FDQ_Select.Sql.Add('from public.usuario u ');
     FDQ_Select.Sql.Add('where 1=1 ');
-    if AStatus > 0 then
+    if AStatus <> 2 then
       FDQ_Select.Sql.Add('  and u.status = ' + AStatus.ToString);
     if Trim(AEmail) <> '' then
       FDQ_Select.Sql.Add('  and u.email = ' + QuotedStr(AEmail));

@@ -7,10 +7,69 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms;
+  D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls;
 
 type
   TfrmEmpresa_Cad = class(TD2BridgeForm)
+    FDMem_Registro: TFDMemTable;
+    FDMem_Registroid: TIntegerField;
+    FDMem_Registrostatus: TIntegerField;
+    FDMem_Registrotipo: TIntegerField;
+    FDMem_RegistrorazaoSocial: TStringField;
+    FDMem_Registrofantasia: TStringField;
+    FDMem_Registrocnpj: TStringField;
+    FDMem_RegistroinscEstadual: TStringField;
+    FDMem_Registrocontato: TStringField;
+    FDMem_Registroendereco: TStringField;
+    FDMem_Registronumero: TStringField;
+    FDMem_Registrocomplemento: TStringField;
+    FDMem_Registrobairro: TStringField;
+    FDMem_RegistroidCidade: TIntegerField;
+    FDMem_RegistrocidadeIbge: TIntegerField;
+    FDMem_Registrocidade: TStringField;
+    FDMem_RegistrosiglaUf: TStringField;
+    FDMem_Registrocep: TStringField;
+    FDMem_Registrotelefone: TStringField;
+    FDMem_Registrocelular: TStringField;
+    FDMem_Registroemail: TStringField;
+    FDMem_RegistrodtCadastro: TDateField;
+    FDMem_RegistrohrCadastro: TTimeField;
+    FDMem_RegistrotipoPessoa: TIntegerField;
+    FDMem_RegistrostatusDesc: TStringField;
+    FDMem_RegistrotipoDesc: TStringField;
+    FDMem_RegistrotipoPessoaDesc: TStringField;
+    btCancelar: TButton;
+    btConfirmar: TButton;
+    pnRow001: TPanel;
+    lbid: TLabel;
+    lbstatus: TLabel;
+    edid: TEdit;
+    cbstatus: TComboBox;
+    pnRow002: TPanel;
+    pnRow003: TPanel;
+    lbcontato: TLabel;
+    edemail: TEdit;
+    lbrazaoSocial: TLabel;
+    edrazaoSocial: TEdit;
+    lbtipo: TLabel;
+    cbtipo: TComboBox;
+    edcnpj: TEdit;
+    lbcnpj: TLabel;
+    edinscEstadual: TEdit;
+    lbinscEstadual: TLabel;
+    edfantasia: TEdit;
+    lbfantasia: TLabel;
+    pnRow004: TPanel;
+    lbendereco: TLabel;
+    edendereco: TEdit;
+    lbnumero: TLabel;
+    ednumero: TEdit;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Edit1: TEdit;
+    Edit2: TEdit;
   private
     { Private declarations }
   public

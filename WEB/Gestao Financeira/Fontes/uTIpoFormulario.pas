@@ -398,7 +398,10 @@ begin
       end
       else
       begin
-        raise Exception.Create(FResp.StatusCode.ToString + ': ' + FResp.Content);
+        if FResp.StatusCode = 204 then
+          raise Exception.Create('Registro não localizado')
+        else
+          raise Exception.Create(FResp.StatusCode.ToString + ': ' + FResp.Content);
       end;
 
     except on E: Exception do

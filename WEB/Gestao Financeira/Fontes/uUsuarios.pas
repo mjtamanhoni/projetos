@@ -18,7 +18,7 @@ uses
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids,
 
-  uUsuarios.Cad;
+  uUsuarios.Cad, frxClass, frxDBSet, frxExportBaseDialog, frxExportPDF, Vcl.Menus;
 
 type
   TfrmUsuarios = class(TfrmPrincipal)
@@ -27,14 +27,7 @@ type
     pnDetail: TPanel;
     DBGrid_Registros: TDBGrid;
     pnHeader: TPanel;
-    lbStatus: TLabel;
-    lbPesquisa: TLabel;
-    lbTipo: TLabel;
-    cbStatus: TComboBox;
-    edPesquisar: TButtonedEdit;
     btNovo: TButton;
-    btFechar: TButton;
-    cbTipo: TComboBox;
     FDMem_Registroid: TIntegerField;
     FDMem_Registronome: TStringField;
     FDMem_Registrologin: TStringField;
@@ -48,12 +41,26 @@ type
     FDMem_RegistrotipoDesc: TStringField;
     FDMem_RegistrostatusDesc: TStringField;
     FDMem_Registrostatus: TIntegerField;
+    edPesquisar: TEdit;
+    btFiltros: TButton;
+    btPrint: TButton;
+    PopupMenu: TPopupMenu;
+    mnuPop_Filtro_ID: TMenuItem;
+    mnuPop_Filtro_Nome: TMenuItem;
+    mnuFiltro_Login: TMenuItem;
+    frxReport: TfrxReport;
+    frxPDFExport: TfrxPDFExport;
+    frxDBDataset: TfrxDBDataset;
+    mnuFiltro_EMail: TMenuItem;
+    mnuFiltro_Inativo: TMenuItem;
     procedure btFecharClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
-    procedure edPesquisarRightButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btPrintClick(Sender: TObject);
+    procedure edPesquisarKeyPress(Sender: TObject; var Key: Char);
+    procedure mnuFiltro_InativoClick(Sender: TObject);
   private
     FfrmUsuarios_Cad :TfrmUsuarios_Cad;
 
@@ -110,14 +117,42 @@ begin
 
 end;
 
+procedure TfrmUsuarios.btPrintClick(Sender: TObject);
+begin
+  inherited;
+  try
+    if FDMem_Registro.IsEmpty then
+      raise Exception.Create('Não há registros a serem impressos');
+
+    frxPDFExport.FileName := PrismSession.PathSession + 'Rel_Usuarios.pdf';
+
+    // Config. do rel e exportacao do pdf...
+    frxReport.LoadFromFile(RootDirectory + '/Reports/Rel_Usuarios.fr3');
+    frxReport.PrepareReport;
+    frxReport.Export(frxPDFExport);
+
+    if FileExists(PrismSession.PathSession + 'Rel_Usuarios.pdf') then
+      D2Bridge.PrismSession.SendFile(PrismSession.PathSession + 'Rel_Usuarios.pdf')
+    else
+      raise Exception.Create('Erro ao gerar o PDF');
+
+  except on E: Exception do
+    MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
+  end;
+
+end;
+
 procedure TfrmUsuarios.ClosePopup(const AName: String; var CanClose: Boolean);
 begin
 
 end;
 
-procedure TfrmUsuarios.edPesquisarRightButtonClick(Sender: TObject);
+procedure TfrmUsuarios.edPesquisarKeyPress(Sender: TObject; var Key: Char);
 begin
-  Pesquisar;
+  inherited;
+  if Key = #13 then
+    Pesquisar;
+
 end;
 
 procedure TfrmUsuarios.ExportD2Bridge;
@@ -137,31 +172,26 @@ begin
   begin
     with Row.Items.Add do
     begin
-      with HTMLDIV(CSSClass.Col.colsize10 + ' ' + CSSClass.ColorName.beige).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize10).Items.Add do
       begin
         with Row(CSSClass.Space.margim_bottom3).Items.Add do
         begin
-          With FormGroup(lbStatus.Caption,CSSClass.Col.colsize2).Items.Add do
-            VCLObj(cbStatus);
-          With FormGroup(lbPesquisa.Caption,CSSClass.Col.col).Items.Add do
+          With FormGroup('',CSSClass.Col.col).Items.Add do
           begin
-            with Row.Items.Add do
-            begin
-              FormGroup('',CSSClass.col.colsize2).Items.Add.VCLObj(cbTipo);
-              FormGroup('',CSSClass.col.col).Items.Add.VCLObj(edPesquisar);
-            end;
+            VCLObj(edPesquisar);
+            VCLObj(btFiltros, PopupMenu, CSSClass.Button.search);
           end;
         end;
       end;
 
-      with HTMLDIV(CSSClass.Col.colsize2).Items.Add do
+      with HTMLDIV(CSSClass.Col.col).Items.Add do
       begin
-        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top4).Items.Add do
+        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
         begin
           with HTMLDIV(CSSClass.Text.Align.right).Items.Add do
           begin
             VCLObj(btNovo, CSSClass.Button.add);
-            VCLObj(btFechar, CSSClass.Button.close);
+            VCLObj(btPrint, CSSClass.Button.print);
           end;
         end;
       end;
@@ -169,8 +199,6 @@ begin
 
     with Row.Items.Add do
       VCLObj(DBGrid_Registros);
-
-    //Popup('Popup'+frmProjetos_Cad.Name, 'Cadastro de Projetos',True,CSSClass.Popup.ExtraLarge).Items.Add.Nested(FfrmProjetos_Cad.Name);
 
     with Popup('Popup' + FfrmUsuarios_Cad.Name,'Cadastro de Usuários do Sistema',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmUsuarios_Cad);
@@ -185,7 +213,6 @@ end;
 
 procedure TfrmUsuarios.FormCreate(Sender: TObject);
 begin
-  cbStatus.ItemIndex := 1;
 
   FEnder  := '';
   FEnder := System.SysUtils.GetCurrentDir + '\Config.ini';
@@ -204,12 +231,6 @@ end;
 procedure TfrmUsuarios.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
-
-  if PrismControl.VCLComponent = edPesquisar then
-  begin
-    with PrismControl.AsButtonedEdit do
-      ButtonRightCSS:= CSSClass.Button.search;
-  end;
 
   if PrismControl.IsDBGrid then
   begin
@@ -259,6 +280,20 @@ begin
  }
 end;
 
+procedure TfrmUsuarios.mnuFiltro_InativoClick(Sender: TObject);
+begin
+  inherited;
+  edPesquisar.Tag := TMenuItem(Sender).Tag;
+  case TMenuItem(Sender).Tag of
+    0:edPesquisar.TextHint := 'Pesquisar pelo ID do Usuário';
+    1:edPesquisar.TextHint := 'Pesquisar pelo Nome do Usuário';
+    2:edPesquisar.TextHint := 'Pesquisar pelo Login do Usuário';
+    3:edPesquisar.TextHint := 'Pesquisar pelo E-Mail do Usuário';
+  end;
+  Pesquisar;
+
+end;
+
 procedure TfrmUsuarios.OnEdit(Sender: TObject);
 begin
   Gestao_Financeira.Usuario_Status_Tab := '';
@@ -296,6 +331,7 @@ var
   FBody :TJSONArray;
   FTipoPesquisa:String;
   x:Integer;
+  FStatus :Integer;
 begin
   try
     try
@@ -303,14 +339,21 @@ begin
       FDMem_Registro.Active := True;
       FDMem_Registro.EmptyDataSet;
 
+      FStatus := 1;
+
       FDMem_Registro.DisableControls;
 
       FTipoPesquisa := '';
-      case cbTipo.ItemIndex of
-        0:FTipoPesquisa := 'id';
+      case edPesquisar.Tag of
+        0:begin
+          if TFuncoes.ContemNaoNumerico(edPesquisar.Text) then
+            raise Exception.Create('Para pesquisar o ID não pode haver letras no texto da pesquisa');
+          FTipoPesquisa := 'id';
+        end;
         1:FTipoPesquisa := 'nome';
         2:FTipoPesquisa := 'login';
         3:FTipoPesquisa := 'email';
+        4:FStatus := 0;
       end;
 
       if Trim(FHost) = '' then
@@ -324,7 +367,7 @@ begin
         FResp := TRequest.New.BaseURL(FHost)
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
                  .AddParam(FTipoPesquisa,edPesquisar.Text)
-                 .AddParam('status',cbStatus.ItemIndex.ToString)
+                 .AddParam('status',FStatus.ToString)
                  .Resource('usuario')
                  .Accept('application/json')
                  .Get;
@@ -333,7 +376,7 @@ begin
       begin
         FResp := TRequest.New.BaseURL(FHost)
                  .TokenBearer(Gestao_Financeira.Usuario_Token)
-                 .AddParam('status',cbStatus.ItemIndex.ToString)
+                 .AddParam('status',FStatus.ToString)
                  .Resource('usuario')
                  .Accept('application/json')
                  .Get;
@@ -367,11 +410,14 @@ begin
       end
       else
       begin
-        raise Exception.Create(FResp.StatusCode.ToString + ': ' + FResp.Content);
+        if FResp.StatusCode = 204 then
+          raise Exception.Create('Registro não localizado')
+        else
+          raise Exception.Create(FResp.StatusCode.ToString + ': ' + FResp.Content);
       end;
 
     except on E: Exception do
-      ShowMessage(E.Message,True,True,10000);
+      MessageDlg(E.Message,TMsgDlgType.mtError,[TMsgDlgBtn.mbOK],0);
     end;
   finally
     FDMem_Registro.EnableControls;

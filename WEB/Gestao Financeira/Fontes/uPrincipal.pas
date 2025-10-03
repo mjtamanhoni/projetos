@@ -15,8 +15,8 @@ type
     mnuProjeto: TMenuItem;
     mnuProjetos: TMenuItem;
     mnuForms: TMenuItem;
-    Usurios1: TMenuItem;
-    Empresa1: TMenuItem;
+    mnuUsusario: TMenuItem;
+    mnuEmpresa: TMenuItem;
     mnuGeografico: TMenuItem;
     mnuRegiao: TMenuItem;
     mnuEstados: TMenuItem;
@@ -64,7 +64,7 @@ type
     procedure mnuProjetosClick(Sender: TObject);
     procedure mnuTipoFormClick(Sender: TObject);
     procedure mnuFormsClick(Sender: TObject);
-    procedure Usurios1Click(Sender: TObject);
+    procedure mnuUsusarioClick(Sender: TObject);
     procedure mnuRegiaoClick(Sender: TObject);
     procedure mnuEstadosClick(Sender: TObject);
     procedure mnuDesconectarClick(Sender: TObject);
@@ -125,6 +125,7 @@ begin
   begin
     with PrismControl.AsSideMenu do
     begin
+      PrismControl.AsSideMenu.Color := clBlue;
       {$Region 'Principal'}
       PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCadastro).Icon := 'fa-solid fa-address-card';
       PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuMovimento).Icon := 'fa-solid fa-money-bill-transfer';
@@ -149,6 +150,14 @@ begin
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuEstados).Icon := 'fa-solid fa-location-dot';
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuCidades).Icon := 'fa-solid fa-building-user';
       {$EndRegion 'Cadastro Geográficos'}
+
+      {$Region 'Usuarios'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuUsusario).Icon := 'fa-solid fa-users';
+      {$EndRegion 'Usuarios'}
+
+      {$Region 'Empresa'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuEmpresa).Icon := 'fa-solid fa-building';
+      {$EndRegion 'Empresa'}
     end;
   end;
 
@@ -260,7 +269,7 @@ begin
  }
 end;
 
-procedure TfrmPrincipal.Usurios1Click(Sender: TObject);
+procedure TfrmPrincipal.mnuUsusarioClick(Sender: TObject);
 begin
   if frmUsuarios = Nil then
     TfrmUsuarios.CreateInstance;

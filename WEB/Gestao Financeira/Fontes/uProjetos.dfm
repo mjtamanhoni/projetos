@@ -33,9 +33,6 @@ object frmProjetos: TfrmProjetos
       Caption = 'Novo'
       TabOrder = 0
       OnClick = btNovoClick
-      ExplicitLeft = 718
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object edPesquisar: TEdit
       Tag = 1
@@ -48,6 +45,7 @@ object frmProjetos: TfrmProjetos
       TabOrder = 1
       TextHint = 'Pesquisar pela Descri'#231#227'o do Projeto'
       OnKeyPress = edPesquisarKeyPress
+      ExplicitHeight = 23
     end
     object btFiltros: TButton
       AlignWithMargins = True
@@ -58,9 +56,6 @@ object frmProjetos: TfrmProjetos
       Align = alLeft
       Caption = 'Filtros'
       TabOrder = 2
-      ExplicitLeft = 295
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object btPrint: TButton
       AlignWithMargins = True
@@ -72,9 +67,6 @@ object frmProjetos: TfrmProjetos
       Caption = 'Impress'#227'o'
       TabOrder = 3
       OnClick = btPrintClick
-      ExplicitLeft = 840
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
   end
   object pnDetail: TPanel
@@ -86,8 +78,6 @@ object frmProjetos: TfrmProjetos
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 1
-    ExplicitTop = 41
-    ExplicitHeight = 502
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3

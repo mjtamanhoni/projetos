@@ -23,8 +23,6 @@ object frmMunicipios: TfrmMunicipios
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 41
-    ExplicitHeight = 524
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -124,7 +122,6 @@ object frmMunicipios: TfrmMunicipios
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 944
     object btNovo: TButton
       AlignWithMargins = True
       Left = 816
@@ -135,9 +132,6 @@ object frmMunicipios: TfrmMunicipios
       Caption = 'Novo'
       TabOrder = 0
       OnClick = btNovoClick
-      ExplicitLeft = 678
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object btFiltros: TButton
       AlignWithMargins = True
@@ -148,9 +142,6 @@ object frmMunicipios: TfrmMunicipios
       Align = alLeft
       Caption = 'Filtros'
       TabOrder = 1
-      ExplicitLeft = 295
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object btPrint: TButton
       AlignWithMargins = True
@@ -162,9 +153,6 @@ object frmMunicipios: TfrmMunicipios
       Caption = 'Impress'#227'o'
       TabOrder = 2
       OnClick = btPrintClick
-      ExplicitLeft = 840
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object edPesquisar: TEdit
       Tag = 1
@@ -177,7 +165,7 @@ object frmMunicipios: TfrmMunicipios
       TabOrder = 3
       TextHint = 'Pesquisar pelo Nome do Munic'#237'pio'
       OnKeyPress = edPesquisarKeyPress
-      ExplicitHeight = 35
+      ExplicitHeight = 23
     end
   end
   object FDMem_Registro: TFDMemTable
