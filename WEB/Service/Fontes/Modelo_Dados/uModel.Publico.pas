@@ -491,6 +491,7 @@ var
   FDQ_Select :TFDQuery;
   FPagina :Integer;
   FPaginas :Integer;
+  I :Integer;
 begin
 
   FDQ_Select := TFDQuery.Create(Nil);
@@ -536,6 +537,53 @@ begin
     FDQ_Select.Active := True;
 
     Result := FDQ_Select.ToJSONArray;
+
+    //Adicionando permissões/Empresas dos usuários...
+    if Result.Size > 0 then
+    begin
+      for I := 0  to Pred(Result.Size) do
+      begin
+        //Permissões...
+        FDQ_Select.Active := False;
+        FDQ_Select.Sql.Clear;
+        FDQ_Select.Sql.Add('select ');
+        FDQ_Select.Sql.Add('  up.* ');
+        FDQ_Select.Sql.Add('  ,u.nome as usuario ');
+        FDQ_Select.Sql.Add('  ,p.descricao as projeto ');
+        FDQ_Select.Sql.Add('  ,tp.nome_form ');
+        FDQ_Select.Sql.Add('  ,tp.descricao_resumida ');
+        FDQ_Select.Sql.Add('from public.usuario_permissao up ');
+        FDQ_Select.Sql.Add('  join public.usuario u on u.id = up.id_usuario ');
+        FDQ_Select.Sql.Add('  join public.projetos p on p.id = up.id_projeto ');
+        FDQ_Select.Sql.Add('  join public.telas_projetos tp on tp.id = up.id_tela_projeto ');
+        FDQ_Select.Sql.Add('where 1=1 ');
+        FDQ_Select.Sql.Add('   and up.id_usuario = ' + IntToStr(Result[I].GetValue<Integer>('id')));
+        FDQ_Select.Sql.Add('order by ');
+        FDQ_Select.Sql.Add('  up.id; ');
+        FDQ_Select.Active := True;
+        (Result[I] as TJSONObject).AddPair('permissoes',FDQ_Select.ToJSONArray);
+
+        //Empresas...
+        FDQ_Select.Active := False;
+        FDQ_Select.Sql.Clear;
+        FDQ_Select.Sql.Add('select ');
+        FDQ_Select.Sql.Add('  ue.* ');
+        FDQ_Select.Sql.Add('  ,u.nome as usuario ');
+        FDQ_Select.Sql.Add('  ,e.razao_social  as empresa ');
+        FDQ_Select.Sql.Add('from usuario_empresa ue ');
+        FDQ_Select.Sql.Add('  join public.usuario u on u.id = ue.id_usuario ');
+        FDQ_Select.Sql.Add('  join public.empresa e on e.id = ue.id_empresa ');
+        FDQ_Select.Sql.Add('where 1=1 ');
+        FDQ_Select.Sql.Add('   and ue.id_usuario = ' + IntToStr(Result[I].GetValue<Integer>('id')));
+        FDQ_Select.Sql.Add('order by ');
+        FDQ_Select.Sql.Add('  ue.id; ');
+        FDQ_Select.Active := True;
+        (Result[I] as TJSONObject).AddPair('empresas',FDQ_Select.ToJSONArray);
+      end;
+    end;
+
+
+
   finally
     {$IFDEF MSWINDOWS}
       FreeAndNil(FDQ_Select);
@@ -1564,19 +1612,19 @@ begin
         FDQ_Insert.ParamByName('status').AsInteger := AJSon[I].GetValue<Integer>('status',1);
         FDQ_Insert.ParamByName('tipo').AsInteger := AJSon[I].GetValue<Integer>('tipo',0);
         FDQ_Insert.ParamByName('tipo_pessoa').AsInteger := AJSon[I].GetValue<Integer>('tipoPessoa',0);
-        FDQ_Insert.ParamByName('razao_social').AsString := AJSon[I].GetValue<String>('razaoSocial','');
+        FDQ_Insert.ParamByName('razao_social').AsString := AJSon[I].GetValue<String>('razaosocial','');
         FDQ_Insert.ParamByName('fantasia').AsString := AJSon[I].GetValue<String>('fantasia','');
         FDQ_Insert.ParamByName('cnpj').AsString := AJSon[I].GetValue<String>('cnpj','');
-        FDQ_Insert.ParamByName('insc_estadual').AsString := AJSon[I].GetValue<String>('inscEstadual','');
+        FDQ_Insert.ParamByName('insc_estadual').AsString := AJSon[I].GetValue<String>('inscestadual','');
         FDQ_Insert.ParamByName('contato').AsString := AJSon[I].GetValue<String>('contato','');
         FDQ_Insert.ParamByName('endereco').AsString := AJSon[I].GetValue<String>('endereco','');
         FDQ_Insert.ParamByName('complemento').AsString := AJSon[I].GetValue<String>('complemento','');
         FDQ_Insert.ParamByName('numero').AsString := AJSon[I].GetValue<String>('numero','');
         FDQ_Insert.ParamByName('bairro').AsString := AJSon[I].GetValue<String>('bairro','');
-        FDQ_Insert.ParamByName('id_cidade').AsInteger := AJSon[I].GetValue<Integer>('idCidade',0);
-        FDQ_Insert.ParamByName('cidade_ibge').AsInteger := AJSon[I].GetValue<Integer>('cidadeIbge',0);
+        FDQ_Insert.ParamByName('id_cidade').AsInteger := AJSon[I].GetValue<Integer>('idcidade',0);
+        FDQ_Insert.ParamByName('cidade_ibge').AsInteger := AJSon[I].GetValue<Integer>('cidadeibge',0);
         FDQ_Insert.ParamByName('cidade').AsString := AJSon[I].GetValue<String>('cidade','');
-        FDQ_Insert.ParamByName('sigla_uf').AsString := AJSon[I].GetValue<String>('siglaUf','');
+        FDQ_Insert.ParamByName('sigla_uf').AsString := AJSon[I].GetValue<String>('siglauf','');
         FDQ_Insert.ParamByName('cep').AsString := AJSon[I].GetValue<String>('cep','');
         FDQ_Insert.ParamByName('telefone').AsString := AJSon[I].GetValue<String>('telefone','');
         FDQ_Insert.ParamByName('celular').AsString := AJSon[I].GetValue<String>('celular','');
@@ -3238,6 +3286,7 @@ begin
         FDQ_Insert.Sql.Add('  id_projeto ');
         FDQ_Insert.Sql.Add('  ,nome_form ');
         FDQ_Insert.Sql.Add('  ,descricao ');
+        FDQ_Insert.Sql.Add('  ,descricao_resumida ');
         FDQ_Insert.Sql.Add('  ,id_tipo_form ');
         FDQ_Insert.Sql.Add('  ,status ');
         FDQ_Insert.Sql.Add('  ,dt_cadastro ');
@@ -3246,6 +3295,7 @@ begin
         FDQ_Insert.Sql.Add('  :id_projeto ');
         FDQ_Insert.Sql.Add('  ,:nome_form ');
         FDQ_Insert.Sql.Add('  ,:descricao ');
+        FDQ_Insert.Sql.Add('  ,:descricao_resumida ');
         FDQ_Insert.Sql.Add('  ,:id_tipo_form ');
         FDQ_Insert.Sql.Add('  ,:status ');
         FDQ_Insert.Sql.Add('  ,:dt_cadastro ');
@@ -3254,6 +3304,7 @@ begin
         FDQ_Insert.ParamByName('id_projeto').AsInteger := AJSon[I].GetValue<Integer>('idprojeto',0);
         FDQ_Insert.ParamByName('nome_form').AsString := AJSon[I].GetValue<String>('nomeform','');
         FDQ_Insert.ParamByName('descricao').AsString := AJSon[I].GetValue<String>('descricao','');
+        FDQ_Insert.ParamByName('descricao_resumida').AsString := AJSon[I].GetValue<String>('descricaoresumida','');
         FDQ_Insert.ParamByName('id_tipo_form').AsInteger := AJSon[I].GetValue<Integer>('idtipoform',0);
         FDQ_Insert.ParamByName('status').AsInteger := AJSon[I].GetValue<Integer>('status',1);
         FDQ_Insert.ParamByName('dt_cadastro').AsDate := Date;
@@ -3425,12 +3476,14 @@ begin
         FDQ_Update.Sql.Add('  id_projeto = :id_projeto ');
         FDQ_Update.Sql.Add('  ,nome_form = :nome_form ');
         FDQ_Update.Sql.Add('  ,descricao = :descricao ');
+        FDQ_Update.Sql.Add('  ,descricao_resumida = :descricao_resumida ');
         FDQ_Update.Sql.Add('  ,id_tipo_form = :id_tipo_form ');
         FDQ_Update.Sql.Add('  ,status = :status ');
         FDQ_Update.Sql.Add('WHERE id = :id; ');
         FDQ_Update.ParamByName('id').AsInteger := AJSon[I].GetValue<Integer>('id',0);
         FDQ_Update.ParamByName('id_projeto').AsInteger := AJSon[I].GetValue<Integer>('idprojeto',0);
         FDQ_Update.ParamByName('descricao').AsString := AJSon[I].GetValue<String>('descricao','');
+        FDQ_Update.ParamByName('descricao_resumida').AsString := AJSon[I].GetValue<String>('descricaoresumida','');
         FDQ_Update.ParamByName('nome_form').AsString := AJSon[I].GetValue<String>('nomeform','');
         FDQ_Update.ParamByName('id_tipo_form').AsInteger := AJSon[I].GetValue<Integer>('idtipoform',0);
         FDQ_Update.ParamByName('status').AsInteger := AJSon[I].GetValue<Integer>('status',0);

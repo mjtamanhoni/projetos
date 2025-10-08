@@ -140,9 +140,13 @@ begin
 
     with Row.Items.Add do
     begin
-      with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
       begin
-        VCLObj(DBGrid_Registros);
+        with Row.Items.Add do
+        begin
+          with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+            VCLObj(DBGrid_Registros);
+        end;
       end;
     end;
 

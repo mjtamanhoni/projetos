@@ -194,7 +194,6 @@ end;
 
 procedure TfrmMunicipios_Cad.edcepPadraoExit(Sender: TObject);
 begin
-
   with ValidarDocumento(edcepPadrao.Text,tdCEP) do
   begin
     if not Valido then
@@ -204,7 +203,6 @@ begin
         edcepPadrao.SetFocus;
     end;
   end;
-
 end;
 
 procedure TfrmMunicipios_Cad.edcepPadraoKeyPress(Sender: TObject; var Key: Char);
@@ -244,7 +242,6 @@ begin
   //TemplateClassForm:= TD2BridgeFormTemplate;
   //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   //D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
-
 
   FfrmUnidadeFederativa_Loc := TfrmUnidadeFederativa_Loc.Create(Self);
   D2Bridge.AddNested(FfrmUnidadeFederativa_Loc);

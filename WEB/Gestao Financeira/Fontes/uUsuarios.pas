@@ -53,6 +53,31 @@ type
     frxDBDataset: TfrxDBDataset;
     mnuFiltro_EMail: TMenuItem;
     mnuFiltro_Inativo: TMenuItem;
+    FDMem_Permissoes: TFDMemTable;
+    dsPermissoes: TDataSource;
+    FDMem_Permissoesid: TIntegerField;
+    FDMem_PermissoesidUsuario: TIntegerField;
+    FDMem_PermissoesidProjeto: TIntegerField;
+    FDMem_PermissoesidTelaProjeto: TIntegerField;
+    FDMem_Permissoesacesso: TIntegerField;
+    FDMem_Permissoesincluir: TIntegerField;
+    FDMem_Permissoesalterar: TIntegerField;
+    FDMem_Permissoesexcluir: TIntegerField;
+    FDMem_Permissoesimprimir: TIntegerField;
+    FDMem_Permissoesusuario: TStringField;
+    FDMem_Permissoesprojeto: TStringField;
+    FDMem_PermissoesnomeForm: TStringField;
+    FDMem_PermissoesdescricaoResumida: TStringField;
+    pnRegistros: TPanel;
+    FDMem_Empresa: TFDMemTable;
+    dsEmpresa: TDataSource;
+    FDMem_Empresaid: TIntegerField;
+    FDMem_EmpresaidUsuario: TIntegerField;
+    FDMem_EmpresaidEmpresa: TIntegerField;
+    FDMem_EmpresadtCadastro: TDateField;
+    FDMem_EmpresahrCadastro: TTimeField;
+    FDMem_Empresausuario: TStringField;
+    FDMem_Empresaempresa: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure btNovoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -198,7 +223,16 @@ begin
     end;
 
     with Row.Items.Add do
-      VCLObj(DBGrid_Registros);
+    begin
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+            VCLObj(DBGrid_Registros);
+        end;
+      end;
+    end;
 
     with Popup('Popup' + FfrmUsuarios_Cad.Name,'Cadastro de Usuários do Sistema',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmUsuarios_Cad);
@@ -330,14 +364,29 @@ var
   FResp :IResponse;
   FBody :TJSONArray;
   FTipoPesquisa:String;
-  x:Integer;
+  x, I:Integer;
   FStatus :Integer;
+
+  FPermissoes :TJSONArray;
+  FEmpresas :TJSONArray;
+
 begin
   try
     try
+      //Registros...
       FDMem_Registro.Active := False;
       FDMem_Registro.Active := True;
       FDMem_Registro.EmptyDataSet;
+
+      //Permissões...
+      FDMem_Permissoes.Active := False;
+      FDMem_Permissoes.Active := True;
+      FDMem_Permissoes.EmptyDataSet;
+
+      //Empresa...
+      FDMem_Empresa.Active := False;
+      FDMem_Empresa.Active := True;
+      FDMem_Empresa.EmptyDataSet;
 
       FStatus := 1;
 
@@ -391,6 +440,13 @@ begin
 
         for x := 0 to FBody.Size - 1 do
         begin
+          //Permissões...
+          FPermissoes := FBody[x].GetValue<TJSONArray>('permissoes',Nil);
+
+          //Empresas...
+          FEmpresas := FBody[x].GetValue<TJSONArray>('empresas',Nil);
+
+          //Inserindo os registros dos usuários...
           FDMem_Registro.Insert;
             FDMem_Registroid.AsInteger := FBody.Get(x).GetValue<Integer>('id',0);
             FDMem_Registronome.AsString := FBody.Get(x).GetValue<String>('nome','');
@@ -406,6 +462,47 @@ begin
             FDMem_Registrostatus.AsInteger := FBody.Get(x).GetValue<Integer>('status',-1);
             FDMem_RegistrostatusDesc.AsString := FBody.Get(x).GetValue<String>('statusDesc','');
           FDMem_Registro.Post;
+
+          //Permissões...
+          if FPermissoes.Size > 0 then
+          begin
+            for I := 0 to Pred(FPermissoes.Size) do
+            begin
+              FDMem_Permissoes.Insert;
+                FDMem_Permissoesid.AsInteger := FPermissoes[I].GetValue<Integer>('id',0);
+                FDMem_PermissoesidUsuario.AsInteger := FPermissoes[I].GetValue<Integer>('idUsuario',0);
+                FDMem_PermissoesidProjeto.AsInteger := FPermissoes[I].GetValue<Integer>('idProjeto',0);
+                FDMem_PermissoesidTelaProjeto.AsInteger := FPermissoes[I].GetValue<Integer>('idTelaProjeto',0);
+                FDMem_Permissoesacesso.AsInteger := FPermissoes[I].GetValue<Integer>('acesso',0);
+                FDMem_Permissoesincluir.AsInteger := FPermissoes[I].GetValue<Integer>('incluir',0);
+                FDMem_Permissoesalterar.AsInteger := FPermissoes[I].GetValue<Integer>('alterar',0);
+                FDMem_Permissoesexcluir.AsInteger := FPermissoes[I].GetValue<Integer>('excluir',0);
+                FDMem_Permissoesimprimir.AsInteger := FPermissoes[I].GetValue<Integer>('imprimir',0);
+                FDMem_Permissoesusuario.AsString := FPermissoes[I].GetValue<String>('usuario','');
+                FDMem_Permissoesprojeto.AsString := FPermissoes[I].GetValue<String>('projeto','');
+                FDMem_PermissoesnomeForm.AsString := FPermissoes[I].GetValue<String>('nomeForm','');
+                FDMem_PermissoesdescricaoResumida.AsString := FPermissoes[I].GetValue<String>('descricaoResumida','');
+              FDMem_Permissoes.Post;
+            end;
+          end;
+
+          //Empresas...
+          if FEmpresas.Size > 0 then
+          begin
+            for I := 0 to Pred(FEmpresas.Size) do
+            begin
+              FDMem_Empresa.Insert;
+                FDMem_Empresaid.AsInteger := FEmpresas[I].GetValue<Integer>('id',0);
+                FDMem_EmpresaidUsuario.AsInteger := FEmpresas[I].GetValue<Integer>('idUsuario',0);
+                FDMem_EmpresaidEmpresa.AsInteger := FEmpresas[I].GetValue<Integer>('idEmpresa',0);
+                FDMem_EmpresadtCadastro.AsDateTime := TFuncoes.StringParaData(FBody.Get(x).GetValue<String>('dtCadastro',''));
+                FDMem_EmpresahrCadastro.AsDateTime := TFuncoes.StringParaHora(FBody.Get(x).GetValue<String>('hrCadastro',''));
+                FDMem_Empresausuario.AsString := FEmpresas[I].GetValue<String>('usuario','');
+                FDMem_Empresaempresa.AsString := FEmpresas[I].GetValue<String>('empresa','');
+              FDMem_Empresa.Post;
+            end;
+          end;
+
         end;
       end
       else

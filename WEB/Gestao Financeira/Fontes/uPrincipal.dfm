@@ -41,6 +41,7 @@ object frmPrincipal: TfrmPrincipal
         end
         object mnuEmpresa: TMenuItem
           Caption = 'Empresas'
+          OnClick = mnuEmpresaClick
         end
         object mnuGeografico: TMenuItem
           Caption = 'Geogr'#225'fico'
@@ -57,19 +58,19 @@ object frmPrincipal: TfrmPrincipal
             OnClick = mnuCidadesClick
           end
         end
-        object Pagamengos1: TMenuItem
+        object mnuPagamento: TMenuItem
           Caption = 'Pagamento'
-          object CondiesdePagamentos1: TMenuItem
+          object mnuPag_Condicao: TMenuItem
             Caption = 'Condi'#231#245'es'
           end
-          object FormasdePagamentos1: TMenuItem
+          object mnuPag_Formas: TMenuItem
             Caption = 'Formas'
           end
         end
-        object UnidadesdeMedidas1: TMenuItem
+        object mnuUnidadeMedida: TMenuItem
           Caption = 'UN de Medidas'
         end
-        object PlanodeContasGerencial1: TMenuItem
+        object mnuPlanoContasGer: TMenuItem
           Caption = 'Plano de Contas Gerencial'
         end
       end

@@ -10,6 +10,9 @@ object frmEmpresa: TfrmEmpresa
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object pnDetail: TPanel
     Left = 0
@@ -20,9 +23,6 @@ object frmEmpresa: TfrmEmpresa
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 41
-    ExplicitWidth = 964
-    ExplicitHeight = 553
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -48,39 +48,171 @@ object frmEmpresa: TfrmEmpresa
         end
         item
           Expanded = False
-          FieldName = 'nome'
+          FieldName = 'tipoDesc'
           Title.Alignment = taCenter
-          Title.Caption = 'Nome'
+          Title.Caption = 'Tipo'
+          Width = 150
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'tipoPessoaDesc'
+          Title.Alignment = taCenter
+          Title.Caption = 'Pessoa'
+          Width = 150
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'razaoSocial'
+          Title.Alignment = taCenter
+          Title.Caption = 'Raz'#227'o Social'
           Width = 300
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'login'
+          FieldName = 'fantasia'
           Title.Alignment = taCenter
-          Title.Caption = 'Login'
+          Title.Caption = 'Fantasia'
           Width = 300
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'senha'
+          FieldName = 'cnpj'
           Title.Alignment = taCenter
-          Visible = False
+          Title.Caption = 'CNPJ'
+          Width = 150
+          Visible = True
         end
         item
           Expanded = False
-          FieldName = 'pin'
+          FieldName = 'inscEstadual'
           Title.Alignment = taCenter
-          Visible = False
+          Title.Caption = 'Insc. Estadual'
+          Width = 150
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'contato'
+          Title.Alignment = taCenter
+          Title.Caption = 'Contato'
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'endereco'
+          Title.Alignment = taCenter
+          Title.Caption = 'Endere'#231'o'
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'numero'
+          Title.Alignment = taCenter
+          Title.Caption = 'Nr.'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'complemento'
+          Title.Alignment = taCenter
+          Title.Caption = 'Complemento'
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'bairro'
+          Title.Alignment = taCenter
+          Title.Caption = 'Bairro'
+          Width = 250
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'cidadeIbge'
+          Title.Alignment = taCenter
+          Title.Caption = 'IBGE'
+          Width = 65
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'cidade'
+          Title.Alignment = taCenter
+          Title.Caption = 'Cidade'
+          Width = 250
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'siglaUf'
+          Title.Alignment = taCenter
+          Title.Caption = 'UF'
+          Width = 30
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'cep'
+          Title.Alignment = taCenter
+          Title.Caption = 'CEP'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'telefone'
+          Title.Alignment = taCenter
+          Title.Caption = 'Telefone'
+          Width = 150
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'celular'
+          Title.Alignment = taCenter
+          Title.Caption = 'Celular'
+          Width = 150
+          Visible = True
         end
         item
           Expanded = False
           FieldName = 'email'
           Title.Alignment = taCenter
-          Title.Caption = 'E-Mail'
+          Title.Caption = 'Email'
           Width = 300
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'statusDesc'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'status'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'tipo'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'idCidade'
+          Title.Alignment = taCenter
+          Visible = False
         end
         item
           Expanded = False
@@ -96,30 +228,9 @@ object frmEmpresa: TfrmEmpresa
         end
         item
           Expanded = False
-          FieldName = 'senhaHash'
+          FieldName = 'tipoPessoa'
           Title.Alignment = taCenter
           Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tipo'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tipoDesc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tipo'
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'statusDesc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Status'
-          Width = 200
-          Visible = True
         end>
     end
   end
@@ -131,7 +242,6 @@ object frmEmpresa: TfrmEmpresa
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 964
     object btNovo: TButton
       AlignWithMargins = True
       Left = 785
@@ -141,6 +251,7 @@ object frmEmpresa: TfrmEmpresa
       Align = alRight
       Caption = 'Novo'
       TabOrder = 0
+      OnClick = btNovoClick
     end
     object edPesquisar: TEdit
       Tag = 1
@@ -152,6 +263,7 @@ object frmEmpresa: TfrmEmpresa
       Align = alLeft
       TabOrder = 1
       TextHint = 'Pesquisar pela Raz'#227'o Social da Empresa'
+      OnKeyPress = edPesquisarKeyPress
       ExplicitHeight = 23
     end
     object btFiltros: TButton
@@ -173,6 +285,7 @@ object frmEmpresa: TfrmEmpresa
       Align = alRight
       Caption = 'Impress'#227'o'
       TabOrder = 3
+      OnClick = btPrintClick
     end
   end
   object FDMem_Registro: TFDMemTable
@@ -292,22 +405,27 @@ object frmEmpresa: TfrmEmpresa
     Top = 152
     object mnuPop_Filtro_ID: TMenuItem
       Caption = 'Id'
+      OnClick = mnuFiltro_InativoClick
     end
     object mnuFiltro_RazaoSocial: TMenuItem
       Tag = 1
       Caption = 'Raz'#227'o Social'
+      OnClick = mnuFiltro_InativoClick
     end
     object mnuFiltro_NomeFantasia: TMenuItem
       Tag = 2
       Caption = 'Nome Fantasia'
+      OnClick = mnuFiltro_InativoClick
     end
     object mnuFiltro_CNPJ: TMenuItem
       Tag = 3
       Caption = 'CNPJ'
+      OnClick = mnuFiltro_InativoClick
     end
     object mnuFiltro_Inativo: TMenuItem
       Tag = 4
       Caption = 'Inativo'
+      OnClick = mnuFiltro_InativoClick
     end
   end
   object frxReport: TfrxReport

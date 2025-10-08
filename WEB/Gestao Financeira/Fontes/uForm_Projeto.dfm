@@ -2,8 +2,8 @@ object frmForm_Projeto: TfrmForm_Projeto
   Left = 0
   Top = 0
   Caption = 'Formul'#225'rios do Projeto'
-  ClientHeight = 591
-  ClientWidth = 1006
+  ClientHeight = 511
+  ClientWidth = 944
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmForm_Projeto: TfrmForm_Projeto
   object pnDetail: TPanel
     Left = 0
     Top = 30
-    Width = 1006
-    Height = 561
+    Width = 944
+    Height = 481
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 3
@@ -26,8 +26,8 @@ object frmForm_Projeto: TfrmForm_Projeto
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
-      Width = 1000
-      Height = 555
+      Width = 938
+      Height = 475
       Align = alClient
       DataSource = dsRegistros
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -54,10 +54,10 @@ object frmForm_Projeto: TfrmForm_Projeto
         end
         item
           Expanded = False
-          FieldName = 'nomeForm'
+          FieldName = 'descricaoResumida'
           Title.Alignment = taCenter
-          Title.Caption = 'Formul'#225'rio'
-          Width = 250
+          Title.Caption = 'Descri'#231#227'o'
+          Width = 300
           Visible = True
         end
         item
@@ -72,19 +72,27 @@ object frmForm_Projeto: TfrmForm_Projeto
           Expanded = False
           FieldName = 'descricao'
           Title.Alignment = taCenter
-          Title.Caption = 'Descri'#231#227'o'
+          Title.Caption = 'Informa'#231#245'es sobre o Formul'#225'rio'
           Width = 500
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'idTipoForm'
+          FieldName = 'nomeForm'
+          Title.Alignment = taCenter
+          Title.Caption = 'Formul'#225'rio'
+          Width = 250
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'status'
           Title.Alignment = taCenter
           Visible = False
         end
         item
           Expanded = False
-          FieldName = 'status'
+          FieldName = 'idTipoForm'
           Title.Alignment = taCenter
           Visible = False
         end
@@ -127,14 +135,14 @@ object frmForm_Projeto: TfrmForm_Projeto
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 1006
+    Width = 944
     Height = 30
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
     object btNovo: TButton
       AlignWithMargins = True
-      Left = 847
+      Left = 785
       Top = 3
       Width = 75
       Height = 24
@@ -168,7 +176,7 @@ object frmForm_Projeto: TfrmForm_Projeto
     end
     object btPrint: TButton
       AlignWithMargins = True
-      Left = 928
+      Left = 866
       Top = 3
       Width = 75
       Height = 24
@@ -231,6 +239,10 @@ object frmForm_Projeto: TfrmForm_Projeto
     object FDMem_RegistroidProjetoDesc: TStringField
       FieldName = 'idProjetoDesc'
       Size = 255
+    end
+    object FDMem_RegistrodescricaoResumida: TStringField
+      FieldName = 'descricaoResumida'
+      Size = 500
     end
   end
   object dsRegistros: TDataSource

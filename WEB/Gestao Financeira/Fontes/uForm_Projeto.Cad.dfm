@@ -15,7 +15,7 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   TextHeight = 15
   object btCancelar: TButton
     Left = 902
-    Top = 250
+    Top = 268
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -24,7 +24,7 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
   end
   object btConfirmar: TButton
     Left = 821
-    Top = 250
+    Top = 268
     Width = 75
     Height = 25
     Caption = 'Confirmar'
@@ -91,20 +91,21 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
         'ATIVO')
     end
   end
-  object pnRow004: TPanel
+  object pnRow005: TPanel
     Left = 0
-    Top = 123
+    Top = 164
     Width = 995
     Height = 98
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitTop = 123
     object lbdescricao: TLabel
-      Left = 38
+      Left = 26
       Top = 6
-      Width = 51
+      Width = 66
       Height = 15
-      Caption = 'Descri'#231#227'o'
+      Caption = 'Informa'#231#245'es'
     end
     object eddescricao: TMemo
       Left = 98
@@ -116,14 +117,15 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       TabOrder = 0
     end
   end
-  object pnRow003: TPanel
+  object pnRow004: TPanel
     Left = 0
-    Top = 82
+    Top = 123
     Width = 995
     Height = 41
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 82
     object lbid_tipo_form: TLabel
       Left = 8
       Top = 6
@@ -153,14 +155,15 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       OnRightButtonClick = edid_tipo_formRightButtonClick
     end
   end
-  object pnRow002: TPanel
+  object pnRow003: TPanel
     Left = 0
-    Top = 41
+    Top = 82
     Width = 995
     Height = 41
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 41
     object lbid_projeto: TLabel
       Left = 54
       Top = 6
@@ -190,6 +193,33 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
       OnRightButtonClick = edid_projetoRightButtonClick
     end
   end
+  object pnRow002: TPanel
+    Left = 0
+    Top = 41
+    Width = 995
+    Height = 41
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 6
+    ExplicitTop = 21
+    object lbdescricaoResumida: TLabel
+      Left = 41
+      Top = 6
+      Width = 51
+      Height = 15
+      Caption = 'Descri'#231#227'o'
+    end
+    object eddescricaoResumida: TEdit
+      Left = 98
+      Top = 6
+      Width = 879
+      Height = 23
+      TabStop = False
+      TabOrder = 0
+      TextHint = 'Descri'#231#227'o do Projeto'
+      OnKeyPress = eddescricaoResumidaKeyPress
+    end
+  end
   object FDMem_Registro: TFDMemTable
     FieldDefs = <>
     IndexDefs = <>
@@ -202,8 +232,8 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 424
-    Top = 240
+    Left = 368
+    Top = 304
     object FDMem_Registroid: TIntegerField
       FieldName = 'id'
     end
@@ -243,6 +273,10 @@ object frmForm_Projeto_Cad: TfrmForm_Projeto_Cad
     object FDMem_RegistroidProjetoDesc: TStringField
       FieldName = 'idProjetoDesc'
       Size = 255
+    end
+    object FDMem_RegistrodescricaoResumida: TStringField
+      FieldName = 'descricaoResumida'
+      Size = 500
     end
   end
 end

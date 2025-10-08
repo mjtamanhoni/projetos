@@ -10,22 +10,26 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
+  OnShow = FormShow
   TextHeight = 15
   object btCancelar: TButton
-    Left = 743
-    Top = 460
+    Left = 904
+    Top = 209
     Width = 75
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 0
+    OnClick = btCancelarClick
   end
   object btConfirmar: TButton
-    Left = 646
-    Top = 460
+    Left = 823
+    Top = 209
     Width = 75
     Height = 25
     Caption = 'Confirmar'
     TabOrder = 1
+    OnClick = btConfirmarClick
   end
   object pnRow001: TPanel
     Left = 0
@@ -39,7 +43,7 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 70
+      Width = 87
       Height = 23
       Align = alLeft
       Alignment = taRightJustify
@@ -49,7 +53,7 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
     end
     object lbstatus: TLabel
       AlignWithMargins = True
-      Left = 174
+      Left = 151
       Top = 3
       Width = 42
       Height = 23
@@ -58,10 +62,11 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
       AutoSize = False
       Caption = 'Status'
       Layout = tlCenter
+      ExplicitLeft = 174
     end
     object lbtipo: TLabel
       AlignWithMargins = True
-      Left = 343
+      Left = 310
       Top = 3
       Width = 33
       Height = 23
@@ -70,11 +75,12 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
       AutoSize = False
       Caption = 'Tipo'
       Layout = tlCenter
-      ExplicitLeft = 333
+      ExplicitLeft = 324
+      ExplicitTop = 0
     end
     object lbcnpj: TLabel
       AlignWithMargins = True
-      Left = 557
+      Left = 612
       Top = 3
       Width = 27
       Height = 23
@@ -89,7 +95,7 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
     end
     object lbinscEstadual: TLabel
       AlignWithMargins = True
-      Left = 744
+      Left = 783
       Top = 3
       Width = 81
       Height = 23
@@ -100,70 +106,101 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
       Layout = tlCenter
       ExplicitLeft = 754
     end
+    object lbtipoPessoa: TLabel
+      AlignWithMargins = True
+      Left = 460
+      Top = 3
+      Width = 46
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'Pessoa'
+      Layout = tlCenter
+    end
     object edid: TEdit
       AlignWithMargins = True
-      Left = 79
+      Left = 96
       Top = 3
-      Width = 89
+      Width = 49
       Height = 23
       Align = alLeft
       Enabled = False
       TabOrder = 0
       TextHint = 'Id'
-      ExplicitLeft = 98
-      ExplicitTop = 10
+      OnKeyPress = edidKeyPress
     end
     object cbstatus: TComboBox
       AlignWithMargins = True
-      Left = 222
+      Left = 199
       Top = 3
-      Width = 115
+      Width = 105
       Height = 23
       Align = alLeft
       TabOrder = 1
       Text = 'Selecione'
+      OnKeyPress = cbstatusKeyPress
       Items.Strings = (
         'INATIVO'
         'ATIVO')
-      ExplicitLeft = 249
-      ExplicitTop = 12
+      ExplicitLeft = 239
     end
     object cbtipo: TComboBox
       AlignWithMargins = True
-      Left = 382
+      Left = 349
       Top = 3
-      Width = 115
+      Width = 105
       Height = 23
       Align = alLeft
       TabOrder = 2
       Text = 'Selecione'
+      OnKeyPress = cbtipoKeyPress
       Items.Strings = (
         'MATRIZ'
         'FILIAL')
-      ExplicitLeft = 425
-      ExplicitTop = 12
+      ExplicitLeft = 381
+      ExplicitTop = 0
     end
     object edcnpj: TEdit
       AlignWithMargins = True
-      Left = 590
+      Left = 645
       Top = 3
-      Width = 148
+      Width = 132
       Height = 23
       Align = alRight
       TabOrder = 3
       TextHint = 'CNPJ'
-      ExplicitLeft = 601
+      OnExit = edcnpjExit
+      OnKeyPress = edcnpjKeyPress
+      ExplicitLeft = 629
     end
     object edinscEstadual: TEdit
       AlignWithMargins = True
-      Left = 831
+      Left = 870
       Top = 3
-      Width = 148
+      Width = 109
       Height = 23
       Align = alRight
       TabOrder = 4
       TextHint = 'Inscri'#231#227'o Estadual'
-      ExplicitLeft = 832
+      OnExit = edinscEstadualExit
+      OnKeyPress = edinscEstadualKeyPress
+      ExplicitLeft = 869
+    end
+    object cbtipoPessoa: TComboBox
+      AlignWithMargins = True
+      Left = 512
+      Top = 3
+      Width = 84
+      Height = 23
+      Align = alLeft
+      TabOrder = 5
+      Text = 'Selecione'
+      OnKeyPress = cbtipoPessoaKeyPress
+      Items.Strings = (
+        'F'#205'SICA'
+        'JUR'#205'DICA')
+      ExplicitLeft = 499
     end
   end
   object pnRow002: TPanel
@@ -174,12 +211,11 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitTop = 26
     object lbrazaoSocial: TLabel
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 70
+      Width = 87
       Height = 23
       Align = alLeft
       Alignment = taRightJustify
@@ -202,13 +238,15 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
     end
     object edrazaoSocial: TEdit
       AlignWithMargins = True
-      Left = 79
+      Left = 96
       Top = 3
       Width = 390
       Height = 23
       Align = alLeft
       TabOrder = 0
       TextHint = 'Raz'#227'o Social'
+      OnKeyPress = edrazaoSocialKeyPress
+      ExplicitLeft = 79
     end
     object edfantasia: TEdit
       AlignWithMargins = True
@@ -219,7 +257,7 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
       Align = alRight
       TabOrder = 1
       TextHint = 'Nome Fantasia'
-      ExplicitLeft = 599
+      OnKeyPress = edfantasiaKeyPress
     end
   end
   object pnRow003: TPanel
@@ -234,7 +272,7 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 70
+      Width = 87
       Height = 23
       Align = alLeft
       Alignment = taRightJustify
@@ -242,18 +280,18 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
       Caption = 'Contato'
       Layout = tlCenter
     end
-    object edemail: TEdit
+    object edcontato: TEdit
       AlignWithMargins = True
-      Left = 79
+      Left = 96
       Top = 3
-      Width = 900
+      Width = 883
       Height = 23
       Align = alClient
       TabOrder = 0
-      TextHint = 'E-Mail do Usu'#225'rio'
-      ExplicitLeft = 98
-      ExplicitTop = 0
-      ExplicitWidth = 568
+      TextHint = 'Contato'
+      OnKeyPress = edcontatoKeyPress
+      ExplicitLeft = 79
+      ExplicitWidth = 900
     end
   end
   object pnRow004: TPanel
@@ -264,63 +302,83 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 5
-    ExplicitTop = 66
-    object lbendereco: TLabel
+    object lbcep: TLabel
       AlignWithMargins = True
       Left = 3
-      Top = 32
-      Width = 70
-      Height = -6
+      Top = 3
+      Width = 87
+      Height = 23
       Align = alLeft
       Alignment = taRightJustify
       AutoSize = False
-      Caption = 'Endere'#231'o'
+      Caption = 'Cep'
       Layout = tlCenter
-      ExplicitTop = 3
-      ExplicitHeight = 23
     end
     object lbnumero: TLabel
       AlignWithMargins = True
-      Left = 853
-      Top = 32
+      Left = 879
+      Top = 3
       Width = 29
-      Height = -6
+      Height = 23
       Align = alRight
       Alignment = taRightJustify
       AutoSize = False
       Caption = 'Nr.:'
       Layout = tlCenter
       ExplicitLeft = 806
-      ExplicitTop = 3
-      ExplicitHeight = 23
+    end
+    object lbendereco: TLabel
+      AlignWithMargins = True
+      Left = 193
+      Top = 3
+      Width = 59
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'Endere'#231'o'
+      Layout = tlCenter
     end
     object edendereco: TEdit
       AlignWithMargins = True
-      Left = 79
-      Top = 32
-      Width = 768
-      Height = 0
+      Left = 258
+      Top = 3
+      Width = 615
+      Height = 23
       Align = alClient
       TabOrder = 0
       TextHint = 'Endere'#231'o'
-      ExplicitTop = 3
-      ExplicitWidth = 900
-      ExplicitHeight = 23
+      OnKeyPress = edenderecoKeyPress
+      ExplicitLeft = 79
+      ExplicitWidth = 768
     end
     object ednumero: TEdit
       AlignWithMargins = True
-      Left = 888
-      Top = 32
-      Width = 91
-      Height = 0
+      Left = 914
+      Top = 3
+      Width = 65
+      Height = 23
       Align = alRight
       TabOrder = 1
       TextHint = 'Inscri'#231#227'o Estadual'
-      ExplicitTop = 3
-      ExplicitHeight = 23
+      OnKeyPress = ednumeroKeyPress
+      ExplicitLeft = 912
+    end
+    object edcep: TEdit
+      AlignWithMargins = True
+      Left = 96
+      Top = 3
+      Width = 91
+      Height = 23
+      Align = alLeft
+      TabOrder = 2
+      TextHint = 'CEP'
+      OnExit = edcepExit
+      OnKeyPress = edcepKeyPress
+      ExplicitLeft = 888
     end
   end
-  object Panel1: TPanel
+  object pnRow005: TPanel
     Left = 0
     Top = 116
     Width = 982
@@ -328,51 +386,222 @@ object frmEmpresa_Cad: TfrmEmpresa_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 6
-    ExplicitTop = 95
-    object Label1: TLabel
+    object lbcomplemento: TLabel
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 70
+      Width = 87
       Height = 23
       Align = alLeft
       Alignment = taRightJustify
       AutoSize = False
-      Caption = 'Endere'#231'o'
+      Caption = 'Complemento'
       Layout = tlCenter
     end
-    object Label2: TLabel
+    object edcomplemento: TEdit
       AlignWithMargins = True
-      Left = 853
+      Left = 96
       Top = 3
-      Width = 29
+      Width = 883
+      Height = 23
+      Align = alClient
+      TabOrder = 0
+      TextHint = 'Complemento'
+      OnKeyPress = edcomplementoKeyPress
+      ExplicitLeft = 79
+      ExplicitWidth = 768
+    end
+  end
+  object pnRow006: TPanel
+    Left = 0
+    Top = 145
+    Width = 982
+    Height = 29
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 7
+    ExplicitLeft = 3
+    ExplicitTop = 148
+    object lbbairro: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 87
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'Bairro'
+      Layout = tlCenter
+    end
+    object lbidCidade: TLabel
+      AlignWithMargins = True
+      Left = 420
+      Top = 3
+      Width = 47
       Height = 23
       Align = alRight
       Alignment = taRightJustify
       AutoSize = False
-      Caption = 'Nr.:'
+      Caption = 'Cidade'
       Layout = tlCenter
-      ExplicitLeft = 806
+      ExplicitLeft = 360
     end
-    object Edit1: TEdit
+    object lbsiglaUf: TLabel
       AlignWithMargins = True
-      Left = 79
+      Left = 884
       Top = 3
-      Width = 768
+      Width = 24
+      Height = 23
+      Align = alRight
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'UF'
+      Layout = tlCenter
+      ExplicitLeft = 885
+    end
+    object edbairro: TEdit
+      AlignWithMargins = True
+      Left = 96
+      Top = 3
+      Width = 318
       Height = 23
       Align = alClient
       TabOrder = 0
-      TextHint = 'Endere'#231'o'
+      TextHint = 'Bairro'
+      OnKeyPress = edbairroKeyPress
+      ExplicitLeft = 360
+      ExplicitTop = 6
+      ExplicitWidth = 258
     end
-    object Edit2: TEdit
+    object edidCidade: TButtonedEdit
       AlignWithMargins = True
-      Left = 888
+      Left = 473
       Top = 3
-      Width = 91
+      Width = 61
       Height = 23
       Align = alRight
+      RightButton.Visible = True
       TabOrder = 1
-      TextHint = 'Inscri'#231#227'o Estadual'
+      TextHint = 'Cidade'
+      OnKeyPress = edidCidadeKeyPress
+      OnRightButtonClick = edidCidadeRightButtonClick
+      ExplicitLeft = 474
+    end
+    object edcidadeIbge: TEdit
+      AlignWithMargins = True
+      Left = 540
+      Top = 3
+      Width = 74
+      Height = 23
+      Align = alRight
+      TabOrder = 2
+      TextHint = 'IBGE'
+      ExplicitLeft = 471
+    end
+    object edcidade: TEdit
+      AlignWithMargins = True
+      Left = 620
+      Top = 3
+      Width = 258
+      Height = 23
+      Align = alRight
+      TabOrder = 3
+      TextHint = 'Nome da Cidade'
+      ExplicitLeft = 872
+    end
+    object edsiglaUf: TEdit
+      AlignWithMargins = True
+      Left = 914
+      Top = 3
+      Width = 65
+      Height = 23
+      Align = alRight
+      TabOrder = 4
+      TextHint = 'UF'
+      ExplicitLeft = 905
+    end
+  end
+  object pnRow007: TPanel
+    Left = 0
+    Top = 174
+    Width = 982
+    Height = 29
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 8
+    ExplicitTop = 153
+    object lbtelefone: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 87
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'Telefone'
+      Layout = tlCenter
+    end
+    object lbcelular: TLabel
+      AlignWithMargins = True
+      Left = 252
+      Top = 3
+      Width = 47
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'Celular'
+      Layout = tlCenter
+      ExplicitLeft = 577
+    end
+    object lbemail: TLabel
+      AlignWithMargins = True
+      Left = 461
+      Top = 3
+      Width = 44
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = 'E-Mail'
+      Layout = tlCenter
+      ExplicitLeft = 874
+    end
+    object edtelefone: TEdit
+      AlignWithMargins = True
+      Left = 96
+      Top = 3
+      Width = 150
+      Height = 23
+      Align = alLeft
+      TabOrder = 0
+      TextHint = 'Telefonoe'
+      OnKeyPress = edtelefoneKeyPress
+    end
+    object edcelular: TEdit
+      AlignWithMargins = True
+      Left = 305
+      Top = 3
+      Width = 150
+      Height = 23
+      Align = alLeft
+      TabOrder = 1
+      TextHint = 'Celular'
+      OnKeyPress = edcelularKeyPress
+    end
+    object edemail: TEdit
+      AlignWithMargins = True
+      Left = 511
+      Top = 3
+      Width = 468
+      Height = 23
+      Align = alClient
+      TabOrder = 2
+      TextHint = 'E-Mail'
+      ExplicitLeft = 914
+      ExplicitWidth = 65
     end
   end
   object FDMem_Registro: TFDMemTable

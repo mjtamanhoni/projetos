@@ -51,12 +51,12 @@ type
     frxPDFExport: TfrxPDFExport;
     frxDBDataset: TfrxDBDataset;
     procedure btNovoClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure mnuPop_Filtro_SiglaUFClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: Char);
     procedure btPrintClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     FfrmMunicipios_Cad :TfrmMunicipios_Cad;
 
@@ -188,7 +188,16 @@ begin
     end;
 
     with Row.Items.Add do
-      VCLObj(DBGrid_Registros);
+    begin
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+            VCLObj(DBGrid_Registros);
+        end;
+      end;
+    end;
 
     with Popup('Popup' + FfrmMunicipios_Cad.Name,'Cadastro de Municípios',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmMunicipios_Cad);
@@ -212,10 +221,6 @@ begin
 
   FHost := '';
   FHost := FIniFiles.ReadString('SERVIDOR.PADRAO','HOST','') + ':' + FIniFiles.ReadString('SERVIDOR.PADRAO','PORTA','');
-
-  //btNovo.Caption := '';
-  //btFiltros.Caption := '';
-  //btPrint.Caption := '';
 
 end;
 

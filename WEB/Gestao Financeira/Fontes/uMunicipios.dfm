@@ -2,8 +2,8 @@ object frmMunicipios: TfrmMunicipios
   Left = 0
   Top = 0
   Caption = 'Munic'#237'pios'
-  ClientHeight = 565
-  ClientWidth = 975
+  ClientHeight = 511
+  ClientWidth = 944
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmMunicipios: TfrmMunicipios
   object pnDetail: TPanel
     Left = 0
     Top = 30
-    Width = 975
-    Height = 535
+    Width = 944
+    Height = 481
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 3
@@ -26,8 +26,8 @@ object frmMunicipios: TfrmMunicipios
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
-      Width = 969
-      Height = 529
+      Width = 938
+      Height = 475
       Align = alClient
       DataSource = dsRegistros
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -117,14 +117,14 @@ object frmMunicipios: TfrmMunicipios
   object pnHeader: TPanel
     Left = 0
     Top = 0
-    Width = 975
+    Width = 944
     Height = 30
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
     object btNovo: TButton
       AlignWithMargins = True
-      Left = 816
+      Left = 785
       Top = 3
       Width = 75
       Height = 24
@@ -145,7 +145,7 @@ object frmMunicipios: TfrmMunicipios
     end
     object btPrint: TButton
       AlignWithMargins = True
-      Left = 897
+      Left = 866
       Top = 3
       Width = 75
       Height = 24

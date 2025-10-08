@@ -21,11 +21,11 @@ type
     mnuRegiao: TMenuItem;
     mnuEstados: TMenuItem;
     mnuCidades: TMenuItem;
-    Pagamengos1: TMenuItem;
-    CondiesdePagamentos1: TMenuItem;
-    FormasdePagamentos1: TMenuItem;
-    UnidadesdeMedidas1: TMenuItem;
-    PlanodeContasGerencial1: TMenuItem;
+    mnuPagamento: TMenuItem;
+    mnuPag_Condicao: TMenuItem;
+    mnuPag_Formas: TMenuItem;
+    mnuUnidadeMedida: TMenuItem;
+    mnuPlanoContasGer: TMenuItem;
     UnidadesdeMedidas2: TMenuItem;
     Pessoa1: TMenuItem;
     N1: TMenuItem;
@@ -69,6 +69,7 @@ type
     procedure mnuEstadosClick(Sender: TObject);
     procedure mnuDesconectarClick(Sender: TObject);
     procedure mnuCidadesClick(Sender: TObject);
+    procedure mnuEmpresaClick(Sender: TObject);
   private
 
   public
@@ -85,7 +86,7 @@ implementation
 
 Uses
    Gestao_FinanceiraWebApp,
-   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios, uRegioes, uUnidadeFederativa, uMunicipios;
+   uProjetos, uTIpoFormulario, uForm_Projeto, uUsuarios, uRegioes, uUnidadeFederativa, uMunicipios, uEmpresa;
 
 Function frmPrincipal: TfrmPrincipal;
 begin
@@ -158,6 +159,20 @@ begin
       {$Region 'Empresa'}
         PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuEmpresa).Icon := 'fa-solid fa-building';
       {$EndRegion 'Empresa'}
+
+      {$Region 'Pagamentos'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuPagamento).Icon := 'fa-solid fa-cash-register';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuPag_Condicao).Icon := 'fa-solid fa-money-bills';
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuPag_Formas).Icon := 'fa-solid fa-money-bill';
+      {$EndRegion 'Pagamentos'}
+
+      {$Region 'Unidade de Medida'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuUnidadeMedida).Icon := 'fa-solid fa-weight-scale';
+      {$EndRegion 'Unidade de Medida'}
+
+      {$Region 'Plano de contas gerencial'}
+        PrismControl.AsSideMenu.MenuItemFromVCLComponent(mnuPlanoContasGer).Icon := 'fa-solid fa-receipt';
+      {$EndRegion 'Plano de contas gerencial'}
     end;
   end;
 
@@ -246,6 +261,13 @@ begin
     TfrmRegioes.CreateInstance;
   frmRegioes.Show;
 
+end;
+
+procedure TfrmPrincipal.mnuEmpresaClick(Sender: TObject);
+begin
+  if frmEmpresa = Nil then
+    TfrmEmpresa.CreateInstance;
+  frmEmpresa.Show;
 end;
 
 procedure TfrmPrincipal.mnuEstadosClick(Sender: TObject);

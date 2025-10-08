@@ -192,8 +192,18 @@ begin
       end;
     end;
 
+
     with Row.Items.Add do
-      VCLObj(DBGrid_Registros);
+    begin
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+            VCLObj(DBGrid_Registros);
+        end;
+      end;
+    end;
 
     with Popup('Popup' + FfrmUnidadeFederativa_Cad.Name,'Cadastro de Unidades Federativas',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmUnidadeFederativa_Cad);

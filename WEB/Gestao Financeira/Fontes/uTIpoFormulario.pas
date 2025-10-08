@@ -192,7 +192,16 @@ begin
     end;
 
     with Row.Items.Add do
-      VCLObj(DBGrid_Registros);
+    begin
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+            VCLObj(DBGrid_Registros);
+        end;
+      end;
+    end;
 
     with Popup('Popup' + FfrmTipoFormulario_Cad.Name,'Cadastro de Tipo de Formulário',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmTipoFormulario_Cad);

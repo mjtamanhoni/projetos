@@ -39,8 +39,6 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = -108
-    ExplicitWidth = 1067
     object lbid: TLabel
       Left = 82
       Top = 13
@@ -102,7 +100,6 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitLeft = -8
     object lbtipo: TLabel
       Left = 54
       Top = 6
@@ -183,7 +180,6 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 4
-    ExplicitTop = 88
     object lbemail: TLabel
       Left = 60
       Top = 6
@@ -217,10 +213,6 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 392
-        ExplicitTop = 136
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object DBGrid_Permissoes: TDBGrid
           AlignWithMargins = True
           Left = 3
@@ -228,6 +220,7 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
           Width = 963
           Height = 308
           Align = alClient
+          DataSource = dsPermissoes
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -248,10 +241,6 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 392
-        ExplicitTop = 136
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object DBGrid_Empresa: TDBGrid
           AlignWithMargins = True
           Left = 3
@@ -281,8 +270,8 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 424
-    Top = 240
+    Left = 416
+    Top = 200
     object FDMem_Registroid: TIntegerField
       FieldName = 'id'
     end
@@ -330,5 +319,72 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
       FieldName = 'statusDesc'
       Size = 50
     end
+  end
+  object FDMem_Permissoes: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    IndexFieldNames = 'id'
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 408
+    Top = 264
+    object IntegerField1: TIntegerField
+      FieldName = 'id'
+    end
+    object StringField1: TStringField
+      FieldName = 'nome'
+      Size = 255
+    end
+    object StringField2: TStringField
+      FieldName = 'login'
+      Size = 255
+    end
+    object StringField3: TStringField
+      FieldName = 'senha'
+      Size = 255
+    end
+    object StringField4: TStringField
+      FieldName = 'pin'
+      Size = 255
+    end
+    object StringField5: TStringField
+      FieldName = 'email'
+      Size = 255
+    end
+    object DateField1: TDateField
+      FieldName = 'dtCadastro'
+    end
+    object TimeField1: TTimeField
+      FieldName = 'hrCadastro'
+    end
+    object StringField6: TStringField
+      FieldName = 'senhaHash'
+      Size = 255
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'tipo'
+    end
+    object StringField7: TStringField
+      FieldName = 'tipoDesc'
+      Size = 50
+    end
+    object IntegerField3: TIntegerField
+      FieldName = 'status'
+    end
+    object StringField8: TStringField
+      FieldName = 'statusDesc'
+      Size = 50
+    end
+  end
+  object dsPermissoes: TDataSource
+    DataSet = FDMem_Permissoes
+    Left = 408
+    Top = 320
   end
 end

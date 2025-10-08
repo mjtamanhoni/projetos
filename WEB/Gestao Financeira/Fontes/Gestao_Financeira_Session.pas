@@ -53,6 +53,11 @@ type
     FMun_Status_Tag: String;
     FMun_IBGE: Integer;
     FMun_CepPadrao: String;
+    FEmp_Status_Tag: String;
+    FEmp_CNPJ: String;
+    FEmp_Fantasia: String;
+    FEmp_ID: Integer;
+    FEmp_RazaoSocial: String;
 
   public
 
@@ -121,6 +126,13 @@ type
       property Mun_Descricao :String read FMun_Descricao write FMun_Descricao;
     {$EndRegion 'Municípios'}
 
+    {$Region 'Empresa'}
+      property Emp_Status_Tag :String read FEmp_Status_Tag write FEmp_Status_Tag;
+      property Emp_ID :Integer read FEmp_ID write FEmp_ID;
+      property Emp_RazaoSocial :String read FEmp_RazaoSocial write FEmp_RazaoSocial;
+      property Emp_Fantasia :String read FEmp_Fantasia write FEmp_Fantasia;
+      property Emp_CNPJ :String read FEmp_CNPJ write FEmp_CNPJ;
+    {$EndRegion 'Empresa'}
 
    constructor Create(APrismSession: TPrismSession); override;  //OnNewSession
    destructor Destroy; override; //OnCloseSession

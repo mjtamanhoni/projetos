@@ -52,7 +52,7 @@ type
     frxDBDataset: TfrxDBDataset;
     mnuFiltro_TipoForm: TMenuItem;
     mnuFiltro_Projeot: TMenuItem;
-    procedure btFecharClick(Sender: TObject);
+    FDMem_RegistrodescricaoResumida: TStringField;
     procedure btNovoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -99,11 +99,6 @@ Uses
 function frmForm_Projeto:TfrmForm_Projeto;
 begin
   result:= TfrmForm_Projeto(TfrmForm_Projeto.GetInstance);
-end;
-
-procedure TfrmForm_Projeto.btFecharClick(Sender: TObject);
-begin
-  Close;
 end;
 
 procedure TfrmForm_Projeto.btNovoClick(Sender: TObject);
@@ -195,7 +190,16 @@ begin
     end;
 
     with Row.Items.Add do
-      VCLObj(DBGrid_Registros);
+    begin
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+            VCLObj(DBGrid_Registros);
+        end;
+      end;
+    end;
 
     with Popup('Popup' + FfrmForm_Projeto_Cad.Name,'Cadastro de Formulários do Projeto',True,CSSClass.Popup.ExtraLarge).Items.Add do
       Nested(FfrmForm_Projeto_Cad);
@@ -392,6 +396,7 @@ begin
             FDMem_RegistroidProjeto.AsInteger := FBody.Get(x).GetValue<Integer>('idProjeto',0);
             FDMem_RegistronomeForm.AsString := FBody.Get(x).GetValue<String>('nomeForm','');
             FDMem_Registrodescricao.AsString := FBody.Get(x).GetValue<String>('descricao','');
+            FDMem_RegistrodescricaoResumida.AsString := FBody.Get(x).GetValue<String>('descricaoResumida','');
             FDMem_RegistroidTipoForm.AsInteger := FBody.Get(x).GetValue<Integer>('idTipoForm',0);
             FDMem_Registrostatus.AsInteger := FBody.Get(x).GetValue<Integer>('status',-1);
             FDMem_RegistrostatusDesc.AsString := FBody.Get(x).GetValue<String>('statusDesc','');
@@ -440,6 +445,7 @@ begin
     FfrmForm_Projeto_Cad.edid_tipo_form.Text := FDMem_Registro.FieldByName('idTipoForm').AsString;
     FfrmForm_Projeto_Cad.edid_tipo_form_Desc.Text := FDMem_Registro.FieldByName('idTipoFormDesc').AsString;
     FfrmForm_Projeto_Cad.eddescricao.Lines.Add(FDMem_Registro.FieldByName('descricao').AsString);
+    FfrmForm_Projeto_Cad.eddescricaoResumida.Text := FDMem_Registro.FieldByName('descricaoResumida').AsString;
   end;
 
 end;

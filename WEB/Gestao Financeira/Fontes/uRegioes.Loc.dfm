@@ -22,8 +22,6 @@ object frmRegioes_Loc: TfrmRegioes_Loc
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 38
-    ExplicitHeight = 542
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -93,8 +91,6 @@ object frmRegioes_Loc: TfrmRegioes_Loc
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -54
-    ExplicitWidth = 964
     object lbStatus: TLabel
       Left = 8
       Top = 13

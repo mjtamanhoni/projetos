@@ -32,14 +32,14 @@ type
     edid: TEdit;
     ednome_form: TEdit;
     cbstatus: TComboBox;
-    pnRow004: TPanel;
+    pnRow005: TPanel;
     lbdescricao: TLabel;
     eddescricao: TMemo;
-    pnRow003: TPanel;
+    pnRow004: TPanel;
     lbid_tipo_form: TLabel;
     edid_tipo_form_Desc: TEdit;
     edid_tipo_form: TButtonedEdit;
-    pnRow002: TPanel;
+    pnRow003: TPanel;
     lbid_projeto: TLabel;
     edid_projeto_Desc: TEdit;
     edid_projeto: TButtonedEdit;
@@ -56,6 +56,10 @@ type
     FDMem_RegistrotipoFormTipoDesc: TStringField;
     FDMem_RegistroidTipoFormDesc: TStringField;
     FDMem_RegistroidProjetoDesc: TStringField;
+    pnRow002: TPanel;
+    lbdescricaoResumida: TLabel;
+    eddescricaoResumida: TEdit;
+    FDMem_RegistrodescricaoResumida: TStringField;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -66,6 +70,7 @@ type
     procedure edid_tipo_formKeyPress(Sender: TObject; var Key: Char);
     procedure edid_projetoRightButtonClick(Sender: TObject);
     procedure edid_tipo_formRightButtonClick(Sender: TObject);
+    procedure eddescricaoResumidaKeyPress(Sender: TObject; var Key: Char);
   private
     FfrmTipoFormulario_Loc :TfrmTipoFormulario_Loc;
     FfrmProjetos_Loc :TfrmProjetos_Loc;
@@ -146,6 +151,7 @@ begin
           FDMem_Registro.FieldByName('descricao').AsString := eddescricao.Text;
           FDMem_Registro.FieldByName('idTipoForm').AsString := edid_tipo_form.Text;
           FDMem_Registro.FieldByName('status').AsInteger := cbstatus.ItemIndex;
+          FDMem_Registro.FieldByName('descricaoResumida').AsString := eddescricaoResumida.Text;
 
         FDMem_Registro.Post;
         FDMem_Registro.ToJSONArray;
@@ -215,6 +221,14 @@ begin
   edid_tipo_form.Clear;
   edid_tipo_form_Desc.Clear;
   eddescricao.Clear;
+  eddescricaoResumida.Clear;
+end;
+
+procedure TfrmForm_Projeto_Cad.eddescricaoResumidaKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+    edid_projeto.SetFocus;
+
 end;
 
 procedure TfrmForm_Projeto_Cad.edid_projetoKeyPress(Sender: TObject; var Key: Char);
@@ -244,7 +258,7 @@ end;
 procedure TfrmForm_Projeto_Cad.ednome_formKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
-    edid_projeto.SetFocus;
+    eddescricaoResumida.SetFocus;
 end;
 
 procedure TfrmForm_Projeto_Cad.ExportD2Bridge;
@@ -275,6 +289,8 @@ begin
           FormGroup(lbStatus.Caption,CSSClass.Col.colsize2).AddVCLObj(cbstatus);
           FormGroup(lbnome_form.Caption,CSSClass.Col.col).AddVCLObj(ednome_form);
         end;
+        with Row.Items.add do
+          FormGroup(lbdescricaoResumida.Caption,CSSClass.Col.col).AddVCLObj(eddescricaoResumida);
         with Row.Items.Add do
         begin
           FormGroup(lbid_projeto.Caption,CSSClass.col.colsize2).Items.Add.VCLObj(edid_projeto);

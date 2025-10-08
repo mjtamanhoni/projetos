@@ -23,9 +23,6 @@ object frmRegioes: TfrmRegioes
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 41
-    ExplicitWidth = 960
-    ExplicitHeight = 542
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -95,7 +92,6 @@ object frmRegioes: TfrmRegioes
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 960
     object btNovo: TButton
       AlignWithMargins = True
       Left = 785
@@ -106,9 +102,6 @@ object frmRegioes: TfrmRegioes
       Caption = 'Novo'
       TabOrder = 0
       OnClick = btNovoClick
-      ExplicitLeft = 790
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object edPesquisar: TEdit
       Tag = 1
@@ -121,9 +114,7 @@ object frmRegioes: TfrmRegioes
       TabOrder = 1
       TextHint = 'Pesquisar pelo Nome da Regi'#227'o'
       OnKeyPress = edPesquisarKeyPress
-      ExplicitLeft = 11
-      ExplicitTop = 6
-      ExplicitHeight = 35
+      ExplicitHeight = 23
     end
     object btFiltros: TButton
       AlignWithMargins = True
@@ -145,7 +136,6 @@ object frmRegioes: TfrmRegioes
       Caption = 'Impress'#227'o'
       TabOrder = 3
       OnClick = btPrintClick
-      ExplicitLeft = 887
     end
   end
   object FDMem_Registro: TFDMemTable

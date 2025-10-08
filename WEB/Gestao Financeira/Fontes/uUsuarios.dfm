@@ -23,107 +23,113 @@ object frmUsuarios: TfrmUsuarios
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitTop = 41
-    ExplicitWidth = 964
-    ExplicitHeight = 553
-    object DBGrid_Registros: TDBGrid
+    object pnRegistros: TPanel
       Left = 3
       Top = 3
       Width = 938
       Height = 475
       Align = alClient
-      DataSource = dsRegistros
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -12
-      TitleFont.Name = 'Segoe UI'
-      TitleFont.Style = []
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'id'
-          Title.Alignment = taCenter
-          Title.Caption = 'Id'
-          Width = 65
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'nome'
-          Title.Alignment = taCenter
-          Title.Caption = 'Nome'
-          Width = 300
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'login'
-          Title.Alignment = taCenter
-          Title.Caption = 'Login'
-          Width = 300
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'senha'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'pin'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'email'
-          Title.Alignment = taCenter
-          Title.Caption = 'E-Mail'
-          Width = 300
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'dtCadastro'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'hrCadastro'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'senhaHash'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tipo'
-          Title.Alignment = taCenter
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'tipoDesc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tipo'
-          Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'statusDesc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Status'
-          Width = 200
-          Visible = True
-        end>
+      ExplicitHeight = 237
+      object DBGrid_Registros: TDBGrid
+        Left = 1
+        Top = 1
+        Width = 936
+        Height = 473
+        Align = alClient
+        DataSource = dsRegistros
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'id'
+            Title.Alignment = taCenter
+            Title.Caption = 'Id'
+            Width = 65
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'nome'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome'
+            Width = 300
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'login'
+            Title.Alignment = taCenter
+            Title.Caption = 'Login'
+            Width = 300
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'senha'
+            Title.Alignment = taCenter
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'pin'
+            Title.Alignment = taCenter
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'email'
+            Title.Alignment = taCenter
+            Title.Caption = 'E-Mail'
+            Width = 300
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'dtCadastro'
+            Title.Alignment = taCenter
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'hrCadastro'
+            Title.Alignment = taCenter
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'senhaHash'
+            Title.Alignment = taCenter
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'tipo'
+            Title.Alignment = taCenter
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'tipoDesc'
+            Title.Alignment = taCenter
+            Title.Caption = 'Tipo'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'statusDesc'
+            Title.Alignment = taCenter
+            Title.Caption = 'Status'
+            Width = 200
+            Visible = True
+          end>
+      end
     end
   end
   object pnHeader: TPanel
@@ -134,7 +140,6 @@ object frmUsuarios: TfrmUsuarios
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 964
     object btNovo: TButton
       AlignWithMargins = True
       Left = 785
@@ -145,9 +150,6 @@ object frmUsuarios: TfrmUsuarios
       Caption = 'Novo'
       TabOrder = 0
       OnClick = btNovoClick
-      ExplicitLeft = 790
-      ExplicitTop = 10
-      ExplicitHeight = 25
     end
     object edPesquisar: TEdit
       Tag = 1
@@ -160,9 +162,7 @@ object frmUsuarios: TfrmUsuarios
       TabOrder = 1
       TextHint = 'Pesquisar pelo Nome do Usu'#225'rio'
       OnKeyPress = edPesquisarKeyPress
-      ExplicitLeft = 11
-      ExplicitTop = 6
-      ExplicitHeight = 35
+      ExplicitHeight = 23
     end
     object btFiltros: TButton
       AlignWithMargins = True
@@ -184,7 +184,6 @@ object frmUsuarios: TfrmUsuarios
       Caption = 'Impress'#227'o'
       TabOrder = 3
       OnClick = btPrintClick
-      ExplicitLeft = 887
     end
   end
   object FDMem_Registro: TFDMemTable
@@ -199,8 +198,8 @@ object frmUsuarios: TfrmUsuarios
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 432
-    Top = 240
+    Left = 144
+    Top = 88
     object FDMem_Registroid: TIntegerField
       FieldName = 'id'
     end
@@ -251,8 +250,8 @@ object frmUsuarios: TfrmUsuarios
   end
   object dsRegistros: TDataSource
     DataSet = FDMem_Registro
-    Left = 432
-    Top = 296
+    Left = 144
+    Top = 144
   end
   object PopupMenu: TPopupMenu
     Left = 656
@@ -336,5 +335,111 @@ object frmUsuarios: TfrmUsuarios
     DataSetOptions = []
     Left = 656
     Top = 328
+  end
+  object FDMem_Permissoes: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    IndexFieldNames = 'id'
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 240
+    Top = 320
+    object FDMem_Permissoesid: TIntegerField
+      FieldName = 'id'
+    end
+    object FDMem_PermissoesidUsuario: TIntegerField
+      FieldName = 'idUsuario'
+    end
+    object FDMem_PermissoesidProjeto: TIntegerField
+      FieldName = 'idProjeto'
+    end
+    object FDMem_PermissoesidTelaProjeto: TIntegerField
+      FieldName = 'idTelaProjeto'
+    end
+    object FDMem_Permissoesacesso: TIntegerField
+      FieldName = 'acesso'
+    end
+    object FDMem_Permissoesincluir: TIntegerField
+      FieldName = 'incluir'
+    end
+    object FDMem_Permissoesalterar: TIntegerField
+      FieldName = 'alterar'
+    end
+    object FDMem_Permissoesexcluir: TIntegerField
+      FieldName = 'excluir'
+    end
+    object FDMem_Permissoesimprimir: TIntegerField
+      FieldName = 'imprimir'
+    end
+    object FDMem_Permissoesusuario: TStringField
+      FieldName = 'usuario'
+      Size = 255
+    end
+    object FDMem_Permissoesprojeto: TStringField
+      FieldName = 'projeto'
+      Size = 255
+    end
+    object FDMem_PermissoesnomeForm: TStringField
+      FieldName = 'nomeForm'
+      Size = 255
+    end
+    object FDMem_PermissoesdescricaoResumida: TStringField
+      FieldName = 'descricaoResumida'
+      Size = 255
+    end
+  end
+  object dsPermissoes: TDataSource
+    DataSet = FDMem_Permissoes
+    Left = 240
+    Top = 376
+  end
+  object FDMem_Empresa: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    IndexFieldNames = 'id'
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 528
+    Top = 328
+    object FDMem_Empresaid: TIntegerField
+      FieldName = 'id'
+    end
+    object FDMem_EmpresaidUsuario: TIntegerField
+      FieldName = 'idUsuario'
+    end
+    object FDMem_EmpresaidEmpresa: TIntegerField
+      FieldName = 'idEmpresa'
+    end
+    object FDMem_EmpresadtCadastro: TDateField
+      FieldName = 'dtCadastro'
+    end
+    object FDMem_EmpresahrCadastro: TTimeField
+      FieldName = 'hrCadastro'
+    end
+    object FDMem_Empresausuario: TStringField
+      FieldName = 'usuario'
+      Size = 255
+    end
+    object FDMem_Empresaempresa: TStringField
+      FieldName = 'empresa'
+      Size = 255
+    end
+  end
+  object dsEmpresa: TDataSource
+    DataSet = FDMem_Empresa
+    Left = 528
+    Top = 384
   end
 end
