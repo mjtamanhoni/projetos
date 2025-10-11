@@ -216,9 +216,9 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
         object DBGrid_Permissoes: TDBGrid
           AlignWithMargins = True
           Left = 3
-          Top = 3
+          Top = 36
           Width = 963
-          Height = 308
+          Height = 275
           Align = alClient
           DataSource = dsPermissoes
           TabOrder = 0
@@ -227,6 +227,29 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
           TitleFont.Height = -12
           TitleFont.Name = 'Segoe UI'
           TitleFont.Style = []
+        end
+        object pnPermissao_Header: TPanel
+          Left = 0
+          Top = 0
+          Width = 969
+          Height = 33
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 1
+          object btPermissao_ADD: TButton
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 75
+            Height = 27
+            Align = alLeft
+            Caption = 'Novo'
+            TabOrder = 0
+            OnClick = btConfirmarClick
+            ExplicitLeft = 829
+            ExplicitTop = 8
+            ExplicitHeight = 25
+          end
         end
       end
     end
@@ -244,9 +267,9 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
         object DBGrid_Empresa: TDBGrid
           AlignWithMargins = True
           Left = 3
-          Top = 3
+          Top = 36
           Width = 963
-          Height = 308
+          Height = 275
           Align = alClient
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -254,6 +277,27 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
           TitleFont.Height = -12
           TitleFont.Name = 'Segoe UI'
           TitleFont.Style = []
+        end
+        object pnEmpresa_ADD: TPanel
+          Left = 0
+          Top = 0
+          Width = 969
+          Height = 33
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 1
+          ExplicitTop = 8
+          object btEmpresa_ADD: TButton
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 75
+            Height = 27
+            Align = alLeft
+            Caption = 'Novo'
+            TabOrder = 0
+            OnClick = btConfirmarClick
+          end
         end
       end
     end

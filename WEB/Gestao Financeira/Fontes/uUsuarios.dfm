@@ -30,7 +30,6 @@ object frmUsuarios: TfrmUsuarios
       Height = 475
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 237
       object DBGrid_Registros: TDBGrid
         Left = 1
         Top = 1

@@ -104,6 +104,8 @@ type
 
     procedure ClosePopup(const AName:String; var CanClose:Boolean);
     procedure PopupClosed(const AName:String); override;
+    procedure Empresa_User(Sender: TOBject);
+    procedure Permissoes_User(Sender: TOBject);
 
 
   public
@@ -266,10 +268,11 @@ procedure TfrmUsuarios.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
 
-  if PrismControl.IsDBGrid then
+
+  if PrismControl.VCLComponent = DBGrid_Registros then
   begin
-   PrismControl.AsDBGrid.RecordsPerPage := 10;
-   //PrismControl.AsDBGrid.MaxRecords:= 2000;
+    PrismControl.AsDBGrid.RecordsPerPage := 10;
+    //PrismControl.AsDBGrid.MaxRecords:= 2000;
     with PrismControl.AsDBGrid do
     begin
       with Columns.Add do
@@ -312,6 +315,16 @@ begin
    PrismControl.AsDBGrid.MaxRecords:= 2000;
   end;
  }
+end;
+
+procedure TfrmUsuarios.Permissoes_User(Sender :TOBject);
+begin
+  ShowMessage('Permissões');
+end;
+
+procedure TfrmUsuarios.Empresa_User(Sender :TOBject);
+begin
+  ShowMessage('Empresa');
 end;
 
 procedure TfrmUsuarios.mnuFiltro_InativoClick(Sender: TObject);
@@ -532,7 +545,7 @@ begin
   inherited;
   if Gestao_Financeira.Usuario_Status_Tab = 'Insert' then
     FfrmUsuarios_Cad.cbstatus.ItemIndex := 1
-  else if Gestao_Financeira.FormProjeto_Status_Tab = 'Edit' then
+  else if Gestao_Financeira.Usuario_Status_Tab = 'Edit' then
   begin
     FfrmUsuarios_Cad.edid.Text := FDMem_Registro.FieldByName('id').AsString;
     FfrmUsuarios_Cad.cbstatus.ItemIndex := FDMem_Registro.FieldByName('status').AsInteger;

@@ -262,6 +262,14 @@
             <Form>frmMunicipios_Loc</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="uUsuarios.Permissoes.pas">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uUsuarios.Empresa.pas">
+            <Form>Form2</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

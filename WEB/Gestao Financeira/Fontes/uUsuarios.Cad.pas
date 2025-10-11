@@ -78,6 +78,10 @@ type
     IntegerField3: TIntegerField;
     StringField8: TStringField;
     dsPermissoes: TDataSource;
+    pnPermissao_Header: TPanel;
+    btPermissao_ADD: TButton;
+    pnEmpresa_ADD: TPanel;
+    btEmpresa_ADD: TButton;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure edidKeyPress(Sender: TObject; var Key: Char);
@@ -253,6 +257,7 @@ begin
   edsenha.Clear;
   edpin.Clear;
   edemail.Clear;
+
 end;
 
 procedure TfrmUsuarios_Cad.edidKeyPress(Sender: TObject; var Key: Char);
@@ -335,12 +340,18 @@ begin
 
         with AddTab(pcPrincipal.Pages[0].Caption).Items.Add do
         begin
+          with Row.items.Add do
+            FormGroup('').Items.Add.VCLObj(btPermissao_ADD, CSSClass.Button.add);
+
           with Row.Items.Add do
             VCLObj(DBGrid_Permissoes);
         end;
 
         with AddTab(pcPrincipal.Pages[1].Caption).Items.Add do
         begin
+          with Row.items.Add do
+            FormGroup('').Items.Add.VCLObj(btEmpresa_ADD, CSSClass.Button.add);
+
           with Row.Items.Add do
             VCLObj(DBGrid_Empresa);
         end;
