@@ -227,6 +227,90 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
           TitleFont.Height = -12
           TitleFont.Name = 'Segoe UI'
           TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'projeto'
+              Title.Alignment = taCenter
+              Title.Caption = 'Projeto'
+              Width = 300
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'descricaoResumida'
+              Title.Alignment = taCenter
+              Title.Caption = 'Funcionalidade'
+              Width = 400
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'acesso'
+              Title.Alignment = taCenter
+              Title.Caption = 'Acesso'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'incluir'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'alterar'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'excluir'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'imprimir'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'id'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'idUsuario'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'idProjeto'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'idTelaProjeto'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'usuario'
+              Title.Alignment = taCenter
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'nomeForm'
+              Title.Alignment = taCenter
+              Visible = False
+            end>
         end
         object pnPermissao_Header: TPanel
           Left = 0
@@ -246,9 +330,6 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
             Caption = 'Novo'
             TabOrder = 0
             OnClick = btConfirmarClick
-            ExplicitLeft = 829
-            ExplicitTop = 8
-            ExplicitHeight = 25
           end
         end
       end
@@ -286,7 +367,6 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitTop = 8
           object btEmpresa_ADD: TButton
             AlignWithMargins = True
             Left = 3
@@ -378,57 +458,96 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
     StoreDefs = True
     Left = 408
     Top = 264
-    object IntegerField1: TIntegerField
+    object FDMem_Permissoesid: TIntegerField
       FieldName = 'id'
     end
-    object StringField1: TStringField
-      FieldName = 'nome'
+    object FDMem_PermissoesidUsuario: TIntegerField
+      FieldName = 'idUsuario'
+    end
+    object FDMem_PermissoesidProjeto: TIntegerField
+      FieldName = 'idProjeto'
+    end
+    object FDMem_PermissoesidTelaProjeto: TIntegerField
+      FieldName = 'idTelaProjeto'
+    end
+    object FDMem_Permissoesacesso: TIntegerField
+      FieldName = 'acesso'
+    end
+    object FDMem_Permissoesincluir: TIntegerField
+      FieldName = 'incluir'
+    end
+    object FDMem_Permissoesalterar: TIntegerField
+      FieldName = 'alterar'
+    end
+    object FDMem_Permissoesexcluir: TIntegerField
+      FieldName = 'excluir'
+    end
+    object FDMem_Permissoesimprimir: TIntegerField
+      FieldName = 'imprimir'
+    end
+    object FDMem_Permissoesusuario: TStringField
+      FieldName = 'usuario'
       Size = 255
     end
-    object StringField2: TStringField
-      FieldName = 'login'
+    object FDMem_Permissoesprojeto: TStringField
+      FieldName = 'projeto'
       Size = 255
     end
-    object StringField3: TStringField
-      FieldName = 'senha'
+    object FDMem_PermissoesnomeForm: TStringField
+      FieldName = 'nomeForm'
       Size = 255
     end
-    object StringField4: TStringField
-      FieldName = 'pin'
-      Size = 255
-    end
-    object StringField5: TStringField
-      FieldName = 'email'
-      Size = 255
-    end
-    object DateField1: TDateField
-      FieldName = 'dtCadastro'
-    end
-    object TimeField1: TTimeField
-      FieldName = 'hrCadastro'
-    end
-    object StringField6: TStringField
-      FieldName = 'senhaHash'
-      Size = 255
-    end
-    object IntegerField2: TIntegerField
-      FieldName = 'tipo'
-    end
-    object StringField7: TStringField
-      FieldName = 'tipoDesc'
-      Size = 50
-    end
-    object IntegerField3: TIntegerField
-      FieldName = 'status'
-    end
-    object StringField8: TStringField
-      FieldName = 'statusDesc'
-      Size = 50
+    object FDMem_PermissoesdescricaoResumida: TStringField
+      FieldName = 'descricaoResumida'
+      Size = 500
     end
   end
   object dsPermissoes: TDataSource
     DataSet = FDMem_Permissoes
     Left = 408
     Top = 320
+  end
+  object FDMem_Empresas: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    IndexFieldNames = 'id'
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 568
+    Top = 272
+    object FDMem_Empresasid: TIntegerField
+      FieldName = 'id'
+    end
+    object FDMem_EmpresasidUsuario: TIntegerField
+      FieldName = 'idUsuario'
+    end
+    object FDMem_EmpresasidEmpresa: TIntegerField
+      FieldName = 'idEmpresa'
+    end
+    object FDMem_EmpresasdtCadastro: TDateField
+      FieldName = 'dtCadastro'
+    end
+    object FDMem_EmpresashrCadastro: TTimeField
+      FieldName = 'hrCadastro'
+    end
+    object FDMem_Empresasusuario: TStringField
+      FieldName = 'usuario'
+      Size = 255
+    end
+    object FDMem_Empresasempresa: TStringField
+      FieldName = 'empresa'
+      Size = 255
+    end
+  end
+  object dsEmpresas: TDataSource
+    DataSet = FDMem_Empresas
+    Left = 568
+    Top = 328
   end
 end

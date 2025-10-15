@@ -33,10 +33,11 @@ procedure RegistrarRotas;
 {$Region 'Usuários'}
   procedure Login(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure Usuario_Empresa(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Update(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   procedure Usuario_Delete(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  //Empresas
+  procedure Usuario_Empresa_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 {$EndRegion 'Usuários'}
 
 {$Region 'Regiões'}
@@ -122,10 +123,11 @@ begin
     {$Region 'Usuários'}
       THorse.Post('/usuario/login',Login);
       THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/usuario',Usuario_Select);
-      THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/usuario/empresa',Usuario_Empresa);
       THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Post('/usuario',Usuario_Insert);
       THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Put('/usuario',Usuario_Update);
       THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Delete('/usuario',Usuario_Delete);
+      //Empresas
+      THorse.AddCallback(HorseJWT(uRota.Auth.SECRET,THorseJWTConfig.New.SessionClass(TMyClaims))).Get('/usuario/empresa',Usuario_Empresa_Select);
     {$EndRegion 'Usuários'}
 
     {$Region 'Regiões'}
@@ -336,58 +338,6 @@ begin
   end;
 end;
 
-procedure Usuario_Empresa(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-var
-  FId_Usuario :Integer;
-
-  FPagina :Integer;
-  FPaginas :Integer;
-
-  FDM_PostgreSql :TDM;
-  FUsuario :TUsuario;
-
-  FJSon_Retorno :TJSONArray;
-
-begin
-  try
-    try
-      FDM_PostgreSql := TDM.Create(Nil);
-      FUsuario := TUsuario.Create(FDM_PostgreSql.FDConnectionP);
-
-      FId_Usuario := 0;
-
-      FPagina := 0;
-      FPaginas := 0;
-
-      FId_Usuario := StrToIntDef(Req.Query['idUsuario'],0);
-      FPagina := StrToIntDef(Req.Query['pagina'],0);
-      FPaginas := StrToIntDef(Req.Query['paginas'],0);
-
-      FJSon_Retorno := FUsuario.JSon_ListaEmpresas(FPagina, FPaginas, FId_Usuario);
-
-      if FJSon_Retorno.Size = 0 then
-      begin
-        Res.Send('Não foi possível localizar as Empresas do Usuário.').Status(204);
-        //Gravar um log no computador para controlar os retornos
-      end
-      else
-      begin
-        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
-        //Gravar um log no computador para controla os retornos
-      end;
-
-    except on E: Exception do
-      begin
-        Res.Send(E.Message).Status(500);
-        //Gravar um log no computador para controlar os retornos
-      end;
-    end;
-  finally
-    FreeAndNil(FDM_PostgreSql);
-    FreeAndNil(FUsuario);
-  end;
-end;
-
 procedure Usuario_Insert(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   FBody :TJSONArray;
@@ -477,6 +427,59 @@ begin
   finally
     FreeAndNil(FModeloDados);
     FreeAndNil(FDM_PostgreSql);
+  end;
+end;
+
+//Empresas
+procedure Usuario_Empresa_Select(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  FId_Usuario :Integer;
+
+  FPagina :Integer;
+  FPaginas :Integer;
+
+  FDM_PostgreSql :TDM;
+  FUsuario :TUsuario;
+
+  FJSon_Retorno :TJSONArray;
+
+begin
+  try
+    try
+      FDM_PostgreSql := TDM.Create(Nil);
+      FUsuario := TUsuario.Create(FDM_PostgreSql.FDConnectionP);
+
+      FId_Usuario := 0;
+
+      FPagina := 0;
+      FPaginas := 0;
+
+      FId_Usuario := StrToIntDef(Req.Query['idUsuario'],0);
+      FPagina := StrToIntDef(Req.Query['pagina'],0);
+      FPaginas := StrToIntDef(Req.Query['paginas'],0);
+
+      FJSon_Retorno := FUsuario.JSon_ListaEmpresas(FPagina, FPaginas, FId_Usuario);
+
+      if FJSon_Retorno.Size = 0 then
+      begin
+        Res.Send('Não foi possível localizar as Empresas do Usuário.').Status(204);
+        //Gravar um log no computador para controlar os retornos
+      end
+      else
+      begin
+        Res.Send<TJSONArray>(FJSon_Retorno).Status(200);
+        //Gravar um log no computador para controla os retornos
+      end;
+
+    except on E: Exception do
+      begin
+        Res.Send(E.Message).Status(500);
+        //Gravar um log no computador para controlar os retornos
+      end;
+    end;
+  finally
+    FreeAndNil(FDM_PostgreSql);
+    FreeAndNil(FUsuario);
   end;
 end;
 {$EndRegion 'Usuários'}

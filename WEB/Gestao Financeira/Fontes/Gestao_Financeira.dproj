@@ -267,7 +267,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uUsuarios.Empresa.pas">
-            <Form>Form2</Form>
+            <Form>frmUsuarios_Empresa</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

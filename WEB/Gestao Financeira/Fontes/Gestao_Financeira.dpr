@@ -46,7 +46,7 @@ uses
   uMunicipios.Cad in 'uMunicipios.Cad.pas' {frmMunicipios_Cad},
   uMunicipios.Loc in 'uMunicipios.Loc.pas' {frmMunicipios_Loc},
   uUsuarios.Permissoes in 'uUsuarios.Permissoes.pas' {Form1},
-  uUsuarios.Empresa in 'uUsuarios.Empresa.pas' {Form2};
+  uUsuarios.Empresa in 'uUsuarios.Empresa.pas' {frmUsuarios_Empresa};
 
 {$R *.res}
 

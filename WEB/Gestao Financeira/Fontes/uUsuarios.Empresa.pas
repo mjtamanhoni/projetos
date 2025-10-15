@@ -6,13 +6,41 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, 
+
+  System.JSON,
+  DataSet.Serialize,
+  RESTRequest4D,
+  IniFiles,
+  uFuncoes.Gerais,
+  uPrincipal,
+
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
-  D2Bridge.Forms;
+  D2Bridge.Forms, Vcl.ExtCtrls,
+
+  uEmpresa.Loc;
 
 type
-  TForm2 = class(TD2BridgeForm)
+  TfrmUsuarios_Empresa = class(TD2BridgeForm)
+    pnRow001: TPanel;
+    lbEmpresa: TLabel;
+    pnFooter: TPanel;
+    btCancelar: TButton;
+    btConfirnar: TButton;
+    edidEmpresa: TButtonedEdit;
+    edidEmpresa_Desc: TEdit;
+    procedure btConfirnarClick(Sender: TObject);
+    procedure btCancelarClick(Sender: TObject);
   private
-    { Private declarations }
+
+    FfrmEmpresa_Loc :TfrmEmpresa_Loc;
+
+    FEnder :String;
+    FIniFiles :TIniFile;
+    FHost :String;
+    FPorta :String;
+
+    procedure Pesquisar;
+
   public
     { Public declarations }
   protected
@@ -21,7 +49,7 @@ type
     procedure RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string); override;
   end;
 
-function Form2:TForm2;
+function frmUsuarios_Empresa:TfrmUsuarios_Empresa;
 
 implementation
 
@@ -30,12 +58,40 @@ Uses
 
 {$R *.dfm}
 
-function Form2:TForm2;
+function frmUsuarios_Empresa:TfrmUsuarios_Empresa;
 begin
-  result:= TForm2(TForm2.GetInstance);
+  result:= TfrmUsuarios_Empresa(TfrmUsuarios_Empresa.GetInstance);
 end;
 
-procedure TForm2.ExportD2Bridge;
+procedure TfrmUsuarios_Empresa.btCancelarClick(Sender: TObject);
+begin
+  {$Region 'Retornando valores'}
+    Gestao_Financeira.Emp_ID := 0;
+    Gestao_Financeira.Emp_RazaoSocial := '';
+  {$Region 'Retornando valores'}
+
+  Close;
+
+end;
+
+procedure TfrmUsuarios_Empresa.btConfirnarClick(Sender: TObject);
+begin
+  if Trim(edidEmpresa.Text) = '' then
+  begin
+    MessageDlg('É necessário informar a empresa desejada.',TMsgDlgType.mtWarning,[TMsgDlgBtn.mbOK],0);
+    Exit;
+  end;
+
+  {$Region 'Retornando valores'}
+    Gestao_Financeira.Emp_ID := StrToInt(edidEmpresa.Text);
+    Gestao_Financeira.Emp_RazaoSocial := edidEmpresa_Desc.Text;
+  {$Region 'Retornando valores'}
+
+  Close;
+
+end;
+
+procedure TfrmUsuarios_Empresa.ExportD2Bridge;
 begin
   inherited;
 
@@ -52,9 +108,15 @@ begin
 
 end;
 
-procedure TForm2.InitControlsD2Bridge(const PrismControl: TPrismControl);
+procedure TfrmUsuarios_Empresa.InitControlsD2Bridge(const PrismControl: TPrismControl);
 begin
  inherited;
+
+  if PrismControl.VCLComponent = edidEmpresa then
+  begin
+    with PrismControl.AsButtonedEdit do
+      ButtonRightCSS:= CSSClass.Button.list;
+  end;
 
  //Change Init Property of Prism Controls
  {
@@ -69,7 +131,12 @@ begin
  }
 end;
 
-procedure TForm2.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
+procedure TfrmUsuarios_Empresa.Pesquisar;
+begin
+
+end;
+
+procedure TfrmUsuarios_Empresa.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);
 begin
  inherited;
 

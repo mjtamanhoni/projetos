@@ -31,10 +31,11 @@ type
       ALogin:String='';
       AEmail:String='';
       AStatus:Integer=1):TJSONArray;
-    function JSon_ListaEmpresas(APagina:Integer=0; APaginas:Integer=0; AID:Integer=0):TJSONArray;
     function Json_Insert(AJSon:TJSONArray):Boolean;
     function Json_Update(AJSon:TJSONArray):Boolean;
     function Json_Delete(AId:Integer):Boolean;
+    //Empresas
+    function JSon_ListaEmpresas(APagina:Integer=0; APaginas:Integer=0; AID:Integer=0):TJSONArray;
   end;
   {$EndRegion 'TUsuario'}
 
@@ -305,6 +306,11 @@ begin
       FDQ_Delete.SQL.Add('delete from public.usuario_empresa where id_usuario = ' + AId.ToString);
       FDQ_Delete.ExecSQL;
 
+      FDQ_Delete.Close;
+      FDQ_Delete.Sql.Clear;
+      FDQ_Delete.SQL.Add('delete from public.usuario_permissao where id_usuario = ' + AId.ToString);
+      FDQ_Delete.ExecSQL;
+
       FDQ_Delete.Active := False;
       FDQ_Delete.SQL.Clear;
       FDQ_Delete.Sql.Add('delete from public.usuario ');
@@ -332,6 +338,7 @@ var
   FDQ_Insert :TFDQuery;
   FDQ_Select :TFDQuery;
   FJson_Empresa :TJSONArray;
+  FJson_Permissoes :TJSONArray;
 
   I,J :Integer;
   FId :Integer;
@@ -358,7 +365,8 @@ begin
       begin
         FId := 0;
 
-        FJson_Empresa := AJSon[I].GetValue<TJSONArray>('empresa',Nil);
+        FJson_Empresa := AJSon[I].GetValue<TJSONArray>('empresas',Nil);
+        FJson_Permissoes := AJSon[I].GetValue<TJSONArray>('permissoes',Nil);
 
         FDQ_Insert.Close;
         FDQ_Insert.SQL.Clear;
@@ -409,9 +417,47 @@ begin
             FDQ_Insert.Sql.Add('  ,:hr_cadastro ');
             FDQ_Insert.Sql.Add('); ');
             FDQ_Insert.ParamByName('id_usuario').AsInteger := FId;
-            FDQ_Insert.ParamByName('id_empresa').AsInteger := FJson_Empresa[J].GetValue<Integer>('id',0);
+            FDQ_Insert.ParamByName('id_empresa').AsInteger := FJson_Empresa[J].GetValue<Integer>('idempresa',0);
             FDQ_Insert.ParamByName('dt_cadastro').AsDate := Date;
             FDQ_Insert.ParamByName('hr_cadastro').AsTime := Time;
+            FDQ_Insert.ExecSQL;
+          end;
+        end;
+
+        //Permissões do usuário...
+        if FJson_Permissoes.Size > 0 then
+        begin
+          for J := 0 to Pred(FJson_Permissoes.Size) do
+          begin
+            FDQ_Insert.Close;
+            FDQ_Insert.SQL.Clear;
+            FDQ_Insert.Sql.Add('INSERT INTO	public.usuario_permissao ( ');
+            FDQ_Insert.Sql.Add('  id_usuario ');
+            FDQ_Insert.Sql.Add('  ,id_projeto ');
+            FDQ_Insert.Sql.Add('  ,id_tela_projeto ');
+            FDQ_Insert.Sql.Add('  ,acesso ');
+            FDQ_Insert.Sql.Add('  ,incluir ');
+            FDQ_Insert.Sql.Add('  ,alterar ');
+            FDQ_Insert.Sql.Add('  ,excluir ');
+            FDQ_Insert.Sql.Add('  ,imprimir ');
+            FDQ_Insert.Sql.Add(') VALUES( ');
+            FDQ_Insert.Sql.Add('  :id_usuario ');
+            FDQ_Insert.Sql.Add('  ,:id_projeto ');
+            FDQ_Insert.Sql.Add('  ,:id_tela_projeto ');
+            FDQ_Insert.Sql.Add('  ,:acesso ');
+            FDQ_Insert.Sql.Add('  ,:incluir ');
+            FDQ_Insert.Sql.Add('  ,:alterar ');
+            FDQ_Insert.Sql.Add('  ,:excluir ');
+            FDQ_Insert.Sql.Add('  ,:imprimir ');
+            FDQ_Insert.Sql.Add('); ');
+            FDQ_Insert.ParamByName('id_usuario').AsInteger := FId;
+            FDQ_Insert.ParamByName('id_projeto').AsInteger := FJson_Permissoes[J].GetValue<Integer>('idprojeto',0);
+            FDQ_Insert.ParamByName('id_tela_projeto').AsInteger := FJson_Permissoes[J].GetValue<Integer>('idtelaprojeto',0);
+            FDQ_Insert.ParamByName('acesso').AsInteger := FJson_Permissoes[J].GetValue<Integer>('acesso',0);
+            FDQ_Insert.ParamByName('incluir').AsInteger := FJson_Permissoes[J].GetValue<Integer>('incluir',0);
+            FDQ_Insert.ParamByName('alterar').AsInteger := FJson_Permissoes[J].GetValue<Integer>('alterar',0);
+            FDQ_Insert.ParamByName('excluir').AsInteger := FJson_Permissoes[J].GetValue<Integer>('excluir',0);
+            FDQ_Insert.ParamByName('imprimir').AsInteger := FJson_Permissoes[J].GetValue<Integer>('imprimir',0);
             FDQ_Insert.ExecSQL;
           end;
         end;
@@ -600,6 +646,7 @@ var
   FDQ_Insert :TFDQuery;
   FDQ_Delete :TFDQuery;
   FJson_Empresa :TJSONArray;
+  FJson_Permissoes :TJSONArray;
 
   I,J :Integer;
 begin
@@ -625,6 +672,7 @@ begin
       for I := 0 to AJSon.Size - 1 do
       begin
         FJson_Empresa := AJSon[I].GetValue<TJSONArray>('empresa',Nil);
+        FJson_Permissoes := AJSon[I].GetValue<TJSONArray>('permissoes',Nil);
 
         //Verifica se o usuário existe...
         FDQ_Select.Active := False;
@@ -672,9 +720,52 @@ begin
             FDQ_Insert.Sql.Add('  ,:hr_cadastro ');
             FDQ_Insert.Sql.Add('); ');
             FDQ_Insert.ParamByName('id_usuario').AsInteger := AJSon[I].GetValue<Integer>('id',0);
-            FDQ_Insert.ParamByName('id_empresa').AsInteger := FJson_Empresa[J].GetValue<Integer>('id',0);
+            FDQ_Insert.ParamByName('id_empresa').AsInteger := FJson_Empresa[J].GetValue<Integer>('idempresa',0);
             FDQ_Insert.ParamByName('dt_cadastro').AsDate := Date;
             FDQ_Insert.ParamByName('hr_cadastro').AsTime := Time;
+            FDQ_Insert.ExecSQL;
+          end;
+        end;
+
+        //Permissões...
+        FDQ_Delete.Close;
+        FDQ_Delete.Sql.Clear;
+        FDQ_Delete.SQL.Add('delete from public.usuario_permissao where id_usuario = ' + AJSon[I].GetValue<Integer>('id',0).ToString);
+        FDQ_Delete.ExecSQL;
+
+        if FJson_Empresa.Size > 0 then
+        begin
+          for J := 0 to Pred(FJson_Empresa.Size) do
+          begin
+            FDQ_Insert.Close;
+            FDQ_Insert.SQL.Clear;
+            FDQ_Insert.Sql.Add('INSERT INTO	public.usuario_permissao ( ');
+            FDQ_Insert.Sql.Add('  id_usuario ');
+            FDQ_Insert.Sql.Add('  ,id_projeto ');
+            FDQ_Insert.Sql.Add('  ,id_tela_projeto ');
+            FDQ_Insert.Sql.Add('  ,acesso ');
+            FDQ_Insert.Sql.Add('  ,incluir ');
+            FDQ_Insert.Sql.Add('  ,alterar ');
+            FDQ_Insert.Sql.Add('  ,excluir ');
+            FDQ_Insert.Sql.Add('  ,imprimir ');
+            FDQ_Insert.Sql.Add(') VALUES( ');
+            FDQ_Insert.Sql.Add('  :id_usuario ');
+            FDQ_Insert.Sql.Add('  ,:id_projeto ');
+            FDQ_Insert.Sql.Add('  ,:id_tela_projeto ');
+            FDQ_Insert.Sql.Add('  ,:acesso ');
+            FDQ_Insert.Sql.Add('  ,:incluir ');
+            FDQ_Insert.Sql.Add('  ,:alterar ');
+            FDQ_Insert.Sql.Add('  ,:excluir ');
+            FDQ_Insert.Sql.Add('  ,:imprimir ');
+            FDQ_Insert.Sql.Add('); ');
+            FDQ_Insert.ParamByName('id_usuario').AsInteger := AJSon[I].GetValue<Integer>('id',0);
+            FDQ_Insert.ParamByName('id_projeto').AsInteger := FJson_Permissoes[J].GetValue<Integer>('idprojeto',0);
+            FDQ_Insert.ParamByName('id_tela_projeto').AsInteger := FJson_Permissoes[J].GetValue<Integer>('idtelaprojeto',0);
+            FDQ_Insert.ParamByName('acesso').AsInteger := FJson_Permissoes[J].GetValue<Integer>('acesso',0);
+            FDQ_Insert.ParamByName('incluir').AsInteger := FJson_Permissoes[J].GetValue<Integer>('incluir',0);
+            FDQ_Insert.ParamByName('alterar').AsInteger := FJson_Permissoes[J].GetValue<Integer>('alterar',0);
+            FDQ_Insert.ParamByName('excluir').AsInteger := FJson_Permissoes[J].GetValue<Integer>('excluir',0);
+            FDQ_Insert.ParamByName('imprimir').AsInteger := FJson_Permissoes[J].GetValue<Integer>('imprimir',0);
             FDQ_Insert.ExecSQL;
           end;
         end;

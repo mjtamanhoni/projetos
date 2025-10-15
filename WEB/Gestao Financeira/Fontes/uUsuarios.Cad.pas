@@ -64,24 +64,33 @@ type
     pnEmpresa: TPanel;
     DBGrid_Empresa: TDBGrid;
     FDMem_Permissoes: TFDMemTable;
-    IntegerField1: TIntegerField;
-    StringField1: TStringField;
-    StringField2: TStringField;
-    StringField3: TStringField;
-    StringField4: TStringField;
-    StringField5: TStringField;
-    DateField1: TDateField;
-    TimeField1: TTimeField;
-    StringField6: TStringField;
-    IntegerField2: TIntegerField;
-    StringField7: TStringField;
-    IntegerField3: TIntegerField;
-    StringField8: TStringField;
     dsPermissoes: TDataSource;
     pnPermissao_Header: TPanel;
     btPermissao_ADD: TButton;
     pnEmpresa_ADD: TPanel;
     btEmpresa_ADD: TButton;
+    FDMem_Empresas: TFDMemTable;
+    dsEmpresas: TDataSource;
+    FDMem_Permissoesid: TIntegerField;
+    FDMem_PermissoesidUsuario: TIntegerField;
+    FDMem_PermissoesidProjeto: TIntegerField;
+    FDMem_PermissoesidTelaProjeto: TIntegerField;
+    FDMem_Permissoesacesso: TIntegerField;
+    FDMem_Permissoesincluir: TIntegerField;
+    FDMem_Permissoesalterar: TIntegerField;
+    FDMem_Permissoesexcluir: TIntegerField;
+    FDMem_Permissoesimprimir: TIntegerField;
+    FDMem_Permissoesusuario: TStringField;
+    FDMem_Permissoesprojeto: TStringField;
+    FDMem_PermissoesnomeForm: TStringField;
+    FDMem_PermissoesdescricaoResumida: TStringField;
+    FDMem_Empresasid: TIntegerField;
+    FDMem_EmpresasidUsuario: TIntegerField;
+    FDMem_EmpresasidEmpresa: TIntegerField;
+    FDMem_EmpresasdtCadastro: TDateField;
+    FDMem_EmpresashrCadastro: TTimeField;
+    FDMem_Empresasusuario: TStringField;
+    FDMem_Empresasempresa: TStringField;
     procedure btCancelarClick(Sender: TObject);
     procedure btConfirmarClick(Sender: TObject);
     procedure edidKeyPress(Sender: TObject; var Key: Char);
@@ -179,14 +188,20 @@ begin
           else
             FDMem_Registro.FieldByName('pin').AsString := '';
           FDMem_Registro.FieldByName('email').AsString := edemail.Text;
-
-
         FDMem_Registro.Post;
-        FDMem_Registro.ToJSONArray;
+        FBody := FDMem_Registro.ToJSONArray;
+
+        //Permissões
+        if not FDMem_Permissoes.IsEmpty then
+          (FBody[0] as TJSONObject).AddPair('permissoes',FDMem_Permissoes.ToJSONArray);
+
+        //Empresas
+        if not FDMem_Empresas.IsEmpty then
+          (FBody[0] as TJSONObject).AddPair('empresas',FDMem_Empresas.ToJSONArray);
+
       {$EndRegion 'Gravando/Gerando JSon dos dados'}
 
       {$Region 'Enviando dados para o Servidor'}
-        FBody := FDMem_Registro.ToJSONArray;
         if FBody.Size = 0 then
           raise Exception.Create('Não há dados para serem salvos.');
 
