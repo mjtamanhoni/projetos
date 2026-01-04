@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" Date="1533567158"/>
+  <Params Value="-MObjFPC -Scghi -O1 -g -gl -l -vewnhibq -FiC:\Developer\Projetos\Emissor\Servico\lib\x86_64-win64 -FuC:\Developer\Projetos\Emissor\Servico\ -FuC:\lazarus\components\LazDaemon\lib\x86_64-win64\win32 -FuC:\lazarus\components\ideintf\units\x86_64-win64\win32 -FuC:\lazarus\components\lazcontrols\lib\x86_64-win64\win32 -FuC:\lazarus\lcl\units\x86_64-win64\win32 -FuC:\lazarus\lcl\units\x86_64-win64 -FuC:\lazarus\components\freetype\lib\x86_64-win64 -FuC:\lazarus\components\debuggerintf\lib\x86_64-win64 -FuC:\lazarus\components\buildintf\units\x86_64-win64 -FuC:\lazarus\components\lazutils\lib\x86_64-win64 -FuC:\lazarus\components\lazdebuggers\lazdebuggerintf\lib\x86_64-win64 -FuC:\lazarus\packager\units\x86_64-win64 -FUC:\Developer\Projetos\Emissor\Servico\lib\x86_64-win64\ -FEC:\Developer\Projetos\Emissor\Servico\ -oC:\Developer\Projetos\Emissor\Servico\API_Servico.exe -dLCL -dLCLwin32 API_Servico.lpr"/>
+  <Complete Value="False"/>
+</CONFIG>

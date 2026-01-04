@@ -1,0 +1,5 @@
+object Service9: TService9
+  DisplayName = 'Service9'
+  Height = 480
+  Width = 640
+end

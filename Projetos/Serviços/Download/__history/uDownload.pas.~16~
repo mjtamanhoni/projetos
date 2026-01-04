@@ -1,0 +1,141 @@
+﻿unit uDownload;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Controls,
+  Vcl.SvcMgr, Vcl.Dialogs, IniFiles, IdHTTP, IdSSLOpenSSL;
+
+type
+  TThreadMonitorComandos = class(TThread)
+  private
+    function BaixarArquivoComLog(const URL, Destino, LogPath: string): Boolean;
+  protected
+    procedure Execute; override;
+    procedure MonitorarComandos;
+  public
+    constructor Create;
+  end;
+
+  TAdaptaDownload = class(TService)
+    procedure ServiceExecute(Sender: TService);
+  private
+  public
+    function GetServiceController: TServiceController; override;
+    { Public declarations }
+  end;
+
+var
+  AdaptaDownload: TAdaptaDownload;
+
+implementation
+
+{$R *.dfm}
+
+procedure ServiceController(CtrlCode: DWord); stdcall;
+begin
+  AdaptaDownload.Controller(CtrlCode);
+end;
+
+function TAdaptaDownload.GetServiceController: TServiceController;
+begin
+  Result := ServiceController;
+end;
+
+{ TThreadMonitorComandos }
+
+function TThreadMonitorComandos.BaixarArquivoComLog(const URL, Destino, LogPath: string): Boolean;
+var
+  HTTP: TIdHTTP;
+  SSL: TIdSSLIOHandlerSocketOpenSSL;
+  FS: TFileStream;
+  Log: TStringList;
+  Msg: string;
+begin
+  Result := False;
+  Log := TStringList.Create;
+  HTTP := TIdHTTP.Create(nil);
+  SSL := TIdSSLIOHandlerSocketOpenSSL.Create(nil);
+  try
+    HTTP.IOHandler := SSL;
+    HTTP.HandleRedirects := True;
+    SSL.SSLOptions.Method := sslvTLSv1_2;
+    SSL.SSLOptions.Mode := sslmClient;
+
+    try
+      FS := TFileStream.Create(Destino, fmCreate);
+      try
+        HTTP.Get(URL, FS);
+        Msg := Format('[%s] Download concluído: %s → %s', [DateTimeToStr(Now), URL, Destino]);
+        Result := True;
+      finally
+        FS.Free;
+      end;
+    except
+      on E: Exception do
+        Msg := Format('[%s] ERRO: %s → %s | %s', [DateTimeToStr(Now), URL, Destino, E.Message]);
+    end;
+  finally
+    if FileExists(LogPath) then
+      Log.LoadFromFile(LogPath);
+    Log.Add(Msg);
+    Log.SaveToFile(LogPath);
+
+    SSL.Free;
+    HTTP.Free;
+    Log.Free;
+  end;
+end;
+
+constructor TThreadMonitorComandos.Create;
+begin
+  inherited Create(False); // inicia automaticamente
+  FreeOnTerminate := True;
+
+end;
+
+procedure TThreadMonitorComandos.Execute;
+begin
+  inherited;
+  while not Terminated do
+  begin
+    MonitorarComandos;
+    Sleep(5000); // aguarda 5 segundos entre verificações
+  end;
+
+end;
+
+procedure TThreadMonitorComandos.MonitorarComandos;
+var
+  SR: TSearchRec;
+  CmdPath, URL, Destino: string;
+  INI: TIniFile;
+begin
+  //if FindFirst('C:\cone\Adapta\cfg\Download_*.ini', faAnyFile, SR) = 0 then
+  begin
+    repeat
+      //CmdPath := 'C:\cone\Adapta\cfg\' + SR.Name;
+      CmdPath := 'C:\cone\Adapta\cfg\Download.ini';
+      INI := TIniFile.Create(CmdPath);
+      try
+        URL := INI.ReadString('Download', 'URL', '');
+        Destino := INI.ReadString('Download', 'Destino', '');
+
+        if (URL <> '') and (Destino <> '') then
+        begin
+          if BaixarArquivoComLog(URL, Destino,'C:\cone\Adapta\ARQ\log_download.txt') then
+            DeleteFile(CmdPath);
+        end;
+      finally
+        INI.Free;
+      end;
+    until FindNext(SR) <> 0;
+    FindClose(SR);
+  end;end;
+
+procedure TAdaptaDownload.ServiceExecute(Sender: TService);
+begin
+  TThreadMonitorComandos.Create;
+end;
+
+end.

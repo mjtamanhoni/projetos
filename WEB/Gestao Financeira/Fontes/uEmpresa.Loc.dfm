@@ -22,9 +22,6 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
     BevelOuter = bvNone
     BorderWidth = 3
     TabOrder = 0
-    ExplicitLeft = -3
-    ExplicitWidth = 944
-    ExplicitHeight = 481
     object DBGrid_Registros: TDBGrid
       Left = 3
       Top = 3
@@ -50,31 +47,137 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
         end
         item
           Expanded = False
-          FieldName = 'nome'
+          FieldName = 'tipoDesc'
           Title.Alignment = taCenter
-          Title.Caption = 'Nome'
+          Title.Caption = 'Tipo'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'tipoPessoaDesc'
+          Title.Alignment = taCenter
+          Title.Caption = 'Pessoa'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'razaoSocial'
+          Title.Alignment = taCenter
+          Title.Caption = 'Raz'#227'o Social'
           Width = 300
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'login'
+          FieldName = 'fantasia'
           Title.Alignment = taCenter
-          Title.Caption = 'Login'
+          Title.Caption = 'Nome Fantasia'
           Width = 300
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'senha'
+          FieldName = 'cnpj'
           Title.Alignment = taCenter
-          Visible = False
+          Title.Caption = 'CNPJ'
+          Width = 150
+          Visible = True
         end
         item
           Expanded = False
-          FieldName = 'pin'
+          FieldName = 'inscEstadual'
           Title.Alignment = taCenter
-          Visible = False
+          Title.Caption = 'Insc. Estadual'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'contato'
+          Title.Alignment = taCenter
+          Title.Caption = 'Contato'
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'endereco'
+          Title.Alignment = taCenter
+          Title.Caption = 'Endere'#231'o'
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'numero'
+          Title.Alignment = taCenter
+          Title.Caption = 'Nr'
+          Width = 40
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'complemento'
+          Title.Alignment = taCenter
+          Title.Caption = 'Complemento'
+          Width = 300
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'bairro'
+          Title.Alignment = taCenter
+          Title.Caption = 'Bairro'
+          Width = 200
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'cidadeIbge'
+          Title.Alignment = taCenter
+          Title.Caption = 'IBGE'
+          Width = 50
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'cidade'
+          Title.Alignment = taCenter
+          Title.Caption = 'Cidade'
+          Width = 200
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'siglaUf'
+          Title.Alignment = taCenter
+          Title.Caption = 'UF'
+          Width = 30
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'cep'
+          Title.Alignment = taCenter
+          Title.Caption = 'CEP'
+          Width = 95
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'telefone'
+          Title.Alignment = taCenter
+          Title.Caption = 'Telefone'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'celular'
+          Title.Alignment = taCenter
+          Title.Caption = 'Celular'
+          Visible = True
         end
         item
           Expanded = False
@@ -98,7 +201,19 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
         end
         item
           Expanded = False
-          FieldName = 'senhaHash'
+          FieldName = 'tipoPessoa'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'status'
+          Title.Alignment = taCenter
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'statusDesc'
           Title.Alignment = taCenter
           Visible = False
         end
@@ -110,18 +225,9 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
         end
         item
           Expanded = False
-          FieldName = 'tipoDesc'
+          FieldName = 'idCidade'
           Title.Alignment = taCenter
-          Title.Caption = 'Tipo'
           Visible = False
-        end
-        item
-          Expanded = False
-          FieldName = 'statusDesc'
-          Title.Alignment = taCenter
-          Title.Caption = 'Status'
-          Width = 200
-          Visible = True
         end>
     end
   end
@@ -133,9 +239,6 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -3
-    ExplicitTop = -3
-    ExplicitWidth = 941
     object edPesquisar: TEdit
       Tag = 1
       AlignWithMargins = True
@@ -169,7 +272,6 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
       Caption = 'Impress'#227'o'
       TabOrder = 2
       OnClick = btPrintClick
-      ExplicitLeft = 866
     end
     object btConfirmar: TButton
       AlignWithMargins = True
@@ -181,8 +283,6 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
       Caption = 'Confirmar'
       TabOrder = 3
       OnClick = btConfirmarClick
-      ExplicitLeft = 694
-      ExplicitHeight = 25
     end
     object btCancelar: TButton
       AlignWithMargins = True
@@ -194,8 +294,6 @@ object frmEmpresa_Loc: TfrmEmpresa_Loc
       Caption = 'Cancelar'
       TabOrder = 4
       OnClick = btCancelarClick
-      ExplicitLeft = 770
-      ExplicitHeight = 25
     end
   end
   object FDMem_Registro: TFDMemTable

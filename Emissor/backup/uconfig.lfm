@@ -1,0 +1,9 @@
+object frmConfig: TfrmConfig
+  Left = 302
+  Height = 240
+  Top = 250
+  Width = 320
+  Caption = 'Configurações'
+  Position = poScreenCenter
+  LCLVersion = '4.4.0.0'
+end

@@ -25,21 +25,20 @@ type
     lbEmpresa: TLabel;
     pnFooter: TPanel;
     btCancelar: TButton;
-    btConfirnar: TButton;
+    btConfirmar: TButton;
     edidEmpresa: TButtonedEdit;
     edidEmpresa_Desc: TEdit;
-    procedure btConfirnarClick(Sender: TObject);
+    procedure btConfirmarClick(Sender: TObject);
     procedure btCancelarClick(Sender: TObject);
+    procedure edidEmpresaRightButtonClick(Sender: TObject);
   private
-
     FfrmEmpresa_Loc :TfrmEmpresa_Loc;
 
-    FEnder :String;
-    FIniFiles :TIniFile;
-    FHost :String;
-    FPorta :String;
+    procedure ShowPopup(const AName:String; var CanShow:Boolean);
+    procedure PopupOpened(AName:String); override;
 
-    procedure Pesquisar;
+    procedure ClosePopup(const AName:String; var CanClose:Boolean);
+    procedure PopupClosed(const AName:String); override;
 
   public
     { Public declarations }
@@ -74,7 +73,7 @@ begin
 
 end;
 
-procedure TfrmUsuarios_Empresa.btConfirnarClick(Sender: TObject);
+procedure TfrmUsuarios_Empresa.btConfirmarClick(Sender: TObject);
 begin
   if Trim(edidEmpresa.Text) = '' then
   begin
@@ -91,19 +90,51 @@ begin
 
 end;
 
+procedure TfrmUsuarios_Empresa.ClosePopup(const AName: String; var CanClose: Boolean);
+begin
+
+end;
+
+procedure TfrmUsuarios_Empresa.edidEmpresaRightButtonClick(Sender: TObject);
+begin
+  ShowPopupModal('Popup' + FfrmEmpresa_Loc.Name);
+end;
+
 procedure TfrmUsuarios_Empresa.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'My D2Bridge Form';
+  Title:= 'Seleciona a empresa do Usuário';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
-  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+  //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
+  //D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+
+  FfrmEmpresa_Loc := TfrmEmpresa_Loc.Create(Self);
+  D2Bridge.AddNested(FfrmEmpresa_Loc);
 
   with D2Bridge.Items.add do
   begin
-   {Yours Controls}
+    with Row.Items.Add do
+    begin
+      with Card.Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          FormGroup(lbEmpresa.Caption,CSSClass.Col.colsize2).AddVCLObj(edidEmpresa);
+          FormGroup('',CSSClass.Col.col).AddVCLObj(edidEmpresa_Desc);
+        end;
+      end;
+    end;
+
+    with Row(CSSClass.DivHtml.Align_Center).Items.Add do
+    begin
+      VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize2);
+      VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
+    end;
+
+    with Popup('Popup' + FfrmEmpresa_Loc.Name,'Localiza Empresa',True,CSSClass.Popup.ExtraLarge).Items.Add do
+      Nested(FfrmEmpresa_Loc);
   end;
 
 end;
@@ -131,8 +162,16 @@ begin
  }
 end;
 
-procedure TfrmUsuarios_Empresa.Pesquisar;
+procedure TfrmUsuarios_Empresa.PopupClosed(const AName: String);
 begin
+  inherited;
+  edidEmpresa.Text := IntToStr(Gestao_Financeira.Emp_ID);
+  edidEmpresa_Desc.Text := Gestao_Financeira.Emp_RazaoSocial;
+end;
+
+procedure TfrmUsuarios_Empresa.PopupOpened(AName: String);
+begin
+  inherited;
 
 end;
 
@@ -147,6 +186,11 @@ begin
    HTMLControl:= '</>';
   end;
  }
+end;
+
+procedure TfrmUsuarios_Empresa.ShowPopup(const AName: String; var CanShow: Boolean);
+begin
+
 end;
 
 end.

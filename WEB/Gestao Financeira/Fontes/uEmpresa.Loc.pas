@@ -157,22 +157,67 @@ procedure TfrmEmpresa_Loc.edPesquisarKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
     Pesquisar;
-
 end;
 
 procedure TfrmEmpresa_Loc.ExportD2Bridge;
 begin
   inherited;
 
-  Title:= 'My D2Bridge Form';
+  Title:= 'Localiza Empresa';
 
   //TemplateClassForm:= TD2BridgeFormTemplate;
-  D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
-  D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
+  //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
+  //D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
   with D2Bridge.Items.add do
   begin
-   {Yours Controls}
+    with Row.Items.Add do
+    begin
+      with HTMLDIV(CSSClass.Col.colsize9).Items.Add do
+      begin
+        with Row(CSSClass.Space.margim_bottom3).Items.Add do
+        begin
+          With FormGroup('',CSSClass.Col.col).Items.Add do
+          begin
+            VCLObj(edPesquisar);
+            VCLObj(btFiltros, PopupMenu, CSSClass.Button.search);
+          end;
+        end;
+      end;
+
+      with HTMLDIV(CSSClass.Col.col).Items.Add do
+      begin
+        with Row(CSSClass.Space.margim_bottom3 + ' ' + CSSClass.Space.margim_top1).Items.Add do
+        begin
+          with HTMLDIV(CSSClass.Text.Align.right).Items.Add do
+          begin
+            VCLObj(btPrint, CSSClass.Button.print);
+          end;
+        end;
+      end;
+    end;
+
+    with Row.Items.Add do
+    begin
+      with HTMLDIV(CSSClass.Col.colsize12).Items.Add do
+      begin
+        with Row.Items.Add do
+        begin
+          with PanelGroup('Listagem','',False,CSSClass.Col.colsize12).Items.Add do
+            VCLObj(DBGrid_Registros);
+        end;
+      end;
+    end;
+
+    with Row.Items.Add do
+    begin
+      with Row(CSSClass.DivHtml.Align_Right).Items.Add do
+      begin
+        VCLObj(btConfirmar, CSSClass.Button.select + ' ' + CSSClass.Col.colsize2);
+        VCLObj(btCancelar, CSSClass.Button.cancel + ' ' + CSSClass.Col.colsize2);
+      end;
+    end;
+
   end;
 
 end;
@@ -201,6 +246,15 @@ begin
   if PrismControl.IsDBGrid then
   begin
    PrismControl.AsDBGrid.RecordsPerPage := 10;
+    with PrismControl.AsDBGrid do
+    begin
+      with Columns.Add do
+      begin
+        Title:= 'Status';
+        Width:= 60;
+        HTML:= '<span class="badge ${data.status == 0 ? '+QuotedStr('bg-danger')+' : '+QuotedStr('bg-success')+'} rounded-pill p-2" style="width: 7em;">  ${data.statusDesc}</span>';
+      end;
+    end;
   end;
 
  //Change Init Property of Prism Controls
@@ -266,7 +320,7 @@ begin
       if Trim(Gestao_Financeira.Usuario_Token) = '' then
         raise Exception.Create('Token do Usuário inválido');
 
-      if Trim(FTipoPesquisa) <> '' then
+      if ((Trim(FTipoPesquisa) <> '') and (Trim(edPesquisar.Text) <> '')) then
       begin
         FResp := TRequest.New.BaseURL(FHost)
                  .TokenBearer(Gestao_Financeira.Usuario_Token)

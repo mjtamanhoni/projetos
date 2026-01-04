@@ -1,0 +1,80 @@
+object frmConfig: TfrmConfig
+  Left = 302
+  Height = 438
+  Top = 250
+  Width = 573
+  Caption = 'Configurações'
+  ClientHeight = 438
+  ClientWidth = 573
+  Position = poScreenCenter
+  LCLVersion = '4.4.0.0'
+  OnClose = FormClose
+  object pcConfig: TPageControl
+    Left = 0
+    Height = 400
+    Top = 0
+    Width = 573
+    ActivePage = tsDataBase
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 0
+    object tsDataBase: TTabSheet
+      Caption = 'Banco de Dados'
+    end
+  end
+  object pnBotoes: TPanel
+    Left = 0
+    Height = 38
+    Top = 400
+    Width = 573
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 38
+    ClientWidth = 573
+    TabOrder = 1
+    object pnConfirmar: TPanel
+      Left = 373
+      Height = 38
+      Top = 0
+      Width = 100
+      Align = alRight
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 38
+      ClientWidth = 100
+      TabOrder = 0
+      object btConfirmar: TButton
+        Left = 2
+        Height = 34
+        Top = 2
+        Width = 96
+        Align = alClient
+        Caption = 'Confirmar'
+        TabOrder = 0
+        OnClick = btConfirmarClick
+      end
+    end
+    object pnCancelar: TPanel
+      Left = 473
+      Height = 38
+      Top = 0
+      Width = 100
+      Align = alRight
+      BevelOuter = bvNone
+      BorderWidth = 2
+      ClientHeight = 38
+      ClientWidth = 100
+      TabOrder = 1
+      object Button2: TButton
+        Left = 2
+        Height = 34
+        Top = 2
+        Width = 96
+        Align = alClient
+        Caption = 'Cancelar'
+        TabOrder = 0
+        OnClick = Button2Click
+      end
+    end
+  end
+end

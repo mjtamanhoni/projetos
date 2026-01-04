@@ -1,0 +1,44 @@
+object DM_Emissor: TDM_Emissor
+  OnCreate = DataModuleCreate
+  OldCreateOrder = False
+  Height = 550
+  HorizontalOffset = 440
+  VerticalOffset = 313
+  Width = 759
+  PPI = 120
+  object ZConn_Emissor: TZConnection
+    ControlsCodePage = cCP_UTF8
+    Properties.Strings = (
+      'RawStringEncoding=DB_CP'
+    )
+    AutoCommit = False
+    Connected = True
+    AfterConnect = ZConn_EmissorAfterConnect
+    DisableSavepoints = False
+    HostName = 'localhost'
+    Port = 5432
+    Database = 'emissor'
+    User = 'postgres'
+    Password = 'Cs@#1519'
+    Protocol = 'postgresql'
+    LibraryLocation = 'C:\Program Files\PostgreSQL\17\bin\libpq.dll'
+    Left = 60
+    Top = 30
+  end
+  object ZTrans_Emissor: TZTransaction
+    Connection = ZConn_Emissor
+    AutoCommit = True
+    Left = 220
+    Top = 30
+  end
+  object ZQuery1: TZQuery
+    Connection = ZConn_Emissor
+    UpdateTransaction = ZTrans_Emissor
+    SQL.Strings = (
+      'select * from public.usuarios'
+    )
+    Params = <>
+    Left = 420
+    Top = 110
+  end
+end

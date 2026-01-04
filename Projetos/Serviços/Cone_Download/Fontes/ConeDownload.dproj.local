@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2025/11/03 16:46:12.746,=C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/11/03 16:48:27.312,E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Servicos\Cone_Download\Fontes\uPrincipal.pas=C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2025/11/03 16:48:27.312,E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Servicos\Cone_Download\Fontes\uPrincipal.dfm=C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2025/11/03 16:48:55.741,E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Servicos\Cone_Download\Fontes\ConeDownload.dproj=C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

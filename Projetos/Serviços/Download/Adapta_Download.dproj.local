@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2025/10/01 11:41:07.000.885,=C:\Users\Marcos Tamanhoni\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit9.pas</Transaction>
+    <Transaction>2025/11/01 10:27:36.000.642,=C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit9.pas</Transaction>
+    <Transaction>2025/11/01 10:28:41.000.609,C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit9.pas=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Servicos\Download\uDownload.pas</Transaction>
+    <Transaction>2025/11/01 10:28:41.000.609,C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit9.dfm=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Servicos\Download\uDownload.dfm</Transaction>
+    <Transaction>2025/11/01 10:28:59.000.556,C:\Users\User\OneDrive\Documentos\Embarcadero\Studio\Projects\Project8.dproj=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Servicos\Download\Adapta_Download.dproj</Transaction>
+    <Transaction>2025/11/03 15:02:45.000.588,=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Gerar Script de Excel\Fontes\Downloads\uDownloadMediaFire.pas</Transaction>
+    <Transaction>2025/11/03 15:02:45.000.437,=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Gerar Script de Excel\Fontes\Downloads\uDownloadGoogleDrive.pas</Transaction>
+    <Transaction>2025/11/03 15:02:45.000.659,=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Gerar Script de Excel\Fontes\Downloads\uDownloadOneDrive.pas</Transaction>
+    <Transaction>2025/11/03 15:02:45.000.517,=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Gerar Script de Excel\Fontes\Downloads\uDownloadManager.pas</Transaction>
+    <Transaction>2025/11/03 15:02:45.000.369,=E:\Adapta\Desenvolvimento\Projetos Conesoft\Adapta\Gerar Script de Excel\Fontes\Downloads\uDownloadCore.pas</Transaction>
+  </Transactions>
+</BorlandProject>

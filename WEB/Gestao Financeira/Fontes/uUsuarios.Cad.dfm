@@ -201,7 +201,7 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
     Top = 129
     Width = 977
     Height = 344
-    ActivePage = tsPermissoes
+    ActivePage = tsEmpresas
     TabOrder = 5
     object tsPermissoes: TTabSheet
       Caption = 'Permiss'#245'es'
@@ -221,6 +221,7 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
           Height = 275
           Align = alClient
           DataSource = dsPermissoes
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
@@ -352,12 +353,53 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
           Width = 963
           Height = 275
           Align = alClient
+          DataSource = dsEmpresas
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -12
           TitleFont.Name = 'Segoe UI'
           TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'id'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'idUsuario'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'idEmpresa'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'dtCadastro'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'hrCadastro'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'usuario'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'empresa'
+              Title.Alignment = taCenter
+              Title.Caption = 'Empresa'
+              Width = 500
+              Visible = True
+            end>
         end
         object pnEmpresa_ADD: TPanel
           Left = 0
@@ -376,7 +418,7 @@ object frmUsuarios_Cad: TfrmUsuarios_Cad
             Align = alLeft
             Caption = 'Novo'
             TabOrder = 0
-            OnClick = btConfirmarClick
+            OnClick = btEmpresa_ADDClick
           end
         end
       end

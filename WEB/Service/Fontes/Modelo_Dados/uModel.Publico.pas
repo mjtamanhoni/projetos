@@ -361,12 +361,19 @@ begin
         raise Exception.Create('Não há informações a serem inseridas');
       end;
 
+      TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'AJSon: ' + sLineBreak + AJSon.ToString,10);
+
       for I := 0 to AJSon.Size - 1 do
       begin
         FId := 0;
 
         FJson_Empresa := AJSon[I].GetValue<TJSONArray>('empresas',Nil);
         FJson_Permissoes := AJSon[I].GetValue<TJSONArray>('permissoes',Nil);
+
+        if FJson_Empresa.Size > 0 then
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'FJson_Empresa: ' + sLineBreak + FJson_Empresa.ToString,10);
+        if FJson_Permissoes.Size > 0 then
+          TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, 'FJson_Permissoes: ' + sLineBreak + FJson_Permissoes.ToString,10);
 
         FDQ_Insert.Close;
         FDQ_Insert.SQL.Clear;
@@ -671,7 +678,7 @@ begin
 
       for I := 0 to AJSon.Size - 1 do
       begin
-        FJson_Empresa := AJSon[I].GetValue<TJSONArray>('empresa',Nil);
+        FJson_Empresa := AJSon[I].GetValue<TJSONArray>('empresas',Nil);
         FJson_Permissoes := AJSon[I].GetValue<TJSONArray>('permissoes',Nil);
 
         //Verifica se o usuário existe...

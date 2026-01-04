@@ -1,0 +1,29 @@
+object DM_Emissor: TDM_Emissor
+  OnCreate = DataModuleCreate
+  OldCreateOrder = False
+  Height = 431
+  HorizontalOffset = 302
+  VerticalOffset = 250
+  Width = 374
+  object Conexao: TZConnection
+    ControlsCodePage = cCP_UTF8
+    Properties.Strings = (
+      'RawStringEncoding=DB_CP'
+    )
+    DisableSavepoints = False
+    HostName = 'localhost'
+    Port = 0
+    Database = 'emissor'
+    User = 'postgres'
+    Password = 'Cs@#1519'
+    Protocol = 'postgresql'
+    Left = 56
+    Top = 32
+  end
+  object Transacao: TZTransaction
+    Connection = Conexao
+    AutoCommit = True
+    Left = 152
+    Top = 32
+  end
+end

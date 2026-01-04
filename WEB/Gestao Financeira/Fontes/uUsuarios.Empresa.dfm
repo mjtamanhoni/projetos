@@ -42,6 +42,7 @@ object frmUsuarios_Empresa: TfrmUsuarios_Empresa
       RightButton.Visible = True
       TabOrder = 0
       TextHint = 'Id'
+      OnRightButtonClick = edidEmpresaRightButtonClick
       ExplicitHeight = 23
     end
     object edidEmpresa_Desc: TEdit
@@ -55,9 +56,6 @@ object frmUsuarios_Empresa: TfrmUsuarios_Empresa
       ReadOnly = True
       TabOrder = 1
       TextHint = 'Descri'#231#227'o'
-      ExplicitLeft = 191
-      ExplicitTop = 6
-      ExplicitWidth = 784
       ExplicitHeight = 23
     end
   end
@@ -70,6 +68,7 @@ object frmUsuarios_Empresa: TfrmUsuarios_Empresa
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitLeft = 8
     object btCancelar: TButton
       AlignWithMargins = True
       Left = 897
@@ -80,11 +79,8 @@ object frmUsuarios_Empresa: TfrmUsuarios_Empresa
       Caption = 'Cancelar'
       TabOrder = 0
       OnClick = btCancelarClick
-      ExplicitLeft = 110
-      ExplicitTop = 16
-      ExplicitHeight = 25
     end
-    object btConfirnar: TButton
+    object btConfirmar: TButton
       AlignWithMargins = True
       Left = 816
       Top = 3
@@ -93,10 +89,7 @@ object frmUsuarios_Empresa: TfrmUsuarios_Empresa
       Align = alRight
       Caption = 'Corfirmar'
       TabOrder = 1
-      OnClick = btConfirnarClick
-      ExplicitLeft = 56
-      ExplicitTop = 8
-      ExplicitHeight = 25
+      OnClick = btConfirmarClick
     end
   end
 end

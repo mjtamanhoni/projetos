@@ -17,7 +17,9 @@ uses
 
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   D2Bridge.Forms, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids;
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids,
+
+  uUsuarios.Empresa;
 
 type
   TfrmUsuarios_Cad = class(TD2BridgeForm)
@@ -102,7 +104,9 @@ type
     procedure edpinKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btEmpresa_ADDClick(Sender: TObject);
   private
+    FfrmUsuarios_Empresa :TfrmUsuarios_Empresa;
 
     FEnder :String;
     FIniFiles :TIniFile;
@@ -192,11 +196,11 @@ begin
         FBody := FDMem_Registro.ToJSONArray;
 
         //Permissões
-        if not FDMem_Permissoes.IsEmpty then
+        //if not FDMem_Permissoes.IsEmpty then
           (FBody[0] as TJSONObject).AddPair('permissoes',FDMem_Permissoes.ToJSONArray);
 
         //Empresas
-        if not FDMem_Empresas.IsEmpty then
+        //if not FDMem_Empresas.IsEmpty then
           (FBody[0] as TJSONObject).AddPair('empresas',FDMem_Empresas.ToJSONArray);
 
       {$EndRegion 'Gravando/Gerando JSon dos dados'}
@@ -243,6 +247,11 @@ begin
   end;
 end;
 
+procedure TfrmUsuarios_Cad.btEmpresa_ADDClick(Sender: TObject);
+begin
+  ShowPopupModal('Popup' + FfrmUsuarios_Empresa.Name);
+end;
+
 procedure TfrmUsuarios_Cad.cbstatusKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #13 then
@@ -272,6 +281,15 @@ begin
   edsenha.Clear;
   edpin.Clear;
   edemail.Clear;
+
+  //Configurando Empresas do funcionário...
+
+  if Gestao_Financeira.Usuario_Status_Tab = 'Insert' then
+  begin
+    FDMem_Empresas.Active := False;
+    FDMem_Empresas.Active := True;
+    FDMem_Empresas.EmptyDataSet;
+  end;
 
 end;
 
@@ -320,6 +338,9 @@ begin
   //D2Bridge.FrameworkExportType.TemplateMasterHTMLFile:= '';
   //D2Bridge.FrameworkExportType.TemplatePageHTMLFile := '';
 
+  FfrmUsuarios_Empresa := TfrmUsuarios_Empresa.Create(Self);
+  D2Bridge.AddNested(FfrmUsuarios_Empresa);
+
   with D2Bridge.Items.add do
   begin
     with Row.Items.Add do
@@ -355,7 +376,7 @@ begin
 
         with AddTab(pcPrincipal.Pages[0].Caption).Items.Add do
         begin
-          with Row.items.Add do
+          with Row(CSSClass.Space.margim_bottom2).items.Add do
             FormGroup('').Items.Add.VCLObj(btPermissao_ADD, CSSClass.Button.add);
 
           with Row.Items.Add do
@@ -364,7 +385,7 @@ begin
 
         with AddTab(pcPrincipal.Pages[1].Caption).Items.Add do
         begin
-          with Row.items.Add do
+          with Row(CSSClass.Space.margim_bottom2).items.Add do
             FormGroup('').Items.Add.VCLObj(btEmpresa_ADD, CSSClass.Button.add);
 
           with Row.Items.Add do
@@ -378,6 +399,10 @@ begin
       VCLObj(btConfirmar, CSSClass.Button.save + CSSClass.Col.colsize2);
       VCLObj(btCancelar, CSSClass.Button.cancel + CSSClass.Col.colsize2);
     end;
+
+    with Popup('Popup' + FfrmUsuarios_Empresa.Name,'Adiciona uma empresa ao Usuário',True,CSSClass.Popup.ExtraLarge).Items.Add do
+      Nested(FfrmUsuarios_Empresa);
+
   end;
 
 end;
@@ -418,13 +443,25 @@ end;
 procedure TfrmUsuarios_Cad.PopupClosed(const AName: String);
 begin
   inherited;
+  if UpperCase(AName) = UpperCase('Popup' + FfrmUsuarios_Empresa.Name)  then
+  begin
+    FDMem_Empresas.Insert;
+     FDMem_Empresasid.AsInteger := 0;
+     FDMem_EmpresasidUsuario.AsInteger := StrToInt(edid.Text);
+     FDMem_EmpresasidEmpresa.AsInteger := Gestao_Financeira.Emp_ID;
+     FDMem_EmpresasdtCadastro.AsDateTime := Date;
+     FDMem_EmpresashrCadastro.AsDateTime := Time;
+     FDMem_Empresasusuario.AsString := ednome.Text;
+     FDMem_Empresasempresa.AsString := Gestao_Financeira.Emp_RazaoSocial;
+    FDMem_Empresas.Post;
+  end;
 
 end;
 
 procedure TfrmUsuarios_Cad.PopupOpened(AName: String);
 begin
   inherited;
-
+  //
 end;
 
 procedure TfrmUsuarios_Cad.RenderD2Bridge(const PrismControl: TPrismControl; var HTMLControl: string);

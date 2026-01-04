@@ -1,0 +1,55 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.SvcMgr, Vcl.Dialogs;
+
+type
+  TCone_Download = class(TService)
+    procedure ServiceExecute(Sender: TService);
+  private
+    { Private declarations }
+  public
+    function GetServiceController: TServiceController; override;
+    { Public declarations }
+  end;
+
+var
+  Cone_Download: TCone_Download;
+
+implementation
+
+{$R *.dfm}
+
+procedure ServiceController(CtrlCode: DWord); stdcall;
+begin
+  Cone_Download.Controller(CtrlCode);
+end;
+
+function TCone_Download.GetServiceController: TServiceController;
+begin
+  Result := ServiceController;
+end;
+
+procedure TCone_Download.ServiceExecute(Sender: TService);
+var
+  FLog :TStringList;
+begin
+  try
+    FLog := TStringList.Create;
+    FLog.Add('Iniciado o Serviço');
+    FLog.SaveToFile('C:\cone\adapta\ARQ\LogCodDownload.txt');
+    FLog.SaveToFile('E:\Temp\LogCodDownload.txt');
+
+    while not Self.Terminated do
+    begin
+      ServiceThread.ProcessRequests(True);
+    end;
+
+  finally
+    FLog.Free;
+  end;
+end;
+
+end.

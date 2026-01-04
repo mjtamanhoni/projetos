@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="D2Bridge Web Debug"/>
+    <Units>
+      <Unit>
+        <Filename Value="Emissor.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="D2BridgeWebAppWithLCL"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="16"/>
+        <CursorPos X="26" Y="28"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frnPrincipal"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uPrincipal"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="28" Y="11"/>
+        <UsageCount Value="24"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.ServerControllerBase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="D2BridgeServerControllerBase"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UsageCount Value="24"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.SessionBase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="PrismSessionBase"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UsageCount Value="24"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Emissor_Session.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="EmissorSession"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UsageCount Value="24"/>
+      </Unit>
+      <Unit>
+        <Filename Value="EmissorWebApp.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="EmissorWebAppGlobal"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UsageCount Value="24"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Unit_D2Bridge_Server_Console.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="24"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D2BridgeFormTemplate.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="24"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Unit_Login.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form_Login"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="47"/>
+        <CursorPos X="6" Y="60"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="udm_emissor.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DM_Emissor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uDM_Emissor"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="19"/>
+        <CursorPos X="35" Y="44"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.BaseClass.pas"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="31"/>
+        <CursorPos X="40" Y="51"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.BaseClass.pas"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uPrincipal.pas"/>
+        <ComponentName Value="frmPrincipal"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.Server.Functions.pas"/>
+        <ComponentName Value="PrismServerFunctions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="59"/>
+        <CursorPos X="52" Y="72"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.BaseClass.pas"/>
+        <Caret Line="392" Column="11" TopLine="374"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.BaseClass.pas"/>
+        <Caret Line="38" Column="38" TopLine="19"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.BaseClass.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor.lpr"/>
+        <Caret Line="28" Column="3" TopLine="4"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="42" Column="19" TopLine="29"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor.lpr"/>
+        <Caret Line="12" Column="42" TopLine="4"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor.lpr"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor.lpr"/>
+        <Caret Line="44" Column="35" TopLine="16"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="40" Column="65" TopLine="29"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Column="10"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="10" Column="94"/>
+      </Position>
+      <Position>
+        <Filename Value="Emissor.lpr"/>
+        <Caret Line="28" Column="13" TopLine="16"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="29" Column="159"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.Server.Functions.pas"/>
+        <Caret Line="72" Column="52" TopLine="59"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\D2Bridge.BaseClass.pas"/>
+        <Caret Line="51" Column="40" TopLine="31"/>
+      </Position>
+      <Position>
+        <Filename Value="C:\lazarus\components\D2Bridge\d2bridgeframework\Stable\D2Bridge Framework\Prism\Prism.BaseClass.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="uPrincipal.pas"/>
+        <Caret Line="78" Column="6" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="62" Column="15" TopLine="47"/>
+      </Position>
+      <Position>
+        <Filename Value="Unit_Login.pas"/>
+        <Caret Line="60" Column="6" TopLine="47"/>
+      </Position>
+      <Position>
+        <Filename Value="uPrincipal.pas"/>
+        <Caret Line="78" Column="6" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="19" Column="32"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="23" Column="32"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="25" Column="32"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="35" Column="3" TopLine="13"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="39" TopLine="35"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="42" Column="22" TopLine="25"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="22" Column="14" TopLine="9"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="52" Column="33" TopLine="34"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="8" Column="45"/>
+      </Position>
+      <Position>
+        <Filename Value="udm_emissor.pas"/>
+        <Caret Line="44" Column="5" TopLine="28"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

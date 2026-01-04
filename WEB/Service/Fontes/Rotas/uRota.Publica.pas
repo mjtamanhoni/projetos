@@ -351,6 +351,7 @@ begin
       FModeloDados := TUsuario.Create(FDM_PostgreSql.FDConnectionP);
 
       FBody := Req.Body<TJSONArray>;
+      TFuncoes.Salvar_Log(TFuncoes.Dir_Servico, C_NOME_LOG, FBody.ToString,10);
 
       if FModeloDados.Json_Insert(FBody) then
         Res.Send('Usuário cadastrado com sucesso').Status(200)

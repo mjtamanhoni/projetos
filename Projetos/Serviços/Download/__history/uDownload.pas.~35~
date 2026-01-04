@@ -1,0 +1,260 @@
+﻿unit uDownload;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, System.SyncObjs,
+  Vcl.Graphics, Vcl.Controls,
+  Vcl.SvcMgr, Vcl.Dialogs, IniFiles, IdHTTP, IdSSLOpenSSL,
+  uDownloadCore, uDownloadGoogleDrive, uDownloadMediaFire, uDownloadOneDrive;
+
+type
+  TThreadMonitorComandos = class(TThread)
+  private
+    FStopEvent: TEvent;
+
+
+    FGoogleDriveDownloader: TGoogleDriveDownloader;
+    FMediaFireDownloader: TMediaFireDownloader;
+    FOneDriveDownloader: TOneDriveDownloader;
+    FDefaultDownloader: TDownloadBase;
+    FLogPath: string;
+
+    procedure AtualizarStatus(const Msg: string);
+    function ValidarCampos: Boolean;
+    function BaixarArquivo(Downloader: TDownloadBase; const URL, Destino, LogPath: string): Boolean;
+
+    function BaixarArquivoComLog(const URL, Destino, LogPath: string): Boolean;
+  protected
+    procedure Execute; override;
+    procedure MonitorarComandos;
+  public
+    constructor Create;
+  end;
+
+  TAdaptaDownload = class(TService)
+    procedure ServiceExecute(Sender: TService);
+  private
+  public
+    function GetServiceController: TServiceController; override;
+    { Public declarations }
+  end;
+
+var
+  AdaptaDownload: TAdaptaDownload;
+
+implementation
+
+{$R *.dfm}
+
+procedure ServiceController(CtrlCode: DWord); stdcall;
+begin
+  AdaptaDownload.Controller(CtrlCode);
+end;
+
+function TAdaptaDownload.GetServiceController: TServiceController;
+begin
+  Result := ServiceController;
+end;
+
+{ TThreadMonitorComandos }
+procedure TThreadMonitorComandos.AtualizarStatus(const Msg: string);
+begin
+  //Gravar informações no log...
+end;
+
+function TThreadMonitorComandos.BaixarArquivo(Downloader: TDownloadBase; const URL, Destino, LogPath: string): Boolean;
+begin
+  try
+    if Trim(URL) = '' then
+      raise Exception.Create('URL não informada');
+    if Trim(Destino) = '' then
+      raise Exception.Create('Pasta destino não informada');
+    if Trim(LogPath) = '' then
+      raise Exception.Create('Pasta log não informada');
+
+    Downloader.LogArquivo('Iniciando download: '+ URL + ' ' + Destino, LogPath);
+
+    // Garantir que o diretório de destino existe
+    ForceDirectories(ExtractFilePath(Destino));
+
+    Downloader.LogArquivo('Baixando arquivo...', LogPath);
+    Result := Downloader.BaixarArquivo(URL, Destino, FLogPath);
+
+    if Result then
+    begin
+      Downloader.LogArquivo('Download concluído com sucesso!', LogPath);
+    end
+    else
+    begin
+      Downloader.LogArquivo('Falha no download. Verifique o log.', LogPath);
+    end;
+  except
+    on E: Exception do
+    begin
+      Downloader.LogArquivo('Erro: ' + E.Message, LogPath);
+      Result := False;
+    end;
+  end;
+end;
+
+function TThreadMonitorComandos.BaixarArquivoComLog(const URL, Destino, LogPath: string): Boolean;
+var
+  HTTP: TIdHTTP;
+  SSL: TIdSSLIOHandlerSocketOpenSSL;
+  FS: TFileStream;
+  Log: TStringList;
+  Msg: string;
+begin
+  Result := False;
+  Log := TStringList.Create;
+  HTTP := TIdHTTP.Create(nil);
+  SSL := TIdSSLIOHandlerSocketOpenSSL.Create(nil);
+  try
+    HTTP.IOHandler := SSL;
+    HTTP.HandleRedirects := True;
+    SSL.SSLOptions.Method := sslvTLSv1_2;
+    SSL.SSLOptions.Mode := sslmClient;
+
+    try
+      FS := TFileStream.Create(Destino, fmCreate);
+      try
+        HTTP.Get(URL, FS);
+        Msg := Format('[%s] Download concluído: %s → %s', [DateTimeToStr(Now), URL, Destino]);
+        Result := True;
+      finally
+        FS.Free;
+      end;
+    except
+      on E: Exception do
+        Msg := Format('[%s] ERRO: %s → %s | %s', [DateTimeToStr(Now), URL, Destino, E.Message]);
+    end;
+  finally
+    if FileExists(LogPath) then
+      Log.LoadFromFile(LogPath);
+    Log.Add(Msg);
+    Log.SaveToFile(LogPath);
+
+    SSL.Free;
+    HTTP.Free;
+    Log.Free;
+  end;
+end;
+
+constructor TThreadMonitorComandos.Create;
+begin
+  inherited Create(False); // inicia automaticamente
+  FreeOnTerminate := True;
+
+end;
+
+procedure TThreadMonitorComandos.Execute;
+var
+  FLog :TStringList;
+begin
+  inherited;
+  try
+    FLog := TStringList.Create;
+    FLog.Add('Execute MonitorComandos...');
+
+    while not Terminated do
+    begin
+      MonitorarComandos;
+      Sleep(5000); // aguarda 5 segundos entre verificações
+    end;
+  finally
+    FLog.SaveToFile('C:\cone\adapta\ARQ\Log2.txt');
+    FreeAndNil(FLog);
+  end;
+
+end;
+
+procedure TThreadMonitorComandos.MonitorarComandos;
+var
+  SR: TSearchRec;
+  CmdPath, URL, Destino, PathLog: string;
+  INI: TIniFile;
+
+  FLog :TStringList;
+begin
+  //if FindFirst('C:\cone\Adapta\cfg\Download_*.ini', faAnyFile, SR) = 0 then
+  FLog := TStringList.Create;
+  try
+    repeat
+      CmdPath := 'C:\cone\Adapta\cfg\Download.ini';
+
+      FLog.Add('Path Download.ini: ' + CmdPath);
+      INI := TIniFile.Create(CmdPath);
+      FLog.Add('Ini criado');
+
+      try
+        URL := INI.ReadString('Download', 'URL', '');
+        FLog.Add('URL: ' + URL);
+
+        Destino := INI.ReadString('Download', 'Destino', '');
+        FLog.Add('Destino: ' + Destino);
+
+        PathLog := INI.ReadString('Download', 'PathLog', '');
+        FLog.Add('ParhLog: ' + PathLog);
+
+        if (URL <> '') and (Destino <> '') and (PathLog <> '') then
+        begin
+          FLog.Add('Baixar Arquivos');
+          if BaixarArquivo(FMediaFireDownloader, Trim(URL), Trim(Destino), Trim(PathLog)) then
+            DeleteFile(CmdPath);
+        end;
+      finally
+        INI.Free;
+      end;
+    until FindNext(SR) <> 0;
+    FindClose(SR);
+  finally
+    FLog.SaveToFile('C:\cone\adapta\ARQ\Log3.txt');
+    FreeAndNil(FLog);
+  end;
+end;
+
+function TThreadMonitorComandos.ValidarCampos: Boolean;
+begin
+  //Não há campos para validar...
+end;
+
+procedure TAdaptaDownload.ServiceExecute(Sender: TService);
+var
+  FThreadMonitorComandos :TThreadMonitorComandos;
+  FLog :TStringList;
+
+begin
+  try
+    try
+      FLog := TStringList.Create;
+
+      FLog.Add('Cria Monitoramento');
+      FLog.SaveToFile('C:\cone\adapta\ARQ\Log1.txt');
+
+      FThreadMonitorComandos := TThreadMonitorComandos.Create;
+
+      FLog.Add('Inicia Thread');
+      while not Self.Terminated do
+      begin
+        ServiceThread.ProcessRequests(True);
+      end;
+
+      FThreadMonitorComandos.Terminate;
+      FThreadMonitorComandos.WaitFor;
+      FThreadMonitorComandos.Free;
+    except on E: Exception do
+      begin
+        FLog.Add(E.Message);
+        FLog.SaveToFile('E:\Temp\LogTp.txt');
+      end;
+    end;
+
+  finally
+    FLog.SaveToFile('C:\cone\adapta\ARQ\Log1.txt');
+    FreeAndNil(FLog)
+  end;
+
+end;
+
+end.

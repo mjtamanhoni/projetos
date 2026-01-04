@@ -104,6 +104,7 @@ type
 
     procedure ClosePopup(const AName:String; var CanClose:Boolean);
     procedure PopupClosed(const AName:String); override;
+
     procedure Empresa_User(Sender: TOBject);
     procedure Permissoes_User(Sender: TOBject);
 
@@ -552,8 +553,33 @@ begin
     FfrmUsuarios_Cad.ednome.Text := FDMem_Registro.FieldByName('nome').AsString;
     FfrmUsuarios_Cad.cbtipo.ItemIndex := FDMem_Registro.FieldByName('tipo').AsInteger;
     FfrmUsuarios_Cad.edlogin.Text := FDMem_Registro.FieldByName('login').AsString;
+    FfrmUsuarios_Cad.edemail.Text := FDMem_Registro.FieldByName('email').AsString;
     FfrmUsuarios_Cad.edsenha.Text := ''; //A senha não pode ser descriptografada
     FfrmUsuarios_Cad.edpin.Text := ''; //O PIN não pode ser descriptografado
+
+    FfrmUsuarios_Cad.FDMem_Empresas.Active := False;
+    FfrmUsuarios_Cad.FDMem_Empresas.Active := True;
+    FfrmUsuarios_Cad.FDMem_Empresas.EmptyDataSet;
+    if not FDMem_Empresa.IsEmpty then
+    begin
+      FDMem_Empresa.First;
+      while not FDMem_Empresa.Eof do
+      begin
+        FfrmUsuarios_Cad.FDMem_Empresas.Insert;
+          FfrmUsuarios_Cad.FDMem_Empresasid.AsInteger := FDMem_Empresaid.AsInteger;
+          FfrmUsuarios_Cad.FDMem_EmpresasidUsuario.AsInteger := FDMem_EmpresaidUsuario.AsInteger;
+          FfrmUsuarios_Cad.FDMem_EmpresasidEmpresa.AsInteger := FDMem_EmpresaidEmpresa.AsInteger;
+          FfrmUsuarios_Cad.FDMem_EmpresasdtCadastro.AsDateTime := FDMem_EmpresadtCadastro.AsDateTime;
+          FfrmUsuarios_Cad.FDMem_EmpresashrCadastro.AsDateTime := FDMem_EmpresahrCadastro.AsDateTime;
+          FfrmUsuarios_Cad.FDMem_Empresasusuario.AsString := FDMem_Empresausuario.AsString;
+          FfrmUsuarios_Cad.FDMem_Empresasempresa.AsString := FDMem_Empresaempresa.AsString;
+        FfrmUsuarios_Cad.FDMem_Empresas.Post;
+
+        FDMem_Empresa.Next;
+      end;
+    end;
+
+    //Permissões
   end;
 
 end;
